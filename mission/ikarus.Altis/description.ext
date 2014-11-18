@@ -1,1 +1,4 @@
 disabledAI=1;
+respawn="INSTANT";
+respawnDelay = 60;
+respawnButton = 0;

@@ -1,5 +1,7 @@
-if!(isserver) exitwith {};
+if (!isserver) exitwith {};
 
-gameStarted = false;
+gameStarted = true;
 
 [] execVM "waiting.sqf";
+[] execVM "startGame.sqs";
+[] execVM "buildingFinder.sqf";

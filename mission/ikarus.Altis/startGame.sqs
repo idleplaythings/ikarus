@@ -1,0 +1,12 @@
+
+startGame = {
+  hint "Game started";
+  gameStarted = true;
+  serverCommand "#lock";
+  
+  // call other relevant functions to setup the mission
+};
+
+sleep 60;
+
+[] call startGame;

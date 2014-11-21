@@ -27,6 +27,7 @@ createHideoutForSquad = {
   _cache = [_squad, _building] call createHideoutCache;
   [_squad, _cache] call setSquadCache;
   
+  [_squad, _building] call createHideoutTrigger;
 };
 
 createHideoutCache = {
@@ -52,6 +53,46 @@ createHideoutCache = {
   _box;
 };
 
+createHideoutTrigger = {
+  private ["_squad", "_building", "_trigger"];
+  _squad = _this select 0;
+  _building = _this select 1;
+  
+  _trigger = createTrigger["EmptyDetector", getPos _building];
+  _trigger setTriggerArea[20, 20, 0, false];
+  _trigger setTriggerActivation["ANY", "PRESENT", true];
+  _trigger setTriggerStatements[
+    "round (time % 1)==0",
+    format ["[thislist, %1] call hideoutTriggerActivate;", str ([_squad] call getSquadId)], 
+    ""
+   ]; 
+};
+
+hideoutTriggerActivate = {
+  private ["_unitsPresent", "_squadId", "_squad", "_playersInSquad", "_playersAtHideout"];
+  _unitsPresent = _this select 0;
+  _squadId = _this select 1;
+  _squad = [_squadId] call getSquadById;
+  _playersInSquad = [_squad] call getPlayersInSquad;
+  _playersAtHideout = [_squad] call getPlayersAtHideout;
+  
+  {
+    if (_x in _unitsPresent) then {
+      if (! (_x in _playersAtHideout)) then {
+        ["You are at hideout", "hint", _x, true] call BIS_fnc_MP;
+      };
+    };
+    
+    if (! (_x in _unitsPresent)) then {
+      if (_x in _playersAtHideout) then {
+        ["", "hint", _x, true] call BIS_fnc_MP;
+      };
+    };
+   
+  } forEach _playersInSquad;
+  
+  [_squad, _unitsPresent] call setPlayersAtHideout;
+};
 movePlayersToHideout = {
   {
     [_x] call movePlayerToHideout;

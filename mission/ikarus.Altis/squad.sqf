@@ -1,42 +1,71 @@
 
 squads = [
   [
+    "id", //squad id
     ["76561198007087657", "76561197962172634", "_SP_PLAYER_", "_SP_AI_"], //Steam ID of players in this squad
     [14812.0, 22600.0], // starting location
-    [["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"]] //equipment: weapons, magazines, items, backpack
-    // hideout building when found and created
-    // hideout weapon cache
+    [["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"]], //equipment: weapons, magazines, items, backpack
+    nil, // hideout building when found and created
+    nil, // hideout weapon cache
+    [] // players at hideout
   ]
 ];
 
-getSquadPlayerUIDs = {
+//These getters and setters all take a squad as a param
+
+getSquadId = {
   _this select 0 select 0;
 };
 
-getSquadStartingPosition = {
+getSquadPlayerUIDs = {
   _this select 0 select 1;
 };
 
-getSquadEquipment = {
+getSquadStartingPosition = {
   _this select 0 select 2;
 };
 
-getSquadHideoutBuilding = {
+getSquadEquipment = {
   _this select 0 select 3;
 };
 
-setSquadHideoutBuilding = {
-  _this select 0 set [3, _this select 1];
-};
-
-getSquadCache = {
+getSquadHideoutBuilding = {
   _this select 0 select 4;
 };
 
-setSquadCache = {
+setSquadHideoutBuilding = {
   _this select 0 set [4, _this select 1];
 };
 
+getSquadCache = {
+  _this select 0 select 5;
+};
+
+setSquadCache = {
+  _this select 0 set [5, _this select 1];
+};
+
+getPlayersAtHideout = {
+  _this select 0 select 6;
+};
+
+setPlayersAtHideout = {
+  private ["_newList"];
+  _newList = + _this select 1;
+  _this select 0 set [6, _newList];
+};
+
+
+getSquadById = {
+  private ["_squadId"];
+  _squadId = _this select 0;
+  
+  {
+    if ([_x] call getSquadId == _squadId) exitWith {
+      _x
+    };
+  } forEach squads;
+};
 
 getSquadHideoutPosForUnit = {
   private ["_unit", "_squad"];
@@ -51,7 +80,7 @@ getSquadForUnit = {
   _unit = _this select 0;
   _squad = nil;
   {
-    _uids = _x select 0;
+    _uids = [_x] call getSquadPlayerUIDs;
 
     if (getPlayerUID _unit in _uids) then {
       _squad = _x;

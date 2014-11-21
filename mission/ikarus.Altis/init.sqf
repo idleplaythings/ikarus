@@ -6,10 +6,7 @@ gameStarted = false;
 [] execVM "startGame.sqs";
 [] execVM "buildingFinder.sqf";
 [] execVM "squad.sqf";
+[] execVM "hideout.sqf";
+[] execVM "player.sqf";
 
-getAllPlayers = {
-
-  if (count playableUnits == 0) exitWith {[player]};
-  
-  playableUnits
-};
+call compile preprocessfile "SHK_pos\shk_pos_init.sqf";

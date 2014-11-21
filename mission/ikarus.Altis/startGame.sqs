@@ -1,10 +1,11 @@
 
 startGame = {
   gameStarted = true;
-  hint "Game started";
   1000 cutText ["GAME STARTED", "PLAIN"];
   
-  [] call movePlayersToHideout;
+  call createHideoutForSquads;
+  call movePlayersToHideout;
+  call assembleSquads;
   // call other relevant functions to setup the mission
 };
 

@@ -1,33 +1,49 @@
 
 squads = [
   [
-    ["76561198007087657", "_SP_PLAYER_"], //Steam ID of players in this squad
-    [14812.0, 16286.0] // coordinates of hideout
+    ["76561198007087657", "76561197962172634", "_SP_PLAYER_", "_SP_AI_"], //Steam ID of players in this squad
+    [14812.0, 22600.0], // starting location
+    [["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"]] //equipment: weapons, magazines, items, backpack
+    // hideout building when found and created
+    // hideout weapon cache
   ]
 ];
 
-movePlayersToHideout = {
-  {
-    [_x] call movePlayerToHideout;
-  } forEach call getAllPlayers;
+getSquadPlayerUIDs = {
+  _this select 0 select 0;
 };
 
-movePlayerToHideout = {
-  private ["_unit", "_pos"];
-  _unit = _this select 0;
-  
-  if ([_unit] call hasSquad) then {
-    _pos = [_unit] call getSquadHideoutPosForUnit;
-    _unit setPos _pos;
-  }
+getSquadStartingPosition = {
+  _this select 0 select 1;
 };
+
+getSquadEquipment = {
+  _this select 0 select 2;
+};
+
+getSquadHideoutBuilding = {
+  _this select 0 select 3;
+};
+
+setSquadHideoutBuilding = {
+  _this select 0 set [3, _this select 1];
+};
+
+getSquadCache = {
+  _this select 0 select 4;
+};
+
+setSquadCache = {
+  _this select 0 set [4, _this select 1];
+};
+
 
 getSquadHideoutPosForUnit = {
   private ["_unit", "_squad"];
   _unit = _this select 0;
   
   _squad = [_unit] call getSquadForUnit;
-  _squad select 1;
+  [_squad] call getSquadStartingPosition;
 };
 
 getSquadForUnit = {

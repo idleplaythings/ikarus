@@ -51,6 +51,7 @@ class Mission
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
+					text="friend";
 				};
 			};
 		};

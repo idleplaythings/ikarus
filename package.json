@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "sock-rpc": "^1.0.5"
+  }
+}

@@ -1,12 +1,13 @@
 
 startGame = {
-  hint "Game started";
   gameStarted = true;
-  serverCommand "#lock";
+  hint "Game started";
+  1000 cutText ["GAME STARTED", "PLAIN"];
   
+  [] call movePlayersToHideout;
   // call other relevant functions to setup the mission
 };
 
-sleep 60;
+sleep 5;
 
 [] call startGame;

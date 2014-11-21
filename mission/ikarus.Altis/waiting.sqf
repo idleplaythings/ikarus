@@ -1,10 +1,11 @@
 
 returnPlayersToWaitingArea = {
-  private ["_trigger", "_unit", "_list"];
+  private ["_trigger", "_unit"];
+  
+  if (gameStarted) exitWith {};
   
   _trigger = _this select 0;
-  _list = playableUnits;
-  
+ 
 	{
     _unit = _x;
     
@@ -12,5 +13,5 @@ returnPlayersToWaitingArea = {
       _unit setPos getPos _trigger;
     }
     
-	} forEach _list;
+	} forEach call getAllPlayers;
 };

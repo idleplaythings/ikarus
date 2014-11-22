@@ -9,6 +9,8 @@ startGame = {
   // call other relevant functions to setup the mission
 };
 
-sleep 5;
 
-[] call startGame;
+if (!MISSION_CONTROL_ENABLED) then {
+  sleep 5;
+  [] call startGame;
+}

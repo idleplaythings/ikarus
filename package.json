@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "sock-rpc": "^1.0.5"
+    "sock-rpc": "^1.0.5",
+    "sqlite3": "^3.0.4"
   }
 }

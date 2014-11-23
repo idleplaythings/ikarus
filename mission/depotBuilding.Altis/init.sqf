@@ -2,9 +2,10 @@ br = toString [13,10];//(carriage return & line feed)
 buildingData = [];
 
 [] execVM "buildingChecker.sqf";
-[] execVM "houseFurnisher.sqf";
-[] execVM "math.sqf";
+[] execVM "script\houseFurnisher.sqf";
+[] execVM "script\math.sqf";
 [] execVM "similarBuildings.sqf";
+[] execVM "script\depotPositions.sqf";
 
 placeObjects = {
   private ["_data", "_building", "_objectData"];

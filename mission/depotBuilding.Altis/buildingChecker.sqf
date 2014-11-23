@@ -12,7 +12,6 @@ buildingChecker_Key = {
   private ["_key"];
   _key = _this select 0 select 1;
 
-  player globalChat str _key;
   call buildingChecker_hint;
   
   if (_key == 43) exitWith {

@@ -1,3 +1,6 @@
+//this is here so it is loaded for clients
+ [] execVM "script\markers.sqf";
+  
 if (! isServer) exitwith {};
 
 gameStarted = false;
@@ -8,10 +11,14 @@ gameStarted = false;
 
 [] execVM "missionControl.sqf";
 [] execVM "waiting.sqf";
-[] execVM "startGame.sqs";
+[] execVM "startGame.sqf";
 [] execVM "buildingFinder.sqf";
 [] execVM "squad.sqf";
-[] execVM "hideout.sqf";
+[] execVM "script\hideout.sqf";
+[] execVM "script\depotPositions.sqf";
+[] execVM "script\houseFurnisher.sqf";
+[] execVM "script\math.sqf";
+[] execVM "script\lootbox.sqf";
 [] execVM "player.sqf";
 
 // set to true if mission control node.js server is available

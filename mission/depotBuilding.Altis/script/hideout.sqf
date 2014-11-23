@@ -93,6 +93,7 @@ hideoutTriggerActivate = {
   
   [_squad, _unitsPresent] call setPlayersAtHideout;
 };
+
 movePlayersToHideout = {
   {
     [_x] call movePlayerToHideout;
@@ -107,5 +108,36 @@ movePlayerToHideout = {
     _building = [[_unit] call getSquadForUnit] call getSquadHideoutBuilding;
     _unit setPos getPos _building;
   }
+};
+
+findHouseSuitableForHideout = {
+  private ["_position", "_buildings", "_building", "_found"];
+  _position = _this select 0;
+  _building = nil;
+  _found = false;
+  
+  _buildings = nearestObjects [_position, ["house"], 5000];
+  
+  for [{_i= 0},{_i < count _buildings and ! false},{_i = _i + 1}] do {
+    _building = _buildings select _i;
+    
+    if ( [_building] call checkIsSuitableHouseForHideout) exitWith {
+      _building;
+    };
+  };
+  
+  _building;
+};
+
+checkIsSuitableHouseForHideout = {
+  private ["_building", "_vehiclePos"];
+  _building = _this select 0;
+  
+  if (! (typeOf _building in hideoutClasses)) exitWith {false};
+  
+  _vehiclePos = getPos _building findEmptyPosition [2,10,"I_Truck_02_covered_F"];
+  if (count _vehiclePos == 0) exitWith {false};
+  
+  true;
 };
 

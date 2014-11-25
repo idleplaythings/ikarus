@@ -104,8 +104,8 @@ buildingChecker_next = {
 buildingChecker_goToCurrent = {
   private ["_building"];
   _building = call buildingChecker_getCurrent;
-  
-  [_building, (buildingData select 1)] call furnishAHouse;
+
+  [_building, (buildingData select 1)] call houseFurnisher_furnish;
   call buildingChecker_hint;
   call buildingChecker_copyToClipboard;
   curatorCamera setPos [(getPos _building select 0), (getPos _building select 1), 35];
@@ -143,8 +143,7 @@ buildingChecker_findBuildings = {
    _buildingClass = _this select 0;
    _position = [15000.0, 15000.0];
    _result = [];
- 
-  player globalChat "finding: " + str _buildingClass;
+
   _buildings = nearestObjects [_position, ["house"], 25000];
   
   {
@@ -153,7 +152,6 @@ buildingChecker_findBuildings = {
     };
   } forEach _buildings;
   
-  player globalChat "found " + str count _result;
   _result;
 };
 

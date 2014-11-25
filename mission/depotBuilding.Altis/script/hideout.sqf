@@ -1,36 +1,46 @@
 
-hideoutClasses = [
-  "Land_u_House_Big_01_V1_F", "Land_u_House_Big_01_V1_dam_F", "Land_d_House_Big_01_V1_F",
-  
-  "Land_i_Stone_HouseBig_V1_F", "Land_i_Stone_HouseBig_V1_dam_F", "Land_i_Stone_HouseBig_V2_F",
-  "Land_i_Stone_HouseBig_V2_dam_F", "Land_i_Stone_HouseBig_V3_F", "Land_i_Stone_HouseBig_V3_dam_F", "Land_d_Stone_HouseBig_V1_F"
-];
-
-createHideoutForSquads = {
+hideout_createHideoutForSquads = {
  {
-   [_x] call createHideoutForSquad;
+   [_x] call hideout_createHideoutForSquad;
  } forEach squads;
 };
 
-createHideoutForSquad = {
-  private ["_startPosition", "_squad", "_building", "_vehiclePos", "_cache"];
+hideout_createHideoutForSquad = {
+  private ["_startPosition", "_squad", "_building", "_objectData", "_hideoutBuildingData", "_vehiclePos", "_cache"];
   _squad = _this select 0;
   _startPosition = [_squad] call getSquadStartingPosition;
   
-  _building = [_startPosition] call findHouseSuitableForHideout;
+  _hideoutBuildingData = [_startPosition] call hideout_findHouseSuitableForHideout;
+  _building = _hideoutBuildingData select 0;
+  _objectData = _hideoutBuildingData select 1;
+
+  hideoutBuilding = _building;
+  [_building, _objectData] call houseFurnisher_furnish;
+  
   [_squad, _building] call setSquadHideoutBuilding;
   
-  _vehiclePos = getPos _building findEmptyPosition [2,10,"C_Hatchback_01_F"];
-  createVehicle ["C_Hatchback_01_F", _vehiclePos, [], 0, "NONE"];
+  _vehiclePos = getPos _building findEmptyPosition [10,20,"I_Truck_02_covered_F"];
+  createVehicle ["C_Hatchback_01_F", _vehiclePos, [], 0, "flying"];
   // create weapon cache
   
-  _cache = [_squad, _building] call createHideoutCache;
+  _cache = [_squad, _building] call hideout_createHideoutCache;
   [_squad, _cache] call setSquadCache;
   
-  [_squad, _building] call createHideoutTrigger;
+  [_squad, _building] call hideout_createHideoutTrigger;
+  [_squad, _building] call hideout_createHidoutMarkerForPlayers;
 };
 
-createHideoutCache = {
+hideout_createHidoutMarkerForPlayers = {
+  private ["_building", "_squad"];
+  _squad = _this select 0;
+  _building = _this select 1;
+  
+  {
+    [[_building], "markers_createHideoutMarker", _x, true] call BIS_fnc_MP;
+  } forEach ([_squad] call getPlayersInSquad);  
+};
+
+hideout_createHideoutCache = {
   private ["_squad", "_building", "_box", "_equipment", "_weapons"];
   _squad = _this select 0;
   _building = _this select 1;
@@ -53,7 +63,7 @@ createHideoutCache = {
   _box;
 };
 
-createHideoutTrigger = {
+hideout_createHideoutTrigger = {
   private ["_squad", "_building", "_trigger"];
   _squad = _this select 0;
   _building = _this select 1;
@@ -63,12 +73,12 @@ createHideoutTrigger = {
   _trigger setTriggerActivation["ANY", "PRESENT", true];
   _trigger setTriggerStatements[
     "round (time % 1)==0",
-    format ["[thislist, %1] call hideoutTriggerActivate;", str ([_squad] call getSquadId)], 
+    format ["[thislist, %1] call hideout_hideoutTriggerActivate;", str ([_squad] call getSquadId)], 
     ""
    ]; 
 };
 
-hideoutTriggerActivate = {
+hideout_hideoutTriggerActivate = {
   private ["_unitsPresent", "_squadId", "_squad", "_playersInSquad", "_playersAtHideout"];
   _unitsPresent = _this select 0;
   _squadId = _this select 1;
@@ -94,13 +104,13 @@ hideoutTriggerActivate = {
   [_squad, _unitsPresent] call setPlayersAtHideout;
 };
 
-movePlayersToHideout = {
+hideout_movePlayersToHideout = {
   {
-    [_x] call movePlayerToHideout;
+    [_x] call hideout_movePlayerToHideout;
   } forEach call getAllPlayers;
 };
 
-movePlayerToHideout = {
+hideout_movePlayerToHideout = {
   private ["_unit", "_building"];
   _unit = _this select 0;
   
@@ -110,32 +120,32 @@ movePlayerToHideout = {
   }
 };
 
-findHouseSuitableForHideout = {
-  private ["_position", "_buildings", "_building", "_found"];
+hideout_findHouseSuitableForHideout = {
+  private ["_position", "_buildings", "_building", "_found", "_objects"];
   _position = _this select 0;
   _building = nil;
+  _objects = nil;
   _found = false;
   
   _buildings = nearestObjects [_position, ["house"], 5000];
   
   for [{_i= 0},{_i < count _buildings and ! false},{_i = _i + 1}] do {
     _building = _buildings select _i;
+    _objects = [_building] call depotPositions_getHideoutObjects;
     
-    if ( [_building] call checkIsSuitableHouseForHideout) exitWith {
+    if ( ! isNil {_objects} and [_building] call hideout_checkIsSuitableHouseForHideout) exitWith {
       _building;
     };
   };
   
-  _building;
+  [_building, _objects];
 };
 
-checkIsSuitableHouseForHideout = {
+hideout_checkIsSuitableHouseForHideout = {
   private ["_building", "_vehiclePos"];
   _building = _this select 0;
   
-  if (! (typeOf _building in hideoutClasses)) exitWith {false};
-  
-  _vehiclePos = getPos _building findEmptyPosition [2,10,"I_Truck_02_covered_F"];
+  _vehiclePos = getPos _building findEmptyPosition [10,20,"I_Truck_02_covered_F"];
   if (count _vehiclePos == 0) exitWith {false};
   
   true;

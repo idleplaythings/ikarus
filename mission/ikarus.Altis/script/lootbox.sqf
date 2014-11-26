@@ -15,6 +15,7 @@ lootbox_create = {
   _boxId = count lootbox_boxes - 1;
   [_boxId, _object] call lootbox_createTrigger;
 };
+
 lootbox_activateTrigger = {
   private ["_unitsPresent", "_box", "_lootLock"];
   _unitsPresent = _this select 0;
@@ -55,7 +56,7 @@ lootbox_hint = {
   _value = _this select 1;
   
   {
-    [format ["Loot box is %1 open", str _value], "hint", _x, true] call BIS_fnc_MP;
+    [format ["Loot box is %1 open", str _value], "hint", nil, false, true] call BIS_fnc_MP;
   } forEach _units;
 };
 

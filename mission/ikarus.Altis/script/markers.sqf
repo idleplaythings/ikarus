@@ -5,3 +5,9 @@ markers_createHideoutMarker = {
   _marker = createMarkerLocal ["hideout", getPos _building];
   _marker setMarkerTypeLocal "hd_start";
 };
+
+markers_debug = {
+  player globalChat "hi";
+  hint _this;
+  player globalChat (_this);
+};

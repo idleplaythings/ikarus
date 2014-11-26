@@ -1,11 +1,13 @@
 
 startGame = {
   gameStarted = true;
+  ['lockServer'] call sock_rpc;
   1000 cutText ["GAME STARTED", "PLAIN"];
   
   call hideout_createHideoutForSquads;
   call hideout_movePlayersToHideout;
   call assembleSquads;
+  call setKilledEventHandlers;
   // call other relevant functions to setup the mission
 };
 

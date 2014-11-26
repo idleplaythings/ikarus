@@ -3,7 +3,10 @@
   
 if (! isServer) exitwith {};
 
+
 gameStarted = false;
+// set to true if mission control node.js server is available
+MISSION_CONTROL_ENABLED = false;
 
 // sock-rpc
 [] execVM "lib\log.sqf";
@@ -20,8 +23,5 @@ gameStarted = false;
 [] execVM "script\math.sqf";
 [] execVM "script\lootbox.sqf";
 [] execVM "player.sqf";
-
-// set to true if mission control node.js server is available
-MISSION_CONTROL_ENABLED = false;
 
 call compile preprocessfile "SHK_pos\shk_pos_init.sqf";

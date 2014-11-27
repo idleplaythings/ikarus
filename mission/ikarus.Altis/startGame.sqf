@@ -7,7 +7,7 @@ startGame = {
   call hideout_createHideoutForSquads;
   call hideout_movePlayersToHideout;
   call assembleSquads;
-  call setKilledEventHandlers;
+  call events_setEventHandlers;
   // call other relevant functions to setup the mission
 };
 

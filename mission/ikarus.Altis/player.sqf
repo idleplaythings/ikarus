@@ -12,24 +12,6 @@ joinPlayers = {
   _players joinSilent group _leader;
 };
 
-setKilledEventHandlers = {
-
-  {
-    _x addEventHandler ["killed", {
-      _this spawn playerKilled;
-    }];
-  } forEach call getAllPlayers;
-};
-
-playerKilled = {
-  private ["_unit", "_uid"];
-
-  _unit = _this select 0;
-  _uid = getPlayerUID _unit;
-
-  ['kickPlayer', [_uid]] call sock_rpc;
-};
-
 getAllPlayers = {
   if (count playableUnits == 0) exitWith {[player, friend]};
   playableUnits;

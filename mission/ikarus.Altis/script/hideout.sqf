@@ -89,7 +89,7 @@ hideout_hideoutTriggerActivate = {
   {
     if (_x in _unitsPresent) then {
       if (! (_x in _playersAtHideout)) then {
-        ["You are at hideout", "hint", nil, false, true] call BIS_fnc_MP;
+        ["You are at hideout", "hint", _x, false, true] call BIS_fnc_MP;
       };
     };
     

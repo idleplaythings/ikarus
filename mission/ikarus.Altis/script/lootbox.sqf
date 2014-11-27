@@ -56,7 +56,7 @@ lootbox_hint = {
   _value = _this select 1;
   
   {
-    [format ["Loot box is %1 open", str _value], "hint", nil, false, true] call BIS_fnc_MP;
+    [format ["Loot box is %1 open", str _value], "hint", _x, false, true] call BIS_fnc_MP;
   } forEach _units;
 };
 

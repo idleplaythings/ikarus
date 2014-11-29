@@ -1,6 +1,5 @@
 lootbox_boxes = [];
 
-//[getPosASL player, 0] call lootbox_create;
 lootbox_create = {
   private ["_position", "_azimuth", "_boxId"];
   _position = _this select 0;
@@ -63,11 +62,14 @@ lootbox_hint = {
 lootbox_open = {
   private ["_box", "_openBox", "_position"];
   _box = _this select 0;
-  _position = getPos _box;
+  _position = getPosASL _box;
+  _direction = getDir _box;
   
   deleteVehicle _box;
-  
-  _openBox = createVehicle ["Box_IND_Wps_F", _position, [], 0, "CAN_COLLIDE"];
+
+  _openBox = createVehicle ["IG_supplyCrate_F", [0,0,3000], [], 0, "FLYING"];
+  _openBox setDir _direction;
+  _openBox setPosASL _position;
   
   clearWeaponCargoGlobal _openBox;
   clearMagazineCargoGlobal _openBox;

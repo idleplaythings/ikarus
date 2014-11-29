@@ -23,7 +23,7 @@ hideout_createHideoutForSquad = {
   createVehicle ["C_Hatchback_01_F", _vehiclePos, [], 0, "flying"];
   // create weapon cache
   
-  _cache = [_squad, _building] call hideout_createHideoutCache;
+  _cache = [_squad, _building, _objectData] call hideout_createHideoutCache;
   [_squad, _cache] call setSquadCache;
   
   [_squad, _building] call hideout_createHideoutTrigger;
@@ -36,17 +36,25 @@ hideout_createHidoutMarkerForPlayers = {
   _building = _this select 1;
   
   {
-    [[_building], "markers_createHideoutMarker", _x, true] call BIS_fnc_MP;
+    [[_building], "markers_createHideoutMarker", _x, false, true] call BIS_fnc_MP;
   } forEach ([_squad] call getPlayersInSquad);  
 };
 
 hideout_createHideoutCache = {
-  private ["_squad", "_building", "_box", "_equipment", "_weapons"];
+  private ["_squad", "_building", "_box", "_equipment", "_weapons", "_objectData"];
   _squad = _this select 0;
   _building = _this select 1;
+  _objectData = _this select 2;
+  _objectData = [_objectData, 1] call depotPositions_getRandomPlaceholdersFromObjects;
 
-
-  _box = createVehicle ["Box_IND_Wps_F", getPos _building, [], 0, "CAN_COLLIDE"];
+  private ["_directionAndPosition", "_direction", "_position"];
+  _directionAndPosition = [_building, (_objectData select 0)] call houseFurnisher_getPosASLAndDirection;
+  _position = _directionAndPosition select 0;
+  _direction = _directionAndPosition select 1; 
+  
+  _box = createVehicle ["IG_supplyCrate_F", [0,0,3000], [], 0, "FLYING"];
+  _box setDir _direction;
+  _box setPosASL _position;
   
   clearWeaponCargoGlobal _box;
   clearMagazineCargoGlobal _box;
@@ -61,6 +69,25 @@ hideout_createHideoutCache = {
   } forEach _weapons;
   
   _box;
+};
+
+objective_supply_placeLootBoxes = {
+  private ["_building", "_objectData", "_amount"];
+  _building = _this select 0;
+  _objectData = _this select 1;
+  
+  _amount = (ceil random 2) + 1;
+  _objectData = [_objectData, _amount] call depotPositions_getRandomPlaceholdersFromObjects;
+  
+  {
+    private ["_directionAndPosition", "_direction", "_position"];
+    _directionAndPosition = [_building, _x] call houseFurnisher_getPosASLAndDirection;
+    _position = _directionAndPosition select 0;
+    _direction = _directionAndPosition select 1; 
+    
+    [_position, _direction] call lootbox_create;
+    
+  } forEach _objectData;
 };
 
 hideout_createHideoutTrigger = {
@@ -147,6 +174,8 @@ hideout_checkIsSuitableHouseForHideout = {
   
   _vehiclePos = getPos _building findEmptyPosition [10,20,"I_Truck_02_covered_F"];
   if (count _vehiclePos == 0) exitWith {false};
+  
+  if ( ! ([getPosASL _building, 100] call depotPositions_checkNothingInDistance)) exitWith {false};
   
   true;
 };

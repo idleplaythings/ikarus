@@ -24,5 +24,8 @@ MISSION_CONTROL_ENABLED = false;
 [] execVM "script\lootbox.sqf";
 [] execVM "player.sqf";
 [] execVM "script\events.sqf";
+[] execVM "script\AO.sqf";
+[] execVM "script\objectiveController.sqf";
+[] execVM "script\objectives\supply.sqf";
 
 call compile preprocessfile "SHK_pos\shk_pos_init.sqf";

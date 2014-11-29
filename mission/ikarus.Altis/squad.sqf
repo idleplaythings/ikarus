@@ -7,7 +7,9 @@ squads = [
     [["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"]], //equipment: [[weapons], [magazines], [items], [backpack]]
     nil, // hideout building when found and created
     nil, // hideout weapon cache
-    [] // players at hideout
+    [], // players at hideout
+    ['SUPPLY'], // array of chosen objectives
+    []  // array of forced objectives
   ]
 ];
 
@@ -47,6 +49,14 @@ setSquadCache = {
 
 getPlayersAtHideout = {
   _this select 0 select 6;
+};
+
+getChosenObjectives = {
+  _this select 0 select 7;
+};
+
+getForcedObjectives = {
+  _this select 0 select 8;
 };
 
 setPlayersAtHideout = {

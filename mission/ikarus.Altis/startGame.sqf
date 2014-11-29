@@ -8,6 +8,8 @@ startGame = {
   call hideout_movePlayersToHideout;
   call assembleSquads;
   call events_setEventHandlers;
+  call objectiveController_createObjectives;
+  
   // call other relevant functions to setup the mission
 };
 

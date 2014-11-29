@@ -7,13 +7,13 @@ class Mission
 		"A3_Characters_F_Civil",
 		"a3_characters_f",
 		"A3_Characters_F_OPFOR",
-		"A3_Weapons_F_Ammoboxes"
+		"A3_Modules_F_Curator_Curator"
 	};
 	addOnsAuto[]=
 	{
 		"A3_Characters_F_Civil",
 		"a3_characters_f",
-		"A3_Weapons_F_Ammoboxes",
+		"A3_Modules_F_Curator_Curator",
 		"a3_map_altis"
 	};
 	randomSeed=12950687;
@@ -37,7 +37,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=2;
+		items=3;
 		class Item0
 		{
 			side="CIV";
@@ -74,36 +74,56 @@ class Mission
 					player="PLAYER COMMANDER";
 					leader=1;
 					skill=0.60000002;
+					text="gm";
 				};
 			};
 		};
-	};
-	class Vehicles
-	{
-		items=3;
-		class Item0
-		{
-			position[]={5478.29,27.299999,14999.012};
-			id=2;
-			side="EMPTY";
-			vehicle="Box_IND_AmmoOrd_F";
-			skill=0.60000002;
-		};
-		class Item1
-		{
-			position[]={5478.8486,27.299999,15000.517};
-			id=3;
-			side="EMPTY";
-			vehicle="Box_IND_Ammo_F";
-			skill=0.60000002;
-		};
 		class Item2
 		{
-			position[]={5480.1377,27.299999,14999.613};
-			id=4;
-			side="EMPTY";
-			vehicle="Box_IND_Wps_F";
-			skill=0.60000002;
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5484.8975,27.338856,14962.418};
+					class args
+					{
+						items=4;
+						class Item0
+						{
+							value="gm";
+							parentCls="ModuleCurator_F";
+							typeName="Owner";
+						};
+						class Item1
+						{
+							value="zeus";
+							parentCls="ModuleCurator_F";
+							typeName="Name";
+						};
+						class Item2
+						{
+							value="2";
+							parentCls="ModuleCurator_F";
+							typeName="Addons";
+						};
+						class Item3
+						{
+							value="0";
+							parentCls="ModuleCurator_F";
+							typeName="Forced";
+						};
+					};
+					id=2;
+					side="LOGIC";
+					vehicle="ModuleCurator_F";
+					leader=1;
+					lock="UNLOCKED";
+					skill=0.60000002;
+					text="zeus";
+				};
+			};
 		};
 	};
 	class Sensors

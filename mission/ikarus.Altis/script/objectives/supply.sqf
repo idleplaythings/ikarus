@@ -2,14 +2,11 @@ objective_supply_construct = {
   private ["_objectives", "_centerOfAO", "_depots", "_players"];
   _objectives = _this select 0;
   _centerOfAO = _this select 1;
-  
-  player globalChat "construct supply";
-  
+
   _depots = [_objectives, _centerOfAO] call objective_supply_constructDepots;
   _players = [_objectives] call objective_supply_getPlayers;
   
   [_depots, _players] call objective_supply_constructMarkers;
-  player globalChat str _depots;
   
   ['hi'];
 };
@@ -51,7 +48,7 @@ objective_supply_constructDepots = {
   
   while {_numberOfDepots > 0} do {
     _depotPosition = [_centerOfAO, _radius] call objective_supply_constructDepot;
-    player globalChat str _depotPosition;
+
     _depots set [count _depots, _depotPosition];
     _numberOfDepots = _numberOfDepots - 1;
   };

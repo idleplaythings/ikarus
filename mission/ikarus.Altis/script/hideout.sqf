@@ -1,4 +1,6 @@
 
+hideout_hideoutRadius = 20;
+
 hideout_createHideoutForSquads = {
  {
    [_x] call hideout_createHideoutForSquad;
@@ -63,10 +65,15 @@ hideout_createHideoutCache = {
 
   _equipment = [_squad] call getSquadEquipment;
   _weapons = _equipment select 0;
+  _magazines = _equipment select 1;
   
   {
     _box addWeaponCargoGlobal [_x, 1];
   } forEach _weapons;
+  
+  {
+    _box addMagazineCargoGlobal [_x, 1];
+  } forEach _magazines;
   
   _box;
 };
@@ -96,7 +103,7 @@ hideout_createHideoutTrigger = {
   _building = _this select 1;
   
   _trigger = createTrigger["EmptyDetector", getPos _building];
-  _trigger setTriggerArea[20, 20, 0, false];
+  _trigger setTriggerArea[hideout_hideoutRadius, hideout_hideoutRadius, 0, false];
   _trigger setTriggerActivation["ANY", "PRESENT", true];
   _trigger setTriggerStatements[
     "round (time % 1)==0",

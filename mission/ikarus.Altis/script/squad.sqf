@@ -4,7 +4,7 @@ squads = [
     "id", //squad id
     ["76561198007087657", "76561197962172634", "76561197970345650", "_SP_PLAYER_", "_SP_AI_"], //Steam ID of players in this squad
     [14812.0, 22600.0], // starting location
-    [["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"]], //equipment: [[weapons], [magazines], [items], [backpack]]
+    [["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"], ["30Rnd_65x39_caseless_green"], [], []], //equipment: [[weapons], [magazines], [items], [backpack]]
     nil, // hideout building when found and created
     nil, // hideout weapon cache
     [], // players at hideout

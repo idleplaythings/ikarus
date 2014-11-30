@@ -1,26 +1,20 @@
-
-loot_findAllLoot = {
-  {
-    [_x] call loot_findSquadLoot;
-  } forEach squads;
-};
-
 loot_findSquadLoot = {
   private ["_squad", "_lootList"];
   _squad = _this select 0;
-  _lootList = [];
-  [_squad, _lootList] call loot_findLootInHideout;
+  _lootList = [_squad] call loot_findLootInHideout;
+  
+  _lootList;
 };
 
 loot_findLootInHideout = {
   private ["_squad", "_lootList", "_building"];
   _squad = _this select 0;
-  _lootList = _this select 1;
+  _lootList = [];
   
   _building = [_squad] call getSquadHideoutBuilding;
+  _lootList = _lootList + [_building, _lootList] call loot_checkSupplies;
   
-  [_building, _lootList] call loot_checkSupplies;
-
+  _lootList;
 };
 
 loot_checkSupplies = {

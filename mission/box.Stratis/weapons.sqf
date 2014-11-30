@@ -1,1 +1,0 @@
-["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"]

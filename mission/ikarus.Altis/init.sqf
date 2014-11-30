@@ -3,19 +3,12 @@
   
 if (! isServer) exitwith {};
 
-
-gameStarted = false;
-// set to true if mission control node.js server is available
-MISSION_CONTROL_ENABLED = false;
-
 // sock-rpc
 [] execVM "lib\log.sqf";
 [] execVM "lib\sock.sqf";
 
 [] execVM "script\missionControl.sqf";
 [] execVM "script\waiting.sqf";
-[] execVM "script\startGame.sqf";
-[] execVM "buildingFinder.sqf";
 [] execVM "script\squad.sqf";
 [] execVM "script\hideout.sqf";
 [] execVM "script\depotPositions.sqf";

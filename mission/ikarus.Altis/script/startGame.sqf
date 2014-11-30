@@ -1,6 +1,5 @@
 
 startGame = {
-  gameStarted = true;
   ['lockServer'] call sock_rpc;
   1000 cutText ["GAME STARTED", "PLAIN"];
   

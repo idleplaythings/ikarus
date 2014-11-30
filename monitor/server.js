@@ -8,6 +8,7 @@ var BEconfig = {
 
 var webAppConfig = {
   host: '62.78.248.249',
+  port: 3000,
   serverId: 'test-server'
 };
 

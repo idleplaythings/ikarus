@@ -7,10 +7,10 @@ function ServerStatus(status) {
   this._status = status;
 };
 
-ServerStatus.prototype.send = function(host, serverId){
+ServerStatus.prototype.send = function(host, port, serverId){
   var options = {
     hostname: host,
-    port: 80,
+    port: port,
     path: '/gameServerApi/status/' + serverId,
     method: 'POST'
   };

@@ -4,7 +4,7 @@ var http = require('http');
 module.exports = ServerStatus;
 
 function ServerStatus(status) {
-  this._status = args.host;
+  this._status = status;
 };
 
 ServerStatus.prototype.send = function(host, serverId){

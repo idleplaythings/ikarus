@@ -1,4 +1,4 @@
-"use strict"; 
+"use strict";
 
 var BEconfig = {
   ip: '127.0.0.1',
@@ -6,20 +6,26 @@ var BEconfig = {
   rconPassword: 'kiiski'
 };
 
+var webAppConfig = {
+  host: '62.78.248.249',
+  serverId: 'test-server'
+};
+
 var serverManager = new (require('./serverManager.js'))(BEconfig);
 var gameDataController = new (require('./gameData/gameDataController.js'))();
+var webApp = new (require('./webApp/webAppConnection.js'))(webAppConfig);
 
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('test.db');
 
-var rpc = require('sock-rpc'); 
+var rpc = require('sock-rpc');
 
 rpc.register('getSquadData', function(callback) {
   console.log("getSquadData");
-  
+
   var squadData = gameDataController.getSquadData();
   callback(null, squadData);
-  
+
 });
 
 rpc.register('submitSquadData', function(squadId, loot, callback) {
@@ -31,14 +37,16 @@ rpc.register('submitSquadData', function(squadId, loot, callback) {
 rpc.register('lockServer', function(callback) {
   console.log("lock server call");
   serverManager.lockServer();
-  callback(null, "");  
+  callback(null, "");
 });
 
 rpc.register('kickPlayer', function(uid, callback) {
   console.log("call to kick " + uid);
   console.log(arguments);
   serverManager.kickPlayer(uid);
-  callback(null, "");  
+  callback(null, "");
 });
 
 rpc.listen("::1", 1337);
+
+webApp.reportStatusReady();

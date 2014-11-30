@@ -1,0 +1,1 @@
+ServerCollection = new Meteor.Collection("servers");

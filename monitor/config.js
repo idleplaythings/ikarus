@@ -14,6 +14,10 @@ module.exports = {
     port: 3000
   },
 
+  webAppListener: {
+    port: 1338
+  },
+
   rpc: {
     port: 1337
   }

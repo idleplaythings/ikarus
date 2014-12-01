@@ -1,17 +1,18 @@
-module.exports = function(){
+module.exports = function(port, gameData, webApp, armaServer){
   'use strict';
 
   var rpc = require('sock-rpc');
 
-  function RpcClient(port, gameData, webApp, armaServer){
+  function RpcListener(port, gameData, webApp, armaServer){
     this._port = port;
     this._gameData = gameData;
     this._webApp = webApp;
     this._armaServer = armaServer;
   }
 
-  RpcClient.prototype.register = function(name, callback) {
+  RpcListener.prototype.register = function(name, callback) {
     rpc.register(name, function() {
+      console.log("received rpc call", name);
       var args = Array.slice(arguments);
       var response = args.pop();
 
@@ -27,15 +28,16 @@ module.exports = function(){
     });
   };
 
-  RpcClient.prototype.listen = function(){
+  RpcListener.prototype.listen = function(){
     this.register('squadsRetrieve',     squadsRetrieve);
-    this.reqister('squadSubmit',        squadSubmit);
-    this.reqister('gameWaiting',        gameWaiting);
-    this.reqister('gameStart',          gameStart);
-    this.reqister('gameEnd',            gameEnd);
-    this.reqister('playerKilled',       playerKilled);
-    this.reqister('playerHasNoSquad',   playerHasNoSquad);
-    this.reqister('playerDisconnected', playerDisconnected);
+    this.register('squadSubmit',        squadSubmit);
+    this.register('gameWaiting',        gameWaiting);
+    this.register('gameStart',          gameStart);
+    this.register('gameEnd',            gameEnd);
+    this.register('playerConnected',    playerConnected);
+    this.register('playerKilled',       playerKilled);
+    this.register('playerUnknown',      playerUnknown);
+    this.register('playerDisconnected', playerDisconnected);
 
     rpc.listen("::1", this._port);
   };
@@ -54,21 +56,27 @@ module.exports = function(){
 
   var gameStart = function() {
     this._armaServer.lockServer();
-    this._webApp.reportStatusReady();
+    this._webApp.reportStatusPlaying();
   };
 
   var gameEnd = function() {
     this._armaServer.shutDownServer();
-    this._webApp.reportStatusReady();
+    this._webApp.reportStatusIdle();
+  };
+
+  var playerConnected = function(uid) {
+    this._gameData.playerConnected(uid);
+    this._webApp.reportPlayerConnected(uid);
   };
 
   var playerKilled = function(uid) {
     this._armaServer.kickPlayer(uid);
     this._gameData.playerKilled(uid);
+    this._gameData.playerDisconnected(uid);
     this._webApp.reportPlayerKilled(uid);
   };
 
-  var playerHasNoSquad = function(uid) {
+  var playerUnknown = function(uid) {
     this._armaServer.kickPlayer(uid);
     this._webApp.reportPlayerDisconnected(uid);
   };
@@ -78,5 +86,5 @@ module.exports = function(){
     this._webApp.reportPlayerDisconnected(uid);
   };
 
-  return RpcClient;
+  return new RpcListener(port, gameData, webApp, armaServer);
 };

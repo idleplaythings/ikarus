@@ -1,5 +1,5 @@
 
-module.exports = (function(){
+module.exports = function(config){
   'use strict';
 
   var BattleNode = require('battle-node');
@@ -32,5 +32,5 @@ module.exports = (function(){
     );
   };
 
-  return BattlEyeClient;
-})();
+  return new BattlEyeClient(config);
+};

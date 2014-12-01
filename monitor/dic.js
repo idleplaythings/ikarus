@@ -9,10 +9,8 @@ module.exports = (function(){
     return new GameData();
   });
 
-  dic.register('RpcClient', function (dic) {
-    var RpcClient = require('./source/arma/rpcClient');
-
-    return new RpcClient(
+  dic.register('RpcListener', function (dic) {
+    return require('./source/arma/rpcListener')(
       config.rpc.port,
       dic.get('GameData'),
       dic.get('WebAppClient'),
@@ -21,20 +19,22 @@ module.exports = (function(){
   });
 
   dic.register('BattlEyeClient', function (dic) {
-    var BattlEyeClient = require('./source/arma/battlEyeClient');
-
-    return new BattlEyeClient(
+    return require('./source/arma/battlEyeClient')(
       config.battlEye
     );
   });
 
   dic.register('WebAppClient', function (dic) {
-    var WebAppClient = require('./source/webApp/webAppClient');
-
-    return new WebAppClient(
+    return require('./source/webApp/webAppClient')(
       config.webApp.host,
       config.webApp.port,
       config.arma.serverId
+    );
+  });
+
+  dic.register('WebAppListener', function (dic) {
+    return require('./source/webApp/webAppListener')(
+      config.webAppListener.port
     );
   });
 

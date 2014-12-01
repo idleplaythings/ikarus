@@ -1,5 +1,7 @@
 var dic = require('./dic');
 
-var rpcClient = dic.get('RpcClient');
+var rpc = dic.get('RpcListener');
+var wepApp = dic.get('WebAppListener');
 
-rpcClient.listen();
+rpc.listen();
+wepApp.listen();

@@ -1,5 +1,5 @@
 
-module.exports = (function(){
+module.exports = function(){
   'use strict';
 
   var Squad = require('./squad.js');
@@ -16,9 +16,21 @@ module.exports = (function(){
     })
   ];
 
-  function GameData(config) {
+  function GameData() {
     this._squads = squads;
   }
+
+  GameData.prototype.playerKilled = function(id){
+    console.log("player id:", id, "killed");
+  };
+
+  GameData.prototype.playerDisconnected = function(id){
+    console.log("player id:", id, "killed");
+  };
+
+  GameData.prototype.playerConnected = function(id){
+    console.log("player id:", id, "killed");
+  };
 
   GameData.prototype.getSquadById = function(id){
     return this._squads.filter(function(squad){
@@ -37,5 +49,5 @@ module.exports = (function(){
     var loot = new SquadLoot().deserializeFromArma(serializedLoot);
   };
 
-  return GameData;
-})();
+  return new GameData();
+};

@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "sock-rpc": "^1.0.5",
-    "sqlite3": "^3.0.4"
+    "sqlite3": "^3.0.4",
+    "battle-node": "^0.0.4"
   }
 }

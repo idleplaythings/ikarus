@@ -5,12 +5,12 @@ module.exports = (function(){
   var config = require('./config');
 
   dic.register('GameData', function (dic) {
-    var GameData = require('./gameData/gameData');
+    var GameData = require('./source/gameData/gameData');
     return new GameData();
   });
 
   dic.register('RpcClient', function (dic) {
-    var RpcClient = require('./arma/rpcClient');
+    var RpcClient = require('./source/arma/rpcClient');
 
     return new RpcClient(
       config.rpc.port,
@@ -21,7 +21,7 @@ module.exports = (function(){
   });
 
   dic.register('BattlEyeClient', function (dic) {
-    var BattlEyeClient = require('./arma/battlEyeClient');
+    var BattlEyeClient = require('./source/arma/battlEyeClient');
 
     return new BattlEyeClient(
       config.battlEye
@@ -29,7 +29,7 @@ module.exports = (function(){
   });
 
   dic.register('WebAppClient', function (dic) {
-    var WebAppClient = require('./webApp/webAppClient');
+    var WebAppClient = require('./source/webApp/webAppClient');
 
     return new WebAppClient(
       config.webApp.host,

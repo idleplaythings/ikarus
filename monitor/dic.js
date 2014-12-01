@@ -1,6 +1,6 @@
 module.exports = (function(){
 
-  var DIC = require('./dic/DIC');
+  var DIC = require('./source/dic/DIC');
   var dic = new DIC();
   var config = require('./config');
 

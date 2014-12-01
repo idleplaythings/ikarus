@@ -44,4 +44,5 @@ Temporary Items
 .apdisk
 
 mission/ikarus.Altis/node/test.db
-/**/node_modules
+./**/node_modules
+node_modules

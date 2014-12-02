@@ -13,7 +13,7 @@ module.exports = function(port, gameData, webApp, armaServer){
   RpcListener.prototype.register = function(name, callback) {
     rpc.register(name, function() {
       console.log("received rpc call", name);
-      var args = Array.slice(arguments);
+      var args = Array.prototype.slice.call(arguments);
       var response = args.pop();
 
       try {

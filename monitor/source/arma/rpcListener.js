@@ -25,7 +25,7 @@ module.exports = function(port, gameData, webApp, armaServer){
 
         response(e.message, null);
       }
-    });
+    }.bind(this));
   };
 
   RpcListener.prototype.listen = function(){

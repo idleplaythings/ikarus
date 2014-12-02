@@ -8,22 +8,31 @@ module.exports = function(host, port, serverId){
     this._serverId = serverId;
   };
 
-  WebAppClient.prototype.reportStatusReady = function(){
-    new ServerStatus('READY').send(this._host, this._port, this._serverId);
+  WebAppClient.prototype.reportStatusDown = function(){
+    new ServerStatus({serverStatus: 'down'}).send(this._host, this._port, this._serverId);
   };
 
-  WebAppClient.prototype.reportStatusWaiting = function() {};
+  WebAppClient.prototype.reportStatusWaiting = function() {
+    new ServerStatus({serverStatus: 'waiting'}).send(this._host, this._port, this._serverId);
+  };
 
-  WebAppClient.prototype.reportStatusPlaying = function() {}
+  WebAppClient.prototype.reportStatusPlaying = function() {
+    new ServerStatus({serverStatus: 'playing'}).send(this._host, this._port, this._serverId);
+  };
 
-  WebAppClient.prototype.reportStatusIdle = function() {}
+  WebAppClient.prototype.reportStatusIdle = function() {
+    new ServerStatus({serverStatus: 'idle'}).send(this._host, this._port, this._serverId);
+  };
 
-  WebAppClient.prototype.reportPlayerConnected = function(uid) {}
+  WebAppClient.prototype.reportPlayerConnected = function(uid) {
+    new ServerStatus({playerStatus: {uid: uid, status:'connected'}})
+      .send(this._host, this._port, this._serverId);
+  }
 
-  WebAppClient.prototype.reportPlayerKilled = function(uid) {}
-
-  WebAppClient.prototype.reportPlayerDisconnected = function(uid) {}
-
+  WebAppClient.prototype.reportPlayerDisconnected = function(uid) {
+    new ServerStatus({playerStatus: {uid: uid, status:'disconnected'}})
+      .send(this._host, this._port, this._serverId);
+  }
 
   return new WebAppClient(host, port, serverId);
 };

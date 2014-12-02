@@ -5,10 +5,8 @@ Router.map(function () {
 
       if (Object.keys(methods).indexOf(method) !== -1) {
 
-        console.log(this.request);
         var payload = this.request.body;
         var params = this.params;
-
 
         methods[method](payload, params, respond.bind(this));
       } else {
@@ -41,17 +39,17 @@ Router.map(function () {
   };
 
   this.route('gameServer_status', {
-      path: '/gameServerApi/status/:serverId',
-      where: 'server',
-      action: function () {
-        process.call(this, {
-          POST: function(payload, params, respond) {
-            var serverId = params.serverId;
-            var response = dic.get('GameServerService').updateServerStatus(
-            serverId, payload);
-            respond();
-          }
-        });
-      }
-    });
+    path: '/gameServerApi/status/:serverId',
+    where: 'server',
+    action: function () {
+      process.call(this, {
+        POST: function(payload, params, respond) {
+          var serverId = params.serverId;
+          var response = dic.get('GameServerService').receiveStatusUpdate(
+          serverId, payload);
+          respond();
+        }
+      });
+    }
+  });
 });

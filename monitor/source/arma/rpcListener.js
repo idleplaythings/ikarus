@@ -73,7 +73,7 @@ module.exports = function(port, gameData, webApp, armaServer){
     this._armaServer.kickPlayer(uid);
     this._gameData.playerKilled(uid);
     this._gameData.playerDisconnected(uid);
-    this._webApp.reportPlayerKilled(uid);
+    this._webApp.playerDisconnected(uid);
   };
 
   var playerUnknown = function(uid) {

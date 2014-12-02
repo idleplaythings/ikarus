@@ -12,7 +12,11 @@ ServerStatus.prototype.send = function(host, port, serverId){
     hostname: host,
     port: port,
     path: '/gameServerApi/status/' + serverId,
-    method: 'POST'
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
   };
 
   var req = http.request(options, function(res) {
@@ -29,6 +33,6 @@ ServerStatus.prototype.send = function(host, port, serverId){
   });
 
   // write data to request body
-  req.write(JSON.stringify({status: this._status}));
+  req.write(JSON.stringify(this._status));
   req.end();
 };

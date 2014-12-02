@@ -5,6 +5,7 @@ Router.map(function () {
 
       if (Object.keys(methods).indexOf(method) !== -1) {
 
+        console.log(this.request);
         var payload = this.request.body;
         var params = this.params;
 

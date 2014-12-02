@@ -24,12 +24,12 @@ module.exports = function(){
     console.log("player id:", id, "killed");
   };
 
-  GameData.prototype.playerDisconnected = function(id){
-    console.log("player id:", id, "killed");
+  GameData.prototype.playerDisconnected = function(id, loot){
+    console.log("player id:", id, "disconnected");
   };
 
   GameData.prototype.playerConnected = function(id){
-    console.log("player id:", id, "killed");
+    console.log("player id:", id, "connected");
   };
 
   GameData.prototype.getSquadById = function(id){

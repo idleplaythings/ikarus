@@ -31,6 +31,10 @@ module.exports = function(config){
       }
     );
   };
+  
+  BattlEyeClient.prototype.shutDownServer = function(uid){
+    console.log("TODO: implement battleye shutDownServer");
+  };
 
   return new BattlEyeClient(config);
 };

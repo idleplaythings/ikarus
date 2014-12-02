@@ -187,3 +187,17 @@ hideout_checkIsSuitableHouseForHideout = {
   true;
 };
 
+
+hideout_isInHideout = {
+  private ["_unit", "_squad", "_building"];
+  _unit = _this select 0;
+  _squad = [_unit] call getSquadForUnit;
+  
+  if (isNil{_squad}) exitWith {false;};
+  
+  _building = [_squad] call getSquadHideoutBuilding;
+  
+  if (([_building, _unit] call BIS_fnc_distance2D) > hideout_hideoutRadius) exitWith {false;};
+  
+  true;
+};

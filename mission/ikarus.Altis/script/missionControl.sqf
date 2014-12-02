@@ -20,7 +20,7 @@ missionControl_pollSquadDataFromServer = {
 
     while { ! missionControl_gameStarted } do {
   
-      _squads = ['getSquadData'] call sock_rpc;
+      _squads = ['squadsRetrieve'] call sock_rpc;
       
       sleep 1;
       
@@ -64,7 +64,7 @@ missionControl_startGameIfReady = {
 };
 
 missionControl_startGame = {
-  ['lockServer'] call sock_rpc;
+  ['gameStart'] call sock_rpc;
  
   missionControl_gameStarted = true;
   missionControl_timeGameStarted = time;
@@ -91,9 +91,10 @@ missionControl_endGame = {
     _loot = [_squad] call loot_findSquadLoot;
     
     player globalChat str _loot;
-    ['submitSquadData', [([_squad] call getSquadId), str _loot]] call sock_rpc;  
+    ['squadSubmit', [([_squad] call getSquadId), str _loot]] call sock_rpc;  
   } forEach squads;
   
+  ['gameEnd'] call sock_rpc;
 };
 
 call missionControl_startWhenReady;

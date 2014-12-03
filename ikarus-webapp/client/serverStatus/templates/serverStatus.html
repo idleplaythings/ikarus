@@ -1,17 +1,42 @@
 <template name="serverStatus">
-  <ul class="list-unstyled">
+  <div>
     <h2>Servers</h2>
+    <div>
+      <div class="row">
+        <div>
+          Server ID
+        </div>
+        <div>
+          Name
+        </div>
+        <div>
+          Status
+        </div>
+        <div>
+          Players
+        </div>
+      </div>
+
     {{#each servers}}
-
-    <li class="server server-status-{{status}}">
-      <span>
-        {{name}}
-      </span>
-      <span>
-        {{getAmountOfPlayers}}
-      </span>
-    </li>
-
+      <div class="row">
+        <div>
+          {{_id}}
+        </div>
+        <div>
+          {{name}}
+        </div>
+        <div>
+          {{status}}
+        </div>
+        <div>
+          {{getNumberOfPlayers}}
+        </div>
+      </div>
+    {{else}}
+      <div class="row">
+        No servers found.
+      </div>
     {{/each}}
-  </ul>
+    </div>
+  </div>
 </template>

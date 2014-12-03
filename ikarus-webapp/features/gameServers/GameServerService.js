@@ -5,6 +5,17 @@ GameServerService = (function(){
     this._serverRepository = serverRepository;
   };
 
+  GameServerService.prototype.registerServer = function(name) {
+    var gameServer = this._serverRepository.getServerByName(name);
+
+    if (gameServer) {
+      return gameServer;
+    }
+
+    this._serverRepository.createServer(name);
+    return this._serverRepository.getServerByName(name);
+  }
+
   GameServerService.prototype.receiveStatusUpdate = function(serverId, payload) {
     if (payload.serverStatus) {
       updateServerStatus.call(this, serverId, payload.serverStatus);

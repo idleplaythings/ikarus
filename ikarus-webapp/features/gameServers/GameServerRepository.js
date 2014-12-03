@@ -5,6 +5,10 @@ GameServerRepository = (function(){
     this._serverCollection = serverCollection;
   }
 
+  GameServerRepository.prototype.getServers = function(){
+    return this._serverCollection.find().fetch().map(docToGameServer);
+  };
+
   GameServerRepository.prototype.setStatus = function(serverId, status){
     this._serverCollection.update(
       {_id: serverId},
@@ -31,6 +35,14 @@ GameServerRepository = (function(){
       {_id: serverId},
       {$addToSet: {players: uid}}
     );
+  };
+
+  var docToGameServer = function(doc) {
+    if (! doc){
+      return null;
+    }
+
+    return new GameServer(doc);
   };
   return GameServerRepository;
 })();

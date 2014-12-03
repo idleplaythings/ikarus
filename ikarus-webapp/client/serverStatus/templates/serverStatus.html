@@ -1,3 +1,17 @@
 <template name="serverStatus">
+  <ul class="list-unstyled">
+    <h2>Servers</h2>
+    {{#each servers}}
 
+    <li class="server server-status-{{status}}">
+      <span>
+        {{name}}
+      </span>
+      <span>
+        {{getAmountOfPlayers}}
+      </span>
+    </li>
+
+    {{/each}}
+  </ul>
 </template>

@@ -1,0 +1,39 @@
+<template name="playerStatus">
+
+  {{#if squad}}
+    {{#if isInGame}}
+      {{> squadInGameStatus}}
+    {{else}}
+      {{#with squad}}
+        {{>squadServerStatus}}
+      {{/with}}
+    {{/if}}
+  {{else}}
+    {{> createOrJoinSquad}}
+  {{/if}}
+</template>
+
+<template name="squadServerStatus">
+
+    <h2>{{name}}</h2>
+
+</template>
+
+<template name="createOrJoinSquad">
+  <h2>You don't seem to be in a squad. Create a squad!</h2>
+  <label>Name for your squad:</label>
+  <input id="create-squad-name" type="text">
+  <button id="create-squad">Create new squad</button>
+
+  {{#if invites}}
+    <h2>Or join one of these squads:</h2>
+    {{#each invites}}
+      <button class="join-squad" data-squadId="{{squadId}}">
+        Join squad "{{squadName}}"
+      </button>
+    {{/each}}
+  {{else}}
+    <h2>... or ask your friends for an invite!</h2>
+  {{/if}}
+
+</template>

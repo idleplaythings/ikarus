@@ -21,7 +21,7 @@ Squad.prototype.serializeForArma = function(){
     null,
     null,
     [],
-    this._objectives,
+    this.objectives,
     []
   ];
 };

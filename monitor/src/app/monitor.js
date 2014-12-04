@@ -68,13 +68,13 @@ Monitor.prototype._connectToWebApp = function() {
         this._gameData.setSquads(
           this._webAppClient.getCollection('squadsOnServers')
         );
-      };
+      }.bind(this);
 
       squadObserver.removed = function(id, old) {
         this._gameData.setSquads(
           this._webAppClient.getCollection('squadsOnServers')
         );
-      };
+      }.bind(this);
     }.bind(this)
   );
 };

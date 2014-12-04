@@ -33,7 +33,9 @@ SquadService = (function(){
       members: [user]
     });
 
-    this._squadRepository.save(squad);
+    var squadId = this._squadRepository.save(squad);
+
+    this._userService.updateUserSquadId(user, squadId);
     return squad;
   };
 

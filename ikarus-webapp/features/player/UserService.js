@@ -5,6 +5,10 @@ UserService = (function(){
 
   }
 
+  UserService.prototype.updateUserSquadId = function(user, squadId){
+    Meteor.users.update({_id: user._id}, {$set: {squadId: squadId}});
+  };
+
   UserService.prototype.getUserById = function(playerId){
     return docToUser(Meteor.users.findOne({'services.steam.id': playerId}));
   };

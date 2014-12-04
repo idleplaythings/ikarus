@@ -24,6 +24,17 @@
       {{/if}}
     </div>
 
+    {{#if squadOnServer}}
+      {{#with squadOnServer}}
+        <div class="row">
+          <div class="col-md-4">
+            {{> startLocation}}
+          </div>
+
+        </div>
+      {{/with}}
+    {{/if}}
+
   </div>
 
 </template>

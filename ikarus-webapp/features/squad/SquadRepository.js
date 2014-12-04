@@ -6,7 +6,7 @@ SquadRepository = (function(){
   }
 
   SquadRepository.prototype.save = function(squad){
-    this._squadCollection.insert(squad.serialize());
+    return this._squadCollection.insert(squad.serialize());
   };
 
   SquadRepository.prototype.getSquadById = function(id){

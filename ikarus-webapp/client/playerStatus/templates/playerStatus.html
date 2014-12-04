@@ -1,8 +1,10 @@
 <template name="playerStatus">
 
   {{#if squad}}
-    {{#if isInGame}}
-      {{> squadInGameStatus}}
+    {{#if squadOnServer}}
+      {{#with squadOnServer}}
+        {{> squadInGameStatus}}
+      {{/with}}
     {{else}}
       {{#with squad}}
         {{>squadServerStatus}}
@@ -11,6 +13,13 @@
   {{else}}
     {{> createOrJoinSquad}}
   {{/if}}
+</template>
+
+<template name="squadInGameStatus">
+
+  <h2>{{squad.name}}</h2>
+  <h3>You are on server: {{server.name}}</h3>
+
 </template>
 
 <template name="squadServerStatus">

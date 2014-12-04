@@ -1,10 +1,10 @@
 
 Meteor.methods({
-  playerConnected: function(serverId, playerUid){
-    dic.get('GameController').playerConnected(serverId, playerUid);
+  playerConnected: function(serverName, playerUid){
+    dic.get('GameController').playerConnected(serverName, playerUid);
   },
 
-  playerDisconnected: function(serverId, playerUid){
-    dic.get('GameController').playerConnected(serverId, playerUid);
+  playerDisconnected: function(serverName, playerUid){
+    dic.get('GameController').playerDisconnected(serverName, playerUid);
   }
 });

@@ -9,6 +9,7 @@ SquadOnServer = (function(){
     this.startingLocation = args.startingLocation || {x: 10000, y:10000};
     this.objectives = args.objectives;
     this.squadId = args.squadId;
+    this.locked = args.locked || false;
   }
 
   SquadOnServer.prototype.addPlayer = function(player){
@@ -35,7 +36,8 @@ SquadOnServer = (function(){
       missionItems: this.missionItems.serialize(),
       startingLocation: this.startingLocation,
       objectives: this.objectives,
-      squadId: this.squadId
+      squadId: this.squadId,
+      locked: this.locked
     };
   };
 

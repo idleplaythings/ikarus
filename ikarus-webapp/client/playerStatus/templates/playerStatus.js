@@ -4,7 +4,21 @@
   Template.playerStatus.helpers({
     squad: function() {
       return dic.get('SquadService').getSquadForCurrentUser();
-    }
+    },
+
+    squadOnServer: function() {
+      return dic.get('SquadOnServerService').getSquadOnServerForCurrentPlayer();
+    },
+  });
+
+  Template.squadInGameStatus.helpers({
+    squad: function() {
+      return dic.get('SquadService').getSquadForCurrentUser();
+    },
+
+    server: function() {
+      return dic.get('GameServerService').getServerById(this.serverId);
+    },
   });
 
   Template.createOrJoinSquad.helpers({

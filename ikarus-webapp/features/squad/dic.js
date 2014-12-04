@@ -19,6 +19,7 @@ dic.register('SquadOnServerRepository', function (dic) {
 
 dic.register('SquadOnServerService', function (dic) {
   return new SquadOnServerService(
-    dic.get('SquadOnServerRepository')
+    dic.get('SquadOnServerRepository'),
+    dic.get('UserService')
   );
 }, {shared: true});

@@ -13,8 +13,8 @@ GameController = (function(){
     this._squadOnServerService = squadOnServerService;
   }
 
-  GameController.prototype.playerConnected = function(serverId, playerUid){
-    var server = this._gameServerService.getServerById(serverId);
+  GameController.prototype.playerConnected = function(serverName, playerUid){
+    var server = this._gameServerService.getServerByName(serverName);
     var player = this._userService.getUserById(playerUid);
 
     if (! server){
@@ -28,6 +28,11 @@ GameController = (function(){
     this._gameServerService.playerConnected(server, player);
 
     var squad = this._squadService.getSquadByMember(player.steamId);
+
+    if (! squad){
+      return;
+    }
+
     var squadOnServer = this._squadOnServerService.getSquadOnServer(
       server, squad
     );
@@ -43,8 +48,8 @@ GameController = (function(){
 
   };
 
-  GameController.prototype.playerDisconnected = function(serverId, playerUid){
-    var server = this._gameServerService.getServerById(serverId);
+  GameController.prototype.playerDisconnected = function(serverName, playerUid){
+    var server = this._gameServerService.getServerByName(serverName);
     var player = this._userService.getUserById(playerUid);
 
     if (! server){
@@ -58,6 +63,11 @@ GameController = (function(){
     this._gameServerService.playerDisconnected(server, player);
 
     var squad = this._squadService.getSquadByMember(player.steamId);
+
+    if (! squad){
+      return;
+    }
+
     var squadOnServer = this._squadOnServerService.getSquadOnServer(
       server, squad
     );

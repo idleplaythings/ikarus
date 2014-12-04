@@ -16,15 +16,26 @@ GameServerService = (function(){
     return this._serverRepository.getServerByName(name);
   }
 
-  GameServerService.prototype.receiveStatusUpdate = function(serverId, payload) {
-    if (payload.serverStatus) {
-      updateServerStatus.call(this, serverId, payload.serverStatus);
+  GameServerService.prototype.updateStatus = function(server, status) {
+
+    var serverId = server._id;
+
+    if (status == 'idle') {
+      this._serverRepository.setStatus(serverId, 'idle');
+      this._serverRepository.clearPlayers(serverId);
     }
 
-    if (payload.playerStatus) {
-      updatePlayerStatus.call(this, serverId, payload.playerStatus);
+    if (status == 'waiting') {
+      this._serverRepository.setStatus(serverId, 'waiting');
     }
-    console.log(arguments);
+
+    if (status == 'playing') {
+      this._serverRepository.setStatus(serverId, 'playing');
+    }
+
+    if (status == 'down') {
+      this._serverRepository.setStatus(serverId, 'down');
+    }
   };
 
   GameServerService.prototype.playerConnected = function(server, player) {
@@ -41,26 +52,6 @@ GameServerService = (function(){
 
   GameServerService.prototype.getServerByName = function(name) {
     return this._serverRepository.getServerByName(name);
-  };
-
-  var updateServerStatus = function(serverId, status) {
-
-    if (status == 'idle') {
-      this._serverRepository.setStatus(serverId, 'idle');
-      this._serverRepository.clearPlayers(serverId);
-    }
-
-    if (status == 'waiting') {
-      this._serverRepository.setStatus(serverId, 'waiting');
-    }
-
-    if (status == 'playing') {
-      this._serverRepository.setStatus(serverId, 'playing');
-    }
-
-    if (status == 'playing') {
-      this._serverRepository.setStatus(serverId, 'down');
-    }
   };
 
   return GameServerService;

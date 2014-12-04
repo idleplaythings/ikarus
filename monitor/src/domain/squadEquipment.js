@@ -1,13 +1,13 @@
 
 module.exports = SquadEquipment;
 
-function SquadEquipment(weapons, magazines, items, backpacks) {
-  this._weapons = weapons;
-  this._magazines = magazines;
-  this._items = items;
-  this._backpacks = backpacks;
+function SquadEquipment(args) {
+  this.weapons = args.weapons || [];
+  this.magazines = args.magazines || [];
+  this.items = args.items || [];
+  this.backpacks = args.backpacks || [];
 }
 
 SquadEquipment.prototype.serializeForArma = function(){
-  return [this._weapons, this._magazines, this._items, this._backpacks];
+  return [this.weapons, this.magazines, this.items, this.backpacks];
 };

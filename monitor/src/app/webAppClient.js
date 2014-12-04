@@ -23,53 +23,79 @@ WebAppClient.prototype.connect = function(host, port, callback) {
   });
 }
 
-WebAppClient.prototype.registerServer = function(serverId) {
-  this._ddpClient.call(
-    'registerGameServer',
-    [ serverId ],
-    function(err, result) {
-      console.log(result);
-    },
-    function() {
-      console.log('DDP client data updated');
-    }
+WebAppClient.prototype.subscribe = function(collection, params, callback) {
+
+  if ( ! params) {
+    params = [];
+  }
+
+  if ( ! callback){
+    callback = function(){
+      console.log("Subscribed to ", collection)
+    };
+  }
+
+  var jotain = this._ddpClient.subscribe(
+    collection,
+    params,
+    callback
   );
-}
+
+  console.log("jotain", jotain);
+};
 
 WebAppClient.prototype.getObserver = function(collection) {
   return this._ddpClient.observe(collection);
+};
+
+WebAppClient.prototype.getCollection = function(collection) {
+  return this._ddpClient.collections[collection];
+};
+
+WebAppClient.prototype.call = function(name, arguments){
+
+  var onResult = function(error, result){
+    console.log("Meteor method response 2", error, result);
+  }.bind(this);
+
+  var onDone = function(error, result){
+    console.log('DDP client data updated 2');
+  }.bind(this);
+
+  this._ddpClient.call(
+    name,
+    arguments,
+    onResult,
+    onDone
+  );
+};
+
+WebAppClient.prototype.registerServer = function(serverId) {
+  this.call('registerGameServer', [ serverId ]);
 }
 
-WebAppClient.prototype.reportStatusDown = function() {
-  // @todo conver to method call
-  // new ServerStatus({serverStatus: 'down'}).send(this._host, this._port, this._serverId);
+WebAppClient.prototype.reportStatusDown = function(serverId) {
+  this.call('updateServerStatus', [serverId, 'down']);
 };
 
-WebAppClient.prototype.reportStatusWaiting = function() {
-  // @todo conver to method call
-  // new ServerStatus({serverStatus: 'waiting'}).send(this._host, this._port, this._serverId);
+WebAppClient.prototype.reportStatusWaiting = function(serverId) {
+  this.call('updateServerStatus', [serverId, 'waiting']);
 };
 
-WebAppClient.prototype.reportStatusPlaying = function() {
-  // @todo conver to method call
-  // new ServerStatus({serverStatus: 'playing'}).send(this._host, this._port, this._serverId);
+WebAppClient.prototype.reportStatusPlaying = function(serverId) {
+  this.call('updateServerStatus', [serverId, 'playing']);
 };
 
-WebAppClient.prototype.reportStatusIdle = function() {
-  // @todo conver to method call
-  // new ServerStatus({serverStatus: 'idle'}).send(this._host, this._port, this._serverId);
+WebAppClient.prototype.reportStatusIdle = function(serverId) {
+  this.call('updateServerStatus', [serverId, 'idle']);
 };
 
-WebAppClient.prototype.reportPlayerConnected = function(uid) {
-  // @todo conver to method call
-  // new ServerStatus({playerStatus: {uid: uid, status:'connected'}})
-  //   .send(this._host, this._port, this._serverId);
-}
+WebAppClient.prototype.reportPlayerConnected = function(serverId, uid) {
+  this.call('playerConnected', [serverId, uid]);
+};
 
-WebAppClient.prototype.reportPlayerDisconnected = function(uid) {
-  // @todo conver to method call
-  // new ServerStatus({playerStatus: {uid: uid, status:'disconnected'}})
-  //   .send(this._host, this._port, this._serverId);
-}
+WebAppClient.prototype.reportPlayerDisconnected = function(serverId, uid) {
+  this.call('playerDisconnected', [serverId, uid]);
+};
 
 module.exports = WebAppClient;

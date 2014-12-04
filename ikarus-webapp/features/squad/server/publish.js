@@ -15,5 +15,12 @@ Meteor.publish('MySquad', function(){
 });
 
 Meteor.publish('SquadsOnServer', function(serverId){
-  collections.SquadsOnServerCollection.find({serverId: serverId});
+  var server = collections.GameServerCollection.findOne({name: serverId});
+
+  if ( ! server){
+    this.ready();
+    return;
+  }
+
+  return collections.SquadsOnServerCollection.find({serverId: server._id});
 });

@@ -47,25 +47,33 @@ Monitor.prototype._startRpcServer = function() {
 };
 
 Monitor.prototype._connectToWebApp = function() {
+  var serverId = this._config.arma.serverId;
+
   this._webAppClient.connect(
     this._config.webApp.host,
     this._config.webApp.port,
     function(err) {
-      this._webAppClient.registerServer(this._config.arma.serverId);
-      var squadObserver = this._webAppClient.getObserver('squads');
+      this._webAppClient.registerServer(serverId);
+      this._webAppClient.subscribe('SquadsOnServer', [serverId]);
+      var squadObserver = this._webAppClient.getObserver('squadsOnServers');
 
       squadObserver.added = function(id) {
-        console.log('Added ' + id + ' to squads');
-      };
+        this._gameData.setSquads(
+          this._webAppClient.getCollection('squadsOnServers')
+        );
+      }.bind(this);
 
       squadObserver.changed = function(id, oldFields, clearedFields, newFields) {
-        console.log('Changed ' + id + ' in squads');
+        this._gameData.setSquads(
+          this._webAppClient.getCollection('squadsOnServers')
+        );
       };
 
       squadObserver.removed = function(id, old) {
-        console.log('Removed ' + id + ' in squads, old: ' + old);
+        this._gameData.setSquads(
+          this._webAppClient.getCollection('squadsOnServers')
+        );
       };
-
     }.bind(this)
   );
 };
@@ -83,7 +91,7 @@ var squadSubmit = function(squadId, loot) {
 };
 
 var gameWaiting = function() {
-  this._webAppClient.reportStatusWaiting();
+  this._webAppClient.reportStatusWaiting(this._config.arma.serverId);
 };
 
 var gameStart = function() {

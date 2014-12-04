@@ -5,6 +5,7 @@ var SquadLoot = require('../domain/squadLoot.js');
 module.exports = function(){
   'use strict';
 
+  /*
   var squads = [
     new Squad({
       id: 'id',
@@ -14,10 +15,17 @@ module.exports = function(){
       objectives: ['SUPPLY']
     })
   ];
+  */
 
   function GameData() {
-    this._squads = squads;
+    this._squads = [];
   }
+
+  GameData.prototype.setSquads = function(data){
+    this._squads = Object.keys(data).map(function(key){
+      return new Squad(data[key]);
+    }, this);
+  };
 
   GameData.prototype.playerKilled = function(id){
     console.log("player id:", id, "killed");

@@ -1,23 +1,26 @@
+var SquadEquipment = require('./squadEquipment');
+
 module.exports = Squad;
 
 function Squad(args) {
-  
-  this._id = args.id;
-  this._playerIds = args.playerIds
-  this._startingLocation = args.startingLocation;
-  this._equipment = args.equipment || new SquadEquipment();
-  this._objectives = args.objectives || [SUPPLY];
+
+  this.squadId = args.squadId;
+  this.membersOnServer = args.membersOnServer
+  this.startingLocation = args.startingLocation;
+  this.missionItems = new SquadEquipment(args.missionItems);
+  this.objectives = args.objectives || ['SUPPLY'];
+  this.locked = args.locked;
 }
 
 Squad.prototype.serializeForArma = function(){
   return [
-    this._id,
-    this._playerIds,
-    this._startingLocation,
+    this.squadId,
+    this.membersOnServer,
+    [startingLocation.x, startingLocation.y],
     this._equipment.serializeForArma(),
-    null, 
-    null, 
-    [], 
+    null,
+    null,
+    [],
     this._objectives,
     []
   ];

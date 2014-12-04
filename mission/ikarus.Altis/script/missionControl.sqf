@@ -6,11 +6,12 @@ missionControl_timeGameStarted = 0;
 missionControl_minSquads = 1;
 
 missionControl_waitingTimeSeconds = 5;
+missionControl_test = true;
 
-missionControl_timeGameLength = 5; //3600;
+missionControl_timeGameLength = 60; //3600;
 
 missionControl_startWhenReady = {
-  player globalChat "start when ready";
+  ['gameWaiting'] call sock_rpc;
   [] call missionControl_pollSquadDataFromServer;
 };
 
@@ -20,7 +21,7 @@ missionControl_pollSquadDataFromServer = {
 
     while { ! missionControl_gameStarted } do {
   
-      _squads = ['squadsRetrieve'] call sock_rpc;
+      _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
       
       sleep 1;
       

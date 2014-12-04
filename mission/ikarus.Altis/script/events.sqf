@@ -10,13 +10,17 @@ events_setEventHandlers = {
   };
   
   addMissionEventHandler ["HandleDisconnect", {
-  
+    private ["_unit, _uid"];
+    _unit = _this select 0;
+    _uid = _this select 2;
+    
+    
     if ( ! missionControl_gameStarted) exitWith {
       ['playerDisconnected', [_uid]] call sock_rpc;
     };
     
-    if ([unit] call hideout_isInHideout) exitWith {
-      [unit, uid] call events_playerDisconnectedInHideout;
+    if ([_unit] call hideout_isInHideout) exitWith {
+      [_unit, _uid] call events_playerDisconnectedInHideout;
     };
     
     ['playerKilled', [_uid]] call sock_rpc;

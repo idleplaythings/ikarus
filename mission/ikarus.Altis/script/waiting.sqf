@@ -2,7 +2,7 @@
 returnPlayersToWaitingArea = {
   private ["_trigger", "_unit"];
   
-  if (gameStarted) exitWith {};
+  if (missionControl_gameStarted) exitWith {};
   
   _trigger = _this select 0;
  

@@ -145,12 +145,12 @@ hideout_movePlayersToHideout = {
 };
 
 hideout_movePlayerToHideout = {
-  private ["_unit", "_building"];
+  private ["_unit", "_building", "_position"];
   _unit = _this select 0;
   
   if ([_unit] call hasSquad) then {
     _building = [[_unit] call getSquadForUnit] call getSquadHideoutBuilding;
-    _unit setPos getPos _building;
+    _unit setPosATL (_building buildingPos 0);
   }
 };
 

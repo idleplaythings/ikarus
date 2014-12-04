@@ -1,84 +1,79 @@
-GameController = (function(){
-  'use strict';
+GameController = function GameController(
+  userService,
+  gameServerService,
+  squadService,
+  squadOnServerService
+){
+  this._userService = userService;
+  this._gameServerService = gameServerService;
+  this._squadService = squadService;
+  this._squadOnServerService = squadOnServerService;
+}
 
-  function GameController(
-    userService,
-    gameServerService,
-    squadService,
-    squadOnServerService
-  ){
-    this._userService = userService;
-    this._gameServerService = gameServerService;
-    this._squadService = squadService;
-    this._squadOnServerService = squadOnServerService;
+GameController.prototype.playerConnected = function(serverName, playerUid){
+  var server = this._gameServerService.getServerByName(serverName);
+  var player = this._userService.getUserById(playerUid);
+
+  if (! server){
+    throw new Error("Server not found");
   }
 
-  GameController.prototype.playerConnected = function(serverName, playerUid){
-    var server = this._gameServerService.getServerByName(serverName);
-    var player = this._userService.getUserById(playerUid);
+  if (! player) {
+    return;
+  }
 
-    if (! server){
-      throw new Error("Server not found");
-    }
+  this._gameServerService.playerConnected(server, player);
 
-    if (! player) {
-      return;
-    }
+  var squad = this._squadService.getSquadByMember(player.steamId);
 
-    this._gameServerService.playerConnected(server, player);
+  if (! squad){
+    return;
+  }
 
-    var squad = this._squadService.getSquadByMember(player.steamId);
+  var squadOnServer = this._squadOnServerService.getSquadOnServer(
+    server, squad
+  );
 
-    if (! squad){
-      return;
-    }
-
-    var squadOnServer = this._squadOnServerService.getSquadOnServer(
+  if (! squadOnServer){
+    squadOnServer = this._squadOnServerService.createSquadOnServer(
       server, squad
     );
+  }
 
-    if (! squadOnServer){
-      squadOnServer = this._squadOnServerService.createSquadOnServer(
-        server, squad
-      );
-    }
+  squadOnServer.addPlayer(player);
+  this._squadOnServerService.save(squadOnServer);
 
-    squadOnServer.addPlayer(player);
-    this._squadOnServerService.save(squadOnServer);
+};
 
-  };
+GameController.prototype.playerDisconnected = function(serverName, playerUid){
+  var server = this._gameServerService.getServerByName(serverName);
+  var player = this._userService.getUserById(playerUid);
 
-  GameController.prototype.playerDisconnected = function(serverName, playerUid){
-    var server = this._gameServerService.getServerByName(serverName);
-    var player = this._userService.getUserById(playerUid);
+  if (! server){
+    throw new Error("Server not found");
+  }
 
-    if (! server){
-      throw new Error("Server not found");
-    }
+  if (! player) {
+    return;
+  }
 
-    if (! player) {
-      return;
-    }
+  this._gameServerService.playerDisconnected(server, player);
 
-    this._gameServerService.playerDisconnected(server, player);
+  var squad = this._squadService.getSquadByMember(player.steamId);
 
-    var squad = this._squadService.getSquadByMember(player.steamId);
+  if (! squad){
+    return;
+  }
 
-    if (! squad){
-      return;
-    }
+  var squadOnServer = this._squadOnServerService.getSquadOnServer(
+    server, squad
+  );
 
-    var squadOnServer = this._squadOnServerService.getSquadOnServer(
-      server, squad
-    );
+  if (! squadOnServer){
+    return;
+  }
 
-    if (! squadOnServer){
-      return;
-    }
+  squadOnServer.removePlayer(player);
+  this._squadOnServerService.save(squadOnServer);
+};
 
-    squadOnServer.removePlayer(player);
-    this._squadOnServerService.save(squadOnServer);
-  };
-
-  return GameController;
-})();

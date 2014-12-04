@@ -1,8 +1,7 @@
+var BattleNode = require('battle-node');
 
 module.exports = function(config){
   'use strict';
-
-  var BattleNode = require('battle-node');
 
   function BattlEyeClient(config) {
     this._config = config;
@@ -31,7 +30,7 @@ module.exports = function(config){
       }
     );
   };
-  
+
   BattlEyeClient.prototype.shutDownServer = function(uid){
     console.log("TODO: implement battleye shutDownServer");
   };

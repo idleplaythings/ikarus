@@ -13,32 +13,36 @@ GameServerRepository = (function(){
     return docToGameServer.call(this, this._serverCollection.findOne({name: name}));
   };
 
-  GameServerRepository.prototype.getServers = function(){
+  GameServerRepository.prototype.createServer = function(name) {
+    this._serverCollection.insert({ name: name });
+  };
+
+  GameServerRepository.prototype.getServers = function() {
     return this._serverCollection.find().fetch().map(docToGameServer);
   };
 
-  GameServerRepository.prototype.setStatus = function(serverId, status){
+  GameServerRepository.prototype.setStatus = function(serverId, status) {
     this._serverCollection.update(
       {_id: serverId},
       {$set: {status: status}}
     );
   };
 
-  GameServerRepository.prototype.clearPlayers = function(serverId, uid){
+  GameServerRepository.prototype.clearPlayers = function(serverId, uid) {
     this._serverCollection.update(
       {_id: serverId},
       {$set: {players: []}}
     );
   };
 
-  GameServerRepository.prototype.removePlayer = function(serverId, uid){
+  GameServerRepository.prototype.removePlayer = function(serverId, uid) {
     this._serverCollection.update(
       {_id: serverId},
       {$pull: {status: status}}
     );
   };
 
-  GameServerRepository.prototype.addPlayer = function(serverId, uid){
+  GameServerRepository.prototype.addPlayer = function(serverId, uid) {
     this._serverCollection.update(
       {_id: serverId},
       {$addToSet: {players: uid}}

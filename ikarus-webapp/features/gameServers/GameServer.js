@@ -8,8 +8,12 @@ GameServer = (function(){
     this.players = args.players;
   }
 
-  GameServer.prototype.getAmountOfPlayers = function(){
-    return this.players.length;
+  GameServer.prototype.getNumberOfPlayers = function() {
+    if (this.players) {
+      return this.players.length;
+    }
+
+    return 0;
   };
 
   return GameServer;

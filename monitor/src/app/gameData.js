@@ -1,10 +1,9 @@
+var Squad = require('../domain/squad.js');
+var SquadEquipment = require('../domain/squadEquipment.js');
+var SquadLoot = require('../domain/squadLoot.js');
 
 module.exports = function(){
   'use strict';
-
-  var Squad = require('./squad.js');
-  var SquadEquipment = require('./squadEquipment.js');
-  var SquadLoot = require('./squadLoot.js');
 
   var squads = [
     new Squad({

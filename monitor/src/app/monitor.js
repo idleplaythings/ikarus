@@ -83,8 +83,8 @@ Monitor.prototype._initDdpObservers = function() {
 
 };
 
-var squadsRetrieve = function() {
-  return this._gameData.getSquadData();
+var squadsRetrieve = function(test) {
+  return this._gameData.getSquadData(test);
 };
 
 var squadSubmit = function(squadId, loot) {

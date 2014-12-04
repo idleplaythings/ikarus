@@ -18,7 +18,7 @@ module.exports = function(){
   });
 
   function GameData() {
-    this._squads = [testSquad];
+    this._squads = [];
     this._gameStarted = false;
   }
 
@@ -29,8 +29,6 @@ module.exports = function(){
     this._squads = Object.keys(data).map(function(key){
       return new Squad(data[key]);
     }, this);
-
-    this._squads.push(testSquad);
   };
 
   GameData.prototype.startGame = function(){
@@ -59,8 +57,15 @@ module.exports = function(){
     }).pop();
   };
 
-  GameData.prototype.getSquadData = function(){
-    return this._squads.map(function(squad){
+  GameData.prototype.getSquadData = function(demo){
+
+    var squads = this._squads.slice(0);
+
+    if (demo){
+      squads.push(testSquad);
+    }
+
+    return squads.map(function(squad){
       return squad.serializeForArma();
     });
   };

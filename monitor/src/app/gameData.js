@@ -19,12 +19,24 @@ module.exports = function(){
 
   function GameData() {
     this._squads = [];
+    this._gameStarted = false;
   }
 
   GameData.prototype.setSquads = function(data){
+    if (this._gameStarted)
+      return;
+
     this._squads = Object.keys(data).map(function(key){
       return new Squad(data[key]);
     }, this);
+  };
+
+  GameData.prototype.startGame = function(){
+    this._gameStarted = true;
+  };
+
+  GameData.prototype.endGame = function(){
+    this._gameStarted = false;
   };
 
   GameData.prototype.playerKilled = function(id){

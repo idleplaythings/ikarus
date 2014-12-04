@@ -3,32 +3,26 @@
     <h2>Servers</h2>
     <div>
       <div class="row">
-        <div>
-          Server ID
-        </div>
-        <div>
+        <div class="col-md-4">
           Name
         </div>
-        <div>
+        <div class="col-md-2">
           Status
         </div>
-        <div>
+        <div class="col-md-2">
           Players
         </div>
       </div>
 
     {{#each servers}}
       <div class="row">
-        <div>
-          {{_id}}
-        </div>
-        <div>
+        <div class="col-md-4">
           {{name}}
         </div>
-        <div>
+        <div class="col-md-2">
           {{status}}
         </div>
-        <div>
+        <div class="col-md-2">
           {{getNumberOfPlayers}}
         </div>
       </div>

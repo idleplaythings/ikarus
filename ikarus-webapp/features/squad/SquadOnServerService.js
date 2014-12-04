@@ -7,9 +7,9 @@ SquadOnServerService = (function(){
 
   SquadOnServerService.prototype.createSquadOnServer = function(server, squad){
     return new SquadOnServer({
-      serverId: args.server._id,
-      squadId: args.squad_id
-    })
+      serverId: server._id,
+      squadId: squad._id
+    });
   };
 
   SquadOnServerService.prototype.getSquadOnServer = function(server, squad){

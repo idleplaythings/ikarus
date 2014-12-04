@@ -6,7 +6,7 @@ UserService = (function(){
   }
 
   UserService.prototype.getUserById = function(playerId){
-    return docToUser(Meteor.users.findOne({'steam.id': playerId}));
+    return docToUser(Meteor.users.findOne({'services.steam.id': playerId}));
   };
 
   UserService.prototype.getCurrentUser = function(){

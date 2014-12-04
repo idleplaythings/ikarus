@@ -38,7 +38,7 @@ GameServerRepository = (function(){
   GameServerRepository.prototype.removePlayer = function(serverId, uid) {
     this._serverCollection.update(
       {_id: serverId},
-      {$pull: {status: status}}
+      {$pull: {players: uid}}
     );
   };
 
@@ -56,5 +56,6 @@ GameServerRepository = (function(){
 
     return new GameServer(doc);
   };
+
   return GameServerRepository;
 })();

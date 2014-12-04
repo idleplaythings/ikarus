@@ -36,11 +36,11 @@ GameServerService = (function(){
   };
 
   GameServerService.prototype.getServerById = function(id) {
-    this._serverRepository.getServerById(id);
+    return this._serverRepository.getServerById(id);
   };
 
   GameServerService.prototype.getServerByName = function(name) {
-    this._serverRepository.getServerByName(name);
+    return this._serverRepository.getServerByName(name);
   };
 
   var updateServerStatus = function(serverId, status) {

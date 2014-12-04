@@ -12,7 +12,10 @@ SquadOnServer = (function(){
   }
 
   SquadOnServer.prototype.addPlayer = function(player){
-    this.membersOnServer.add(player.steamId);
+    if (this.membersOnServer.indexOf(player.steamId) !== -1)
+      return;
+
+    this.membersOnServer.push(player.steamId);
   };
 
   SquadOnServer.prototype.removePlayer = function(player){
@@ -28,9 +31,7 @@ SquadOnServer = (function(){
   SquadOnServer.prototype.serialize = function(){
     return {
       serverId: this.serverId,
-      membersOnServer: this.membersOnServer.map(function(player){
-        return player.steamId
-      }),
+      membersOnServer: this.membersOnServer,
       missionItems: this.missionItems.serialize(),
       startingLocation: this.startingLocation,
       objectives: this.objectives,
@@ -39,4 +40,4 @@ SquadOnServer = (function(){
   };
 
   return SquadOnServer;
-});
+})();

@@ -43,7 +43,7 @@ GameController = (function(){
 
   };
 
-  GameController.prototype.playerConnected = function(serverId, playerUid){
+  GameController.prototype.playerDisconnected = function(serverId, playerUid){
     var server = this._gameServerService.getServerById(serverId);
     var player = this._userService.getUserById(playerUid);
 

@@ -34,5 +34,5 @@ module.exports = function(){
     console.log("TODO: implement battleye shutDownServer");
   };
 
-  return new BattlEyeClient(config);
+  return new BattlEyeClient();
 };

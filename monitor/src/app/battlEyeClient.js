@@ -1,14 +1,13 @@
 var BattleNode = require('battle-node');
 
-module.exports = function(config){
+module.exports = function(){
   'use strict';
 
-  function BattlEyeClient(config) {
-    this._config = config;
+  function BattlEyeClient() {
   }
 
-  BattlEyeClient.prototype.lockServer = function(){
-    var battleNode = new BattleNode(this._config);
+  BattlEyeClient.prototype.lockServer = function(config){
+    var battleNode = new BattleNode(config);
     battleNode.login();
     battleNode.on(
       'login',
@@ -19,8 +18,8 @@ module.exports = function(config){
     );
   };
 
-  BattlEyeClient.prototype.kickPlayer = function(uid){
-    var battleNode = new BattleNode(this._config);
+  BattlEyeClient.prototype.kickPlayer = function(config, uid){
+    var battleNode = new BattleNode(config);
     battleNode.login();
     battleNode.on(
       'login',
@@ -31,7 +30,7 @@ module.exports = function(config){
     );
   };
 
-  BattlEyeClient.prototype.shutDownServer = function(uid){
+  BattlEyeClient.prototype.shutDownServer = function(config, uid){
     console.log("TODO: implement battleye shutDownServer");
   };
 

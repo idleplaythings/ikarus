@@ -96,13 +96,13 @@ var gameWaiting = function() {
 };
 
 var gameStart = function() {
-  this._battlEyeClient.lockServer();
+  this._battlEyeClient.lockServer(this._config.battlEye);
   this._webAppClient.reportStatusPlaying(this._config.arma.serverId);
   this._gameData.startGame();
 };
 
 var gameEnd = function() {
-  this._battlEyeClient.shutDownServer();
+  this._battlEyeClient.shutDownServer(this._config.battlEye);
   this._webAppClient.reportStatusIdle(this._config.arma.serverId);
   this._gameData.endGame();
 };
@@ -113,14 +113,14 @@ var playerConnected = function(uid) {
 };
 
 var playerKilled = function(uid) {
-  this._battlEyeClient.kickPlayer(uid);
+  this._battlEyeClient.kickPlayer(this._config.battlEye, uid);
   this._gameData.playerKilled(uid);
   this._gameData.playerDisconnected(uid);
   this._webAppClient.playerDisconnected(this._config.arma.serverId, uid);
 };
 
 var playerUnknown = function(uid) {
-  this._battlEyeClient.kickPlayer(uid);
+  this._battlEyeClient.kickPlayer(this._config.battlEye, uid);
   this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 

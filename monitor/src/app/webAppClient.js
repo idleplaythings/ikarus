@@ -35,13 +35,11 @@ WebAppClient.prototype.subscribe = function(collection, params, callback) {
     };
   }
 
-  var jotain = this._ddpClient.subscribe(
+  this._ddpClient.subscribe(
     collection,
     params,
     callback
   );
-
-  console.log("jotain", jotain);
 };
 
 WebAppClient.prototype.getObserver = function(collection) {

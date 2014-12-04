@@ -54,6 +54,7 @@ Monitor.prototype._connectToWebApp = function() {
     this._config.webApp.port,
     function(err) {
       this._webAppClient.registerServer(serverId);
+      this._webAppClient.reportStatusIdle(serverId);
       this._webAppClient.subscribe('SquadsOnServer', [serverId]);
       var squadObserver = this._webAppClient.getObserver('squadsOnServers');
 

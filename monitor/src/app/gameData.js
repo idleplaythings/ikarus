@@ -5,20 +5,20 @@ var SquadLoot = require('../domain/squadLoot.js');
 module.exports = function(){
   'use strict';
 
-  /*
-  var squads = [
-    new Squad({
-      id: 'id',
-      playerIds: ["76561198007087657", "76561197962172634", "76561197970345650", "_SP_PLAYER_", "_SP_AI_"],
-      startingLocation: [14812.0, 22600.0],
-      equipment: new SquadEquipment(["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"], ["30Rnd_65x39_caseless_green"], [], []),
-      objectives: ['SUPPLY']
+  var testSquad = new Squad({
+    squadId: 'id',
+    membersOnServer: ["_SP_PLAYER_", "_SP_AI_"],
+    startingLocation: {x:14812.0, y:22600.0},
+    missionItems: new SquadEquipment({
+      weapons: ["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"],
+      magazines: ["30Rnd_65x39_caseless_green"],
+      items: [],
+      backpacks: []
     })
-  ];
-  */
+  });
 
   function GameData() {
-    this._squads = [];
+    this._squads = [testSquad];
     this._gameStarted = false;
   }
 
@@ -29,6 +29,8 @@ module.exports = function(){
     this._squads = Object.keys(data).map(function(key){
       return new Squad(data[key]);
     }, this);
+
+    this._squads.push(testSquad);
   };
 
   GameData.prototype.startGame = function(){

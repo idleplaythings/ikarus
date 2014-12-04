@@ -116,7 +116,7 @@ var playerKilled = function(uid) {
   this._battlEyeClient.kickPlayer(this._config.battlEye, uid);
   this._gameData.playerKilled(uid);
   this._gameData.playerDisconnected(uid);
-  this._webAppClient.playerDisconnected(this._config.arma.serverId, uid);
+  this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 
 var playerUnknown = function(uid) {
@@ -125,7 +125,7 @@ var playerUnknown = function(uid) {
 };
 
 var playerDisconnected = function(uid, loot) {
-  this._gameData.playerDisconnected(uid, loot)
+  this._gameData.reportPlayerDisconnected(uid, loot)
   this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 

@@ -16,7 +16,7 @@ Squad.prototype.serializeForArma = function(){
   return [
     this.squadId,
     this.membersOnServer,
-    [startingLocation.x, startingLocation.y],
+    [this.startingLocation.x, this.startingLocation.y],
     this._equipment.serializeForArma(),
     null,
     null,

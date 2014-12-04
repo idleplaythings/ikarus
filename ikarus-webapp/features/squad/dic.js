@@ -10,3 +10,15 @@ dic.register('SquadRepository', function (dic) {
     collections.SquadCollection
   );
 }, {shared: true});
+
+dic.register('SquadOnServerRepository', function (dic) {
+  return new SquadOnServerRepository(
+    collections.SquadsOnServerCollection
+  );
+}, {shared: true});
+
+dic.register('SquadOnServerService', function (dic) {
+  return new SquadOnServerService(
+    dic.get('SquadOnServerRepository')
+  );
+}, {shared: true});

@@ -1,6 +1,10 @@
 Router.map(function () {
   this.route('home', {
     path: '/',
-    template: 'home'
+    template: 'home',
+
+    waitOn: function(){
+      Meteor.subscribe('UserData');
+    }
   });
 });

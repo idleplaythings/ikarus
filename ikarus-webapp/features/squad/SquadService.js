@@ -8,6 +8,11 @@ SquadService = (function(){
 
   SquadService.prototype.getSquadForCurrentUser = function(){
     var user = this._userService.getCurrentUser();
+
+    if (! user){
+      return;
+    }
+
     var squad = this.getSquadByMember(user.steamId);
     return squad;
   };

@@ -4,3 +4,5 @@ if (typeof collections == 'undefined'){
 }
 
 collections.SquadCollection = new Meteor.Collection("squads");
+
+collections.SquadsOnServerCollection = new Meteor.Collection("squadsOnServers");

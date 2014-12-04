@@ -16,6 +16,22 @@ GameServerService = (function(){
     console.log(arguments);
   };
 
+  GameServerService.prototype.playerConnected = function(server, player) {
+    this._serverRepository.addPlayer(server._id, player.steamId);
+  };
+
+  GameServerService.prototype.playerDisconnected = function(server, player) {
+    this._serverRepository.removePlayer(server._id, player.steamId);
+  };
+
+  GameServerService.prototype.getServerById = function(id) {
+    this._serverRepository.getServerById(id);
+  };
+
+  GameServerService.prototype.getServerByName = function(name) {
+    this._serverRepository.getServerByName(name);
+  };
+
   var updateServerStatus = function(serverId, status) {
 
     if (status == 'idle') {
@@ -33,19 +49,6 @@ GameServerService = (function(){
 
     if (status == 'playing') {
       this._serverRepository.setStatus(serverId, 'down');
-    }
-  };
-
-  var updatePlayerStatus = function(serverId, payload) {
-    var uid = payload.uid;
-    var status = payload.status;
-
-    if (status == 'disconnected') {
-      this._serverRepository.removePlayer(serverId, uid);
-    }
-
-    if (status == 'connected') {
-      this._serverRepository.addPlayer(serverId, uid);
     }
   };
 

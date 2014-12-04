@@ -5,6 +5,14 @@ GameServerRepository = (function(){
     this._serverCollection = serverCollection;
   }
 
+  GameServerRepository.prototype.getServerById = function(id){
+    return docToGameServer.call(this, this._serverCollection.findOne({_id: id}));
+  };
+
+  GameServerRepository.prototype.getServerByName = function(name){
+    return docToGameServer.call(this, this._serverCollection.findOne({name: name}));
+  };
+
   GameServerRepository.prototype.getServers = function(){
     return this._serverCollection.find().fetch().map(docToGameServer);
   };

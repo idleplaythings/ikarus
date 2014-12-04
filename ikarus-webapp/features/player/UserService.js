@@ -17,7 +17,11 @@ UserService = (function(){
     if (! doc)
       return null;
 
-    return new User(doc);
+    try {
+      return new User(doc);
+    }catch(e){
+      return null;
+    }
   };
 
   return UserService;

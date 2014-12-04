@@ -3,7 +3,6 @@ Template.serverStatus.helpers({
     Meteor.subscribe('serverStatus');
   },
   servers: function() {
-    var s = dic.get('GameServerRepository').getServers();
-    console.log(s); return s;
+    return dic.get('GameServerRepository').getAll();
   }
 });

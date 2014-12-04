@@ -1,11 +1,18 @@
 Meteor.methods({
   'registerGameServer': function(name) {
-    return dic.get('GameServerService').registerServer(name);
+    var repo = dic.get('GameServerRepository');
+
+    var server = repo.getByName(name);
+
+    if (!server) {
+      repo.create(name);
+    }
   },
 
   'updateServerStatus': function(name, status) {
-    var serverService = dic.get('GameServerService');
-    var server = serverService.getServerByName(name);
+    var repo = dic.get('GameServerRepository');
+
+    var server = repo.getByName(name);
 
     if (! server){
       throw new Meteor.Error(404, "server not found");

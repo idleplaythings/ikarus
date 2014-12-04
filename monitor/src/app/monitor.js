@@ -97,36 +97,36 @@ var gameWaiting = function() {
 
 var gameStart = function() {
   this._battlEyeClient.lockServer();
-  this._webAppClient.reportStatusPlaying();
+  this._webAppClient.reportStatusPlaying(this._config.arma.serverId);
   this._gameData.startGame();
 };
 
 var gameEnd = function() {
   this._battlEyeClient.shutDownServer();
-  this._webAppClient.reportStatusIdle();
+  this._webAppClient.reportStatusIdle(this._config.arma.serverId);
   this._gameData.endGame();
 };
 
 var playerConnected = function(uid) {
   this._gameData.playerConnected(uid);
-  this._webAppClient.reportPlayerConnected(uid);
+  this._webAppClient.reportPlayerConnected(this._config.arma.serverId, uid);
 };
 
 var playerKilled = function(uid) {
   this._battlEyeClient.kickPlayer(uid);
   this._gameData.playerKilled(uid);
   this._gameData.playerDisconnected(uid);
-  this._webAppClient.playerDisconnected(uid);
+  this._webAppClient.playerDisconnected(this._config.arma.serverId, uid);
 };
 
 var playerUnknown = function(uid) {
   this._battlEyeClient.kickPlayer(uid);
-  this._webAppClient.reportPlayerDisconnected(uid);
+  this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 
 var playerDisconnected = function(uid, loot) {
   this._gameData.playerDisconnected(uid, loot)
-  this._webAppClient.reportPlayerDisconnected(uid);
+  this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 
 module.exports = Monitor;

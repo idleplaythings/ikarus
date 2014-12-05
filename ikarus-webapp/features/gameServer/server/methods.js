@@ -18,11 +18,11 @@ Meteor.methods({
       throw new Meteor.Error(404, "server not found");
     }
 
-    if (status == "idle"){
+    if (status == GameServer.STATUS_IDLE){
       dic.get('SquadOnServerService').removeSquadsFrom(server);
     }
 
-    if (status == "playing"){
+    if (status === GameServer.STATUS_PLAYING) {
       dic.get('SquadOnServerService').lockSquadsOn(server);
     }
 

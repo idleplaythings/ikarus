@@ -1,44 +1,36 @@
 <template name="playerStatus">
 
-  {{#if squad}}
-    {{#if squadOnServer}}
-      {{#with squadOnServer}}
-        {{> squadInGameStatus}}
-      {{/with}}
-    {{else}}
+xx{{company}}yy
+
+  {{#if company}}
+    {{#if squad}}
       {{#with squad}}
-        {{>squadServerStatus}}
+        {{> squadStatus}}
       {{/with}}
     {{/if}}
   {{else}}
-    {{> createOrJoinSquad}}
+    {{> createOrJoinCompany}}
   {{/if}}
 </template>
 
-<template name="squadInGameStatus">
+<template name="squadStatus">
 
   <h2>{{squad.name}}</h2>
   <h3>You are on server: {{server.name}}</h3>
 
 </template>
 
-<template name="squadServerStatus">
-
-    <h2>{{name}}</h2>
-
-</template>
-
-<template name="createOrJoinSquad">
-  <h2>You don't seem to be in a squad. Create a squad!</h2>
-  <label>Name for your squad:</label>
-  <input id="create-squad-name" type="text">
-  <button id="create-squad">Create new squad</button>
+<template name="createOrJoinCompany">
+  <h2>You don't seem to be in a company. Create a company!</h2>
+  <label>Name for your company:</label>
+  <input id="create-company-name" type="text">
+  <button id="create-company">Create new company</button>
 
   {{#if invites}}
-    <h2>Or join one of these squads:</h2>
+    <h2>Or join one of these companys:</h2>
     {{#each invites}}
-      <button class="join-squad" data-squadId="{{squadId}}">
-        Join squad "{{squadName}}"
+      <button class="join-company" data-companyId="{{companyId}}">
+        Join company "{{companyName}}"
       </button>
     {{/each}}
   {{else}}

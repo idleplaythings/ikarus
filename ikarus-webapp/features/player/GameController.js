@@ -1,18 +1,18 @@
 GameController = function GameController(
-  userService,
+  playerRepository,
   gameServerService,
-  squadService,
+  companyService,
   squadOnServerService
 ){
-  this._userService = userService;
+  this._playerRepository = playerRepository;
   this._gameServerService = gameServerService;
-  this._squadService = squadService;
+  this._companyService = companyService;
   this._squadOnServerService = squadOnServerService;
 }
 
-GameController.prototype.playerConnected = function(serverName, playerUid){
+GameController.prototype.playerConnected = function(serverName, playerUid) {
   var server = this._gameServerService.getServerByName(serverName);
-  var player = this._userService.getUserById(playerUid);
+  var player = this._playerRepository.getById(playerUid);
 
   if (! server){
     throw new Error("Server not found");
@@ -24,7 +24,7 @@ GameController.prototype.playerConnected = function(serverName, playerUid){
 
   this._gameServerService.playerConnected(server, player);
 
-  var squad = this._squadService.getSquadByMember(player.steamId);
+  var squad = this._companyService.getByMember(player.steamId);
 
   if (! squad){
     return;
@@ -47,7 +47,7 @@ GameController.prototype.playerConnected = function(serverName, playerUid){
 
 GameController.prototype.playerDisconnected = function(serverName, playerUid){
   var server = this._gameServerService.getServerByName(serverName);
-  var player = this._userService.getUserById(playerUid);
+  var player = this._playerRepository.getById(playerUid);
 
   if (! server){
     throw new Error("Server not found");
@@ -59,7 +59,7 @@ GameController.prototype.playerDisconnected = function(serverName, playerUid){
 
   this._gameServerService.playerDisconnected(server, player);
 
-  var squad = this._squadService.getSquadByMember(player.steamId);
+  var squad = this._companyService.getByMember(player.steamId);
 
   if (! squad){
     return;

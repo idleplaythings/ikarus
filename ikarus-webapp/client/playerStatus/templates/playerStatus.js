@@ -1,49 +1,45 @@
-(function(){
-  'use strict';
+Template.playerStatus.helpers({
+  company: function() {
+    return dic.get('CompanyService').getForCurrentPlayer();
+  },
 
-  Template.playerStatus.helpers({
-    squad: function() {
-      return dic.get('SquadService').getSquadForCurrentUser();
-    },
+  squad: function() {
+    return dic.get('SquadOnServerService').getSquadOnServerForCurrentPlayer();
+  },
+});
 
-    squadOnServer: function() {
-      return dic.get('SquadOnServerService').getSquadOnServerForCurrentPlayer();
-    },
-  });
+Template.squadStatus.helpers({
+  squad: function() {
+    return dic.get('CompanyService').getForCurrentPlayer();
+  },
 
-  Template.squadInGameStatus.helpers({
-    squad: function() {
-      return dic.get('SquadService').getSquadForCurrentUser();
-    },
+  server: function() {
+    return dic.get('GameServerService').getServerById(this.serverId);
+  },
+});
 
-    server: function() {
-      return dic.get('GameServerService').getServerById(this.serverId);
-    },
-  });
+Template.createOrJoinCompany.helpers({
+  invites: function() {
+    return [];
+  }
+});
 
-  Template.createOrJoinSquad.helpers({
-    invites: function() {
-      return [];
+Template.createOrJoinCompany.events({
+  'click #create-company': function(event, template) {
+    var name = template.find('#create-company-name').value.trim();
+
+    // @todo does not belong here
+    if (name.length < 5) {
+      alert ("Squad name must be atleast 5 characters");
+      return;
     }
-  });
 
-  Template.createOrJoinSquad.events({
-    'click #create-squad': function(event, template) {
-      var name = template.find('#create-squad-name').value.trim();
-
-      if (name.length < 5) {
-        alert ("Squad name must be atleast 5 characters");
-        return;
+    Meteor.call(
+      'createCompany',
+      name,
+      function(error, result){
+        console.log(error, result);
       }
-
-      Meteor.call(
-        'createSquad',
-        name,
-        function(error, result){
-          console.log(error, result);
-        }
-      );
-    }
-  });
-
-})();
+    );
+  }
+});

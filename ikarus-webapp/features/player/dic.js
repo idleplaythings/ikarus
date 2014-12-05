@@ -1,12 +1,12 @@
-dic.register('UserService', function (dic) {
-  return new UserService();
+dic.register('PlayerRepository', function (dic) {
+  return new PlayerRepository();
 }, {shared: true});
 
 dic.register('GameController', function (dic) {
   return new GameController(
-    dic.get('UserService'),
-    dic.get('GameServerService'),
-    dic.get('SquadService'),
+    dic.get('PlayerRepository'),
+    dic.get('GameServerRepository'),
+    dic.get('CompanyService'),
     dic.get('SquadOnServerService')
   );
 }, {shared: true});

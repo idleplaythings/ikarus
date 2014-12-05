@@ -6,6 +6,7 @@ GameServer = function GameServer(args) {
 }
 
 GameServer.STATUS_IDLE = 'idle';
+GameServer.STATUS_PLAYING = 'playing';
 
 GameServer.prototype.getName = function() {
   return this.name;

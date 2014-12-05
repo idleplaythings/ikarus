@@ -1,32 +1,19 @@
-(function(){
-  'use strict';
+Meteor.methods({
+  ChangeStartingLocation: function(squadOnServerId, location){
+    var squadService = dic.get('SquadOnServerService');
+    var squad = squadService.getSquadOnServerForCurrentPlayer();
 
-  Meteor.methods({
-    createSquad: function(name){
-      if (! name || name.length < 5) {
-        return;
-      }
-
-      dic.get('SquadService').createSquad(name);
-    },
-
-    ChangeStartingLocation: function(squadOnServerId, location){
-      var squadOnServerService = dic.get('SquadOnServerService');
-      var squadOnServer = squadOnServerService.getSquadOnServerForCurrentPlayer();
-
-      if (squadOnServer._id !== squadOnServerId) {
-        throw new Meteor.Error(404, 'Squad on server not found');
-      }
-
-      if (squadOnServer.locked) {
-        return;
-      }
-
-      squadOnServer.startingLocation = location;
-
-      squadOnServerService.save(squadOnServer);
+    if (squad._id !== squadOnServerId) {
+      throw new Meteor.Error(404, 'Squad on server not found');
     }
 
-  });
+    if (squad.locked) {
+      return;
+    }
 
-})();
+    squad.startingLocation = location;
+
+    squadService.save(squad);
+  }
+
+});

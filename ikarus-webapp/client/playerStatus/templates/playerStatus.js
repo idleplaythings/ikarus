@@ -1,16 +1,18 @@
 Template.playerStatus.helpers({
   company: function() {
-    return dic.get('CompanyService').getForCurrentPlayer();
+    var player = dic.get('PlayerRepository').getCurrent();
+    return dic.get('CompanyRepository').getByMember(player);
   },
 
   squad: function() {
-    return dic.get('SquadOnServerService').getSquadOnServerForCurrentPlayer();
+    var player = dic.get('PlayerRepository').getCurrent();
+    return dic.get('SquadRepository').getByPlayer(player);
   },
 });
 
 Template.squadStatus.helpers({
   squad: function() {
-    return dic.get('CompanyService').getForCurrentPlayer();
+    return dic.get('CompanyRepository').getForCurrentPlayer();
   },
 
   server: function() {

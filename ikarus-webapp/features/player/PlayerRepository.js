@@ -1,5 +1,5 @@
 PlayerRepository = function PlayerRepository() {
-
+  // @todo this repo depends on Meteor users collection, but it's not evident
 }
 
 PlayerRepository.prototype.updatePlayerSquadId = function(user, squadId) {

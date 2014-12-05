@@ -9,6 +9,14 @@ Squad = function Squad(args) {
   this.locked = args.locked || false;
 }
 
+Squad.prototype.getId = function() {
+  return this._id;
+}
+
+Squad.prototype.isLocked = function() {
+  return this.locked;
+}
+
 Squad.prototype.addPlayer = function(player) {
   if (this.members.indexOf(player.getSteamId()) !== -1)
     return;

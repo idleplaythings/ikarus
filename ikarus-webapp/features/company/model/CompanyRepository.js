@@ -25,6 +25,10 @@ CompanyRepository.prototype.getByName = function(name) {
 };
 
 CompanyRepository.prototype.getByMember = function(player) {
+  if (!player) {
+    return null;
+  }
+
   return this._fromDoc(
     this._companyCollection.findOne({
       members: {

@@ -1,19 +1,21 @@
 Meteor.methods({
-  ChangeStartingLocation: function(squadOnServerId, location){
-    var squadService = dic.get('SquadOnServerService');
-    var squad = squadService.getSquadOnServerForCurrentPlayer();
+  'changeStartingLocation': function(squadId, location) {
+    var squadRepository = dic.get('SquadRepository');
+    var player = dic.get('PlayerRepository').getCurrent();
+    var squad = squadRepository.getByPlayer(player);
 
-    if (squad._id !== squadOnServerId) {
+    console.log(squad);
+
+    if (!squad || squad.getId() !== squadId) {
       throw new Meteor.Error(404, 'Squad on server not found');
     }
 
-    if (squad.locked) {
+    if (squad.isLocked()) {
       return;
     }
 
     squad.startingLocation = location;
 
-    squadService.save(squad);
+    squadRepository.persist(squad);
   }
-
 });

@@ -1,5 +1,5 @@
 var Squad = require('../domain/squad.js');
-var SquadEquipment = require('../domain/squadEquipment.js');
+var Inventory = require('../domain/inventory.js');
 var SquadLoot = require('../domain/squadLoot.js');
 
 module.exports = function(){
@@ -19,16 +19,29 @@ module.exports = function(){
 
   function GameData() {
     this._squads = [];
+    this._members = [];
     this._gameStarted = false;
   }
 
-  GameData.prototype.setSquads = function(data){
+  GameData.prototype.setSquads = function(squads, members){
     if (this._gameStarted)
       return;
 
-    this._squads = Object.keys(data).map(function(key){
-      return new Squad(data[key]);
+    this._squads = Object.keys(squads).map(function(key){
+      return new Squad(squads[key]);
     }, this);
+
+    this._members = Object.keys(members).map(function(key){
+      var serialized = members[key];
+      return {
+        steamId: serialized.steamId,
+        inventory: new Inventory(serialized.inventory)
+      };
+    }, this);
+  };
+
+  GameData.prototype.getMembersByPlayerId = function(playerId){
+    this._gameStarted = true;
   };
 
   GameData.prototype.startGame = function(){

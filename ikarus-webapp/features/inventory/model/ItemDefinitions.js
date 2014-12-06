@@ -9,7 +9,7 @@ ItemDefinitions = [
   createMagazine('30 rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30, true),
 ];
 
-var createWeapon = function(name, armaClass, magazines, unlimited){
+function createWeapon(name, armaClass, magazines, unlimited){
   return new ItemWeapon({
     armaClass: armaClass,
     name: name,
@@ -18,7 +18,7 @@ var createWeapon = function(name, armaClass, magazines, unlimited){
   })
 };
 
-var createMagazine = function(name, armaClass, ammo, unlimited){
+function createMagazine(name, armaClass, ammo, unlimited){
   return new ItemMagazine({
     armaClass: armaClass,
     name: name,
@@ -27,7 +27,7 @@ var createMagazine = function(name, armaClass, ammo, unlimited){
   })
 };
 
-var createGeneric = function(name, armaClass, unlimited){
+function createGeneric(name, armaClass, unlimited){
   return new ItemGeneric({
     armaClass: armaClass,
     name: name,
@@ -35,7 +35,7 @@ var createGeneric = function(name, armaClass, unlimited){
   })
 };
 
-var createBackpack = function(name, armaClass, unlimited){
+function createBackpack(name, armaClass, unlimited){
   return new ItemBackpack({
     armaClass: armaClass,
     name: name,

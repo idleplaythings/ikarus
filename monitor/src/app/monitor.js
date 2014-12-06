@@ -56,31 +56,30 @@ Monitor.prototype._connectToWebApp = function() {
       this._webAppClient.registerServer(serverId);
       this._webAppClient.reportStatusIdle(serverId);
       this._webAppClient.subscribe('SquadsOnServer', [serverId]);
-      var squadObserver = this._webAppClient.getObserver('squadsOnServers');
-
-      squadObserver.added = function(id) {
-        this._gameData.setSquads(
-          this._webAppClient.getCollection('squadsOnServers')
-        );
-      }.bind(this);
-
-      squadObserver.changed = function(id, oldFields, clearedFields, newFields) {
-        this._gameData.setSquads(
-          this._webAppClient.getCollection('squadsOnServers')
-        );
-      }.bind(this);
-
-      squadObserver.removed = function(id, old) {
-        this._gameData.setSquads(
-          this._webAppClient.getCollection('squadsOnServers')
-        );
-      }.bind(this);
+      this.__initDdpObservers();
     }.bind(this)
   );
 };
 
-Monitor.prototype._initDdpObservers = function() {
 
+
+Monitor.prototype._initDdpObservers = function() {
+  var squadObserver = this._webAppClient.getObserver('squads');
+  squadObserver.added = this._setSquads;
+  squadObserver.changed = this._setSquads;
+  squadObserver.removed = this._setSquads;
+
+  var memberObserver = this._webAppClient.getObserver('squadMembers');
+  memberObserver.added = this._setSquads;
+  memberObserver.changed = this._setSquads;
+  memberObserver.removed = this._setSquads;
+};
+
+Monitor.prototype._setSquads = function(){
+  this._gameData.setSquads(
+    this._webAppClient.getCollection('squads'),
+    this._webAppClient.getCollection('squadMembers'),
+  );
 };
 
 var squadsRetrieve = function(test) {

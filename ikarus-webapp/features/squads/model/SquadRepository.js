@@ -45,22 +45,9 @@ SquadRepository.prototype.getSquadByServerAndCompany = function(server, company)
 SquadRepository.prototype.persist = function(squad) {
   this._squadCollection.update(
     { _id: squad._id },
-    this._serialize(squad),
+    squad.serialize(),
     { upsert: true }
   );
-};
-
-SquadRepository.prototype._serialize = function(squad) {
-  return {
-    serverId: squad.serverId,
-    companyId: squad.companyId,
-    playerIds: squad.playerIds,
-    missionItems: squad.missionItems.serialize(),
-    startingLocation: squad.startingLocation,
-    objectives: squad.objectives,
-    squadId: squad.squadId,
-    locked: squad.locked
-  };
 };
 
 SquadRepository.prototype._fromDoc = function(doc) {

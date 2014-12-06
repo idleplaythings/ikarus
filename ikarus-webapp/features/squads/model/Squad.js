@@ -7,12 +7,23 @@ Squad = function Squad(args) {
   this.serverId = args.serverId;
   this.companyId = args.companyId;
   this.playerIds = args.playerIds || [];
-  this.missionItems = new SquadMissionItems(args.missionItems);
   this.startingLocation = args.startingLocation || {x: 10000, y:10000};
   this.objectives = args.objectives;
   this.squadId = args.squadId;
   this.locked = args.locked || false;
 }
+
+Squad.prototype.serialize = function() {
+  return {
+    serverId: this.serverId,
+    companyId: this.companyId,
+    playerIds: this.playerIds,
+    startingLocation: this.startingLocation,
+    objectives: this.objectives,
+    squadId: this.squadId,
+    locked: this.locked
+  };
+};
 
 Squad.prototype.isLocked = function() {
   return this.locked;

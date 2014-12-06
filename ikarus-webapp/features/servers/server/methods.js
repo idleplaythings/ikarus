@@ -1,6 +1,6 @@
 Meteor.methods({
-  'registerGameServer': function(name) {
-    var repo = dic.get('GameServerRepository');
+  'registerServer': function(name) {
+    var repo = dic.get('ServerRepository');
 
     var server = repo.getByName(name);
 
@@ -10,7 +10,7 @@ Meteor.methods({
   },
 
   'updateServerStatus': function(name, status) {
-    var repo = dic.get('GameServerRepository');
+    var repo = dic.get('ServerRepository');
 
     var server = repo.getByName(name);
 
@@ -18,11 +18,11 @@ Meteor.methods({
       throw new Meteor.Error(404, "server not found");
     }
 
-    if (status == GameServer.STATUS_IDLE){
+    if (status == Server.STATUS_IDLE){
       dic.get('SquadRepository').removeSquadsFromServer(server);
     }
 
-    if (status === GameServer.STATUS_PLAYING) {
+    if (status === Server.STATUS_PLAYING) {
       dic.get('SquadRepository').lockSquadsOnServer(server);
     }
 

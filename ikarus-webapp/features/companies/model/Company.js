@@ -12,6 +12,10 @@ Company.prototype.getName = function() {
   return this.name;
 }
 
+Company.prototype.getPlayerIds = function() {
+  return this.playerIds;
+}
+
 Company.prototype.addPlayer = function(player) {
   if (this.playerIds.indexOf(player.getSteamId()) !== -1) {
     return;
@@ -25,7 +29,3 @@ Company.prototype.removePlayer = function(player) {
     return steamId !== player.getSteamId();
   });
 };
-
-Company.prototype.getPlayerIds = function() {
-  return this.playerIds;
-}

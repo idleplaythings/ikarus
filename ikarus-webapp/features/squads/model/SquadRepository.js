@@ -22,12 +22,12 @@ SquadRepository.prototype.createOnServerForCompany = function(server, company){
   return this.getSquadByServerAndCompany(server, company);
 };
 
-SquadRepository.prototype.removeSquadsFromServer = function(gameServer) {
-  this._squadCollection.remove({ serverId: gameServer.getId() });
+SquadRepository.prototype.removeSquadsFromServer = function(server) {
+  this._squadCollection.remove({ serverId: server.getId() });
 };
 
 SquadRepository.prototype.lockSquadsOnServer = function(server) {
-  this._squadCollection.update({ serverId: gameServer.getId() }, { $set: { locked: true }});
+  this._squadCollection.update({ serverId: server.getId() }, { $set: { locked: true }});
 };
 
 SquadRepository.prototype.getSquadByServerAndCompany = function(server, company) {

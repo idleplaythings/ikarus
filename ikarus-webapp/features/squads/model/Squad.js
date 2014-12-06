@@ -18,9 +18,25 @@ Squad.prototype.getId = function() {
   return this._id;
 }
 
+Squad.prototype.getServerId = function() {
+  return this.serverId;
+}
+
+Squad.prototype.getCompanyId = function() {
+  return this.companyId;
+}
+
+Squad.prototype.getPlayerIds = function() {
+  return this.playerIds;
+}
+
 Squad.prototype.isLocked = function() {
   return this.locked;
 }
+
+Squad.prototype.isEmpty = function(){
+  return this.playerIds.length === 0;
+};
 
 Squad.prototype.addPlayer = function(player) {
   if (this.playerIds.indexOf(player.getSteamId()) !== -1) {
@@ -34,25 +50,4 @@ Squad.prototype.removePlayer = function(player){
   this.playerIds = this.playerIds.filter(function(steamId){
     return steamId !== player.getSteamId();
   });
-};
-
-Squad.prototype.getPlayerIds = function() {
-  return this.playerIds;
-}
-
-Squad.prototype.isEmpty = function(){
-  return this.playerIds.length === 0;
-};
-
-Squad.prototype.serialize = function(){
-  return {
-    serverId: this.serverId,
-    companyId: this.companyId,
-    playerIds: this.playerIds,
-    missionItems: this.missionItems.serialize(),
-    startingLocation: this.startingLocation,
-    objectives: this.objectives,
-    squadId: this.squadId,
-    locked: this.locked
-  };
 };

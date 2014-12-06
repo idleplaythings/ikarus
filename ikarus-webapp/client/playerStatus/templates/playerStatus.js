@@ -17,7 +17,7 @@ Template.squadStatus.helpers({
   },
 
   server: function() {
-    return dic.get('GameServerRepository').getById(this.serverId);
+    return dic.get('ServerRepository').getById(this.serverId);
   },
 });
 

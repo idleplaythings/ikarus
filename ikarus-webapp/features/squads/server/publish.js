@@ -1,5 +1,5 @@
 Meteor.publish('SquadsOnServer', function(serverId){
-  var server = collections.GameServerCollection.findOne({name: serverId});
+  var server = collections.ServerCollection.findOne({name: serverId});
 
   if ( ! server){
     this.ready();

@@ -1,17 +1,17 @@
 GameController = function GameController(
   playerRepository,
-  gameServerRepository,
+  serverRepository,
   companyRepository,
   squadRepository
 ){
   this._playerRepository = playerRepository;
-  this._gameServerRepository = gameServerRepository;
+  this._serverRepository = serverRepository;
   this._companyRepository = companyRepository;
   this._squadRepository = squadRepository;
 }
 
 GameController.prototype.playerConnected = function(serverName, playerUid) {
-  var server = this._gameServerRepository.getByName(serverName);
+  var server = this._serverRepository.getByName(serverName);
   var player = this._playerRepository.getById(playerUid);
 
   if (! server){
@@ -23,7 +23,7 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
   }
 
   server.addPlayer(player);
-  this._gameServerRepository.persist(server);
+  this._serverRepository.persist(server);
 
   var company = this._companyRepository.getByMember(player);
 
@@ -44,7 +44,7 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
 };
 
 GameController.prototype.playerDisconnected = function(serverName, playerUid) {
-  var server = this._gameServerRepository.getByName(serverName);
+  var server = this._serverRepository.getByName(serverName);
   var player = this._playerRepository.getById(playerUid);
 
   if (! server){
@@ -57,7 +57,7 @@ GameController.prototype.playerDisconnected = function(serverName, playerUid) {
 
   server.removePlayer(player);
   console.log(server);
-  this._gameServerRepository.persist(server);
+  this._serverRepository.persist(server);
 
   var company = this._companyRepository.getByMember(player);
 

@@ -3,13 +3,13 @@ Template.serverStatus.helpers({
     Meteor.subscribe('serverStatus');
   },
   servers: function() {
-    return dic.get('GameServerRepository').getAll();
+    return dic.get('ServerRepository').getAll();
   },
 });
 
 Template.serverStatus.events({
   'click .js-server-register': function(event, template) {
-    Meteor.call('registerGameServer', template.find('[name=server-name]').value);
+    Meteor.call('registerServer', template.find('[name=server-name]').value);
   },
   'click .js-server-connect': function(event, template) {
     Meteor.call(

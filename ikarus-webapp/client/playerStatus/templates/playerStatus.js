@@ -1,7 +1,7 @@
 Template.playerStatus.helpers({
   company: function() {
     var player = dic.get('PlayerRepository').getCurrent();
-    return dic.get('CompanyRepository').getByMember(player);
+    return dic.get('CompanyRepository').getByPlayer(player);
   },
 
   squad: function() {

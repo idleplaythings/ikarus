@@ -5,7 +5,7 @@ Template.home.created = function(){
 
 Template.home.helpers({
   company: function() {
-    return dic.get('CompanyRepository').getByMember(
+    return dic.get('CompanyRepository').getByPlayer(
       dic.get('PlayerRepository').getCurrent()
     );
   }

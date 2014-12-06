@@ -25,7 +25,7 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
   server.addPlayer(player);
   this._serverRepository.persist(server);
 
-  var company = this._companyRepository.getByMember(player);
+  var company = this._companyRepository.getByPlayer(player);
 
   if (! company) {
     throw new Error("Company not found");
@@ -59,7 +59,7 @@ GameController.prototype.playerDisconnected = function(serverName, playerUid) {
   console.log(server);
   this._serverRepository.persist(server);
 
-  var company = this._companyRepository.getByMember(player);
+  var company = this._companyRepository.getByPlayer(player);
 
   if (! company) {
     throw new Error("Company not found");

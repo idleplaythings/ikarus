@@ -1,0 +1,43 @@
+<template name="serverStatus">
+  <div>
+    <input name="server-name" /> <button class="js-server-register">Register server</button>
+  </div>
+  <div>
+    <h2>Servers</h2>
+    <div>
+      <div class="row">
+        <div class="col-md-4">
+          Name
+        </div>
+        <div class="col-md-2">
+          Status
+        </div>
+        <div class="col-md-2">
+          Players
+        </div>
+      </div>
+
+    {{#each servers}}
+      <div class="row">
+        <div class="col-md-4">
+          {{name}}
+        </div>
+        <div class="col-md-2">
+          {{status}}
+        </div>
+        <div>
+          {{playerCount}}
+        </div>
+        <div>
+          <button data-server-name="{{name}}" class="js-server-connect">Connect</button>
+          <button data-server-name="{{name}}" class="js-server-disconnect">Disconnect</button>
+        </div>
+      </div>
+    {{else}}
+      <div class="row">
+        No servers found.
+      </div>
+    {{/each}}
+    </div>
+  </div>
+</template>

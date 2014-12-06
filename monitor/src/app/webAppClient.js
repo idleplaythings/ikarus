@@ -69,7 +69,7 @@ WebAppClient.prototype.call = function(name, arguments){
 };
 
 WebAppClient.prototype.registerServer = function(serverId) {
-  this.call('registerGameServer', [ serverId ]);
+  this.call('registerServer', [ serverId ]);
 }
 
 WebAppClient.prototype.reportStatusDown = function(serverId) {

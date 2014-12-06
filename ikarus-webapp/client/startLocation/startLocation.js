@@ -10,6 +10,6 @@ Template.startLocation.events({
 
     console.log(x, y);
 
-    Meteor.call('ChangeStartingLocation', this._id, {x:x, y:y});
+    Meteor.call('changeStartingLocation', this._id, {x:x, y:y});
   }
 });

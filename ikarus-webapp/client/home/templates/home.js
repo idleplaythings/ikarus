@@ -4,7 +4,9 @@ Template.home.created = function(){
 };
 
 Template.home.helpers({
-  squadOnServer: function() {
-    return dic.get('SquadOnServerService').getSquadOnServerForCurrentPlayer();
+  company: function() {
+    return dic.get('CompanyRepository').getByPlayer(
+      dic.get('PlayerRepository').getCurrent()
+    );
   }
 })

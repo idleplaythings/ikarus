@@ -31,7 +31,7 @@ CompanyRepository.prototype.getByMember = function(player) {
 
   return this._fromDoc(
     this._companyCollection.findOne({
-      members: {
+      playerIds: {
         $in: [ player.getSteamId() ]
       }
     })
@@ -41,12 +41,8 @@ CompanyRepository.prototype.getByMember = function(player) {
 CompanyRepository.prototype._serialize = function(company) {
   return {
     name: company.getName(),
-    members: company.getMembers().map(this._mapToSteamId)
+    playerIds: company.getPlayerIds()
   };
-};
-
-CompanyRepository.prototype._mapToSteamId = function(player) {
-  return player.steamId;
 };
 
 CompanyRepository.prototype._fromDoc = function(doc) {

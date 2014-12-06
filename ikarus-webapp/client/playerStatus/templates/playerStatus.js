@@ -12,11 +12,12 @@ Template.playerStatus.helpers({
 
 Template.squadStatus.helpers({
   squad: function() {
-    return dic.get('CompanyRepository').getForCurrentPlayer();
+    var player = dic.get('PlayerRepository').getCurrent();
+    return dic.get('SquadRepository').getByPlayer(player);
   },
 
   server: function() {
-    return dic.get('GameServerService').getServerById(this.serverId);
+    return dic.get('GameServerRepository').getById(this.serverId);
   },
 });
 

@@ -1,5 +1,8 @@
 <template name="serverStatus">
   <div>
+    <input name="server-name" /> <button class="js-server-register">Register server</button>
+  </div>
+  <div>
     <h2>Servers</h2>
     <div>
       <div class="row">
@@ -24,6 +27,10 @@
         </div>
         <div>
           {{playerCount}}
+        </div>
+        <div>
+          <button data-server-name="{{name}}" class="js-server-connect">Connect</button>
+          <button data-server-name="{{name}}" class="js-server-disconnect">Disconnect</button>
         </div>
       </div>
     {{else}}

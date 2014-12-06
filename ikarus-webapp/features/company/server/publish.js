@@ -9,7 +9,7 @@ Meteor.publish('MySquad', function(){
   console.log(user.squadId);
 
   return [
-    collections.CompanyCollection.find({members: {$in: [steamId]}}),
+    collections.CompanyCollection.find({playerIds: {$in: [steamId]}}),
     collections.SquadCollection.find({squadId: user.squadId})
   ];
 });

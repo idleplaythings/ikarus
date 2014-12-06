@@ -1,10 +1,7 @@
 <template name="playerStatus">
-
-xx{{company}}yy
-
   {{#if company}}
     {{#if squad}}
-      {{#with squad}}
+      {{#with company}}
         {{> squadStatus}}
       {{/with}}
     {{/if}}
@@ -15,7 +12,7 @@ xx{{company}}yy
 
 <template name="squadStatus">
 
-  <h2>{{squad.name}}</h2>
+  <h2>{{company.name}}</h2>
   <h3>You are on server: {{server.name}}</h3>
 
 </template>

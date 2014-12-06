@@ -25,7 +25,7 @@ GameServerRepository.prototype.persist = function(gameServer) {
 GameServerRepository.prototype._serialize = function(gameServer) {
   return {
     name: gameServer.getName(),
-    players: gameServer.getPlayers(),
+    playerIds: gameServer.getPlayerIds(),
     status: gameServer.getStatus()
   };
 }

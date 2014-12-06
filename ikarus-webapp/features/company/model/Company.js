@@ -1,7 +1,7 @@
 Company = function Company(args) {
   this._id = args._id || undefined;
   this.name = args.name;
-  this.members = args.members || [];
+  this.playerIds = args.playerIds || [];
 }
 
 Company.prototype.getId = function() {
@@ -12,19 +12,20 @@ Company.prototype.getName = function() {
   return this.name;
 }
 
-Company.prototype.addMember = function(player) {
-  this.members.push(player);
-};
-
-Company.prototype.getMembers = function() {
-  return this.members;
-}
-
-Company.prototype.serialize = function(){
-  return {
-    name: this.name,
-    members: this.members.map(function(member){
-      return member.steamId
-    })
+Company.prototype.addPlayer = function(player) {
+  if (this.playerIds.indexOf(player.getSteamId()) !== -1) {
+    return;
   }
+
+  this.playerIds.push(player.getSteamId());
 };
+
+Company.prototype.removePlayer = function(player) {
+  this.playerIds = this.playerIds.filter(function(steamId) {
+    return steamId !== player.getSteamId();
+  });
+};
+
+Company.prototype.getPlayerIds = function() {
+  return this.playerIds;
+}

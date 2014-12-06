@@ -9,7 +9,7 @@ Meteor.methods({
     var playerRepo = dic.get('PlayerRepository');
 
     var company = companyRepo.create(name);
-    company.addMember(playerRepo.getCurrent());
+    company.addPlayer(playerRepo.getCurrent());
     companyRepo.persist(company);
   }
 });

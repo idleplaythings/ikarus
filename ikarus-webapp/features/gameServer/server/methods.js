@@ -19,11 +19,11 @@ Meteor.methods({
     }
 
     if (status == GameServer.STATUS_IDLE){
-      dic.get('SquadOnServerService').removeSquadsFrom(server);
+      dic.get('SquadRepository').removeSquadsFromServer(server);
     }
 
     if (status === GameServer.STATUS_PLAYING) {
-      dic.get('SquadOnServerService').lockSquadsOn(server);
+      dic.get('SquadRepository').lockSquadsOnServer(server);
     }
 
     return serverService.updateStatus(server, status);

@@ -9,30 +9,30 @@ SquadRepository.prototype.getById = function(squadId) {
 SquadRepository.prototype.getByPlayer = function(player) {
   return this._fromDoc(
     this._squadCollection.findOne({
-      playerIds: {$in: [ player.getSteamId() ]}
+      playerIds: {$in: [ player.steamId ]}
     })
   );
 };
 
 SquadRepository.prototype.createOnServerForCompany = function(server, company){
   this.persist(new Squad({
-    serverId: server.getId(),
-    companyId: company.getId()
+    serverId: server._id,
+    companyId: company._id
   }));
   return this.getSquadByServerAndCompany(server, company);
 };
 
 SquadRepository.prototype.removeSquadsFromServer = function(server) {
-  this._squadCollection.remove({ serverId: server.getId() });
+  this._squadCollection.remove({ serverId: server._id });
 };
 
 SquadRepository.prototype.lockSquadsOnServer = function(server) {
-  this._squadCollection.update({ serverId: server.getId() }, { $set: { locked: true }});
+  this._squadCollection.update({ serverId: server._id }, { $set: { locked: true }});
 };
 
 SquadRepository.prototype.getSquadByServerAndCompany = function(server, company) {
   var doc = this._squadCollection.findOne(
-      {$and: [{serverId: server.getId()}, {companyId: company.getId()}]}
+      {$and: [{serverId: server._id}, {companyId: company._id}]}
   );
 
   if (!doc) {
@@ -44,7 +44,7 @@ SquadRepository.prototype.getSquadByServerAndCompany = function(server, company)
 
 SquadRepository.prototype.persist = function(squad) {
   this._squadCollection.update(
-    { _id: squad.getId() },
+    { _id: squad._id },
     this._serialize(squad),
     { upsert: true }
   );
@@ -54,7 +54,7 @@ SquadRepository.prototype._serialize = function(squad) {
   return {
     serverId: squad.serverId,
     companyId: squad.companyId,
-    playerIds: squad.getPlayerIds(),
+    playerIds: squad.playerIds,
     missionItems: squad.missionItems.serialize(),
     startingLocation: squad.startingLocation,
     objectives: squad.objectives,

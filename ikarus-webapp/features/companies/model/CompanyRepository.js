@@ -10,7 +10,7 @@ CompanyRepository.prototype.create = function(name) {
 
 CompanyRepository.prototype.persist = function(company) {
   this._companyCollection.update(
-    { name: company.getName() },
+    { name: company.name },
     this._serialize(company),
     { upsert: true }
   );
@@ -32,7 +32,7 @@ CompanyRepository.prototype.getByMember = function(player) {
   return this._fromDoc(
     this._companyCollection.findOne({
       playerIds: {
-        $in: [ player.getSteamId() ]
+        $in: [ player.steamId ]
       }
     })
   );
@@ -40,8 +40,8 @@ CompanyRepository.prototype.getByMember = function(player) {
 
 CompanyRepository.prototype._serialize = function(company) {
   return {
-    name: company.getName(),
-    playerIds: company.getPlayerIds()
+    name: company.name,
+    playerIds: company.playerIds
   };
 };
 

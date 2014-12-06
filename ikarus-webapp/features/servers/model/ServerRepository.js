@@ -16,7 +16,7 @@ ServerRepository.prototype.getByName = function(name) {
 
 ServerRepository.prototype.persist = function(server) {
   this._serverCollection.update(
-    { name: server.getName() },
+    { name: server.name },
     this._serialize(server),
     { upsert: true }
   );
@@ -24,9 +24,9 @@ ServerRepository.prototype.persist = function(server) {
 
 ServerRepository.prototype._serialize = function(server) {
   return {
-    name: server.getName(),
-    playerIds: server.getPlayerIds(),
-    status: server.getStatus()
+    name: server.name,
+    playerIds: server.playerIds,
+    status: server.status
   };
 }
 

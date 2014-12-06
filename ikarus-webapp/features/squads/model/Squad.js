@@ -14,22 +14,6 @@ Squad = function Squad(args) {
   this.locked = args.locked || false;
 }
 
-Squad.prototype.getId = function() {
-  return this._id;
-}
-
-Squad.prototype.getServerId = function() {
-  return this.serverId;
-}
-
-Squad.prototype.getCompanyId = function() {
-  return this.companyId;
-}
-
-Squad.prototype.getPlayerIds = function() {
-  return this.playerIds;
-}
-
 Squad.prototype.isLocked = function() {
   return this.locked;
 }
@@ -39,15 +23,15 @@ Squad.prototype.isEmpty = function(){
 };
 
 Squad.prototype.addPlayer = function(player) {
-  if (this.playerIds.indexOf(player.getSteamId()) !== -1) {
+  if (this.playerIds.indexOf(player.steamId) !== -1) {
     return;
   }
 
-  this.playerIds.push(player.getSteamId());
+  this.playerIds.push(player.steamId);
 };
 
 Squad.prototype.removePlayer = function(player){
   this.playerIds = this.playerIds.filter(function(steamId){
-    return steamId !== player.getSteamId();
+    return steamId !== player.steamId;
   });
 };

@@ -4,28 +4,16 @@ Company = function Company(args) {
   this.playerIds = args.playerIds || [];
 }
 
-Company.prototype.getId = function() {
-  return this._id;
-};
-
-Company.prototype.getName = function() {
-  return this.name;
-}
-
-Company.prototype.getPlayerIds = function() {
-  return this.playerIds;
-}
-
 Company.prototype.addPlayer = function(player) {
-  if (this.playerIds.indexOf(player.getSteamId()) !== -1) {
+  if (this.playerIds.indexOf(player.steamId) !== -1) {
     return;
   }
 
-  this.playerIds.push(player.getSteamId());
+  this.playerIds.push(player.steamId);
 };
 
 Company.prototype.removePlayer = function(player) {
   this.playerIds = this.playerIds.filter(function(steamId) {
-    return steamId !== player.getSteamId();
+    return steamId !== player.steamId;
   });
 };

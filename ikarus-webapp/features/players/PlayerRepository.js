@@ -15,7 +15,7 @@ PlayerRepository.prototype.getCurrent = function() {
 };
 
 PlayerRepository.prototype.getByCompany = function(company) {
-  return Meteor.users.find({ companyId: company.getId() }).fetch();
+  return Meteor.users.find({ companyId: company._id }).fetch();
 }
 
 PlayerRepository.prototype._fromDoc = function(doc) {

@@ -6,7 +6,7 @@ Meteor.methods({
 
     console.log(squad);
 
-    if (!squad || squad.getId() !== squadId) {
+    if (!squad || squad._id !== squadId) {
       throw new Meteor.Error(404, 'Squad on server not found');
     }
 

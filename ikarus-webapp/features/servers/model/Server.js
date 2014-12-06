@@ -8,32 +8,16 @@ Server = function Server(args) {
 Server.STATUS_IDLE = 'idle';
 Server.STATUS_PLAYING = 'playing';
 
-Server.prototype.getId = function() {
-  return this._id;
-}
-
-Server.prototype.getName = function() {
-  return this.name;
-}
-
-Server.prototype.getStatus = function() {
-  return this.status;
-}
-
-Server.prototype.getPlayerIds = function() {
-  return this.playerIds;
-}
-
 Server.prototype.addPlayer = function(player) {
-  if (this.playerIds.indexOf(player.getSteamId()) !== -1) {
+  if (this.playerIds.indexOf(player.steamId) !== -1) {
     return;
   }
-  this.playerIds.push(player.getSteamId());
+  this.playerIds.push(player.steamId);
 }
 
 Server.prototype.removePlayer = function(player) {
   this.playerIds = this.playerIds.filter(function(steamId) {
-    return steamId !== player.getSteamId();
+    return steamId !== player.steamId;
   });
 }
 

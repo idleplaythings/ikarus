@@ -1,6 +1,7 @@
 Item = function Item(args){
   this.armaClass = args.armaClass;
   this.name = args.name;
+  this.unlimited = args.unlimited;
 }
 
 Item.prototype.populate = function(args){

@@ -13,3 +13,19 @@ ItemFactory.prototype.createItemByArmaClass = function(armaClass, args){
 
   return itemDefinition.clone(args);
 };
+
+ItemFactory.prototype.createItems = function(armaClasses){
+  return armaClasses.map(function(armaClass){
+    this.createItemByArmaClass(armaClass);
+  }, this).filter(function(item){
+    return Boolean(item);
+  });
+};
+
+ItemFactory.prototype.getUnlimitedItems = function(){
+  return this.itemDefinitions.filter(function(definition){
+    return definition.unlimited;
+  }).map(function(definition){
+    return definition.clone();
+  });
+};

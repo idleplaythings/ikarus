@@ -1,20 +1,11 @@
 
-Inventory = function Inventory(){
-  this._items = [];
+Inventory = function Inventory(args){
+
+  if (! args) {
+    args = {};
+  }
+
+  this._id = args._id;
+  this.items = args.items || [];
+  this.type = 'normal';
 }
-
-Inventory.prototype.serialize = function(){
-
-  var itemsByTypes = {
-
-  };
-
-  return this._items.forEach(function(item){
-    if (itemsByTypes[item.armaClass]){
-      itemsByTypes[item.armaClass]++;
-    } else {
-      itemsByTypes[item.armaClass] = 1;
-    }
-  });
-};
-

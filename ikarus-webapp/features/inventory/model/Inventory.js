@@ -7,7 +7,7 @@ Inventory = function Inventory(args){
 
   this._id = args._id;
   this.items = args.items || [];
-  this.type = 'normal';
+  this.type = 'Inventory';
 }
 
 Inventory.prototype.getItemsAndCounts = function(){

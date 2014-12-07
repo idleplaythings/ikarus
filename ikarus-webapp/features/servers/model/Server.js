@@ -46,3 +46,11 @@ Server.prototype.playerCount = function() {
 
   return 0;
 };
+
+Server.prototype.serialize = function() {
+  return {
+    name: this.name,
+    playerIds: this.playerIds,
+    status: this.status
+  };
+};

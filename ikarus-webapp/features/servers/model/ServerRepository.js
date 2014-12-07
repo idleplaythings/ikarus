@@ -7,37 +7,33 @@ ServerRepository.prototype.create = function(name) {
 };
 
 ServerRepository.prototype.getAll = function() {
-  return this._serverCollection.find().fetch().map(this._fromDoc);
+  return this._serverCollection.find().fetch().map(this._deserialize);
 };
 
 ServerRepository.prototype.getById = function(id) {
-  return this._fromDoc(this._serverCollection.findOne({ _id: id }));
+  return this._deserialize(this._serverCollection.findOne({ _id: id }));
 };
 
 ServerRepository.prototype.getByName = function(name) {
-  return this._fromDoc(this._serverCollection.findOne({ name: name }));
+  return this._deserialize(this._serverCollection.findOne({ name: name }));
+};
+
+ServerRepository.prototype.getAllByPlayer = function(player) {
+  return this._serverCollection.find({ playerIds: { $in: [ player.steamId ] }}).fetch().map(this._deserialize.bind(this));
 };
 
 ServerRepository.prototype.persist = function(server) {
   this._serverCollection.update(
     { name: server.name },
-    this._serialize(server),
+    server.serialize(),
     { upsert: true }
   );
 };
 
-ServerRepository.prototype._serialize = function(server) {
-  return {
-    name: server.name,
-    playerIds: server.playerIds,
-    status: server.status
-  };
-};
-
-ServerRepository.prototype._fromDoc = function(doc) {
+ServerRepository.prototype._deserialize = function(doc) {
   if (Boolean(doc) === false) {
     return null;
   }
 
   return new Server(doc);
-}
+};

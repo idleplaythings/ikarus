@@ -14,11 +14,28 @@ GameController = function GameController(
 
 GameController.prototype.playerConnected = function(serverName, playerUid) {
   var player = this._getPlayer(playerUid);
-  var company = this._getCompany(player);
   var server = this._getServer(serverName);
-  var squad = this._initOrGetSquad(server, company);
 
-  this._removePlayerFromOtherServer();
+  this._disconnectPlayerFromServers(player);
+  this._connect(player, server);
+};
+
+GameController.prototype.playerDisconnected = function(serverName, playerUid) {
+  var player = this._getPlayer(playerUid);
+  var server = this._getServer(serverName);
+
+  this._disconnect(player, server);
+};
+
+GameController.prototype._disconnectPlayerFromServers = function(player) {
+  this._serverRepository.getAllByPlayer(player).map(function(server) {
+    this._disconnect(player, server);
+  }.bind(this));
+};
+
+GameController.prototype._connect = function(player, server) {
+  var company = this._getCompany(player);
+  var squad = this._initOrGetSquad(server, company);
 
   server.addPlayer(player);
   this._serverRepository.persist(server);
@@ -28,10 +45,8 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
   this._squadRepository.persist(squad);
 };
 
-GameController.prototype.playerDisconnected = function(serverName, playerUid) {
-  var player = this._getPlayer(playerUid);
+GameController.prototype._disconnect = function(player, server) {
   var company = this._getCompany(player);
-  var server = this._getServer(serverName);
   var squad = this._initOrGetSquad(server, company);
 
   server.removePlayer(player);
@@ -68,9 +83,5 @@ GameController.prototype._initSquad = function(server, company) {
 
 GameController.prototype._notFound = function(what) {
   throw new Error(what + ' not found');
-};
-
-GameController.prototype._removePlayerFromOtherServer = function(){
-  //TODO: implement
 };
 

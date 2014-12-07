@@ -17,23 +17,23 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
   var server = this._getServer(serverName);
 
   this._disconnectPlayerFromServers(player);
-  this._connect(player, server);
+  this._connectPlayerToServer(player, server);
 };
 
 GameController.prototype.playerDisconnected = function(serverName, playerUid) {
   var player = this._getPlayer(playerUid);
   var server = this._getServer(serverName);
 
-  this._disconnect(player, server);
+  this._disconnectPlayerFromServer(player, server);
 };
 
 GameController.prototype._disconnectPlayerFromServers = function(player) {
   this._serverRepository.getAllByPlayer(player).map(function(server) {
-    this._disconnect(player, server);
+    this._disconnectPlayerFromServer(player, server);
   }.bind(this));
 };
 
-GameController.prototype._connect = function(player, server) {
+GameController.prototype._connectPlayerToServer = function(player, server) {
   var company = this._getCompany(player);
   var squad = this._initOrGetSquad(server, company);
 
@@ -45,7 +45,7 @@ GameController.prototype._connect = function(player, server) {
   this._squadRepository.persist(squad);
 };
 
-GameController.prototype._disconnect = function(player, server) {
+GameController.prototype._disconnectPlayerFromServer = function(player, server) {
   var company = this._getCompany(player);
   var squad = this._initOrGetSquad(server, company);
 

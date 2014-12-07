@@ -4,19 +4,24 @@ var SquadLoot = require('../domain/squadLoot.js');
 
 module.exports = function(armaSerializer){
   'use strict';
-/*
+
   var testSquad = new Squad({
-    squadId: 'id',
-    membersOnServer: ["_SP_PLAYER_", "_SP_AI_"],
+    _id: 'id',
+    steamIds: ["_SP_PLAYER_", "_SP_AI_"],
     startingLocation: {x:14812.0, y:22600.0},
-    missionItems: new SquadEquipment({
-      weapons: ["arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F","arifle_Katiba_F"],
-      magazines: ["30Rnd_65x39_caseless_green"],
-      items: [],
-      backpacks: []
-    })
+    companyId: 'company'
   });
-*/
+
+  var testMembers = [
+    {
+      steamId: "_SP_PLAYER_",
+      inventory: new Inventor({})
+    },
+    {
+      steamId: "_SP_AI_",
+      inventory: new Inventor({})
+    }
+  ];
 
   function GameData(armaSerializer) {
     this._squads = [];
@@ -81,8 +86,17 @@ module.exports = function(armaSerializer){
   };
 
   GameData.prototype.getSquadData = function(demo){
+
+    var squads = this._squads.slice(0);
+    var members = this._members.slice(0);
+
+    if (demo){
+      squads.push(testSquad),
+      members.concat(testMembers)
+    }
+
     return this._armaSerializer.serializeForArma(
-      this._squads, this._members
+      squads, members
     );
   };
 

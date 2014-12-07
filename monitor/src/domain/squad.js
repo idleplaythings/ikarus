@@ -2,9 +2,9 @@ module.exports = Squad;
 
 function Squad(args) {
 
-  this.squadId = args.squadId;
+  this._id = args._id;
   this.companyId = args.companyId;
-  this.playerIds = args.playerIds;
+  this.steamIds = args.steamIds;
   this.startingLocation = args.startingLocation;
   this.objectives = args.objectives || ['SUPPLY'];
   this.locked = args.locked;

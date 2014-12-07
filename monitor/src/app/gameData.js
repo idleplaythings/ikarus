@@ -2,9 +2,9 @@ var Squad = require('../domain/squad.js');
 var Inventory = require('../domain/inventory.js');
 var SquadLoot = require('../domain/squadLoot.js');
 
-module.exports = function(){
+module.exports = function(armaSerializer){
   'use strict';
-
+/*
   var testSquad = new Squad({
     squadId: 'id',
     membersOnServer: ["_SP_PLAYER_", "_SP_AI_"],
@@ -16,32 +16,42 @@ module.exports = function(){
       backpacks: []
     })
   });
+*/
 
-  function GameData() {
+  function GameData(armaSerializer) {
     this._squads = [];
     this._members = [];
     this._gameStarted = false;
+    this._armaSerializer = armaSerializer;
+    console.log("gamedata:", armaSerializer);
   }
 
   GameData.prototype.setSquads = function(squads, members){
     if (this._gameStarted)
       return;
 
-    this._squads = Object.keys(squads).map(function(key){
-      return new Squad(squads[key]);
-    }, this);
+    console.log("SET SQUADS");
+    console.log(squads);
+    console.log();
+    console.log(members);
 
-    this._members = Object.keys(members).map(function(key){
-      var serialized = members[key];
-      return {
-        steamId: serialized.steamId,
-        inventory: new Inventory(serialized.inventory)
-      };
-    }, this);
-  };
+    if (squads){
+      this._squads = Object.keys(squads).map(function(key){
+        return new Squad(squads[key]);
+      }, this);
+    }
 
-  GameData.prototype.getMembersByPlayerId = function(playerId){
-    this._gameStarted = true;
+    if (members){
+      this._members = Object.keys(members).map(function(key){
+        var serialized = members[key];
+        return {
+          steamId: serialized.steamId,
+          inventory: new Inventory(serialized.inventory)
+        };
+      }, this);
+    }
+
+    console.log(this.getSquadData());
   };
 
   GameData.prototype.startGame = function(){
@@ -71,16 +81,9 @@ module.exports = function(){
   };
 
   GameData.prototype.getSquadData = function(demo){
-
-    var squads = this._squads.slice(0);
-
-    if (demo){
-      squads.push(testSquad);
-    }
-
-    return squads.map(function(squad){
-      return squad.serializeForArma();
-    });
+    return this._armaSerializer.serializeForArma(
+      this._squads, this._members
+    );
   };
 
   GameData.prototype.receiveSquadData = function(id, serializedLoot){
@@ -88,5 +91,5 @@ module.exports = function(){
     var loot = new SquadLoot().deserializeFromArma(serializedLoot);
   };
 
-  return new GameData();
+  return new GameData(armaSerializer);
 };

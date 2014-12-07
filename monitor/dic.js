@@ -19,8 +19,18 @@ module.exports = (function(){
 
   dic.register('GameData', function (dic) {
     var GameData = require('./src/app/gameData');
-    return new GameData();
+    console.log("gamedata dic:", dic.get('ArmaSerializer'));
+    return new GameData(
+      dic.get('ArmaSerializer')
+    );
   });
+
+  dic.register('ArmaSerializer', function (dic) {
+    var ArmaSerializer = require('./src/app/armaSerializer');
+    console.log("ArmaSerializer dic:", ArmaSerializer);
+    return new ArmaSerializer();
+  });
+
 
   dic.register('WebAppClient', function (dic) {
     var WebAppClient = require('./src/app/webAppClient');

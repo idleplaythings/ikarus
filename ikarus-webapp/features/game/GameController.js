@@ -33,6 +33,8 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
     throw new Error("Company not found");
   }
 
+  this.removePlayerFromOtherServer(player, server);
+
   var squad = this._squadRepository.getSquadByServerAndCompany(server, company);
 
   if (! squad) {
@@ -59,7 +61,6 @@ GameController.prototype.playerDisconnected = function(serverName, playerUid) {
   }
 
   server.removePlayer(player);
-  console.log(server);
   this._serverRepository.persist(server);
 
   var company = this._companyRepository.getByPlayer(player);
@@ -77,5 +78,9 @@ GameController.prototype.playerDisconnected = function(serverName, playerUid) {
   squad.removePlayer(player);
   this._squadRepository.persist(squad);
   this._squadMemberRepository.remove(player);
+};
+
+GameController.prototype.removePlayerFromOtherServer = function(){
+  //TODO: implement
 };
 

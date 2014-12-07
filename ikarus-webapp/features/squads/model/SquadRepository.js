@@ -9,7 +9,7 @@ SquadRepository.prototype.getById = function(squadId) {
 SquadRepository.prototype.getByPlayer = function(player) {
   return this._fromDoc(
     this._squadCollection.findOne({
-      playerIds: {$in: [ player.steamId ]}
+      steamIds: {$in: [ player.steamId ]}
     })
   );
 };

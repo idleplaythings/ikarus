@@ -19,13 +19,16 @@ Meteor.methods({
     }
 
     if (status == Server.STATUS_IDLE){
+      server.removePlayers();
       dic.get('SquadRepository').removeSquadsFromServer(server);
+      dic.get('SquadMemberRepository').removeFromServer(server);
     }
 
     if (status === Server.STATUS_PLAYING) {
       dic.get('SquadRepository').lockSquadsOnServer(server);
     }
 
-    return serverService.updateStatus(server, status);
+    server.updateStatus(status);
+    repo.persist(server);
   }
 });

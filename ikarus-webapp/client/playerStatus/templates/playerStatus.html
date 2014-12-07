@@ -1,7 +1,8 @@
 <template name="playerStatus">
   {{#if company}}
+    <h2>{{company.name}}</h2>
     {{#if squad}}
-      {{#with company}}
+      {{#with squad}}
         {{> squadStatus}}
       {{/with}}
     {{/if}}
@@ -12,7 +13,6 @@
 
 <template name="squadStatus">
 
-  <h2>{{company.name}}</h2>
   <h3>You are on server: {{server.name}}</h3>
 
 </template>

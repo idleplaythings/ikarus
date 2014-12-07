@@ -7,24 +7,27 @@ SquadMemberRepository.prototype.getBySquadId = function(squadId) {
   return this._squadMemberCollection.find({ squadId: squadId }).fetch().map(this._deserialize.bind(this));
 };
 
-SquadMemberRepository.prototype.getByPlayerId = function(playerId) {
+SquadMemberRepository.prototype.getBySteamId = function(steamId) {
   return this._deserialize(this._squadMemberCollection.findOne(
-    {playerId: playerId}
+    {steamId: steamId}
   ));
 };
 
-SquadMemberRepository.prototype.createOnServerForPlayer= function(server, player){
+SquadMemberRepository.prototype.createOnServerForPlayer = function(server, player){
   this.persist(new SquadMember({
     serverId: server._id,
-    playerId: player._id,
     steamId: player.steamId
   }));
 
-  return this.getByPlayerId(player._id);
+  return this.getBySteamId(player.steamId);
+};
+
+SquadMemberRepository.prototype.removeFromServer = function(server){
+  this._squadMemberCollection.remove({ serverId: server._id });
 };
 
 SquadMemberRepository.prototype.remove = function(player) {
-  this._squadMemberCollection.remove({ playerId: player._id });
+  this._squadMemberCollection.remove({ steamId: player.steamId });
 };
 
 SquadMemberRepository.prototype.persist = function(squadMember) {

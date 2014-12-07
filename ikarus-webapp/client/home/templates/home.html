@@ -24,16 +24,24 @@
       {{/if}}
     </div>
 
-    {{#if company}}
-      {{#with company}}
-        <div class="row">
-          <div class="col-md-4">
-            {{> startLocation}}
-          </div>
-
+    <div class="row">
+    {{#if squad}}
+      {{#with squad}}
+        <div class="col-md-4">
+          {{> startLocation}}
         </div>
       {{/with}}
     {{/if}}
+    {{#if company}}
+      {{#with company}}
+        <div class="col-md-4">
+          {{> armory}}
+        </div>
+      {{/with}}
+    {{/if}}
+    </div>
+
+
 
   </div>
 

@@ -1,0 +1,16 @@
+<template name="armory">
+  <h3>Armory</h3>
+
+
+  {{#each getInventory.getItemsAndCounts}}
+    <div class="row">
+      <div class="col-md-6">
+        {{name}}
+      </div>
+      <div class="col-md-2 pull-right">
+        {{getCount}}
+      </div>
+    </div>
+  {{/each}}
+
+</template>

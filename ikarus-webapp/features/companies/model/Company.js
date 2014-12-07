@@ -2,14 +2,12 @@ Company = function Company(args) {
   this._id = args._id || undefined;
   this.name = args.name;
   this.playerIds = args.playerIds || [];
-  this.inventory = args.inventory || new InventoryCompany();
 }
 
 Company.prototype.serialize = function() {
   return {
     name: this.name,
-    playerIds: this.playerIds,
-    inventory: this.inventory.serialize()
+    playerIds: this.playerIds
   };
 };
 

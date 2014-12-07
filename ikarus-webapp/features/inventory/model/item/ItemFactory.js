@@ -23,7 +23,7 @@ ItemFactory.prototype.createItems = function(armaClasses){
 };
 
 ItemFactory.prototype.getUnlimitedItems = function(){
-  return this.itemDefinitions.filter(function(definition){
+  return this._itemDefinitions.filter(function(definition){
     return definition.unlimited;
   }).map(function(definition){
     return definition.clone();

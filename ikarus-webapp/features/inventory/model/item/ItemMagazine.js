@@ -13,4 +13,6 @@ ItemMagazine.prototype.populate = function(args){
   }
 
   this.ammoSpent = args.ammoSpent || 0;
+
+  return this;
 };

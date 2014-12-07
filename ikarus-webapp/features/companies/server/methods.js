@@ -11,5 +11,6 @@ Meteor.methods({
     var company = companyRepo.create(name);
     company.addPlayer(playerRepo.getCurrent());
     companyRepo.persist(company);
+    playerRepo.updateCurrentCompanyId(company);
   }
 });

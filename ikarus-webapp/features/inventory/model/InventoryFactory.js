@@ -1,9 +1,15 @@
+var namespace = this;
+
 InventoryFactory = function(itemFactory, inventoryCollection){
   this._itemFactory = itemFactory;
   this._inventoryCollection = inventoryCollection;
 };
 
 InventoryFactory.prototype.deserialize = function(serialized){
+
+  if (! serialized){
+    return null;
+  }
 
   var items = [];
   var type = serialized.type;
@@ -19,9 +25,12 @@ InventoryFactory.prototype.deserialize = function(serialized){
 
   serialized.items = items;
 
-  if (type === 'company'){
-    return new InventoryCompany(serialized);
+  var inventory = new namespace[serialized.type](serialized);
+
+  if (inventory.hasUnlimitedItems){
+    var unlimitedItems = this._itemFactory.getUnlimitedItems();
+    inventory.items = inventory.items.concat(unlimitedItems);
   }
 
-  return new Inventory(serialized);
+  return inventory;
 };

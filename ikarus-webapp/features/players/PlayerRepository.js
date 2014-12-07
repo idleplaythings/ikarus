@@ -2,8 +2,13 @@ PlayerRepository = function PlayerRepository() {
   // @todo this repo depends on Meteor users collection, but it's not evident
 }
 
-PlayerRepository.prototype.updatePlayerSquadId = function(user, squadId) {
-  Meteor.users.update({_id: user._id}, {$set: {squadId: squadId}});
+PlayerRepository.prototype.updateCurrentCompanyId = function(company) {
+  var user = this.getCurrent();
+
+  if (! user)
+    return;
+
+  Meteor.users.update({_id: user._id}, {$set: {companyId: company._id}});
 };
 
 PlayerRepository.prototype.getById = function(playerId) {

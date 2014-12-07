@@ -8,6 +8,6 @@ Meteor.publish('SquadsOnServer', function(serverId){
 
   return [
     collections.SquadCollection.find({serverId: server._id}),
-    collections.SquadMemberCollection.find({serverId: server._id})
+    collections.InventoryCollection.find({serverId: server._id})
   ];
 });

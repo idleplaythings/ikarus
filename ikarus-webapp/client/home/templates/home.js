@@ -8,5 +8,13 @@ Template.home.helpers({
     return dic.get('CompanyRepository').getByPlayer(
       dic.get('PlayerRepository').getCurrent()
     );
-  }
+  },
+
+  squad: function() {
+    var player = dic.get('PlayerRepository').getCurrent();
+    if (! player)
+      return null;
+
+    return dic.get('SquadRepository').getByPlayer(player);
+  },
 })

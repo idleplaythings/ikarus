@@ -1,12 +1,16 @@
-CompanyRepository = function CompanyRepository(companyCollection, inventoryFactory) {
+CompanyRepository = function CompanyRepository(companyCollection, inventoryRepository) {
   this._companyCollection = companyCollection;
-  this._inventoryFactory = inventoryFactory;
+  this._inventoryRepository = inventoryRepository;
 }
 
 CompanyRepository.prototype.create = function(name) {
   console.log("create");
-  this.persist(new Company({ name: name }));
-  return this.getByName(name);
+  this.persist(new Company({
+    name: name,
+  }));
+  var company = this.getByName(name);
+  this._inventoryRepository.createCompanyInventory(company);
+  return company;
 };
 
 
@@ -44,8 +48,6 @@ CompanyRepository.prototype._deserialize = function(doc) {
   if (Boolean(doc) === false) {
     return null;
   }
-
-  doc.inventory = this._inventoryFactory.deserialize(doc.inventory);
 
   return new Company(doc);
 };

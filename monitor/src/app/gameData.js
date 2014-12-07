@@ -15,11 +15,11 @@ module.exports = function(armaSerializer){
   var testMembers = [
     {
       steamId: "_SP_PLAYER_",
-      inventory: new Inventor({})
+      inventory: new Inventory({})
     },
     {
       steamId: "_SP_AI_",
-      inventory: new Inventor({})
+      inventory: new Inventory({})
     }
   ];
 

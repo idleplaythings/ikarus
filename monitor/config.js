@@ -10,7 +10,7 @@ module.exports = {
   },
 
   webApp: {
-    host: '127.0.0.1',
+    host: '62.78.248.249',
     port: 3000
   },
 

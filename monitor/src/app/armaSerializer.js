@@ -3,34 +3,34 @@ module.exports = ArmaSerializer;
 
 function ArmaSerializer(){};
 
-ArmaSerializer.prototype.serializeForArma = function(squads, members){
+ArmaSerializer.prototype.serializeForArma = function(squads, inventories){
   return squads.map(function(squad){
     return serializeSquad(
       squad,
-      getMembersForSquad(squad, members)
+      getInventoriesForSquad(squad, inventories)
     );
   });
 }
 
-function getMembersForSquad(squad, members){
+function getInventoriesForSquad(squad, inventories){
 
   return squad.steamIds.map(function(steamId){
-    return members.filter(function(member){
-      return member.steamId === steamId;
+    return inventories.filter(function(inventory){
+      return inventory.steamId === steamId;
     }).pop()
-  }).filter(function(member){
-    return Boolean(member);
+  }).filter(function(inventory){
+    return Boolean(inventory);
   });
 
 }
 
-function serializeSquad(squad, squadMembers){
+function serializeSquad(squad, inventories){
 
   return [
     squad._id,
     squad.steamIds,
     [squad.startingLocation.x, squad.startingLocation.y],
-    squadMembers.map(serializeMember),
+    inventories.map(serializeInventory),
     null,
     null,
     [],
@@ -39,15 +39,12 @@ function serializeSquad(squad, squadMembers){
   ];
 };
 
-function serializeMember(member){
-  return [
-    member.steamId,
-    serializeInventory(member.inventory)
-  ];
-};
-
 function serializeInventory(inventory){
-  return Object.keys(inventory.items).map(function(key){
-    return [key, inventory.items[key]];
-  });
+  return [
+    inventory.steamId,
+    Object.keys(inventory.items).map(function(key){
+      console.log('on inventory', key, inventory.items[key]);
+      return [key, inventory.items[key]];
+    })
+  ];
 };

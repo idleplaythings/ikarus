@@ -12,33 +12,33 @@ module.exports = function(armaSerializer){
     companyId: 'company'
   });
 
-  var testMembers = [
+  var testInventories = [
     {
       steamId: "_SP_PLAYER_",
-      inventory: new Inventory({})
+      items: {}
     },
     {
       steamId: "_SP_AI_",
-      inventory: new Inventory({})
+      items: {}
     }
   ];
 
   function GameData(armaSerializer) {
     this._squads = [];
-    this._members = [];
+    this._inventories = [];
     this._gameStarted = false;
     this._armaSerializer = armaSerializer;
     console.log("gamedata:", armaSerializer);
   }
 
-  GameData.prototype.setSquads = function(squads, members){
+  GameData.prototype.setSquads = function(squads, inventories){
     if (this._gameStarted)
       return;
 
     console.log("SET SQUADS");
     console.log(squads);
     console.log();
-    console.log(members);
+    console.log(inventories);
 
     if (squads){
       this._squads = Object.keys(squads).map(function(key){
@@ -46,12 +46,12 @@ module.exports = function(armaSerializer){
       }, this);
     }
 
-    if (members){
-      this._members = Object.keys(members).map(function(key){
-        var serialized = members[key];
+    if (inventories){
+      this._inventories = Object.keys(inventories).map(function(key){
+        var serialized = inventories[key];
         return {
           steamId: serialized.steamId,
-          inventory: new Inventory(serialized.inventory)
+          items: serialized.items
         };
       }, this);
     }
@@ -88,15 +88,15 @@ module.exports = function(armaSerializer){
   GameData.prototype.getSquadData = function(demo){
 
     var squads = this._squads.slice(0);
-    var members = this._members.slice(0);
+    var inventories = this._inventories.slice(0);
 
     if (demo){
       squads.push(testSquad),
-      members.concat(testMembers)
+      inventories.concat(testInventories)
     }
 
     return this._armaSerializer.serializeForArma(
-      squads, members
+      squads, inventories
     );
   };
 

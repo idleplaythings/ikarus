@@ -15,6 +15,12 @@ PlayerRepository.prototype.getById = function(playerId) {
   return this._fromDoc(Meteor.users.findOne({ 'services.steam.id': playerId }));
 };
 
+PlayerRepository.prototype.getAllByIds = function(playerIds) {
+  return Meteor.users.find({ 'services.steam.id': {$in: playerIds }})
+    .fetch()
+    .map(this._fromDoc.bind(this));
+};
+
 PlayerRepository.prototype.getCurrent = function() {
   return this._fromDoc(Meteor.user());
 };

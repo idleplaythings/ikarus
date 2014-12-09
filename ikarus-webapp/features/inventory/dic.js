@@ -13,6 +13,7 @@ dic.register('InventoryFactory', function (dic) {
 dic.register('InventoryRepository', function (dic) {
   return new InventoryRepository(
     collections.InventoryCollection,
-    dic.get('InventoryFactory')
+    dic.get('InventoryFactory'),
+    dic.get('ItemFactory')
   );
 }, {shared: true});

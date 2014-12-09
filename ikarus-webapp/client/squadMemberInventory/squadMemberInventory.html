@@ -1,0 +1,20 @@
+<template name="squadMemberInventory">
+<h3>Inventory</h3>
+
+
+  {{#each getInventory.items}}
+    <div class="row inventory-entry member-inventory" data-armaclass="{{armaClass}}">
+      {{#unless locked}}
+        <div class="col-md-2 clickable remove-from-inventory" data-armaclass="{{armaClass}}">
+          REMOVE
+        </div>
+      {{/unless}}
+      <div class="col-md-6">
+        {{name}}
+      </div>
+      <div class="col-md-2 pull-right">
+        {{getCount}}
+      </div>
+    </div>
+  {{/each}}
+</template>

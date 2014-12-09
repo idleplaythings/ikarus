@@ -4,6 +4,7 @@ InventorySquadMember = function InventorySquadMember(args){
   this.type = 'InventorySquadMember';
   this.steamId = args.steamId;
   this.serverId = args.serverId;
+  this.locked = args.locked || false;
 }
 
 InventorySquadMember.prototype = Object.create(Inventory.prototype);

@@ -3,7 +3,7 @@ ItemFactory = function ItemFactory(itemDefinitions){
 }
 
 ItemFactory.prototype.createItemByArmaClass = function(armaClass, args){
-  var itemDefinition = this.itemDefinitions.filter(function(definition){
+  var itemDefinition = this._itemDefinitions.filter(function(definition){
     return definition.armaClass === armaClass;
   }).pop();
 

@@ -2,8 +2,13 @@
   <h3>Armory</h3>
 
 
-  {{#each getInventory.getItemsAndCounts}}
-    <div class="row">
+  {{#each getInventory.items}}
+    <div class="row inventory-entry armory" data-armaclass="{{armaClass}}">
+      {{#if squad}}
+        <div class="col-md-2 clickable add-to-inventory" data-armaclass="{{armaClass}}">
+          ADD
+        </div>
+      {{/if}}
       <div class="col-md-6">
         {{name}}
       </div>

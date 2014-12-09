@@ -16,7 +16,7 @@ InventoryFactory.prototype.deserialize = function(serialized){
   var serializedItems = serialized.items;
 
   Object.keys(serializedItems).forEach(function(key){
-    var amount = serialized.amount;
+    var amount = serializedItems[key];
 
     while (amount--){
       items.push(this._itemFactory.createItemByArmaClass(key));

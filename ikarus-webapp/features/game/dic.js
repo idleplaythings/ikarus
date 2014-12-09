@@ -4,6 +4,6 @@ dic.register('GameController', function (dic) {
     dic.get('ServerRepository'),
     dic.get('CompanyRepository'),
     dic.get('SquadRepository'),
-    dic.get('SquadMemberRepository')
+    dic.get('InventoryRepository')
   );
 }, {shared: true});

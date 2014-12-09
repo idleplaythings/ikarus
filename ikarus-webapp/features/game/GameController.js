@@ -3,13 +3,13 @@ GameController = function GameController(
   serverRepository,
   companyRepository,
   squadRepository,
-  squadMemberRepository
+  inventoryRepostiory
 ){
   this._playerRepository = playerRepository;
   this._serverRepository = serverRepository;
   this._companyRepository = companyRepository;
   this._squadRepository = squadRepository;
-  this._squadMemberRepository = squadMemberRepository;
+  this._inventoryRepostiory = inventoryRepostiory;
 }
 
 GameController.prototype.playerConnected = function(serverName, playerUid) {
@@ -41,8 +41,9 @@ GameController.prototype._connectPlayerToServer = function(player, server) {
   this._serverRepository.persist(server);
 
   squad.addPlayer(player);
-  this._squadMemberRepository.createOnServerForPlayer(server, player);
+  this._inventoryRepostiory.createOnServerForPlayer(server, player);
   this._squadRepository.persist(squad);
+
 };
 
 GameController.prototype._disconnectPlayerFromServer = function(player, server) {
@@ -54,7 +55,8 @@ GameController.prototype._disconnectPlayerFromServer = function(player, server) 
 
   squad.removePlayer(player);
   this._squadRepository.persist(squad);
-  this._squadMemberRepository.remove(player);
+  this._inventoryRepostiory.returnItems(server, company, player);
+  this._inventoryRepostiory.removeByPlayer(player);
 };
 
 GameController.prototype._getServer = function(serverName) {

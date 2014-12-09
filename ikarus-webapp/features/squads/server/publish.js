@@ -1,5 +1,5 @@
-Meteor.publish('SquadsOnServer', function(serverId){
-  var server = collections.ServerCollection.findOne({name: serverId});
+Meteor.publish('SquadsOnServer', function(serverName){
+  var server = collections.ServerCollection.findOne({name: serverName});
 
   if ( ! server){
     this.ready();

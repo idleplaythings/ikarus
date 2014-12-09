@@ -1,6 +1,7 @@
-InventoryRepository = function(collection, inventoryFactory){
+InventoryRepository = function(collection, inventoryFactory, itemFactory){
   this._collection = collection;
   this._inventoryFactory = inventoryFactory;
+  this._itemFactory = itemFactory;
 }
 
 InventoryRepository.prototype.createCompanyInventory = function(company){
@@ -13,11 +14,11 @@ InventoryRepository.prototype.createCompanyInventory = function(company){
   return this.getById(id);
 };
 
-InventoryRepository.prototype.createSquadMemberInvetory = function(squad, player){
+InventoryRepository.prototype.createOnServerForPlayer = function(server, player){
   var id = this._collection.insert(
     new InventorySquadMember({
-      serverId: squad.serverId,
-      steamId: player.stemId
+      serverId: server._id,
+      steamId: player.steamId
     }).serialize()
   );
 
@@ -42,36 +43,58 @@ InventoryRepository.prototype.getById = function(id){
   );
 };
 
+InventoryRepository.prototype.lockByServer = function(serverId){
+  this._collection.update({serverId: server._id}, {$set: {locked: true}});
+};
+
 InventoryRepository.prototype.removeByPlayer = function(player){
-    this._collection.remove({steamId: player.steamId});
+  this._collection.remove({steamId: player.steamId});
+};
+
+InventoryRepository.prototype.removeByServer = function(server){
+  this._collection.remove({serverId: server._id});
 };
 
 InventoryRepository.prototype.removeById = function(id){
-    this._collection.remove({_id: id});
+  this._collection.remove({_id: id});
 };
 
-InventoryRepository.prototype.moveFromInventory = function(fromId, toId, armaClass){
-  var result = this.removeFromInventory(fromId, armaClass);
-  if (! result){
-    return false;
+InventoryRepository.prototype.returnItems = function(company, player){
+  var playerInventory = this.getByPlayer(player);
+  var companyInventory = this.getByCompany(company);
+
+  if (playerInventory.locked){
+    return;
   }
 
-  return this.addToInventory(toId, armaClass);
+  playerInventory.items.forEach(function(item){
+    this.moveFromInventory(playerInventory, companyInventory, item.armaClass);
+  }, this);
 };
 
-InventoryRepository.prototype.removeFromInventory = function(id, armaClass){
+InventoryRepository.prototype.moveFromInventory = function(from, to, armaClass){
+  var item = this._itemFactory.createItemByArmaClass(armaClass);
+  this.removeFromInventory(from, item) && this.addToInventory(to, item);
+};
+
+InventoryRepository.prototype.removeFromInventory = function(inventory, item){
+
+  var armaClass = item.armaClass;
+  if (item.unlimited && inventory instanceof InventoryCompany) {
+    return 1;
+  }
 
   var exists = {};
-  exists['items.' + armaClass] = {exists: true};
+  exists['items.' + armaClass] = {$exists: true};
   var gt = {};
   gt['items.' + armaClass] = {$gt: 0};
   var dec = {};
-  inc['items.' + armaClass] = -1;
+  dec['items.' + armaClass] = -1;
 
   var result = this._collection.update(
     {$and :
       [
-        {_id: id},
+        {_id: inventory._id},
         exists,
         gt
       ]
@@ -83,13 +106,18 @@ InventoryRepository.prototype.removeFromInventory = function(id, armaClass){
   return result;
 };
 
-InventoryRepository.prototype.addToInventory = function(id, armaClass){
+InventoryRepository.prototype.addToInventory = function(inventory, item){
+
+  var armaClass = item.armaClass;
+  if (item.unlimited && inventory instanceof InventoryCompany) {
+    return 1;
+  }
 
   var inc = {};
   inc['items.' + armaClass] = 1;
 
   return this._collection.update(
-    {_id: id},
+    {_id: inventory._id},
     {$inc: inc}
   );
 };

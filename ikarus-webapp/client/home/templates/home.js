@@ -17,4 +17,25 @@ Template.home.helpers({
 
     return dic.get('SquadRepository').getByPlayer(player);
   },
+});
+
+Template.home.events({
+  'click .add-to-inventory': function(event, template){
+    var armaClass = jQuery(event.target).data().armaclass;
+    Meteor.call(
+      'addToInventory',
+      armaClass,
+      function (error, result){}
+    );
+  },
+
+  'click .remove-from-inventory': function(event, template){
+    var armaClass = jQuery(event.target).data().armaclass;
+    Meteor.call(
+      'removeFromInventory',
+      armaClass,
+      function (error, result){}
+    );
+  }
 })
+

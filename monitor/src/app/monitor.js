@@ -69,7 +69,7 @@ Monitor.prototype._initDdpObservers = function() {
   squadObserver.changed = this._setSquads.bind(this);
   squadObserver.removed = this._setSquads.bind(this);
 
-  var memberObserver = this._webAppClient.getObserver('squadMembers');
+  var memberObserver = this._webAppClient.getObserver('inventories');
   memberObserver.added = this._setSquads.bind(this);
   memberObserver.changed = this._setSquads.bind(this);
   memberObserver.removed = this._setSquads.bind(this);
@@ -78,7 +78,7 @@ Monitor.prototype._initDdpObservers = function() {
 Monitor.prototype._setSquads = function(){
   this._gameData.setSquads(
     this._webAppClient.getCollection('squads'),
-    this._webAppClient.getCollection('squadMembers')
+    this._webAppClient.getCollection('inventories')
   );
 };
 

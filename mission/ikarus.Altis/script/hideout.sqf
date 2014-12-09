@@ -64,16 +64,6 @@ hideout_createHideoutCache = {
   clearBackpackCargoGlobal _box;
 
   _equipment = [_squad] call getSquadEquipment;
-  _weapons = _equipment select 0;
-  _magazines = _equipment select 1;
-  
-  {
-    _box addWeaponCargoGlobal [_x, 1];
-  } forEach _weapons;
-  
-  {
-    _box addMagazineCargoGlobal [_x, 1];
-  } forEach _magazines;
   
   _box;
 };

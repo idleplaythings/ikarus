@@ -30,6 +30,10 @@ CompanyRepository.prototype.getByName = function(name) {
   return this._deserialize(this._companyCollection.findOne({ name: name }));
 };
 
+CompanyRepository.prototype.getBySquad = function(squad) {
+  return this._deserialize(this._companyCollection.findOne({ _id: squad.companyId }));
+};
+
 CompanyRepository.prototype.getByPlayer = function(player) {
   if (!player) {
     return null;

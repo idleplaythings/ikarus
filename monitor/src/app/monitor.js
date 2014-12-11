@@ -87,7 +87,10 @@ var squadsRetrieve = function(test) {
 };
 
 var squadSubmit = function(squadId, loot) {
-  this._gameData.receiveSquadData(squadId, loot);
+  var squadLoot = this._gameData.receiveSquadData(squadId, loot);
+  this._webAppClient.reportMissionLoot(
+    this._config.arma.serverId, squadId, squadLoot.loot
+  );
 };
 
 var gameWaiting = function() {

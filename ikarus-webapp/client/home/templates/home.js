@@ -21,7 +21,8 @@ Template.home.helpers({
 
 Template.home.events({
   'click .add-to-inventory': function(event, template){
-    var armaClass = jQuery(event.target).data().armaclass;
+    var armaClass = jQuery(event.target).attr("data-armaclass");
+    console.log("add", armaClass);
     Meteor.call(
       'addToInventory',
       armaClass,
@@ -30,7 +31,8 @@ Template.home.events({
   },
 
   'click .remove-from-inventory': function(event, template){
-    var armaClass = jQuery(event.target).data().armaclass;
+    var armaClass = jQuery(event.target).attr("data-armaclass");
+    console.log("remove", armaClass);
     Meteor.call(
       'removeFromInventory',
       armaClass,

@@ -18,12 +18,18 @@ Item.prototype.clone = function(args){
     return new ItemGeneric(this).populate(args);
   } else if (this.isBackpack()){
     return new ItemBackpack(this).populate(args);
+  } else if (this.isLoot()){
+    return new ItemLoot(this).populate(args);
   }
 
 };
 
 Item.prototype.isWeapon = function(){
   return this instanceof ItemWeapon;
+};
+
+Item.prototype.isLoot = function(){
+  return this instanceof ItemLoot;
 };
 
 Item.prototype.isMagazine = function(){

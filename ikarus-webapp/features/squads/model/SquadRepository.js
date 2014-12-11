@@ -3,7 +3,7 @@ SquadRepository =  function SquadRepository(squadCollection) {
 }
 
 SquadRepository.prototype.getById = function(squadId) {
-  return this._fromDoc(this._squadCollection.findOne({ squadId: squadId }));
+  return this._fromDoc(this._squadCollection.findOne({ _id: squadId }));
 }
 
 SquadRepository.prototype.getByPlayer = function(player) {
@@ -48,6 +48,10 @@ SquadRepository.prototype.persist = function(squad) {
     squad.serialize(),
     { upsert: true }
   );
+};
+
+SquadRepository.prototype.remove = function(squad) {
+  this._squadCollection.remove({_id: squad._id});
 };
 
 SquadRepository.prototype._fromDoc = function(doc) {

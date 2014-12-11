@@ -96,4 +96,8 @@ WebAppClient.prototype.reportPlayerDisconnected = function(serverId, uid) {
   this.call('playerDisconnected', [serverId, uid]);
 };
 
+WebAppClient.prototype.reportMissionLoot = function(serverId, squadId, loot) {
+  this.call('missionLoot', [serverId, squadId, loot]);
+};
+
 module.exports = WebAppClient;

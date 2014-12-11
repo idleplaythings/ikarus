@@ -19,20 +19,20 @@
     displayName = "Loot";
     maximumLoad = 0;
     mass = 200;
- 	};
-  
+  };
+
   class IKRS_loot_civilian_weapons : IKRS_loot_Backpack
- 	{
+  {
     displayName = "Loot (Civilian weapons)";
- 	};
-  
+  };
+
   class IKRS_loot_old_RU_weapons : IKRS_loot_Backpack
- 	{
+  {
     displayName = "Loot (Old Russian weapons)";
- 	};
-  
+  };
+
   class IKRS_loot_common_nato_weapons : IKRS_loot_Backpack
- 	{
+  {
     displayName = "Loot (Common Nato weapons)";
- 	};
- };
+  };
+};

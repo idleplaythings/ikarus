@@ -5,7 +5,7 @@
   {{#each getInventory.items}}
     <div class="row inventory-entry member-inventory" data-armaclass="{{armaClass}}">
       {{#unless locked}}
-        <div class="col-md-2 clickable remove-from-inventory" data-armaclass="{{armaClass}}">
+        <div class="col-md-2 clickable remove-from-inventory armaClass-{{armaClass}}" data-armaclass={{armaClass}}>
           REMOVE
         </div>
       {{/unless}}

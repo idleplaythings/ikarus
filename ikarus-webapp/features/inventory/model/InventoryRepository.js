@@ -116,8 +116,10 @@ InventoryRepository.prototype.addToInventory = function(inventory, item){
   var inc = {};
   inc['items.' + armaClass] = 1;
 
-  return this._collection.update(
+  var result = this._collection.update(
     {_id: inventory._id},
     {$inc: inc}
   );
+
+  return result;
 };

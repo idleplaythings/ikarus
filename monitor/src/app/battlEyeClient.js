@@ -31,7 +31,15 @@ module.exports = function(){
   };
 
   BattlEyeClient.prototype.shutDownServer = function(config, uid){
-    console.log("TODO: implement battleye shutDownServer");
+    var battleNode = new BattleNode(config);
+    battleNode.login();
+    battleNode.on(
+      'login',
+      function(error, success) {
+        console.log("server shutdown");
+        battleNode.sendCommand('#shutdown', function() {});
+      }
+    );
   };
 
   return new BattlEyeClient();

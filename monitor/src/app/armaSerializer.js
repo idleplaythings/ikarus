@@ -35,6 +35,7 @@ function serializeSquad(squad, inventories){
     null,
     [],
     squad.objectives,
+    [],
     []
   ];
 };

@@ -61,8 +61,6 @@ Monitor.prototype._connectToWebApp = function() {
   );
 };
 
-
-
 Monitor.prototype._initDdpObservers = function() {
   var squadObserver = this._webAppClient.getObserver('squads');
   squadObserver.added = this._setSquads.bind(this);
@@ -126,8 +124,8 @@ var playerUnknown = function(uid) {
   this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 
-var playerDisconnected = function(uid, loot) {
-  this._gameData.reportPlayerDisconnected(uid, loot)
+var playerDisconnected = function(uid) {
+  this._battlEyeClient.kickPlayer(this._config.battlEye, uid);
   this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 

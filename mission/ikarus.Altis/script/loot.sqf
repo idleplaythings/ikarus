@@ -65,7 +65,7 @@ loot_checkContainer = {
   _lootList = _lootList + weaponCargo _container;
   _lootList = _lootList + itemCargo _container;
   _lootList = _lootList + backpackCargo _container;
-  _lootList = _lootList + magazinesAmmoCargo _container;
+  _lootList = _lootList + magazineCargo _container;
   
   {
     _lootList = _lootList + ([_x select 1] call loot_checkContainer);

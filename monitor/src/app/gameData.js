@@ -95,7 +95,7 @@ module.exports = function(armaSerializer){
 
     if (demo){
       squads.push(testSquad),
-      inventories.concat(testInventories)
+      inventories = inventories.concat(testInventories)
     }
 
     return this._armaSerializer.serializeForArma(

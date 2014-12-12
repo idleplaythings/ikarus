@@ -44,7 +44,6 @@ function serializeInventory(inventory){
   return [
     inventory.steamId,
     Object.keys(inventory.items).map(function(key){
-      console.log('on inventory', key, inventory.items[key]);
       return [key, inventory.items[key]];
     })
   ];

@@ -65,6 +65,9 @@ hideout_createHideoutCache = {
 
   _equipment = [_squad] call getSquadEquipment;
   
+  player globalChat "equipment";
+  player globalChat str _equipment;
+  
   _box;
 };
 
@@ -189,5 +192,23 @@ hideout_isInHideout = {
   
   if (([_building, _unit] call BIS_fnc_distance2D) > hideout_hideoutRadius) exitWith {false;};
   
+  true;
+};
+
+hideout_bodyIsInHideout = {
+  private ["_body", "_uid", "_squad", "_building"];
+  _body = _this select 0;
+  _uid = _this select 1;
+  _squad = [_uid] call getSquadForUid;
+  diag_log "hideout_bodyIsInHideout";
+  if (isNil{_squad}) exitWith {false;};
+  diag_log "squad";
+  diag_log squad;
+  
+  _building = [_squad] call getSquadHideoutBuilding;
+  
+  if (([_building, _body] call BIS_fnc_distance2D) > hideout_hideoutRadius) exitWith {false;};
+  
+  diag_log "true";
   true;
 };

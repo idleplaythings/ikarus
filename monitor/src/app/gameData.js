@@ -15,7 +15,10 @@ module.exports = function(armaSerializer){
   var testInventories = [
     {
       steamId: "_SP_PLAYER_",
-      items: {}
+      items: {
+        'CUP_arifle_AK74': 1,
+        'CUP_30Rnd_545x39_AK_M': 5
+      }
     },
     {
       steamId: "_SP_AI_",

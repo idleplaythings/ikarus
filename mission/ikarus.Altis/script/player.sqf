@@ -9,6 +9,8 @@ joinPlayers = {
   _players = _this select 0;
   
   _leader = _players select 0;
+  if (isNil{_leader}) exitWith {};
+  
   _players joinSilent group _leader;
 };
 

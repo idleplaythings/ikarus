@@ -8,7 +8,6 @@ AO_getRandomLandPosition = {
     _i = _i + 1;
   };
   
-  player globalChat "AO in " + str _i + " position: " + str _position;
   _position;
 };
 

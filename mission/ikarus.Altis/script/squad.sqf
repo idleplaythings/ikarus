@@ -55,6 +55,18 @@ getForcedObjectives = {
   _this select 0 select 8;
 };
 
+getDisconnectedLoot = {
+  _this select 0 select 9;
+};
+
+addDisconnectedLoot = {
+  private ["_squad", "_currentLoot"];
+  _squad = _this select 0;
+  _currentLoot = (_squad select 9) + (_this select 1);
+
+  _squad set [9, _currentLoot];
+};
+
 setPlayersAtHideout = {
   private ["_newList"];
   _newList = + _this select 1;
@@ -84,11 +96,17 @@ getSquadHideoutPosForUnit = {
 getSquadForUnit = {
   private ["_unit", "_uids", "_squad"];
   _unit = _this select 0;
+  [(getPlayerUID _unit)] call getSquadForUid;
+};
+
+getSquadForUid = {
+  private ["_uid", "_uids", "_squad"];
+  _uid = _this select 0;
   _squad = nil;
   {
     _uids = [_x] call getSquadPlayerUIDs;
 
-    if (getPlayerUID _unit in _uids) then {
+    if (_uid in _uids) then {
       _squad = _x;
     };
   } forEach squads;

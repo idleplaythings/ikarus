@@ -8,7 +8,7 @@ missionControl_minSquads = 1;
 missionControl_waitingTimeSeconds = 5;
 missionControl_test = true;
 
-missionControl_timeGameLength = 60; //3600;
+missionControl_timeGameLength = 20; //3600;
 
 missionControl_startWhenReady = {
   ['gameWaiting'] call sock_rpc;
@@ -90,8 +90,8 @@ missionControl_endGame = {
     private ["_squad", "_loot"];
     _squad = _x;
     _loot = [_squad] call loot_findSquadLoot;
-    
-    player globalChat str _loot;
+    _loot = _loot + ([_squad] call getDisconnectedLoot);
+
     ['squadSubmit', [([_squad] call getSquadId), str _loot]] call sock_rpc;  
   } forEach squads;
   

@@ -8,11 +8,12 @@ lootbox_create = {
   _object = createVehicle ["Land_CargoBox_V1_F", [0,0,3000], [], 0, "FLYING"];
   _object setDir _azimuth;
   _object setPosASL _position;
-  _object setVariable ["lootLock", 95, false];
+  _object setVariable ["lootLock", 0, false];
   
   lootbox_boxes set [count lootbox_boxes, _object];
   _boxId = count lootbox_boxes - 1;
   [_boxId, _object] call lootbox_createTrigger;
+  
 };
 
 lootbox_activateTrigger = {
@@ -24,7 +25,7 @@ lootbox_activateTrigger = {
   
   _lootLock = _box getVariable "lootLock";
   
-  if (_lootLock >= 100) exitWith {};
+  if (isNil{_lootLock}) exitWith {};
   
   _lootLock = _lootLock + 1;
   
@@ -75,6 +76,10 @@ lootbox_open = {
   clearMagazineCargoGlobal _openBox;
   clearItemCargoGlobal _openBox;
   clearBackpackCargoGlobal _openBox;
+  
+  _openBox addBackpackCargoGlobal ['IKRS_loot_civilian_weapons', ((round random 3) + 3)];
+  _openBox addBackpackCargoGlobal ['IKRS_loot_old_RU_weapons', (round random 2)];
+  _openBox addBackpackCargoGlobal ['IKRS_loot_common_nato_weapons', (round random 1)];
 };
 
 lootbox_createTrigger = {

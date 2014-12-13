@@ -54,11 +54,7 @@ GameController.prototype._disconnectPlayerFromServer = function(player, server) 
   this._serverRepository.persist(server);
 
   squad.removePlayer(player);
-  if (squad.isEmpty()){
-    this._squadRepository.remove(squad);
-  } else {
-    this._squadRepository.persist(squad);
-  }
+  this._squadRepository.persist(squad);
 
   this._inventoryRepostiory.returnItems(company, player);
   this._inventoryRepostiory.removeByPlayer(player);

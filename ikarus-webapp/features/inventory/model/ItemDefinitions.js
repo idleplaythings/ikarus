@@ -20,6 +20,21 @@ ItemDefinitions = [
   createGeneric('Kobra Reflex Sight', 'CUP_optic_Kobra'),
   createGeneric('PSO-1 Scope', 'CUP_optic_PSO_1'),
 
+  createGeneric('Guerrila uniform 1', 'U_IG_Guerilla1_1', true),
+  createGeneric('Guerrila uniform 2', 'U_IG_Guerilla2_1', true),
+  createGeneric('Guerrila uniform 3', 'U_IG_Guerilla2_2', true),
+  createGeneric('Guerrila uniform 4', 'U_IG_Guerilla2_3', true),
+  createGeneric('Guerrila uniform 5', 'U_IG_Guerilla3_1', true),
+  createGeneric('Guerrila uniform 6', 'U_IG_Guerilla3_2', true),
+  createGeneric('Guerrila uniform 7', 'U_IG_leader', true),
+
+  createGeneric('Rangemaster belt', 'V_Rangemaster_belt', true),
+  createGeneric('Slash bandolier (Black)', 'V_BandollierB_blk', true),
+  createGeneric('Slash bandolier (Black)', 'V_BandollierB_oli', true),
+  createGeneric('Fighter chestrig (Khaki)', 'V_Chestrig_khk', true),
+
+  createGeneric('First aid kit', 'FirstAidKit', true),
+
   createLoot(
     'Civilian Weapons',
     'IKRS_loot_civilian_weapons',

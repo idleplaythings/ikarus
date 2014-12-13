@@ -23,7 +23,7 @@ Template.squadStatus.helpers({
 
 Template.createOrJoinCompany.helpers({
   invites: function() {
-    return [];
+    return dic.get('PlayerRepository').getCurrent().invites;
   }
 });
 
@@ -40,6 +40,18 @@ Template.createOrJoinCompany.events({
     Meteor.call(
       'createCompany',
       name,
+      function(error, result){
+        console.log(error, result);
+      }
+    );
+  },
+
+  'click .join-company' : function(event, template) {
+    var companyId = jQuery(event.target).attr("data-companyId");
+
+    Meteor.call(
+      'joinCompany',
+      companyId,
       function(error, result){
         console.log(error, result);
       }

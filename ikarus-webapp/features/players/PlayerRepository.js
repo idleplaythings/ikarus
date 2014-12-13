@@ -8,7 +8,17 @@ PlayerRepository.prototype.updateCurrentCompanyId = function(company) {
   if (! user)
     return;
 
-  Meteor.users.update({_id: user._id}, {$set: {companyId: company._id}});
+  Meteor.users.update({_id: user._id}, {$set: {companyId: company._id, invites: []}});
+};
+
+PlayerRepository.prototype.inviteToCompany = function(player, company) {
+  Meteor.users.update(
+    {_id: player._id},
+    {$push: {invites: {companyId: company._id, name: company.name}}});
+};
+
+PlayerRepository.prototype.getByName = function(name) {
+  return this._fromDoc(Meteor.users.findOne({ 'services.steam.username': name }));
 };
 
 PlayerRepository.prototype.getById = function(playerId) {

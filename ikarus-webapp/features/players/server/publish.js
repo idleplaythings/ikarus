@@ -4,6 +4,7 @@
       {_id: this.userId},
       {fields: {
         'services.steam': 1,
+        invites: 1
       }}
     );
   } else {

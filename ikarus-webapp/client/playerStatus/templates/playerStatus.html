@@ -6,6 +6,9 @@
         {{> squadStatus}}
       {{/with}}
     {{/if}}
+    {{#with company}}
+      {{> inviteToCompany}}
+    {{/with}}
   {{else}}
     {{> createOrJoinCompany}}
   {{/if}}
@@ -24,10 +27,10 @@
   <button id="create-company">Create new company</button>
 
   {{#if invites}}
-    <h2>Or join one of these companys:</h2>
+    <h2>Or join one of these companies:</h2>
     {{#each invites}}
       <button class="join-company" data-companyId="{{companyId}}">
-        Join company "{{companyName}}"
+        Join company "{{name}}"
       </button>
     {{/each}}
   {{else}}

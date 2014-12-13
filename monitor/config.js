@@ -10,8 +10,8 @@ module.exports = {
   },
 
   webApp: {
-    host: 'ikarus.meteor.com',
-    port: 80
+    host: '82.181.158.110',
+    port: 3000
   },
 
   webAppListener: {

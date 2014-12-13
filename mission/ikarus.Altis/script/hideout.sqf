@@ -68,6 +68,15 @@ hideout_createHideoutCache = {
   player globalChat "equipment";
   player globalChat str _equipment;
   
+  {
+    private ["_unit", "_unitEquipment"];
+    _unit = [_x select 0] call getPlayerByUID;
+    _unitEquipment = _x select 1;
+    
+    [_unit, _unitEquipment, _box] call equipment_equipUnit;
+    
+  } forEach _equipment;
+  
   _box;
 };
 

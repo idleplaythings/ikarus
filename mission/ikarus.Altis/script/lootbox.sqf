@@ -8,7 +8,7 @@ lootbox_create = {
   _object = createVehicle ["Land_CargoBox_V1_F", [0,0,3000], [], 0, "FLYING"];
   _object setDir _azimuth;
   _object setPosASL _position;
-  _object setVariable ["lootLock", 95, false];
+  _object setVariable ["lootLock", 0, false];
   
   lootbox_boxes set [count lootbox_boxes, _object];
   _boxId = count lootbox_boxes - 1;

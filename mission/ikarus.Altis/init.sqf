@@ -21,5 +21,6 @@ if (! isServer) exitwith {};
 [] execVM "script\loot.sqf";
 [] execVM "script\objectiveController.sqf";
 [] execVM "script\objectives\supply.sqf";
+[] execVM "script\equipment.sqf";
 
 call compile preprocessfile "SHK_pos\shk_pos_init.sqf";

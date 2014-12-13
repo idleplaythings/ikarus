@@ -105,7 +105,7 @@ objective_supply_getAmountOfDepots = {
   
   //floor ((count _objectives) / 2);
   
-  2;
+  1;
 };
 
 objective_supply_getRadiusOfAO = {

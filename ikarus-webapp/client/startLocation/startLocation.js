@@ -1,15 +1,12 @@
 Template.startLocation.events({
   'click #altis-map': function(event, template){
-    var element = template.find('#altis-map');
-    var x, y;
-    x = event.pageX;
-    y = event.pageY;
+    var element = jQuery(template.find('#altis-map'));
 
-    x -= element.offsetLeft;
-    y -= element.offsetTop;
+    var position = {
+        x: (event.pageX - element.offset().left) / element.width() * 30000,
+        y: (element.height() - (event.pageY - element.offset().top)) / element.height() * 27000 + 1000
+    };
 
-    console.log(x, y);
-
-    Meteor.call('changeStartingLocation', this._id, {x:x, y:y});
+    Meteor.call('changeStartingLocation', this._id, position);
   }
 });

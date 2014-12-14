@@ -61,7 +61,7 @@ module.exports = function(armaSerializer){
       }, this);
     }
 
-    console.log(this.getSquadData());
+    //console.log(this.getSquadData());
   };
 
   GameData.prototype.startGame = function(){

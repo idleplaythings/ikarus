@@ -22,7 +22,7 @@ module.exports = function(){
         callback(battleNode);
       }
     );
-  });
+  };
 
   BattlEyeClient.prototype.lockServer = function(config){
     this.login(config, function(battleNode){

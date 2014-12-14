@@ -22,6 +22,13 @@ ServerRepository.prototype.getAllByPlayer = function(player) {
   return this._serverCollection.find({ playerIds: { $in: [ player.steamId ] }}).fetch().map(this._deserialize.bind(this));
 };
 
+ServerRepository.prototype.addPlayer = function(server, player) {
+  this._serverCollection.update(
+    { _id: server._id },
+    {$push: {playerIds: player.steamId}}
+  );
+};
+
 ServerRepository.prototype.persist = function(server) {
   this._serverCollection.update(
     { name: server.name },

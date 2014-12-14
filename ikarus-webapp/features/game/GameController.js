@@ -21,6 +21,7 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
 };
 
 GameController.prototype.playerDisconnected = function(serverName, playerUid) {
+  console.log("playerUid", playerUid);
   var player = this._getPlayer(playerUid);
   var server = this._getServer(serverName);
 
@@ -37,12 +38,10 @@ GameController.prototype._connectPlayerToServer = function(player, server) {
   var company = this._getCompany(player);
   var squad = this._initOrGetSquad(server, company);
 
-  server.addPlayer(player);
-  this._serverRepository.persist(server);
+  this._serverRepository.addPlayer(server, player);
 
-  squad.addPlayer(player);
   this._inventoryRepostiory.createOnServerForPlayer(server, player);
-  this._squadRepository.persist(squad);
+  this._squadRepository.addPlayer(squad, player);
 
 };
 

@@ -8,8 +8,10 @@ ItemDefinitions = [
   createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['CUP_30Rnd_545x39_AK_M']),
   createMagazine('30rnd 5.45x39mm', 'CUP_30Rnd_545x39_AK_M', 30),
 
-  createWeapon('M16A2 assault rifle', 'CUP_arifle_M16A2', ['CUP_30Rnd_556x45_Stanag']),
+  createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['CUP_30Rnd_556x45_Stanag']),
   createMagazine('30rnd 5.56x45mm STANAG', 'CUP_30Rnd_556x45_Stanag', 30),
+
+  createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['CUP_30Rnd_556x45_Stanag']),
 
   createWeapon('M1014 Shotgun', 'CUP_sgun_M1014', ['CUP_8Rnd_B_Beneli_74Slug'], true),
   createMagazine('8rnd 12 gauge slugs', 'CUP_8Rnd_B_Beneli_74Slug', 8, true),
@@ -17,8 +19,12 @@ ItemDefinitions = [
   createWeapon('MP5A5 smg', 'CUP_smg_MP5A5', ['CUP_30Rnd_9x19_MP5'], true),
   createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30, true),
 
+  createWeapon('Dragunov SVD sniper rifle', 'CUP_srifle_SVD', ['CUP_10Rnd_762x54_SVD_M']),
+  createMagazine('10rnd 7.62x51mm SVD', 'CUP_10Rnd_762x54_SVD_M', 10),
+
   createGeneric('Kobra Reflex Sight', 'CUP_optic_Kobra'),
   createGeneric('PSO-1 Scope', 'CUP_optic_PSO_1'),
+  createGeneric('M68 CCO red dot optic', 'CUP_optic_CompM2_Black'),
 
   createGeneric('Guerrila uniform 1', 'U_IG_Guerilla1_1', true),
   createGeneric('Guerrila uniform 2', 'U_IG_Guerilla2_1', true),
@@ -53,7 +59,9 @@ ItemDefinitions = [
       'CUP_arifle_AK74': 'd2',
       'CUP_30Rnd_545x39_AK_M': '2d5+5',
       'CUP_optic_Kobra': 'd10-8',
-      'CUP_optic_PSO_1': 'd10-9'
+      'CUP_optic_PSO_1': 'd10-9',
+      'CUP_srifle_SVD': 'd20-19',
+      'CUP_10Rnd_762x54_SVD_M': 'd1'
     }
   ),
 
@@ -62,7 +70,9 @@ ItemDefinitions = [
     'IKRS_loot_common_nato_weapons',
     {
       'CUP_arifle_M16A2': 'd2',
-      'CUP_30Rnd_556x45_Stanag': 'd5+3'
+      'CUP_30Rnd_556x45_Stanag': 'd5+3',
+      'CUP_arifle_M16A4_Base': 'd5-4',
+      'CUP_optic_CompM2_Black': 'd5-4'
     }
   ),
 ];

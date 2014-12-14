@@ -42,6 +42,13 @@ SquadRepository.prototype.getSquadByServerAndCompany = function(server, company)
   return new Squad(doc);
 };
 
+SquadRepository.prototype.addPlayer = function(squad, player) {
+  this._squadCollection.update(
+    { _id: squad._id },
+    {$push: {steamIds: player.steamId}}
+  );
+};
+
 SquadRepository.prototype.persist = function(squad) {
   this._squadCollection.update(
     { _id: squad._id },

@@ -5,10 +5,10 @@ missionControl_timeGameStarted = 0;
 
 missionControl_minSquads = 1;
 
-missionControl_waitingTimeSeconds = 5;
-missionControl_test = true;
+missionControl_waitingTimeSeconds = 10;
+missionControl_test = false;
 
-missionControl_timeGameLength = 20; //3600;
+missionControl_timeGameLength = 3600;
 
 missionControl_startWhenReady = {
   ['gameWaiting'] call sock_rpc;
@@ -45,8 +45,8 @@ missionControl_pollGameEnd = {
       if (time - missionControl_timeGameStarted >= missionControl_timeGameLength) exitWith {
         call missionControl_endGame;
       };
-      
-      if ( count call getAllPlayers == 0) exitWith {
+   
+      if ((count call getAllAlivePlayers) == 0) exitWith {
         call missionControl_endGame;
       };  
     }
@@ -65,16 +65,19 @@ missionControl_startGameIfReady = {
 };
 
 missionControl_startGame = {
+  private ["_squads"];
   ['gameStart'] call sock_rpc;
- 
+  
+  call missionControl_displayGameStart;
+  
+  _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
+  [_squads] call setSquadData;
+  
   missionControl_gameStarted = true;
   missionControl_timeGameStarted = time;
   
   call hideout_createHideoutForSquads;
-  call events_setEventHandlers;
   call objectiveController_createObjectives;
-  
-  1000 cutText ["GAME STARTED", "PLAIN"];
   
   call hideout_movePlayersToHideout;
   call assembleSquads;
@@ -96,6 +99,29 @@ missionControl_endGame = {
   } forEach squads;
   
   ['gameEnd'] call sock_rpc;
+};
+
+missionControl_displayGameStart = {
+  private ["_players"];
+  _players = call getAllPlayers;
+  
+  {
+    [["GAME STARTING IN 30 SECONDS"], "BIS_fnc_dynamicText", _x, false, true] call BIS_fnc_MP;
+  } forEach _players;
+   
+  sleep 10;
+  
+  {
+    [["GAME STARTING IN 20 SECONDS"], "BIS_fnc_dynamicText", _x, false, true] call BIS_fnc_MP;
+  } forEach _players;
+  
+  sleep 10;
+  
+  {
+    [["GAME STARTING IN 10 SECONDS"], "BIS_fnc_dynamicText", _x, false, true] call BIS_fnc_MP;
+  } forEach _players;
+  
+  sleep 10;
 };
 
 call missionControl_startWhenReady;

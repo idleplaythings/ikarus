@@ -22,7 +22,20 @@ hideout_createHideoutForSquad = {
   [_squad, _building] call setSquadHideoutBuilding;
   
   _vehiclePos = getPos _building findEmptyPosition [10,20,"I_Truck_02_covered_F"];
-  createVehicle ["C_Hatchback_01_F", _vehiclePos, [], 0, "flying"];
+  if (count _vehiclePos > 0) then {
+    createVehicle ["C_Hatchback_01_F", _vehiclePos, [], 0, "none"];
+  };
+  
+  _vehiclePos = getPos _building findEmptyPosition [10,40,"C_Quadbike_01_F"];
+  if (count _vehiclePos > 0) then {
+    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
+  };
+  
+  _vehiclePos = getPos _building findEmptyPosition [10,40,"C_Quadbike_01_F"];
+  if (count _vehiclePos > 0) then {
+    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
+  };
+  
   // create weapon cache
   
   _cache = [_squad, _building, _objectData] call hideout_createHideoutCache;
@@ -77,6 +90,10 @@ hideout_createHideoutCache = {
     
   } forEach _equipment;
   
+  //_box addItemCargoGlobal ["SatchelCharge_F", 1];
+  _box addMagazineCargoGlobal ["DemoCharge_Remote_Mag", 1];
+  _box addBackpackCargoGlobal ["B_AssaultPack_khk", 1];
+  //_box addWeaponCargoGlobal ["SatchelCharge_F", 1];
   _box;
 };
 

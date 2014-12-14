@@ -1,36 +1,55 @@
 onPlayerKilled = nil;
+lastConnectedPlayerUid = nil;
+
+
+"lastConnectedPlayerUid" addPublicVariableEventHandler {
+  player globalChat "hi";
+  _uid = _this select 1;
+  diag_log "player connected";
+  diag_log _uid;
   
-events_setEventHandlers = {
-  "onPlayerKilled" addPublicVariableEventHandler {
+  if (missionControl_gameStarted) exitWith {
+    ['playerUnknown', [_uid]] call sock_rpc;
+  };
+
+  diag_log "game is NOT started";
+  ['playerConnected', [_uid]] call sock_rpc;
+};
+
+"onPlayerKilled" addPublicVariableEventHandler {
+
+  diag_log "player killed";
+  if (! missionControl_gameStarted) exitWith {};
+
+  diag_log " --- game is started";
+  _uid = _this select 1;
+  diag_log _uid;
+  ['playerKilled', [_uid]] call sock_rpc;
+};
+
+diag_log "adding event handler";
+addMissionEventHandler ["HandleDisconnect", {
+  private ["_unit, _uid"];
+  _unit = _this select 0;
+  _uid = _this select 2;
   
-    if (! missionControl_gameStarted) exitWith {};
+  diag_log "player disconnected";
+  diag_log _uid;
   
-    _uid = _this select 1;
-    ['playerKilled', [_uid]] call sock_rpc;
+  if ( ! missionControl_gameStarted) exitWith {
+    diag_log "disconnected before game start";
+    ['playerDisconnected', [_uid]] call sock_rpc;
   };
   
-  addMissionEventHandler ["HandleDisconnect", {
-    private ["_unit, _uid"];
-    _unit = _this select 0;
-    _uid = _this select 2;
-    
-    diag_log "unit disconnected";
-    diag_log _unit;
-    
-    if ( ! missionControl_gameStarted) exitWith {
-      diag_log "game is not started";
-      ['playerDisconnected', [_uid]] call sock_rpc;
-    };
-    
-    if ([_unit, _uid] call hideout_bodyIsInHideout) exitWith {
-      diag_log "unit disconnected in hideout";
-      [_unit, _uid] call events_playerDisconnectedInHideout;
-    };
-    
-    diag_log "player killed";
-    ['playerKilled', [_uid]] call sock_rpc;
-  }];
- };
+  if ([_unit, _uid] call hideout_bodyIsInHideout) exitWith {
+    diag_log "disconnected in hideout";
+    [_unit, _uid] call events_playerDisconnectedInHideout;
+  };
+
+  diag_log "disconnected while game is running and not in hideout";
+  ['playerKilled', [_uid]] call sock_rpc;
+}];
+
  
  events_playerDisconnectedInHideout = {
   private ["_unit", "_uid", "_loot", "_squad"];

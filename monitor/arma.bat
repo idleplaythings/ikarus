@@ -1,1 +1,1 @@
-"C:\Steam\SteamApps\common\Arma 3\arma3server.exe" "-mod=@Unlocked_Uniforms;@asdg_jr;@cup;" "-profiles=C:\Steam\SteamApps\common\Arma 3\server" -port=2302 "-config=C:\Steam\SteamApps\common\Arma 3\server\CONFIG_Vanilla.cfg" -world=empty -sock_host=::1 -sock_port=1337
+"C:\Steam\SteamApps\common\Arma 3\arma3server.exe" "-mod=@IKRS_common;" "-profiles=C:\Steam\SteamApps\common\Arma 3\server" -port=2302 "-config=C:\Steam\SteamApps\common\Arma 3\server\CONFIG_Vanilla.cfg" -world=empty -sock_host=::1 -sock_port=1337

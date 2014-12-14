@@ -16,11 +16,11 @@ if (! isServer) exitwith {};
 [] execVM "script\math.sqf";
 [] execVM "script\lootbox.sqf";
 [] execVM "script\player.sqf";
-[] execVM "script\events.sqf";
 [] execVM "script\AO.sqf";
 [] execVM "script\loot.sqf";
 [] execVM "script\objectiveController.sqf";
 [] execVM "script\objectives\supply.sqf";
 [] execVM "script\equipment.sqf";
+[] execVM "script\events.sqf";
 
 call compile preprocessfile "SHK_pos\shk_pos_init.sqf";

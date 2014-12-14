@@ -1,6 +1,7 @@
 
 Meteor.methods({
   playerConnected: function(serverName, playerUid){
+    console.log(serverName, playerUid);
     dic.get('GameController').playerConnected(serverName, playerUid);
   },
 

@@ -13,6 +13,7 @@ GameController = function GameController(
 }
 
 GameController.prototype.playerConnected = function(serverName, playerUid) {
+  console.log("connect playerUid", playerUid);
   var player = this._getPlayer(playerUid);
   var server = this._getServer(serverName);
 
@@ -21,7 +22,7 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
 };
 
 GameController.prototype.playerDisconnected = function(serverName, playerUid) {
-  console.log("playerUid", playerUid);
+  console.log("disconnect playerUid", playerUid);
   var player = this._getPlayer(playerUid);
   var server = this._getServer(serverName);
 

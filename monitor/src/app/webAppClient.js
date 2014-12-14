@@ -50,7 +50,7 @@ WebAppClient.prototype.getCollection = function(collection) {
   return this._ddpClient.collections[collection];
 };
 
-WebAppClient.prototype.call = function(name, arguments){
+WebAppClient.prototype.call = function(name, args){
 
   var onResult = function(error, result){
     console.log("Meteor method response 2", error, result);
@@ -60,9 +60,12 @@ WebAppClient.prototype.call = function(name, arguments){
     console.log('DDP client data updated 2');
   }.bind(this);
 
+  console.log("Calling meteor method '" + name +"' ");
+  console.log(args);
+
   this._ddpClient.call(
     name,
-    arguments,
+    args,
     onResult,
     onDone
   );

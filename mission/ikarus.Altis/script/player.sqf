@@ -19,6 +19,19 @@ getAllPlayers = {
   playableUnits;
 };
 
+getAllAlivePlayers = {
+  private ["_players"];
+  _players = [];
+  
+  {
+    if ( alive _x) then {
+       _players set [count _players, _x];
+    };
+  } forEach call getAllPlayers;
+  
+  _players;
+};
+
 getPlayerByUID = {
   private ["_uid"];
   _uid = _this select 0;

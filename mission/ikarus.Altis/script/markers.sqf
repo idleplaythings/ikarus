@@ -18,9 +18,3 @@ markers_createSupplyMarker = {
   _marker setMarkerSize [_radius, _radius];
   _marker setMarkerAlpha 0.8;
 };
-
-markers_debug = {
-  player globalChat "hi";
-  hint _this;
-  player globalChat (_this);
-};

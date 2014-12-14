@@ -26,6 +26,9 @@ ItemDefinitions = [
   createGeneric('PSO-1 Scope', 'CUP_optic_PSO_1'),
   createGeneric('M68 CCO red dot optic', 'CUP_optic_CompM2_Black'),
 
+  createGeneric('Trijicon ACOG optic', 'CUP_optic_RCO'),
+
+
   createGeneric('Guerrila uniform 1', 'U_IG_Guerilla1_1', true),
   createGeneric('Guerrila uniform 2', 'U_IG_Guerilla2_1', true),
   createGeneric('Guerrila uniform 3', 'U_IG_Guerilla2_2', true),
@@ -72,7 +75,8 @@ ItemDefinitions = [
       'CUP_arifle_M16A2': 'd2',
       'CUP_30Rnd_556x45_Stanag': 'd5+3',
       'CUP_arifle_M16A4_Base': 'd5-4',
-      'CUP_optic_CompM2_Black': 'd5-4'
+      'CUP_optic_CompM2_Black': 'd5-4',
+      'CUP_optic_RCO': 'd20-18'
     }
   ),
 ];

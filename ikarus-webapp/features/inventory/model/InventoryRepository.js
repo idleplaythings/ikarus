@@ -15,6 +15,11 @@ InventoryRepository.prototype.createCompanyInventory = function(company){
 };
 
 InventoryRepository.prototype.createOnServerForPlayer = function(server, player){
+
+  if ( ! player.steamId){
+    throw new Error("Player does not have a steamId");
+  };
+
   var id = this._collection.insert(
     new InventorySquadMember({
       serverId: server._id,
@@ -32,6 +37,11 @@ InventoryRepository.prototype.getByCompany = function(company){
 };
 
 InventoryRepository.prototype.getByPlayer = function(player){
+
+  if ( ! player.steamId){
+    throw new Error("Player does not have a steamId");
+  };
+
   return this._inventoryFactory.deserialize(
     this._collection.findOne({steamId: player.steamId})
   );

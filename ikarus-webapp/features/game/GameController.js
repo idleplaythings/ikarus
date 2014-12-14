@@ -48,13 +48,15 @@ GameController.prototype._connectPlayerToServer = function(player, server) {
 
 GameController.prototype._disconnectPlayerFromServer = function(player, server) {
   var company = this._getCompany(player);
-  var squad = this._initOrGetSquad(server, company);
+  var squad = this._getSquad(server, company);
 
   server.removePlayer(player);
   this._serverRepository.persist(server);
 
-  squad.removePlayer(player);
-  this._squadRepository.persist(squad);
+  if (squad) {
+    squad.removePlayer(player);
+    this._squadRepository.persist(squad);
+  }
 
   this._inventoryRepostiory.returnItems(company, player);
   this._inventoryRepostiory.removeByPlayer(player);

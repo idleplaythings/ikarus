@@ -352,7 +352,7 @@ class Mission
 			interruptable=1;
 			age="UNKNOWN";
 			name="waiting_area_trigger";
-			expCond="!gameStarted and round (time %1)==1";
+			expCond="!missionControl_gameStarted and round (time %1)==1";
 			expActiv="[waiting_area_trigger] call returnPlayersToWaitingArea;";
 			expDesactiv="[waiting_area_trigger] call returnPlayersToWaitingArea;";
 			class Effects

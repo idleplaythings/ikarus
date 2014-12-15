@@ -27,7 +27,7 @@ lootbox_activateTrigger = {
   
   if (isNil{_lootLock}) exitWith {};
   
-  _lootLock = _lootLock + 1;
+  _lootLock = _lootLock + call lootbox_getUnlockIncrement;
   
   _box setVariable ["lootLock", _lootLock, false];
   
@@ -36,6 +36,18 @@ lootbox_activateTrigger = {
   if (_lootLock >= 100) then {
     [_box] call lootbox_open;
   };
+};
+
+lootbox_getUnlockIncrement = {
+  private ["_timeElapsed"];
+  
+  _timeElapsed = call missionControl_getElapsedTime;
+  
+  if (_timeElapsed > 1200) exitWith {
+    1;
+  }; 
+  
+  0.3;
 };
 
 lootbox_listHasPlayers = {
@@ -56,7 +68,7 @@ lootbox_hint = {
   _value = _this select 1;
   
   {
-    [format ["Loot box is %1 open", str _value], "hint", _x, false, true] call BIS_fnc_MP;
+    ["Loot box is " + str _value + "% open", "hint", _x, false, true] call BIS_fnc_MP;
   } forEach _units;
 };
 

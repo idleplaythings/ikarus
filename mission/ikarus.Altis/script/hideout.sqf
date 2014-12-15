@@ -90,10 +90,6 @@ hideout_createHideoutCache = {
     
   } forEach _equipment;
   
-  //_box addItemCargoGlobal ["SatchelCharge_F", 1];
-  _box addMagazineCargoGlobal ["DemoCharge_Remote_Mag", 1];
-  _box addBackpackCargoGlobal ["B_AssaultPack_khk", 1];
-  //_box addWeaponCargoGlobal ["SatchelCharge_F", 1];
   _box;
 };
 

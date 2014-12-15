@@ -18,3 +18,7 @@ markers_createSupplyMarker = {
   _marker setMarkerSize [_radius, _radius];
   _marker setMarkerAlpha 0.8;
 };
+
+markers_textMessage = {
+  [_this select 0] call BIS_fnc_dynamicText;
+};

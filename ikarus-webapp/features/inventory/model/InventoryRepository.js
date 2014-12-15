@@ -84,6 +84,10 @@ InventoryRepository.prototype.returnItems = function(company, player){
 
 InventoryRepository.prototype.moveFromInventory = function(from, to, armaClass){
   var item = this._itemFactory.createItemByArmaClass(armaClass);
+  if (from.locked || to.locked) {
+    return;
+  }
+
   this.removeFromInventory(from, item) && this.addToInventory(to, item);
 };
 

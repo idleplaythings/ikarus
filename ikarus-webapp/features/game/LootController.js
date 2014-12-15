@@ -59,5 +59,7 @@ LootController.prototype._getSquad = function(id) {
 };
 
 LootController.prototype._notFound = function(what) {
+  console.log(what + "not found (LootController)");
+  console.trace();
   throw new Meteor.Error(404, what + ' not found');
 };

@@ -1,7 +1,4 @@
 <template name="armory">
-  <h3>Armory</h3>
-
-
   {{#each getInventory.items}}
     <div class="row inventory-entry armory" data-armaclass="{{armaClass}}">
       {{#if squad}}
@@ -17,5 +14,4 @@
       </div>
     </div>
   {{/each}}
-
 </template>

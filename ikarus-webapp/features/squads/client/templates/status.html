@@ -1,0 +1,21 @@
+<template name="squads_status">
+  <div>
+    <h2>Squad</h2>
+    {{#if squad}}
+      <div class="container-fluid">
+        <div class="row">
+          {{#with squad}}
+            <div class="col-md-6">
+              {{> startLocation}}
+            </div>
+            <div class="col-md-6">
+              {{> squadMemberInventory}}
+            </div>
+          {{/with}}
+        </div>
+      </div>
+    {{else}}
+      <p>You are not a member of a squad. Connect to a server to join a squad.</p>
+    {{/if}}
+  </div>
+</template>

@@ -1,52 +1,44 @@
 <template name="home">
-
-  <div class="container-fluid">
+  <div class="ikarus-main container-fluid">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <h1>Ikarus</h1>
+
         <p>Download mod from: <a href="https://s3-eu-west-1.amazonaws.com/ikarus.idleplaythings.com/mod/%40IKRS_common_r1.zip">here </a></p>
       </div>
-      <div class="col-md-2">
+
+      <div class="col-md-8">
         <div class="pull-right">
           {{> loginButtons}}
         </div>
       </div>
     </div>
 
-
     <div class="row">
-      <div class="col-md-4">
-        {{> serverStatus}}
+      <div class="col-md-6">
+        {{> servers_list}}
       </div>
-      {{#if currentUser}}
-        <div class="col-md-4">
-          {{> playerStatus}}
-        </div>
-      {{/if}}
+      <div class="col-md-6">
+        {{> companies_list}}
+      </div>
     </div>
 
     <div class="row">
-    {{#if squad}}
-      {{#with squad}}
-        <div class="col-md-4">
-          {{> startLocation}}
-        </div>
-        <div class="col-md-4">
-          {{> squadMemberInventory}}
-        </div>
-      {{/with}}
-    {{/if}}
-    {{#if company}}
-      {{#with company}}
-        <div class="col-md-4">
-          {{> armory}}
-        </div>
-      {{/with}}
-    {{/if}}
+      <div class="col-md-12">
+        {{> players_status}}
+      </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-12">
+        {{> companies_status}}
+      </div>
+    </div>
 
-
+    <div class="row">
+      <div class="col-md-12">
+        {{> squads_status}}
+      </div>
+    </div>
   </div>
-
 </template>

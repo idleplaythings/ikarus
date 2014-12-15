@@ -1,0 +1,11 @@
+li.server {
+  border: 1px solid grey;
+}
+
+li.server.server-status-waiting {
+  background-color: green;
+}
+
+li.server.server-status-playing {
+  background-color: red;
+}

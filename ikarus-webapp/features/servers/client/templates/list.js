@@ -1,4 +1,4 @@
-Template.serverStatus.helpers({
+Template.servers_list.helpers({
   created: function() {
     Meteor.subscribe('serverStatus');
   },
@@ -7,7 +7,7 @@ Template.serverStatus.helpers({
   },
 });
 
-Template.serverStatus.events({
+Template.servers_list.events({
   'click .js-server-register': function(event, template) {
     Meteor.call('registerServer', template.find('[name=server-name]').value);
   },

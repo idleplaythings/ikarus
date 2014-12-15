@@ -12,15 +12,51 @@ Company.prototype.serialize = function() {
 };
 
 Company.prototype.addPlayer = function(player) {
-  if (this.playerIds.indexOf(player.steamId) !== -1) {
-    return;
-  }
-
-  this.playerIds.push(player.steamId);
+  collections.CompanyCollection.update({
+      _id: this._id
+    }, {
+      $addToSet: {
+        playerIds: player.getSteamId()
+      }
+  });
+  player.setCompanyId(this._id);
 };
 
 Company.prototype.removePlayer = function(player) {
-  this.playerIds = this.playerIds.filter(function(steamId) {
-    return steamId !== player.steamId;
+  collections.CompanyCollection.update(
+    {
+      _id: this._id
+    }, {
+      $pull: {
+        playerIds: player.getSteamId()
+      }
   });
+  player.setCompanyId(null);
 };
+
+Company.prototype.getName = function() {
+  return collections.CompanyCollection.findOne({ _id: this._id }).name;
+}
+
+Company.prototype.playerCount = function() {
+  if (this.playerIds) {
+    return this.playerIds.length;
+  }
+
+  return 0;
+};
+
+Company.prototype.getPlayers = function() {
+  var company = Company.getById(this._id);
+
+  if (!company) {
+    return null;
+  }
+
+  return dic.get('PlayerRepository').getAllByIds(company.playerIds);
+}
+
+Company.getById = function(companyId) {
+  return dic.get('CompanyRepository').getById(companyId);
+}
+

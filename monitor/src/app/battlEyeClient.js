@@ -12,11 +12,11 @@ module.exports = function(){
       'login',
       function(error, success) {
         if (error){
-          throw new Error("Unable to log in to battle eye");
+          console.log("Unable to log in to battle eye");
         }
 
         if (success == false) {
-          throw new Error("Unable to log in to battle eye (success false)");
+          console.log("Unable to log in to battle eye (success false)");
         }
 
         callback(battleNode);

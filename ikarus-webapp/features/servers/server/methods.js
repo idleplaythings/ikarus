@@ -35,11 +35,6 @@ Meteor.methods({
       dic.get('InventoryRepository').removeByServer(server);
     }
 
-    if (status === Server.STATUS_PLAYING) {
-      dic.get('SquadRepository').lockSquadsOnServer(server);
-      dic.get('InventoryRepository').lockByServer(server);
-    }
-
     server.updateStatus(status);
     repo.persist(server);
   }

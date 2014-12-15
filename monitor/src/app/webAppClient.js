@@ -103,4 +103,8 @@ WebAppClient.prototype.reportMissionLoot = function(serverId, squadId, loot) {
   this.call('missionLoot', [serverId, squadId, loot]);
 };
 
+WebAppClient.prototype.reportLockSquads = function(serverId) {
+  this.call('lockSquads', [serverId]);
+};
+
 module.exports = WebAppClient;

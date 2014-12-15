@@ -89,6 +89,10 @@ InventoryRepository.prototype.moveFromInventory = function(from, to, armaClass){
 
 InventoryRepository.prototype.removeFromInventory = function(inventory, item){
 
+  if (inventory.locked) {
+    return 0;
+  }
+
   var armaClass = item.armaClass;
   if (item.unlimited && inventory instanceof InventoryCompany) {
     return 1;
@@ -117,6 +121,10 @@ InventoryRepository.prototype.removeFromInventory = function(inventory, item){
 };
 
 InventoryRepository.prototype.addToInventory = function(inventory, item){
+
+  if (inventory.locked) {
+    return 0;
+  }
 
   var armaClass = item.armaClass;
   if (item.unlimited && inventory instanceof InventoryCompany) {

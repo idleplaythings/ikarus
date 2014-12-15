@@ -17,5 +17,17 @@ Meteor.methods({
     squad.startingLocation = location;
 
     squadRepository.persist(squad);
+  },
+
+  'lockSquads' : function(serverName) {
+    var server = dic.get('ServerRepository').getByName(serverName);
+
+    if (! server) {
+      throw new Meteor.Error(404, 'Server not found');
+    }
+
+    dic.get('InventoryRepository').lockByServer(server);
+    dic.get('SquadRepository').lockSquadsOnServer(server);
   }
+
 });

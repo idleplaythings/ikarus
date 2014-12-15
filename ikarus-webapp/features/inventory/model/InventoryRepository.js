@@ -84,10 +84,18 @@ InventoryRepository.prototype.returnItems = function(company, player){
 
 InventoryRepository.prototype.moveFromInventory = function(from, to, armaClass){
   var item = this._itemFactory.createItemByArmaClass(armaClass);
+  if (from.locked || to.locked) {
+    return;
+  }
+
   this.removeFromInventory(from, item) && this.addToInventory(to, item);
 };
 
 InventoryRepository.prototype.removeFromInventory = function(inventory, item){
+
+  if (inventory.locked) {
+    return 0;
+  }
 
   var armaClass = item.armaClass;
   if (item.unlimited && inventory instanceof InventoryCompany) {
@@ -117,6 +125,10 @@ InventoryRepository.prototype.removeFromInventory = function(inventory, item){
 };
 
 InventoryRepository.prototype.addToInventory = function(inventory, item){
+
+  if (inventory.locked) {
+    return 0;
+  }
 
   var armaClass = item.armaClass;
   if (item.unlimited && inventory instanceof InventoryCompany) {

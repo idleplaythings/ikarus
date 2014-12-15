@@ -5,10 +5,19 @@ missionControl_timeGameStarted = 0;
 
 missionControl_minSquads = 1;
 
-missionControl_waitingTimeSeconds = 10;
+missionControl_waitingTimeSeconds = 180;
 missionControl_test = false;
 
 missionControl_timeGameLength = 3600;
+
+missionControl_getElapsedTime = {
+  if (missionControl_timeGameStarted == 0) exitWith {
+    0;
+  };
+  
+  time - missionControl_timeGameStarted;
+};
+
 
 missionControl_startWhenReady = {
   ['gameWaiting'] call sock_rpc;
@@ -98,6 +107,8 @@ missionControl_endGame = {
     ['squadSubmit', [([_squad] call getSquadId), str _loot]] call sock_rpc;  
   } forEach squads;
   
+  sleep 10;
+  
   ['gameEnd'] call sock_rpc;
 };
 
@@ -106,19 +117,20 @@ missionControl_displayGameStart = {
   _players = call getAllPlayers;
   
   {
-    [["GAME STARTING IN 30 SECONDS"], "BIS_fnc_dynamicText", _x, false, true] call BIS_fnc_MP;
+    [["GAME STARTING IN 30 SECONDS"], "markers_textMessage", _x, false, true] call BIS_fnc_MP;
   } forEach _players;
    
   sleep 10;
   
   {
-    [["GAME STARTING IN 20 SECONDS"], "BIS_fnc_dynamicText", _x, false, true] call BIS_fnc_MP;
+    [["GAME STARTING IN 20 SECONDS"], "markers_textMessage", _x, false, true] call BIS_fnc_MP;
   } forEach _players;
   
   sleep 10;
   
+  ['lockSquads'] call sock_rpc;
   {
-    [["GAME STARTING IN 10 SECONDS"], "BIS_fnc_dynamicText", _x, false, true] call BIS_fnc_MP;
+    [["GAME STARTING IN 10 SECONDS ! INVENTORIES LOCKED!"], "markers_textMessage", _x, false, true] call BIS_fnc_MP;
   } forEach _players;
   
   sleep 10;

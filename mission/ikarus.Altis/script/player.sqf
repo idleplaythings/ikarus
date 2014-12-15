@@ -15,7 +15,6 @@ joinPlayers = {
 };
 
 getAllPlayers = {
-  if (count playableUnits == 0) exitWith {[player, friend]};
   playableUnits;
 };
 

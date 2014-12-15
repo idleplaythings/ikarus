@@ -22,6 +22,7 @@ Monitor.prototype._registerRpcCallbacks = function() {
   this._registerRpcCallback('playerKilled', playerKilled);
   this._registerRpcCallback('playerUnknown', playerUnknown);
   this._registerRpcCallback('playerDisconnected', playerDisconnected);
+  this._registerRpcCallback('lockSquads', lockSquads);
 };
 
 Monitor.prototype._registerRpcCallback = function(name, callback) {
@@ -127,6 +128,10 @@ var playerUnknown = function(uid) {
 var playerDisconnected = function(uid) {
   this._battlEyeClient.kickPlayer(this._config.battlEye, uid);
   this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
+};
+
+var lockSquads = function() {
+  this._webAppClient.reportLockSquads(this._config.arma.serverId);
 };
 
 module.exports = Monitor;

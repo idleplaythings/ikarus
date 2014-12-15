@@ -43,7 +43,6 @@ GameController.prototype._connectPlayerToServer = function(player, server) {
 
   this._inventoryRepostiory.createOnServerForPlayer(server, player);
   this._squadRepository.addPlayer(squad, player);
-
 };
 
 GameController.prototype._disconnectPlayerFromServer = function(player, server) {
@@ -87,6 +86,8 @@ GameController.prototype._initSquad = function(server, company) {
 };
 
 GameController.prototype._notFound = function(what) {
+  console.log(what + "not found (GameController)");
+  console.trace();
   throw new Error(what + ' not found');
 };
 

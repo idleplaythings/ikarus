@@ -11,6 +11,22 @@ Company.prototype.serialize = function() {
   };
 };
 
+Company.prototype.getName = function() {
+  return this.getDocument().name;
+}
+
+Company.prototype.setName = function(name) {
+  collections.CompanyCollection.update(
+    {
+      _id: this._id
+    }, {
+      $set: {
+        name: name
+      }
+  });
+}
+
+
 Company.prototype.addPlayer = function(player) {
   collections.CompanyCollection.update({
       _id: this._id
@@ -34,26 +50,33 @@ Company.prototype.removePlayer = function(player) {
   player.setCompanyId(null);
 };
 
-Company.prototype.getName = function() {
-  return collections.CompanyCollection.findOne({ _id: this._id }).name;
+Company.prototype.getPlayerIds = function() {
+  return this.getDocument().playerIds;
+}
+
+Company.prototype.getDocument = function() {
+  return collections.CompanyCollection.findOne({ _id: this._id });
 }
 
 Company.prototype.playerCount = function() {
-  if (this.playerIds) {
-    return this.playerIds.length;
-  }
-
-  return 0;
+  return this.getPlayerIds().length;
 };
 
 Company.prototype.getPlayers = function() {
-  var company = Company.getById(this._id);
+  return Player.getByIds(this.getPlayerIds());
+}
 
-  if (!company) {
-    return null;
-  }
-
-  return dic.get('PlayerRepository').getAllByIds(company.playerIds);
+Company.prototype.invite = function(player) {
+  Meteor.users.update({
+    _id: player._id
+  }, {
+    $push: {
+      invites: {
+        companyId: this._id,
+        name: this.getName()
+      }
+    }
+  });
 }
 
 Company.getById = function(companyId) {

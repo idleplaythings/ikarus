@@ -1,6 +1,6 @@
 Template.companies_status.helpers({
   companyName: function() {
-    var player = dic.get('PlayerRepository').getCurrent();
+    var player = Player.getCurrent();
 
     if (!player) {
       return null;
@@ -15,7 +15,7 @@ Template.companies_status.helpers({
     return company.getName();
   },
   company: function() {
-    var player = dic.get('PlayerRepository').getCurrent();
+    var player = Player.getCurrent();
 
     if (!player) {
       return null;
@@ -30,7 +30,7 @@ Template.companies_status.helpers({
     return company;
   },
   players: function() {
-    var player = dic.get('PlayerRepository').getCurrent();
+    var player = Player.getCurrent();
 
     if (!player) {
       return null;
@@ -45,7 +45,7 @@ Template.companies_status.helpers({
     return company.getPlayers();
   },
   invites: function() {
-    var player = dic.get('PlayerRepository').getCurrent();
+    var player = Player.getCurrent();
 
     if (!player) {
       return null;
@@ -62,7 +62,7 @@ Template.companies_status.events({
   },
   'click .js-leave-company': function(event, template) {
     if (confirm('Are you sure?')) {
-      var player = dic.get('PlayerRepository').getCurrent();
+      var player = Player.getCurrent();
       var company = player.getCompany();
 
       Meteor.call('leaveCompany', player.getSteamId(), company._id);
@@ -86,7 +86,7 @@ Template.companies_status.events({
     );
   },
   'click .js-join-company' : function(event, template) {
-    var player = dic.get('PlayerRepository').getCurrent();
+    var player = Player.getCurrent();
     var companyId = jQuery(event.target).attr("data-companyId");
 
     Meteor.call(

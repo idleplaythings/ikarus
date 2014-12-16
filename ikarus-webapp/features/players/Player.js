@@ -1,58 +1,40 @@
 Player = function Player(args) {
   this._id = args._id;
-  this.steamId = args.services ? args.services.steam.id : null;
-  this.name = args.services ? args.services.steam.username : null;
-  this.invites = args.invites || [];
 }
 
-Player.prototype.getInvite = function(company){
+Player.prototype.getInvite = function(company) {
   return this.invites.indexOf(company._id) > -1;
 };
 
-Player.prototype.hasInvite = function(company){
+Player.prototype.hasInvite = function(company) {
   return Boolean(this.getInvite(company));
 };
 
 Player.prototype.getAvatarUrl = function() {
-  var user = this._getUser();
-
-  if (!user || !user.services) {
-    return null;
-  }
-
-  return user.services.steam.avatar.small;
+  return get(this.getDoc(), 'services.steam.avatar.small');
 }
 
 Player.prototype.getSteamId = function() {
-  var user = this._getUser();
+  return get(this.getDoc(), 'services.steam.id');
+}
 
-  if (!user || !user.services) {
-    return null;
-  }
-
-  return user.services.steam.id;
+Player.prototype.getInvites = function() {
+  return get(this.getDoc(), 'invites');
 }
 
 Player.prototype.getName = function() {
-  var user = this._getUser();
-
-  if (!user) {
-    return null;
-  }
-
-  return user.name;
+  return get(this.getDoc(), 'name');
 }
 
 Player.prototype.getCompany = function() {
-  var companyId = this._getUser().companyId;
-  return Company.getById(companyId);
+  return Company.getById(get(this.getDoc(), 'companyId'));
 }
 
 Player.prototype.getSquad = function() {
   return Squad.getByPlayer(this);
 }
 
-Player.prototype._getUser = function() {
+Player.prototype.getDoc = function() {
   return Meteor.users.findOne({ _id: this._id });
 }
 
@@ -61,5 +43,33 @@ Player.prototype.setCompanyId = function(companyId) {
 }
 
 Player.getById = function(playerId) {
-  return dic.get('PlayerRepository').getById(playerId);
+  return Player.fromDoc(Meteor.users.findOne({ 'services.steam.id': playerId }));
 }
+
+Player.getByIds = function(playerIds) {
+  return Meteor.users.find({ 'services.steam.id': { $in: playerIds }}).fetch().map(Player.fromDoc);
+}
+
+Player.getByName = function(name) {
+  return Player.fromDoc(Meteor.users.findOne({ 'services.steam.username': name }));
+};
+
+Player.getByCompany = function(company) {
+  return Meteor.users.find({ companyId: company._id }).fetch().map(Player.fromDoc);
+}
+
+Player.getAllByIds = function(playerIds) {
+  return Meteor.users.find({ 'services.steam.id': { $in: playerIds }}).fetch().map(Player.fromDoc);
+};
+
+Player.getCurrent = function() {
+  return Player.fromDoc(Meteor.user());
+};
+
+Player.fromDoc = function(doc) {
+  if (Boolean(doc) === false) {
+    return null;
+  }
+
+  return new Player(doc);
+};

@@ -15,14 +15,14 @@ Template.servers_list.events({
     Meteor.call(
       'playerConnected',
       jQuery(event.target).data('serverName'),
-      dic.get('PlayerRepository').getCurrent().steamId
+      Player.getCurrent().getSteamId()
     );
   },
   'click .js-server-disconnect': function(event, template) {
     Meteor.call(
       'playerDisconnected',
       jQuery(event.target).data('serverName'),
-      dic.get('PlayerRepository').getCurrent().steamId
+      Player.getCurrent().getSteamId()
     );
   },
 });

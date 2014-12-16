@@ -8,7 +8,7 @@ Template.companies_list.events({
   'click .js-request-invite': function(event, template) {
     Meteor.call(
       'inviteToCompany',
-      dic.get('PlayerRepository').getCurrent().name,
+      Player.getCurrent().getName(),
       jQuery(event.target).data('companyId'),
       function(error, result) {
         console.log(error, result);

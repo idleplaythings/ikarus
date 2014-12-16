@@ -23,7 +23,7 @@ Meteor.methods({
 });
 
 function getPlayer(){
-  var player = dic.get('PlayerRepository').getCurrent();
+  var player = Player.getCurrent();
 
   if (! player){
     throw new Meteor.Error(404, 'Player not found');

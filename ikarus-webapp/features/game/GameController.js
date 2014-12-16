@@ -1,11 +1,9 @@
 GameController = function GameController(
-  playerRepository,
   serverRepository,
   companyRepository,
   squadRepository,
   inventoryRepostiory
 ){
-  this._playerRepository = playerRepository;
   this._serverRepository = serverRepository;
   this._companyRepository = companyRepository;
   this._squadRepository = squadRepository;
@@ -66,7 +64,7 @@ GameController.prototype._getServer = function(serverName) {
 };
 
 GameController.prototype._getPlayer = function(playerUid) {
-  return this._playerRepository.getById(playerUid) || this._notFound('Player');
+  return Player.getById(playerUid) || this._notFound('Player');
 };
 
 GameController.prototype._getCompany = function(player) {

@@ -1,7 +1,7 @@
 Template.squadMemberInventory.helpers({
   getInventory: function(){
     var inventory = dic.get('InventoryRepository').getByPlayer(
-      dic.get('PlayerRepository').getCurrent());
+      Player.getCurrent());
 
     return new InventoryUi({
       inventory: inventory,
@@ -10,7 +10,7 @@ Template.squadMemberInventory.helpers({
   },
   locked: function(){
     dic.get('InventoryRepository').getByPlayer(
-      dic.get('PlayerRepository').getCurrent()
+      Player.getCurrent()
     ).locked;
   }
 });

@@ -6,12 +6,12 @@ Template.home.created = function(){
 Template.home.helpers({
   company: function() {
     return dic.get('CompanyRepository').getByPlayer(
-      dic.get('PlayerRepository').getCurrent()
+      Player.getCurrent()
     );
   },
 
   squad: function() {
-    var player = dic.get('PlayerRepository').getCurrent();
+    var player = Player.getCurrent();
     if (! player)
       return null;
 

@@ -7,7 +7,7 @@ Template.armory.helpers({
     });
   },
   squad: function() {
-    var player = dic.get('PlayerRepository').getCurrent();
+    var player = Player.getCurrent();
     if (! player)
       return null;
 

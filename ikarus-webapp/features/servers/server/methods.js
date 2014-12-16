@@ -19,7 +19,7 @@ Meteor.methods({
     }
 
     if (status == Server.STATUS_IDLE){
-      var players = dic.get('PlayerRepository').getAllByIds(server.playerIds);
+      var players = Player.getAllByIds(server.playerIds);
 
       server.removePlayers();
       dic.get('SquadRepository').removeSquadsFromServer(server);

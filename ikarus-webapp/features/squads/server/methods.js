@@ -1,7 +1,7 @@
 Meteor.methods({
   'changeStartingLocation': function(squadId, location) {
     var squadRepository = dic.get('SquadRepository');
-    var player = dic.get('PlayerRepository').getCurrent();
+    var player = Player.getCurrent();
     var squad = squadRepository.getByPlayer(player);
 
     console.log(squad);

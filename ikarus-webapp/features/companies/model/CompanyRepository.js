@@ -48,6 +48,10 @@ CompanyRepository.prototype.getByPlayer = function(player) {
   );
 };
 
+CompanyRepository.prototype.getAll = function() {
+  return this._companyCollection.find().fetch().map(this._deserialize);
+}
+
 CompanyRepository.prototype._deserialize = function(doc) {
   if (Boolean(doc) === false) {
     return null;

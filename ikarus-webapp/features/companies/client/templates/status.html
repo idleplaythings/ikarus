@@ -1,0 +1,47 @@
+<template name="companies_status">
+  <div>
+    {{#if company}}
+      <h2>{{ companyName }}</h2>
+
+      <button class="js-rename-company">Rename</button>
+      <button class="js-leave-company">Leave</button>
+      <button class="js-invite-to-company">Invite</button>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Players</h3>
+            {{> players_list company }}
+          </div>
+          <div class="col-md-6">
+            <h3>Armory</h3>
+            {{#with company}}
+              {{> armory}}
+            {{/with}}
+          </div>
+        </div>
+      </div>
+    {{else}}
+      <h2>Company</h2>
+
+      <p>You are not a member of a company. Create new one...</p>
+
+      <p>
+        <label>Name for your company:</label>
+        <input class="js-company-name" type="text">
+        <button class="js-create-company">Create new company</button>
+      </p>
+
+      {{#if invites}}
+        <p>or join one of these companies:</p>
+        {{#each invites}}
+          <button class="js-join-company" data-companyId="{{companyId}}">
+            Join company "{{name}}"
+          </button>
+        {{/each}}
+      {{else}}
+        <p>... or ask your friends for an invite!</p>
+      {{/if}}
+    {{/if}}
+  </div>
+</template>

@@ -1,0 +1,43 @@
+<template name="servers_list">
+  <div>
+    <h2>Servers</h2>
+
+    {{#if debug}}
+      <div>
+        <input name="server-name" /> <button class="js-server-register">Register server</button>
+      </div>
+    {{/if}}
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Players</th>
+          {{#if debug}}
+            <th>Debug</th>
+          {{/if}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each servers}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{status}}</td>
+            <td>{{playerCount}}</td>
+            {{#if debug}}
+              <td>
+                <button data-server-name="{{name}}" class="js-server-connect">Connect</button>
+                <button data-server-name="{{name}}" class="js-server-disconnect">Disconnect</button>
+              </td>
+            {{/if}}
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="4">No servers found.</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>

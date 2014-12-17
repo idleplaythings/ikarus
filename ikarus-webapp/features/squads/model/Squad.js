@@ -44,3 +44,7 @@ Squad.prototype.removePlayer = function(player){
     return steamId !== player.steamId;
   });
 };
+
+Squad.getByPlayer = function(player) {
+  return dic.get('SquadRepository').getByPlayer(player);
+}

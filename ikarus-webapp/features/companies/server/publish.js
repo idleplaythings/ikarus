@@ -9,7 +9,8 @@ Meteor.publish('MySquad', function(){
   console.log(user.squadId);
 
   return [
-    collections.CompanyCollection.find({playerIds: {$in: [steamId]}}),
+    // collections.CompanyCollection.find({playerIds: {$in: [steamId]}}),
+    collections.CompanyCollection.find({}),
     collections.SquadCollection.find({squadId: user.squadId}),
     collections.InventoryCollection.find({$or: [{steamId: steamId}, {companyId: user.companyId}]})
   ];

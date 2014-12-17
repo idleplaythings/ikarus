@@ -7,9 +7,15 @@ SquadRepository.prototype.getById = function(squadId) {
 }
 
 SquadRepository.prototype.getByPlayer = function(player) {
+  var steamId = player.getSteamId();
+
+  if (!steamId) {
+    return null;
+  }
+
   return this._fromDoc(
     this._squadCollection.findOne({
-      steamIds: {$in: [ player.steamId ]}
+      steamIds: {$in: [ player.getSteamId() ]}
     })
   );
 };

@@ -10,11 +10,17 @@ joinPlayers = {
   
   _leader = _players select 0;
   if (isNil{_leader}) exitWith {};
-  
-  _players joinSilent group _leader;
+  {
+    if (_x != _leader ) then {
+      [_x] joinSilent group _leader;
+    }
+  } forEach _players;
 };
 
 getAllPlayers = {
+  if ( missionControl_test ) exitWith {
+    [player, friend, friend2];
+  };
   playableUnits;
 };
 

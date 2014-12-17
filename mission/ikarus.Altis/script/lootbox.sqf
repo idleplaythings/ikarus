@@ -91,7 +91,11 @@ lootbox_open = {
   
   _openBox addBackpackCargoGlobal ['IKRS_loot_civilian_weapons', ((round random 3) + 3)];
   _openBox addBackpackCargoGlobal ['IKRS_loot_old_RU_weapons', (round random 2)];
-  _openBox addBackpackCargoGlobal ['IKRS_loot_common_nato_weapons', (round random 1)];
+  _openBox addBackpackCargoGlobal ['IKRS_loot_old_nato_weapons', (round random 1)];
+  _openBox addBackpackCargoGlobal ['IKRS_loot_common_RU_weapons', ((ceil random 10) - 8)];
+  _openBox addBackpackCargoGlobal ['IKRS_loot_common_nato_weapons', ((ceil random 10) - 9)];
+  _openBox addBackpackCargoGlobal ['IKRS_loot_heavy_RU_weapons', ((ceil random 4) - 3)];
+  _openBox addBackpackCargoGlobal ['IKRS_loot_heavy_nato_weapons', ((ceil random 10) - 9)];
 };
 
 lootbox_createTrigger = {

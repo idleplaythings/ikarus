@@ -1,6 +1,5 @@
 dic.register('GameController', function (dic) {
   return new GameController(
-    dic.get('ServerRepository'),
     dic.get('InventoryRepository')
   );
 }, {shared: true});

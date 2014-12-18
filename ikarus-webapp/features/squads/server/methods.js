@@ -17,7 +17,7 @@ Meteor.methods({
   },
 
   'lockSquads' : function(serverName) {
-    var server = dic.get('ServerRepository').getByName(serverName);
+    var server = Server.getByName(serverName);
 
     if (! server) {
       throw new Meteor.Error(404, 'Server not found');

@@ -10,41 +10,77 @@ Server.STATUS_PLAYING = 'playing';
 Server.STATUS_WAITING = 'waiting';
 Server.STATUS_DOWN = 'down';
 
-Server.prototype.updateStatus = function(status) {
+Server.prototype.getName = function() {
+  return get(this.getDoc(), 'name');
+}
 
+Server.prototype.setName = function(name) {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      name: name
+    }
+  });
+}
+
+Server.prototype.getStatus = function() {
+  return get(this.getDoc(), 'status');
+}
+
+Server.prototype.updateStatus = function(status) {
   if (status !== Server.STATUS_IDLE &&
     status !== Server.STATUS_DOWN &&
     status !== Server.STATUS_WAITING &&
     status !== Server.STATUS_PLAYING){
-    throw new Error("Unknown status: '"+status+"'" );
+    throw new Error("Unknown status: '" + status + "'" );
   }
 
-  this.status = status;
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      status: status
+    }
+  });
 }
 
-Server.prototype.removePlayers = function(player) {
-  this.playerIds = [];
+Server.prototype.getPlayerIds = function() {
+  return get(this.getDoc(), 'playerIds') || [];
 }
 
 Server.prototype.addPlayer = function(player) {
-  if (this.playerIds.indexOf(player.getSteamId()) !== -1) {
-    return;
-  }
-  this.playerIds.push(player.getSteamId());
-}
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $addToSet: {
+      playerIds: player.getSteamId()
+    }
+  });
+};
 
 Server.prototype.removePlayer = function(player) {
-  this.playerIds = this.playerIds.filter(function(steamId) {
-    return steamId !== player.getSteamId();
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $pull: {
+      playerIds: player.getSteamId()
+    }
+  });
+};
+
+Server.prototype.removePlayers = function() {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      playerIds: []
+    }
   });
 }
 
 Server.prototype.playerCount = function() {
-  if (this.playerIds) {
-    return this.playerIds.length;
-  }
-
-  return 0;
+  return this.getPlayerIds().length;
 };
 
 Server.prototype.serialize = function() {
@@ -53,4 +89,32 @@ Server.prototype.serialize = function() {
     playerIds: this.playerIds,
     status: this.status
   };
+};
+
+Server.create = function() {
+  return Server.fromDoc({ collections.ServerCollection.insert({});
+};
+
+Server.getAll = function() {
+  return collections.ServerCollection.find().fetch().map(Server.fromDoc);
+};
+
+Server.getById = function(id) {
+  return Server.fromDoc(collections.ServerCollection.findOne({ _id: id }));
+};
+
+Server.getByName = function(name) {
+  return Server.fromDoc(collections.ServerCollection.findOne({ name: name }));
+};
+
+Server.getAllByPlayer = function(player) {
+  return collections.ServerCollection.find({ playerIds: { $in: [ player.getSteamId() ] }}).fetch().map(Server.fromDoc);
+};
+
+Server.fromDoc = function(doc) {
+  if (Boolean(doc) === false) {
+    return null;
+  }
+
+  return new Server(doc);
 };

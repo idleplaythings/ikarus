@@ -51,7 +51,7 @@ Template.companies_status.helpers({
       return null;
     }
 
-    return player.invites;
+    return player.getInvites();
   }
 });
 

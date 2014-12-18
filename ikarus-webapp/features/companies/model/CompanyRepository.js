@@ -31,7 +31,7 @@ CompanyRepository.prototype.getByName = function(name) {
 };
 
 CompanyRepository.prototype.getBySquad = function(squad) {
-  return this._deserialize(this._companyCollection.findOne({ _id: squad.companyId }));
+  return this._deserialize(this._companyCollection.findOne({ _id: squad.getCompanyId() }));
 };
 
 CompanyRepository.prototype.getByPlayer = function(player) {
@@ -42,7 +42,7 @@ CompanyRepository.prototype.getByPlayer = function(player) {
   return this._deserialize(
     this._companyCollection.findOne({
       playerIds: {
-        $in: [ player.steamId ]
+        $in: [ player.getSteamId() ]
       }
     })
   );

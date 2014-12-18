@@ -16,14 +16,14 @@ InventoryRepository.prototype.createCompanyInventory = function(company){
 
 InventoryRepository.prototype.createOnServerForPlayer = function(server, player){
 
-  if ( ! player.steamId){
+  if ( ! player.getSteamId()){
     throw new Error("Player does not have a steamId");
   };
 
   var id = this._collection.insert(
     new InventorySquadMember({
       serverId: server._id,
-      steamId: player.steamId
+      steamId: player.getSteamId()
     }).serialize()
   );
 
@@ -38,12 +38,12 @@ InventoryRepository.prototype.getByCompany = function(company){
 
 InventoryRepository.prototype.getByPlayer = function(player){
 
-  if ( ! player.steamId){
+  if ( ! player.getSteamId()){
     throw new Error("Player does not have a steamId");
   };
 
   return this._inventoryFactory.deserialize(
-    this._collection.findOne({steamId: player.steamId})
+    this._collection.findOne({steamId: player.getSteamId() })
   );
 };
 
@@ -58,7 +58,7 @@ InventoryRepository.prototype.lockByServer = function(server){
 };
 
 InventoryRepository.prototype.removeByPlayer = function(player){
-  this._collection.remove({steamId: player.steamId});
+  this._collection.remove({steamId: player.getSteamId()});
 };
 
 InventoryRepository.prototype.removeByServer = function(server){

@@ -27,15 +27,15 @@ Server.prototype.removePlayers = function(player) {
 }
 
 Server.prototype.addPlayer = function(player) {
-  if (this.playerIds.indexOf(player.steamId) !== -1) {
+  if (this.playerIds.indexOf(player.getSteamId()) !== -1) {
     return;
   }
-  this.playerIds.push(player.steamId);
+  this.playerIds.push(player.getSteamId());
 }
 
 Server.prototype.removePlayer = function(player) {
   this.playerIds = this.playerIds.filter(function(steamId) {
-    return steamId !== player.steamId;
+    return steamId !== player.getSteamId();
   });
 }
 

@@ -137,6 +137,10 @@ Squad.prototype.remove = function() {
   collections.SquadCollection.remove({ _id: this._id });
 }
 
+Squad.create = function() {
+  return Squad.fromDoc({ _id: collections.SquadCollection.insert({}) });
+}
+
 Squad.getById = function(squadId) {
   return Squad.fromDoc(collections.SquadCollection.findOne({ _id: squadId }));
 }

@@ -12,7 +12,7 @@ Company.prototype.serialize = function() {
 };
 
 Company.prototype.getName = function() {
-  return this.getDocument().name;
+  return get(this.getDoc(), 'name');
 }
 
 Company.prototype.setName = function(name) {
@@ -25,7 +25,6 @@ Company.prototype.setName = function(name) {
       }
   });
 }
-
 
 Company.prototype.addPlayer = function(player) {
   collections.CompanyCollection.update({
@@ -51,11 +50,7 @@ Company.prototype.removePlayer = function(player) {
 };
 
 Company.prototype.getPlayerIds = function() {
-  return this.getDocument().playerIds;
-}
-
-Company.prototype.getDocument = function() {
-  return collections.CompanyCollection.findOne({ _id: this._id });
+  return get(this.getDoc(), 'playerIds') || [];
 }
 
 Company.prototype.playerCount = function() {
@@ -70,7 +65,7 @@ Company.prototype.invite = function(player) {
   Meteor.users.update({
     _id: player._id
   }, {
-    $push: {
+    $addToSet: {
       invites: {
         companyId: this._id,
         name: this.getName()
@@ -79,7 +74,38 @@ Company.prototype.invite = function(player) {
   });
 }
 
-Company.getById = function(companyId) {
-  return dic.get('CompanyRepository').getById(companyId);
+Company.prototype.getDoc = function() {
+  return collections.CompanyCollection.findOne({ _id: this._id });
 }
 
+Company.getById = function(companyId) {
+  return Company.fromDoc(collections.CompanyCollection.findOne({ _id: id }));
+}
+
+Company.getByName = function(name) {
+  return Company.fromDoc(collections.CompanyCollection.findOne({ name: name }));
+};
+
+Company.getBySquad = function(squad) {
+  return Company.fromDoc(collections.CompanyCollection.findOne({ _id: squad.getCompanyId() }));
+};
+
+Company.getByPlayer = function(player) {
+  return Company.fromDoc(collections.CompanyCollection.findOne({ playerIds: { $in: player.getSteamId() }}));
+};
+
+Company.getAll = function() {
+  return collections.CompanyCollection.find({}).fetch().map(Company.fromDoc);
+}
+
+Company.create = function() {
+  return Company.fromDoc({ _id: collections.CompanyCollection.insert({}) });
+}
+
+Company.fromDoc = function(doc) {
+  if (Boolean(doc) === false) {
+    return null;
+  }
+
+  return new Company(doc);
+};

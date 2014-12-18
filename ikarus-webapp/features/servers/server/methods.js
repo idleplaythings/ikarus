@@ -24,7 +24,7 @@ Meteor.methods({
       server.removePlayers();
       Squad.getAllByServer(server).map(function(squad) { squad.remove(); });
       players.forEach(function(player){
-        var company = dic.get('CompanyRepository').getByPlayer(player);
+        var company = player.getCompany();
 
         if ( ! company)
           return;

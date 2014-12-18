@@ -1,10 +1,8 @@
 GameController = function GameController(
   serverRepository,
-  companyRepository,
   inventoryRepostiory
 ){
   this._serverRepository = serverRepository;
-  this._companyRepository = companyRepository;
   this._inventoryRepostiory = inventoryRepostiory;
 }
 
@@ -65,7 +63,7 @@ GameController.prototype._getPlayer = function(playerUid) {
 };
 
 GameController.prototype._getCompany = function(player) {
-  return this._companyRepository.getByPlayer(player) || this._notFound('Company');
+  player.getCompany() || this._notFound('Company');
 };
 
 GameController.prototype._initOrGetSquad = function(server, company) {
@@ -75,7 +73,7 @@ GameController.prototype._initOrGetSquad = function(server, company) {
 GameController.prototype._getSquad = function(server, company) {
   return Squad.getAllByServer(server)
     .filter(function(squad) {
-      squad.getCompanyId() !== company._id
+      return squad.getCompanyId() === company._id
     })
     .reduce(function(prev, current) {
       return current ? current : prev;

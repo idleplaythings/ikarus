@@ -5,20 +5,16 @@ Meteor.methods({
       return;
     }
 
-    var companyRepo = dic.get('CompanyRepository');
-
-    var company = companyRepo.create(name);
+    var company = Company.create();
+    company.setName(name);
     company.addPlayer(Player.getCurrent());
   },
 
   inviteToCompany: function(playerName, companyId) {
-    var companyRepo = dic.get('CompanyRepository');
-
-    var company = companyRepo.getById(companyId);
-
+    var company = Company.getById(companyId);
     var player = Player.getByName(playerName);
 
-    if (! player || player.hasInvite(company) || companyRepo.getByPlayer(player)) {
+    if (! player || player.hasInvite(company) || Company.getByPlayer(player)) {
       throw new Meteor.Error(404, 'Player not found, already belongs to a company, or already has an invite');
     }
 

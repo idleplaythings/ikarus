@@ -38,12 +38,6 @@ function getPlayer(){
   return player;
 }
 
-function getCompany(player){
-  var company = dic.get('CompanyRepository').getByPlayer(player);
-
-  if (! company){
-    throw new Meteor.Error(404, 'Company not found');
-  }
-
-  return company;
+function getCompany(player) {
+  return player.getCompany();
 }

@@ -1,6 +1,6 @@
 Template.companies_list.helpers({
   companies: function() {
-    return dic.get('CompanyRepository').getAll();
+    return Company.getAll();
   },
 });
 

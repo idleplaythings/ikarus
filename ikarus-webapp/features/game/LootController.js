@@ -1,10 +1,8 @@
 LootController = function LootController(
-  companyRepository,
   itemFactory,
   inventoryRepository,
   dice
 ){
-  this._companyRepository = companyRepository;
   this._itemFactory = itemFactory;
   this._inventoryRepository = inventoryRepository;
   this._dice = dice;
@@ -49,7 +47,7 @@ LootController.prototype._handleLootBackpack = function(
 };
 
 LootController.prototype._getCompany = function(squad) {
-  return this._companyRepository.getBySquad(squad) || this._notFound('Company');
+  return squad.getCompany() || this._notFound('Company');
 };
 
 LootController.prototype._notFound = function(what) {

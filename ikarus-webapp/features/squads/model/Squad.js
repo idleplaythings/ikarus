@@ -1,33 +1,12 @@
 Squad = function Squad(args) {
-  if (!args) {
-    args = {};
-  }
-
   this._id = args._id;
-  this.serverId = args.serverId;
-  this.companyId = args.companyId;
-  this.steamIds = args.steamIds || [];
-  this.startingLocation = args.startingLocation || {x: 10000, y:10000};
-  this.objectives = args.objectives;
-  this.locked = args.locked || false;
 }
-
-Squad.prototype.serialize = function() {
-  return {
-    serverId: this.serverId,
-    companyId: this.companyId,
-    steamIds: this.steamIds,
-    startingLocation: this.startingLocation,
-    objectives: this.objectives,
-    locked: this.locked
-  };
-};
 
 Squad.prototype.addPlayer = function(player) {
   collections.SquadCollection.update({
     _id: this._id
   }, {
-    $push: {
+    $addToSet: {
       steamIds: player.getSteamId()
     }
   });
@@ -38,7 +17,7 @@ Squad.prototype.removePlayer = function(player){
     _id: this._id
   }, {
     $pull: {
-      playerIds: player.getSteamId()
+      steamIds: player.getSteamId()
     }
   });
 };
@@ -71,6 +50,10 @@ Squad.prototype.setCompanyId = function(companyId) {
   });
 }
 
+Squad.prototype.getCompany = function() {
+  return Company.getBySquad(this);
+}
+
 Squad.prototype.getServerId = function() {
   return get(this.getDoc(), 'serverId');
 }
@@ -98,7 +81,7 @@ Squad.prototype.setLocked = function(locked) {
     _id: this._id
   }, {
     $set: {
-      locked: locked
+      locked: Boolean(locked)
     }
   });
 }

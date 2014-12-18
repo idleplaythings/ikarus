@@ -5,17 +5,11 @@ Template.home.created = function(){
 
 Template.home.helpers({
   company: function() {
-    return dic.get('CompanyRepository').getByPlayer(
-      Player.getCurrent()
-    );
+    return Player.getCurrent().getCompany();
   },
 
   squad: function() {
-    var player = Player.getCurrent();
-    if (! player)
-      return null;
-
-    return Squad.getByPlayer(player);
+    return Player.getCurrent().getSquad();
   },
 });
 

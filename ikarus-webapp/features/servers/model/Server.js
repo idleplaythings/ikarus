@@ -91,8 +91,12 @@ Server.prototype.serialize = function() {
   };
 };
 
+Server.prototype.getDoc = function() {
+  return collections.ServerCollection.findOne({ _id: this._id });
+}
+
 Server.create = function() {
-  return Server.fromDoc({ collections.ServerCollection.insert({});
+  return Server.fromDoc({ _id: collections.ServerCollection.insert({}) });
 };
 
 Server.getAll = function() {

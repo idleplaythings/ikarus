@@ -11,6 +11,6 @@ Template.armory.helpers({
     if (! player)
       return null;
 
-    return dic.get('SquadRepository').getByPlayer(player);
+    return Squad.getByPlayer(player);
   }
 })

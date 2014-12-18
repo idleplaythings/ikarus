@@ -1,12 +1,10 @@
 GameController = function GameController(
   serverRepository,
   companyRepository,
-  squadRepository,
   inventoryRepostiory
 ){
   this._serverRepository = serverRepository;
   this._companyRepository = companyRepository;
-  this._squadRepository = squadRepository;
   this._inventoryRepostiory = inventoryRepostiory;
 }
 
@@ -36,11 +34,11 @@ GameController.prototype._disconnectPlayerFromServers = function(player) {
 GameController.prototype._connectPlayerToServer = function(player, server) {
   var company = this._getCompany(player);
   var squad = this._initOrGetSquad(server, company);
+  squad.addPlayer(player);
 
   this._serverRepository.addPlayer(server, player);
 
   this._inventoryRepostiory.createOnServerForPlayer(server, player);
-  this._squadRepository.addPlayer(squad, player);
 };
 
 GameController.prototype._disconnectPlayerFromServer = function(player, server) {
@@ -52,7 +50,6 @@ GameController.prototype._disconnectPlayerFromServer = function(player, server) 
 
   if (squad) {
     squad.removePlayer(player);
-    this._squadRepository.persist(squad);
   }
 
   this._inventoryRepostiory.returnItems(company, player);
@@ -76,11 +73,20 @@ GameController.prototype._initOrGetSquad = function(server, company) {
 };
 
 GameController.prototype._getSquad = function(server, company) {
-  return this._squadRepository.getSquadByServerAndCompany(server, company);
+  return Squad.getAllByServer(server)
+    .filter(function(squad) {
+      squad.getCompanyId() !== company._id
+    })
+    .reduce(function(prev, current) {
+      return current ? current : prev;
+    }, null);
 }
 
 GameController.prototype._initSquad = function(server, company) {
-  return this._squadRepository.createOnServerForCompany(server, company);
+  var squad = Squad.create();
+  squad.setServerId(server._id);
+  squad.setCompanyId(company._id);
+  return squad;
 };
 
 GameController.prototype._notFound = function(what) {

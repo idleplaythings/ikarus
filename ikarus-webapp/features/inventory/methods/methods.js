@@ -29,7 +29,7 @@ function getPlayer(){
     throw new Meteor.Error(404, 'Player not found');
   }
 
-  var squad = dic.get('SquadRepository').getByPlayer(player);
+  var squad = Squad.getByPlayer(player);
 
   if (! squad){
     throw new Meteor.Error(404, 'Squad not found');

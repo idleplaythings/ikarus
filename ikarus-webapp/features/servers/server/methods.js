@@ -22,7 +22,7 @@ Meteor.methods({
       var players = Player.getAllByIds(server.playerIds);
 
       server.removePlayers();
-      dic.get('SquadRepository').removeSquadsFromServer(server);
+      Squad.getAllByServer(server).map(function(squad) { squad.remove(); });
       players.forEach(function(player){
         var company = dic.get('CompanyRepository').getByPlayer(player);
 

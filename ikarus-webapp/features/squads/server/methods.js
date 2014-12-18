@@ -1,8 +1,7 @@
 Meteor.methods({
   'changeStartingLocation': function(squadId, location) {
-    var squadRepository = dic.get('SquadRepository');
     var player = Player.getCurrent();
-    var squad = squadRepository.getByPlayer(player);
+    var squad = Squad.getByPlayer(player);
 
     console.log(squad);
 
@@ -14,9 +13,7 @@ Meteor.methods({
       return;
     }
 
-    squad.startingLocation = location;
-
-    squadRepository.persist(squad);
+    squad.setStartingLocation(location);
   },
 
   'lockSquads' : function(serverName) {
@@ -27,7 +24,7 @@ Meteor.methods({
     }
 
     dic.get('InventoryRepository').lockByServer(server);
-    dic.get('SquadRepository').lockSquadsOnServer(server);
+    Squad.getAllByServer(server).map(function(squad) { squad.lock(); });
   }
 
 });

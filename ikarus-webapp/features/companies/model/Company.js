@@ -62,15 +62,9 @@ Company.prototype.getPlayers = function() {
 }
 
 Company.prototype.invite = function(player) {
-  Meteor.users.update({
-    _id: player._id
-  }, {
-    $addToSet: {
-      invites: {
-        companyId: this._id,
-        name: this.getName()
-      }
-    }
+  player.addInvite({
+    companyId: this._id,
+    name: this.getName()
   });
 }
 
@@ -79,7 +73,7 @@ Company.prototype.getDoc = function() {
 }
 
 Company.getById = function(companyId) {
-  return Company.fromDoc(collections.CompanyCollection.findOne({ _id: id }));
+  return Company.fromDoc(collections.CompanyCollection.findOne({ _id: companyId }));
 }
 
 Company.getByName = function(name) {
@@ -91,7 +85,7 @@ Company.getBySquad = function(squad) {
 };
 
 Company.getByPlayer = function(player) {
-  return Company.fromDoc(collections.CompanyCollection.findOne({ playerIds: { $in: player.getSteamId() }}));
+  return Company.fromDoc(collections.CompanyCollection.findOne({ playerIds: { $in: [ player.getSteamId() ] }}));
 };
 
 Company.getAll = function() {

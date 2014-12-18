@@ -63,7 +63,7 @@ GameController.prototype._getPlayer = function(playerUid) {
 };
 
 GameController.prototype._getCompany = function(player) {
-  player.getCompany() || this._notFound('Company');
+  return player.getCompany() || this._notFound('Company');
 };
 
 GameController.prototype._initOrGetSquad = function(server, company) {

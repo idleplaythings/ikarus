@@ -3,7 +3,11 @@ Player = function Player(args) {
 }
 
 Player.prototype.getInvite = function(company) {
-  return this.invites.indexOf(company._id) > -1;
+  return this.getInvites().filter(function(invite) {
+    return companyId === company._id;
+  }).reduce(function(prev, current) {
+    return prev ? prev : current;
+  }, null);
 };
 
 Player.prototype.hasInvite = function(company) {
@@ -19,11 +23,11 @@ Player.prototype.getSteamId = function() {
 }
 
 Player.prototype.getInvites = function() {
-  return get(this.getDoc(), 'invites');
+  return get(this.getDoc(), 'invites') || [];
 }
 
 Player.prototype.getName = function() {
-  return get(this.getDoc(), 'name');
+  return get(this.getDoc(), 'services.steam.username');
 }
 
 Player.prototype.getCompany = function() {
@@ -40,6 +44,10 @@ Player.prototype.getDoc = function() {
 
 Player.prototype.setCompanyId = function(companyId) {
   Meteor.users.update({ _id: this._id }, { $set: { companyId: companyId }});
+}
+
+Player.prototype.addInvite = function(invite) {
+  Meteor.users.update({ _id: this._id }, { $addToSet: { invites: invite }});
 }
 
 Player.getById = function(playerId) {

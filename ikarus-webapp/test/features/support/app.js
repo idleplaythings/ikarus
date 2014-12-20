@@ -7,6 +7,51 @@ function App(ddpClient) {
   this._ddpClient = ddpClient;
 }
 
+App.prototype.connect = function() {
+  var self = this;
+
+  return function() {
+    var deferred = Q.defer();
+
+    self._ddpClient.connect(function(error) {
+      if (error) {
+        deferred.reject(error);
+        return;
+      }
+
+      util.info('Connected to app')
+
+      self._ddpClient.subscribe('testing', [], function(error) {
+        if (error) {
+          deferred.reject(error);
+        } else {
+          util.info('Subscribed to testing publication');
+          deferred.resolve();
+        }
+      });
+    });
+
+    return deferred.promise;
+  };
+};
+
+App.prototype.disconnect = function() {
+  var self = this;
+
+  return function() {
+    var deferred = Q.defer();
+
+    self._ddpClient.close();
+
+    setTimeout(function() {
+      util.info('Disconnected from app');
+      deferred.resolve();
+    }, 150);
+
+    return deferred.promise;
+  }
+};
+
 App.prototype.login = function(username, password) {
   var self = this;
 
@@ -122,18 +167,18 @@ App.prototype.removeFixtures = function() {
     var methodResponse = Q.defer();
     var dataReady = Q.defer();
 
-    util.info('removeFixtures: Removing fixtures');
+    util.info('app.removeFixtures: Removing fixtures');
 
     self._ddpClient.call(
       'testing_removeFixtures',
       [ ],
       function(error, result) {
         handleMeteorMethodError(error);
-        util.info('removeFixtures: Test fixtures removed');
+        util.info('app.removeFixtures: Test fixtures removed');
         methodResponse.resolve(result);
       },
       function() {
-        util.info('removeFixtures: Data ready')
+        util.info('app.removeFixtures: Data ready')
         dataReady.resolve();
       }
     );

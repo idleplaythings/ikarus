@@ -2,10 +2,10 @@ var Q = require('q');
 
 module.exports = {
   info: function info(str) {
-    console.log('[INFO]: ' + str);
+    console.log('      [info]: ' + str);
   },
   error: function error(str) {
-    console.error('[ERROR] ' + str);
+    console.error('      [error] ' + str);
   },
   asPromised: function asPromised(fn, ctx) {
     if (typeof fn !== 'function') {

@@ -37,7 +37,7 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
     },
     testing_removeFixtures: function() {
       Meteor.users.remove({ testing: true });
-      collections.CompanyCollection.remove({ name: "Metsien Miehet" });
+      collections.CompanyCollection.remove({ name: "Härmän Hurjat" });
     }
   });
 }

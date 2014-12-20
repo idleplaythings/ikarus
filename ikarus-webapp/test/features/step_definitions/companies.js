@@ -1,20 +1,17 @@
 var assert = require('assert');
 
-var DEFAULT_PASSWORD = 'salakala';
-var username = null;
-
 var companiesStepDefinitions = function () {
   this.World = require("../support/world.js").World;
 
   this.Given(/^player "([^"]*)" with Steam ID "([^"]*)" exists$/, function (name, steamId, callback) {
-    this.app.createUser(name, steamId, DEFAULT_PASSWORD)()
+    this.app.createUser(name, steamId, this.defaultPassword)()
       .finally(callback)
       .catch(this.handleError);
   });
 
   this.Given(/^I am logged in as "([^"]*)"$/, function (name, callback) {
-    username = name;
-    this.app.login(name, DEFAULT_PASSWORD)()
+    this.username = name;
+    this.app.login(name, this.defaultPassword)()
       .finally(callback)
       .catch(this.handleError);
   });
@@ -26,7 +23,7 @@ var companiesStepDefinitions = function () {
   });
 
   this.Then(/^I should be a member of the company "([^"]*)"$/, function (companyName, callback) {
-    assertMemberOf(this.app._ddpClient.collections, username, companyName);
+    assertMemberOf(this.app._ddpClient.collections, this.username, companyName);
     callback();
   });
 };

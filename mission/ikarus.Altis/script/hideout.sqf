@@ -90,6 +90,11 @@ hideout_createHideoutCache = {
     
   } forEach _equipment;
   
+  _box addItemCargoGlobal ['AGM_Bandage', 30];
+  _box addItemCargoGlobal ['AGM_Morphine', 10];
+  _box addItemCargoGlobal ['AGM_Epipen', 3];
+  _box addItemCargoGlobal ['AGM_Bloodbag', 3];
+  
   _box;
 };
 

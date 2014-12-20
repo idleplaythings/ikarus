@@ -31,8 +31,28 @@
     displayName = "Loot (Old Russian weapons)";
   };
 
+  class IKRS_loot_old_nato_weapons : IKRS_loot_Backpack
+  {
+    displayName = "Loot (Old Nato weapons)";
+  };
+
+  class IKRS_loot_common_RU_weapons : IKRS_loot_Backpack
+  {
+    displayName = "Loot (Common Russian weapons)";
+  };
+
   class IKRS_loot_common_nato_weapons : IKRS_loot_Backpack
   {
     displayName = "Loot (Common Nato weapons)";
+  };
+
+  class IKRS_loot_heavy_RU_weapons : IKRS_loot_Backpack
+  {
+    displayName = "Loot (Russian heavy weapons)";
+  };
+
+  class IKRS_loot_heavy_nato_weapons : IKRS_loot_Backpack
+  {
+    displayName = "Loot (Nato heavy weapons)";
   };
 };

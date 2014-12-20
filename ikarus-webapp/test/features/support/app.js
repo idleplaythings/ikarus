@@ -143,7 +143,7 @@ App.prototype.createCompany = function(companyName) {
     util.info('app.createCompany: Creating company "' + companyName + '"');
 
     self._ddpClient.call(
-      'createCompany',
+      'testing_createCompany',
       [ companyName ],
       function(error, result) {
         handleMeteorMethodError(error);
@@ -152,6 +152,60 @@ App.prototype.createCompany = function(companyName) {
       },
       function() {
         util.info('app.createCompany: Data ready')
+        dataReady.resolve();
+      }
+    );
+
+    return Q.all([ methodResponse.promise, dataReady.promise ]);
+  }
+};
+
+App.prototype.callCreateCompany = function(companyName) {
+  var self = this;
+
+  return function() {
+    var methodResponse = Q.defer();
+    var dataReady = Q.defer();
+
+    util.info('app.callCreateCompany: Creating company "' + companyName + '"');
+
+    self._ddpClient.call(
+      'createCompany',
+      [ companyName ],
+      function(error, result) {
+        handleMeteorMethodError(error);
+        util.info('app.callCreateCompany: Company "' + companyName + '" created');
+        methodResponse.resolve(result);
+      },
+      function() {
+        util.info('app.callCreateCompany: Data ready')
+        dataReady.resolve();
+      }
+    );
+
+    return Q.all([ methodResponse.promise, dataReady.promise ]);
+  }
+};
+
+App.prototype.callInviteToCompany = function(username) {
+  var self = this;
+
+  return function() {
+    var methodResponse = Q.defer();
+    var dataReady = Q.defer();
+
+    util.info('app.callInviteToCompany: Inviting "' + username + '" to company');
+
+    self._ddpClient.call(
+      'inviteToCompany',
+      [ username ],
+      function(error, result) {
+        handleMeteorMethodError(error);
+        util.info('app.callInviteToCompany: "' + username + '" invited to company');
+        methodResponse.resolve(result);
+      },
+      function() {
+        util.info('app.callInviteToCompany: Data ready')
         dataReady.resolve();
       }
     );
@@ -179,6 +233,33 @@ App.prototype.removeFixtures = function() {
       },
       function() {
         util.info('app.removeFixtures: Data ready')
+        dataReady.resolve();
+      }
+    );
+
+    return Q.all([ methodResponse.promise, dataReady.promise ]);
+  }
+};
+
+App.prototype.addPlayerToCompany = function(username, companyName) {
+  var self = this;
+
+  return function() {
+    var methodResponse = Q.defer();
+    var dataReady = Q.defer();
+
+    util.info('app.addPlayerToCompany: Adding player "' + username + '" to company "' + companyName + '"');
+
+    self._ddpClient.call(
+      'testing_addPlayerToCompany',
+      [ username, companyName ],
+      function(error, result) {
+        handleMeteorMethodError(error);
+        util.info('app.addPlayerToCompany: Player "' + username + '" added to company "' + companyName + '"');
+        methodResponse.resolve(result);
+      },
+      function() {
+        util.info('app.addPlayerToCompany: Data ready')
         dataReady.resolve();
       }
     );

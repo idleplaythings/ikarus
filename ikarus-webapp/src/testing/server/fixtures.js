@@ -11,7 +11,6 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
       }),
       collections.ServerCollection.find(),
       collections.SquadCollection.find(),
-      // collections.SquadMemberCollection.find(),
       collections.InventoryCollection.find()
     ];
   });
@@ -35,9 +34,17 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
         }
       });
     },
+    testing_createCompany: function(name) {
+      Company.create().setName(name);
+    },
     testing_removeFixtures: function() {
       Meteor.users.remove({ testing: true });
-      collections.CompanyCollection.remove({ name: "Härmän Hurjat" });
+      collections.CompanyCollection.remove({ name: "Manatee Men" });
+    },
+    testing_addPlayerToCompany: function(playerName, companyName) {
+      var player = Player.getByName(playerName);
+      var company = Company.getByName(companyName);
+      company.addPlayer(player);
     }
   });
 }

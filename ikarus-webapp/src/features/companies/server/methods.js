@@ -14,15 +14,30 @@ Meteor.methods({
     company.addPlayer(Player.getCurrent());
   },
 
-  inviteToCompany: function(playerName, companyId) {
-    var company = Company.getById(companyId);
-    var player = Player.getByName(playerName);
+  inviteToCompany: function(playerName) {
+    var player = Player.getCurrent()
 
-    if (! player || player.hasInvite(company) || Company.getByPlayer(player)) {
-      throw new Meteor.Error(404, 'Player not found, already belongs to a company, or already has an invite');
+    if (player === null) {
+      throw new Meteor.Error(403, 'You have to log in to invite members.');
     }
 
-    company.invite(player);
+    var company = Company.getByPlayer(player);
+
+    if (company === null) {
+      throw new Meteor.Error(403, 'You have to belong to a company to invite members.');
+    }
+
+    var invitee = Player.getByName(playerName);
+
+    if (invitee == null) {
+      throw new Meteor.Error(404, 'Player not found');
+    }
+
+    if (invitee.hasInvite(company) || Company.getByPlayer(invitee)) {
+      throw new Meteor.Error(404, 'Player already belongs to a company, or already has an invite');
+    }
+
+    company.invite(invitee);
   },
 
   joinCompany: function(playerId, companyId) {

@@ -1,37 +1,31 @@
 var Q = require('q');
 
 module.exports = {
-  info: info,
-  error: error,
-  asPromised: asPromised
-}
+  info: function info(str) {
+    console.log('[INFO]: ' + str);
+  },
+  error: function error(str) {
+    console.error('[ERROR] ' + str);
+  },
+  asPromised: function asPromised(fn, ctx) {
+    if (typeof fn !== 'function') {
+      throw new Error(fn + ' is not a function');
+    }
 
-function info(str) {
-  console.log('[INFO]: ' + str);
-}
+    return function() {
+      var deferred = Q.defer();
+      var args = Array.prototype.slice.call(arguments);
+      args.push(function(err, result) {
+        if (err) {
+          deferred.reject(err);
+        } else {
+          deferred.resolve(result);
+        }
+      });
 
-function error(str) {
-  console.error('[ERROR] ' + str);
-}
+      fn.apply(ctx, args);
 
-function asPromised(fn, ctx) {
-  if (typeof fn !== 'function') {
-    throw new Error(fn + ' is not a function');
+      return deferred.promise;
+    }
   }
-
-  return function() {
-    var deferred = Q.defer();
-    var args = Array.prototype.slice.call(arguments);
-    args.push(function(err, result) {
-      if (err) {
-        deferred.reject(err);
-      } else {
-        deferred.resolve(result);
-      }
-    });
-
-    fn.apply(ctx, args);
-
-    return deferred.promise;
-  }
-}
+};

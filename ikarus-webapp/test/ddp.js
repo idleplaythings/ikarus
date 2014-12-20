@@ -5,7 +5,7 @@ var ddpClient = new DDPClient({
   port : 3000,
   path : "websocket",
   ssl  : false,
-  autoReconnect : true,
+  autoReconnect : false,
   autoReconnectTimer : 500,
   maintainCollections : true,
   ddpVersion : '1'  // ['1', 'pre2', 'pre1'] available

@@ -1,10 +1,17 @@
 if (process.env.ENV === 'dev' && Meteor.isServer) {
   Meteor.publish('testing', function() {
     return [
-      collections.ServerCollection.find(),
       collections.CompanyCollection.find(),
+
+      Meteor.users.find({}, {
+        'services.steam': 1,
+        'invites': 1,
+        'companyId': 1,
+        'steamId': 1
+      }),
+      collections.ServerCollection.find(),
       collections.SquadCollection.find(),
-      collections.SquadMemberCollection.find(),
+      // collections.SquadMemberCollection.find(),
       collections.InventoryCollection.find()
     ];
   });
@@ -20,7 +27,7 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
         _id: userId
       }, {
         $set: {
-          testAccount: true,
+          testing: true,
           'services.steam': {
             id: steamId,
             username: name
@@ -28,8 +35,9 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
         }
       });
     },
-    testing_removeTestUsers: function() {
-      Meteor.users.remove({ testAccount: true });
+    testing_removeFixtures: function() {
+      Meteor.users.remove({ testing: true });
+      collections.CompanyCollection.remove({ name: "Metsien Miehet" });
     }
   });
 }

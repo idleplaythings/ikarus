@@ -5,6 +5,10 @@ Meteor.methods({
       return;
     }
 
+    if (Player.getCurrent() === null) {
+      throw new Meteor.Error(403, 'You have to log in to create a company.');
+    }
+
     var company = Company.create();
     company.setName(name);
     company.addPlayer(Player.getCurrent());

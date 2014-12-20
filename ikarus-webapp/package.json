@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/jasmine-node/bin/jasmine-node --matchall --forceexit --captureExceptions test/test.js"
+    "test": "./node_modules/jasmine-node/bin/jasmine-node --matchAll --captureExceptions test/test.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "ddp": "^0.9.2",
-    "jasmine-node": "Jasmine2.0",
+    "grunt": "^0.4.5",
+    "jasmine-custom-message": "git://github.com/avrelian/jasmine-custom-message.git#jasmine-2-0",
+    "jasmine-node": "2.0.0-beta4",
     "q": "^1.1.2"
   }
 }

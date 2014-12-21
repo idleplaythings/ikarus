@@ -52,221 +52,76 @@ App.prototype.disconnect = function() {
   }
 };
 
+App.prototype.callMethod = function(method, arguments) {
+  var methodResponse = Q.defer();
+  var dataReady = Q.defer();
+
+  util.info('' + method + ' called with arguments "' + arguments.join('", "') + '"');
+
+  function onMethod(error, result) {
+    util.info('' + method + ' response received');
+    handleMeteorMethodError(error);
+    methodResponse.resolve(error);
+  };
+
+  function onData() {
+    util.info('' + method + ' data ready');
+    dataReady.resolve();
+  };
+
+  this._ddpClient.call(method, arguments, onMethod, onData);
+
+  return Q.all([ methodResponse.promise, dataReady.promise ]);
+}
+
 App.prototype.login = function(username, password) {
-  var self = this;
-
   return function() {
-    var methodResponse = Q.defer();
-    var dataReady = Q.defer();
-
-    util.info('app.login: Logging in as "' + username + '"');
-
-    self._ddpClient.call(
-      'login',
-      [ { user: { username: username }, password: password } ],
-      function(error, result) {
-        handleMeteorMethodError(error);
-        util.info('app.login: Logged in as "' + username + '"');
-        methodResponse.resolve(error);
-      },
-      function() {
-        util.info('app.login: Data ready')
-        dataReady.resolve();
-      }
-    );
-
-    return Q.all([ methodResponse.promise, dataReady.promise ]);
-  }
-};
+    return this.callMethod('login', [ { user: { username: username }, password: password } ]);
+  }.bind(this)
+}
 
 App.prototype.logout = function() {
-  var self = this;
-
   return function() {
-    var methodResponse = Q.defer();
-    var dataReady = Q.defer();
-
-    util.info('app.logout: Logging out');
-
-    self._ddpClient.call(
-      'logout',
-      [ ],
-      function(error, result) {
-        handleMeteorMethodError(error);
-        util.info('app.logout: Logged out');
-        methodResponse.resolve(error);
-      },
-      function() {
-        util.info('app.logout: Data ready')
-        dataReady.resolve();
-      }
-    );
-
-    return Q.all([ methodResponse.promise, dataReady.promise ]);
-  }
-};
+    return this.callMethod('logout', [ ]);
+  }.bind(this)
+}
 
 App.prototype.createUser = function(username, steamId, password) {
-  var self = this;
-
   return function() {
-    var methodResponse = Q.defer();
-    var dataReady = Q.defer();
-
-    util.info('app.createUser: Creating user "' + username + '"');
-
-    self._ddpClient.call(
-      'testing_createTestUser',
-      [ username, steamId, password ],
-      function(error, result) {
-        handleMeteorMethodError(error);
-        util.info('app.createUser: User "' + username + '" created');
-        methodResponse.resolve(result);
-      },
-      function() {
-        util.info('app.createUser: Data ready')
-        dataReady.resolve();
-      }
-    );
-
-    return Q.all([ methodResponse.promise, dataReady.promise ]);
-  }
+    return this.callMethod('testing_createTestUser', [ username, steamId, password ]);
+  }.bind(this)
 };
 
 App.prototype.createCompany = function(companyName) {
-  var self = this;
-
   return function() {
-    var methodResponse = Q.defer();
-    var dataReady = Q.defer();
-
-    util.info('app.createCompany: Creating company "' + companyName + '"');
-
-    self._ddpClient.call(
-      'testing_createCompany',
-      [ companyName ],
-      function(error, result) {
-        handleMeteorMethodError(error);
-        util.info('app.createCompany: Company "' + companyName + '" created');
-        methodResponse.resolve(result);
-      },
-      function() {
-        util.info('app.createCompany: Data ready')
-        dataReady.resolve();
-      }
-    );
-
-    return Q.all([ methodResponse.promise, dataReady.promise ]);
-  }
+    return this.callMethod('testing_createCompany', [ companyName ]);
+  }.bind(this)
 };
 
 App.prototype.callCreateCompany = function(companyName) {
-  var self = this;
-
   return function() {
-    var methodResponse = Q.defer();
-    var dataReady = Q.defer();
-
-    util.info('app.callCreateCompany: Creating company "' + companyName + '"');
-
-    self._ddpClient.call(
-      'createCompany',
-      [ companyName ],
-      function(error, result) {
-        handleMeteorMethodError(error);
-        util.info('app.callCreateCompany: Company "' + companyName + '" created');
-        methodResponse.resolve(result);
-      },
-      function() {
-        util.info('app.callCreateCompany: Data ready')
-        dataReady.resolve();
-      }
-    );
-
-    return Q.all([ methodResponse.promise, dataReady.promise ]);
-  }
+    return this.callMethod('createCompany', [ companyName ]);
+  }.bind(this)
 };
 
 App.prototype.callInviteToCompany = function(username) {
-  var self = this;
-
   return function() {
-    var methodResponse = Q.defer();
-    var dataReady = Q.defer();
-
-    util.info('app.callInviteToCompany: Inviting "' + username + '" to company');
-
-    self._ddpClient.call(
-      'inviteToCompany',
-      [ username ],
-      function(error, result) {
-        handleMeteorMethodError(error);
-        util.info('app.callInviteToCompany: "' + username + '" invited to company');
-        methodResponse.resolve(result);
-      },
-      function() {
-        util.info('app.callInviteToCompany: Data ready')
-        dataReady.resolve();
-      }
-    );
-
-    return Q.all([ methodResponse.promise, dataReady.promise ]);
-  }
+    return this.callMethod('inviteToCompany', [ username ]);
+  }.bind(this)
 };
 
 App.prototype.removeFixtures = function() {
-  var self = this;
-
   return function() {
-    var methodResponse = Q.defer();
-    var dataReady = Q.defer();
-
-    util.info('app.removeFixtures: Removing fixtures');
-
-    self._ddpClient.call(
-      'testing_removeFixtures',
-      [ ],
-      function(error, result) {
-        handleMeteorMethodError(error);
-        util.info('app.removeFixtures: Test fixtures removed');
-        methodResponse.resolve(result);
-      },
-      function() {
-        util.info('app.removeFixtures: Data ready')
-        dataReady.resolve();
-      }
-    );
-
-    return Q.all([ methodResponse.promise, dataReady.promise ]);
-  }
+    return this.callMethod('testing_removeFixtures', [ ]);
+  }.bind(this)
 };
 
 App.prototype.addPlayerToCompany = function(username, companyName) {
-  var self = this;
-
   return function() {
-    var methodResponse = Q.defer();
-    var dataReady = Q.defer();
-
-    util.info('app.addPlayerToCompany: Adding player "' + username + '" to company "' + companyName + '"');
-
-    self._ddpClient.call(
-      'testing_addPlayerToCompany',
-      [ username, companyName ],
-      function(error, result) {
-        handleMeteorMethodError(error);
-        util.info('app.addPlayerToCompany: Player "' + username + '" added to company "' + companyName + '"');
-        methodResponse.resolve(result);
-      },
-      function() {
-        util.info('app.addPlayerToCompany: Data ready')
-        dataReady.resolve();
-      }
-    );
-
-    return Q.all([ methodResponse.promise, dataReady.promise ]);
-  }
+    return this.callMethod('testing_addPlayerToCompany', [ username, companyName ]);
+  }.bind(this)
 };
+
 
 function handleMeteorMethodError(error) {
   if (error) {

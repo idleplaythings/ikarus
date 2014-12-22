@@ -3,22 +3,9 @@ var assert = require('assert');
 var companiesStepDefinitions = function () {
   this.World = require("../support/world.js").World;
 
-  this.Given(/^player "([^"]*)" with Steam ID "([^"]*)" exists$/, function (name, steamId, callback) {
-    this.app.createUser(name, steamId, this.defaultPassword)()
-      .finally(callback)
-      .catch(this.handleError);
-  });
-
   this.Given(/^company "([^"]*)" exists$/, function (name, callback) {
     var self = this;
     this.app.createCompany(name)()
-      .finally(callback)
-      .catch(this.handleError);
-  });
-
-  this.Given(/^I am logged in as "([^"]*)"$/, function (name, callback) {
-    this.username = name;
-    this.app.login(name, this.defaultPassword)()
       .finally(callback)
       .catch(this.handleError);
   });

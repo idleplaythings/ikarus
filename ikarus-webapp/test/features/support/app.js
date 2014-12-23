@@ -1,5 +1,6 @@
 var util = require('./util');
 var Q = require('q');
+var chalk = require('chalk');
 
 module.exports = App;
 
@@ -56,16 +57,16 @@ App.prototype.callMethod = function(method, arguments) {
   var methodResponse = Q.defer();
   var dataReady = Q.defer();
 
-  util.info('' + method + ' called with arguments "' + arguments.join('", "') + '"');
+  util.info(chalk.yellow(method) + ' called with arguments ' + chalk.yellow('"' + arguments.join('", "') + '"'));
 
   function onMethod(error, result) {
-    util.info('' + method + ' response received');
+    util.info(chalk.yellow(method) + ' response received');
     handleMeteorMethodError(error);
     methodResponse.resolve(error);
   };
 
   function onData() {
-    util.info('' + method + ' data ready');
+    util.info(chalk.yellow(method) + ' data ready');
     dataReady.resolve();
   };
 

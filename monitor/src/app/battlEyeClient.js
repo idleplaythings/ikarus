@@ -24,7 +24,7 @@ module.exports = function(config){
 
   BattlEyeClient.prototype.login  = function(){
     var deferred = Q.defer();
-    var battleNode = new BattleNode(config);
+    var battleNode = new BattleNode(this._config);
     battleNode.login();
     battleNode.on(
       'login',

@@ -1,0 +1,3 @@
+(function(){dic = new DIC();
+
+})();

@@ -1,4 +1,3 @@
-
 Inventory = function Inventory(args){
 
   if (! args) {

@@ -15,7 +15,6 @@ ItemFactory.prototype.createItemByArmaClass = function(armaClass, args){
 };
 
 ItemFactory.prototype.createItems = function(armaClasses){
-
   return armaClasses.map(function(armaClass){
     return this.createItemByArmaClass(armaClass);
   }, this).filter(function(item){

@@ -1,17 +1,27 @@
 <template name="armory">
-  {{#each getInventory.items}}
-    <div class="row inventory-entry armory" data-armaclass="{{armaClass}}">
-      {{#if squad}}
-        <div class="col-md-2 clickable add-to-inventory" data-armaclass="{{armaClass}}">
-          ADD
+  {{#each getInventory.getOtherThanMagazines}}
+
+  <div class="panel panel-default" style="margin-bottom:0px;">
+    <div class="panel-heading">
+      <div class="row inventory-entry armory" data-armaclass="{{armaClass}}">
+        {{#if squad}}
+          <div class="col-md-1 clickable add-to-inventory glyphicon glyphicon-plus" data-armaclass="{{item.armaClass}}">
+
+          </div>
+        {{/if}}
+        <div class="col-md-5">
+          {{item.name}}
         </div>
-      {{/if}}
-      <div class="col-md-6">
-        {{name}}
-      </div>
-      <div class="col-md-2 pull-right">
-        {{getCount}}
+        <div class="col-md-3">
+          {{#if item.isWeapon}}
+            <span class="glyphicon glyphicon-pencil"></span> {{ammo}}
+          {{/if}}
+        </div>
+        <div class="col-md-2 pull-right">
+          <span class="glyphicon glyphicon-align-justify"></span> {{getCount}}
+        </div>
       </div>
     </div>
+  </div>
   {{/each}}
 </template>

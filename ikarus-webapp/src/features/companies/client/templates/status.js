@@ -1,3 +1,22 @@
+Template.registerHelper(
+  'company',
+  function() {
+    var player = Player.getCurrent();
+
+    if (!player) {
+      return null;
+    }
+
+    var company = player.getCompany();
+
+    if (!company) {
+      return null;
+    }
+
+    return company;
+  }
+);
+
 Template.companies_status.helpers({
   companyName: function() {
     var player = Player.getCurrent();
@@ -13,21 +32,6 @@ Template.companies_status.helpers({
     }
 
     return company.getName();
-  },
-  company: function() {
-    var player = Player.getCurrent();
-
-    if (!player) {
-      return null;
-    }
-
-    var company = player.getCompany();
-
-    if (!company) {
-      return null;
-    }
-
-    return company;
   },
   players: function() {
     var player = Player.getCurrent();

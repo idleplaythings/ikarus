@@ -3,7 +3,7 @@ Meteor.methods({
     var server = Server.getByName(name);
 
     if (!server) {
-      repo.create(name);
+      Server.create(name);
     }
   },
 

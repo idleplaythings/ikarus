@@ -9,6 +9,22 @@ Inventory = function Inventory(args){
   this.type = 'Inventory';
 }
 
+Inventory.createForCompany = function(company) {
+  var id = collections.InventoryCollection.insert(
+    new InventoryCompany({
+      companyId: company._id
+    }).serialize()
+  );
+
+  return Inventory.getById(id);
+};
+
+Inventory.getById = function(id){
+  return dic.get('InventoryFactory').deserialize(
+    collections.InventoryCollection.findOne({_id: id})
+  );
+};
+
 Inventory.prototype.getByArmaClass = function(armaClass){
   return this.items.filter(function(item){
     return item.armaClass === armaClass;

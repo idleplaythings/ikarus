@@ -75,6 +75,22 @@ App.prototype.callMethod = function(method, arguments) {
   return Q.all([ methodResponse.promise, dataReady.promise ]);
 }
 
+App.prototype.findOneFrom = function(name, filter){
+  return this.findFrom(name, filter).pop();
+};
+
+App.prototype.findFrom = function(name, filter){
+  var collections = this._ddpClient.collections;
+
+  if (! collections[name]) {
+    return [];
+  }
+
+  return Object.keys(collections[name]).map(function(id) {
+    return collections[name][id];
+  }).filter(filter);
+};
+
 App.prototype.login = function(username) {
   return function() {
     return this.callMethod('testing_login', [username]);
@@ -123,6 +139,11 @@ App.prototype.addPlayerToCompany = function(username, companyName) {
   }.bind(this)
 };
 
+App.prototype.callRegisterServer = function(serverName) {
+  return function() {
+    return this.callMethod('registerServer', [serverName]);
+  }.bind(this)
+};
 
 function handleMeteorMethodError(error) {
   if (error) {

@@ -1,8 +1,7 @@
 var namespace = this;
 
-InventoryFactory = function(itemFactory, inventoryCollection){
+InventoryFactory = function(itemFactory){
   this._itemFactory = itemFactory;
-  this._inventoryCollection = inventoryCollection;
 };
 
 InventoryFactory.prototype.deserialize = function(serialized){

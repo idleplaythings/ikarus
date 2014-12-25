@@ -41,7 +41,9 @@ module.exports = (function(){
   });
 
   dic.register('BattlEyeClient', function (dic) {
-    return require('./src/app/battlEyeClient')();
+    return require('./src/app/battlEyeClient')(
+      dic.get('Config').battlEye
+    );
   });
 
   return dic;

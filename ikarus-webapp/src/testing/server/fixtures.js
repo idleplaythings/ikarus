@@ -16,18 +16,16 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
   });
 
   Meteor.methods({
-    testing_createTestUser: function(name, steamId, password) {
-      var userId = Accounts.createUser({
-        username: name,
-        password: password
-      });
+    testing_login: function(name) {
+      var id = Meteor.users.findOne({'services.steam.username': name})._id;
+      this.setUserId(id);
+    },
 
-      Meteor.users.update({
-        _id: userId
-      }, {
-        $set: {
-          testing: true,
-          'services.steam': {
+    testing_createTestUser: function(name, steamId) {
+      Meteor.users.insert({
+        testing: true,
+        services: {
+          steam: {
             id: steamId,
             username: name
           }

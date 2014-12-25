@@ -75,9 +75,9 @@ App.prototype.callMethod = function(method, arguments) {
   return Q.all([ methodResponse.promise, dataReady.promise ]);
 }
 
-App.prototype.login = function(username, password) {
+App.prototype.login = function(username) {
   return function() {
-    return this.callMethod('login', [ { user: { username: username }, password: password } ]);
+    return this.callMethod('testing_login', [username]);
   }.bind(this)
 }
 
@@ -87,9 +87,9 @@ App.prototype.logout = function() {
   }.bind(this)
 }
 
-App.prototype.createUser = function(username, steamId, password) {
+App.prototype.createUser = function(username, steamId) {
   return function() {
-    return this.callMethod('testing_createTestUser', [ username, steamId, password ]);
+    return this.callMethod('testing_createTestUser', [ username, steamId ]);
   }.bind(this)
 };
 

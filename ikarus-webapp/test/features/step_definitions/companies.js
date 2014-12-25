@@ -57,7 +57,7 @@ function getUser(collections, username) {
   return Object.keys(collections.users).map(function(id) {
     return collections.users[id];
   }).filter(function(user) {
-    return user.username === username;
+    return user.services.steam.username === username;
   }).reduce(function(_, current) {
     return current;
   });

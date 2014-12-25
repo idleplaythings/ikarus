@@ -1,11 +1,29 @@
 var BattleNode = require('battle-node');
+var Q = require('q');
 
-module.exports = function(){
+module.exports = function(config){
   'use strict';
 
-  function BattlEyeClient() {}
+  function BattlEyeClient(config) {
+    this._config = config;
+    this._client = null;
+  }
 
-  BattlEyeClient.prototype.login  = function(config, callback){
+  BattlEyeClient.prototype.runCommand = function(callback) {
+    if (this._client === null){
+      this._client = this.login();
+    }
+
+    this._client
+      .then(callback)
+      .fail(function(){
+        this._client = null;
+        this.runCommand(callback)
+      }.bind(this));
+  };
+
+  BattlEyeClient.prototype.login  = function(){
+    var deferred = Q.defer();
     var battleNode = new BattleNode(config);
     battleNode.login();
     battleNode.on(
@@ -13,40 +31,51 @@ module.exports = function(){
       function(error, success) {
         if (error){
           console.log("Unable to log in to battle eye");
-        }
-
-        if (success == false) {
+          deferred.reject(new Error("Unable to log in to battle eye"));
+        }else if (success == false) {
           console.log("Unable to log in to battle eye (success false)");
+          deferred.reject(new Error("Unable to log in to battle eye (success false)"));
+        }else {
+          deferred.resolve(battleNode);
         }
-
-        callback(battleNode);
       }
     );
+
+    battleNode.on(
+      'disconnected',
+      function() {
+        console.log("BattlEye disconnected");
+        deferred.reject();
+        this._client = null;
+      }.bind(this)
+    );
+
+    return deferred.promise;
   };
 
-  BattlEyeClient.prototype.lockServer = function(config){
-    this.login(config, function(battleNode){
+  BattlEyeClient.prototype.lockServer = function(){
+    this.runCommand(function(battleNode){
       battleNode.sendCommand('#lock', function() {
         console.log("server locked");
       });
     });
   };
 
-  BattlEyeClient.prototype.kickPlayer = function(config, uid){
-    this.login(config, function(battleNode){
+  BattlEyeClient.prototype.kickPlayer = function(uid){
+    this.runCommand(function(battleNode){
       battleNode.sendCommand('#kick '+ uid, function() {
         console.log("player " + uid + " kicked");
       });
     });
   };
 
-  BattlEyeClient.prototype.shutDownServer = function(config, uid){
-    this.login(config, function(battleNode){
+  BattlEyeClient.prototype.shutDownServer = function(){
+    this.runCommand(function(battleNode){
       battleNode.sendCommand('#shutdown', function() {
         console.log("server shutdown");
       });
     });
   };
 
-  return new BattlEyeClient();
+  return new BattlEyeClient(config);
 };

@@ -157,6 +157,36 @@ App.prototype.callPlayerDisconnected = function(serverName, steamId) {
   }.bind(this)
 };
 
+App.prototype.callTestAddToArmory = function(companyId, amount, armaclass) {
+  return function() {
+    return this.callMethod('testing_addToArmory', [companyId, amount, armaclass]);
+  }.bind(this)
+};
+
+App.prototype.callAddToInventory = function(armaclass) {
+  return function() {
+    return this.callMethod('addToInventory', [armaclass]);
+  }.bind(this)
+};
+
+App.prototype.callRemoveFromInventory = function(armaclass) {
+  return function() {
+    return this.callMethod('removeFromInventory', [armaclass]);
+  }.bind(this)
+};
+
+App.prototype.callTestAddToInventory = function(steamId, amount, armaclass) {
+  return function() {
+    return this.callMethod('testing_addToInventory', [steamId, amount, armaclass]);
+  }.bind(this)
+};
+
+App.prototype.callMissionLoot = function (serverName, squadId, loot) {
+  return function() {
+    return this.callMethod('missionLoot', [serverName, squadId, loot]);
+  }.bind(this)
+};
+
 function handleMeteorMethodError(error) {
   if (error) {
     util.error('Error in Meteor method: ' + error.message);

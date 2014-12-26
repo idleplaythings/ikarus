@@ -13,6 +13,12 @@ var squadsStepDefinitions = function () {
     callback();
   });
 
+  this.When(/^mission loot "([^"]*)" is sent from server "([^"]*)" to squad containing "([^"]*)"$/, function (loot, serverName, username, callback) {
+    var squadId = getSquadByUsername(this.app, username)._id;
+    this.app.callMissionLoot(serverName, squadId, [loot])()
+      .finally(callback)
+      .catch(this.handleError);
+  });
 };
 
 function assertDoesNotHaveSquad(app, username) {
@@ -31,6 +37,10 @@ function assetHasSquad(app, username) {
   );
 
   assert(squad);
+}
+
+function getSquadByUsername(app, username) {
+  return getSquadBySteamId(app, getSteamId(getUser(app, username)));
 }
 
 function getSquadBySteamId(app, steamId) {

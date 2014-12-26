@@ -24,7 +24,7 @@ Template.squadMemberInventory_ammoEntry.helpers({
 
 function getInventory(){
   var inventory = dic.get('InventoryRepository').getByPlayer(
-    dic.get('PlayerRepository').getCurrent());
+  Player.getCurrent());
 
   return new InventoryUi({
     inventory: inventory,
@@ -41,6 +41,6 @@ function getAmmo(item){
 
 function locked(){
   dic.get('InventoryRepository').getByPlayer(
-    dic.get('PlayerRepository').getCurrent()
+    Player.getCurrent()
   ).locked;
 };

@@ -6,7 +6,7 @@ Feature: Players on server
   Scenario: Connecting to a server
     Given player "John Doe" with Steam ID "123" exists
     And server "test-server" is registered
-    And company "Manatee Men" exists
+    And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     When "John Doe" connects to server "test-server"
     Then player "John Doe" should have a squad
@@ -16,7 +16,7 @@ Feature: Players on server
   Scenario: Disconnecting from a server
     Given player "John Doe" with Steam ID "123" exists
     And server "test-server" is registered
-    And company "Manatee Men" exists
+    And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And "John Doe" connects to server "test-server"
     When "John Doe" disconnects from server "test-server"

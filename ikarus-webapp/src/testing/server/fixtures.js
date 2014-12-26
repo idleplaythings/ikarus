@@ -37,7 +37,12 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
     },
     testing_removeFixtures: function() {
       Meteor.users.remove({ testing: true });
-      collections.CompanyCollection.remove({ name: "Manatee Men" });
+      collections.CompanyCollection.remove({});
+      collections.SquadCollection.remove({});
+      collections.InventoryCollection.remove({});
+
+      Meteor.users.remove({'services.steam.username': 'John Doe'});
+      Meteor.users.remove({'services.steam.username': 'Jane Doe'});
     },
     testing_addPlayerToCompany: function(playerName, companyName) {
       var player = Player.getByName(playerName);

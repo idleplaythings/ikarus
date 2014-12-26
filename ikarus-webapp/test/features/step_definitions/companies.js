@@ -33,6 +33,12 @@ var companiesStepDefinitions = function () {
       .catch(this.handleError);
   });
 
+  this.Given(/^"([^"]*)" is a member of company "([^"]*)"$/, function (username, companyName, callback) {
+    this.app.addPlayerToCompany(username, companyName)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
   this.Then(/^player "([^"]*)" should have an invitation to "([^"]*)"$/, function (username, companyName, callback) {
     assertHasInviteTo(this.app, username, companyName);
     callback();
@@ -83,7 +89,7 @@ function getInviteTo(user, companyName) {
 
 function getCompanyByMemberSteamId(app, steamId) {
   return app.findOneFrom('companies', function(company){
-    return company.playerIds.indexOf(steamId) > -1;
+    return company.playerIds && company.playerIds.indexOf(steamId) > -1;
   });
 }
 

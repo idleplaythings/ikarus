@@ -3,7 +3,7 @@ var chalk = require('chalk');
 
 module.exports = {
   info: function info(str) {
-    console.log(chalk.gray('      [info]: ') + str);
+    //console.log(chalk.gray('      [info]: ') + str);
   },
   error: function error(str) {
     console.error(chalk.red('      [error] ' + str));

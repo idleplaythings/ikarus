@@ -145,6 +145,18 @@ App.prototype.callRegisterServer = function(serverName) {
   }.bind(this)
 };
 
+App.prototype.callPlayerConnected = function(serverName, steamId) {
+  return function() {
+    return this.callMethod('playerConnected', [serverName, steamId]);
+  }.bind(this)
+};
+
+App.prototype.callPlayerDisconnected = function(serverName, steamId) {
+  return function() {
+    return this.callMethod('playerDisconnected', [serverName, steamId]);
+  }.bind(this)
+};
+
 function handleMeteorMethodError(error) {
   if (error) {
     util.error('Error in Meteor method: ' + error.message);

@@ -18,9 +18,11 @@ Monitor.prototype.start = function() {
 Monitor.prototype._startArma = function(){
   var location = this._config.arma.location;
   var command = location + "/arma3server -config=server.cfg -sock_host=::1 -sock_port=1337 -mod=@ikrs;";
-  var options = {};
+  var options = {
+    cwd: location
+  };
 
-  child_process.exec(command, [options], function (error, stdout, stderr) {
+  child_process.exec(command, options, function (error, stdout, stderr) {
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
     if (error !== null) {

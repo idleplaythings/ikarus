@@ -17,7 +17,7 @@ Monitor.prototype.start = function() {
 
 Monitor.prototype._startArma = function(){
   var location = this._config.arma.location;
-  var command = location + "arma3server -config=server.cfg -mod=@ikrs; -sock_host=::1 -sock_port=1337";
+  var command = location + "/arma3server -config=server.cfg -sock_host=::1 -sock_port=1337 -mod=@ikrs;";
   var options = {
     cwd: location
   };

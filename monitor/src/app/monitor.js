@@ -28,6 +28,8 @@ Monitor.prototype._startArma = function(){
     if (error !== null) {
       console.log('exec error: ' + error);
     }
+
+    process.exit();
   });
 };
 

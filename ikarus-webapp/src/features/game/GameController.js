@@ -79,8 +79,8 @@ GameController.prototype._getSquad = function(server, company) {
 
 GameController.prototype._initSquad = function(server, company) {
   var squad = Squad.create();
-  squad.setServerId(server._id);
   squad.setCompanyId(company._id);
+  squad.setServerId(server._id);
   return squad;
 };
 

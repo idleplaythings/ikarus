@@ -1,9 +1,9 @@
 Meteor.methods({
   'registerServer': function(name) {
     var server = Server.getByName(name);
-
+    console.log(name);
     if (!server) {
-      repo.create(name);
+      Server.create(name);
     }
   },
 

@@ -2,19 +2,51 @@
 <h3>Inventory</h3>
 
 
-  {{#each getInventory.items}}
-    <div class="row inventory-entry member-inventory" data-armaclass="{{armaClass}}">
-      {{#unless locked}}
-        <div class="col-md-2 clickable remove-from-inventory armaClass-{{armaClass}}" data-armaclass={{armaClass}}>
-          REMOVE
+  {{#each getInventory.getOtherThanMagazines}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{> squadMemberInventory_itemEntry}}
+
+      </div>
+      {{#if getAmmo item}}
+        <div class="panel-body">
+          {{> squadMemberInventory_ammoEntry}}
         </div>
+      {{/if}}
+    </div>
+  {{/each}}
+</template>
+
+<template name="squadMemberInventory_ammoEntry">
+  <div class="row inventory-entry member-inventory">
+    {{#each getAmmo item}}
+      {{#unless locked}}
+        <div class="col-md-1 clickable remove-from-inventory glyphicon glyphicon-minus" data-armaclass={{armaClass}}></div>
+
+        <div class="col-md-1 clickable add-to-inventory glyphicon glyphicon-plus" data-armaclass="{{armaClass}}"></div>
       {{/unless}}
       <div class="col-md-6">
         {{name}}
       </div>
       <div class="col-md-2 pull-right">
-        {{getCount}}
+        {{getInventory.getCountByClass armaClass}}
       </div>
+    {{/each}}
+  </div>
+</template>
+
+<template name="squadMemberInventory_itemEntry">
+  <div class="row inventory-entry member-inventory" data-armaclass="{{item.armaClass}}">
+    {{#unless locked}}
+      <div class="col-md-1 clickable remove-from-inventory glyphicon glyphicon-minus" data-armaclass={{item.armaClass}}></div>
+
+      <div class="col-md-1 clickable add-to-inventory glyphicon glyphicon-plus" data-armaclass="{{item.armaClass}}"></div>
+    {{/unless}}
+    <div class="col-md-6">
+      <h3 class="panel-title">{{item.name}}</h3>
     </div>
-  {{/each}}
+    <div class="col-md-2 pull-right">
+      {{getCount}}
+    </div>
+  </div>
 </template>

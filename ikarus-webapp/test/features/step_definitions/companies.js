@@ -17,7 +17,7 @@ var companiesStepDefinitions = function () {
   });
 
   this.Then(/^I should be a member of the company "([^"]*)"$/, function (companyName, callback) {
-    assertMemberOf(this.app._ddpClient.collections, this.username, companyName);
+    assertMemberOf(this.app, this.username, companyName);
     callback();
   });
 
@@ -33,33 +33,47 @@ var companiesStepDefinitions = function () {
       .catch(this.handleError);
   });
 
+  this.Given(/^"([^"]*)" is a member of company "([^"]*)"$/, function (username, companyName, callback) {
+    this.app.addPlayerToCompany(username, companyName)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
   this.Then(/^player "([^"]*)" should have an invitation to "([^"]*)"$/, function (username, companyName, callback) {
-    assertHasInviteTo(this.app._ddpClient.collections, username, companyName);
+    assertHasInviteTo(this.app, username, companyName);
+    callback();
+  });
+
+  this.Then(/^company "([^"]*)" should have an inventory$/, function (companyName, callback) {
+    assertHasInventory(this.app, companyName)
     callback();
   });
 };
 
-function assertMemberOf(collections, username, companyName) {
-  var steamId = getSteamId(getUser(collections, username));
-  var company = getCompanyByMemberSteamId(collections, steamId);
+function assertMemberOf(app, username, companyName) {
+  var steamId = getSteamId(getUser(app, username));
+  var company = getCompanyByMemberSteamId(app, steamId);
 
   assert(company);
 }
 
-function assertHasInviteTo(collections, username, companyName) {
-  var user = getUser(collections, username);
+function assertHasInventory(app, companyName) {
+  var company = getCompanyByByName(app, companyName);
+  var inventory = getInventoryByCompanyId(app, company._id);
+
+  assert(inventory);
+}
+
+function assertHasInviteTo(app, username, companyName) {
+  var user = getUser(app, username);
   var invite = getInviteTo(user, companyName);
 
   assert(invite);
 }
 
-function getUser(collections, username) {
-  return Object.keys(collections.users).map(function(id) {
-    return collections.users[id];
-  }).filter(function(user) {
-    return user.username === username;
-  }).reduce(function(_, current) {
-    return current;
+function getUser(app, username) {
+  return app.findOneFrom('users', function(user){
+    return user.services.steam.username === username;
   });
 }
 
@@ -70,18 +84,24 @@ function getSteamId(user) {
 function getInviteTo(user, companyName) {
   return user.invites.filter(function(invite) {
     return invite.name === companyName;
-  }).reduce(function(_, current) {
-    return current;
+  }).pop();
+}
+
+function getCompanyByMemberSteamId(app, steamId) {
+  return app.findOneFrom('companies', function(company){
+    return company.playerIds && company.playerIds.indexOf(steamId) > -1;
   });
 }
 
-function getCompanyByMemberSteamId(collections, steamId) {
-  return Object.keys(collections.companies).map(function(id) {
-    return collections.companies[id];
-  }).filter(function(company) {
-    return company.playerIds.indexOf(steamId) > -1;
-  }).reduce(function(_, current) {
-    return current;
+function getCompanyByByName(app, name) {
+  return app.findOneFrom('companies', function(company){
+    return company.name == name;
+  });
+}
+
+function getInventoryByCompanyId(app, companyId) {
+  return app.findOneFrom('inventories', function(inventory){
+    return inventory.companyId == companyId;
   });
 }
 

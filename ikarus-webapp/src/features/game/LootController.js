@@ -9,7 +9,7 @@ LootController = function LootController(
 }
 
 LootController.prototype.receiveLoot = function(squadId, loot) {
-  var squad = Squad.getById(squadId);
+  var squad = this._getSquad(squadId);
   var company = this._getCompany(squad);
 
   var items = this._itemFactory.createItems(loot);
@@ -44,6 +44,10 @@ LootController.prototype._handleLootBackpack = function(
       amount--;
     }
   }, this);
+};
+
+LootController.prototype._getSquad = function(squadId) {
+  return Squad.getById(squadId) || this._notFound('Squad');
 };
 
 LootController.prototype._getCompany = function(squad) {

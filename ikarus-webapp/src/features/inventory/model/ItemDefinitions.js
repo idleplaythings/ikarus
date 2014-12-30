@@ -6,13 +6,13 @@ ItemDefinitions = [
   createMagazine('5rnd 22Lr', 'CUP_5x_22_LR_17_HMR_M', 5),
 
   createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['CUP_30Rnd_545x39_AK_M']),
-  createMagazine('30rnd 5.45x39mm (AK-74)', 'CUP_30Rnd_545x39_AK_M', 30),
+  createMagazine('30rnd 5.45x39mm', 'CUP_30Rnd_545x39_AK_M', 30),
 
   createWeapon('M249 lmg', 'CUP_lmg_M249', ['CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 'CUP_30Rnd_556x45_Stanag']),
-  createMagazine('200rnd box 5.56x45mm STANAG', 'CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 30),
+  createMagazine('200rnd box 5.56x45mm', 'CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 30),
 
   createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['CUP_30Rnd_556x45_Stanag']),
-  createMagazine('30rnd 5.56x45mm STANAG', 'CUP_30Rnd_556x45_Stanag', 30),
+  createMagazine('30rnd 5.56x45mm', 'CUP_30Rnd_556x45_Stanag', 30),
 
   createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['CUP_30Rnd_556x45_Stanag']),
 
@@ -25,13 +25,13 @@ ItemDefinitions = [
   createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30, true),
 
   createWeapon('Dragunov SVD sniper rifle', 'CUP_srifle_SVD', ['CUP_10Rnd_762x54_SVD_M']),
-  createMagazine('10rnd 7.62x51mm SVD', 'CUP_10Rnd_762x54_SVD_M', 10),
+  createMagazine('10rnd 7.62x51mm', 'CUP_10Rnd_762x54_SVD_M', 10),
 
   createWeapon('AKM assault rifle', 'CUP_arifle_AKM', ['CUP_30Rnd_762x39_AK47_M']),
-  createMagazine('30rnd 7.62x39mm (AKM)', 'CUP_30Rnd_762x39_AK47_M', 30),
+  createMagazine('30rnd 7.62x39mm', 'CUP_30Rnd_762x39_AK47_M', 30),
 
   createWeapon('RPK-74 lmg', 'CUP_arifle_RPK74', ['CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 'CUP_30Rnd_545x39_AK_M']),
-  createMagazine('75rnd 5.45x39mm (RPK-74)', 'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 75),
+  createMagazine('75rnd 5.45x39mm', 'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 75),
 
   createWeapon('AK-107 assault rifle', 'CUP_arifle_AK107', ['CUP_30Rnd_545x39_AK_M']),
 

@@ -93,7 +93,9 @@ Company.getAll = function() {
 }
 
 Company.create = function() {
-  return Company.fromDoc({ _id: collections.CompanyCollection.insert({}) });
+  var company = Company.fromDoc({ _id: collections.CompanyCollection.insert({}) });
+  Inventory.createForCompany(company);
+  return company;
 }
 
 Company.fromDoc = function(doc) {

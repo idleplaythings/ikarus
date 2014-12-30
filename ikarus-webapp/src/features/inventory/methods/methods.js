@@ -13,11 +13,26 @@ Meteor.methods({
   'removeFromInventory': function(armaClass){
     var player = getPlayer();
     var company = getCompany(player);
+
     var repo = dic.get('InventoryRepository');
+
+    var armory = repo.getByCompany(company);
     repo.moveFromInventory(
       repo.getByPlayer(player),
-      repo.getByCompany(company),
+      armory,
       armaClass
+    );
+
+    var inventory = repo.getByPlayer(player);
+
+    inventory.getOrphanedMagazines().forEach(
+      function (orphan){
+        repo.moveFromInventory(
+          inventory,
+          armory,
+          orphan.armaClass
+        )
+      }
     );
   }
 });

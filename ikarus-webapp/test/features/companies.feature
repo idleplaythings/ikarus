@@ -8,6 +8,7 @@ Feature: Companies
     And I am logged in as "John Doe"
     When I create a company called "Manatee Men"
     Then I should be a member of the company "Manatee Men"
+    Then company "Manatee Men" should have an inventory
 
   Scenario: Inviting players
     Given player "John Doe" with Steam ID "123" exists

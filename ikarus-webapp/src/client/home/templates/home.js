@@ -22,16 +22,6 @@ Template.home.events({
       armaClass,
       function (error, result){}
     );
-  },
-
-  'click .remove-from-inventory': function(event, template){
-    var armaClass = jQuery(event.target).attr("data-armaclass");
-    console.log("remove", armaClass);
-    Meteor.call(
-      'removeFromInventory',
-      armaClass,
-      function (error, result){}
-    );
   }
 })
 

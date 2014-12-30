@@ -15,19 +15,57 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
     ];
   });
 
-  Meteor.methods({
-    testing_createTestUser: function(name, steamId, password) {
-      var userId = Accounts.createUser({
-        username: name,
-        password: password
-      });
+  Meteor.startup(function(){
+    ItemDefinitions.push(new ItemLoot({
+      name:'test-loot',
+      armaClass: 'test-loot',
+      loot: {
+        'CUP_srifle_LeeEnfield': 1,
+        'CUP_10x_303_M': 5,
+      }
+    }));
+  });
 
-      Meteor.users.update({
-        _id: userId
-      }, {
-        $set: {
-          testing: true,
-          'services.steam': {
+  Meteor.methods({
+    testing_addToArmory: function(companyId, amount, armaclass){
+      var set = {};
+      set["items."+armaclass] = parseInt(amount, 10);
+
+      collections.InventoryCollection.update(
+        {
+          companyId: companyId
+        },
+        {
+          $set: set
+        }
+      )
+    },
+
+    testing_addToInventory: function(steamId, amount, armaclass){
+
+      var set = {};
+      set["items."+armaclass] = parseInt(amount, 10);
+
+      collections.InventoryCollection.update(
+        {
+          steamId: steamId
+        },
+        {
+          $set: set
+        }
+      )
+    },
+
+    testing_login: function(name) {
+      var id = Meteor.users.findOne({'services.steam.username': name})._id;
+      this.setUserId(id);
+    },
+
+    testing_createTestUser: function(name, steamId) {
+      Meteor.users.insert({
+        testing: true,
+        services: {
+          steam: {
             id: steamId,
             username: name
           }
@@ -39,7 +77,13 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
     },
     testing_removeFixtures: function() {
       Meteor.users.remove({ testing: true });
-      collections.CompanyCollection.remove({ name: "Manatee Men" });
+      collections.CompanyCollection.remove({});
+      collections.SquadCollection.remove({});
+      collections.InventoryCollection.remove({});
+      collections.ServerCollection.remove({});
+
+      Meteor.users.remove({'services.steam.username': 'John Doe'});
+      Meteor.users.remove({'services.steam.username': 'Jane Doe'});
     },
     testing_addPlayerToCompany: function(playerName, companyName) {
       var player = Player.getByName(playerName);

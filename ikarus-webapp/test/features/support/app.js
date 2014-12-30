@@ -75,9 +75,25 @@ App.prototype.callMethod = function(method, arguments) {
   return Q.all([ methodResponse.promise, dataReady.promise ]);
 }
 
-App.prototype.login = function(username, password) {
+App.prototype.findOneFrom = function(name, filter){
+  return this.findFrom(name, filter).pop();
+};
+
+App.prototype.findFrom = function(name, filter){
+  var collections = this._ddpClient.collections;
+
+  if (! collections[name]) {
+    return [];
+  }
+
+  return Object.keys(collections[name]).map(function(id) {
+    return collections[name][id];
+  }).filter(filter);
+};
+
+App.prototype.login = function(username) {
   return function() {
-    return this.callMethod('login', [ { user: { username: username }, password: password } ]);
+    return this.callMethod('testing_login', [username]);
   }.bind(this)
 }
 
@@ -87,9 +103,9 @@ App.prototype.logout = function() {
   }.bind(this)
 }
 
-App.prototype.createUser = function(username, steamId, password) {
+App.prototype.createUser = function(username, steamId) {
   return function() {
-    return this.callMethod('testing_createTestUser', [ username, steamId, password ]);
+    return this.callMethod('testing_createTestUser', [ username, steamId ]);
   }.bind(this)
 };
 
@@ -123,6 +139,53 @@ App.prototype.addPlayerToCompany = function(username, companyName) {
   }.bind(this)
 };
 
+App.prototype.callRegisterServer = function(serverName) {
+  return function() {
+    return this.callMethod('registerServer', [serverName]);
+  }.bind(this)
+};
+
+App.prototype.callPlayerConnected = function(serverName, steamId) {
+  return function() {
+    return this.callMethod('playerConnected', [serverName, steamId]);
+  }.bind(this)
+};
+
+App.prototype.callPlayerDisconnected = function(serverName, steamId) {
+  return function() {
+    return this.callMethod('playerDisconnected', [serverName, steamId]);
+  }.bind(this)
+};
+
+App.prototype.callTestAddToArmory = function(companyId, amount, armaclass) {
+  return function() {
+    return this.callMethod('testing_addToArmory', [companyId, amount, armaclass]);
+  }.bind(this)
+};
+
+App.prototype.callAddToInventory = function(armaclass) {
+  return function() {
+    return this.callMethod('addToInventory', [armaclass]);
+  }.bind(this)
+};
+
+App.prototype.callRemoveFromInventory = function(armaclass) {
+  return function() {
+    return this.callMethod('removeFromInventory', [armaclass]);
+  }.bind(this)
+};
+
+App.prototype.callTestAddToInventory = function(steamId, amount, armaclass) {
+  return function() {
+    return this.callMethod('testing_addToInventory', [steamId, amount, armaclass]);
+  }.bind(this)
+};
+
+App.prototype.callMissionLoot = function (serverName, squadId, loot) {
+  return function() {
+    return this.callMethod('missionLoot', [serverName, squadId, loot]);
+  }.bind(this)
+};
 
 function handleMeteorMethodError(error) {
   if (error) {

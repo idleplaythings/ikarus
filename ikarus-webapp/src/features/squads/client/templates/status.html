@@ -5,13 +5,21 @@
       <div class="container-fluid">
         <div class="row">
           {{#with squad}}
-            <div class="col-md-6">
+            <div class="col-md-4">
+              <h3>Hideout</h3>
               {{> startLocation}}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               {{> squadMemberInventory}}
             </div>
           {{/with}}
+          <div class="col-md-4">
+            <h3>Armory</h3>
+            {{#with company}}
+              {{> armory}}
+            {{/with}}
+          </div>
+
         </div>
       </div>
     {{else}}

@@ -1,4 +1,3 @@
-
 Inventory = function Inventory(args){
 
   if (! args) {
@@ -9,6 +8,38 @@ Inventory = function Inventory(args){
   this.items = args.items || [];
   this.type = 'Inventory';
 }
+
+Inventory.prototype.getOrphanedMagazines = function(){
+  return this.items.filter(function(item){
+    if (! item.isMagazine())
+      return false;
+
+    var parents = this.items.filter(function(weapon){
+      if (! weapon.isWeapon())
+        return false;
+
+      return weapon.isCombatibleMagazine(item);
+    });
+
+    return parents.length === 0;
+  }, this)
+};
+
+Inventory.createForCompany = function(company) {
+  var id = collections.InventoryCollection.insert(
+    new InventoryCompany({
+      companyId: company._id
+    }).serialize()
+  );
+
+  return Inventory.getById(id);
+};
+
+Inventory.getById = function(id){
+  return dic.get('InventoryFactory').deserialize(
+    collections.InventoryCollection.findOne({_id: id})
+  );
+};
 
 Inventory.prototype.getByArmaClass = function(armaClass){
   return this.items.filter(function(item){

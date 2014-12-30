@@ -71,6 +71,11 @@ InventoryRepository.prototype.removeById = function(id){
 
 InventoryRepository.prototype.returnItems = function(company, player){
   var playerInventory = this.getByPlayer(player);
+
+  if (! playerInventory) {
+    return;
+  }
+
   var companyInventory = this.getByCompany(company);
 
   if (playerInventory.locked){

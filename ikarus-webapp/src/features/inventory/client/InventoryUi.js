@@ -9,12 +9,29 @@ InventoryUi = function InventoryUi(args){
   this.items = this._getItemsAndCounts(items);
 };
 
+InventoryUi.prototype.getOtherThanMagazines = function(){
+  return this.items.filter(function(itemAndCount){
+    return ! itemAndCount.item.isMagazine();
+  });
+};
+
+InventoryUi.prototype.getCountByClass = function(armaClass){
+  var entry =  this.items.filter(function(itemAndCount){
+    return itemAndCount.item.armaClass == armaClass;
+  }).pop();
+
+  if ( ! entry)
+    return 0;
+
+  return entry.getCount();
+};
+
 InventoryUi.prototype._getItemsAndCounts = function(items){
   var itemsAndCounts = [];
 
   items.forEach(function(item){
     var existing = itemsAndCounts.filter(function(existingItem){
-      return existingItem.armaClass === item.armaClass;
+      return existingItem.item.armaClass === item.armaClass;
     }).pop();
 
     if (existing){
@@ -25,7 +42,30 @@ InventoryUi.prototype._getItemsAndCounts = function(items){
     }
   }, this);
 
+  itemsAndCounts.forEach(function(itemAndCount){
+    itemAndCount.ammo = this._getAmmoAmount(itemAndCount.item, items);
+  }.bind(this));
+
   return itemsAndCounts;
+};
+
+InventoryUi.prototype._getAmmoAmount = function(weapon, items) {
+  if (! weapon.isWeapon()){
+    return null;
+  }
+
+  var unlimited = false;
+
+  var count = items.filter(function(item){
+    var combatible = weapon.isCombatibleMagazine(item);
+    if (combatible && item.unlimited) {
+      unlimited = true;
+    }
+
+    return combatible;
+  }).length;
+
+  return unlimited ? '∞' : count;
 };
 
 InventoryUi.prototype._createItemEntry = function(item, itemsAndCounts) {
@@ -33,8 +73,7 @@ InventoryUi.prototype._createItemEntry = function(item, itemsAndCounts) {
   var showUnlimited = this.showUnlimited;
 
   var entry = {
-    armaClass: item.armaClass,
-    name: item.name,
+    item: item,
     count: 1,
   };
 

@@ -95,8 +95,10 @@ Server.prototype.getDoc = function() {
   return collections.ServerCollection.findOne({ _id: this._id });
 }
 
-Server.create = function() {
-  return Server.fromDoc({ _id: collections.ServerCollection.insert({}) });
+Server.create = function(name) {
+  return Server.fromDoc({ _id: collections.ServerCollection.insert(
+      {name:name})
+  });
 };
 
 Server.getAll = function() {

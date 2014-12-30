@@ -1,3 +1,5 @@
+var child_process = require('child_process');
+
 function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient) {
   this._rpcServer = rpcServer;
   this._config = config;
@@ -7,9 +9,26 @@ function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient) {
 }
 
 Monitor.prototype.start = function() {
+  this._startArma();
   this._registerRpcCallbacks();
   this._startRpcServer();
   this._connectToWebApp();
+};
+
+Monitor.prototype._startArma = function(){
+  var location = this._config.arma.location;
+  var command = location + "arma3server -config=server.cfg -mod=@ikrs; -sock_host=::1 -sock_port=1337";
+  var options = {
+    cwd: location
+  };
+
+  child_process.exec(command, [options], function (error, stdout, stderr) {
+    console.log('stdout: ' + stdout);
+    console.log('stderr: ' + stderr);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
+  });
 };
 
 Monitor.prototype._registerRpcCallbacks = function() {

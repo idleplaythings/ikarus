@@ -78,9 +78,6 @@ hideout_createHideoutCache = {
 
   _equipment = [_squad] call getSquadEquipment;
   
-  player globalChat "equipment";
-  player globalChat str _equipment;
-  
   {
     private ["_unit", "_unitEquipment"];
     _unit = [_x select 0] call getPlayerByUID;

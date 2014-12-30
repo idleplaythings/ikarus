@@ -1,6 +1,7 @@
 module.exports = {
   arma: {
-    serverId: 'test-server'
+    serverId: 'test-server',
+    location: '/home/steam/steamcmd/arma3/'
   },
 
   battlEye: {

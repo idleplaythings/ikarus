@@ -9,12 +9,11 @@ joinPlayers = {
   _players = _this select 0;
   
   _leader = _players select 0;
+  
   if (isNil{_leader}) exitWith {};
-  {
-    if (_x != _leader ) then {
-      [_x] joinSilent group _leader;
-    }
-  } forEach _players;
+
+  _players = _players - [_leader];
+  _players joinSilent group _leader;
 };
 
 getAllPlayers = {

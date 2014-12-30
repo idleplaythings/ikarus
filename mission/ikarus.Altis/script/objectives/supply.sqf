@@ -19,7 +19,7 @@ objective_supply_getPlayers = {
   {
     _players = _players + ([(_x select 1)] call getPlayersInSquad);
   } forEach _objectives;
-  
+
   _players;
 };
 
@@ -100,12 +100,16 @@ objective_supply_placeLootBoxes = {
 };
 
 objective_supply_getAmountOfDepots = {
-  private ["_objectives"];
+  private ["_objectives", "_amount"];
   _objectives = _this select 0;
   
-  //floor ((count _objectives) / 2);
+  _amount = floor ((count _objectives) / 2);
   
-  1;
+  if (_amount == 0) exitWith {
+    1;
+  };
+
+  _amount;
 };
 
 objective_supply_getRadiusOfAO = {

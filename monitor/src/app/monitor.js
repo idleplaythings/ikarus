@@ -6,13 +6,23 @@ function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient) {
   this._gameData = gameData;
   this._webAppClient = webAppClient;
   this._battlEyeClient = battlEyeClient;
+  this._armaServerProcess = null;
 }
 
 Monitor.prototype.start = function() {
-  this._startArma();
-  this._registerRpcCallbacks();
-  this._startRpcServer();
-  this._connectToWebApp();
+  try {
+    this._startArma();
+    this._registerRpcCallbacks();
+    this._startRpcServer();
+    this._connectToWebApp();
+  } catch (e) {
+    if (this._armaServerProcess){
+      this._armaServerProcess.kill();
+    }
+
+    throw e;
+  }
+
 };
 
 Monitor.prototype._startArma = function(){
@@ -27,7 +37,7 @@ Monitor.prototype._startArma = function(){
     cwd: location
   };
 
-  child_process.exec(command, options, function (error, stdout, stderr) {
+  this._armaServerProcess = child_process.exec(command, options, function (error, stdout, stderr) {
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
     if (error !== null) {

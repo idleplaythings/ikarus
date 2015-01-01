@@ -62,7 +62,7 @@ module.exports = function(armaSerializer){
         };
       }, this);
     } else {
-      this_inventories = [];
+      this._inventories = [];
     }
 
     //console.log(this.getSquadData());

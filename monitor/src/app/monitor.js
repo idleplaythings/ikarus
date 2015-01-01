@@ -79,9 +79,14 @@ Monitor.prototype._connectToWebApp = function() {
   this._webAppClient.connect(
     this._config.webApp.host,
     this._config.webApp.port,
-    function(err) {
-      this._webAppClient.registerServer(serverId);
-      this._webAppClient.reportStatusIdle(serverId);
+    function(err, reconnect) {
+      this._gameData.reset();
+
+      if (! reconnect){
+        this._webAppClient.registerServer(serverId);
+        this._webAppClient.reportStatusIdle(serverId);
+      }
+
       this._webAppClient.subscribe('SquadsOnServer', [serverId]);
       this._initDdpObservers();
     }.bind(this)

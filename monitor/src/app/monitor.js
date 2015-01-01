@@ -16,6 +16,11 @@ Monitor.prototype.start = function() {
 };
 
 Monitor.prototype._startArma = function(){
+
+  if (process.env.ENV === 'dev') {
+    return;
+  }
+
   var location = this._config.arma.location;
   var command = location + "/arma3server -name=server -config=server.cfg -sock_host=::1 -sock_port=1337 -mod=@ikrs;";
   var options = {

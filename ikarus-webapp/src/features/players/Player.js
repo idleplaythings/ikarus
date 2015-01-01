@@ -4,7 +4,7 @@ Player = function Player(args) {
 
 Player.prototype.getInvite = function(company) {
   return this.getInvites().filter(function(invite) {
-    return companyId === company._id;
+    return invite.companyId === company._id;
   }).reduce(function(prev, current) {
     return prev ? prev : current;
   }, null);

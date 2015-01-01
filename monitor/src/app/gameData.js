@@ -45,21 +45,19 @@ module.exports = function(armaSerializer){
     console.log(inventories);
     */
 
-    if (squads){
-      this._squads = Object.keys(squads).map(function(key){
-        return new Squad(squads[key]);
-      }, this);
-    }
 
-    if (inventories){
-      this._inventories = Object.keys(inventories).map(function(key){
-        var serialized = inventories[key];
-        return {
-          steamId: serialized.steamId,
-          items: serialized.items
-        };
-      }, this);
-    }
+    this._squads = Object.keys(squads).map(function(key){
+      return new Squad(squads[key]);
+    }, this);
+
+    this._inventories = Object.keys(inventories).map(function(key){
+      var serialized = inventories[key];
+      return {
+        steamId: serialized.steamId,
+        items: serialized.items
+      };
+    }, this);
+
 
     //console.log(this.getSquadData());
   };

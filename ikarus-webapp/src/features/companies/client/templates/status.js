@@ -103,8 +103,8 @@ Template.companies_status.events({
     );
   },
 'click .js-invite-to-company': function(event, template) {
-    var player = dic.get('PlayerRepository').getCurrent();
-    var company = dic.get('CompanyRepository').getByPlayer(player);
+    var player = Player.getCurrent();
+    var company = Company.getByPlayer(player);
 
     var name = prompt("Player's Steam name?");
 

@@ -3,8 +3,6 @@ Meteor.methods({
     var player = Player.getCurrent();
     var squad = Squad.getByPlayer(player);
 
-    console.log(squad);
-
     if (!squad || squad._id !== squadId) {
       throw new Meteor.Error(404, 'Squad on server not found');
     }

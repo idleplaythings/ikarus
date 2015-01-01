@@ -18,7 +18,7 @@ Meteor.methods({
       var players = Player.getAllByIds(server.playerIds);
 
       server.removePlayers();
-      Squad.getAllByServer(server).map(function(squad) { squad.remove(); });
+      Squad.getAllByServer(server).forEach(function(squad) { squad.remove(); });
       players.forEach(function(player){
         var company = player.getCompany();
 

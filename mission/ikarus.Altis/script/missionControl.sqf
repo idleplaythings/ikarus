@@ -79,7 +79,7 @@ missionControl_startGameIfReady = {
 };
 
 missionControl_checkSquadsWithPlayers = {
-  private["_squads"];
+  private ["_squads"];
   _squads = [];
 
   {

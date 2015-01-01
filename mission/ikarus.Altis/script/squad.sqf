@@ -119,3 +119,16 @@ hasSquad = {
     [_this select 0] call getSquadForUnit; 
   };
 };
+
+getSquadsWithPlayers = {
+  private ["_squads"];
+  _squads = [];
+
+  {
+    if (count ([_x] call getPlayersInSquad) > 0) then {
+       _squads pushBack _x;
+    }
+  } forEach squads;
+
+  _squads;
+};

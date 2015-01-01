@@ -63,3 +63,12 @@ getPlayersInSquad = {
   
   _players;
 };
+
+broadcastMessage = {
+  private ["_message"];
+  _message = _this select 0;
+  
+  {
+    [[_message], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
+  } forEach call getAllPlayers;
+};

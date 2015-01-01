@@ -8,6 +8,7 @@ missionControl_minSquads = 2;
 missionControl_waitingTimeSeconds = 180;
 missionControl_timeWaitingStarted = 0;
 missionControl_test = false;
+missionControl_lastMessageTime = 0;
 
 missionControl_timeGameLength = 3600;
 
@@ -67,26 +68,22 @@ missionControl_startGameIfReady = {
   if (call missionControl_checkSquadsWithPlayers) then {
     if (missionControl_timeWaitingStarted == 0) then {
       missionControl_timeWaitingStarted = time;
-      {
-        [["MINUMUM AMOUNT OF SQUADS PRESENT. WAITING 3 MINS FOR ADDITIONAL PLAYERS"], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
-      } forEach call getAllPlayers;
+      
+      ["MINUMUM AMOUNT OF SQUADS PRESENT. WAITING 3 MINS FOR ADDITIONAL PLAYERS"] call broadcastMessage;
+      
+    } else {
+      if ((time - missionControl_timeWaitingStarted) >= missionControl_waitingTimeSeconds) then {
+         call missionControl_startGame;
+      };
     }
+  } else {
+    call missionControl_message;
   };
-  
-  if ((time - missionControl_timeWaitingStarted) < missionControl_waitingTimeSeconds) exitWith {};
-  
-  call missionControl_startGame;
 };
 
 missionControl_checkSquadsWithPlayers = {
   private ["_squads"];
-  _squads = [];
-
-  {
-    if (count ([_x] call getPlayersInSquad) > 0) then {
-       _squads set [count _squads, _x];
-    }
-  } forEach squads;
+  _squads = call getSquadsWithPlayers;
 
   count _squads >= missionControl_minSquads;
 };
@@ -109,7 +106,16 @@ missionControl_startGame = {
   call hideout_movePlayersToHideout;
   call assembleSquads;
   call missionControl_pollGameEnd;
-  
+};
+
+missionControl_message = {
+  if (time - missionControl_lastMessageTime > 10) then {
+    private ["_message", "_squads"];
+    missionControl_lastMessageTime = time;
+
+    _message = format["%1 squads in game. Need %2 to start the game.", str count call getSquadsWithPlayers, str missionControl_minSquads];
+    [_message] call broadcastMessage;
+  };
 };
 
 missionControl_endGame = {
@@ -134,28 +140,21 @@ missionControl_displayGameStart = {
   private ["_players"];
   _players = call getAllPlayers;
   
-  {
-    [["GAME STARTING IN 60 SECONDS. SERVER IS NOW LOCKED!"], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
-  } forEach _players;
+  
+  ["GAME STARTING IN 60 SECONDS. SERVER IS NOW LOCKED!"] call broadcastMessage;
    
   sleep 20;
   
-  {
-    [["GAME STARTING IN 40 SECONDS"], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
-  } forEach _players;
+  ["GAME STARTING IN 40 SECONDS"] call broadcastMessage;
 
   sleep 20;
 
-  {
-    [["GAME STARTING IN 20 SECONDS"], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
-  } forEach _players;
+  ["GAME STARTING IN 20 SECONDS"] call broadcastMessage;
   
   sleep 10;
   
   ['lockSquads'] call sock_rpc;
-  {
-    [["GAME STARTING IN 10 SECONDS! INVENTORIES ARE NOW LOCKED!"], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
-  } forEach _players;
+  ["GAME STARTING IN 10 SECONDS! INVENTORIES ARE NOW LOCKED!"] call broadcastMessage;
   
   sleep 10;
 };

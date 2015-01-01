@@ -85,10 +85,10 @@ Monitor.prototype._connectToWebApp = function() {
       if (! reconnect){
         this._webAppClient.registerServer(serverId);
         this._webAppClient.reportStatusIdle(serverId);
+        this._initDdpObservers();
       }
 
       this._webAppClient.subscribe('SquadsOnServer', [serverId]);
-      this._initDdpObservers();
     }.bind(this)
   );
 };

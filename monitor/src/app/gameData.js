@@ -34,6 +34,11 @@ module.exports = function(armaSerializer){
     console.log("gamedata:", armaSerializer);
   }
 
+  GameData.prototype.reset = function(){
+    this._squads = [];
+    this._inventories = [];
+  };
+
   GameData.prototype.setSquads = function(squads, inventories){
     if (this._gameStarted)
       return;

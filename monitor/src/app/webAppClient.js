@@ -14,12 +14,11 @@ WebAppClient.prototype.connect = function(host, port, callback) {
     }
 
     if (wasReconnect) {
-      console.error('Reestablishment of a connection.');
+      console.error('Re-establishment of a connection.');
+    } else {
+      console.log('DDP connection established');
+      callback(error);
     }
-
-    console.log('DDP connection established');
-
-    callback(error);
   });
 }
 

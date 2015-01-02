@@ -11,6 +11,9 @@ ItemDefinitions = [
   createWeapon('M249 lmg', 'CUP_lmg_M249', ['CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 'CUP_30Rnd_556x45_Stanag']),
   createMagazine('200rnd box 5.56x45mm', 'CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 30),
 
+  createWeapon('M14 battle rifle', 'CUP_srifle_M14', ['20Rnd_762x51_Mag']),
+  createMagazine('20rnd 7.62x51mm NATO', '20Rnd_762x51_Mag', 20),
+
   createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['CUP_30Rnd_556x45_Stanag']),
   createMagazine('30rnd 5.56x45mm', 'CUP_30Rnd_556x45_Stanag', 30),
 
@@ -33,12 +36,26 @@ ItemDefinitions = [
   createWeapon('RPK-74 lmg', 'CUP_arifle_RPK74', ['CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 'CUP_30Rnd_545x39_AK_M']),
   createMagazine('75rnd 5.45x39mm', 'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 75),
 
+  createWeapon('PKM mmg', 'CUP_lmg_PKM', ['CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M']),
+  createMagazine('100rnd 7.62x54mm', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M', 100),
+
   createWeapon('AK-107 assault rifle', 'CUP_arifle_AK107', ['CUP_30Rnd_545x39_AK_M']),
 
+  createWeapon('RPG-7V launcher', 'CUP_launch_RPG7V', ['CUP_PG7V_M']),
+  createMagazine('RPG-7 AT rocket', 'CUP_PG7V_M', 1),
+
+  createWeapon('NLAW launcher', 'CUP_launch_NLAW', ['CUP_NLAW_M']),
+  createMagazine('NLAW AT rocket', 'CUP_NLAW_M', 1),
+
+  createWeapon('M24 sniper rifle', 'CUP_srifle_M24_wdl', ['CUP_5Rnd_762x51_M24']),
+  createMagazine('5rnd 762x51mm NATO', 'CUP_5Rnd_762x51_M24', 1),
+
+  createGeneric('Binoculars', 'Binocular'),
 
   createGeneric('Kobra Reflex Sight', 'CUP_optic_Kobra'),
   createGeneric('PSO-1 Scope', 'CUP_optic_PSO_1'),
   createGeneric('M68 CCO red dot optic', 'CUP_optic_CompM2_Black'),
+  createGeneric('Leupold Mark 4 10x40mm LR/T', 'CUP_optic_LeupoldMk4_10x40_LRT_Woodland'),
 
   createGeneric('Trijicon ACOG optic', 'CUP_optic_RCO'),
   createGeneric('Aimpoint CompM4 optic', 'CUP_optic_CompM4'),
@@ -81,6 +98,7 @@ ItemDefinitions = [
     'Civilian Weapons',
     'IKRS_loot_civilian_weapons',
     {
+      'Binocular': 'd3-1',
       'CUP_srifle_LeeEnfield': 1,
       'CUP_10x_303_M': 'd5+2',
       'CUP_srifle_CZ550': 'd20-19',
@@ -122,7 +140,9 @@ ItemDefinitions = [
       'V_TacVest_camo': 'd3-1',
       'V_TacVest_oli': 'd3-1',
       'V_TacVest_blk': 'd3-1',
-      'V_PlateCarrier1_rgr': 'd5-4'
+      'V_PlateCarrier1_rgr': 'd5-4',
+      'CUP_srifle_M14': 'd10-9',
+      '20Rnd_762x51_Mag': 'd3'
     }
   ),
 
@@ -139,7 +159,11 @@ ItemDefinitions = [
       'V_TacVest_oli': 'd3-1',
       'V_TacVest_blk': 'd3-1',
       'V_PlateCarrier1_rgr': 'd2',
-      'V_PlateCarrier2_rgr': 'd5-4'
+      'V_PlateCarrier2_rgr': 'd5-4',
+      'CUP_launch_NLAW': 'd10-9',
+      'CUP_NLAW_M': 'd5-4',
+      'CUP_srifle_M24_wdl': 'd20-19',
+      'CUP_5Rnd_762x51_M24': 'd3-2'
     }
   ),
 
@@ -157,7 +181,11 @@ ItemDefinitions = [
       'V_TacVest_oli': 'd3-1',
       'V_TacVest_blk': 'd3-1',
       'V_PlateCarrierIA1_dgtl': 'd2',
-      'V_PlateCarrierIA2_dgtl': 'd5-4'
+      'V_PlateCarrierIA2_dgtl': 'd5-4',
+      'CUP_lmg_PKM': 'd10-9',
+      'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd5-3',
+      'CUP_launch_RPG7V': 'd10-9',
+      'CUP_PG7V_M': 'd2-1',
     }
   ),
 
@@ -165,7 +193,12 @@ ItemDefinitions = [
     'NATO heavy weapons',
     'IKRS_loot_heavy_nato_weapons',
     {
-      'CUP_lmg_M249': 1,
+      'CUP_optic_LeupoldMk4_10x40_LRT_Woodland': 'd2-1',
+      'CUP_srifle_M24_wdl': 'd2-1',
+      'CUP_5Rnd_762x51_M24': 'd3+2',
+      'CUP_launch_NLAW': 'd2',
+      'CUP_NLAW_M': 'd2+2',
+      'CUP_lmg_M249': 'd2-1',
       'CUP_200Rnd_TE4_Red_Tracer_556x45_M249': 'd3+2'
     }
   ),
@@ -174,8 +207,15 @@ ItemDefinitions = [
     'Russian heavy weapons',
     'IKRS_loot_heavy_RU_weapons',
     {
+      'CUP_launch_RPG7V': 'd3-1',
+      'CUP_PG7V_M': 'd3+2',
+      'CUP_lmg_PKM': 'd3-2',
+      'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd3',
       'CUP_arifle_RPK74': 'd2',
-      'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '2d3+5'
+      'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '2d3+5',
+      'CUP_optic_PSO_1': 'd2',
+      'CUP_srifle_SVD': 'd2-1',
+      'CUP_10Rnd_762x54_SVD_M': 'd5+3'
     }
   ),
 ];

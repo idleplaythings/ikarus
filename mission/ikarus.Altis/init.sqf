@@ -23,4 +23,6 @@ if (! isServer) exitwith {};
 [] execVM "script\equipment.sqf";
 [] execVM "script\events.sqf";
 
+[] execvm "script\zlt_civveh.sqf";
+
 call compile preprocessfile "SHK_pos\shk_pos_init.sqf";

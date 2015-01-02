@@ -35,7 +35,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=15;
+		items=50;
 		class Item0
 		{
 			side="CIV";
@@ -333,6 +333,706 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_13";
+				};
+			};
+		};
+		class Item15
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5470.9116,27.299999,15001.495};
+					special="NONE";
+					id=15;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_4";
+				};
+			};
+		};
+		class Item16
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5469.1401,27.299999,14994.522};
+					special="NONE";
+					id=16;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_1_1";
+				};
+			};
+		};
+		class Item17
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5468.2271,27.299999,14998.354};
+					special="NONE";
+					id=17;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_2_1";
+				};
+			};
+		};
+		class Item18
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5471.3687,27.299999,14995.781};
+					special="NONE";
+					id=18;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_7_1";
+				};
+			};
+		};
+		class Item19
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5467.5981,27.299999,14996.639};
+					special="NONE";
+					id=19;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_8_1";
+				};
+			};
+		};
+		class Item20
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5484.7588,27.299999,14993.155};
+					special="NONE";
+					id=20;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_14";
+				};
+			};
+		};
+		class Item21
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5482.9873,27.299999,14986.183};
+					special="NONE";
+					id=21;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_1_2";
+				};
+			};
+		};
+		class Item22
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5482.0742,27.299999,14990.014};
+					special="NONE";
+					id=22;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_2_2";
+				};
+			};
+		};
+		class Item23
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5485.2158,27.299999,14987.403};
+					special="NONE";
+					id=23;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_7_2";
+				};
+			};
+		};
+		class Item24
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5481.4453,27.299999,14988.299};
+					special="NONE";
+					id=24;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_8_2";
+				};
+			};
+		};
+		class Item25
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5481.0742,27.299999,14991.41};
+					special="NONE";
+					id=25;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_15";
+				};
+			};
+		};
+		class Item26
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5479.3027,27.299999,14984.438};
+					special="NONE";
+					id=26;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_1_3";
+				};
+			};
+		};
+		class Item27
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5478.3896,27.299999,14988.269};
+					special="NONE";
+					id=27;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_2_3";
+				};
+			};
+		};
+		class Item28
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5481.5313,27.299999,14985.696};
+					special="NONE";
+					id=28;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_7_3";
+				};
+			};
+		};
+		class Item29
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5477.7607,27.299999,14986.554};
+					special="NONE";
+					id=29;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_8_3";
+				};
+			};
+		};
+		class Item30
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5483.9438,27.299999,15008.36};
+					special="NONE";
+					id=30;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_16";
+				};
+			};
+		};
+		class Item31
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5482.1724,27.299999,15001.388};
+					special="NONE";
+					id=31;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_1_4";
+				};
+			};
+		};
+		class Item32
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5481.2593,27.299999,15005.219};
+					special="NONE";
+					id=32;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_2_4";
+				};
+			};
+		};
+		class Item33
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5484.4009,27.299999,15002.646};
+					special="NONE";
+					id=33;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_7_4";
+				};
+			};
+		};
+		class Item34
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5480.6304,27.299999,15003.504};
+					special="NONE";
+					id=34;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_8_4";
+				};
+			};
+		};
+		class Item35
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5480.3755,27.299999,15009.407};
+					special="NONE";
+					id=35;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_17";
+				};
+			};
+		};
+		class Item36
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5478.604,27.299999,15002.435};
+					special="NONE";
+					id=36;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_1_5";
+				};
+			};
+		};
+		class Item37
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5477.6909,27.299999,15006.266};
+					special="NONE";
+					id=37;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_2_5";
+				};
+			};
+		};
+		class Item38
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5481.4146,27.299999,15003.693};
+					special="NONE";
+					id=38;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_7_5";
+				};
+			};
+		};
+		class Item39
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5477.062,27.299999,15004.551};
+					special="NONE";
+					id=39;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_8_5";
+				};
+			};
+		};
+		class Item40
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5478.2036,27.299999,15010.882};
+					special="NONE";
+					id=40;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_18";
+				};
+			};
+		};
+		class Item41
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5476.4321,27.299999,15003.909};
+					special="NONE";
+					id=41;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_1_6";
+				};
+			};
+		};
+		class Item42
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5475.519,27.299999,15007.74};
+					special="NONE";
+					id=42;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_2_6";
+				};
+			};
+		};
+		class Item43
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5478.6606,27.299999,15005.168};
+					special="NONE";
+					id=43;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_7_6";
+				};
+			};
+		};
+		class Item44
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5474.8901,27.299999,15006.025};
+					special="NONE";
+					id=44;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_8_6";
+				};
+			};
+		};
+		class Item45
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5474.5962,27.299999,15009.757};
+					special="NONE";
+					id=45;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_19";
+				};
+			};
+		};
+		class Item46
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5472.8247,27.299999,15002.784};
+					special="NONE";
+					id=46;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_1_7";
+				};
+			};
+		};
+		class Item47
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5471.9116,27.299999,15006.615};
+					special="NONE";
+					id=47;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_2_7";
+				};
+			};
+		};
+		class Item48
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5475.0532,27.299999,15004.043};
+					special="NONE";
+					id=48;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_7_7";
+				};
+			};
+		};
+		class Item49
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5471.2827,27.299999,15004.9};
+					special="NONE";
+					id=49;
+					side="CIV";
+					vehicle="C_man_w_worker_F";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+					text="friend_8_7";
 				};
 			};
 		};

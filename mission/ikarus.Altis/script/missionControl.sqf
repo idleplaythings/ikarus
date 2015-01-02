@@ -69,7 +69,7 @@ missionControl_startGameIfReady = {
     if (missionControl_timeWaitingStarted == 0) then {
       missionControl_timeWaitingStarted = time;
       
-      ["MINUMUM AMOUNT OF SQUADS PRESENT. WAITING 3 MINS FOR ADDITIONAL PLAYERS"] call broadcastMessage;
+      ["MINIMUM AMOUNT OF SQUADS PRESENT. WAITING 3 MINS FOR ADDITIONAL PLAYERS"] call broadcastMessage;
       
     } else {
       if ((time - missionControl_timeWaitingStarted) >= missionControl_waitingTimeSeconds) then {

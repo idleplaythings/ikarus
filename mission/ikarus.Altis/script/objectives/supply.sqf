@@ -36,6 +36,11 @@ objective_supply_constructMarkers = {
       [[_position, _radius], "markers_createSupplyMarker", _x, false, true] call BIS_fnc_MP;
     } forEach _players;  
   } forEach _depotPositions;
+  
+  
+  {
+    [[], "markers_createSupplyBriefring", _x, false, true] call BIS_fnc_MP;
+  } forEach _players;
 };
 
 objective_supply_constructDepots = {
@@ -106,14 +111,17 @@ objective_supply_getAmountOfDepots = {
   _amount = floor ((count _objectives) / 2);
   
   if (_amount == 0) exitWith {
-    1;
+    5;
   };
 
   _amount;
 };
 
 objective_supply_getRadiusOfAO = {
-  1000;
+  private ["_objectives", "_amount"];
+  _objectives = _this select 0;
+  
+  ([_objectives] call objective_supply_getAmountOfDepots) * 0.5;
 };
 
 objective_supply_checkIsSuitableForDepot = {

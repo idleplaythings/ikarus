@@ -3,9 +3,9 @@ missionControl_gameStarted = false;
 missionControl_gameOver = false;
 missionControl_timeGameStarted = 0;
 
-missionControl_minSquads = 1;
+missionControl_minSquads = 2;
 
-missionControl_waitingTimeSeconds = 5;
+missionControl_waitingTimeSeconds = 180;
 missionControl_timeWaitingStarted = 0;
 missionControl_test = false;
 missionControl_lastMessageTime = 0;
@@ -69,7 +69,7 @@ missionControl_startGameIfReady = {
     if (missionControl_timeWaitingStarted == 0) then {
       missionControl_timeWaitingStarted = time;
       
-      ["MINUMUM AMOUNT OF SQUADS PRESENT. WAITING 3 MINS FOR ADDITIONAL PLAYERS"] call broadcastMessage;
+      ["MINIMUM AMOUNT OF SQUADS PRESENT. WAITING 3 MINS FOR ADDITIONAL PLAYERS"] call broadcastMessage;
       
     } else {
       if ((time - missionControl_timeWaitingStarted) >= missionControl_waitingTimeSeconds) then {
@@ -143,20 +143,20 @@ missionControl_displayGameStart = {
   
   ["GAME STARTING IN 60 SECONDS. SERVER IS NOW LOCKED!"] call broadcastMessage;
    
-  sleep 2;
+  sleep 20;
   
   ["GAME STARTING IN 40 SECONDS"] call broadcastMessage;
 
-  sleep 2;
+  sleep 20;
 
   ["GAME STARTING IN 20 SECONDS"] call broadcastMessage;
   
-  sleep 1;
+  sleep 10;
   
   ['lockSquads'] call sock_rpc;
   ["GAME STARTING IN 10 SECONDS! INVENTORIES ARE NOW LOCKED!"] call broadcastMessage;
   
-  sleep 1;
+  sleep 10;
 };
 
 call missionControl_startWhenReady;

@@ -29,7 +29,7 @@ module.exports = function(armaSerializer){
   function GameData(armaSerializer) {
     this._squads = [];
     this._inventories = [];
-    this._gameStarted = false;
+    this._locked = false;
     this._armaSerializer = armaSerializer;
     console.log("gamedata:", armaSerializer);
   }
@@ -40,15 +40,15 @@ module.exports = function(armaSerializer){
   };
 
   GameData.prototype.setSquads = function(squads, inventories){
-    if (this._gameStarted)
+    if (this._locked)
       return;
 
-
+    /*
     console.log("SET SQUADS");
     console.log(squads);
     console.log();
     console.log(inventories);
-
+    */
 
     if (squads){
       this._squads = Object.keys(squads).map(function(key){
@@ -73,12 +73,12 @@ module.exports = function(armaSerializer){
     //console.log(this.getSquadData());
   };
 
-  GameData.prototype.startGame = function(){
-    this._gameStarted = true;
+  GameData.prototype.lock = function(){
+    this._locked = true;
   };
 
-  GameData.prototype.endGame = function(){
-    this._gameStarted = false;
+  GameData.prototype.unlock = function(){
+    this._locked = false;
   };
 
   GameData.prototype.playerKilled = function(id){

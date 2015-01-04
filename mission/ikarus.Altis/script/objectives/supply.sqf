@@ -111,7 +111,7 @@ objective_supply_getAmountOfDepots = {
   _amount = floor ((count _objectives) / 2);
   
   if (_amount == 0) exitWith {
-    5;
+    1;
   };
 
   _amount;

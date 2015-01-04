@@ -10,14 +10,14 @@ equipment_equipUnit = {
     _amount = _x select 1;
     
     while {_amount > 0} do {
-      [_unit, _class, _backupContainer] call equipment_addItem;
+      [_unit, _class, _backupContainer] call equipment_addEquipment;
       _amount = _amount - 1;
     };
   
   } forEach _equipment;
 };
 
-equipment_addItem = {
+equipment_addEquipment = {
   private ["_unit", "_class", "_backupContainer"];
   _unit = _this select 0;
   _class = _this select 1;

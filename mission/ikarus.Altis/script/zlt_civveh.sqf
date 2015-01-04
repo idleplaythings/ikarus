@@ -31,6 +31,9 @@ zlt_fnc_civvehs = {
 
 	_startpos= _this select 0;
 	_houses = _startpos nearobjects ["House",_lrange];
+
+  if ( count _houses == 0 ) exitWith {};
+
 	//_vehmax =  _cars;
 	_vehmax = 	(round ((sqrt (count _houses)) * 0.5)) max 1;
 	

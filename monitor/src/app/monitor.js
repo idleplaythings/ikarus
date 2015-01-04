@@ -140,13 +140,11 @@ var gameWaiting = function() {
 var gameStart = function() {
   this._battlEyeClient.lockServer();
   this._webAppClient.reportStatusPlaying(this._config.arma.serverId);
-  this._gameData.startGame();
 };
 
 var gameEnd = function() {
   this._battlEyeClient.shutDownServer();
   this._webAppClient.reportStatusIdle(this._config.arma.serverId);
-  this._gameData.endGame();
 };
 
 var playerConnected = function(uid) {
@@ -172,6 +170,7 @@ var playerDisconnected = function(uid) {
 };
 
 var lockSquads = function() {
+  this._gameData.lock();
   this._webAppClient.reportLockSquads(this._config.arma.serverId);
 };
 

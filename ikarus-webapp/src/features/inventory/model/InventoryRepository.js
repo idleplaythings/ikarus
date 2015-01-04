@@ -54,7 +54,7 @@ InventoryRepository.prototype.getById = function(id){
 };
 
 InventoryRepository.prototype.lockByServer = function(server){
-  this._collection.update({serverId: server._id}, {$set: {locked: true}, {multi: true}});
+  this._collection.update({serverId: server._id}, {$set: {locked: true}}, {multi: true});
 };
 
 InventoryRepository.prototype.removeByPlayer = function(player){

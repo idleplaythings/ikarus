@@ -23,10 +23,6 @@ equipment_addEquipment = {
   _class = _this select 1;
   _backupContainer = _this select 2;
   
-  if ( isClass (configFile >> "CFGweapons" >> _class)) exitWith {
-    [_unit, _class, _backupContainer] call equipment_addWeapon;
-  };
-  
   if ( isClass (configFile >> "CFGMagazines" >> _class)) exitWith {
     [_unit, _class, _backupContainer] call equipment_addMagazine;
   };
@@ -34,7 +30,7 @@ equipment_addEquipment = {
   if (_class isKindOf "Bag_Base") exitWith {
     [_unit, _class, _backupContainer] call equipment_addBackpack;
   };
-  
+
   [_unit, _class, _backupContainer] call equipment_addItem;
 };
 

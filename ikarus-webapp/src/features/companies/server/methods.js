@@ -12,6 +12,8 @@ Meteor.methods({
     var company = Company.create();
     company.setName(name);
     company.addPlayer(Player.getCurrent());
+
+    dic.get('LootController').addStartingLoot(company);
   },
 
   inviteToCompany: function(playerName) {

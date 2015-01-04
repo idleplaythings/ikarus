@@ -14,6 +14,9 @@ ItemDefinitions = [
   createWeapon('M14 battle rifle', 'CUP_srifle_M14', ['20Rnd_762x51_Mag']),
   createMagazine('20rnd 7.62x51mm NATO', '20Rnd_762x51_Mag', 20),
 
+  createWeapon('FN FAL (no rail)', 'CUP_arifle_FNFAL', ['CUP_20Rnd_762x51_FNFAL_M']),
+  createMagazine('20rnd 7.62x51mm FN FAL', 'CUP_20Rnd_762x51_FNFAL_M', 20),
+
   createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['CUP_30Rnd_556x45_Stanag']),
   createMagazine('30rnd 5.56x45mm', 'CUP_30Rnd_556x45_Stanag', 30),
 
@@ -96,6 +99,14 @@ ItemDefinitions = [
   createGeneric('Carrier lite (green, US)', 'V_PlateCarrier1_rgr'),
   createGeneric('Carrier rig (green, US)', 'V_PlateCarrier2_rgr'),
 
+  createGeneric('ECH helmet', 'H_HelmetB'),
+  createGeneric('MICH helmet', 'H_HelmetIA'),
+  createGeneric('Shemag olive', 'H_Shemag_olive'),
+
+  createGeneric('RGO Hand grenade', 'HandGrenade'),
+  createGeneric('Smoke grenade', 'SmokeShell'),
+
+
   createLoot(
     'Civilian Weapons',
     'IKRS_loot_civilian_weapons',
@@ -106,7 +117,11 @@ ItemDefinitions = [
       'CUP_srifle_CZ550': 'd20-19',
       'CUP_5x_22_LR_17_HMR_M': 'd3-2',
       'V_Press_F': 'd10-9',
-      'V_TacVest_blk_POLICE': 'd10-8'
+      'V_TacVest_blk_POLICE': 'd10-8',
+      'H_HelmetB': 'd5-4',
+      'H_Shemag_olive': 'd3-2',
+      'SmokeShell': 'd3+1',
+      'HandGrenade': 'd5-4'
     }
   ),
 
@@ -126,7 +141,11 @@ ItemDefinitions = [
       'V_TacVest_camo': 'd3-1',
       'V_TacVest_oli': 'd3-1',
       'V_TacVest_blk': 'd3-1',
-      'V_PlateCarrierIA1_dgtl': 'd5-4'
+      'V_PlateCarrierIA1_dgtl': 'd5-4',
+      'U_I_CombatUniform': 'd4-2',
+      'H_HelmetIA': 'd3',
+      'SmokeShell': '3d3',
+      'HandGrenade': 'd3'
     }
   ),
 
@@ -144,7 +163,11 @@ ItemDefinitions = [
       'V_TacVest_blk': 'd3-1',
       'V_PlateCarrier1_rgr': 'd5-4',
       'CUP_srifle_M14': 'd10-9',
-      '20Rnd_762x51_Mag': 'd3'
+      '20Rnd_762x51_Mag': 'd2-1',
+      'U_B_CombatUniform_mcam': 'd3-2',
+      'H_HelmetB': 'd3-1',
+      'SmokeShell': '3d3',
+      'HandGrenade': '2d3'
     }
   ),
 
@@ -165,7 +188,12 @@ ItemDefinitions = [
       'CUP_launch_NLAW': 'd10-9',
       'CUP_NLAW_M': 'd5-4',
       'CUP_srifle_M24_wdl': 'd20-19',
-      'CUP_5Rnd_762x51_M24': 'd3-2'
+      'CUP_5Rnd_762x51_M24': 'd3-2',
+      'U_B_CombatUniform_mcam': 'd3-1',
+      'U_B_CombatUniform_mcam_vest': 'd3-1',
+      'H_HelmetB': 'd3+1',
+      'SmokeShell': '3d3',
+      'HandGrenade': '2d3'
     }
   ),
 
@@ -188,6 +216,12 @@ ItemDefinitions = [
       'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd5-3',
       'CUP_launch_RPG7V': 'd10-9',
       'CUP_PG7V_M': 'd2-1',
+      'U_I_CombatUniform': 'd6-2',
+      'H_HelmetIA': 'd3+2',
+      'SmokeShell': '3d3',
+      'HandGrenade': '2d3',
+      'CUP_arifle_FNFAL': 'd10-9',
+      'CUP_20Rnd_762x51_FNFAL_M': 'd3+1'
     }
   ),
 
@@ -197,7 +231,7 @@ ItemDefinitions = [
     {
       'CUP_optic_LeupoldMk4_10x40_LRT_Woodland': 'd2-1',
       'CUP_srifle_M24_wdl': 'd2-1',
-      'CUP_5Rnd_762x51_M24': 'd3+2',
+      'CUP_5Rnd_762x51_M24': 'd2',
       'CUP_launch_NLAW': 'd2',
       'CUP_NLAW_M': 'd2+2',
       'CUP_lmg_M249': 'd2-1',
@@ -211,11 +245,11 @@ ItemDefinitions = [
     {
       'CUP_launch_RPG7V': 'd3-1',
       'CUP_PG7V_M': 'd3+2',
-      'CUP_lmg_PKM': 'd3-2',
+      'CUP_lmg_PKM': 'd4-3',
       'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd3',
       'CUP_arifle_RPK74': 'd2',
       'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '2d3+5',
-      'CUP_optic_PSO_1': 'd2',
+      'CUP_optic_PSO_1': 'd2-1',
       'CUP_srifle_SVD': 'd2-1',
       'CUP_10Rnd_762x54_SVD_M': 'd5+3'
     }

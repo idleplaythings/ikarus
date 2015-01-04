@@ -10,7 +10,7 @@ missionControl_timeWaitingStarted = 0;
 missionControl_test = false;
 missionControl_lastMessageTime = 0;
 
-missionControl_timeGameLength = 3600;
+missionControl_timeGameLength = 4500;
 
 missionControl_getElapsedTime = {
   if (missionControl_timeGameStarted == 0) exitWith {

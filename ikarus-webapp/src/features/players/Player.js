@@ -10,6 +10,10 @@ Player.prototype.getInvite = function(company) {
   }, null);
 };
 
+Player.prototype.isAdmin = function() {
+  return get(this.getDoc(), 'admin');
+};
+
 Player.prototype.hasInvite = function(company) {
   return Boolean(this.getInvite(company));
 };

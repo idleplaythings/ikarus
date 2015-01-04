@@ -8,10 +8,29 @@ LootController = function LootController(
   this._dice = dice;
 }
 
+LootController.prototype.addStartingLoot = function(company) {
+  var loot = [
+    'IKRS_loot_civilian_weapons',
+    'IKRS_loot_civilian_weapons',
+    'IKRS_loot_civilian_weapons',
+    'IKRS_loot_civilian_weapons',
+    'IKRS_loot_old_RU_weapons',
+    'IKRS_loot_old_RU_weapons',
+    'IKRS_loot_common_RU_weapons',
+    'IKRS_loot_heavy_RU_weapons'
+  ];
+
+  this.receiveLootForCompany(company, loot);
+};
+
 LootController.prototype.receiveLoot = function(squadId, loot) {
   var squad = this._getSquad(squadId);
   var company = this._getCompany(squad);
 
+  this.receiveLootForCompany(company, loot);
+};
+
+LootController.prototype.receiveLootForCompany = function(company, loot) {
   var items = this._itemFactory.createItems(loot);
   var companyInventory = this._inventoryRepository.getByCompany(company);
 

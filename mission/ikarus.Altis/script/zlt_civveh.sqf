@@ -47,6 +47,11 @@ zlt_fnc_civvehs = {
 		//diag_log ["CV",_startpos, _lrange, _houses];
 		
 		_house = _houses call BIS_fnc_selectRandom;
+    
+    if (isNil {_house}) exitWith {
+      _attemps = _attemps + 1;
+    };
+    
 		_class = (_classes call BIS_fnc_selectRandom);
 		_housepos = _house modeltoworld [0,0,0];
 		_newpos = _housepos findEmptyPosition [ 3 , 15, _class ];

@@ -75,6 +75,8 @@ ItemDefinitions = [
 
   createGeneric('First aid kit', 'FirstAidKit', true),
 
+  createBackpack('Assault Pack (Khaki)', 'B_AssaultPack_khk', true),
+
   createGeneric('Combat fatigues (AAF)', 'U_I_CombatUniform'),
   createGeneric('Combat fatigues (MTP)', 'U_B_CombatUniform_mcam'),
   createGeneric('Combat recon fatigues (MTP)', 'U_B_CombatUniform_mcam_vest'),

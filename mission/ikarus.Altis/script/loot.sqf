@@ -46,8 +46,8 @@ loot_checkUnit = {
   _lootList = _lootList + assignedItems _unit;
   _lootList = _lootList + [vest _unit, backpack _unit, uniform _unit];
   
-  _lootList = _lootList + [primaryWeapon _unit] + (primaryWeaponItems _unit);
-  _lootList = _lootList + [secondaryWeapon _unit, secondaryWeaponMagazine _unit] + (secondaryWeaponItems _unit);
+  _lootList = _lootList + [primaryWeapon _unit] + (primaryWeaponItems _unit) + primaryWeaponMagazine _unit;
+  _lootList = _lootList + [secondaryWeapon _unit] + (secondaryWeaponItems _unit) +  secondaryWeaponMagazine _unit;
   _lootList = _lootList + [handgunWeapon _unit] + (handgunItems _unit);
 
   _lootList;

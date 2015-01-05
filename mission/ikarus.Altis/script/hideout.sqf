@@ -167,7 +167,7 @@ hideout_movePlayerToHideout = {
   
   if ([_unit] call hasSquad) then {
     _building = [[_unit] call getSquadForUnit] call getSquadHideoutBuilding;
-    _unit setPosATL (_building buildingPos 0);
+    _unit setPosASL getPosASL ([[_unit] call getSquadForUnit] call getSquadCache);
   }
 };
 

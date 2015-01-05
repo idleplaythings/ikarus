@@ -24,6 +24,10 @@ buildingChecker_Key = {
     call buildingChecker_back;
   };
   
+  if (_key == 52) exitWith {
+    call buildingChecker_next;
+  };
+  
   if (_key == 51) exitWith {
     call buildingChecker_approve;
     call buildingChecker_next;

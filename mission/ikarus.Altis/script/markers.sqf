@@ -53,6 +53,7 @@ markers_createSupplyBriefring = {
   player createDiaryRecord ["Diary", ["Supply", 
     'There are one or more supply depots on the map. These depots will contain boxes, that can be opened by waiting next to them.'
     + ' Opened boxes contain loot backpacks that will be converted to usable loot when brought back to the hideout.'
+    + '<br/><br/>NOTE: Boxes in the supply depot can not be opened before 20 minutes of game has elapsed. When 40 minutes has elapsed, the boxes will open faster.'
     + '<br/><br/>Following areas contain a supply depot somewhere inside:<br/>'
     + _markersText
   ]];

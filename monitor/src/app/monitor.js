@@ -42,9 +42,8 @@ Monitor.prototype._startArma = function(){
     console.log('stderr: ' + stderr);
     if (error !== null) {
       console.log('exec error: ' + error);
+      process.exit();
     }
-
-    process.exit();
   });
 };
 
@@ -145,6 +144,10 @@ var gameStart = function() {
 var gameEnd = function() {
   this._battlEyeClient.shutDownServer();
   this._webAppClient.reportStatusIdle(this._config.arma.serverId);
+  this._webAppClient.getReadyPromise().then(function(){
+    console.log("done, exiting");
+    process.exit();
+  });
 };
 
 var playerConnected = function(uid) {

@@ -54,6 +54,10 @@ Player.prototype.addInvite = function(invite) {
   Meteor.users.update({ _id: this._id }, { $addToSet: { invites: invite }});
 }
 
+Player.getByMeteorId = function(id) {
+  return Player.fromDoc(Meteor.users.findOne({ _id: id }));
+}
+
 Player.getById = function(playerId) {
   return Player.fromDoc(Meteor.users.findOne({ 'services.steam.id': playerId }));
 }

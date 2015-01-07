@@ -51,6 +51,12 @@ Meteor.methods({
   leaveCompany: function(playerId, companyId) {
     var player = Player.getById(playerId);
     var company = Company.getById(companyId);
+
+    var squad = Squad.getByPlayer(player);
+
+    if (squad){
+      throw new Meteor.Error(400, "Can't leave company while in squad");
+    }
     company.removePlayer(player);
   }
 });

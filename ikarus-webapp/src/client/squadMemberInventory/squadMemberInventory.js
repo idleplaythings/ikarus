@@ -1,3 +1,21 @@
+Template.squadMemberInventory.created = function(){
+  Tracker.autorun(function(){
+    var player = Player.getCurrent();
+
+    if (! player){
+      return;
+    }
+
+    var squad = Squad.getByPlayer(player);
+
+    if (! squad){
+      return;
+    }
+
+    Meteor.subscribe('SquadInventory', squad._id);
+  });
+};
+
 Template.squadMemberInventory.helpers({
   getInventory: getInventory,
   locked: locked,
@@ -23,8 +41,7 @@ Template.squadMemberInventory_ammoEntry.helpers({
 });
 
 function getInventory(){
-  var inventory = dic.get('InventoryRepository').getByPlayer(
-  Player.getCurrent());
+  var inventory = getCurrentInventory();
 
   return new InventoryUi({
     inventory: inventory,
@@ -40,7 +57,13 @@ function getAmmo(item){
 };
 
 function locked(){
-  dic.get('InventoryRepository').getByPlayer(
-    Player.getCurrent()
-  ).locked;
+  return getInventory().locked;
+};
+
+function getCurrentInventory(){
+  return Inventory.getBySquad(getSquad());
+};
+
+function getSquad(){
+  return Player.getCurrent().getSquad();
 };

@@ -24,7 +24,7 @@ InventoryFactory.prototype.deserialize = function(serialized){
 
   serialized.items = items;
 
-  var inventory = new namespace[serialized.type](serialized);
+  var inventory = new namespace[type](serialized);
 
   if (inventory.hasUnlimitedItems){
     var unlimitedItems = this._itemFactory.getUnlimitedItems();

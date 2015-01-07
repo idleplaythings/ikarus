@@ -1,10 +1,8 @@
 LootController = function LootController(
   itemFactory,
-  inventoryRepository,
   dice
 ){
   this._itemFactory = itemFactory;
-  this._inventoryRepository = inventoryRepository;
   this._dice = dice;
 }
 
@@ -32,7 +30,7 @@ LootController.prototype.receiveLoot = function(squadId, loot) {
 
 LootController.prototype.receiveLootForCompany = function(company, loot) {
   var items = this._itemFactory.createItems(loot);
-  var companyInventory = this._inventoryRepository.getByCompany(company);
+  var companyInventory = Inventory.getByCompany(company);
 
   items.forEach(function(item){
     if (item.isLoot()){
@@ -44,7 +42,7 @@ LootController.prototype.receiveLootForCompany = function(company, loot) {
 };
 
 LootController.prototype._handleLoot = function(companyInventory, item){
-  this._inventoryRepository.addToInventory(companyInventory, item);
+  Inventory.addToInventory(companyInventory, item);
 };
 
 LootController.prototype._handleLootBackpack = function(
@@ -56,7 +54,7 @@ LootController.prototype._handleLootBackpack = function(
     var amount = loot[key];
 
     while(amount > 0){
-      this._inventoryRepository.addToInventory(
+      Inventory.addToInventory(
         companyInventory,
         this._itemFactory.createItemByArmaClass(armaClass)
       );

@@ -1,33 +1,32 @@
 Meteor.methods({
   'addToInventory': function(armaClass){
-    var player = getPlayer();
-    var company = getCompany(player);
-    var repo = dic.get('InventoryRepository');
-    repo.moveFromInventory(
-      repo.getByCompany(company),
-      repo.getByPlayer(player),
+    var squad = getSquad();
+    var company = getCompany();
+
+    Inventory.moveFromInventory(
+      Inventory.getByCompany(company),
+      Inventory.getBySquad(squad),
       armaClass
     );
   },
 
   'removeFromInventory': function(armaClass){
-    var player = getPlayer();
-    var company = getCompany(player);
+    var squad = getSquad();
+    var company = getCompany();
 
-    var repo = dic.get('InventoryRepository');
 
-    var armory = repo.getByCompany(company);
-    repo.moveFromInventory(
-      repo.getByPlayer(player),
+    var armory = Inventory.getByCompany(company);
+    Inventory.moveFromInventory(
+      Inventory.getBySquad(squad),
       armory,
       armaClass
     );
 
-    var inventory = repo.getByPlayer(player);
+    var inventory = Inventory.getBySquad(squad);
 
     inventory.getOrphanedMagazines().forEach(
       function (orphan){
-        repo.moveFromInventory(
+        Inventory.moveFromInventory(
           inventory,
           armory,
           orphan.armaClass
@@ -37,6 +36,18 @@ Meteor.methods({
   }
 });
 
+function getSquad(){
+  var player = getPlayer();
+  var squad = Squad.getByPlayer(player);
+
+  if (! squad){
+    throw new Meteor.Error(404, 'Squad not found');
+  }
+
+  return squad;
+
+};
+
 function getPlayer(){
   var player = Player.getCurrent();
 
@@ -44,15 +55,10 @@ function getPlayer(){
     throw new Meteor.Error(404, 'Player not found');
   }
 
-  var squad = Squad.getByPlayer(player);
-
-  if (! squad){
-    throw new Meteor.Error(404, 'Squad not found');
-  }
-
   return player;
 }
 
-function getCompany(player) {
+function getCompany() {
+  var player = getPlayer();
   return player.getCompany();
 }

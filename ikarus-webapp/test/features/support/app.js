@@ -175,15 +175,27 @@ App.prototype.callRemoveFromInventory = function(armaclass) {
   }.bind(this)
 };
 
-App.prototype.callTestAddToInventory = function(steamId, amount, armaclass) {
+App.prototype.callTestAddToInventory = function(squadId, amount, armaclass) {
   return function() {
-    return this.callMethod('testing_addToInventory', [steamId, amount, armaclass]);
+    return this.callMethod('testing_addToInventory', [squadId, amount, armaclass]);
   }.bind(this)
 };
 
 App.prototype.callMissionLoot = function (serverName, squadId, loot) {
   return function() {
     return this.callMethod('missionLoot', [serverName, squadId, loot]);
+  }.bind(this)
+};
+
+App.prototype.callServerStatus = function (serverName, status) {
+  return function() {
+    return this.callMethod('updateServerStatus', [serverName, status]);
+  }.bind(this)
+};
+
+App.prototype.callLockServer = function (serverName) {
+  return function() {
+    return this.callMethod('lockSquads', [serverName]);
   }.bind(this)
 };
 

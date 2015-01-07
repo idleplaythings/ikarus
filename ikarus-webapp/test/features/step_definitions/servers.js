@@ -23,6 +23,18 @@ var serverStepDefinitions = function () {
     assertDoesNotHavePlayerWithSteamId(this.app, serverName, steamId);
     callback();
   });
+
+  this.Given(/^server "([^"]*)" has status "([^"]*)"$/, function (serverName, status, callback) {
+    this.app.callServerStatus(serverName, status)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.Given(/^server "([^"]*)" is locked$/, function (serverName, callback) {
+    this.app.callLockServer(serverName)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
 };
 
 function assertDoesNotHavePlayerWithSteamId(app, serverName, steamId) {

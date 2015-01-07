@@ -14,15 +14,11 @@ module.exports = function(armaSerializer){
 
   var testInventories = [
     {
-      steamId: "_SP_PLAYER_",
+      squadId: "id",
       items: {
         'CUP_arifle_AK74': 1,
         'CUP_30Rnd_545x39_AK_M': 5
       }
-    },
-    {
-      steamId: "_SP_AI_",
-      items: {}
     }
   ];
 
@@ -62,7 +58,7 @@ module.exports = function(armaSerializer){
       this._inventories = Object.keys(inventories).map(function(key){
         var serialized = inventories[key];
         return {
-          steamId: serialized.steamId,
+          squadId: serialized.squadId,
           items: serialized.items
         };
       }, this);

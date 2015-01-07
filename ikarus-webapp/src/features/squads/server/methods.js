@@ -21,7 +21,7 @@ Meteor.methods({
       throw new Meteor.Error(404, 'Server not found');
     }
 
-    dic.get('InventoryRepository').lockByServer(server);
+    Inventory.lockByServer(server);
     Squad.getAllByServer(server).map(function(squad) { squad.lock(); });
   }
 

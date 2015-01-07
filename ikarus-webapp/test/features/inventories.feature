@@ -71,3 +71,52 @@ Feature: Inventories
     Then "Manatee-Men" should have "0" "CUP_30Rnd_545x39_AK_M" in armory
     Then "John Doe" should have "0" "CUP_arifle_AK74" in his inventory
     Then "John Doe" should have "5" "CUP_30Rnd_545x39_AK_M" in his inventory
+
+  Scenario: Players disconnecting before server is locked will get the loot back
+    Given player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "124" exists
+    And server "test-server" is registered
+    And server "test-server" has status "waiting"
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "John Doe" connects to server "test-server"
+    And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
+    And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
+    When "John Doe" disconnects from server "test-server"
+    Then "Manatee-Men" should have "6" "CUP_arifle_AK74" in armory
+    Then no squad inventories should exists
+
+  Scenario: Players disconnecting after server is locked will get the loot back
+    Given player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "124" exists
+    And server "test-server" is registered
+    And server "test-server" has status "waiting"
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "John Doe" connects to server "test-server"
+    And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
+    And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
+    And server "test-server" is locked
+    When "John Doe" disconnects from server "test-server"
+    Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
+    Then no squad inventories should exists
+
+  Scenario: Cannot add, or remove stuff from locked inventory
+    Given player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "124" exists
+    And server "test-server" is registered
+    And server "test-server" has status "waiting"
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "John Doe" connects to server "test-server"
+    And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
+    And "Manatee-Men" has "5" "CUP_arifle_AK107" in armory
+    And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
+    And server "test-server" is locked
+    And I am logged in as "John Doe"
+    When I remove "CUP_arifle_AK74" from my inventory
+    And I add "CUP_arifle_AK107" to my inventory
+    Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
+    Then "Manatee-Men" should have "5" "CUP_arifle_AK107" in armory
+    Then "John Doe" should have "0" "CUP_arifle_AK107" in his inventory
+    Then "John Doe" should have "1" "CUP_arifle_AK74" in his inventory

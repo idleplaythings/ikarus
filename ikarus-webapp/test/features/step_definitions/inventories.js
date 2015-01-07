@@ -11,8 +11,8 @@ var inventorysStepDefinitions = function () {
   });
 
   this.Given(/^"([^"]*)" has "([^"]*)" "([^"]*)" in his inventory$/, function (username, amount, armaclass, callback) {
-    var steamId = getSteamId(getUser(this.app, username));
-    this.app.callTestAddToInventory(steamId, amount, armaclass)()
+    var squadId = getSquadByUsername(this.app, username)._id;
+    this.app.callTestAddToInventory(squadId, amount, armaclass)()
       .finally(callback)
       .catch(this.handleError);
   });
@@ -39,11 +39,24 @@ var inventorysStepDefinitions = function () {
       .catch(this.handleError);
   });
 
+  this.Then(/^no squad inventories should exists$/, function (callback) {
+    assertNoSquadInventoriesExists(this.app);
+    callback();
+  });
+
+};
+
+function assertNoSquadInventoriesExists(app){
+  var inventories = app.findFrom('inventories', function(inventory){
+    return inventory.squadId;
+  });
+
+  assert(inventories.length === 0);
 };
 
 function assertInventoryContains(app, username, amount, armaclass){
-  var steamId = getSteamId(getUser(app, username));
-  var inventory = getInventoryBySteamId(app, steamId);
+  var squadId = getSquadByUsername(app, username)._id;
+  var inventory = getInventoryBySquadId(app, squadId);
 
   assertCountIs(inventory, armaclass, amount);
 };
@@ -67,9 +80,9 @@ function getCompanyByByName(app, name) {
   });
 }
 
-function getInventoryBySteamId(app, steamId) {
+function getInventoryBySquadId(app, squadId) {
   return app.findOneFrom('inventories', function(inventory){
-    return inventory.steamId === steamId;
+    return inventory.squadId === squadId;
   });
 }
 
@@ -87,6 +100,16 @@ function getUser(app, username) {
 
 function getSteamId(user) {
   return user.services.steam.id;
+}
+
+function getSquadByUsername(app, username) {
+  return getSquadBySteamId(app, getSteamId(getUser(app, username)));
+}
+
+function getSquadBySteamId(app, steamId) {
+  return app.findOneFrom('squads', function(squad){
+    return squad.steamIds && squad.steamIds.indexOf(steamId) > -1;
+  });
 }
 
 module.exports = inventorysStepDefinitions;

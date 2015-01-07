@@ -41,14 +41,14 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
       )
     },
 
-    testing_addToInventory: function(steamId, amount, armaclass){
+    testing_addToInventory: function(squadId, amount, armaclass){
 
       var set = {};
       set["items."+armaclass] = parseInt(amount, 10);
 
       collections.InventoryCollection.update(
         {
-          steamId: steamId
+          squadId: squadId
         },
         {
           $set: set

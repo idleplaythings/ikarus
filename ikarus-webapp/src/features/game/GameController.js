@@ -1,7 +1,7 @@
 GameController = function GameController(
   inventoryRepostiory
 ){
-  this._inventoryRepostiory = inventoryRepostiory;
+
 }
 
 GameController.prototype.playerConnected = function(serverName, playerUid) {
@@ -31,10 +31,7 @@ GameController.prototype._connectPlayerToServer = function(player, server) {
   var company = this._getCompany(player);
   var squad = this._initOrGetSquad(server, company);
   squad.addPlayer(player);
-
   server.addPlayer(player);
-
-  this._inventoryRepostiory.createOnServerForPlayer(server, player);
 };
 
 GameController.prototype._disconnectPlayerFromServer = function(player, server) {
@@ -47,8 +44,11 @@ GameController.prototype._disconnectPlayerFromServer = function(player, server) 
     squad.removePlayer(player);
   }
 
-  this._inventoryRepostiory.returnItems(company, player);
-  this._inventoryRepostiory.removeByPlayer(player);
+  if (squad.isEmpty()){
+    Inventory.returnItems(company, squad);
+    Inventory.removeBySquad(squad);
+    squad.remove();
+  }
 };
 
 GameController.prototype._getServer = function(serverName) {
@@ -81,6 +81,7 @@ GameController.prototype._initSquad = function(server, company) {
   var squad = Squad.create();
   squad.setCompanyId(company._id);
   squad.setServerId(server._id);
+  Inventory.createForSquadOnServer(squad, server);
   return squad;
 };
 

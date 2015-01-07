@@ -11,6 +11,44 @@ Meteor.publish('MySquad', function(){
     // collections.CompanyCollection.find({playerIds: {$in: [steamId]}}),
     collections.CompanyCollection.find({}),
     collections.SquadCollection.find({squadId: user.squadId}),
-    collections.InventoryCollection.find({$or: [{steamId: steamId}, {companyId: user.companyId}]})
+    collections.InventoryCollection.find({companyId: user.companyId})
+  ];
+});
+
+Meteor.publish('SquadInventory', function(squadId){
+  if (! this.userId){
+    this.ready();
+    return;
+  }
+
+  var player = Player.getByMeteorId(this.userId);
+  var squad = Squad.getByPlayer(player);
+
+  if (! squad) {
+    this.ready();
+    return;
+  }
+
+  return [
+    collections.InventoryCollection.find({squadId: squad._id})
+  ];
+});
+
+Meteor.publish('CompanyArmory', function(companyId){
+  if (! this.userId){
+    this.ready();
+    return;
+  }
+
+  var player = Player.getByMeteorId(this.userId);
+  var company = Company.getByPlayer(player);
+
+  if (! company || company._id !== companyId) {
+    this.ready();
+    return;
+  }
+
+  return [
+    collections.InventoryCollection.find({companyId: company._id})
   ];
 });

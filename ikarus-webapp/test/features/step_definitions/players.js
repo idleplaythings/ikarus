@@ -37,24 +37,11 @@ var playersStepDefinitions = function () {
     assertHasInventory(this.app, username);
     callback();
   });
-
-  this.Then(/^player "([^"]*)" should not have an inventory$/, function (username, callback) {
-    assertDoesNotHaveInventory(this.app, username);
-    callback();
-  });
 };
 
-
-function assertDoesNotHaveInventory(app, username) {
-  var steamId = getSteamId(getUser(app, username));
-  var inventory = getInventoryBySteamId(app, steamId);
-
-  assert(! inventory);
-}
-
 function assertHasInventory(app, username) {
-  var steamId = getSteamId(getUser(app, username));
-  var inventory = getInventoryBySteamId(app, steamId);
+  var squadId = getSquadByUsername(app, username)._id;
+  var inventory = getInventoryBySquadId(app, squadId);
 
   assert(inventory);
 }
@@ -62,6 +49,22 @@ function assertHasInventory(app, username) {
 function getInventoryBySteamId(app, steamId) {
   return app.findOneFrom('inventories', function(inventory){
     return inventory.steamId === steamId;
+  });
+}
+
+function getInventoryBySquadId(app, squadId) {
+  return app.findOneFrom('inventories', function(inventory){
+    return inventory.squadId === squadId;
+  });
+}
+
+function getSquadByUsername(app, username) {
+  return getSquadBySteamId(app, getSteamId(getUser(app, username)));
+}
+
+function getSquadBySteamId(app, steamId) {
+  return app.findOneFrom('squads', function(squad){
+    return squad.steamIds && squad.steamIds.indexOf(steamId) > -1;
   });
 }
 

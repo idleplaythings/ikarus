@@ -19,6 +19,19 @@ var squadsStepDefinitions = function () {
       .finally(callback)
       .catch(this.handleError);
   });
+
+  this.Then(/^no squads should exist$/, function (callback) {
+    assertNoSquadsExists(this.app);
+    callback();
+  });
+};
+
+function assertNoSquadsExists(app) {
+  var squads = app.findFrom('squads', function(squad){
+    return true;
+  });
+
+  assert(squads.length === 0);
 };
 
 function assertDoesNotHaveSquad(app, username) {

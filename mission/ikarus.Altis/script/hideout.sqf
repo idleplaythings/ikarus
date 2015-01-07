@@ -78,14 +78,7 @@ hideout_createHideoutCache = {
 
   _equipment = [_squad] call getSquadEquipment;
   
-  {
-    private ["_unit", "_unitEquipment"];
-    _unit = [_x select 0] call getPlayerByUID;
-    _unitEquipment = _x select 1;
-    
-    [_unit, _unitEquipment, _box] call equipment_equipUnit;
-    
-  } forEach _equipment;
+  [_equipment, _box] call equipment_equipUnit;
   
   _box addItemCargoGlobal ['AGM_Bandage', 30];
   _box addItemCargoGlobal ['AGM_Morphine', 10];

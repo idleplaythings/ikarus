@@ -1,5 +1,8 @@
+var Q = require('q');
+
 function WebAppClient(ddpClient) {
   this._ddpClient = ddpClient;
+  this._promises = [];
 };
 
 WebAppClient.prototype.connect = function(host, port, callback) {
@@ -50,14 +53,26 @@ WebAppClient.prototype.getCollection = function(collection) {
   return this._ddpClient.collections[collection];
 };
 
+WebAppClient.prototype.getReadyPromise = function(){
+  return Q.all(this._promises);
+};
+
 WebAppClient.prototype.call = function(name, args){
+
+  var onResultPromise = Q.defer();
+  var onDonePromise = Q.defer();
+
+  this._promises.push(onResultPromise);
+  this._promises.push(onDonePromise);
 
   var onResult = function(error, result){
     console.log("Meteor method response 2", error, result);
+    onResultPromise.resolve();
   }.bind(this);
 
   var onDone = function(error, result){
     console.log('DDP client data updated 2');
+    onDonePromise.resolve();
   }.bind(this);
 
   console.log("Calling meteor method '" + name +"' ");

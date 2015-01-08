@@ -3,6 +3,8 @@ equipment_equipUnit = {
   _equipment = _this select 0;
   _backupContainer = _this select 1;
 
+  diag_log str _equipment;
+  
   {
     private ["_class", "_amount"];
     _class = _x select 0;

@@ -58,14 +58,14 @@ loot_checkContainer = {
   _container = _this select 0;
   _lootList = [];
   
-  if (isNull _container) exitWith {
+  if (isNull _container || isNil {_container}) exitWith {
     [];
   };
   
-  _lootList = _lootList + weaponCargo _container;
-  _lootList = _lootList + itemCargo _container;
-  _lootList = _lootList + backpackCargo _container;
-  _lootList = _lootList + magazineCargo _container;
+  if ( ! isNil { weaponCargo _container}) then { _lootList = _lootList + weaponCargo _container; };
+  if ( ! isNil { itemCargo _container}) then { _lootList = _lootList + itemCargo _container; };
+  if ( ! isNil { backpackCargo _container}) then { _lootList = _lootList + backpackCargo _container; };
+  if ( ! isNil { magazineCargo _container}) then { _lootList = _lootList + magazineCargo _container; };
   
   {
     _lootList = _lootList + ([_x select 1] call loot_checkContainer);
@@ -73,3 +73,4 @@ loot_checkContainer = {
   
   _lootList;
 };
+

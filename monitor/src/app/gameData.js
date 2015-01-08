@@ -68,7 +68,7 @@ module.exports = function(armaSerializer){
       this._inventories = [];
     }
 
-    //console.log(this.getSquadData());
+    console.log(this.getSquadData());
   };
 
   GameData.prototype.lock = function(){

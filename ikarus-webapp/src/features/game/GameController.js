@@ -44,7 +44,7 @@ GameController.prototype._disconnectPlayerFromServer = function(player, server) 
     squad.removePlayer(player);
   }
 
-  if (squad.isEmpty()){
+  if (squad.isEmpty() && ! squad.isLocked()){
     Inventory.returnItems(company, squad);
     Inventory.removeBySquad(squad);
     squad.remove();

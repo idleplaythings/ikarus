@@ -1,14 +1,30 @@
 
 houseFurnisher_furnish = {
-  private ["_building", "_data"];
+  private ["_building", "_data", "_callback", "_objects"];
   _building = _this select 0;
   _data = _this select 1;
+  _objects = [];
   
   [getPos _building] call depotPositions_registerPosition;
 
   {
-    [_building, _x] call houseFurnisher_placeObject;
+    _objects pushBack ([_building, _x] call houseFurnisher_placeObject);
   } forEach _data;
+  
+  [_building, houseFurnisher_clearBuilding, [_building, _objects]] call buildingDestroyer_init;
+};
+
+houseFurnisher_clearBuilding = {
+  private ["_building", "_objects"];
+  _building = _this select 0;
+  _objects = _this select 1;
+  
+  {
+    private ["_position"];
+    _position = getPosATL _x;
+    _position set [2, 0];
+    _x setPosATL _position;
+  } forEach _objects;
 };
 
 houseFurnisher_getPosASLAndDirection = {
@@ -53,6 +69,8 @@ houseFurnisher_placeObject = {
   _object = createVehicle [_objectClass, [0,0,3000], [], 0, "FLYING"];
   _object setDir _direction;
   _object setPosASL _position;
+  
+  _object;
 };
 
 

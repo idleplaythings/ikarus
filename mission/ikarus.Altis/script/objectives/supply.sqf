@@ -82,7 +82,15 @@ objective_supply_aquireClosestDepot = {
   [_building, _objectData] call houseFurnisher_furnish;
   [_building, _objectData] call objective_supply_placeLootBoxes;
   
+  [_building, objective_supply_cleanUpBox, [_building]] call buildingDestroyer_init;
+  [_building] spawn objective_supply_destroyDepot;
+  
   getPosASL _building;
+};
+
+objective_supply_destroyDepot = {
+  sleep 2700 + random 300;
+  [_this select 0] call airStrike_createFlyOverAndBombingRun;
 };
 
 objective_supply_placeLootBoxes = {
@@ -94,7 +102,7 @@ objective_supply_placeLootBoxes = {
   _objectData = [_objectData, _amount] call depotPositions_getRandomPlaceholdersFromObjects;
   
   {
-    private ["_directionAndPosition", "_direction", "_position"];
+    private ["_directionAndPosition", "_direction", "_position", "_box"];
     _directionAndPosition = [_building, _x] call houseFurnisher_getPosASLAndDirection;
     _position = _directionAndPosition select 0;
     _direction = _directionAndPosition select 1; 
@@ -102,6 +110,12 @@ objective_supply_placeLootBoxes = {
     [_position, _direction] call lootbox_create;
     
   } forEach _objectData;
+};
+
+objective_supply_cleanUpBox = {
+  private ["_building"];
+  _building = _this select 0;
+  [_building, 20] call lootBox_deleteBoxesAround;
 };
 
 objective_supply_getAmountOfDepots = {

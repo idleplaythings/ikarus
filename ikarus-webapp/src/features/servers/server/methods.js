@@ -20,17 +20,10 @@ Meteor.methods({
       var players = Player.getAllByIds(server.playerIds);
 
       server.removePlayers();
-      Squad.getAllByServer(server).forEach(function(squad) { squad.remove(); });
-      players.forEach(function(player){
-        var company = player.getCompany();
-
-        if ( ! company)
-          return;
-
-        dic.get('InventoryRepository').returnItems(company, player);
-      });
-
-      dic.get('InventoryRepository').removeByServer(server);
+      Squad.getAllByServer(server).forEach(function(squad) {
+        Inventory.returnItems(Company.getById(squad.companyId), squad);
+        squad.remove();
+      })
     }
 
     server.updateStatus(status);

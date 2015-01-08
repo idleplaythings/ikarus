@@ -40,7 +40,7 @@ lootbox_getUnlockIncrement = {
   _timeElapsed = call missionControl_getElapsedTime;
   
   if (_timeElapsed < 1200) exitWith {
-    10;
+    0;
   }; 
   
   if (_timeElapsed > 2400) exitWith {

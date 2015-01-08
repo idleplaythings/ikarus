@@ -18,8 +18,9 @@
 </template>
 
 <template name="squadMemberInventory_ammoEntry">
-  <div class="row inventory-entry member-inventory">
     {{#each getAmmo item}}
+
+    <div class="row inventory-entry member-inventory">
       {{#unless locked}}
         <div class="col-md-1 clickable remove-from-inventory glyphicon glyphicon-minus" data-armaclass={{armaClass}}></div>
 
@@ -31,8 +32,9 @@
       <div class="col-md-2 pull-right">
         {{getInventory.getCountByClass armaClass}}
       </div>
+    </div>
     {{/each}}
-  </div>
+
 </template>
 
 <template name="squadMemberInventory_itemEntry">

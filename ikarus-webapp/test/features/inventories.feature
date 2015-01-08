@@ -86,7 +86,7 @@ Feature: Inventories
     Then "Manatee-Men" should have "6" "CUP_arifle_AK74" in armory
     Then no squad inventories should exists
 
-  Scenario: Players disconnecting after server is locked will get the loot back
+  Scenario: Players disconnecting after server is locked will NOT get the loot back
     Given player "John Doe" with Steam ID "123" exists
     And player "Jane Doe" with Steam ID "124" exists
     And server "test-server" is registered
@@ -98,6 +98,7 @@ Feature: Inventories
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
     And server "test-server" is locked
     When "John Doe" disconnects from server "test-server"
+    And server "test-server" has status "idle"
     Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
     Then no squad inventories should exists
 

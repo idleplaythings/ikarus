@@ -10,6 +10,17 @@ function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient) {
 }
 
 Monitor.prototype.start = function() {
+
+  process.on( "SIGINT", function() {
+    console.log('CLOSING [SIGINT]');
+
+    if (this._armaServerProcess){
+      this._armaServerProcess.kill();
+    }
+
+    process.exit();
+  });
+
   try {
     this._startArma();
     this._registerRpcCallbacks();
@@ -34,7 +45,12 @@ Monitor.prototype._startArma = function(){
   var location = this._config.arma.location;
   var command = location + "/arma3server -name=server -config=server.cfg -sock_host=::1 -sock_port=1337 -mod=@ikrs;";
   var options = {
-    cwd: location
+    cwd: location,
+    stdio: [
+      0, // use parents stdin for child
+      'pipe', // pipe child's stdout to parent
+      'pipe'
+    ]
   };
 
   this._armaServerProcess = child_process.exec(command, options, function (error, stdout, stderr) {
@@ -44,6 +60,14 @@ Monitor.prototype._startArma = function(){
       console.log('exec error: ' + error);
       process.exit();
     }
+  });
+
+  this._armaServerProcess.stdout.on('data', function(data) {
+    console.log("ARMA STDOUT says: ", data);
+  });
+
+  this._armaServerProcess.stderr.on('data', function(data) {
+    console.log("ARMA STDERR says: ", data);
   });
 };
 
@@ -142,12 +166,15 @@ var gameStart = function() {
 };
 
 var gameEnd = function() {
-  this._battlEyeClient.shutDownServer();
   this._webAppClient.reportStatusIdle(this._config.arma.serverId);
   this._webAppClient.getReadyPromise().then(function(){
-    console.log("done, exiting");
-    process.exit();
-  });
+
+    this._battlEyeClient.shutDownServer().then(function(){
+      console.log("done, exiting");
+      process.exit();
+    });
+
+  }.bind(this));
 };
 
 var playerConnected = function(uid) {

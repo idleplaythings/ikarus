@@ -21,8 +21,9 @@ Meteor.methods({
 
       server.removePlayers();
       Squad.getAllByServer(server).forEach(function(squad) {
-        Inventory.returnItems(Company.getById(squad.companyId), squad);
+        Inventory.returnItems(Company.getById(squad.getCompanyId()), squad);
         squad.remove();
+        Inventory.removeByServer(server);
       })
     }
 

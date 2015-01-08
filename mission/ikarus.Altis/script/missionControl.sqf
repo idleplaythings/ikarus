@@ -3,7 +3,7 @@ missionControl_gameStarted = false;
 missionControl_gameOver = false;
 missionControl_timeGameStarted = 0;
 
-missionControl_minSquads = 2;
+missionControl_minSquads = 1;
 
 missionControl_waitingTimeSeconds = 180;
 missionControl_timeWaitingStarted = 0;

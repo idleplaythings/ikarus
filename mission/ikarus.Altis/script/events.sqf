@@ -3,7 +3,6 @@ lastConnectedPlayerUid = nil;
 
 
 "lastConnectedPlayerUid" addPublicVariableEventHandler {
-  player globalChat "hi";
   _uid = _this select 1;
   diag_log "player connected";
   diag_log _uid;

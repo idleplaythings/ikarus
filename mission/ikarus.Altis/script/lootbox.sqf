@@ -10,18 +10,14 @@ lootbox_create = {
   _object setPosASL _position;
   _object setVariable ["lootLock", 0, false];
   
-  lootbox_boxes set [count lootbox_boxes, _object];
-  _boxId = count lootbox_boxes - 1;
-  [_boxId, _object] call lootbox_createTrigger;
-  
+  lootbox_boxes pushBack _object;
+  _object;
 };
 
-lootbox_activateTrigger = {
-  private ["_unitsPresent", "_box", "_lootLock"];
-  _unitsPresent = _this select 0;
-  _box = lootbox_boxes select (_this select 1);
-  
-  if (!([_unitsPresent] call lootbox_listHasPlayers)) exitWith {};
+lootbox_tickOpen = {
+  private ["_unit", "_box", "_lootLock"];
+  _box = _this select 0;
+  _unit = _this select 1;
   
   _lootLock = _box getVariable "lootLock";
   
@@ -31,7 +27,7 @@ lootbox_activateTrigger = {
   
   _box setVariable ["lootLock", _lootLock, false];
   
-  [_unitsPresent, _lootLock] call lootbox_hint;
+  [[_unit], _lootLock] call lootbox_hint;
   
   if (_lootLock >= 100) then {
     [_box] call lootbox_open;
@@ -100,19 +96,69 @@ lootbox_open = {
   _openBox addBackpackCargoGlobal ['IKRS_loot_common_nato_weapons', ((ceil random 10) - 9)];
   _openBox addBackpackCargoGlobal ['IKRS_loot_heavy_RU_weapons', ((ceil random 4) - 3)];
   _openBox addBackpackCargoGlobal ['IKRS_loot_heavy_nato_weapons', ((ceil random 10) - 9)];
+  
+  lootbox_boxes pushBack _openBox;
 };
 
-lootbox_createTrigger = {
-  private ["_boxId", "_object", "_trigger"];
-  _boxId = _this select 0;
-  _object = _this select 1;
+lootBox_deleteBoxesAround = {
+  private ["_position", "_radius"];
+  _position = _this select 0;
+  _radius = _this select 1;
   
-  _trigger = createTrigger["EmptyDetector", getPos _object];
-  _trigger setTriggerArea[2, 2, 0, false];
-  _trigger setTriggerActivation["ANY", "PRESENT", true];
-  _trigger setTriggerStatements[
-    "round (time % 1)==0",
-    format ["[thislist, %1] call lootbox_activateTrigger;", str _boxId], 
-    ""
-   ]; 
+  {
+    deleteVehicle _x;
+  } forEach ([_position, _radius] call lootBox_getBoxesOnRadius);
+};
+
+lootBox_getBoxesOnRadius = {
+  private ["_position", "_radius", "_boxes"];
+  _position = _this select 0;
+  _radius = _this select 1;
+  _boxes = [];
+  
+  {
+    if ((_x distance _position) <= _radius) then {
+       _boxes pushBack _x;
+    };
+  } forEach lootbox_boxes;
+  
+  
+  _boxes;
+};
+
+lootbox_checkBoxes = {
+  private ["_openers", "_occupiedBoxes"];
+  _openers = [];
+  _occupiedBoxes = [];
+  
+  {
+    private ["_box", "_closestUnit", "_closestDistance"];
+    _box = _x;
+    
+    if (typeOf _box == "Land_CargoBox_V1_F") then {
+      _closestUnit = nil;
+      _closestDistance = 1000;
+      {
+        if (!( _x in _openers) && (isNil {_closestUnit} || (_box distance _x) < _closestDistance)) then {
+          _closestUnit = _x;
+          _closestDistance = _box distance _x;
+        };
+      } forEach call getAllAlivePlayers;
+      
+      if (!( _box in _occupiedBoxes) && ! isNil {_closestUnit} && _closestDistance < 2) then {
+        _openers pushBack _closestUnit;
+        _occupiedBoxes pushBack _box;
+        
+        [_x, _closestUnit] call lootbox_tickOpen;
+      };
+    }
+  } forEach lootbox_boxes;
+};
+
+_this spawn {
+  while { true } do {
+
+    sleep 1;
+    call lootbox_checkBoxes;
+  }
 };

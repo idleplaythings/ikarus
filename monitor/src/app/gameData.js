@@ -17,7 +17,9 @@ module.exports = function(armaSerializer){
       squadId: "id",
       items: {
         'CUP_arifle_AK74': 1,
-        'CUP_30Rnd_545x39_AK_M': 5
+        'CUP_30Rnd_545x39_AK_M': 5,
+        'SatchelCharge_Remote_Mag': 10,
+        'B_AssaultPack_khk': 1
       }
     }
   ];

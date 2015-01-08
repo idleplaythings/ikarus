@@ -46,8 +46,18 @@ InventoryUi.prototype._getItemsAndCounts = function(items){
     itemAndCount.ammo = this._getAmmoAmount(itemAndCount.item, items);
   }.bind(this));
 
-  return itemsAndCounts;
+  return itemsAndCounts.sort(function(a, b) {
+
+    if (! a.item.isWeapon() && b.item.isWeapon())
+      return 1;
+
+    if (a.item.isWeapon() && ! b.item.isWeapon())
+      return -1;
+
+    return a.item.armaClass > b.item.armaClass;
+  });
 };
+
 
 InventoryUi.prototype._getAmmoAmount = function(weapon, items) {
   if (! weapon.isWeapon()){

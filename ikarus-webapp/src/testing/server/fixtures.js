@@ -1,4 +1,4 @@
-if (Meteor.settings.public.mode === 'dev' && Meteor.isServer) {
+if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
   Meteor.publish('testing', function() {
     return [
       collections.CompanyCollection.find(),

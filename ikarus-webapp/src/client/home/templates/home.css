@@ -1,3 +1,8 @@
+
+body {
+  margin: 0 20px auto 20px;
+}
+
 #login-buttons-image-steam {
   width:100px;
   height:30px;
@@ -9,4 +14,24 @@
 
 .ikarus-main {
   max-width: 1200px;
+}
+
+table {
+  width: 100%;
+}
+
+table td, table th {
+  border: 1px solid #999;
+  padding: 0 5px;
+}
+
+section {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 5px auto;
+}
+
+section h2 {
+  font-size: 150%;
+  margin: 0 auto 10px;
 }

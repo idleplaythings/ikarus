@@ -7,10 +7,9 @@ Template.home.helpers({
   company: function() {
     return Player.getCurrent().getCompany();
   },
-
   squad: function() {
     return Player.getCurrent().getSquad();
-  },
+  }
 });
 
 Template.home.events({
@@ -22,6 +21,10 @@ Template.home.events({
       armaClass,
       function (error, result){}
     );
+  },
+  'click .js-reset': function() {
+    Meteor.call('testing_removeFixtures');
+    Meteor.call('testing_createDataSet');
   }
 })
 

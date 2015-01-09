@@ -1,4 +1,4 @@
-Meteor.publish('MySquad', function(){
+Meteor.publish('MySquad', function() {
   if (! this.userId){
     this.ready();
     return;
@@ -15,7 +15,7 @@ Meteor.publish('MySquad', function(){
   ];
 });
 
-Meteor.publish('SquadInventory', function(squadId){
+Meteor.publish('SquadInventory', function(squadId) {
   if (! this.userId){
     this.ready();
     return;
@@ -34,7 +34,7 @@ Meteor.publish('SquadInventory', function(squadId){
   ];
 });
 
-Meteor.publish('CompanyArmory', function(companyId){
+Meteor.publish('CompanyArmory', function(companyId) {
   if (! this.userId){
     this.ready();
     return;
@@ -50,5 +50,15 @@ Meteor.publish('CompanyArmory', function(companyId){
 
   return [
     collections.InventoryCollection.find({companyId: company._id})
+  ];
+});
+
+Meteor.publish('Company', function(companyId) {
+  var company = Company.getById(companyId);
+  var playerIds = company.getPlayerIds();
+
+  return [
+    collections.CompanyCollection.find({ _id: companyId }),
+    Meteor.users.find({ 'services.steam.id': { $in: playerIds } })
   ];
 });

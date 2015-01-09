@@ -35,6 +35,10 @@ function serializeSquad(squad, inventory){
 };
 
 function serializeInventory(inventory){
+  if (! inventory) {
+    return [];
+  }
+
   return Object.keys(inventory.items).map(function(key){
     return [key, inventory.items[key]];
   });

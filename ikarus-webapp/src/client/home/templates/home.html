@@ -1,6 +1,10 @@
 <template name="home">
   <div class="ikarus-main container-fluid">
     <div class="row">
+      {{#if dev}}
+        <button class='js-reset'>Reset</button>
+      {{/if}}
+
       <div class="col-md-4">
         <h1>Ikarus</h1>
 
@@ -16,28 +20,38 @@
 
     <div class="row">
       <div class="col-md-6">
-        {{> servers_list}}
+        <section>
+          {{> servers_list}}
+        </section>
       </div>
       <div class="col-md-6">
-        {{> companies_list}}
+        <section>
+          {{> companies_list}}
+        </section>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
-        {{> players_status}}
+        <section>
+          {{> players_status}}
+        </section>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
-        {{> companies_status}}
+        <section>
+          {{> companies_status}}
+        </section>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
-        {{> squads_status}}
+        <section>
+          {{> squads_status}}
+        </section>
       </div>
     </div>
   </div>

@@ -1,3 +1,21 @@
+Template.companies_status.created = function(){
+  Tracker.autorun(function(){
+    var player = Player.getCurrent();
+
+    if (!player) {
+      return null;
+    }
+    var company = player.getCompany();
+
+    if (!company) {
+      return null;
+    }
+
+    Meteor.subscribe('Company', company._id);
+  });
+};
+
+
 Template.registerHelper(
   'company',
   function() {

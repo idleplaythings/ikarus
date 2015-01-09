@@ -1,4 +1,4 @@
-if (process.env.ENV === 'dev' && Meteor.isServer) {
+if (Meteor.settings.public.mode === 'dev' && Meteor.isServer) {
   Meteor.publish('testing', function() {
     return [
       collections.CompanyCollection.find(),
@@ -89,6 +89,78 @@ if (process.env.ENV === 'dev' && Meteor.isServer) {
       var player = Player.getByName(playerName);
       var company = Company.getByName(companyName);
       company.addPlayer(player);
+    },
+    testing_createDataSet: function() {
+      var companies = companyNames.filter(function() {
+        return Math.random() > 0.2;
+      });
+
+      servers.forEach(Server.create);
+      companies.forEach(Company.create);
+
+      var players = 20 + Math.floor(Math.random() * 10);
+
+      for (var i=0; i<players; i++) {
+        var steamId = getSteamId();
+        insertTestUser(getRandom(firstNames) + ' ' + getRandom(lastNames), steamId);
+        Company.getByName(getRandom(companies)).addPlayer(Player.getById(steamId))
+      }
     }
   });
+}
+
+var servers = [
+  'Ikarus01',
+  'Ikarus02'
+];
+
+var companyNames = [
+  'Härmän Hurjat',
+  'Strange Foreign People',
+  'Placeholder Company',
+  'Can\'t think of a name',
+  'Myrmidons',
+  'Some People',
+  'Cows With Guns',
+  'Creaa',
+  'Manaattimiehet',
+  'Aaargh',
+];
+
+var firstNames = [
+  'Jane',
+  'John',
+  'May',
+  'Papa',
+  'Betty',
+  'Richard'
+];
+
+var lastNames = [
+  'Lee',
+  'Oliver',
+  'Doe',
+  'Smith',
+  'Kerry',
+  'Clarkson'
+];
+
+function insertTestUser(name, steamId) {
+  Meteor.users.insert({
+    testing: true,
+    services: {
+      steam: {
+        id: steamId,
+        username: name
+      }
+    }
+  });
+}
+
+function getSteamId() {
+  return Math.floor(Math.random() * 1000000);
+}
+
+function getRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
 }

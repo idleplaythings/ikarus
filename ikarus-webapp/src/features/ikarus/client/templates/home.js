@@ -1,7 +1,18 @@
 Template.home.created = function() {
   Meteor.subscribe('MySquad');
   Meteor.subscribe('Servers');
+  Meteor.subscribe('Users');
 };
+
+Template.home.helpers({
+  playerListContext: function() {
+    return {
+      getPlayers: function() {
+        return Player.getAll();
+      }
+    }
+  }
+});
 
 Template.home.events({
   'click .add-to-inventory': function(event, template){

@@ -86,6 +86,10 @@ Player.getCurrent = function() {
   return Player.fromDoc(Meteor.user());
 };
 
+Player.getAll = function() {
+  return Meteor.users.find({}).fetch().map(Player.fromDoc);
+}
+
 Player.fromDoc = function(doc) {
   if (Boolean(doc) === false) {
     return null;

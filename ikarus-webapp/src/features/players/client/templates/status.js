@@ -24,7 +24,7 @@ Template.players_status.events({
     Meteor.logout();
   },
   'click .js-create-company': function(event, template) {
-    var name = template.find('.js-company-name').value.trim();
+    var name = prompt('Name of the company?');
 
     // @todo does not belong here
     if (name.length < 5) {

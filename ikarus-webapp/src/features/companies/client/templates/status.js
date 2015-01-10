@@ -21,8 +21,16 @@ Template.companies_status.helpers({
 
 Template.companies_status.events({
   'click .js-rename-company': function(event, template) {
-    var newName = prompt('New name?');
-    console.log('rename to', newName);
+    var newName = prompt('New name?', Company.getCurrent().getName());
+    Meteor.call(
+      'renameCurrentCompany',
+      newName,
+      function (error, result) {
+        if (error) {
+          alert(error)
+        }
+      }
+    );
   },
   'click .js-leave-company': function(event, template) {
     if (confirm('Are you sure?')) {
@@ -37,7 +45,8 @@ Template.companies_status.events({
           if (error) {
             alert(error)
           }
-        });
+        }
+      );
     }
   },
   'click .js-invite-to-company': function(event, template) {

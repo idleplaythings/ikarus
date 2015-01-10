@@ -23,7 +23,7 @@
       <tbody>
         {{#each servers}}
           <tr>
-            <td>{{name}}</td>
+            <td><a href="{{pathFor route='server'}}">{{name}}</a></td>
             <td>{{status}}</td>
             <td>{{companyCount}}</td>
             <td>{{playerCount}}</td>

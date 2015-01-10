@@ -104,10 +104,13 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       for (var i=0; i<players; i++) {
         var steamId = getSteamId();
         insertTestUser(getRandom(firstNames) + ' ' + getRandom(lastNames), steamId);
-        Company.getByName(getRandom(companies)).addPlayer(Player.getById(steamId))
 
-        if (Math.random() > 0.6) {
-          Meteor.call('playerConnected', getRandom(servers), steamId);
+        if (Math.random() > 0.2) {
+          Company.getByName(getRandom(companies)).addPlayer(Player.getById(steamId))
+
+          if (Math.random() > 0.6) {
+            Meteor.call('playerConnected', getRandom(servers), steamId);
+          }
         }
       }
 

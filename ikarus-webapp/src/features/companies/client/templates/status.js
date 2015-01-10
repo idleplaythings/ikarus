@@ -1,8 +1,6 @@
 Template.companies_status.created = function () {
-  Tracker.autorun(function () {
-    Meteor.subscribe('Users');
-    Meteor.subscribe('Companies');
-  });
+  Meteor.subscribe('Users');
+  Meteor.subscribe('Companies');
 };
 
 Template.companies_status.helpers({

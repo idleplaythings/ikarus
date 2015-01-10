@@ -1,7 +1,5 @@
 Template.companies_list.created = function () {
-  Tracker.autorun(function () {
-    Meteor.subscribe('Companies');
-  });
+  Meteor.subscribe('Companies');
 };
 
 

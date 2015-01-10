@@ -89,7 +89,7 @@ objective_supply_aquireClosestDepot = {
 };
 
 objective_supply_destroyDepot = {
-  sleep 2700 + random 300;
+  sleep (3000 + random 300);
   [_this select 0] call airStrike_createFlyOverAndBombingRun;
 };
 

@@ -43,7 +43,7 @@ lootbox_getUnlockIncrement = {
     0;
   }; 
   
-  if (_timeElapsed > 2400) exitWith {
+  if (_timeElapsed > 1800) exitWith {
     1;
   };
   

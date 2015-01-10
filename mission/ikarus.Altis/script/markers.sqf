@@ -1,3 +1,13 @@
+player createDiaryRecord ["Diary", ["Credits", 
+  'Ikarus made possible by these third party mods and scripts:<br/>'
+  + '<br/>Community Upgrade Project - Weapons Pack by CUP Team'
+  + '<br/>Unlocked Uniforms by Pepe Hal'
+  + '<br/>Authentic Gameplay Modification by BWMod Team'
+  + '<br/>Civilian Vehicles by zealot111'
+  + '<br/>SHK pos by Shuko'
+  + '<br/> Node.js Extension for Arma 3 by micovery'
+]];
+
 markers_createHideoutMarker = {
   private ["_building, _marker"];
   _building = _this select 0;
@@ -9,15 +19,6 @@ markers_createHideoutMarker = {
     'Your hideout is <marker name="hideout">here</marker>'
     + '<br/><br/>Hideout is both the starting and ending position for the mission.'
     + ' All loot gathered during the mission will be preserved if you bring them back to the hideout.'
-  ]];
-  
-  player createDiaryRecord ["Diary", ["Credits", 
-    'Ikarus made possible by these third party mods and scripts:<br/>'
-    + '<br/>Community Upgrade Project - Weapons Pack by CUP Team'
-    + '<br/>Unlocked Uniforms by Pepe Hal'
-    + '<br/>Authentic Gameplay Modification by BWMod Team'
-    + '<br/>Civilian Vehicles by zealot111'
-    + '<br/>SHK pos by Shuko'
   ]];
 };
 
@@ -53,7 +54,8 @@ markers_createSupplyBriefring = {
   player createDiaryRecord ["Diary", ["Supply", 
     'There are one or more supply depots on the map. These depots will contain boxes, that can be opened by waiting next to them.'
     + ' Opened boxes contain loot backpacks that will be converted to usable loot when brought back to the hideout.'
-    + '<br/><br/>NOTE: Boxes in the supply depot can not be opened before 20 minutes of game has elapsed. When 40 minutes has elapsed, the boxes will open faster.'
+    + '<br/><br/>NOTE: Boxes in the supply depot can not be opened before 20 minutes of game has elapsed. When 30 minutes has elapsed, the boxes will open faster.'
+    + ' When 50 to 55 minutes has elapsed the depot will be destroyed by an airstrike. First plane will by a fly over, next one a bombing run.'
     + '<br/><br/>Following areas contain a supply depot somewhere inside:<br/>'
     + _markersText
   ]];

@@ -54,6 +54,10 @@ Player.prototype.addInvite = function(invite) {
   Meteor.users.update({ _id: this._id }, { $addToSet: { invites: invite }});
 }
 
+Player.prototype.isMemberOf = function(company) {
+  return company.getPlayerIds().indexOf(this.getSteamId()) !== -1;
+};
+
 Player.getByMeteorId = function(id) {
   return Player.fromDoc(Meteor.users.findOne({ _id: id }));
 }

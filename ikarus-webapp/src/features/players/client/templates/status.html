@@ -1,7 +1,22 @@
 <template name="players_status">
   <div>
     <div>
-      <h2>{{> players_avatar player}} {{> players_name player}}</h2>
+      <h2>
+        {{#if player}}
+          {{> players_avatar player}}
+          {{> players_name player}}
+
+          {{#if company}}
+            {{#with company}}
+              of <a href="{{pathFor route='company'}}">{{company.getName}}</a>
+            {{/with}}
+          {{/if}}
+
+          (<a class="logout" href="#">Log out</a>)
+        {{else}}
+          <a class="login" href="#">Log in with your Steam account</a>
+        {{/if}}
+      </h2>
     </div>
   </div>
 </template>

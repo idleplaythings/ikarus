@@ -1,0 +1,35 @@
+<template name="ikarus_default">
+  <div class="ikarus-main container-fluid">
+    {{#if noSteamConfigured}}
+      <div style="position: absolute">
+        {{> loginButtons}}
+      </div>
+    {{/if}}
+
+    {{#if dev}}
+      <div class="row">
+        <div class="col-md-12">
+          <section>
+            <button class='js-reset'>Regenerate Test Data</button>
+          </section>
+        </div>
+      </div>
+    {{/if}}
+
+    <div class="row">
+      <div class="col-md-12">
+        <section>
+          <h1>Ikarus</h1>
+
+          <p>Download mod from: <a href="https://s3-eu-west-1.amazonaws.com/ikarus.idleplaythings.com/mod/%40ikrs_v0.1.1.zip">here </a></p>
+        </section>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        {{> yield}}
+      </div>
+    </div>
+  </div>
+</template>

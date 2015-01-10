@@ -15,7 +15,7 @@
       <tbody>
         {{#each companies}}
           <tr>
-            <td>{{name}}</td>
+            <td><a href="{{pathFor route='company'}}">{{name}}</a></td>
             <td>{{playerCount}}</td>
             {{#if debug}}
               <td><button class="js-request-invite" data-company-id="{{_id}}">Request Invite</button></td>

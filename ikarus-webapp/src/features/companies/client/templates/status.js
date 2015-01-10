@@ -1,70 +1,26 @@
-Template.companies_status.created = function(){
-  Tracker.autorun(function(){
-    var player = Player.getCurrent();
-
-    if (!player) {
-      return null;
-    }
-    var company = player.getCompany();
-
-    if (!company) {
-      return null;
-    }
-
-    Meteor.subscribe('Company', company._id);
+Template.companies_status.created = function () {
+  Tracker.autorun(function () {
+    Meteor.subscribe('Users');
+    Meteor.subscribe('Companies');
   });
 };
 
-
-Template.registerHelper(
-  'company',
-  function() {
-    var player = Player.getCurrent();
-
-    if (!player) {
-      return null;
-    }
-
-    var company = player.getCompany();
-
-    if (!company) {
-      return null;
-    }
-
-    return company;
-  }
-);
-
 Template.companies_status.helpers({
-  companyName: function() {
-    var player = Player.getCurrent();
-
-    if (!player) {
-      return null;
-    }
-
-    var company = player.getCompany();
-
-    if (!company) {
-      return null;
-    }
-
-    return company.getName();
+  company: function () {
+    return Company.getById(this.companyId);
   },
-  players: function() {
+  companyName: function () {
+    return Company.getById(this.companyId).getName();
+  },
+  ownCompany: function () {
     var player = Player.getCurrent();
 
-    if (!player) {
-      return null;
+    if (player) {
+      var company = Company.getById(this.companyId);
+      return player.isMemberOf(company);
     }
 
-    var company = player.getCompany();
-
-    if (!company) {
-      return null;
-    }
-
-    return company.getPlayers();
+    return false;
   },
   invites: function() {
     var player = Player.getCurrent();
@@ -74,6 +30,21 @@ Template.companies_status.helpers({
     }
 
     return player.getInvites();
+  },
+  squad: function() {
+    var player = Player.getCurrent();
+
+    if (!player) {
+      return null;
+    }
+
+    var squad = player.getSquad();
+
+    if (!squad) {
+      return null;
+    }
+
+    return squad;
   }
 });
 

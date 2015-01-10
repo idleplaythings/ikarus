@@ -42,7 +42,6 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
     },
 
     testing_addToInventory: function(squadId, amount, armaclass){
-
       var set = {};
       set["items."+armaclass] = parseInt(amount, 10);
 
@@ -81,9 +80,6 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       collections.SquadCollection.remove({});
       collections.InventoryCollection.remove({});
       collections.ServerCollection.remove({});
-
-      Meteor.users.remove({'services.steam.username': 'John Doe'});
-      Meteor.users.remove({'services.steam.username': 'Jane Doe'});
     },
     testing_addPlayerToCompany: function(playerName, companyName) {
       var player = Player.getByName(playerName);
@@ -104,7 +100,20 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
         var steamId = getSteamId();
         insertTestUser(getRandom(firstNames) + ' ' + getRandom(lastNames), steamId);
         Company.getByName(getRandom(companies)).addPlayer(Player.getById(steamId))
+
+        if (Math.random() > 0.6) {
+          Meteor.call('playerConnected', getRandom(servers), steamId);
+        }
       }
+
+      var users = Meteor.users.find({ testing: null }).fetch().forEach(function(user) {
+        var player = Player.getByName(get(user, 'services.steam.username'));
+        Company.getByName(getRandom(companies)).addPlayer(player);
+
+        if (Math.random() > 0.5) {
+          Meteor.call('playerConnected', getRandom(servers), get(user, 'services.steam.id'));
+        }
+      })
     }
   });
 }
@@ -158,7 +167,7 @@ function insertTestUser(name, steamId) {
 }
 
 function getSteamId() {
-  return Math.floor(Math.random() * 1000000);
+  return Math.floor(Math.random() * 1000000).toString();
 }
 
 function getRandom(arr) {

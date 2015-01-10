@@ -1,4 +1,4 @@
-Template.home.created = function(){
+Template.home.created = function() {
   Meteor.subscribe('MySquad');
   Meteor.subscribe('Servers');
 };
@@ -21,10 +21,6 @@ Template.home.events({
       armaClass,
       function (error, result){}
     );
-  },
-  'click .js-reset': function() {
-    Meteor.call('testing_removeFixtures');
-    Meteor.call('testing_createDataSet');
   }
 })
 

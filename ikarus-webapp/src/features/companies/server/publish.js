@@ -62,3 +62,15 @@ Meteor.publish('Company', function(companyId) {
     Meteor.users.find({ 'services.steam.id': { $in: playerIds } })
   ];
 });
+
+Meteor.publish('Companies', function() {
+  return collections.CompanyCollection.find(
+    {},
+    {
+      fields: {
+        name: 1,
+        playerIds: 1
+      }
+    }
+  );
+});

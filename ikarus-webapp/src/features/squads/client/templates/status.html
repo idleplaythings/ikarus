@@ -1,10 +1,10 @@
 <template name="squads_status">
   <div>
     <h2>Squad</h2>
-    {{#if squad}}
+    {{#if currentSquad}}
       <div class="container-fluid">
         <div class="row">
-          {{#with squad}}
+          {{#with currentSquad}}
             <div class="col-md-4">
               <h3>Hideout</h3>
               {{> startLocation}}
@@ -15,7 +15,7 @@
           {{/with}}
           <div class="col-md-4">
             <h3>Armory</h3>
-            {{#with company}}
+            {{#with currentCompany}}
               {{> armory}}
             {{/with}}
           </div>

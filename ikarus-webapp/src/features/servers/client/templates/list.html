@@ -1,6 +1,6 @@
 <template name="servers_list">
   <div>
-    <h2>Servers</h2>
+    <h2>Servers ({{servers.length}})</h2>
 
     {{#if debug}}
       <div>
@@ -13,6 +13,7 @@
         <tr>
           <th>Name</th>
           <th>Status</th>
+          <th>Companies</th>
           <th>Players</th>
           {{#if debug}}
             <th>Debug</th>
@@ -22,8 +23,9 @@
       <tbody>
         {{#each servers}}
           <tr>
-            <td>{{name}}</td>
+            <td><a href="{{pathFor route='server'}}">{{name}}</a></td>
             <td>{{status}}</td>
+            <td>{{companyCount}}</td>
             <td>{{playerCount}}</td>
             {{#if debug}}
               <td>

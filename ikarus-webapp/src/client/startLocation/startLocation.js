@@ -7,6 +7,15 @@ Template.startLocation.events({
         y: (element.height() - (event.pageY - element.offset().top)) / element.height() * 27000 + 1000
     };
 
-    Meteor.call('changeStartingLocation', this._id, position);
+    Meteor.call(
+      'changeStartingLocation',
+      this._id,
+      position,
+      function (error, result) {
+        if (error) {
+          alert(error)
+        }
+      }
+    );
   }
 });

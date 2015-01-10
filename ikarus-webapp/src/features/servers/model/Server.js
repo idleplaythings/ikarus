@@ -49,6 +49,10 @@ Server.prototype.getPlayerIds = function() {
   return get(this.getDoc(), 'playerIds') || [];
 }
 
+Server.prototype.getPlayers = function() {
+  return Player.getByIds(this.getPlayerIds());
+}
+
 Server.prototype.addPlayer = function(player) {
   collections.ServerCollection.update({
     _id: this._id
@@ -82,6 +86,15 @@ Server.prototype.removePlayers = function() {
 Server.prototype.playerCount = function() {
   return this.getPlayerIds().length;
 };
+
+Server.prototype.companyCount = function() {
+  var companies = {};
+  this.getPlayers().forEach(function(player) {
+    companies[player.getCompany().getName()] = 1;
+  });
+
+  return Object.keys(companies).length;
+}
 
 Server.prototype.serialize = function() {
   return {

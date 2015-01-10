@@ -1,0 +1,37 @@
+<template name="home">
+  <div class="row">
+    <div class="col-md-12">
+      <section>
+        {{> players_status}}
+      </section>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <section style="max-height: 280px; overflow-y: scroll">
+        {{> servers_list}}
+      </section>
+    </div>
+    <div class="col-md-4">
+      <section style="max-height: 280px; overflow-y: scroll">
+        {{> companies_list}}
+      </section>
+    </div>
+    <div class="col-md-4">
+      <section style="max-height: 280px; overflow-y: scroll">
+        {{#with playerListContext}}
+          {{> players_list}}
+        {{/with}}
+      </section>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <section>
+        {{> squads_status}}
+      </section>
+    </div>
+  </div>
+</template>

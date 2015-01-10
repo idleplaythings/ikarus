@@ -17,13 +17,11 @@ Template.armory.created = function(){
 };
 
 Template.armory.helpers({
-  getInventory: getInventory
+  getInventory: function getInventory() {
+    var inventory = Inventory.getByCompany(this);
+    return new InventoryUi({
+      inventory: inventory,
+      showUnlimited: true
+    });
+  }
 });
-
-function getInventory(){
-  var inventory = Inventory.getByCompany(this);
-  return new InventoryUi({
-    inventory: inventory,
-    showUnlimited: true
-  });
-};

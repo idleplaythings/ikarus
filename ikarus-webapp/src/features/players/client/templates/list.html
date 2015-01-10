@@ -1,19 +1,23 @@
 <template name="players_list">
   <div>
+    <h2>Players ({{getPlayers.length}})</h2>
+
     <table>
       <thead>
         <tr>
           <th>Name</th>
+          <th>Company</th>
         </tr>
       </thead>
       <tbody>
         {{#each getPlayers}}
           <tr>
             <td>{{this.getName}}</td>
+            <td>{{this.getCompany.getName}}</td>
           </tr>
         {{else}}
           <tr>
-            <td colspan="1">No players found.</td>
+            <td colspan="2">No players found.</td>
           </tr>
         {{/each}}
       </tbody>

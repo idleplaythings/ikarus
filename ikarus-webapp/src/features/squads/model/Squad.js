@@ -144,6 +144,16 @@ Squad.getAllByServer = function(server) {
   }).fetch().map(Squad.fromDoc);
 }
 
+Squad.getCurrent = function() {
+  var player = Player.getCurrent();
+
+  if (player) {
+    return player.getSquad();
+  }
+
+  return null;
+}
+
 Squad.fromDoc = function(doc) {
   if (Boolean(doc) === false) {
     return null;

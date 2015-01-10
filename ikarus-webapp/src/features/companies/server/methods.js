@@ -58,5 +58,14 @@ Meteor.methods({
       throw new Meteor.Error(400, "Can't leave company while in squad");
     }
     company.removePlayer(player);
+  },
+  renameCurrentCompany: function(newName) {
+    var company = Company.getCurrent();
+
+    if (! company) {
+      throw new Meteor.Error(400, "You are not in a company");
+    }
+
+    company.setName(newName);
   }
 });

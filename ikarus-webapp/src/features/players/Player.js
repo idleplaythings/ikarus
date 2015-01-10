@@ -54,6 +54,10 @@ Player.prototype.addInvite = function(invite) {
   Meteor.users.update({ _id: this._id }, { $addToSet: { invites: invite }});
 }
 
+Player.prototype.isMemberOf = function(company) {
+  return company.getPlayerIds().indexOf(this.getSteamId()) !== -1;
+};
+
 Player.getByMeteorId = function(id) {
   return Player.fromDoc(Meteor.users.findOne({ _id: id }));
 }
@@ -81,6 +85,10 @@ Player.getAllByIds = function(playerIds) {
 Player.getCurrent = function() {
   return Player.fromDoc(Meteor.user());
 };
+
+Player.getAll = function() {
+  return Meteor.users.find({}).fetch().map(Player.fromDoc);
+}
 
 Player.fromDoc = function(doc) {
   if (Boolean(doc) === false) {

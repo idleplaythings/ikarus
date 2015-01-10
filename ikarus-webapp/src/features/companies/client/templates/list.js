@@ -1,3 +1,8 @@
+Template.companies_list.created = function () {
+  Meteor.subscribe('Companies');
+};
+
+
 Template.companies_list.helpers({
   companies: function() {
     return Company.getAll();
@@ -10,8 +15,10 @@ Template.companies_list.events({
       'inviteToCompany',
       Player.getCurrent().getName(),
       jQuery(event.target).data('companyId'),
-      function(error, result) {
-        console.log(error, result);
+      function (error, result) {
+        if (error) {
+          alert(error)
+        }
       }
     );
   }

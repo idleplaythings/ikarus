@@ -18,18 +18,20 @@
         {{/if}}
       </h2>
 
-      {{#unless currentCompany}}
-        <p>You are not a member of a company. <button class="js-create-company">Create new company</button>, or ask your friends for an invite!</p>
+      {{#if currentPlayer}}
+        {{#unless currentCompany}}
+          <p>You are not a member of a company. <button class="js-create-company">Create new company</button>, or ask your friends for an invite!</p>
 
-        {{#if invites}}
-          <p>You have pending invites to these companies:</p>
-          {{#each invites}}
-            <button class="js-join-company" data-companyId="{{companyId}}">
-              Join company "{{name}}"
-            </button>
-          {{/each}}
-        {{/if}}
-      {{/unless}}
+          {{#if invites}}
+            <p>You have pending invites to these companies:</p>
+            {{#each invites}}
+              <button class="js-join-company" data-companyId="{{companyId}}">
+                Join company "{{name}}"
+              </button>
+            {{/each}}
+          {{/if}}
+        {{/unless}}
+      {{/if}}
     </div>
   </div>
 </template>

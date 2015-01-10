@@ -2,13 +2,13 @@
   <div>
     <div>
       <h2>
-        {{#if player}}
+        {{#if currentPlayer}}
           {{> players_avatar player}}
           {{> players_name player}}
 
-          {{#if company}}
-            {{#with company}}
-              of <a href="{{pathFor route='company'}}">{{company.getName}}</a>
+          {{#if currentCompany}}
+            {{#with currentCompany}}
+              of <a href="{{pathFor route='company'}}">{{currentCompany.getName}}</a>
             {{/with}}
           {{/if}}
 
@@ -17,6 +17,19 @@
           <a class="login" href="#">Log in with your Steam account</a>
         {{/if}}
       </h2>
+
+      {{#unless currentCompany}}
+        <p>You are not a member of a company. <button class="js-create-company">Create new company</button>, or ask your friends for an invite!</p>
+
+        {{#if invites}}
+          <p>You have pending invites to these companies:</p>
+          {{#each invites}}
+            <button class="js-join-company" data-companyId="{{companyId}}">
+              Join company "{{name}}"
+            </button>
+          {{/each}}
+        {{/if}}
+      {{/unless}}
     </div>
   </div>
 </template>

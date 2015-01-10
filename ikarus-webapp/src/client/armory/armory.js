@@ -17,28 +17,11 @@ Template.armory.created = function(){
 };
 
 Template.armory.helpers({
-  getInventory: getInventory,
-  squad: function() {
-    var player = Player.getCurrent();
-
-    if (!player) {
-      return null;
-    }
-
-    var squad = player.getSquad();
-
-    if (!squad) {
-      return null;
-    }
-
-    return squad;
+  getInventory: function getInventory() {
+    var inventory = Inventory.getByCompany(this);
+    return new InventoryUi({
+      inventory: inventory,
+      showUnlimited: true
+    });
   }
 });
-
-function getInventory(){
-  var inventory = Inventory.getByCompany(this);
-  return new InventoryUi({
-    inventory: inventory,
-    showUnlimited: true
-  });
-};

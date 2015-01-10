@@ -86,6 +86,11 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       var company = Company.getByName(companyName);
       company.addPlayer(player);
     },
+    testing_invitePlayerToCompany: function(playerName, companyName) {
+      var player = Player.getByName(playerName)
+      var company = Company.getByName(companyName);
+      company.invite(player);
+    },
     testing_createDataSet: function() {
       var companies = companyNames.filter(function() {
         return Math.random() > 0.2;

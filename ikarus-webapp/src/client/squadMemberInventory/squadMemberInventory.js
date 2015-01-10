@@ -1,18 +1,9 @@
 Template.squadMemberInventory.created = function(){
   Tracker.autorun(function(){
-    var player = Player.getCurrent();
-
-    if (! player){
-      return;
+    var squad = Squad.getCurrent();
+    if (squad) {
+      Meteor.subscribe('SquadInventory', squad._id);
     }
-
-    var squad = Squad.getByPlayer(player);
-
-    if (! squad){
-      return;
-    }
-
-    Meteor.subscribe('SquadInventory', squad._id);
   });
 };
 
@@ -29,7 +20,11 @@ Template.squadMemberInventory.events({
     Meteor.call(
       'removeFromInventory',
       armaClass,
-      function (error, result){}
+      function (error, result) {
+        if (error) {
+          alert(error)
+        }
+      }
     );
   }
 });

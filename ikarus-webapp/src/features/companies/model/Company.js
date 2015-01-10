@@ -88,6 +88,16 @@ Company.getByPlayer = function(player) {
   return Company.fromDoc(collections.CompanyCollection.findOne({ playerIds: { $in: [ player.getSteamId() ] }}));
 };
 
+Company.getCurrent = function() {
+  var player = Player.getCurrent();
+
+  if (player) {
+    return player.getCompany();
+  }
+
+  return null;
+}
+
 Company.getAll = function() {
   return collections.CompanyCollection.find({}).fetch().map(Company.fromDoc);
 }

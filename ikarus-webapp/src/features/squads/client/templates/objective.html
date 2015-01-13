@@ -1,0 +1,21 @@
+<template name="squad_objective">
+  <h3>Objective</h3>
+
+  {{#each objectives}}
+    <div class="panel panel-default {{getObjectiveClass}}">
+      <div class="panel-heading objective clickable" data-objectiveName="{{name}}">
+        {{name}}
+        <div class="pull-right">
+          <span class="glyphicon glyphicon-user"></span>
+          {{getPlayerRequirementString}}
+        </div>
+      </div>
+
+      {{#if isSelected}}
+        <div class="panel-body">
+          {{description}}
+        </div>
+      {{/if}}
+    </div>
+  {{/each}}
+</template>

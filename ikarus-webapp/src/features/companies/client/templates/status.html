@@ -17,10 +17,13 @@
                 {{> players_list company }}
               </div>
             {{else}}
-              <div class="col-md-6">
+              <div class="col-md-4">
                 {{> players_list company }}
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
+                {{> company_hideout }}
+              </div>
+              <div class="col-md-4">
                 <h3>Armory</h3>
                 {{#with company}}
                   {{> armory}}

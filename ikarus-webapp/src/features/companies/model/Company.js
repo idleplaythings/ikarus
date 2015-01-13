@@ -72,6 +72,20 @@ Company.prototype.getDoc = function() {
   return collections.CompanyCollection.findOne({ _id: this._id });
 }
 
+Company.prototype.getHideout = function() {
+  return get(this.getDoc(), 'hideout') || { x: 10000, y: 10000 };
+}
+
+Company.prototype.setHideout = function(hideout) {
+  collections.CompanyCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      hideout: hideout
+    }
+  });
+}
+
 Company.getById = function(companyId) {
   return Company.fromDoc(collections.CompanyCollection.findOne({ _id: companyId }));
 }

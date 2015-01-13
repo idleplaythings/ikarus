@@ -1,3 +1,5 @@
+var namespace = this;
+
 Squad = function Squad(args) {
   this._id = args._id;
 }
@@ -26,12 +28,12 @@ Squad.prototype.getStartingLocation = function() {
   return get(this.getDoc(), 'startingLocation') || { x: 10000, y: 10000 };
 }
 
-Squad.prototype.setStartingLocation = function(startingLocation) {
+Squad.prototype.setStartingLocation = function(company) {
   collections.SquadCollection.update({
     _id: this._id
   }, {
     $set: {
-      startingLocation: startingLocation
+      startingLocation: company.getHideout()
     }
   });
 }
@@ -67,6 +69,28 @@ Squad.prototype.setServerId = function(serverId) {
     }
   });
 }
+
+Squad.prototype.evaluateObjective = function(){
+  var objective = this.getObjective();
+  if ( ! objective.validate() ) {
+    this.setObjective(objective.defaultsTo)
+  }
+};
+
+Squad.prototype.setObjective = function(objective){
+  collections.SquadCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      objective: objective.name
+    }
+  });
+};
+
+Squad.prototype.getObjective = function(){
+  var name = get(this.getDoc(), 'objective') || 'Supply';
+  return new namespace['Objective' + name];
+};
 
 Squad.prototype.getSteamIds = function() {
   return get(this.getDoc(), 'steamIds') || [];

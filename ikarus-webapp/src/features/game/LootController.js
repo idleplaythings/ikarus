@@ -1,3 +1,5 @@
+var namespace = this;
+
 LootController = function LootController(
   itemFactory,
   dice
@@ -18,21 +20,30 @@ LootController.prototype.addStartingLoot = function(company) {
     'IKRS_loot_heavy_RU_weapons'
   ];
 
-  this.receiveLootForCompany(company, loot);
+  this.receiveLootForCompany(company, loot, new ObjectiveSupply());
 };
 
-LootController.prototype.receiveLoot = function(squadId, loot) {
+LootController.prototype.receiveLoot = function(squadId, loot, objectiveName) {
   var squad = this._getSquad(squadId);
   var company = this._getCompany(squad);
+  var objective = new namespace["Objective" + objectiveName];
 
-  this.receiveLootForCompany(company, loot);
+  this.receiveLootForCompany(company, loot, objective);
 };
 
-LootController.prototype.receiveLootForCompany = function(company, loot) {
+LootController.prototype.receiveLootForCompany = function(company, loot, objective) {
   var items = this._itemFactory.createItems(loot);
   var companyInventory = Inventory.getByCompany(company);
 
   items.forEach(function(item){
+    if (item.isLoot() && objective.allowLoot()){
+      this._handleLootBackpack(companyInventory, item);
+    } else {
+      this._handleLoot(companyInventory, item);
+    }
+  }, this);
+
+  this._itemFactory.createItems(objective.transformLoot(loot)).forEach(function(item){
     if (item.isLoot()){
       this._handleLootBackpack(companyInventory, item);
     } else {

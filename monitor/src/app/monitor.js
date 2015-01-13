@@ -150,9 +150,10 @@ var squadsRetrieve = function(test) {
 };
 
 var squadSubmit = function(squadId, loot) {
+  var squad = this._gameData.getSquadById(squadId);
   var squadLoot = this._gameData.receiveSquadData(squadId, loot);
   this._webAppClient.reportMissionLoot(
-    this._config.arma.serverId, squadId, squadLoot.loot
+    this._config.arma.serverId, squad, squadLoot.loot
   );
 };
 

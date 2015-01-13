@@ -1,24 +1,40 @@
-objective_supply_construct = {
-  private ["_objectives", "_centerOfAO", "_depots", "_players"];
-  _objectives = _this select 0;
-  _centerOfAO = _this select 1;
+objective_supply_depots = [];
 
-  _depots = [_objectives, _centerOfAO] call objective_supply_constructDepots;
-  _players = [_objectives] call objective_supply_getPlayers;
-  
+objective_supply_construct = {
+  private ["_centerOfAO", "_depots", "_players"];
+  _centerOfAO = _this select 0;
+
+  _depots = [ _centerOfAO] call objective_supply_constructDepots;
+  _players = call objective_supply_getPlayers;
+  objective_supply_depots = _depots;
   [_depots, _players] call objective_supply_constructMarkers;
-  
-  ['hi'];
+};
+
+objective_supply_defaultIfNeccessary = {};
+
+objective_supply_overrideMoveToHideout = {
+  false;
+};
+
+objective_supply_overrideHideoutCache = {
+  false;
+};
+
+objective_supply_onKilled = {};
+
+objective_supply_onDisconnected = {};
+
+objective_supply_canOpenLootBoxes = {
+  true;
 };
 
 objective_supply_getPlayers = {
-  private ["_objectives", "_players"];
-  _objectives = _this select 0;
+  private ["_players"];
   _players = [];
   
   {
-    _players = _players + ([(_x select 1)] call getPlayersInSquad);
-  } forEach _objectives;
+    _players = _players + ([_x] call getPlayersInSquad);
+  } forEach (["supply"] call objectiveController_getSquadsWithObjective);
 
   _players;
 };
@@ -44,17 +60,16 @@ objective_supply_constructMarkers = {
 };
 
 objective_supply_constructDepots = {
-  private ["_objectives", "_centerOfAO", "_numberOfDepots", "_depots", "_radius", "_depotPosition"];
-  _objectives = _this select 0;
-  _centerOfAO = _this select 1;
-  _numberOfDepots = [_objectives] call objective_supply_getAmountOfDepots;
-  _radius = [_objectives] call objective_supply_getRadiusOfAO;
+  private ["_centerOfAO", "_numberOfDepots", "_depots", "_radius", "_depot"];
+  _centerOfAO = _this select 0;
+  _numberOfDepots = call objective_supply_getAmountOfDepots;
+  _radius = call objective_supply_getRadiusOfAO;
   _depots = [];
   
   while {_numberOfDepots > 0} do {
-    _depotPosition = [_centerOfAO, _radius] call objective_supply_constructDepot;
-
-    _depots set [count _depots, _depotPosition];
+    _depot = [_centerOfAO, _radius] call objective_supply_constructDepot;
+    
+    _depots pushBack _depot;
     _numberOfDepots = _numberOfDepots - 1;
   };
   
@@ -85,7 +100,7 @@ objective_supply_aquireClosestDepot = {
   [_building, objective_supply_cleanUpBox, [_building]] call buildingDestroyer_init;
   [_building] spawn objective_supply_destroyDepot;
   
-  getPosASL _building;
+  _building;
 };
 
 objective_supply_destroyDepot = {
@@ -98,7 +113,7 @@ objective_supply_placeLootBoxes = {
   _building = _this select 0;
   _objectData = _this select 1;
   
-  _amount = (ceil random 2) + 1;
+  _amount = 2;
   _objectData = [_objectData, _amount] call depotPositions_getRandomPlaceholdersFromObjects;
   
   {
@@ -120,7 +135,7 @@ objective_supply_cleanUpBox = {
 
 objective_supply_getAmountOfDepots = {
   private ["_objectives", "_amount"];
-  _objectives = _this select 0;
+  _objectives = ["supply"] call objectiveController_getSquadsWithObjective;
   
   _amount = floor ((count _objectives) / 2);
   
@@ -132,10 +147,8 @@ objective_supply_getAmountOfDepots = {
 };
 
 objective_supply_getRadiusOfAO = {
-  private ["_objectives", "_amount"];
-  _objectives = _this select 0;
-  
-  ([_objectives] call objective_supply_getAmountOfDepots) * 0.5;
+  private ["_amount"];
+  (call objective_supply_getAmountOfDepots) * 0.5 * 1000;
 };
 
 objective_supply_checkIsSuitableForDepot = {

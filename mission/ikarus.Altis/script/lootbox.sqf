@@ -132,14 +132,17 @@ lootbox_checkBoxes = {
   _occupiedBoxes = [];
   
   {
-    private ["_box", "_closestUnit", "_closestDistance"];
+    private ["_box", "_closestUnit", "_closestDistance", "_canOpen", "_squad"];
     _box = _x;
     
     if (typeOf _box == "Land_CargoBox_V1_F") then {
       _closestUnit = nil;
       _closestDistance = 1000;
       {
-        if (!( _x in _openers) && (isNil {_closestUnit} || (_box distance _x) < _closestDistance)) then {
+        _squad = [_x] call getSquadForUnit;
+        _canOpen = [_squad, "canOpenLootBoxes", [_x]] call objectiveController_callSquadObjective;
+        
+        if (_canOpen && !( _x in _openers) && (isNil {_closestUnit} || (_box distance _x) < _closestDistance)) then {
           _closestUnit = _x;
           _closestDistance = _box distance _x;
         };

@@ -27,14 +27,18 @@ airStrike_createBombingRun = {
   [_target, random 50 + 10] call airStrike_createBomb;
   sleep 0.5;
   [_target, 0] call airStrike_createBomb;
+  sleep 1;
+  [_target, 0] call airStrike_createBomb;
 };
 
 airStrike_createBomb = {
-  private ["_target", "_offset", "_direction"];
+  private ["_target", "_offset", "_direction", "_position"];
   _target = _this select 0;
   _offset = _this select 1;
   _direction = random 360;
-  "Bomb_03_F" createVehicle ([_direction, _offset, getPos _target] call getPositionInDirection);
+  _position = getPos _target;
+  _position set [2, ((_position select 2) + 10)];
+  "Bomb_03_F" createVehicle ([_direction, _offset, _position] call getPositionInDirection);
 };
 
 airStrike_createFlyOver = {

@@ -64,6 +64,14 @@ getPlayersInSquad = {
   _players;
 };
 
+hasSameSquad = {
+  private ["_a", "_b"];
+  _a = _this select 0;
+  _b = _this select 1;
+  
+  ([_a] call getSquadForUnit) == ([_b] call getSquadForUnit);
+};
+
 broadcastMessage = {
   private ["_message"];
   _message = _this select 0;
@@ -71,4 +79,12 @@ broadcastMessage = {
   {
     [[_message], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
   } forEach call getAllPlayers;
+};
+
+broadcastMessageTo = {
+  private ["_message", "_recipient"];
+  _message = _this select 0;
+  _recipient = _this select 1;
+  
+  [[_message], "markers_textMessage", _recipient, false, false] call BIS_fnc_MP;
 };

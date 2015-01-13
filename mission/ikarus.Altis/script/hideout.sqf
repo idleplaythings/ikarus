@@ -37,7 +37,7 @@ hideout_createHideoutForSquad = {
   };
   
   // create weapon cache
-  
+ 
   _cache = [_squad, _building, _objectData] call hideout_createHideoutCache;
   [_squad, _cache] call setSquadCache;
   
@@ -78,6 +78,10 @@ hideout_createHideoutCache = {
 
   _equipment = [_squad] call getSquadEquipment;
   
+  if ([_squad, "overrideHideoutCache", [_squad, _equipment, _box]] call objectiveController_callSquadObjective) exitWith {
+    _box;
+  };
+  
   [_equipment, _box] call equipment_equipUnit;
   
   _box addItemCargoGlobal ['AGM_Bandage', 30];
@@ -86,25 +90,6 @@ hideout_createHideoutCache = {
   _box addItemCargoGlobal ['AGM_Bloodbag', 3];
   
   _box;
-};
-
-objective_supply_placeLootBoxes = {
-  private ["_building", "_objectData", "_amount"];
-  _building = _this select 0;
-  _objectData = _this select 1;
-  
-  _amount = (ceil random 2) + 1;
-  _objectData = [_objectData, _amount] call depotPositions_getRandomPlaceholdersFromObjects;
-  
-  {
-    private ["_directionAndPosition", "_direction", "_position"];
-    _directionAndPosition = [_building, _x] call houseFurnisher_getPosASLAndDirection;
-    _position = _directionAndPosition select 0;
-    _direction = _directionAndPosition select 1; 
-    
-    [_position, _direction] call lootbox_create;
-    
-  } forEach _objectData;
 };
 
 hideout_createHideoutTrigger = {
@@ -150,18 +135,22 @@ hideout_hideoutTriggerActivate = {
 
 hideout_movePlayersToHideout = {
   {
-    [_x] call hideout_movePlayerToHideout;
-  } forEach call getAllPlayers;
+    if (! ([_x, "overrideMoveToHideout", [_x]] call objectiveController_callSquadObjective)) then {
+      [_x] call hideout_moveSquadToHideout;
+    };
+  } forEach squads;
 };
 
-hideout_movePlayerToHideout = {
-  private ["_unit", "_building", "_position"];
-  _unit = _this select 0;
+hideout_moveSquadToHideout = {
+  private ["_squad", "_building", "_position", "_cache"];
+  _squad = _this select 0;
+  _building = [_squad] call getSquadHideoutBuilding;
+  _cache = [_squad] call getSquadCache;
   
-  if ([_unit] call hasSquad) then {
-    _building = [[_unit] call getSquadForUnit] call getSquadHideoutBuilding;
-    _unit setPosASL getPosASL ([[_unit] call getSquadForUnit] call getSquadCache);
-  }
+  {
+    _x setPosASL getPosASL _cache;
+  } forEach ([_squad] call getPlayersInSquad);
+  
 };
 
 hideout_findHouseSuitableForHideout = {
@@ -173,14 +162,14 @@ hideout_findHouseSuitableForHideout = {
   
   _buildings = nearestObjects [_position, ["house"], 5000];
   
-  for [{_i= 0},{_i < count _buildings and ! false},{_i = _i + 1}] do {
-    _building = _buildings select _i;
+  {
+    _building = _x;
     _objects = [_building] call depotPositions_getHideoutObjects;
     
     if ( ! isNil {_objects} and [_building] call hideout_checkIsSuitableHouseForHideout) exitWith {
       _building;
     };
-  };
+  } forEach _buildings;
   
   [_building, _objects];
 };
@@ -190,9 +179,13 @@ hideout_checkIsSuitableHouseForHideout = {
   _building = _this select 0;
   
   _vehiclePos = getPos _building findEmptyPosition [10,20,"I_Truck_02_covered_F"];
-  if (count _vehiclePos == 0) exitWith {false};
+  if (count _vehiclePos == 0) exitWith {
+    false;
+  };
   
-  if ( ! ([getPosASL _building, 100] call depotPositions_checkNothingInDistance)) exitWith {false};
+  if ( ! ([getPosASL _building, 100] call depotPositions_checkNothingInDistance)) exitWith {
+    false;
+  };
   
   true;
 };

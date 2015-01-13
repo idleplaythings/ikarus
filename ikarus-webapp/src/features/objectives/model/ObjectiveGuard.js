@@ -39,7 +39,7 @@ ObjectiveGuard.prototype.transformLoot = function(loot) {
     result = result.concat(lootEntry);
   });
 
-  console.log("guard mission transfomr loot", result);
+  console.log("guard mission transform loot", result);
 
   return result;
 };

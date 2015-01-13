@@ -116,7 +116,7 @@ getSquadForUid = {
     };
   } forEach squads;
   
-  _squad;
+  _squad
 };
 
 hasSquad = {

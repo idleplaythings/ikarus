@@ -122,10 +122,10 @@ objective_guard_equipGuard = {
   for "_i" from 1 to 6 do {_unit addItemToUniform "AGM_Bandage";};
   for "_i" from 1 to 2 do {_unit addItemToUniform "AGM_Morphine";};
 
-  _unit addWeapon "CUP_arifle_AK74";
+  _unit addWeaponGlobal "CUP_arifle_AK74";
+  _unit addWeaponGlobal "Binocular";
 
   _unit linkItem "ItemMap";
   _unit linkItem "ItemCompass";
   _unit linkItem "ItemWatch";
 };
-

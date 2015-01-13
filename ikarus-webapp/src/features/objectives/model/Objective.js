@@ -24,6 +24,14 @@ Objective.prototype.getPlayerRequirementString = function() {
   return s;
 };
 
+Objective.prototype.allowLoot = function() {
+  return true;
+};
+
+Objective.prototype.transformLoot = function() {
+  return [];
+};
+
 Objective.prototype.validate = function(squad) {
   return true;
 };

@@ -71,8 +71,12 @@ Squad.prototype.setServerId = function(serverId) {
 }
 
 Squad.prototype.evaluateObjective = function(){
+  if (this.isLocked()) {
+    return;
+  }
+
   var objective = this.getObjective();
-  if ( ! objective.validate() ) {
+  if ( ! objective.validate(this) ) {
     this.setObjective(objective.defaultsTo)
   }
 };

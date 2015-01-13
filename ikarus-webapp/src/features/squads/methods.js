@@ -19,6 +19,10 @@ Meteor.methods({
       throw new Meteor.Error('Invalid objective', 'Invalid objective');
     }
 
+    if (squad.isLocked()) {
+      return;
+    }
+
     squad.setObjective(objective);
   }
 });

@@ -14,11 +14,16 @@ objective_guard_onKilled = {
   _guardData = [_killer] call objective_guard_getGuardData;
   
   if (isNil {_guardData}) exitWith {};
+  diag_log "guard data not nil";
+  player globalChat "guard data not nil";
   
   if ([_unit, _killer] call hasSameSquad) exitWith {};
+  diag_log "does not have same squad";
+  player globalChat "does not have same squad";
   
-  if (_killer distance _guardData select 1 <= objective_guard_killRadius) exitWith {
+  if ((_killer distance (_guardData select 1)) <= objective_guard_killRadius) exitWith {
     diag_log "guard " + str _killer + " killed a trespasser";
+    player globalChat "guard " + str _killer + " killed a trespasser";
     [_guardData] call objective_guard_reward;
   };
 };
@@ -49,6 +54,7 @@ objective_guard_canOpenLootBoxes = {
 
 objective_guard_reward = {
   private ["_guardData", "_squad", "_reward"];
+  player globalChat "reward!";
   _guardData = _this select 0;
   _reward = ["guard_objective_reward1"];
   _squad = [(_guardData select 0)] call getSquadForUnit;
@@ -122,10 +128,10 @@ objective_guard_equipGuard = {
   for "_i" from 1 to 6 do {_unit addItemToUniform "AGM_Bandage";};
   for "_i" from 1 to 2 do {_unit addItemToUniform "AGM_Morphine";};
 
-  _unit addWeapon "CUP_arifle_AK74";
+  _unit addWeaponGlobal "CUP_arifle_AK74";
+  _unit addWeaponGlobal "Binocular";
 
   _unit linkItem "ItemMap";
   _unit linkItem "ItemCompass";
   _unit linkItem "ItemWatch";
 };
-

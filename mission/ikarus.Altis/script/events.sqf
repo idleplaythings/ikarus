@@ -27,7 +27,10 @@ lastConnectedPlayerUid = nil;
   _uid = getPlayerUID _unit;
   diag_log _uid;
   
-  _squad = [_unit] call getSquadForUnit;
+  diag_log "killer:";
+  diag_log _killer;
+  
+  _squad = [_killer] call getSquadForUnit;
   [_squad, "onKilled", [_unit, _killer, true]] call objectiveController_callSquadObjective;
   ['playerKilled', [_uid]] call sock_rpc;
 };

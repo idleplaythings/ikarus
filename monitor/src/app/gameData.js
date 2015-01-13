@@ -114,7 +114,6 @@ module.exports = function(armaSerializer){
   };
 
   GameData.prototype.receiveSquadData = function(id, serializedLoot){
-    var squad = this.getSquadById(id);
     var loot = new SquadLoot(id).deserializeFromArma(serializedLoot);
     return loot;
   };

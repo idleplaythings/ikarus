@@ -65,11 +65,15 @@ getPlayersInSquad = {
 };
 
 hasSameSquad = {
-  private ["_a", "_b"];
+  private ["_a", "_b", "_squadA", "_squadB"];
   _a = _this select 0;
   _b = _this select 1;
+  _squadA = [_a] call getSquadForUnit;
+  _squadB = [_b] call getSquadForUnit;
   
-  ([_a] call getSquadForUnit) == ([_b] call getSquadForUnit);
+  if (([_squadA] call getSquadId) == ([_squadB] call getSquadId)) exitWith {true;};
+  
+  false;
 };
 
 broadcastMessage = {

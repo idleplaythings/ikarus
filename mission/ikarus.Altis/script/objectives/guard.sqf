@@ -14,8 +14,10 @@ objective_guard_onKilled = {
   _guardData = [_killer] call objective_guard_getGuardData;
   
   if (isNil {_guardData}) exitWith {};
+  diag_log "guard data not nil";
   
   if ([_unit, _killer] call hasSameSquad) exitWith {};
+  diag_log "does not have same squad";
   
   if (_killer distance _guardData select 1 <= objective_guard_killRadius) exitWith {
     diag_log "guard " + str _killer + " killed a trespasser";

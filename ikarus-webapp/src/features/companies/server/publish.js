@@ -74,3 +74,20 @@ Meteor.publish('Companies', function() {
     }
   );
 });
+
+Meteor.publish('MyCompany', function(companyId) {
+  if (! this.userId){
+    this.ready();
+    return;
+  }
+
+  var player = Player.getByMeteorId(this.userId);
+  var company = Company.getByPlayer(player);
+
+  if (! company || company._id !== companyId) {
+    this.ready();
+    return;
+  }
+
+  return collections.CompanyCollection.find({_id: company._id});
+});

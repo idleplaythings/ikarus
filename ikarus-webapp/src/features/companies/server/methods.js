@@ -1,4 +1,20 @@
 Meteor.methods({
+
+  'changeHideoutLocation': function(location) {
+    var player = Player.getCurrent();
+    var company = Company.getByPlayer(player);
+
+    if (! company) {
+      throw new Meteor.Error(404, 'Company not found');
+    }
+
+    if (location.x < 0 || location.x > 30000 || location.y < 0 || location.y > 28000) {
+      throw new Meteor.Error('invalid hideout location', 'Invalid hideout location');
+    }
+
+    company.setHideout(location);
+  },
+
   createCompany: function(name) {
     // @todo validation does not belong here
     if (! name || name.length < 5) {

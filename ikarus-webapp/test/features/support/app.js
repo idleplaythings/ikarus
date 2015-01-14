@@ -181,9 +181,9 @@ App.prototype.callTestAddToInventory = function(squadId, amount, armaclass) {
   }.bind(this)
 };
 
-App.prototype.callMissionLoot = function (serverName, squadId, loot) {
+App.prototype.callMissionLoot = function (serverName, squadId, loot, objectiveName) {
   return function() {
-    return this.callMethod('missionLoot', [serverName, squadId, loot]);
+    return this.callMethod('missionLoot', [serverName, squadId, loot, objectiveName]);
   }.bind(this)
 };
 

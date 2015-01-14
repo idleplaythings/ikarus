@@ -76,8 +76,11 @@ depotPositions_getRandomPlaceholdersFromObjects = {
   };
   
   while {_amount > 0} do {
+    private ["_chosen"];
     _amount = _amount - 1;
-    _result set [count _result, (_candidates select _amount)];
+    _chosen = _candidates call BIS_fnc_selectRandom;
+    _candidates = _candidates - [_chosen];
+    _result pushBack _chosen;
   };
   
   _result;
@@ -108,8 +111,7 @@ depotPositions_getHideoutObjects = {
 depotPositions_randomizeFromCandidates = {
   private ["_candidates"];
   _candidates = _this select 0;
-  
-  _candidates select floor random count _candidates;
+  _candidates call BIS_fnc_selectRandom;
 };
 
 depotPositions_findCandidates = {
@@ -119,10 +121,9 @@ depotPositions_findCandidates = {
   _candidates = [];
   
   {
-    if ((typeOf _building in (_x select 1)) and (_type in (_x select 0))) then {
+    if (((typeOf _building) in (_x select 1)) and (_type in (_x select 0))) then {
       if ([_building, _x select 3, _x select 4] call depotPositions_checkWhiteAndBlackList) then {
-
-        _candidates set [count _candidates, _x select 2];
+        _candidates pushBack (_x select 2);
       };
     }; 
   } forEach depotPositions_list;
@@ -141,9 +142,15 @@ depotPositions_checkWhiteAndBlackList = {
   gWhiteList = _whiteList;
   gPosition = _position;
   
-  if (([_whiteList, _position] call depotPositions_inArray) or ((count _whiteList == 0) and (!([_blackList, _position] call depotPositions_inArray)))) exitWith {true};
+  if ([_whiteList, _position] call depotPositions_inArray) exitWith {
+    true;
+  };
   
-  false;
+  if ([_blackList, _position] call depotPositions_inArray) exitWith {
+    false;
+  };
+  
+  true;
 };
 
 depotPositions_inArray = {

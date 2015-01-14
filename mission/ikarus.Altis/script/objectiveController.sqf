@@ -1,76 +1,74 @@
 
-objectiveController_list = [];
-
-objectiveController_types = ['supply'];
+objectiveController_types = ['supply', 'guard'];
 
 objectiveController_createObjectives = {
-  private ["_AO_center", "_objectives"];
+  private ["_AO_center"];
   
   _AO_center = call AO_getRandomLandPosition;
-  player globalChat str _AO_center;
-  objectiveController_list = [_AO_center] call objectiveController_compileObjectives;
+  ["defaultIfNeccessary", []] call objectiveController_callObjectives;
+  ["construct", [_AO_center]] call objectiveController_callObjectives;
   
 };
 
-objectiveController_compileObjectives = {
-  private ["_AO_center", "_objectives", "_objective"];
-  _objectives = [];
-  _AO_center = _this select 0;
+objectiveController_getSquadsWithObjective = {
+  private ["_squads", "_objective"];
+  _objective = _this select 0;
+  _squads = [];
   
   {
-    _objective = ([_x] call getChosenObjectives) select 0;
-    _objectives set [count _objectives, [_objective, _x]];
+    if (([_x] call getChosenObjective) == _objective) then {
+      _squads pushBack _x;
+    };
   } forEach squads;
   
-  
-  [_objectives, _AO_center] call objectiveController_constructTypes;
+  _squads;
 };
 
-objectiveController_constructTypes = {
-  private ["_AO_center", "_objectives", "_constructedObjectives"];
-  _objectives = _this select 0;
-  _AO_center = _this select 1;
-  _constructedObjectives = [];
+objectiveController_getSquadsWithOutObjective = {
+  private ["_squads", "_objective"];
+  _objective = _this select 0;
+  _squads = [];
   
   {
-    [_x, _objectives, _constructedObjectives, _AO_center] call objectiveController_constructType;
-  } forEach objectiveController_types;
-  
-  _constructedObjectives;
-};
-
-objectiveController_constructType = {
-  private ["_type", "_objectives", "_constructedObjectives", "_AO_center"];
-  _type = _this select 0;
-  _objectives = _this select 1;
-  _constructedObjectives = _this select 2;
-  _AO_center = _this select 3;
-  
-  _objectives = [_type, _objectives] call objectiveController_getObjectivesOfType;
-  
-  _objectives = call compile format ["[_objectives, _AO_center] call objective_%1_construct;", _type];
-  _constructedObjectives = _constructedObjectives + _objectives;
-  
-  _constructedObjectives;
-};
-
-objectiveController_getObjectivesOfType = {
-  private ["_type", "_objectives", "_objectivesOfType"];
-  _type = _this select 0;
-  _objectives = _this select 1;
-  _objectivesOfType = [];
-
-  {
-    if ((_x select 0) == _type) then {
-      _objectivesOfType set [count _objectivesOfType, _x];
+    if (([_x] call getChosenObjective) != _objective) then {
+      _squads pushBack _x;
     };
-  } forEach _objectives;
+  } forEach squads;
   
-  _objectivesOfType;
+  _squads;
 };
 
+objectiveController_callObjectives = {
+  private ["_functionName", "_arguments"];
+  _functionName = _this select 0;
+  _arguments = _this select 1;
+  
+  {
+    [_x, _functionName, _arguments] call objectiveController_callObjective;
+  } forEach objectiveController_types;
+};
 
+objectiveController_callObjective = {
+  private ["_objective", "_functionName", "_arguments"];
+  _objective = _this select 0;
+  _functionName = _this select 1;
+  _arguments = _this select 2;
+  
+  call compile format ["_arguments call objective_%1_%2;", _objective, _functionName];
+  
+};
 
+objectiveController_callSquadObjective = {
+  private ["_squad", "_objective", "_functionName", "_arguments"];
+  
+  _squad = _this select 0;
+  _functionName = _this select 1;
+  _arguments = _this select 2;
+  _objective = [_squad] call getChosenObjective;
+  
+  [_objective, _functionName, _arguments] call objectiveController_callObjective;
+  
+};
 
 
 

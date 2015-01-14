@@ -54,7 +54,7 @@ InventoryUi.prototype._getItemsAndCounts = function(items){
     if (a.item.isWeapon() && ! b.item.isWeapon())
       return -1;
 
-    return a.item.armaClass > b.item.armaClass;
+    return a.item.name > b.item.name;
   });
 };
 

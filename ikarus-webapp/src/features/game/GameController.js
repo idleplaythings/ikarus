@@ -31,6 +31,7 @@ GameController.prototype._connectPlayerToServer = function(player, server) {
   var company = this._getCompany(player);
   var squad = this._initOrGetSquad(server, company);
   squad.addPlayer(player);
+  squad.evaluateObjective();
   server.addPlayer(player);
 };
 
@@ -42,6 +43,7 @@ GameController.prototype._disconnectPlayerFromServer = function(player, server) 
 
   if (squad) {
     squad.removePlayer(player);
+    squad.evaluateObjective();
   }
 
   if (squad.isEmpty() && ! squad.isLocked()){
@@ -81,6 +83,7 @@ GameController.prototype._initSquad = function(server, company) {
   var squad = Squad.create();
   squad.setCompanyId(company._id);
   squad.setServerId(server._id);
+  squad.setStartingLocation(company);
   Inventory.createForSquadOnServer(squad, server);
   return squad;
 };

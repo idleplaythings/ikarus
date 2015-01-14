@@ -24,6 +24,12 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
         'CUP_10x_303_M': 5,
       }
     }));
+
+    for (var i in ItemDefinitions) {
+      if (ItemDefinitions[i].armaClass == 'IKRS_loot_common_RU_weapons') {
+        ItemDefinitions[i].loot = {'CUP_arifle_AK74': 1};
+      }
+    }
   });
 
   Meteor.methods({

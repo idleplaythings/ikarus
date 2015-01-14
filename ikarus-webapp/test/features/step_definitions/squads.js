@@ -13,9 +13,9 @@ var squadsStepDefinitions = function () {
     callback();
   });
 
-  this.When(/^mission loot "([^"]*)" is sent from server "([^"]*)" to squad containing "([^"]*)"$/, function (loot, serverName, username, callback) {
+  this.When(/^mission loot "([^"]*)" is sent from server "([^"]*)" to squad containing "([^"]*)" from objective "([^"]*)"$/, function (loot, serverName, username, objectiveName, callback) {
     var squadId = getSquadByUsername(this.app, username)._id;
-    this.app.callMissionLoot(serverName, squadId, [loot])()
+    this.app.callMissionLoot(serverName, squadId, [loot], objectiveName)()
       .finally(callback)
       .catch(this.handleError);
   });

@@ -8,8 +8,9 @@ module.exports = function(armaSerializer){
   var testSquad = new Squad({
     _id: 'id',
     steamIds: ["_SP_PLAYER_", "_SP_AI_"],
-    startingLocation: {x:15500.0, y:16100.0},
-    companyId: 'company'
+    startingLocation: {x:8500.0, y:11200.0},
+    companyId: 'company',
+    objective: 'Guard'
   });
 
   var testInventories = [
@@ -113,7 +114,6 @@ module.exports = function(armaSerializer){
   };
 
   GameData.prototype.receiveSquadData = function(id, serializedLoot){
-    var squad = this.getSquadById(id);
     var loot = new SquadLoot(id).deserializeFromArma(serializedLoot);
     return loot;
   };

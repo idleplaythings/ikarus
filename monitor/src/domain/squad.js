@@ -6,6 +6,6 @@ function Squad(args) {
   this.companyId = args.companyId;
   this.steamIds = args.steamIds || [];
   this.startingLocation = args.startingLocation || {x:10000, y:10000};
-  this.objectives = args.objectives || ['SUPPLY'];
+  this.objective = args.objective || 'Supply';
   this.locked = args.locked;
 }

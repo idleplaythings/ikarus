@@ -47,11 +47,16 @@ getPlayersAtHideout = {
   _this select 0 select 6;
 };
 
-getChosenObjectives = {
+getChosenObjective = {
   _this select 0 select 7;
 };
 
+setChosenObjective = {
+  _this select 0 set [7, _this select 1];
+};
+
 getForcedObjectives = {
+  //NOT USED
   _this select 0 select 8;
 };
 
@@ -111,7 +116,7 @@ getSquadForUid = {
     };
   } forEach squads;
   
-  _squad;
+  _squad
 };
 
 hasSquad = {

@@ -16,13 +16,22 @@ lastConnectedPlayerUid = nil;
 };
 
 "onPlayerKilled" addPublicVariableEventHandler {
-
+  private ["_unit", "_killer", "_squad"];
+  _unit = _this select 1 select 0;
+  _killer = _this select 1 select 1;
+  
   diag_log "player killed";
   if (! missionControl_gameStarted) exitWith {};
 
   diag_log " --- game is started";
-  _uid = _this select 1;
+  _uid = getPlayerUID _unit;
   diag_log _uid;
+  
+  diag_log "killer:";
+  diag_log _killer;
+  
+  _squad = [_killer] call getSquadForUnit;
+  [_squad, "onKilled", [_unit, _killer, true]] call objectiveController_callSquadObjective;
   ['playerKilled', [_uid]] call sock_rpc;
 };
 
@@ -62,6 +71,7 @@ addMissionEventHandler ["HandleDisconnect", {
   _squad = [_uid] call getSquadForUid;
 
   [_squad, _loot] call addDisconnectedLoot;
+  [_squad, "onDisconnect", [_squad, _unit, true]] call objectiveController_callSquadObjective;
   
   deleteVehicle _unit;
   ['playerDisconnected', [_uid]] call sock_rpc;

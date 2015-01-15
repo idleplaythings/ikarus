@@ -168,9 +168,10 @@ Monitor.prototype._checkServerStatus = function() {
   var server = collection[Object.keys(collection).pop()];
   console.log(server);
 
+  console.log("statuses", this._nextStatus, this._currentStatus);
   if (this._nextStatus !== this._currentStatus) {
     this._nextStatus = server.nextStatus;
-    console.log(this._nextStatus);
+    console.log("set new nextstatus", this._nextStatus);
   }
 
   if (this._currentStatus == Monitor.STATUS_IDLE && this._nextStatus === Monitor.STATUS_WAITING) {

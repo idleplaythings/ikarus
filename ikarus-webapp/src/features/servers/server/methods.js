@@ -25,6 +25,7 @@ Meteor.methods({
       })
 
       Inventory.removeByServer(server);
+      server.removeAllSquadsFromGame();
     }
 
     server.updateStatus(status);

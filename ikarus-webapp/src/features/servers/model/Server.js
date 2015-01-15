@@ -83,7 +83,7 @@ Server.prototype.updateStatus = function(status) {
     }
   });
 
-  if (status == Server.STATUS_IDLE && this.getNextStatus() == status) {
+  if (status == Server.STATUS_IDLE || this.getNextStatus() == status) {
     this.updateNextStatus(null);
   }
 }
@@ -109,6 +109,16 @@ Server.prototype.removeSquadFromGame = function(squad) {
   }, {
     $pull: {
       inGame: squad._id
+    }
+  });
+};
+
+Server.prototype.removeAllSquadsFromGame = function() {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      inGame: []
     }
   });
 };

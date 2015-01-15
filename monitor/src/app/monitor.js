@@ -174,7 +174,7 @@ Monitor.prototype._checkServerStatus = function() {
 
   if (this._currentStatus == Monitor.STATUS_IDLE && this._nextStatus === Monitor.STATUS_WAITING) {
     this._startArma();
-    this._webAppClient.reportStatusWaiting();
+    this._webAppClient.reportStatusWaiting(this._config.arma.serverId);
     this._currentStatus = Monitor.STATUS_WAITING;
     this._nextStatus = null;
   }

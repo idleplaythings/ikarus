@@ -66,12 +66,17 @@ ServerQueueService.prototype.checkSquadDeadlines = function () {
 };
 
 ServerQueueService.prototype.serverStatusChanged = function(server) {
-  if(server.isIdle()) {
-    if (server.getQueue().length > 0) {
-      server.updateNextStatus(Server.STATUS_WAITING);
-    }
-  }
+  this._checkNeedsNewStatus(server);
+  this._checkNeedsToMoveQueue(server);
+};
 
+ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
+  if(server.isIdle() && server.getQueue().length > 0) {
+    server.updateNextStatus(Server.STATUS_WAITING);
+  }
+};
+
+ServerQueueService.prototype._checkNeedsToMoveQueue = function(server) {
   if (server.isWaiting()){
     while(server.getQueue().length > 0) {
       var squad = server.shiftFromQueue();
@@ -86,9 +91,7 @@ ServerQueueService.prototype.enterQueue = function(squad) {
     this._addSquadToGame(squad, server);
   } else {
     server.addToQueue(squad);
-    if (server.isIdle() && server.getQueue().length >= this._minSquadsToStart) {
-      server.updateNextStatus(Server.STATUS_WAITING);
-    }
+    this.serverStatusChanged(server);
   }
 };
 

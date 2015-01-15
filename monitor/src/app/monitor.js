@@ -124,6 +124,7 @@ Monitor.prototype._connectToWebApp = function() {
       if (! reconnect){
         this._webAppClient.registerServer(serverId);
         this._webAppClient.reportStatusIdle(serverId);
+        this._currentStatus = Monitor.STATUS_IDLE;
         this._initDdpObservers();
       }
 

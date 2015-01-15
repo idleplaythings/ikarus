@@ -51,7 +51,8 @@
 <template name="squad_players">
   <h3>Players</h3>
   {{#each getPlayers}}
-    <h4>{{> players_avatar this}}{{> players_name this}}</h4>
+    <h4>{{> players_avatar this}}{{> players_name this}}
+    <button class="leaveSquad">Leave</button></h4>
   {{/each}}
 </template>
 

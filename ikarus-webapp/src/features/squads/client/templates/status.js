@@ -42,6 +42,11 @@ Template.squad_queue_status.events({
   }
 });
 
+Template.squad_players.events({
+  'click .leaveSquad' : function () {
+    Meteor.call('leaveSquad');
+  }
+});
 
 
 function getCompanysSquads () {

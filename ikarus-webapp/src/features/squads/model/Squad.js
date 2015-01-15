@@ -4,6 +4,12 @@ Squad = function Squad(args) {
   this._id = args._id;
 }
 
+Squad.prototype.getName = function() {
+  var player = this.getPlayers().pop();
+
+  return player ? player.getName().toUpperCase()+"'S" : '';
+};
+
 Squad.prototype.getPlayers = function() {
   var players = this.getSteamIds().map(Player.getById);
   return players;

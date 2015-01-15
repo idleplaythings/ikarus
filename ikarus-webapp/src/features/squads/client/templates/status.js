@@ -5,6 +5,12 @@ Template.squads_status.helpers({
 
   companysSquads: function () {
     return getCompanysSquads();
+  },
+
+  joinableSquads: function () {
+    return getCompanysSquads().filter(function(squad){
+      return ! squad.isLocked();
+    })
   }
 });
 
@@ -13,7 +19,9 @@ Template.squads_status.events({
     Meteor.call('createSquad');
   },
   'click .joinSquad' : function () {
-    Meteor.call('joinSquad');
+    var squadId = jQuery(event.target).attr("data-squadId");
+    console.log(squadId);
+    Meteor.call('joinSquad', squadId);
   }
 });
 

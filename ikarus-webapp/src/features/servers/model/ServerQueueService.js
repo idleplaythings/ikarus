@@ -29,6 +29,11 @@ ServerQueueService.prototype.loop = function() {
 ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
     var readyToStart = server.getSquadsInGame().every(function(squad) {
+
+      if (! squad) {
+        return true;
+      }
+
       var steamIdsOnSquad = squad.getSteamIds();
       var steamIdsOnServer = server.getPlayerIds();
 

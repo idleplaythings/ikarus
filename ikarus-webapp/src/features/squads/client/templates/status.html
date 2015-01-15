@@ -39,7 +39,9 @@
     {{else}}
       {{#if currentUser}}
         {{#if companyHasSquad}}
-          <button class="joinSquad">JOIN SQUAD</button>
+          {{#each joinableSquads}}
+          <button class="joinSquad" data-squadId={{_id}}>JOIN {{getName}} SQUAD</button>
+          {{/each}}
         {{else}}
           <button class="createSquad">CREATE SQUAD</button>
         {{/if}}

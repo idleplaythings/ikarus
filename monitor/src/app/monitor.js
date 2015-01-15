@@ -163,7 +163,10 @@ Monitor.prototype._setSquads = function(){
 };
 
 Monitor.prototype._checkServerStatus = function() {
-  var server = this._webAppClient.getCollection('servers').pop();
+  var collection = this._webAppClient.getCollection('servers');
+  var server = collection[Object.keys(collection).pop()];
+  console.log(server);
+
   if (this._nextStatus !== this._currentStatus) {
     this._nextStatus = server.nextStatus;
   }

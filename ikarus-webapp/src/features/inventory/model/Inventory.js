@@ -9,6 +9,10 @@ Inventory = function Inventory(args){
   this.type = 'Inventory';
 }
 
+Inventory.prototype.isLocked = function(){
+  return false;
+};
+
 Inventory.prototype.getOrphanedMagazines = function(){
   return this.items.filter(function(item){
     if (! item.isMagazine())
@@ -35,23 +39,14 @@ Inventory.createForCompany = function(company) {
   return Inventory.getById(id);
 };
 
-Inventory.createForSquadOnServer = function(squad, server) {
+Inventory.createForSquad = function(squad) {
   var id = collections.InventoryCollection.insert(
     new InventorySquad({
-      squadId: squad._id,
-      serverId: server._id
+      squadId: squad._id
     }).serialize()
   );
 
   return Inventory.getById(id);
-};
-
-Inventory.lockByServer = function(server){
-  collections.InventoryCollection.update(
-    {serverId: server._id},
-    {$set: {locked: true}},
-    {multi: true}
-  );
 };
 
 Inventory.getById = function(id){
@@ -108,7 +103,7 @@ Inventory.prototype.getByArmaClass = function(armaClass){
 
 Inventory.moveFromInventory = function(from, to, armaClass){
   var item = from.getByArmaClass(armaClass);
-  if (!item || from.locked || to.locked) {
+  if (!item || from.isLocked() || to.isLocked()) {
     return;
   }
 
@@ -117,7 +112,7 @@ Inventory.moveFromInventory = function(from, to, armaClass){
 
 Inventory.removeFromInventory = function(inventory, item){
 
-  if (inventory.locked) {
+  if (inventory.isLocked()) {
     return 0;
   }
 
@@ -150,7 +145,7 @@ Inventory.removeFromInventory = function(inventory, item){
 
 Inventory.addToInventory = function(inventory, item){
 
-  if (inventory.locked) {
+  if (inventory.isLocked()) {
     return 0;
   }
 
@@ -189,3 +184,7 @@ Inventory.prototype.serialize = function(){
     items: itemsByTypes
   };
 };
+
+Inventory.prototype.getDoc = function() {
+  return collections.InventoryCollection.findOne({ _id: this._id });
+}

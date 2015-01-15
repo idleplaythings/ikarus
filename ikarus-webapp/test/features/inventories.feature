@@ -5,10 +5,10 @@ Feature: Inventories
 
   Scenario: Asserting items in armory and inventory
     Given player "John Doe" with Steam ID "123" exists
-    And server "test-server" is registered
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
-    And "John Doe" connects to server "test-server"
+    And I am logged in as "John Doe"
+    And I create a squad
     When "Manatee-Men" has "1" "CUP_arifle_AK74" in armory
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
     Then "Manatee-Men" should have "1" "CUP_arifle_AK74" in armory
@@ -16,10 +16,10 @@ Feature: Inventories
 
   Scenario: Moving item from company armory to player inventory
     Given player "John Doe" with Steam ID "123" exists
-    And server "test-server" is registered
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
-    And "John Doe" connects to server "test-server"
+    And I am logged in as "John Doe"
+    And I create a squad
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
     And I am logged in as "John Doe"
     When I add "CUP_arifle_AK74" to my inventory
@@ -28,10 +28,10 @@ Feature: Inventories
 
   Scenario: Returning item from player inventory to company armory
     Given player "John Doe" with Steam ID "123" exists
-    And server "test-server" is registered
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
-    And "John Doe" connects to server "test-server"
+    And I am logged in as "John Doe"
+    And I create a squad
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
     And I am logged in as "John Doe"
@@ -41,10 +41,10 @@ Feature: Inventories
 
   Scenario: Returning orphaned magazines to armory when weapon is removed
     Given player "John Doe" with Steam ID "123" exists
-    And server "test-server" is registered
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
-    And "John Doe" connects to server "test-server"
+    And I am logged in as "John Doe"
+    And I create a squad
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
     And "John Doe" has "5" "CUP_30Rnd_545x39_AK_M" in his inventory
@@ -57,10 +57,10 @@ Feature: Inventories
 
   Scenario: Magazines fitting multiple weapons should only be orphan when all weapons are removed
     Given player "John Doe" with Steam ID "123" exists
-    And server "test-server" is registered
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
-    And "John Doe" connects to server "test-server"
+    And I am logged in as "John Doe"
+    And I create a squad
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
     And "John Doe" has "1" "CUP_arifle_AK107" in his inventory
@@ -72,35 +72,43 @@ Feature: Inventories
     Then "John Doe" should have "0" "CUP_arifle_AK74" in his inventory
     Then "John Doe" should have "5" "CUP_30Rnd_545x39_AK_M" in his inventory
 
-  Scenario: Players disconnecting before server is locked will get the loot back
+  Scenario: Squads disbanding before being locked get loot back
     Given player "John Doe" with Steam ID "123" exists
-    And player "Jane Doe" with Steam ID "124" exists
     And server "test-server" is registered
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
-    And "John Doe" connects to server "test-server"
-    And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
+    And I am logged in as "John Doe"
+    And I create a squad
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
-    When "John Doe" disconnects from server "test-server"
+    And I enter my squad to the queue
+    And Squad that has player "John Doe" should be on queue for server "test-server" at index "0"
+    And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
+    When I leave my squad
+    Then there should not be squads queuing on server "test-server"
     Then "Manatee-Men" should have "6" "CUP_arifle_AK74" in armory
     Then no squad inventories should exists
+    Then no squads should exist
 
-  Scenario: Players disconnecting after server is locked will NOT get the loot back
+  Scenario: Players disconnecting after squad is locked will NOT get the loot back
     Given player "John Doe" with Steam ID "123" exists
-    And player "Jane Doe" with Steam ID "124" exists
     And server "test-server" is registered
     And server "test-server" has status "waiting"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
-    And "John Doe" connects to server "test-server"
-    And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
+    And I am logged in as "John Doe"
+    And I create a squad
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
-    And server "test-server" is locked
-    When "John Doe" disconnects from server "test-server"
-    And server "test-server" has status "idle"
+    And I enter my squad to the queue
+    And Squad that has player "John Doe" should be playing on server "test-server"
+    And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
+    When I leave my squad
+    Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
+    Then player "John Doe" should not have a squad
+    When server "test-server" has status "idle"
     Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
     Then no squad inventories should exists
+    Then no squads should exist
 
   Scenario: Cannot add, or remove stuff from locked inventory
     Given player "John Doe" with Steam ID "123" exists
@@ -109,11 +117,12 @@ Feature: Inventories
     And server "test-server" has status "waiting"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
-    And "John Doe" connects to server "test-server"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
+    And I enter my squad to the queue
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
     And "Manatee-Men" has "5" "CUP_arifle_AK107" in armory
-    And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
-    And server "test-server" is locked
     And I am logged in as "John Doe"
     When I remove "CUP_arifle_AK74" from my inventory
     And I add "CUP_arifle_AK107" to my inventory

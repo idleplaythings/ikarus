@@ -1,13 +1,24 @@
 Meteor.methods({
-  'lockSquads' : function(serverName) {
-    var server = Server.getByName(serverName);
+  'createSquad': function() {
+    dic.get('SquadController').createNewSquad();
+  },
 
-    if (! server) {
-      throw new Meteor.Error(404, 'Server not found');
-    }
+  'leaveSquad': function() {
+    dic.get('SquadController').leaveSquad();
+  },
 
-    Inventory.lockByServer(server);
-    Squad.getAllByServer(server).map(function(squad) { squad.lock(); });
+  'enterSquadQueue': function() {
+    dic.get('SquadController').enterSquadQueue();
+  },
+
+  'leaveSquadQueue': function() {
+    dic.get('SquadController').leaveSquadQueue();
+  },
+
+  'joinSquad': function(squadId) {
+    dic.get('SquadController').joinSquad(squadId);
   }
+
+
 
 });

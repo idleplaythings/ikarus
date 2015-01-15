@@ -9,3 +9,4 @@ iron:router
 accounts-ui
 mizzao:bootstrap-3
 jquery
+momentjs:moment

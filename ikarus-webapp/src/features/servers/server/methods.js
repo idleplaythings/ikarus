@@ -1,7 +1,7 @@
 Meteor.methods({
   'registerServer': function(name) {
     var server = Server.getByName(name);
-    console.log(name);
+
     if (!server) {
       Server.create(name);
     }
@@ -21,10 +21,10 @@ Meteor.methods({
 
       server.removePlayers();
       Squad.getAllByServer(server).forEach(function(squad) {
-        Inventory.returnItems(Company.getById(squad.getCompanyId()), squad);
         squad.remove();
-        Inventory.removeByServer(server);
       })
+
+      Inventory.removeByServer(server);
     }
 
     server.updateStatus(status);

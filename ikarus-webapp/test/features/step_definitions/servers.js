@@ -35,7 +35,17 @@ var serverStepDefinitions = function () {
       .finally(callback)
       .catch(this.handleError);
   });
+
+  this.Then(/^there should not be squads queuing on server "([^"]*)"$/, function (serverName, callback) {
+    assertHasEmptyQueue(this.app, serverName);
+    callback();
+  });
 };
+
+function assertHasEmptyQueue(app, serverName) {
+  var server = getServerByName(app, serverName);
+  assert(! server.queue || server.queue.length === 0);
+}
 
 function assertDoesNotHavePlayerWithSteamId(app, serverName, steamId) {
   var server = getServerByName(app, serverName);

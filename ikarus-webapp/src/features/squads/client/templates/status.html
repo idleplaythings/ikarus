@@ -6,6 +6,21 @@
         <div class="row">
           {{#with currentSquad}}
             <div class="col-md-4">
+              {{> squad_players}}
+            </div>
+            <div class="col-md-4">
+              SOMETHING
+            </div>
+            <div class="col-md-4">
+              QUEUE STATUS
+            </div>
+          {{/with}}
+
+        </div>
+
+        <div class="row">
+          {{#with currentSquad}}
+            <div class="col-md-4">
               {{> squad_objective}}
             </div>
             <div class="col-md-4">
@@ -22,7 +37,20 @@
         </div>
       </div>
     {{else}}
-      <p>You are not a member of a squad. Connect to a server to join a squad.</p>
+      {{#if currentUser}}
+        {{#if companyHasSquad}}
+          <button class="joinSquad">JOIN SQUAD</button>
+        {{else}}
+          <button class="createSquad">CREATE SQUAD</button>
+        {{/if}}
+      {{/if}}
     {{/if}}
   </div>
+</template>
+
+<template name="squad_players">
+  <h3>Players</h3>
+  {{#each getPlayers}}
+    <h4>{{> players_avatar this}}{{> players_name this}}</h4>
+  {{/each}}
 </template>

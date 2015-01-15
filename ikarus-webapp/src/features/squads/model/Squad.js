@@ -4,6 +4,12 @@ Squad = function Squad(args) {
   this._id = args._id;
 }
 
+Squad.prototype.getPlayers = function() {
+  var players = this.getSteamIds().map(Player.getById);
+  console.log(players);
+  return players;
+};
+
 Squad.prototype.addPlayer = function(player) {
   collections.SquadCollection.update({
     _id: this._id
@@ -60,6 +66,12 @@ Squad.prototype.getServerId = function() {
   return get(this.getDoc(), 'serverId');
 }
 
+Squad.prototype.getServer = function() {
+  var serverId = this.getServerId();
+  return Server.getById(serverId);
+}
+
+
 Squad.prototype.setServerId = function(serverId) {
   collections.SquadCollection.update({
     _id: this._id
@@ -101,25 +113,23 @@ Squad.prototype.getSteamIds = function() {
 }
 
 Squad.prototype.isLocked = function() {
-  return get(this.getDoc(), 'locked') || false;
+  var server = this.getServer();
+  return server && (server.isPlaying() || server.isWaiting());
 }
 
-Squad.prototype.setLocked = function(locked) {
+
+Squad.prototype.startQueuing = function() {
   collections.SquadCollection.update({
     _id: this._id
   }, {
     $set: {
-      locked: Boolean(locked)
+      queuing: true
     }
   });
 }
 
-Squad.prototype.lock = function() {
-  this.setLocked(true);
-}
-
-Squad.prototype.unlock = function() {
-  this.setLocked(false);
+Squad.prototype.getInventory = function() {
+  return Inventory.getBySquad(this);
 }
 
 Squad.prototype.isEmpty = function() {
@@ -140,12 +150,47 @@ Squad.prototype.setObjectives = function(objectives) {
   });
 }
 
+Squad.prototype.getConnectionDeadline = function() {
+  var time = get(this.getDoc(), 'connectionDeadline') || null;
+  return time ? moment(time) : null;
+}
+
+Squad.prototype.setConnectionDeadline = function(time) {
+  time = time ? time.toString() : time;
+  collections.SquadCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      connectionDeadline: time
+    }
+  });
+}
+
+Squad.prototype.isOnDeadline = function(time) {
+  var time = this.getConnectionDeadline();
+  return time ? this.getConnectionDeadline().isAfter(moment()) : false;
+}
+
 Squad.prototype.getDoc = function() {
   return collections.SquadCollection.findOne({ _id: this._id });
 }
 
 Squad.prototype.remove = function() {
   collections.SquadCollection.remove({ _id: this._id });
+}
+
+Squad.getAll = function(company) {
+  return collections.SquadCollection.find().fetch().map(Squad.fromDoc);
+}
+
+Squad.getAllOnDeadline = function(company) {
+  return collections.SquadCollection.find({connectionDeadline:{$ne:null}})
+    .fetch().map(Squad.fromDoc);
+}
+
+Squad.getByCompany = function(company) {
+  return collections.SquadCollection.find({companyId: company._id})
+    .fetch().map(Squad.fromDoc);
 }
 
 Squad.create = function() {

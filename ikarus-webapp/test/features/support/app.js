@@ -199,6 +199,48 @@ App.prototype.callLockServer = function (serverName) {
   }.bind(this)
 };
 
+App.prototype.callCreateSquad = function () {
+  return function() {
+    return this.callMethod('createSquad', []);
+  }.bind(this)
+};
+
+App.prototype.callLeaveSquad = function () {
+  return function() {
+    return this.callMethod('leaveSquad', []);
+  }.bind(this)
+};
+
+App.prototype.callEnterSquadQueue = function () {
+  return function() {
+    return this.callMethod('enterSquadQueue', []);
+  }.bind(this)
+};
+
+App.prototype.callLeaveSquadQueue = function () {
+  return function() {
+    return this.callMethod('leaveSquadQueue', []);
+  }.bind(this)
+};
+
+App.prototype.callJoinSquad = function (squadId) {
+  return function() {
+    return this.callMethod('joinSquad', [squadId]);
+  }.bind(this)
+};
+
+App.prototype.callTestingElapseSquadTimeout = function (squadId) {
+  return function() {
+    return this.callMethod('testingElapseSquadTimeout', [squadId]);
+  }.bind(this)
+};
+
+App.prototype.callTestingCheckSquadDeadlines = function () {
+  return function() {
+    return this.callMethod('testingCheckSquadDeadlines', []);
+  }.bind(this)
+};
+
 function handleMeteorMethodError(error) {
   if (error) {
     util.error('Error in Meteor method: ' + error.message);

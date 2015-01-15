@@ -169,8 +169,8 @@ Monitor.prototype._checkServerStatus = function() {
   console.log(server);
 
   if (this._nextStatus !== this._currentStatus) {
-    console.log(this._nextStatus);
     this._nextStatus = server.nextStatus;
+    console.log(this._nextStatus);
   }
 
   if (this._currentStatus == Monitor.STATUS_IDLE && this._nextStatus === Monitor.STATUS_WAITING) {
@@ -265,6 +265,7 @@ var shouldStartGame = function(test) {
     this._webAppClient.reportStatusPlaying(this._config.arma.serverId);
   }
 
+  console.log('should start?', this._nextStatus, start);
   return start;
 };
 

@@ -169,6 +169,7 @@ Monitor.prototype._checkServerStatus = function() {
   console.log(server);
 
   if (this._nextStatus !== this._currentStatus) {
+    console.log(this._nextStatus);
     this._nextStatus = server.nextStatus;
   }
 

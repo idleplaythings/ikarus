@@ -7,7 +7,16 @@ function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient) {
   this._webAppClient = webAppClient;
   this._battlEyeClient = battlEyeClient;
   this._armaServerProcess = null;
+
+  this._connectedSteamIds = [];
+  this._currentStatus = Monitor.STATUS_DOWN;
+  this._nextStatus = null;
 }
+
+Monitor.STATUS_IDLE = 'idle';
+Monitor.STATUS_PLAYING = 'playing';
+Monitor.STATUS_WAITING = 'waiting';
+Monitor.STATUS_DOWN = 'down';
 
 Monitor.prototype.start = function() {
 
@@ -22,7 +31,6 @@ Monitor.prototype.start = function() {
   });
 
   try {
-    this._startArma();
     this._registerRpcCallbacks();
     this._startRpcServer();
     this._connectToWebApp();
@@ -74,14 +82,12 @@ Monitor.prototype._startArma = function(){
 Monitor.prototype._registerRpcCallbacks = function() {
   this._registerRpcCallback('squadsRetrieve', squadsRetrieve);
   this._registerRpcCallback('squadSubmit', squadSubmit);
-  this._registerRpcCallback('gameWaiting', gameWaiting);
-  this._registerRpcCallback('gameStart', gameStart);
   this._registerRpcCallback('gameEnd', gameEnd);
   this._registerRpcCallback('playerConnected', playerConnected);
   this._registerRpcCallback('playerKilled', playerKilled);
   this._registerRpcCallback('playerUnknown', playerUnknown);
   this._registerRpcCallback('playerDisconnected', playerDisconnected);
-  this._registerRpcCallback('lockSquads', lockSquads);
+  this._registerRpcCallback('shouldStartGame', shouldStartGame);
 };
 
 Monitor.prototype._registerRpcCallback = function(name, callback) {
@@ -132,10 +138,15 @@ Monitor.prototype._initDdpObservers = function() {
   squadObserver.changed = this._setSquads.bind(this);
   squadObserver.removed = this._setSquads.bind(this);
 
-  var memberObserver = this._webAppClient.getObserver('inventories');
-  memberObserver.added = this._setSquads.bind(this);
-  memberObserver.changed = this._setSquads.bind(this);
-  memberObserver.removed = this._setSquads.bind(this);
+  var inventoryObserver = this._webAppClient.getObserver('inventories');
+  inventoryObserver.added = this._setSquads.bind(this);
+  inventoryObserver.changed = this._setSquads.bind(this);
+  inventoryObserver.removed = this._setSquads.bind(this);
+
+  var serverObserver = this._webAppClient.getObserver('servers');
+  serverObserver.added = this._checkServerStatus.bind(this);
+  serverObserver.changed = this._checkServerStatus.bind(this);
+  serverObserver.removed = this._checkServerStatus.bind(this);
 };
 
 Monitor.prototype._setSquads = function(){
@@ -143,6 +154,26 @@ Monitor.prototype._setSquads = function(){
     this._webAppClient.getCollection('squads'),
     this._webAppClient.getCollection('inventories')
   );
+
+  this._connectedSteamIds.forEach(function(uid) {
+    if (! this._gameData.recognizeUid(uid)) {
+      this._battlEyeClient.kickPlayer(uid);
+    }
+  }, this);
+};
+
+Monitor.prototype._checkServerStatus = function() {
+  var server = this._webAppClient.getCollection('servers').pop();
+  if (this._nextStatus !== this._currentStatus) {
+    this._nextStatus = server.nextStatus;
+  }
+
+  if (this._currentStatus == Monitor.STATUS_IDLE && this._nextStatus === Monitor.STATUS_WAITING) {
+    this._startArma();
+    this._webAppClient.reportStatusWaiting();
+    this._currentStatus = Monitor.STATUS_WAITING;
+    this._nextStatus = null;
+  }
 };
 
 var squadsRetrieve = function(test) {
@@ -157,17 +188,8 @@ var squadSubmit = function(squadId, loot) {
   );
 };
 
-var gameWaiting = function() {
-  this._webAppClient.reportStatusWaiting(this._config.arma.serverId);
-};
-
-var gameStart = function() {
-  this._battlEyeClient.lockServer();
-  this._webAppClient.reportStatusPlaying(this._config.arma.serverId);
-};
-
 var gameEnd = function() {
-  this._webAppClient.reportStatusIdle(this._config.arma.serverId);
+  this._webAppClient.reportStatusDown(this._config.arma.serverId);
   this._webAppClient.getReadyPromise().then(function(){
 
     this._battlEyeClient.shutDownServer().then(function(){
@@ -179,11 +201,27 @@ var gameEnd = function() {
 };
 
 var playerConnected = function(uid) {
+
+  if (! this._gameData.recognizeUid(uid)) {
+    this._battlEyeClient.kickPlayer(uid);
+    return;
+  }
+
+  if (this._connectedSteamIds.indexOf(uid) === -1) {
+    this._connectedSteamIds.push();
+  }
+
   this._gameData.playerConnected(uid);
   this._webAppClient.reportPlayerConnected(this._config.arma.serverId, uid);
+
+
 };
 
 var playerKilled = function(uid) {
+  this._connectedSteamIds = this._connectedSteamIds.filter(function(connectedUid) {
+    return connectedUid != uid;
+  });
+
   this._battlEyeClient.kickPlayer(uid);
   this._gameData.playerKilled(uid);
   this._gameData.playerDisconnected(uid);
@@ -191,18 +229,34 @@ var playerKilled = function(uid) {
 };
 
 var playerUnknown = function(uid) {
+  this._connectedSteamIds = this._connectedSteamIds.filter(function(connectedUid) {
+    return connectedUid != uid;
+  });
+
   this._battlEyeClient.kickPlayer(uid);
   this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 
 var playerDisconnected = function(uid) {
+
+  this._connectedSteamIds = this._connectedSteamIds.filter(function(connectedUid) {
+    return connectedUid != uid;
+  });
+
   this._battlEyeClient.kickPlayer(uid);
   this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 
-var lockSquads = function() {
-  this._gameData.lock();
-  this._webAppClient.reportLockSquads(this._config.arma.serverId);
+var shouldStartGame = function() {
+  var start = this._nextStatus == Monitor.STATUS_PLAYING;
+
+  if (start) {
+    this._battlEyeClient.lockServer();
+    this._currentStatus = Monitor.STATUS_PLAYING;
+    this._webAppClient.reportStatusPlaying(this._config.arma.serverId);
+  }
+
+  return start;
 };
 
 module.exports = Monitor;

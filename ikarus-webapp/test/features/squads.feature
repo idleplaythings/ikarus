@@ -201,3 +201,60 @@ Feature: Squads
     When server "test-server" has status "idle"
     Then no squad inventories should exists
     Then no squads should exist
+
+  Scenario: Server coming up and letting squads from the queque to the server
+    Given player "John Doe" with Steam ID "123" exists
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And server "test-server" is registered
+    And server "test-server" has status "idle"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    And Squad that has player "John Doe" should be on queue for server "test-server" at index "0"
+    When server "test-server" has status "waiting"
+    Then Squad that has player "John Doe" should be playing on server "test-server"
+
+  Scenario: Enough squads on a server to start waiting
+    Given player "John Doe" with Steam ID "123" exists
+    Given player "Jane Doe" with Steam ID "321" exists
+    And company "Manatee-Men" exists
+    And company "Manatee-WOMEN" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "Jane Doe" is a member of company "Manatee-WOMEN"
+    And server "test-server" is registered
+    And server "test-server" has status "idle"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    And I am logged in as "Jane Doe"
+    And I create a squad
+    When I enter my squad to the queue
+    Then next status for server "test-server" should be "waiting"
+
+  Scenario: Enough squads on a server to start a game
+    Given player "John Doe" with Steam ID "123" exists
+    Given player "Jane Doe" with Steam ID "321" exists
+    And company "Manatee-Men" exists
+    And company "Manatee-WOMEN" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "Jane Doe" is a member of company "Manatee-WOMEN"
+    And server "test-server" is registered
+    And server "test-server" has status "idle"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    And I am logged in as "Jane Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    And server "test-server" has status "waiting"
+    And "John Doe" connects to server "test-server"
+    And "Jane Doe" connects to server "test-server"
+    When servers have been checked for game start
+    Then Squad that has player "John Doe" should be playing on server "test-server"
+    Then Squad that has player "Jane Doe" should be playing on server "test-server"
+    Then next status for server "test-server" should be "playing"
+
+
+
+

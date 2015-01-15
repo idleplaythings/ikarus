@@ -241,6 +241,12 @@ App.prototype.callTestingCheckSquadDeadlines = function () {
   }.bind(this)
 };
 
+App.prototype.callTestingCheckServerForGameStart = function () {
+  return function() {
+    return this.callMethod('testingCheckServerForGameStart', []);
+  }.bind(this)
+};
+
 function handleMeteorMethodError(error) {
   if (error) {
     util.error('Error in Meteor method: ' + error.message);

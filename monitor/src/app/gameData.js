@@ -72,6 +72,12 @@ module.exports = function(armaSerializer){
     console.log(this.getSquadData());
   };
 
+  GameData.prototype.recognizeUid = function(uid) {
+    return Boolean(this._squads.filter(function(squad){
+      return squad.steamIds.indexOf(uid) !== -1;
+    }).pop());
+  };
+
   GameData.prototype.lock = function(){
     this._locked = true;
   };

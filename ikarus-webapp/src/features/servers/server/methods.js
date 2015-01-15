@@ -28,5 +28,6 @@ Meteor.methods({
     }
 
     server.updateStatus(status);
+    dic.get('ServerQueueService').serverStatusChanged(server);
   }
 });

@@ -40,7 +40,23 @@ var serverStepDefinitions = function () {
     assertHasEmptyQueue(this.app, serverName);
     callback();
   });
+
+  this.Then(/^next status for server "([^"]*)" should be "([^"]*)"$/, function (serverName, status, callback) {
+    assertNextStatusIs(this.app, serverName, status);
+    callback();
+  });
+
+  this.When(/^servers have been checked for game start$/, function (callback) {
+    this.app.callTestingCheckServerForGameStart()()
+      .finally(callback)
+      .catch(this.handleError);
+  });
 };
+
+function assertNextStatusIs(app, serverName, status) {
+  var server = getServerByName(app, serverName);
+  assert(server.nextStatus == status);
+}
 
 function assertHasEmptyQueue(app, serverName) {
   var server = getServerByName(app, serverName);

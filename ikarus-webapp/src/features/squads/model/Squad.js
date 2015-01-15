@@ -6,7 +6,6 @@ Squad = function Squad(args) {
 
 Squad.prototype.getPlayers = function() {
   var players = this.getSteamIds().map(Player.getById);
-  console.log(players);
   return players;
 };
 

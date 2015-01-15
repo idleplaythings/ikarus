@@ -34,6 +34,10 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
 
   Meteor.methods({
 
+    testingCheckServerForGameStart: function() {
+      dic.get('ServerQueueService').checkServerIsReadyToStart();
+    },
+
     testingCheckSquadDeadlines: function() {
       dic.get('ServerQueueService').checkSquadDeadlines();
     },

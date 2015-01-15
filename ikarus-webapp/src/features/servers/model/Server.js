@@ -3,6 +3,7 @@ Server = function Server(args) {
   this.name = args.name;
   this.status = args.status || Server.STATUS_DOWN;
   this.playerIds = args.playerIds || [];
+  this.nextStatus = args.nextStatus;
 }
 
 Server.STATUS_IDLE = 'idle';
@@ -40,6 +41,28 @@ Server.prototype.setName = function(name) {
   });
 }
 
+Server.prototype.getNextStatus = function() {
+  return get(this.getDoc(), 'nextStatus');
+}
+
+Server.prototype.updateNextStatus = function(status) {
+  if (status !== Server.STATUS_IDLE &&
+    status !== Server.STATUS_DOWN &&
+    status !== Server.STATUS_WAITING &&
+    status !== Server.STATUS_PLAYING &&
+    status !== null){
+    throw new Error("Unknown server next status: '" + status + "'" );
+  }
+
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      nextStatus: status
+    }
+  });
+}
+
 Server.prototype.getStatus = function() {
   return get(this.getDoc(), 'status');
 }
@@ -59,6 +82,10 @@ Server.prototype.updateStatus = function(status) {
       status: status
     }
   });
+
+  if (this.getNextStatus() == status) {
+    this.updateNextStatus(null);
+  }
 }
 
 Server.prototype.getSquadsInGame = function() {
@@ -97,16 +124,16 @@ Server.prototype.removeSquadFromQueue = function(squad) {
 };
 
 Server.prototype.shiftFromQueue = function() {
-  var id = this.getQueue().shift();
+  var squad = this.getQueue().shift();
   collections.ServerCollection.update({
     _id: this._id
   }, {
     $pull: {
-      queue: id
+      queue: squad._id
     }
   });
 
-  return Squad.getById(id);
+  return squad;
 }
 
 Server.prototype.getQueue = function() {
@@ -197,8 +224,16 @@ Server.getAll = function() {
   return collections.ServerCollection.find().fetch().map(Server.fromDoc);
 };
 
+Server.getAllWaiting = function() {
+  return collections.ServerCollection.find({status: Server.STATUS_WAITING}).fetch().map(Server.fromDoc);
+};
+
 Server.getByQueuingSquad = function(squad) {
   return Server.fromDoc(collections.ServerCollection.findOne({ queue: {$in: [squad._id]} }));
+};
+
+Server.getByInGameSquad = function(squad) {
+  return Server.fromDoc(collections.ServerCollection.findOne({ inGame: {$in: [squad._id]} }));
 };
 
 Server.getById = function(id) {

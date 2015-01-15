@@ -4,10 +4,10 @@ Meteor.startup(function(){
   }
 });
 
-var loopDelay = 1000;
-
 ServerQueueService = function ServerQueueService(){
   this._started = false;
+  this._loopDelay = 1000;
+  this._minSquadsToStart = 1;
 }
 
 ServerQueueService.prototype.start = function() {
@@ -21,8 +21,26 @@ ServerQueueService.prototype.start = function() {
 ServerQueueService.prototype.loop = function() {
 
   this.checkSquadDeadlines();
+  this.checkServerIsReadyToStart();
 
-  Meteor.setTimeout(this.loop.bind(this), loopDelay);
+  Meteor.setTimeout(this.loop.bind(this), this._loopDelay);
+};
+
+ServerQueueService.prototype.checkServerIsReadyToStart = function () {
+  Server.getAllWaiting().forEach(function(server){
+    var readyToStart = server.getSquadsInGame().every(function(squad) {
+      var steamIdsOnSquad = squad.getSteamIds();
+      var steamIdsOnServer = server.getPlayerIds();
+
+      return steamIdsOnSquad.every(function(steamId) {
+        return steamIdsOnServer.indexOf(steamId) !== -1;
+      });
+    })
+
+    if (readyToStart) {
+      server.updateNextStatus(Server.STATUS_PLAYING)
+    }
+  });
 };
 
 ServerQueueService.prototype.checkSquadDeadlines = function () {
@@ -47,12 +65,30 @@ ServerQueueService.prototype.checkSquadDeadlines = function () {
   });
 };
 
+ServerQueueService.prototype.serverStatusChanged = function(server) {
+  if(server.isIdle()) {
+    if (server.getQueue().length > 0) {
+      server.updateNextStatus(Server.STATUS_WAITING);
+    }
+  }
+
+  if (server.isWaiting()){
+    while(server.getQueue().length > 0) {
+      var squad = server.shiftFromQueue();
+      this._addSquadToGame(squad, server);
+    }
+  }
+};
+
 ServerQueueService.prototype.enterQueue = function(squad) {
   var server = this._findServerForSquad(squad);
   if (server.isWaiting()) {
     this._addSquadToGame(squad, server);
   } else {
     server.addToQueue(squad);
+    if (server.isIdle() && server.getQueue().length >= this._minSquadsToStart) {
+      server.updateNextStatus(Server.STATUS_WAITING);
+    }
   }
 };
 

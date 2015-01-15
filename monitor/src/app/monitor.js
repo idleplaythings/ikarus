@@ -250,7 +250,11 @@ var playerDisconnected = function(uid) {
   this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 
-var shouldStartGame = function() {
+var shouldStartGame = function(test) {
+  if (test) {
+    return true;
+  }
+
   var start = this._nextStatus == Monitor.STATUS_PLAYING;
 
   if (start) {

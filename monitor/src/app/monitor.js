@@ -166,11 +166,12 @@ Monitor.prototype._setSquads = function(){
 Monitor.prototype._checkServerStatus = function() {
   var collection = this._webAppClient.getCollection('servers');
   var server = collection[Object.keys(collection).pop()];
+  var nextStatus = server.nextStatus;
   console.log(server);
 
-  console.log("statuses", this._nextStatus, this._currentStatus);
-  if (this._nextStatus !== this._currentStatus) {
-    this._nextStatus = server.nextStatus;
+  console.log("statuses", nextStatus, this._currentStatus);
+  if (nextStatus !== this._currentStatus) {
+    this._nextStatus = nextStatus;
     console.log("set new nextstatus", this._nextStatus);
   }
 

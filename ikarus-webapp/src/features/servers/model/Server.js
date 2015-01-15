@@ -83,7 +83,7 @@ Server.prototype.updateStatus = function(status) {
     }
   });
 
-  if (status == Server.STATUS_IDLE || this.getNextStatus() == status) {
+  if (status == Server.STATUS_IDLE || status == Server.STATUS_DOWN || this.getNextStatus() == status) {
     this.updateNextStatus(null);
   }
 }

@@ -16,7 +16,7 @@ Meteor.methods({
 
     console.log("update server status",name,  status);
 
-    if (status == Server.STATUS_IDLE){
+    if (status == Server.STATUS_IDLE || status == Server.STATUS_DOWN){
       var players = Player.getAllByIds(server.playerIds);
 
       server.removePlayers();

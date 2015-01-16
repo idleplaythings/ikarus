@@ -170,12 +170,15 @@ Monitor.prototype._checkServerStatus = function() {
 
   console.log("statuses", nextStatus, this._status);
   if (nextStatus !== this._status) {
-    console.log("set new nextstatus", nextstatus);
-    this._changeStatus(nextstatus);
+    console.log("set new nextstatus", nextStatus);
+    this._changeStatus(nextStatus);
   }
 };
 
 Monitor.prototype._changeStatus = function(status) {
+
+  this._status = status;
+
   if (status == Monitor.STATUS_PLAYING) {
     this._battlEyeClient.lockServer();
     this._gameData.lock();
@@ -186,7 +189,13 @@ Monitor.prototype._changeStatus = function(status) {
     this._webAppClient.reportStatusWaiting(this._config.arma.serverId);
   }
 
-  this._status = status;
+  if (status == Monitor.STATUS_IDLE) {
+    if (this._armaServerProcess){
+      this._armaServerProcess.kill();
+    }
+    this._webAppClient.reportStatusIdle(this._config.arma.serverId);
+  }
+
 };
 
 var squadsRetrieve = function(test) {

@@ -33,6 +33,27 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
   });
 
   Meteor.methods({
+
+    testingCheckServerForGameStart: function() {
+      dic.get('ServerQueueService').checkServerIsReadyToStart();
+    },
+
+    testingCheckSquadDeadlines: function() {
+      dic.get('ServerQueueService').checkSquadDeadlines();
+    },
+
+    testingElapseSquadTimeout : function (squadId) {
+      var time = new moment(0).toString();
+      collections.SquadCollection.update(
+        {
+          _id: squadId
+        },
+        {
+          $set: {connectionDeadline: time}
+        }
+      )
+    },
+
     testing_addToArmory: function(companyId, amount, armaclass){
       var set = {};
       set["items."+armaclass] = parseInt(amount, 10);

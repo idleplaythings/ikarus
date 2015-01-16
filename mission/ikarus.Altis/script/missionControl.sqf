@@ -22,25 +22,26 @@ missionControl_getElapsedTime = {
 
 
 missionControl_startWhenReady = {
-  ['gameWaiting'] call sock_rpc;
-  [] call missionControl_pollSquadDataFromServer;
+  call missionControl_pollReadyToStartFromMonitor;
 };
 
-missionControl_pollSquadDataFromServer = {
+missionControl_pollReadyToStartFromMonitor = {
   _this spawn {
-    private["_squads"];
-
+    private ["_start"];
+    
     while { ! missionControl_gameStarted } do {
   
-      _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
+      _start = ['shouldStartGame', [missionControl_test]] call sock_rpc;
+     
+      if (isNil {_start}) then {
+        _start = false;
+      };
+     
+      if (_start) exitWith {
+        call missionControl_startGame;
+      };
       
       sleep 1;
-      
-      if (isNil {_squads}) exitWith {};
-  
-      [_squads] call setSquadData;
-      call missionControl_startGameIfReady;
-      
     }
   }
 };
@@ -64,34 +65,9 @@ missionControl_pollGameEnd = {
   }
 };
 
-missionControl_startGameIfReady = {
-  if (call missionControl_checkSquadsWithPlayers) then {
-    if (missionControl_timeWaitingStarted == 0) then {
-      missionControl_timeWaitingStarted = time;
-      
-      ["MINIMUM AMOUNT OF SQUADS PRESENT. WAITING 3 MINS FOR ADDITIONAL PLAYERS"] call broadcastMessage;
-      
-    } else {
-      if ((time - missionControl_timeWaitingStarted) >= missionControl_waitingTimeSeconds) then {
-         call missionControl_startGame;
-      };
-    }
-  } else {
-    call missionControl_message;
-  };
-};
-
-missionControl_checkSquadsWithPlayers = {
-  private ["_squads"];
-  _squads = call getSquadsWithPlayers;
-
-  count _squads >= missionControl_minSquads;
-};
-
 missionControl_startGame = {
   private ["_squads"];
-  ['gameStart'] call sock_rpc;
-  
+ 
   call missionControl_displayGameStart;
   
   _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
@@ -137,26 +113,7 @@ missionControl_endGame = {
 };
 
 missionControl_displayGameStart = {
-  private ["_players"];
-  _players = call getAllPlayers;
-  
-  
-  ["GAME STARTING IN 60 SECONDS. SERVER IS NOW LOCKED!"] call broadcastMessage;
-   
-  sleep 20;
-  
-  ["GAME STARTING IN 40 SECONDS"] call broadcastMessage;
-
-  sleep 20;
-
-  ["GAME STARTING IN 20 SECONDS"] call broadcastMessage;
-  
-  sleep 10;
-  
-  ['lockSquads'] call sock_rpc;
-  ["GAME STARTING IN 10 SECONDS! INVENTORIES ARE NOW LOCKED!"] call broadcastMessage;
-  
-  sleep 10;
+  ["GAME STARTING NOW!"] call broadcastMessage;
 };
 
 call missionControl_startWhenReady;

@@ -6,6 +6,21 @@
         <div class="row">
           {{#with currentSquad}}
             <div class="col-md-4">
+              {{> squad_players}}
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+              {{> squad_queue_status}}
+            </div>
+          {{/with}}
+
+        </div>
+
+        <div class="row">
+          {{#with currentSquad}}
+            <div class="col-md-4">
               {{> squad_objective}}
             </div>
             <div class="col-md-4">
@@ -22,7 +37,50 @@
         </div>
       </div>
     {{else}}
-      <p>You are not a member of a squad. Connect to a server to join a squad.</p>
+      {{#if currentUser}}
+        {{#each joinableSquads}}
+          <button class="joinSquad" data-squadId={{_id}}>JOIN {{getName}} SQUAD</button>
+        {{/each}}
+
+        <button class="createSquad">CREATE SQUAD</button>
+      {{/if}}
     {{/if}}
   </div>
 </template>
+
+<template name="squad_players">
+  <h3>Players</h3>
+  {{#each getPlayers}}
+    <h4>{{> players_avatar this}}{{> players_name this}}
+    <button class="leaveSquad">Leave</button></h4>
+  {{/each}}
+</template>
+
+<template name="squad_queue_status">
+  <h3>Queue status</h3>
+  {{#if inQueueServer}}
+    <h1>Waiting for server</h1>
+    <button class="leaveQueue">Not ready</button>
+  {{/if}}
+
+  {{#if inGameServer}}
+    <h1>Please join server {{inGameServer.name}}</h1>
+  {{/if}}
+
+  {{#if notInQueueOrGame}}
+    <button class="joinQueue">Ready</button>
+  {{/if}}
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+

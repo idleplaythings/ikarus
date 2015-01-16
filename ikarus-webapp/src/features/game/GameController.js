@@ -1,8 +1,4 @@
-GameController = function GameController(
-  inventoryRepostiory
-){
-
-}
+GameController = function GameController(){}
 
 GameController.prototype.playerConnected = function(serverName, playerUid) {
   console.log("connect playerUid", playerUid);
@@ -10,7 +6,7 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
   var server = this._getServer(serverName);
 
   this._disconnectPlayerFromServers(player);
-  this._connectPlayerToServer(player, server);
+  return this._connectPlayerToServer(player, server);
 };
 
 GameController.prototype.playerDisconnected = function(serverName, playerUid) {
@@ -28,28 +24,21 @@ GameController.prototype._disconnectPlayerFromServers = function(player) {
 };
 
 GameController.prototype._connectPlayerToServer = function(player, server) {
-  var company = this._getCompany(player);
-  var squad = this._initOrGetSquad(server, company);
-  squad.addPlayer(player);
-  squad.evaluateObjective();
+  var squad = this._getSquad(player, server);
+  if (! squad) {
+    return false;
+  }
+
   server.addPlayer(player);
+  return true;
 };
 
 GameController.prototype._disconnectPlayerFromServer = function(player, server) {
-  var company = this._getCompany(player);
-  var squad = this._getSquad(server, company);
-
   server.removePlayer(player);
+  var squad = this._getSquad(player, server);
 
-  if (squad) {
+  if (squad && server.isPlaying()) {
     squad.removePlayer(player);
-    squad.evaluateObjective();
-  }
-
-  if (squad.isEmpty() && ! squad.isLocked()){
-    Inventory.returnItems(company, squad);
-    Inventory.removeBySquad(squad);
-    squad.remove();
   }
 };
 
@@ -65,18 +54,13 @@ GameController.prototype._getCompany = function(player) {
   return player.getCompany() || this._notFound('Company');
 };
 
-GameController.prototype._initOrGetSquad = function(server, company) {
-  return this._getSquad(server, company) || this._initSquad(server, company);
-};
+GameController.prototype._getSquad = function(player, server) {
+  var squad = Squad.getByPlayer(player);
+  if (! squad || squad.getServerId() !== server._id) {
+    return null;
+  }
 
-GameController.prototype._getSquad = function(server, company) {
-  return Squad.getAllByServer(server)
-    .filter(function(squad) {
-      return squad.getCompanyId() === company._id
-    })
-    .reduce(function(prev, current) {
-      return current ? current : prev;
-    }, null);
+  return squad;
 }
 
 GameController.prototype._initSquad = function(server, company) {

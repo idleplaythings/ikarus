@@ -1,7 +1,7 @@
 Meteor.methods({
   'registerServer': function(name) {
     var server = Server.getByName(name);
-    console.log(name);
+
     if (!server) {
       Server.create(name);
     }
@@ -16,17 +16,19 @@ Meteor.methods({
 
     console.log("update server status",name,  status);
 
-    if (status == Server.STATUS_IDLE){
+    if (status == Server.STATUS_IDLE || status == Server.STATUS_DOWN){
       var players = Player.getAllByIds(server.playerIds);
 
       server.removePlayers();
       Squad.getAllByServer(server).forEach(function(squad) {
-        Inventory.returnItems(Company.getById(squad.getCompanyId()), squad);
         squad.remove();
-        Inventory.removeByServer(server);
       })
+
+      Inventory.removeByServer(server);
+      server.removeAllSquadsFromGame();
     }
 
     server.updateStatus(status);
+    dic.get('ServerQueueService').serverStatusChanged(server);
   }
 });

@@ -24,6 +24,103 @@ var squadsStepDefinitions = function () {
     assertNoSquadsExists(this.app);
     callback();
   });
+
+  this.When(/^I create a squad$/, function (callback) {
+    this.app.callCreateSquad()()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.When(/^I join a same squad as "([^"]*)"$/, function (username, callback) {
+    var squadId = getSquadByUsername(this.app, username)._id;
+    this.app.callJoinSquad(squadId)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.Given(/^I leave my squad$/, function (callback) {
+    this.app.callLeaveSquad()()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.When(/^I enter my squad to the queue$/, function (callback) {
+    this.app.callEnterSquadQueue()()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.Then(/^I leave my squad from the queue$/, function (callback) {
+    this.app.callLeaveSquadQueue()()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.Then(/^Squad that has player "([^"]*)" should be on queue for server "([^"]*)" at index "([^"]*)"$/, function (username, serverName, index, callback) {
+    assertIsInQueue(this.app, username, serverName, index);
+    callback();
+  });
+
+  this.Then(/^Squad that has player "([^"]*)" should not be queuing on server "([^"]*)"$/, function (username, serverName, callback) {
+    assertIsNotInQueue(this.app, username, serverName);
+    callback();
+  });
+
+  this.Then(/^Squad that has player "([^"]*)" should be playing on server "([^"]*)"$/, function (username, serverName, callback) {
+    assertIsOnServer(this.app, username, serverName);
+    callback();
+  });
+
+  this.Then(/^Squad that has player "([^"]*)" should not be playing on server "([^"]*)"$/, function (username, serverName, callback) {
+    assertIsNotOnServer(this.app, username, serverName);
+    callback();
+  });
+
+  this.When(/^deadline for connecting to game on squad that has player "([^"]*)" has elapsed$/, function (username, callback) {
+    var squadId = getSquadByUsername(this.app, username)._id;
+
+    this.app.callTestingElapseSquadTimeout(squadId)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.When(/^squad deadlines are checked$/, function (callback) {
+    this.app.callTestingCheckSquadDeadlines()()
+      .finally(callback)
+      .catch(this.handleError)
+  });
+};
+
+function assertIsNotOnServer(app, username, serverName) {
+  var squad = getSquadByUsername(app, username);
+  var server = getServerByName(app, serverName);
+  var index = server.inGame ? server.inGame.indexOf(squad._id) : -1;
+
+  assert(index === -1);
+};
+
+function assertIsOnServer(app, username, serverName) {
+  var squad = getSquadByUsername(app, username);
+  var server = getServerByName(app, serverName);
+  var index = server.inGame.indexOf(squad._id);
+
+  assert(index !== -1);
+};
+
+function assertIsNotInQueue(app, username, serverName) {
+  var squad = getSquadByUsername(app, username);
+  var server = getServerByName(app, serverName);
+  var index = server.queue.indexOf(squad._id);
+
+  assert(index === -1);
+};
+
+function assertIsInQueue(app, username, serverName, index) {
+  var squad = getSquadByUsername(app, username);
+  var server = getServerByName(app, serverName);
+  var index = server.queue.indexOf(squad._id);
+
+  assert(index === index);
 };
 
 function assertNoSquadsExists(app) {
@@ -70,6 +167,12 @@ function getUser(app, username) {
 
 function getSteamId(user) {
   return user.services.steam.id;
+}
+
+function getServerByName(app, name) {
+  return app.findOneFrom('servers', function(server){
+    return server.name == name
+  });
 }
 
 module.exports = squadsStepDefinitions;

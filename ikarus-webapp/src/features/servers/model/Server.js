@@ -3,12 +3,29 @@ Server = function Server(args) {
   this.name = args.name;
   this.status = args.status || Server.STATUS_DOWN;
   this.playerIds = args.playerIds || [];
+  this.nextStatus = args.nextStatus;
 }
 
 Server.STATUS_IDLE = 'idle';
 Server.STATUS_PLAYING = 'playing';
 Server.STATUS_WAITING = 'waiting';
 Server.STATUS_DOWN = 'down';
+
+Server.prototype.isWaiting = function() {
+  return get(this.getDoc(), 'status') == Server.STATUS_WAITING;
+}
+
+Server.prototype.isIdle = function() {
+  return get(this.getDoc(), 'status') == Server.STATUS_IDLE;
+}
+
+Server.prototype.isDown = function() {
+  return get(this.getDoc(), 'status') == Server.STATUS_DOWN;
+}
+
+Server.prototype.isPlaying = function() {
+  return get(this.getDoc(), 'status') == Server.STATUS_PLAYING;
+}
 
 Server.prototype.getName = function() {
   return get(this.getDoc(), 'name');
@@ -22,6 +39,10 @@ Server.prototype.setName = function(name) {
       name: name
     }
   });
+}
+
+Server.prototype.getNextStatus = function() {
+  return get(this.getDoc(), 'nextStatus');
 }
 
 Server.prototype.getStatus = function() {
@@ -44,6 +65,79 @@ Server.prototype.updateStatus = function(status) {
     }
   });
 }
+
+Server.prototype.getSquadsInGame = function() {
+  var ids = get(this.getDoc(), 'inGame') || [];
+  return ids.map(Squad.getById);
+}
+
+Server.prototype.addSquadToGame = function(squad) {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $addToSet: {
+      inGame: squad._id
+    }
+  });
+};
+
+Server.prototype.removeSquadFromGame = function(squad) {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $pull: {
+      inGame: squad._id
+    }
+  });
+};
+
+Server.prototype.removeAllSquadsFromGame = function() {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      inGame: []
+    }
+  });
+};
+
+Server.prototype.removeSquadFromQueue = function(squad) {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $pull: {
+      queue: squad._id
+    }
+  });
+};
+
+Server.prototype.shiftFromQueue = function() {
+  var squad = this.getQueue().shift();
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $pull: {
+      queue: squad._id
+    }
+  });
+
+  return squad;
+}
+
+Server.prototype.getQueue = function() {
+  var ids = get(this.getDoc(), 'queue') || [];
+  return ids.map(Squad.getById);
+}
+
+Server.prototype.addToQueue = function(squad) {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $addToSet: {
+      queue: squad._id
+    }
+  });
+};
 
 Server.prototype.getPlayerIds = function() {
   return get(this.getDoc(), 'playerIds') || [];
@@ -116,6 +210,18 @@ Server.create = function(name) {
 
 Server.getAll = function() {
   return collections.ServerCollection.find().fetch().map(Server.fromDoc);
+};
+
+Server.getAllWaiting = function() {
+  return collections.ServerCollection.find({status: Server.STATUS_WAITING}).fetch().map(Server.fromDoc);
+};
+
+Server.getByQueuingSquad = function(squad) {
+  return Server.fromDoc(collections.ServerCollection.findOne({ queue: {$in: [squad._id]} }));
+};
+
+Server.getByInGameSquad = function(squad) {
+  return Server.fromDoc(collections.ServerCollection.findOne({ inGame: {$in: [squad._id]} }));
 };
 
 Server.getById = function(id) {

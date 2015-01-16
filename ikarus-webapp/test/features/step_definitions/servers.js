@@ -41,8 +41,8 @@ var serverStepDefinitions = function () {
     callback();
   });
 
-  this.Then(/^next status for server "([^"]*)" should be "([^"]*)"$/, function (serverName, status, callback) {
-    assertNextStatusIs(this.app, serverName, status);
+  this.Then(/^status for server "([^"]*)" should be "([^"]*)"$/, function (serverName, status, callback) {
+    assertStatusIs(this.app, serverName, status);
     callback();
   });
 
@@ -53,9 +53,9 @@ var serverStepDefinitions = function () {
   });
 };
 
-function assertNextStatusIs(app, serverName, status) {
+function assertStatusIs(app, serverName, status) {
   var server = getServerByName(app, serverName);
-  assert(server.nextStatus == status);
+  assert(server.status == status);
 }
 
 function assertHasEmptyQueue(app, serverName) {

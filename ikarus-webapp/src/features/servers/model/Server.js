@@ -45,24 +45,6 @@ Server.prototype.getNextStatus = function() {
   return get(this.getDoc(), 'nextStatus');
 }
 
-Server.prototype.updateNextStatus = function(status) {
-  if (status !== Server.STATUS_IDLE &&
-    status !== Server.STATUS_DOWN &&
-    status !== Server.STATUS_WAITING &&
-    status !== Server.STATUS_PLAYING &&
-    status !== null){
-    throw new Error("Unknown server next status: '" + status + "'" );
-  }
-
-  collections.ServerCollection.update({
-    _id: this._id
-  }, {
-    $set: {
-      nextStatus: status
-    }
-  });
-}
-
 Server.prototype.getStatus = function() {
   return get(this.getDoc(), 'status');
 }
@@ -82,10 +64,6 @@ Server.prototype.updateStatus = function(status) {
       status: status
     }
   });
-
-  if (status == Server.STATUS_IDLE || status == Server.STATUS_DOWN || this.getNextStatus() == status) {
-    this.updateNextStatus(null);
-  }
 }
 
 Server.prototype.getSquadsInGame = function() {

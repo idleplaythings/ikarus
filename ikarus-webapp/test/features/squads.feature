@@ -156,7 +156,7 @@ Feature: Squads
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
-    And server "test-server" has status "idle"
+    And server "test-server" has status "down"
     And I am logged in as "John Doe"
     And I create a squad
     And I enter my squad to the queue
@@ -230,7 +230,7 @@ Feature: Squads
     And I am logged in as "Jane Doe"
     And I create a squad
     When I enter my squad to the queue
-    Then next status for server "test-server" should be "waiting"
+    Then status for server "test-server" should be "waiting"
 
   Scenario: Enough squads on a server to start a game
     Given player "John Doe" with Steam ID "123" exists
@@ -253,7 +253,22 @@ Feature: Squads
     When servers have been checked for game start
     Then Squad that has player "John Doe" should be playing on server "test-server"
     Then Squad that has player "Jane Doe" should be playing on server "test-server"
-    Then next status for server "test-server" should be "playing"
+    Then status for server "test-server" should be "playing"
+
+  Scenario: Squad joins a server and then leaves it before server is playing
+    Given player "John Doe" with Steam ID "123" exists
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And server "test-server" is registered
+    And server "test-server" has status "waiting"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    And Squad that has player "John Doe" should be playing on server "test-server"
+    When I leave my squad
+    Then no squad inventories should exists
+    Then no squads should exist
+
 
 
 

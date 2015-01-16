@@ -75,7 +75,7 @@ Feature: Inventories
   Scenario: Squads disbanding before being locked get loot back
     Given player "John Doe" with Steam ID "123" exists
     And server "test-server" is registered
-    And server "test-server" has status "idle"
+    And server "test-server" has status "down"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And I am logged in as "John Doe"

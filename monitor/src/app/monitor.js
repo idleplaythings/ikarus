@@ -9,8 +9,7 @@ function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient) {
   this._armaServerProcess = null;
 
   this._connectedSteamIds = [];
-  this._currentStatus = Monitor.STATUS_DOWN;
-  this._nextStatus = null;
+  this._status = Monitor.STATUS_DOWN;
 }
 
 Monitor.STATUS_IDLE = 'idle';
@@ -124,7 +123,7 @@ Monitor.prototype._connectToWebApp = function() {
       if (! reconnect){
         this._webAppClient.registerServer(serverId);
         this._webAppClient.reportStatusIdle(serverId);
-        this._currentStatus = Monitor.STATUS_IDLE;
+        this._status = Monitor.STATUS_IDLE;
         this._initDdpObservers();
       }
 
@@ -166,25 +165,28 @@ Monitor.prototype._setSquads = function(){
 Monitor.prototype._checkServerStatus = function() {
   var collection = this._webAppClient.getCollection('servers');
   var server = collection[Object.keys(collection).pop()];
-  var nextStatus = server.nextStatus;
+  var nextStatus = server.status;
   console.log(server);
 
-  console.log("statuses", nextStatus, this._currentStatus);
-  if (nextStatus !== this._currentStatus) {
-    this._nextStatus = nextStatus;
-    console.log("set new nextstatus", this._nextStatus);
-    if (nextStatus == Monitor.STATUS_PLAYING) {
-      this._battlEyeClient.lockServer();
-      this._gameData.lock();
-    }
+  console.log("statuses", nextStatus, this._status);
+  if (nextStatus !== this._status) {
+    console.log("set new nextstatus", nextstatus);
+    this._changeStatus(nextstatus);
+  }
+};
+
+Monitor.prototype._changeStatus = function(status) {
+  if (status == Monitor.STATUS_PLAYING) {
+    this._battlEyeClient.lockServer();
+    this._gameData.lock();
   }
 
-  if (this._currentStatus == Monitor.STATUS_IDLE && this._nextStatus === Monitor.STATUS_WAITING) {
+  if (status == Monitor.STATUS_WAITING) {
     this._startArma();
     this._webAppClient.reportStatusWaiting(this._config.arma.serverId);
-    this._currentStatus = Monitor.STATUS_WAITING;
-    this._nextStatus = null;
   }
+
+  this._status = status;
 };
 
 var squadsRetrieve = function(test) {
@@ -259,14 +261,13 @@ var shouldStartGame = function(test) {
     return true;
   }
 
-  var start = this._nextStatus == Monitor.STATUS_PLAYING;
+  var start = this._status == Monitor.STATUS_PLAYING;
 
   if (start) {
-    this._currentStatus = Monitor.STATUS_PLAYING;
     this._webAppClient.reportStatusPlaying(this._config.arma.serverId);
   }
 
-  console.log('should start?', this._nextStatus, start);
+  console.log('should start?', this._status, start);
   return start;
 };
 

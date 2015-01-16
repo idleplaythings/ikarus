@@ -28,6 +28,7 @@ SquadController.prototype.leaveSquad = function(){
   var player = this._getPlayer();
   var squad = this._getSquad();
   var company = this._getCompany();
+  var server = squad.getServer();
 
   squad.removePlayer(player);
 
@@ -35,10 +36,20 @@ SquadController.prototype.leaveSquad = function(){
     squad.evaluateObjective();
   }
 
+  //Empty squad, not locked = free to do anything and get inventory back
   if (squad.isEmpty() && ! squad.isLocked()){
     Inventory.returnItems(company, squad);
     Inventory.removeBySquad(squad);
     this._serverQueueService.leaveQueue(squad);
+    squad.remove();
+  }
+
+
+  //Empty squad, in server, but server not playing yet. Free to leave, but lose inventory
+  if (squad.isEmpty() && server && ! server.isPlaying()) {
+    Inventory.removeBySquad(squad);
+    server.removeSquadFromQueue(server);
+    server.removeSquadFromGame(server);
     squad.remove();
   }
 

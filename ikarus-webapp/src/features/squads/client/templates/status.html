@@ -38,13 +38,11 @@
       </div>
     {{else}}
       {{#if currentUser}}
-        {{#if companyHasSquad}}
-          {{#each joinableSquads}}
+        {{#each joinableSquads}}
           <button class="joinSquad" data-squadId={{_id}}>JOIN {{getName}} SQUAD</button>
-          {{/each}}
-        {{else}}
-          <button class="createSquad">CREATE SQUAD</button>
-        {{/if}}
+        {{/each}}
+
+        <button class="createSquad">CREATE SQUAD</button>
       {{/if}}
     {{/if}}
   </div>

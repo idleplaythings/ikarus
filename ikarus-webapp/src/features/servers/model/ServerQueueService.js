@@ -29,15 +29,15 @@ ServerQueueService.prototype.loop = function() {
 ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
     var squadsInGame = server.getSquadsInGame();
+    var steamIdsOnServer = server.getPlayerIds();
 
-    if (squadsInGame.length === 0) {
+    if (squadsInGame.length === 0 || steamIdsOnServer.length === 0) {
       return;
     }
 
     var readyToStart = squadsInGame.every(function(squad) {
 
       var steamIdsOnSquad = squad.getSteamIds();
-      var steamIdsOnServer = server.getPlayerIds();
 
       return steamIdsOnSquad.every(function(steamId) {
         var inGame = steamIdsOnServer.indexOf(steamId) !== -1;
@@ -47,7 +47,7 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
     })
 
     if (readyToStart) {
-      server.updateNextStatus(Server.STATUS_PLAYING)
+      server.updateStatus(Server.STATUS_PLAYING)
     }
   });
 };
@@ -81,7 +81,7 @@ ServerQueueService.prototype.serverStatusChanged = function(server) {
 
 ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
   if(server.isIdle() && server.getQueue().length > 0) {
-    server.updateNextStatus(Server.STATUS_WAITING);
+    server.updateStatus(Server.STATUS_WAITING);
   }
 };
 

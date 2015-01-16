@@ -173,6 +173,10 @@ Monitor.prototype._checkServerStatus = function() {
   if (nextStatus !== this._currentStatus) {
     this._nextStatus = nextStatus;
     console.log("set new nextstatus", this._nextStatus);
+    if (nextStatus == Monitor.STATUS_PLAYING) {
+      this._battlEyeClient.lockServer();
+      this._gameData.lock();
+    }
   }
 
   if (this._currentStatus == Monitor.STATUS_IDLE && this._nextStatus === Monitor.STATUS_WAITING) {
@@ -258,7 +262,6 @@ var shouldStartGame = function(test) {
   var start = this._nextStatus == Monitor.STATUS_PLAYING;
 
   if (start) {
-    this._battlEyeClient.lockServer();
     this._currentStatus = Monitor.STATUS_PLAYING;
     this._webAppClient.reportStatusPlaying(this._config.arma.serverId);
   }

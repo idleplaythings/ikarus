@@ -28,17 +28,21 @@ ServerQueueService.prototype.loop = function() {
 
 ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
-    var readyToStart = server.getSquadsInGame().every(function(squad) {
+    var squadsInGame = server.getSquadsInGame();
 
-      if (! squad) {
-        return true;
-      }
+    if (squadsInGame.length === 0) {
+      return;
+    }
+
+    var readyToStart = squadsInGame.every(function(squad) {
 
       var steamIdsOnSquad = squad.getSteamIds();
       var steamIdsOnServer = server.getPlayerIds();
 
       return steamIdsOnSquad.every(function(steamId) {
-        return steamIdsOnServer.indexOf(steamId) !== -1;
+        var inGame = steamIdsOnServer.indexOf(steamId) !== -1;
+        console.log(steamId, "is in game on server:", inGame, server.getName());
+        return inGame;
       });
     })
 

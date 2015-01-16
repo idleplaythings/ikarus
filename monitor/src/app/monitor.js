@@ -225,14 +225,9 @@ var playerConnected = function(uid) {
 };
 
 var playerKilled = function(uid) {
-  this._connectedSteamIds = this._connectedSteamIds.filter(function(connectedUid) {
-    return connectedUid != uid;
-  });
-
+  console.log("MONITOR: ", uid, "killed");
   this._battlEyeClient.kickPlayer(uid);
   this._gameData.playerKilled(uid);
-  this._gameData.playerDisconnected(uid);
-  this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };
 
 var playerUnknown = function(uid) {
@@ -245,11 +240,12 @@ var playerUnknown = function(uid) {
 };
 
 var playerDisconnected = function(uid) {
-
+  console.log("MONITOR", uid, "disconnected");
   this._connectedSteamIds = this._connectedSteamIds.filter(function(connectedUid) {
     return connectedUid != uid;
   });
 
+  this._gameData.playerDisconnected(uid);
   this._battlEyeClient.kickPlayer(uid);
   this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
 };

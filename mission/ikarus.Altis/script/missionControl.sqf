@@ -33,6 +33,10 @@ missionControl_pollReadyToStartFromMonitor = {
   
       _start = ['shouldStartGame', [missionControl_test]] call sock_rpc;
      
+      if (isNil {_start}) then {
+        _start = false;
+      };
+     
       if (_start) exitWith {
         call missionControl_startGame;
       };

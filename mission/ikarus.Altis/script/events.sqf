@@ -44,22 +44,18 @@ addMissionEventHandler ["HandleDisconnect", {
   diag_log "player disconnected";
   diag_log _uid;
   
-  if ( ! alive _unit) exitWith {
-    diag_log "unit alive, no disconnect event";
-  };
-  
   if ( ! missionControl_gameStarted) exitWith {
     diag_log "disconnected before game start";
     ['playerDisconnected', [_uid]] call sock_rpc;
   };
   
-  if ([_unit, _uid] call hideout_bodyIsInHideout) exitWith {
+  if ([_unit, _uid] call hideout_bodyIsInHideout and alive _unit) exitWith {
     diag_log "disconnected in hideout";
     [_unit, _uid] call events_playerDisconnectedInHideout;
   };
 
   diag_log "disconnected while game is running and not in hideout";
-  ['playerKilled', [_uid]] call sock_rpc;
+  ['playerDisconnected', [_uid]] call sock_rpc;
 }];
 
  

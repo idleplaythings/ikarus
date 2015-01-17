@@ -57,6 +57,9 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
 
     if (readyToStart) {
       server.updateStatus(Server.STATUS_PLAYING)
+      squadsInGame.forEach(function(squad) {
+        squad.setConnectionDeadline(null);
+      });
     }
   }, this);
 };

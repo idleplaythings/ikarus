@@ -235,6 +235,12 @@ App.prototype.callTestingElapseSquadTimeout = function (squadId) {
   }.bind(this)
 };
 
+App.prototype.callTestingElapseServerWaitingTime = function (serverId) {
+  return function() {
+    return this.callMethod('testingElapseServerWaitingTime', [serverId]);
+  }.bind(this)
+};
+
 App.prototype.callTestingCheckSquadDeadlines = function () {
   return function() {
     return this.callMethod('testingCheckSquadDeadlines', []);
@@ -244,6 +250,18 @@ App.prototype.callTestingCheckSquadDeadlines = function () {
 App.prototype.callTestingCheckServerForGameStart = function () {
   return function() {
     return this.callMethod('testingCheckServerForGameStart', []);
+  }.bind(this)
+};
+
+App.prototype.callTestingSetMinSquadsToStartGame = function (min) {
+  return function() {
+    return this.callMethod('testingSetMinSquadsToStartGame', [min]);
+  }.bind(this)
+};
+
+App.prototype.callTestingSetMinTimeToStartGame = function (min) {
+  return function() {
+    return this.callMethod('testingSetMinTimeToStartGame', [min]);
   }.bind(this)
 };
 

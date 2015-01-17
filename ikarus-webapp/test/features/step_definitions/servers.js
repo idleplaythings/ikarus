@@ -41,6 +41,11 @@ var serverStepDefinitions = function () {
     callback();
   });
 
+  this.Then(/^there should not be squads playing on server "([^"]*)"$/, function (serverName, callback) {
+    assertHasNoSquadsPlaying(this.app, serverName);
+    callback();
+  });
+
   this.Then(/^status for server "([^"]*)" should be "([^"]*)"$/, function (serverName, status, callback) {
     assertStatusIs(this.app, serverName, status);
     callback();
@@ -51,11 +56,35 @@ var serverStepDefinitions = function () {
       .finally(callback)
       .catch(this.handleError);
   });
+
+  this.Given(/^server waiting period has elapsed for server "([^"]*)"$/, function (serverName, callback) {
+    var serverId = getServerByName(this.app, serverName)._id;
+    this.app.callTestingElapseServerWaitingTime(serverId)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.Given(/^"([^"]*)" squads are minimum to start a game$/, function (min, callback) {
+    this.app.callTestingSetMinSquadsToStartGame(min)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.Given(/^severs wait "([^"]*)" minutes for additional players before starting$/, function (min, callback) {
+    this.app.callTestingSetMinTimeToStartGame(min)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
 };
 
 function assertStatusIs(app, serverName, status) {
   var server = getServerByName(app, serverName);
   assert(server.status == status);
+}
+
+function assertHasNoSquadsPlaying(app, serverName) {
+  var server = getServerByName(app, serverName);
+  assert(! server.inGame || server.inGame.length === 0);
 }
 
 function assertHasEmptyQueue(app, serverName) {

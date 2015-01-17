@@ -34,12 +34,34 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
 
   Meteor.methods({
 
+    testingSetMinSquadsToStartGame: function(min) {
+      min = parseInt(min, 10);
+      dic.get('ServerQueueService')._minSquadsToStart  = min;
+    },
+
+    testingSetMinTimeToStartGame: function(min) {
+      min = parseInt(min, 10);
+      dic.get('ServerQueueService')._waitingTime  = min;
+    },
+
     testingCheckServerForGameStart: function() {
       dic.get('ServerQueueService').checkServerIsReadyToStart();
     },
 
     testingCheckSquadDeadlines: function() {
       dic.get('ServerQueueService').checkSquadDeadlines();
+    },
+
+    testingElapseServerWaitingTime : function (serverId) {
+      var time = new moment(0).toString();
+      collections.ServerCollection.update(
+        {
+          _id: serverId
+        },
+        {
+          $set: {waitingStarted: time}
+        }
+      )
     },
 
     testingElapseSquadTimeout : function (squadId) {

@@ -1,7 +1,7 @@
 <template name="ikarus_default">
   <div class="ikarus-main container-fluid">
     {{#if noSteamConfigured}}
-      <div style="position: absolute">
+      <div style="position: absolute; z-index: 1000;">
         {{> loginButtons}}
       </div>
     {{/if}}

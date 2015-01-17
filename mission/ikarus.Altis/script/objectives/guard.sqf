@@ -29,16 +29,18 @@ objective_guard_onKilled = {
 };
 
 objective_guard_onDisconnected = {
-  private ["_unit", "_killer", "_inHideout", "_guardData", "_squad", "_amount"];
-  _unit = _this select 0;
-  _killer = _this select 1;
+  private ["_squad", "_unit", "_inHideout", "_guardData", "_squad", "_amount"];
+  _squad = _this select 0;
+  _unit = _this select 1;
   _inHideout = _this select 2;
   
+  player globalChat "guard disconnect";
+  
   if (_inHideout) then {
-    _guardData = [_killer] call objective_guard_getGuardData;
+    player globalChat "hideout";
+    _guardData = [_unit] call objective_guard_getGuardData;
     
     _amount = count _guardData select 2;
-    _squad = [_killer] call getSquadForUnit;
     
     while {_amount > 0} do {
       _amount = _amount -1;

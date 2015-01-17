@@ -13,6 +13,11 @@
 1. Open http://localhost:3000/
 1. Configure steam login by following instructions on the page.
 
+### Tests
+
+1. `cd ikarus-webapp`
+1. npm install
+1. npm test
 
 # Environments
 

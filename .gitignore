@@ -43,6 +43,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# IDEs
+.idea/
+
 mission/ikarus.Altis/node/test.db
 **/node_modules/**
 **/node_modules

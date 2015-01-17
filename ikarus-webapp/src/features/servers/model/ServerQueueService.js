@@ -8,6 +8,7 @@ ServerQueueService = function ServerQueueService(){
   this._started = false;
   this._loopDelay = 1000;
   this._minSquadsToStart = 1;
+  this._waitingTime = 2; //minutes
 }
 
 ServerQueueService.prototype.start = function() {
@@ -28,6 +29,14 @@ ServerQueueService.prototype.loop = function() {
 
 ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
+
+    console.log("server waiting times", this._waitingTime);
+    console.log(server.getWaitingStarted().add(this._waitingTime, 'minutes').toString());
+    console.log(moment().toString());
+    if (server.getWaitingStarted().add(this._waitingTime, 'minutes').isAfter(moment())) {
+      return;
+    }
+
     var squadsInGame = server.getSquadsInGame();
     var steamIdsOnServer = server.getPlayerIds();
 
@@ -49,7 +58,7 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
     if (readyToStart) {
       server.updateStatus(Server.STATUS_PLAYING)
     }
-  });
+  }, this);
 };
 
 ServerQueueService.prototype.checkSquadDeadlines = function () {
@@ -80,7 +89,7 @@ ServerQueueService.prototype.serverStatusChanged = function(server) {
 };
 
 ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
-  if(server.isIdle() && server.getQueue().length > 0) {
+  if (server.isIdle() && server.getQueue().length >= this._minSquadsToStart) {
     server.updateStatus(Server.STATUS_WAITING);
   }
 };
@@ -109,10 +118,6 @@ ServerQueueService.prototype.leaveQueue = function(squad) {
   if (server) {
     server.removeSquadFromQueue(squad);
   }
-};
-
-ServerQueueService.prototype._addNewSquadsToQueue = function() {
-  Squads.getNewInQueue().forEach(this._findServerForSquad);
 };
 
 ServerQueueService.prototype._findServerForSquad = function(squad) {

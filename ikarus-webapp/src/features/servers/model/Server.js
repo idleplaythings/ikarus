@@ -45,6 +45,23 @@ Server.prototype.getNextStatus = function() {
   return get(this.getDoc(), 'nextStatus');
 }
 
+Server.prototype.startWaiting = function() {
+  var time = moment().toString();
+  console.log("waiting started", time);
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      waitingStarted: time
+    }
+  });
+}
+
+Server.prototype.getWaitingStarted = function() {
+  var time = get(this.getDoc(), 'waitingStarted') || null;
+  return time ? moment(time) : null;
+}
+
 Server.prototype.getStatus = function() {
   return get(this.getDoc(), 'status');
 }
@@ -64,6 +81,10 @@ Server.prototype.updateStatus = function(status) {
       status: status
     }
   });
+
+  if (status == Server.STATUS_WAITING) {
+    this.startWaiting();
+  }
 }
 
 Server.prototype.getSquadsInGame = function() {

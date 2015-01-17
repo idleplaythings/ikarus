@@ -8,6 +8,7 @@ Meteor.methods({
   },
 
   'updateServerStatus': function(name, status) {
+
     var server = Server.getByName(name);
 
     if (! server){

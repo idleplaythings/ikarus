@@ -186,8 +186,7 @@ Monitor.prototype._changeStatus = function(status) {
 
   if (status == Monitor.STATUS_WAITING) {
     this._startArma();
-    this._webAppClient.reportStatusWaiting(this._config.arma.serverId);
-  }
+ }
 
   if (status == Monitor.STATUS_IDLE) {
     if (this._armaServerProcess){
@@ -271,11 +270,6 @@ var shouldStartGame = function(test) {
   }
 
   var start = this._status == Monitor.STATUS_PLAYING;
-
-  if (start) {
-    this._webAppClient.reportStatusPlaying(this._config.arma.serverId);
-  }
-
   console.log('should start?', this._status, start);
   return start;
 };

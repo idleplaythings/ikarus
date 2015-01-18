@@ -60,7 +60,7 @@ objective_supply_constructMarkers = {
 };
 
 objective_supply_constructDepots = {
-  private ["_centerOfAO", "_numberOfDepots", "_depots", "_radius", "_depot"];
+  private ["_centerOfAO", "_numberOfDepots", "_depots", "_radius", "_depot", "_vehiclePos"];
   _centerOfAO = _this select 0;
   _numberOfDepots = call objective_supply_getAmountOfDepots;
   _radius = call objective_supply_getRadiusOfAO;
@@ -69,11 +69,23 @@ objective_supply_constructDepots = {
   while {_numberOfDepots > 0} do {
     _depot = [_centerOfAO, _radius] call objective_supply_constructDepot;
     
+    _vehiclePos = getPos _depot findEmptyPosition [10,30,"I_Truck_02_covered_F"];
+    if (count _vehiclePos > 0) then {
+      createVehicle [(call objective_supply_getDepotCarClass), _vehiclePos, [], 0, "none"];
+    };
+  
     _depots pushBack _depot;
     _numberOfDepots = _numberOfDepots - 1;
   };
   
   _depots;
+};
+
+objective_supply_getDepotCarClass = {
+  private ["_cars"];
+  _cars = ["UAZ_Unarmed", "BAF_Offroad_D", "BAF_Offroad_W"];
+  
+  _cars call BIS_fnc_selectRandom;
 };
 
 objective_supply_constructDepot = {

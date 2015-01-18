@@ -21,17 +21,17 @@ hideout_createHideoutForSquad = {
   
   [_squad, _building] call setSquadHideoutBuilding;
   
-  _vehiclePos = getPos _building findEmptyPosition [10,20,"I_Truck_02_covered_F"];
+  _vehiclePos = getPos _building findEmptyPosition [10,40,"I_Truck_02_covered_F"];
   if (count _vehiclePos > 0) then {
     createVehicle ["C_Hatchback_01_F", _vehiclePos, [], 0, "none"];
   };
   
-  _vehiclePos = getPos _building findEmptyPosition [10,40,"C_Quadbike_01_F"];
+  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
   if (count _vehiclePos > 0) then {
     createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
   };
   
-  _vehiclePos = getPos _building findEmptyPosition [10,40,"C_Quadbike_01_F"];
+  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
   if (count _vehiclePos > 0) then {
     createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
   };
@@ -178,12 +178,14 @@ hideout_checkIsSuitableHouseForHideout = {
   private ["_building", "_vehiclePos"];
   _building = _this select 0;
   
-  _vehiclePos = getPos _building findEmptyPosition [10,20,"I_Truck_02_covered_F"];
+  _vehiclePos = getPos _building findEmptyPosition [10,40,"I_Truck_02_covered_F"];
   if (count _vehiclePos == 0) exitWith {
+    player globalChat "no room for car";
     false;
   };
   
   if ( ! ([getPosASL _building, 100] call depotPositions_checkNothingInDistance)) exitWith {
+    player globalChat "something too close";
     false;
   };
   

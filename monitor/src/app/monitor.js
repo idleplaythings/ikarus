@@ -57,7 +57,8 @@ Monitor.prototype._startArma = function(){
       0, // use parents stdin for child
       'pipe', // pipe child's stdout to parent
       'pipe'
-    ]
+    ],
+    maxBuffer: 2024*1024
   };
 
   this._armaServerProcess = child_process.exec(command, options, function (error, stdout, stderr) {

@@ -114,6 +114,7 @@ missionControl_endGame = {
 
 missionControl_displayGameStart = {
   ["GAME STARTING NOW!"] call broadcastMessage;
+  sleep 5;
 };
 
 call missionControl_startWhenReady;

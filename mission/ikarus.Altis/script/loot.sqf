@@ -24,11 +24,16 @@ loot_checkSupplies = {
   _objects = _building nearSupplies hideout_hideoutRadius;
 
   {
+    if ( _x isKindOf "car" or _x isKindOf "Helicopter" ) then {
+      _lootList = _lootList + [typeOf _x];
+    };
+    
     if (_x isKindOf "man") then {
       _lootList = _lootList + ([_x] call loot_checkUnit);
     } else {
       _lootList = _lootList + ([_x] call loot_checkContainer);
-    }
+    };
+    
   } forEach _objects;
   
   copyToClipboard str _lootList;

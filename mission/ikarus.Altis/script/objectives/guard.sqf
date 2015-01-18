@@ -40,7 +40,7 @@ objective_guard_onDisconnected = {
     player globalChat "hideout";
     _guardData = [_unit] call objective_guard_getGuardData;
     
-    _amount = count _guardData select 2;
+    _amount = count (_guardData select 2);
     
     while {_amount > 0} do {
       _amount = _amount -1;

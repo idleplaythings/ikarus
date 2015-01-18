@@ -67,7 +67,7 @@ addMissionEventHandler ["HandleDisconnect", {
   _squad = [_uid] call getSquadForUid;
 
   [_squad, _loot] call addDisconnectedLoot;
-  [_squad, "onDisconnect", [_squad, _unit, true]] call objectiveController_callSquadObjective;
+  [_squad, "onDisconnected", [_squad, _unit, true]] call objectiveController_callSquadObjective;
   
   deleteVehicle _unit;
   ['playerDisconnected', [_uid]] call sock_rpc;

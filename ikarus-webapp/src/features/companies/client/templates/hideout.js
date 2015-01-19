@@ -16,13 +16,47 @@ Template.company_hideout.created = function(){
   });
 };
 
+function getOverlayDrawer(template, company) {
+  var $map = jQuery(template.find('img.map'));
+  var canvas = template.find('canvas.overlay');
+  var ctx = canvas.getContext('2d');
+
+  canvas.style.position = 'absolute';
+
+  return function (){
+    var position = company.getHideout();
+
+    canvas.width = $map.width();
+    canvas.height = $map.height();
+    canvas.style.marginTop = '' + (-1 * $map.height()) + 'px';
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(
+        position.x / 30000 * canvas.width,
+        canvas.height - (position.y - 1000) / 27000 * canvas.height,
+        10,
+        0,
+        Math.PI*2,
+        true
+    );
+    ctx.stroke();
+  };
+}
+
+Template.company_hideout.rendered = function(){
+  var drawOverlay = getOverlayDrawer(this, Company.getByPlayer(Player.getCurrent()));
+  Tracker.autorun(drawOverlay);
+  jQuery(window).resize(_.debounce(drawOverlay, 50));
+};
+
 Template.company_hideout.events({
-  'click #altis-map': function(event, template){
-    var element = jQuery(template.find('#altis-map'));
+  'click .map': function(event, template){
+    var map = jQuery(template.find('img.map'));
 
     var position = {
-        x: (event.pageX - element.offset().left) / element.width() * 30000,
-        y: (element.height() - (event.pageY - element.offset().top)) / element.height() * 27000 + 1000
+        x: (event.pageX - map.offset().left) / map.width() * 30000,
+        y: (map.height() - (event.pageY - map.offset().top)) / map.height() * 27000 + 1000
     };
 
     Meteor.call(

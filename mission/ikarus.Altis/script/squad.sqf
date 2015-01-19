@@ -108,7 +108,9 @@ getSquadForUid = {
     };
   } forEach squads;
   
-  _squad
+  if (isNil {_squad}) exitWith {nil;};
+    
+  _squad;
 };
 
 hasSquad = {

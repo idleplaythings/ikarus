@@ -34,6 +34,6 @@ InventorySquad.prototype.serialize = function(){
 };
 
 InventorySquad.prototype.getMaxItemCount = function() {
-  return Inventory.maxItemsPerSquadMember * this.getSquad().getPlayers().length;
+  return Inventory.MAX_ITEMS_PER_SQUAD_MEMBER * this.getSquad().getPlayers().length;
 };
 

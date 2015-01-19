@@ -9,7 +9,7 @@ Inventory = function Inventory(args){
   this.type = 'Inventory';
 }
 
-Inventory.maxItemsPerSquadMember = 20;
+Inventory.MAX_ITEMS_PER_SQUAD_MEMBER = 20;
 
 Inventory.prototype.isLocked = function(){
   return false;

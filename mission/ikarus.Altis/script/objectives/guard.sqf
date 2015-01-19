@@ -60,6 +60,9 @@ objective_guard_reward = {
   _guardData = _this select 0;
   _reward = ["guard_objective_reward1"];
   _squad = [(_guardData select 0)] call getSquadForUnit;
+
+  if (isNil{_squad}) exitWith {false;};
+    
   [_squad, _reward] call addDisconnectedLoot;
   
   _guardData set [2, (_guardData select 2) + _reward ];

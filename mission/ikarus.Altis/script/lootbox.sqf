@@ -139,8 +139,11 @@ lootbox_checkBoxes = {
       _closestUnit = nil;
       _closestDistance = 1000;
       {
+        _canOpen = false;
         _squad = [_x] call getSquadForUnit;
-        _canOpen = [_squad, "canOpenLootBoxes", [_x]] call objectiveController_callSquadObjective;
+        if (! isNil{_squad}) then {
+          _canOpen = [_squad, "canOpenLootBoxes", [_x]] call objectiveController_callSquadObjective;
+        };
         
         if (_canOpen && !( _x in _openers) && (isNil {_closestUnit} || (_box distance _x) < _closestDistance)) then {
           _closestUnit = _x;

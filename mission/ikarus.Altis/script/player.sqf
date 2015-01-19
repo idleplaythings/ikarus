@@ -70,6 +70,8 @@ hasSameSquad = {
   _b = _this select 1;
   _squadA = [_a] call getSquadForUnit;
   _squadB = [_b] call getSquadForUnit;
+
+  if ((isNil{_squadA}) or (isNil {_squadB})) exitWith {false;};
   
   if (([_squadA] call getSquadId) == ([_squadB] call getSquadId)) exitWith {true;};
   

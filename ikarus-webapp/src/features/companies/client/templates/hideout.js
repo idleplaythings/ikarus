@@ -21,14 +21,11 @@ function getOverlayDrawer(template, company) {
   var canvas = template.find('canvas.overlay');
   var ctx = canvas.getContext('2d');
 
-  canvas.style.position = 'absolute';
-
   return function (){
     var position = company.getHideout();
 
     canvas.width = $map.width();
     canvas.height = $map.height();
-    canvas.style.marginTop = '' + (-1 * $map.height()) + 'px';
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();

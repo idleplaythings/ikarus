@@ -90,14 +90,6 @@ getSquadById = {
   } forEach squads;
 };
 
-getSquadHideoutPosForUnit = {
-  private ["_unit", "_squad"];
-  _unit = _this select 0;
-  
-  _squad = [_unit] call getSquadForUnit;
-  [_squad] call getSquadStartingPosition;
-};
-
 getSquadForUnit = {
   private ["_unit", "_uids", "_squad"];
   _unit = _this select 0;

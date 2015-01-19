@@ -31,11 +31,14 @@ lastConnectedPlayerUid = nil;
   diag_log _killer;
   
   _squad = [_killer] call getSquadForUnit;
-  [_squad, "onKilled", [_unit, _killer, true]] call objectiveController_callSquadObjective;
+
+  if (! isNil{_squad}) then {
+    [_squad, "onKilled", [_unit, _killer, true]] call objectiveController_callSquadObjective;
+  };
+  
   ['playerKilled', [_uid]] call sock_rpc;
 };
 
-diag_log "adding event handler";
 addMissionEventHandler ["HandleDisconnect", {
   private ["_unit, _uid"];
   _unit = _this select 0;
@@ -66,9 +69,11 @@ addMissionEventHandler ["HandleDisconnect", {
   _loot = [_unit] call loot_checkUnit;
   _squad = [_uid] call getSquadForUid;
 
-  [_squad, _loot] call addDisconnectedLoot;
-  [_squad, "onDisconnected", [_squad, _unit, true]] call objectiveController_callSquadObjective;
-  
+  if (! isNil{_squad}) then {
+    [_squad, _loot] call addDisconnectedLoot;
+    [_squad, "onDisconnected", [_squad, _unit, true]] call objectiveController_callSquadObjective;
+  };
+
   deleteVehicle _unit;
   ['playerDisconnected', [_uid]] call sock_rpc;
  };

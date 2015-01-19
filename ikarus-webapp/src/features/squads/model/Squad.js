@@ -5,9 +5,9 @@ Squad = function Squad(args) {
 }
 
 Squad.prototype.getName = function() {
-  var player = this.getPlayers().pop();
+  var player = this.getPlayers()[0];
 
-  return player ? player.getName().toUpperCase()+"'S" : '';
+  return player ? player.getName() + "'s" : '';
 };
 
 Squad.prototype.getPlayers = function() {

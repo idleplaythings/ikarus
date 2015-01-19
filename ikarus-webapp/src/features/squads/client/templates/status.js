@@ -22,6 +22,9 @@ Template.squads_status.events({
     var squadId = jQuery(event.target).attr("data-squadId");
     console.log(squadId);
     Meteor.call('joinSquad', squadId);
+  },
+  'click .leaveSquad' : function () {
+    Meteor.call('leaveSquad');
   }
 });
 
@@ -49,13 +52,6 @@ Template.squad_queue_status.events({
     Meteor.call('leaveSquadQueue');
   }
 });
-
-Template.squad_players.events({
-  'click .leaveSquad' : function () {
-    Meteor.call('leaveSquad');
-  }
-});
-
 
 function getCompanysSquads () {
   var company = Company.getCurrent();

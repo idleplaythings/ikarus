@@ -1,7 +1,7 @@
 <template name="companies_status">
   <div>
     {{#if company}}
-      <h2>Company: {{ company.getName }}</h2>
+      <h1>Company: {{ company.getName }}</h1>
 
       {{#if ownCompany}}
         <button class="js-rename-company">Rename</button>
@@ -9,33 +9,31 @@
         <button class="js-invite-to-company">Invite</button>
       {{/if}}
 
-      <div class="container-fluid">
-        <div class="row">
-          {{#if ownCompany}}
-            {{#if currentSquad}}
-              <div class="col-md-12">
-                {{> players_list company }}
-              </div>
-            {{else}}
-              <div class="col-md-4">
-                {{> players_list company }}
-              </div>
-              <div class="col-md-4">
-                {{> company_hideout }}
-              </div>
-              <div class="col-md-4">
-                <h3>Armory</h3>
-                {{#with company}}
-                  {{> armory}}
-                {{/with}}
-              </div>
-            {{/if}}
-          {{else}}
+      <div class="row">
+        {{#if ownCompany}}
+          {{#if currentSquad}}
             <div class="col-md-12">
               {{> players_list company }}
             </div>
+          {{else}}
+            <div class="col-md-4">
+              {{> players_list company }}
+            </div>
+            <div class="col-md-4">
+              {{> company_hideout }}
+            </div>
+            <div class="col-md-4">
+              <h2>Armory</h2>
+              {{#with company}}
+                {{> armory}}
+              {{/with}}
+            </div>
           {{/if}}
-        </div>
+        {{else}}
+          <div class="col-md-12">
+            {{> players_list company }}
+          </div>
+        {{/if}}
       </div>
     {{/if}}
   </div>

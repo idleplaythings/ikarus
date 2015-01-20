@@ -57,3 +57,17 @@ h2 {
 section h2 {
   margin: 0;
 }
+
+.armory.inventory-entry {
+  position: relative;
+}
+.armory.inventory-entry > img {
+  height: 128px;
+  position: absolute;
+  top: -145px;
+  left: -10px;
+  border: 2px solid black;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+}

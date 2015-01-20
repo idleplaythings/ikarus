@@ -6,25 +6,20 @@
       </div>
     {{/if}}
 
-    {{#if dev}}
-      <div class="row">
-        <div class="col-md-12">
-          <section>
-            <button class='js-reset'>Regenerate Test Data</button>
-          </section>
-        </div>
-      </div>
-    {{/if}}
+    <header class="row">
+      <div class="col-md-7">
+        {{#if dev}}
+          <button class="js-reset pull-right">Regenerate Test Data</button>
+        {{/if}}
 
-    <div class="row">
-      <div class="col-md-12">
-        <section>
-          <h1>Ikarus</h1>
+        <h1><a href="/">Ikarus</a></h1>
 
-          <p>Download mod from: <a href="https://s3-eu-west-1.amazonaws.com/ikarus.idleplaythings.com/mod/%40ikrs_v0.2.2.zip">here </a></p>
-        </section>
+        <p>Download mod from: <a href="https://s3-eu-west-1.amazonaws.com/ikarus.idleplaythings.com/mod/%40ikrs_v0.2.2.zip">here </a></p>
       </div>
-    </div>
+      <div class="col-md-5">
+        {{> players_status}}
+      </div>
+    </header>
 
     <div class="row">
       <div class="col-md-12">

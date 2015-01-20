@@ -1,63 +1,79 @@
 <template name="squads_status">
-  <div>
-    <h2>Squad</h2>
-    {{#if currentSquad}}
-      <div class="container-fluid">
-        <div class="row">
-          {{#with currentSquad}}
-            <div class="col-md-4">
-              {{> squad_players}}
-            </div>
-            <div class="col-md-4">
+  {{#unless currentSquad}}
+    {{#if currentCompany}}
+      <div class="info-box bg-info">
+        <p>
+          To play a game round, create or join a <strong>squad</strong>.
+          Squads are formed from the people in your <strong>company</strong>, {{currentCompany.getName}}.
+        </p>
+        {{#if currentUser}}
+          {{#each joinableSquads}}
+            <button class="joinSquad" data-squadId={{_id}}>Join {{getName}} squad</button> or
+          {{/each}}
 
-            </div>
-            <div class="col-md-4">
-              {{> squad_queue_status}}
-            </div>
-          {{/with}}
-
-        </div>
-
-        <div class="row">
-          {{#with currentSquad}}
-            <div class="col-md-4">
-              {{> squad_objective}}
-            </div>
-            <div class="col-md-4">
-              {{> squadMemberInventory}}
-            </div>
-          {{/with}}
-          <div class="col-md-4">
-            <h3>Armory</h3>
-            {{#with currentCompany}}
-              {{> armory}}
-            {{/with}}
-          </div>
-
-        </div>
+          <button class="createSquad">Create squad</button>
+        {{/if}}
       </div>
-    {{else}}
-      {{#if currentUser}}
-        {{#each joinableSquads}}
-          <button class="joinSquad" data-squadId={{_id}}>JOIN {{getName}} SQUAD</button>
-        {{/each}}
-
-        <button class="createSquad">CREATE SQUAD</button>
-      {{/if}}
     {{/if}}
-  </div>
+  {{/unless}}
+
+  {{#if currentSquad}}
+    <div class="info-box bg-info">
+      Select an <strong>objective</strong>, fill your squad <strong>inventory</strong> and get <strong>ready</strong>!
+    </div>
+
+    <h1>
+      {{currentSquad.getName}} squad
+    </h1>
+
+    <div class="row">
+      {{#with currentSquad}}
+        <div class="col-md-4">
+          {{> squad_players}}
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+          {{> squad_queue_status}}
+        </div>
+      {{/with}}
+    </div>
+
+    <div class="row">
+      {{#with currentSquad}}
+        <div class="col-md-4">
+          {{> squad_objective}}
+        </div>
+        <div class="col-md-4">
+          {{> squadMemberInventory}}
+        </div>
+      {{/with}}
+      <div class="col-md-4">
+        <h2>Armory</h2>
+        {{#with currentCompany}}
+          {{> armory}}
+        {{/with}}
+      </div>
+
+    </div>
+  {{/if}}
 </template>
 
 <template name="squad_players">
-  <h3>Players</h3>
+  <h2>Players</h2>
   {{#each getPlayers}}
-    <h4>{{> players_avatar this}}{{> players_name this}}
-    <button class="leaveSquad">Leave</button></h4>
+    <h4>
+      {{> players_avatar this}}{{> players_name this}}
+      {{# if this = currentUser }}
+        <button class="leaveSquad">Leave</button>
+      {{/if}}
+    </h4>
   {{/each}}
 </template>
 
 <template name="squad_queue_status">
-  <h3>Queue status</h3>
+  <h2>Queue status</h2>
   {{#if inQueueServer}}
     <h1>Waiting for server</h1>
     <button class="leaveQueue">Not ready</button>

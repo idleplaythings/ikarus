@@ -1,4 +1,8 @@
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   margin: 0 20px auto 20px;
 }
@@ -25,13 +29,31 @@ table td, table th {
   padding: 0 5px;
 }
 
-section {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 5px auto;
+.info-box {
+  padding: 15px;
+}
+
+header {
+  margin: 20px 0 30px 0;
+}
+
+.add-top {
+  margin-top: 30px;
+}
+
+header h2 {
+  margin-top: 10px;
+}
+
+header h1 {
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-size: 150%;
 }
 
 section h2 {
-  font-size: 150%;
-  margin: 0 auto 10px;
+  margin: 0;
 }

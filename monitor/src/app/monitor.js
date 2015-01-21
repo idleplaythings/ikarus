@@ -57,7 +57,8 @@ Monitor.prototype._startArma = function(){
       0, // use parents stdin for child
       'pipe', // pipe child's stdout to parent
       'pipe'
-    ]
+    ],
+    maxBuffer: 2024*1024
   };
 
   this._armaServerProcess = child_process.exec(command, options, function (error, stdout, stderr) {
@@ -118,7 +119,6 @@ Monitor.prototype._connectToWebApp = function() {
     this._config.webApp.host,
     this._config.webApp.port,
     function(err, reconnect) {
-      this._gameData.reset();
 
       if (! reconnect){
         this._webAppClient.registerServer(serverId);
@@ -202,6 +202,7 @@ var squadsRetrieve = function(test) {
 };
 
 var squadSubmit = function(squadId, loot) {
+  console.log("SQUAD SUBMIT", squadId);
   var squad = this._gameData.getSquadById(squadId);
   var squadLoot = this._gameData.receiveSquadData(squadId, loot);
   this._webAppClient.reportMissionLoot(

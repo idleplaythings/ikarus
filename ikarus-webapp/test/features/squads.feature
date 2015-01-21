@@ -129,6 +129,29 @@ Feature: Squads
     Then no squad inventories should exists
     Then no squads should exist
 
+  Scenario: Player being too slow to join the server and is removed from squad
+    Given player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "321" exists
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "Jane Doe" is a member of company "Manatee-Men"
+    And server "test-server" is registered
+    And server "test-server" has status "waiting"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I am logged in as "Jane Doe"
+    And I join a same squad as "John Doe"
+    And I enter my squad to the queue
+    And Squad that has player "John Doe" should be playing on server "test-server"
+    And "John Doe" connects to server "test-server"
+    And deadline for connecting to game on squad that has player "John Doe" has elapsed
+    When squad deadlines are checked
+    And "Jane Doe" connects to server "test-server"
+    Then server "test-server" should not have a player with Steam ID "321"
+    Then server "test-server" should have a player with Steam ID "123"
+    Then player "John Doe" should have a squad
+    Then player "Jane Doe" should not have a squad
+
   Scenario: Player being removed from squad when disconnecting from server when game is playing
     Given player "John Doe" with Steam ID "123" exists
     Given player "Jane Doe" with Steam ID "321" exists

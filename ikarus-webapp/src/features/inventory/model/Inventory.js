@@ -9,6 +9,8 @@ Inventory = function Inventory(args){
   this.type = 'Inventory';
 }
 
+Inventory.MAX_ITEMS_PER_SQUAD_MEMBER = 20;
+
 Inventory.prototype.isLocked = function(){
   return false;
 };
@@ -104,6 +106,10 @@ Inventory.prototype.getByArmaClass = function(armaClass){
 Inventory.moveFromInventory = function(from, to, armaClass){
   var item = from.getByArmaClass(armaClass);
   if (!item || from.isLocked() || to.isLocked()) {
+    return;
+  }
+
+  if (to instanceof InventorySquad && to.items.length >= to.getMaxItemCount()) {
     return;
   }
 

@@ -1,5 +1,5 @@
 <template name="squadMemberInventory">
-<h3>Inventory</h3>
+<h3>Inventory ({{getInventory.inventory.items.length}} / {{getInventory.inventory.getMaxItemCount}})</h3>
 
 
   {{#each getInventory.getOtherThanMagazines}}

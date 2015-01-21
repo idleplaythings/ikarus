@@ -1,13 +1,11 @@
 <template name="servers_status">
   <div>
     {{#if server}}
-      <h2>Server: {{ server.getName }}</h2>
+      <h1>Server: {{ server.getName }}</h1>
 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            {{> players_list server }}
-          </div>
+      <div class="row">
+        <div class="col-md-12">
+          {{> players_list server }}
         </div>
       </div>
     {{/if}}

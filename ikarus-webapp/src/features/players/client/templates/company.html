@@ -1,0 +1,23 @@
+<template name="players_company">
+  {{#if currentPlayer}}
+    {{#unless currentCompany}}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="info-box bg-info">
+            <p>Welcome to Ikarus! To play, you'll need to join a <strong>company</strong>.</p>
+            <button class="js-create-company">Create new company</button>, or ask your friends for an invite!
+
+            {{#if invites}}
+              <p class="add-top">You have pending invites to these companies:</p>
+              {{#each invites}}
+                <button class="js-join-company" data-companyId="{{companyId}}">
+                  Join company "{{name}}"
+                </button>
+              {{/each}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    {{/unless}}
+  {{/if}}
+</template>

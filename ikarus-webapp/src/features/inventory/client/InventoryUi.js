@@ -6,6 +6,7 @@ InventoryUi = function InventoryUi(args){
 
   var items = args.inventory ? args.inventory.items : [];
   this.showUnlimited = args.showUnlimited;
+  this.inventory = args.inventory;
   this.items = this._getItemsAndCounts(items);
 };
 

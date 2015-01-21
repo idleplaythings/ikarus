@@ -56,13 +56,18 @@ var squadsStepDefinitions = function () {
       .catch(this.handleError);
   });
 
-  this.Then(/^Squad that has player "([^"]*)" should be on queue for server "([^"]*)" at index "([^"]*)"$/, function (username, serverName, index, callback) {
-    assertIsInQueue(this.app, username, serverName, index);
+  this.Then(/^Squad that has player "([^"]*)" should be on queue at index "([^"]*)"$/, function (username, index, callback) {
+    assertIsInQueue(this.app, username, index);
     callback();
   });
 
-  this.Then(/^Squad that has player "([^"]*)" should not be queuing on server "([^"]*)"$/, function (username, serverName, callback) {
-    assertIsNotInQueue(this.app, username, serverName);
+  this.Given(/^Squad that has player "([^"]*)" should be on queue in region "([^"]*)" at index "([^"]*)"$/, function (username, region, index, callback) {
+    assertIsInQueue(this.app, username, region, index);
+    callback();
+  });
+
+  this.Then(/^Squad that has player "([^"]*)" should not be queuing on region "([^"]*)"$/, function (username, region, callback) {
+    assertIsNotInQueue(this.app, username, region);
     callback();
   });
 
@@ -107,18 +112,18 @@ function assertIsOnServer(app, username, serverName) {
   assert(index !== -1);
 };
 
-function assertIsNotInQueue(app, username, serverName) {
+function assertIsNotInQueue(app, username, region) {
   var squad = getSquadByUsername(app, username);
-  var server = getServerByName(app, serverName);
-  var index = server.queue.indexOf(squad._id);
+  var queue = getQueueByRegion(app, region);
+  var index = queue.queue.indexOf(squad._id);
 
   assert(index === -1);
 };
 
-function assertIsInQueue(app, username, serverName, index) {
+function assertIsInQueue(app, username, region, index) {
   var squad = getSquadByUsername(app, username);
-  var server = getServerByName(app, serverName);
-  var index = server.queue.indexOf(squad._id);
+  var queue = getQueueByRegion(app, region);
+  var index = queue.queue.indexOf(squad._id);
 
   assert(index === index);
 };
@@ -167,6 +172,12 @@ function getUser(app, username) {
 
 function getSteamId(user) {
   return user.services.steam.id;
+}
+
+function getQueueByRegion(app, region) {
+  return app.findOneFrom('serverQueues', function(server){
+    return server.region == region
+  });
 }
 
 function getServerByName(app, name) {

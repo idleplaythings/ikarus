@@ -122,44 +122,6 @@ Server.prototype.removeAllSquadsFromGame = function() {
   });
 };
 
-Server.prototype.removeSquadFromQueue = function(squad) {
-  collections.ServerCollection.update({
-    _id: this._id
-  }, {
-    $pull: {
-      queue: squad._id
-    }
-  });
-};
-
-Server.prototype.shiftFromQueue = function() {
-  var squad = this.getQueue().shift();
-  collections.ServerCollection.update({
-    _id: this._id
-  }, {
-    $pull: {
-      queue: squad._id
-    }
-  });
-
-  return squad;
-}
-
-Server.prototype.getQueue = function() {
-  var ids = get(this.getDoc(), 'queue') || [];
-  return ids.map(Squad.getById);
-}
-
-Server.prototype.addToQueue = function(squad) {
-  collections.ServerCollection.update({
-    _id: this._id
-  }, {
-    $addToSet: {
-      queue: squad._id
-    }
-  });
-};
-
 Server.prototype.getPlayerIds = function() {
   return get(this.getDoc(), 'playerIds') || [];
 }
@@ -235,10 +197,6 @@ Server.getAll = function() {
 
 Server.getAllWaiting = function() {
   return collections.ServerCollection.find({status: Server.STATUS_WAITING}).fetch().map(Server.fromDoc);
-};
-
-Server.getByQueuingSquad = function(squad) {
-  return Server.fromDoc(collections.ServerCollection.findOne({ queue: {$in: [squad._id]} }));
 };
 
 Server.getByInGameSquad = function(squad) {

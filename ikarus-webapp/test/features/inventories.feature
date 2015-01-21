@@ -95,7 +95,7 @@ Feature: Inventories
     And I create a squad
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
     And I enter my squad to the queue
-    And Squad that has player "John Doe" should be on queue for server "test-server" at index "0"
+    And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
     When I leave my squad
     Then there should not be squads queuing on server "test-server"

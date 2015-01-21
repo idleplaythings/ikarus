@@ -143,3 +143,20 @@ Feature: Inventories
     Then "Manatee-Men" should have "5" "CUP_arifle_AK107" in armory
     Then "John Doe" should have "0" "CUP_arifle_AK107" in his inventory
     Then "John Doe" should have "1" "CUP_arifle_AK74" in his inventory
+
+  Scenario: If server changes status from waiting to idle, squads get items back
+    Given player "John Doe" with Steam ID "123" exists
+    And server "test-server" is registered
+    And server "test-server" has status "waiting"
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
+    And I enter my squad to the queue
+    And Squad that has player "John Doe" should be playing on server "test-server"
+    And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
+    When server "test-server" has status "idle"
+    Then "Manatee-Men" should have "6" "CUP_arifle_AK74" in armory
+    Then no squad inventories should exists
+    Then no squads should exist

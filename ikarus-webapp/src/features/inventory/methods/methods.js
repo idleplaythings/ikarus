@@ -3,6 +3,10 @@ Meteor.methods({
     var squad = getSquad();
     var company = getCompany();
 
+    if (squad.isLocked()) {
+      return false;
+    }
+
     Inventory.moveFromInventory(
       Inventory.getByCompany(company),
       Inventory.getBySquad(squad),
@@ -14,6 +18,9 @@ Meteor.methods({
     var squad = getSquad();
     var company = getCompany();
 
+    if (squad.isLocked()) {
+      return false;
+    }
 
     var armory = Inventory.getByCompany(company);
     Inventory.moveFromInventory(

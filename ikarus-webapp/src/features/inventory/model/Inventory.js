@@ -87,10 +87,6 @@ Inventory.returnItems = function(company, squad){
 
   var companyInventory = this.getByCompany(company);
 
-  if (squadInventory.locked){
-    return;
-  }
-
   squadInventory.items.forEach(function(item){
     Inventory.moveFromInventory(squadInventory, companyInventory, item.armaClass);
   });
@@ -105,7 +101,7 @@ Inventory.prototype.getByArmaClass = function(armaClass){
 
 Inventory.moveFromInventory = function(from, to, armaClass){
   var item = from.getByArmaClass(armaClass);
-  if (!item || from.isLocked() || to.isLocked()) {
+  if (!item) {
     return;
   }
 
@@ -117,10 +113,6 @@ Inventory.moveFromInventory = function(from, to, armaClass){
 };
 
 Inventory.removeFromInventory = function(inventory, item){
-
-  if (inventory.isLocked()) {
-    return 0;
-  }
 
   var armaClass = item.armaClass;
   if (item.unlimited && inventory instanceof InventoryCompany) {
@@ -150,10 +142,6 @@ Inventory.removeFromInventory = function(inventory, item){
 };
 
 Inventory.addToInventory = function(inventory, item){
-
-  if (inventory.isLocked()) {
-    return 0;
-  }
 
   var armaClass = item.armaClass;
   if (item.unlimited && inventory instanceof InventoryCompany) {

@@ -18,6 +18,14 @@ Meteor.methods({
     console.log("update server status",name,  status);
 
     if (status == Server.STATUS_IDLE || status == Server.STATUS_DOWN){
+
+      if (server.getStatus() == Server.STATUS_WAITING) {
+        server.getSquadsInGame().forEach(function(squad) {
+          var company = Company.getBySquad(squad);
+          Inventory.returnItems(company, squad);
+        })
+      }
+
       var players = Player.getAllByIds(server.playerIds);
 
       server.removePlayers();

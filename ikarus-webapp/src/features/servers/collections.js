@@ -8,6 +8,10 @@ collections.ServerCollection = new Meteor.Collection("servers");
 collections.ServerQueueCollection = new Meteor.Collection("serverQueues");
 
 Meteor.startup(function(){
+  if ( ! Meteor.isServer) {
+    return;
+  }
+
   if (collections.ServerQueueCollection.find().fetch().length === 0) {
     collections.ServerQueueCollection.insert({
       queue: [],

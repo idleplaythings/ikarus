@@ -48,9 +48,15 @@ ServerQueue.prototype.getLength = function() {
   return queue.length;
 };
 
+ServerQueue.getBySquad = function (squad) {
+  return ServerQueue.fromDoc(
+    collections.ServerQueueCollection.findOne({queue: {$in: [squad._id]}})
+  );
+};
+
 ServerQueue.getByRegion = function (region) {
   return ServerQueue.fromDoc(
-    collections.ServerQueueCollection.findOne({})
+    collections.ServerQueueCollection.findOne({region: region})
   );
 };
 

@@ -29,8 +29,8 @@ Template.squads_status.events({
 });
 
 Template.squad_queue_status.helpers({
-  inQueueServer: function() {
-    return Server.getByQueuingSquad(Squad.getCurrent());
+  inQueue: function() {
+    return ServerQueue.getBySquad(Squad.getCurrent());
   },
 
   inGameServer: function() {
@@ -39,8 +39,7 @@ Template.squad_queue_status.helpers({
 
   notInQueueOrGame: function(){
     var squad = Squad.getCurrent();
-    console.log("hi,", Server.getByQueuingSquad(squad), Server.getByInGameSquad(squad));
-    return ! Server.getByQueuingSquad(squad) && ! Server.getByInGameSquad(squad);
+    return ! ServerQueue.getBySquad(Squad.getCurrent()) && ! Server.getByInGameSquad(squad);
   }
 });
 

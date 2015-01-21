@@ -199,10 +199,6 @@ Server.getAllWaiting = function() {
   return collections.ServerCollection.find({status: Server.STATUS_WAITING}).fetch().map(Server.fromDoc);
 };
 
-Server.getByQueuingSquad = function(squad) {
-  return Server.fromDoc(collections.ServerCollection.findOne({ queue: {$in: [squad._id]} }));
-};
-
 Server.getByInGameSquad = function(squad) {
   return Server.fromDoc(collections.ServerCollection.findOne({ inGame: {$in: [squad._id]} }));
 };

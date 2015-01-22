@@ -29,7 +29,7 @@ Monitor.prototype.start = function() {
     this._webAppClient.reportStatusDown(this._config.arma.serverId);
 
     process.exit();
-  });
+  }.bind(this));
 
   try {
     this._registerRpcCallbacks();

@@ -50,7 +50,11 @@ Monitor.prototype._startArma = function(){
   }
 
   var location = this._config.arma.location;
-  var command = location + "/arma3server -name=server -config=server.cfg -sock_host=::1 -sock_port=1337 -mod=@ikrs;";
+  var configLocation = this._config.arma.config;
+  var sockPort = this._config.rpc.port;
+  var armaPort = this._config.arma.port;
+  var BEpath = this._config.arma.BEpath;
+  var command = location + "/arma3server -name=server -config="+configLocation+" -sock_host=::1 -sock_port="+sockPort+" -port="+armaPort+" -mod=@ikrs; -BEpath="+BEpath;
   var options = {
     cwd: location,
     stdio: [

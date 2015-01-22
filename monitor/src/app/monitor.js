@@ -26,6 +26,8 @@ Monitor.prototype.start = function() {
       this._armaServerProcess.kill();
     }
 
+    this._webAppClient.reportStatusDown(this._config.arma.serverId);
+
     process.exit();
   });
 

@@ -12,19 +12,6 @@ ServerQueue.prototype.removeSquadFromQueue = function(squad) {
   });
 };
 
-ServerQueue.prototype.shiftFromQueue = function() {
-  var squad = this.getQueue().shift();
-  collections.ServerQueueCollection.update({
-    _id: this._id
-  }, {
-    $pull: {
-      queue: squad._id
-    }
-  });
-
-  return squad;
-}
-
 ServerQueue.prototype.getQueue = function() {
   var ids = get(this.getDoc(), 'queue') || [];
   return ids.map(Squad.getById);

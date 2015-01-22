@@ -11,6 +11,17 @@ Server.STATUS_PLAYING = 'playing';
 Server.STATUS_WAITING = 'waiting';
 Server.STATUS_DOWN = 'down';
 
+Server.MAX_PLAYERS = 60;
+
+Server.prototype.canFit = function(squad) {
+  var players = 0;
+  this.getSquadsInGame().forEach(function(inGameSquad) {
+    players += inGameSquad.getSteamIds().length;
+  });
+
+  return players + squad.getSteamIds().length <= Server.MAX_PLAYERS;
+}
+
 Server.prototype.isWaiting = function() {
   return get(this.getDoc(), 'status') == Server.STATUS_WAITING;
 }
@@ -45,20 +56,19 @@ Server.prototype.getNextStatus = function() {
   return get(this.getDoc(), 'nextStatus');
 }
 
-Server.prototype.startWaiting = function() {
+Server.prototype.markStatusChange = function() {
   var time = moment().toString();
-  console.log("waiting started", time);
   collections.ServerCollection.update({
     _id: this._id
   }, {
     $set: {
-      waitingStarted: time
+      statusChanged: time
     }
   });
 }
 
-Server.prototype.getWaitingStarted = function() {
-  var time = get(this.getDoc(), 'waitingStarted') || null;
+Server.prototype.getStatusChanged = function() {
+  var time = get(this.getDoc(), 'statusChanged') || null;
   return time ? moment(time) : null;
 }
 
@@ -82,9 +92,7 @@ Server.prototype.updateStatus = function(status) {
     }
   });
 
-  if (status == Server.STATUS_WAITING) {
-    this.startWaiting();
-  }
+  this.markStatusChange();
 }
 
 Server.prototype.getSquadsInGame = function() {

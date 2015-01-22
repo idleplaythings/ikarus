@@ -31,9 +31,9 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
 
     console.log("server waiting times", this._waitingTime);
-    console.log(server.getWaitingStarted().add(this._waitingTime, 'minutes').toString());
+    console.log(server.getStatusChanged().add(this._waitingTime, 'minutes').toString());
     console.log(moment().toString());
-    if (server.getWaitingStarted().add(this._waitingTime, 'minutes').isAfter(moment())) {
+    if (server.getStatusChanged().add(this._waitingTime, 'minutes').isAfter(moment())) {
       return;
     }
 
@@ -107,16 +107,18 @@ ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
 ServerQueueService.prototype._checkNeedsToMoveQueue = function(server) {
   if (server.isWaiting()){
     var queue = ServerQueue.getByRegion('EU');
-    while(queue.getLength() > 0) {
-      var squad = queue.shiftFromQueue();
-      this._addSquadToGame(squad, server);
-    }
+    queue.getQueue().forEach(function(squad){
+      if (server.canFit(squad)) {
+        queue.removeSquadFromQueue(squad);
+        this._addSquadToGame(squad, server);
+      }
+    }, this);
   }
 };
 
 ServerQueueService.prototype.enterQueue = function(squad) {
   var server = this._findServerForSquad(squad);
-  if (server.isWaiting()) {
+  if (server && server.isWaiting()) {
     this._addSquadToGame(squad, server);
   } else {
     var queue = ServerQueue.getByRegion('EU');
@@ -131,7 +133,7 @@ ServerQueueService.prototype.leaveQueue = function(squad) {
 };
 
 ServerQueueService.prototype._findServerForSquad = function(squad) {
-  return Server.getAll().pop();
+  return new ServerFinder().findServer(squad);
 };
 
 ServerQueueService.prototype._addSquadToGame = function(squad, server) {
@@ -140,4 +142,12 @@ ServerQueueService.prototype._addSquadToGame = function(squad, server) {
   squad.getInventory().setServerId(server._id);
   squad.setConnectionDeadline(new moment().add(5, 'minutes'));
 };
+
+
+
+
+
+
+
+
 

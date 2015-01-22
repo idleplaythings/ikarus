@@ -47,7 +47,8 @@ SquadController.prototype.leaveSquad = function(){
   //Empty squad, in server, but server not playing yet. Free to leave, but lose inventory
   if (squad.isEmpty() && server && ! server.isPlaying()) {
     Inventory.removeBySquad(squad);
-    server.removeSquadFromQueue(squad);
+    var queue = ServerQueue.getByRegion('EU');
+    queue.removeSquadFromQueue(squad);
     server.removeSquadFromGame(squad);
     squad.remove();
   }

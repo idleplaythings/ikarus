@@ -53,7 +53,7 @@ Feature: Squads
     Then no squad inventories should exists
     Then no squads should exist
 
-  Scenario: Squad being assigned to a server in the queue
+  Scenario: Squad being added to the queue
     Given player "John Doe" with Steam ID "123" exists
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
@@ -62,7 +62,7 @@ Feature: Squads
     And I am logged in as "John Doe"
     And I create a squad
     When I enter my squad to the queue
-    Then Squad that has player "John Doe" should be on queue for server "test-server" at index "0"
+    And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
 
   Scenario: Squad being added to server and player connecting
     Given player "John Doe" with Steam ID "123" exists
@@ -183,9 +183,9 @@ Feature: Squads
     And I am logged in as "John Doe"
     And I create a squad
     And I enter my squad to the queue
-    And Squad that has player "John Doe" should be on queue for server "test-server" at index "0"
+    And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
     When I leave my squad from the queue
-    Then Squad that has player "John Doe" should not be queuing on server "test-server"
+    Then Squad that has player "John Doe" should not be queuing on region "EU"
     And Squad that has player "John Doe" should not be playing on server "test-server"
 
   Scenario: When already on server, cannot leave queue
@@ -234,7 +234,7 @@ Feature: Squads
     And I am logged in as "John Doe"
     And I create a squad
     And I enter my squad to the queue
-    And Squad that has player "John Doe" should be on queue for server "test-server" at index "0"
+    And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
     When server "test-server" has status "waiting"
     Then Squad that has player "John Doe" should be playing on server "test-server"
 

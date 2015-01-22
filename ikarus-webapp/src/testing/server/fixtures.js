@@ -11,7 +11,8 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       }),
       collections.ServerCollection.find(),
       collections.SquadCollection.find(),
-      collections.InventoryCollection.find()
+      collections.InventoryCollection.find(),
+      collections.ServerQueueCollection.find()
     ];
   });
 
@@ -129,6 +130,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       collections.SquadCollection.remove({});
       collections.InventoryCollection.remove({});
       collections.ServerCollection.remove({});
+      collections.ServerQueueCollection.update({}, {$set: {queue: []}}, {multi: true});
     },
     testing_addPlayerToCompany: function(playerName, companyName) {
       var player = Player.getByName(playerName);

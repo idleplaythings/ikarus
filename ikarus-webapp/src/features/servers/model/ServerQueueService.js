@@ -91,16 +91,24 @@ ServerQueueService.prototype.serverStatusChanged = function(server) {
   this._checkNeedsToMoveQueue(server);
 };
 
+ServerQueueService.prototype.queueStatusChanged = function(server) {
+  Server.getAll().forEach(function (server) {
+    this.serverStatusChanged(server);
+  }, this);
+};
+
 ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
-  if (server.isIdle() && server.getQueue().length >= this._minSquadsToStart) {
+  var queue = ServerQueue.getByRegion('EU');
+  if (server.isIdle() && queue.getLength() >= this._minSquadsToStart) {
     server.updateStatus(Server.STATUS_WAITING);
   }
 };
 
 ServerQueueService.prototype._checkNeedsToMoveQueue = function(server) {
   if (server.isWaiting()){
-    while(server.getQueue().length > 0) {
-      var squad = server.shiftFromQueue();
+    var queue = ServerQueue.getByRegion('EU');
+    while(queue.getLength() > 0) {
+      var squad = queue.shiftFromQueue();
       this._addSquadToGame(squad, server);
     }
   }
@@ -111,16 +119,15 @@ ServerQueueService.prototype.enterQueue = function(squad) {
   if (server.isWaiting()) {
     this._addSquadToGame(squad, server);
   } else {
-    server.addToQueue(squad);
-    this.serverStatusChanged(server);
+    var queue = ServerQueue.getByRegion('EU');
+    queue.addToQueue(squad);
+    this.queueStatusChanged();
   }
 };
 
 ServerQueueService.prototype.leaveQueue = function(squad) {
-  var server = Server.getByQueuingSquad(squad);
-  if (server) {
-    server.removeSquadFromQueue(squad);
-  }
+  var queue = ServerQueue.getByRegion('EU');
+  queue.removeSquadFromQueue(squad);
 };
 
 ServerQueueService.prototype._findServerForSquad = function(squad) {

@@ -57,6 +57,12 @@ var serverStepDefinitions = function () {
       .catch(this.handleError);
   });
 
+  this.When(/^servers have been checked for waiting abort$/, function (callback) {
+    this.app.callTestingCheckServeIsReadyToAbort()()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
   this.Given(/^server waiting period has elapsed for server "([^"]*)"$/, function (serverName, callback) {
     var serverId = getServerByName(this.app, serverName)._id;
     this.app.callTestingElapseServerWaitingTime(serverId)()
@@ -74,6 +80,19 @@ var serverStepDefinitions = function () {
     this.app.callTestingSetMinTimeToStartGame(min)()
       .finally(callback)
       .catch(this.handleError);
+  });
+
+  this.Given(/^servers can fit "([^"]*)" player$/, function (max, callback) {
+    this.app.callTestingSetMaxPlayersPerServer(max)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
+  this.Given(/^servers abort waiting if only "([^"]*)" squad is on server$/, function (min, callback) {
+    this.app.callTestingSetMinTeamsToAbort(min)()
+      .finally(callback)
+      .catch(this.handleError);
+
   });
 };
 

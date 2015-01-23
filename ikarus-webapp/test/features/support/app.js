@@ -253,6 +253,12 @@ App.prototype.callTestingCheckServerForGameStart = function () {
   }.bind(this)
 };
 
+App.prototype.callTestingCheckServeIsReadyToAbort = function () {
+  return function() {
+    return this.callMethod('testingCheckServeIsReadyToAbort', []);
+  }.bind(this)
+};
+
 App.prototype.callTestingSetMinSquadsToStartGame = function (min) {
   return function() {
     return this.callMethod('testingSetMinSquadsToStartGame', [min]);
@@ -262,6 +268,18 @@ App.prototype.callTestingSetMinSquadsToStartGame = function (min) {
 App.prototype.callTestingSetMinTimeToStartGame = function (min) {
   return function() {
     return this.callMethod('testingSetMinTimeToStartGame', [min]);
+  }.bind(this)
+};
+
+App.prototype.callTestingSetMaxPlayersPerServer = function (max) {
+  return function() {
+    return this.callMethod('testingSetMaxPlayersPerServer', [max]);
+  }.bind(this)
+};
+
+App.prototype.callTestingSetMinTeamsToAbort = function (max) {
+  return function() {
+    return this.callMethod('testingSetMinTeamsToAbort', [max]);
   }.bind(this)
 };
 

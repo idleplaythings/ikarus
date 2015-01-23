@@ -35,6 +35,16 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
 
   Meteor.methods({
 
+    testingSetMinTeamsToAbort: function(min) {
+      min = parseInt(min, 10);
+      dic.get('ServerQueueService')._minSquadsToAbort  = min;
+    },
+
+    testingSetMaxPlayersPerServer: function (max) {
+      max = parseInt(max, 10);
+      Server.MAX_PLAYERS = max;
+    },
+
     testingSetMinSquadsToStartGame: function(min) {
       min = parseInt(min, 10);
       dic.get('ServerQueueService')._minSquadsToStart  = min;
@@ -43,6 +53,10 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
     testingSetMinTimeToStartGame: function(min) {
       min = parseInt(min, 10);
       dic.get('ServerQueueService')._waitingTime  = min;
+    },
+
+    testingCheckServeIsReadyToAbort: function() {
+      dic.get('ServerQueueService').checkServerIsReadyToAbort();
     },
 
     testingCheckServerForGameStart: function() {
@@ -131,6 +145,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       collections.InventoryCollection.remove({});
       collections.ServerCollection.remove({});
       collections.ServerQueueCollection.update({}, {$set: {queue: []}}, {multi: true});
+      Server.MAX_PLAYERS = 60;
     },
     testing_addPlayerToCompany: function(playerName, companyName) {
       var player = Player.getByName(playerName);

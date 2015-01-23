@@ -80,4 +80,52 @@ Feature: Servers
     When I enter my squad to the queue
     Then Squad that has player "John Doe" should be playing on server "test-server2"
 
+  Scenario: Squad is added to server that has space
+    Given "1" squads are minimum to start a game
+    And servers can fit "1" player
+    And player "John Doe" with Steam ID "123" exists
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And player "Jane Doe" with Steam ID "321" exists
+    And company "Manatee-Women" exists
+    And "Jane Doe" is a member of company "Manatee-Women"
+    And server "full-server1" is registered
+    And server "full-server1" has status "idle"
+    And server "full-server2" is registered
+    And server "full-server2" has status "idle"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    And Squad that has player "John Doe" should be playing on server "full-server1"
+    And I am logged in as "Jane Doe"
+    And I create a squad
+    When I enter my squad to the queue
+    Then Squad that has player "Jane Doe" should be playing on server "full-server2"
+
+  Scenario: Server aborting waiting, if squads leave
+    Given "2" squads are minimum to start a game
+    And servers abort waiting if only "1" squad is on server
+    And severs wait "2" minutes for additional players before starting
+    And player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "321" exists
+    And company "Manatee-Men" exists
+    And company "Manatee-WOMEN" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "Jane Doe" is a member of company "Manatee-WOMEN"
+    And server "test-server" is registered
+    And server "test-server" has status "idle"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    And I am logged in as "Jane Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    And "John Doe" connects to server "test-server"
+    And "Jane Doe" connects to server "test-server"
+    And status for server "test-server" should be "waiting"
+    When I leave my squad
+    And servers have been checked for waiting abort
+    Then status for server "test-server" should be "idle"
+    And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
+    Then player "Jane Doe" should not have a squad
 

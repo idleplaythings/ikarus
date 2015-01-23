@@ -9,6 +9,7 @@ ServerQueueService = function ServerQueueService(){
   this._loopDelay = 1000;
   this._minSquadsToStart = 1;
   this._waitingTime = 2; //minutes
+  this._minSquadsToAbort = 0;
 }
 
 ServerQueueService.prototype.start = function() {
@@ -22,17 +23,36 @@ ServerQueueService.prototype.start = function() {
 ServerQueueService.prototype.loop = function() {
 
   this.checkSquadDeadlines();
+  this.checkServerIsReadyToAbort();
   this.checkServerIsReadyToStart();
 
   Meteor.setTimeout(this.loop.bind(this), this._loopDelay);
 };
 
+
+ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
+  Server.getAllWaiting().forEach(function(server){
+    if (server.isWaiting() && server.getSquadsInGame().length <= this._minSquadsToAbort) {
+      server.updateStatus(Server.STATUS_IDLE);
+
+      var squads = server.getSquadsInGame();
+      var queue = ServerQueue.getByRegion('EU');
+
+      squads.reverse().forEach(function(squad) {
+        squad.setConnectionDeadline(null);
+        squad.setServerId(null);
+        queue.addToQueue(squad);
+      });
+
+      server.removeAllSquadsFromGame();
+      this.queueStatusChanged();
+    }
+  }, this);
+};
+
 ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
 
-    console.log("server waiting times", this._waitingTime);
-    console.log(server.getStatusChanged().add(this._waitingTime, 'minutes').toString());
-    console.log(moment().toString());
     if (server.getStatusChanged().add(this._waitingTime, 'minutes').isAfter(moment())) {
       return;
     }
@@ -50,7 +70,6 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
 
       return steamIdsOnSquad.every(function(steamId) {
         var inGame = steamIdsOnServer.indexOf(steamId) !== -1;
-        console.log(steamId, "is in game on server:", inGame, server.getName());
         return inGame;
       });
     })

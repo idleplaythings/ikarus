@@ -30,6 +30,12 @@ var serverStepDefinitions = function () {
       .catch(this.handleError);
   });
 
+  this.Given(/^server "([^"]*)" has details (.*)$/, function (serverName, details, callback) {
+    this.app.callServerDetails(serverName, JSON.parse(details))()
+        .finally(callback)
+        .catch(this.handleError);
+  });
+
   this.Given(/^server "([^"]*)" is locked$/, function (serverName, callback) {
     this.app.callLockServer(serverName)()
       .finally(callback)

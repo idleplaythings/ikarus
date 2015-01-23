@@ -1,6 +1,9 @@
 Server = function Server(args) {
   this._id = args._id;
   this.name = args.name;
+  this.host = args.host;
+  this.port = args.port;
+  this.password = args.password;
   this.status = args.status || Server.STATUS_DOWN;
   this.playerIds = args.playerIds || [];
   this.nextStatus = args.nextStatus;
@@ -40,6 +43,31 @@ Server.prototype.isPlaying = function() {
 
 Server.prototype.getName = function() {
   return get(this.getDoc(), 'name');
+}
+
+Server.prototype.getHost = function() {
+  return get(this.getDoc(), 'host');
+}
+
+Server.prototype.getPort = function() {
+  return get(this.getDoc(), 'port');
+}
+
+Server.prototype.getPassword = function() {
+  return get(this.getDoc(), 'password');
+}
+
+Server.prototype.getJoinUrl = function() {
+  var params = [
+      '-world=empty',
+      '-nosplash',
+      '-mod=@ikrs',
+      '-connect=' + this.getHost(),
+      '-port=' + this.getPort(),
+      '-password=' + this.getPassword()
+  ];
+
+  return 'steam://run/107410//' + params.join('%20');
 }
 
 Server.prototype.setName = function(name) {
@@ -93,6 +121,14 @@ Server.prototype.updateStatus = function(status) {
   });
 
   this.markStatusChange();
+}
+
+Server.prototype.updateDetails = function(details) {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: _(details).pick('host', 'port', 'password')
+  });
 }
 
 Server.prototype.getSquadsInGame = function() {

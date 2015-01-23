@@ -80,7 +80,21 @@
   {{/if}}
 
   {{#if inGameServer}}
-    <h1>Please join server {{inGameServer.name}}</h1>
+    <a class="btn btn-primary btn-lg btn-block" href="{{inGameServer.getJoinUrl}}">
+      Click to join server {{inGameServer.name}}
+    </a>
+    <table class="add-top">
+      <tr>
+        <th>Host</th>
+        <th>Port</th>
+        <th>Password</th>
+      </tr>
+      <tr>
+        <td>{{inGameServer.host}}</td>
+        <td>{{inGameServer.port}}</td>
+        <td>{{inGameServer.password}}</td>
+      </tr>
+    </table>
   {{/if}}
 
   {{#if notInQueueOrGame}}

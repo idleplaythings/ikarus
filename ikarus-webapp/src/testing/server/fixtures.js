@@ -147,7 +147,14 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
         return Math.random() > 0.2;
       });
 
-      servers.forEach(Server.create);
+      servers.forEach(function (name) {
+        var server = Server.create(name);
+        server.updateDetails({
+          host: 'ikarus1.tunk.io',
+          port: '1234',
+          password: 'puuppa'
+        });
+      });
       companies.forEach(Company.create);
 
       var players = 20 + Math.floor(Math.random() * 10);

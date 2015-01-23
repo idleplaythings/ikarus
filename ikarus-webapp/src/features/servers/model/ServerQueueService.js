@@ -142,12 +142,3 @@ ServerQueueService.prototype._addSquadToGame = function(squad, server) {
   squad.getInventory().setServerId(server._id);
   squad.setConnectionDeadline(new moment().add(5, 'minutes'));
 };
-
-
-
-
-
-
-
-
-

@@ -60,7 +60,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
           _id: serverId
         },
         {
-          $set: {waitingStarted: time}
+          $set: {statusChanged: time}
         }
       )
     },

@@ -3,14 +3,16 @@ module.exports = (function(){
   var dic = new DIC();
 
   dic.register('Config', function(dic) {
-    return require('./config');
+    var location = process.argv[2];
+    console.log(location);
+    return require(location);
   });
 
   dic.register('Monitor', function (dic) {
     var Monitor = require('./src/app/monitor');
     return new Monitor(
       require('sock-rpc'),
-      require('./config'),
+      dic.get('Config'),
       dic.get('GameData'),
       dic.get('WebAppClient'),
       dic.get('BattlEyeClient')

@@ -1,7 +1,10 @@
 module.exports = {
   arma: {
-    serverId: 'test-server',
-    location: '/home/steam/steamcmd/arma3'
+    serverId: 'Ikarus EU #1',
+    location: '/home/steam/steamcmd/arma3',
+    config: '/home/steam/arma/monitor/server1.cfg',
+    port: 2302,
+    BEpath: '/home/steam/arma/monitor/battleye1'
   },
 
   battlEye: {
@@ -13,10 +16,6 @@ module.exports = {
   webApp: {
     host: 'ikarus.meteor.com',
     port: 80
-  },
-
-  webAppListener: {
-    port: 1338
   },
 
   rpc: {

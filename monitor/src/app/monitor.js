@@ -198,7 +198,10 @@ Monitor.prototype._changeStatus = function(status) {
     if (this._armaServerProcess){
       this._armaServerProcess.kill();
     }
-    this._webAppClient.reportStatusIdle(this._config.arma.serverId);
+
+    this._webAppClient.reportStatusDown(this._config.arma.serverId);
+
+    process.exit();
   }
 
 };

@@ -3,7 +3,9 @@ module.exports = {
     serverId: 'Ikarus EU #1',
     location: '/home/steam/steamcmd/arma3',
     config: '/home/steam/arma/monitor/server1.cfg',
+    host: 'ikarus1.tunk.io',
     port: 2302,
+    password: 'icecreamtruck',
     BEpath: '/home/steam/arma/monitor/battleye1'
   },
 

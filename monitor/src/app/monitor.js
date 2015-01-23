@@ -1,5 +1,7 @@
 var child_process = require('child_process');
 
+var _ = require('underscore');
+
 function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient) {
   this._rpcServer = rpcServer;
   this._config = config;
@@ -129,6 +131,10 @@ Monitor.prototype._connectToWebApp = function() {
       if (! reconnect){
         this._webAppClient.registerServer(serverId);
         this._webAppClient.reportStatusIdle(serverId);
+        this._webAppClient.updateDetails(
+            serverId,
+            _.pick(this._config.arma, 'host', 'port', 'password')
+        );
         this._status = Monitor.STATUS_IDLE;
         this._initDdpObservers();
       }

@@ -7,6 +7,16 @@ Meteor.methods({
     }
   },
 
+  'updateServerDetails': function(name, details) {
+    var server = Server.getByName(name);
+
+    if (! server){
+      throw new Meteor.Error(404, "server not found");
+    }
+
+    server.updateDetails(details);
+  },
+
   'updateServerStatus': function(name, status) {
 
     var server = Server.getByName(name);

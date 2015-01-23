@@ -193,6 +193,12 @@ App.prototype.callServerStatus = function (serverName, status) {
   }.bind(this)
 };
 
+App.prototype.callServerDetails = function (serverName, details) {
+  return function() {
+    return this.callMethod('updateServerDetails', [serverName, details]);
+  }.bind(this)
+};
+
 App.prototype.callLockServer = function (serverName) {
   return function() {
     return this.callMethod('lockSquads', [serverName]);

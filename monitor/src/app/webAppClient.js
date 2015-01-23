@@ -106,6 +106,10 @@ WebAppClient.prototype.reportStatusIdle = function(serverId) {
   this.call('updateServerStatus', [serverId, 'idle']);
 };
 
+WebAppClient.prototype.updateDetails = function(serverId, details) {
+  this.call('updateServerDetails', [serverId, details])
+};
+
 WebAppClient.prototype.reportPlayerConnected = function(serverId, uid) {
   this.call('playerConnected', [serverId, uid]);
 };

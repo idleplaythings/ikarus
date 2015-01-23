@@ -24,7 +24,7 @@ ServerQueue.prototype.addToQueue = function(squad) {
   collections.ServerQueueCollection.update({
     _id: this._id
   }, {
-    $addToSet: {
+    $push: {
       queue: squad._id
     }
   });

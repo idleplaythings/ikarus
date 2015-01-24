@@ -238,7 +238,19 @@ Feature: Squads
     When server "test-server" has status "waiting"
     Then Squad that has player "John Doe" should be playing on server "test-server"
 
-
+Scenario: Squads can only have fixed amount of people
+    Given player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "321" exists
+    And squad can have "1" members
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "Jane Doe" is a member of company "Manatee-Men"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And player "John Doe" should have a squad
+    And I am logged in as "Jane Doe"
+    When I join a same squad as "John Doe"
+    And player "Jane Doe" should not have a squad
 
 
 

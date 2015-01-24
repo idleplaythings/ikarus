@@ -94,6 +94,12 @@ var squadsStepDefinitions = function () {
       .finally(callback)
       .catch(this.handleError)
   });
+
+  this.Given(/^squad can have "([^"]*)" members$/, function (max, callback) {
+    this.app.callTestingSetMaxSquadMembers(max)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
 };
 
 function assertIsNotOnServer(app, username, serverName) {

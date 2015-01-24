@@ -18,7 +18,7 @@ SquadController.prototype.joinSquad = function(squadId){
 
   var squad = this._getSquadById(squadId);
 
-  if (! squad.isLocked()) {
+  if (! squad.isLocked() && squad.getSteamIds().length < Squad.MAX_MEMBERS) {
     squad.addPlayer(player);
     squad.evaluateObjective();
   }

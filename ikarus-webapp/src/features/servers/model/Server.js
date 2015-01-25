@@ -28,6 +28,13 @@ Server.prototype.canFit = function(squad) {
   return players + squad.getSteamIds().length <= Server.MAX_PLAYERS;
 }
 
+Server.prototype.doesNotHaveSquadsFromSameCompany = function (squad) {
+  var companyId = squad.getCompanyId();
+  return ! this.getSquadsInGame().some(function (squadInGame) {
+    return companyId == squadInGame.getCompanyId();
+  });
+}
+
 Server.prototype.isWaiting = function() {
   return get(this.getDoc(), 'status') == Server.STATUS_WAITING;
 }

@@ -35,6 +35,11 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
 
   Meteor.methods({
 
+    testingSetMaxSquadMembers: function(max) {
+      max = parseInt(max, 10);
+      Squad.MAX_MEMBERS = max;
+    },
+
     testingSetMinTeamsToAbort: function(min) {
       min = parseInt(min, 10);
       dic.get('ServerQueueService')._minSquadsToAbort  = min;
@@ -146,6 +151,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       collections.ServerCollection.remove({});
       collections.ServerQueueCollection.update({}, {$set: {queue: []}}, {multi: true});
       Server.MAX_PLAYERS = 60;
+      Squad.MAX_MEMBERS = 12;
     },
     testing_addPlayerToCompany: function(playerName, companyName) {
       var player = Player.getByName(playerName);

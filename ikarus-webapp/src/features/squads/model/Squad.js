@@ -4,6 +4,8 @@ Squad = function Squad(args) {
   this._id = args._id;
 }
 
+Squad.MAX_MEMBERS = 12;
+
 Squad.prototype.getName = function() {
   var player = this.getPlayers()[0];
 
@@ -178,6 +180,18 @@ Squad.prototype.isOnDeadline = function(time) {
 
 Squad.prototype.getDoc = function() {
   return collections.SquadCollection.findOne({ _id: this._id });
+}
+
+Squad.prototype.remove = function() {
+  collections.SquadCollection.remove({ _id: this._id });
+}
+
+Squad.prototype.getAmountOfMembers = function() {
+  return this.getSteamIds().length;
+}
+
+Squad.prototype.getMaxMembers = function() {
+  return Server.MAX_MEMBERS;
 }
 
 Squad.prototype.remove = function() {

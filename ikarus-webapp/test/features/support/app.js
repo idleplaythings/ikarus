@@ -289,6 +289,12 @@ App.prototype.callTestingSetMinTeamsToAbort = function (max) {
   }.bind(this)
 };
 
+App.prototype.callTestingSetMaxSquadMembers = function (max) {
+  return function() {
+    return this.callMethod('testingSetMaxSquadMembers', [max]);
+  }.bind(this)
+};
+
 function handleMeteorMethodError(error) {
   if (error) {
     util.error('Error in Meteor method: ' + error.message);

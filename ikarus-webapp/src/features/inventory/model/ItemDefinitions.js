@@ -125,8 +125,8 @@ ItemDefinitions = [
       'CUP_30Rnd_545x39_AK_M': '2d5+5',
       'CUP_optic_Kobra': 'd10-8',
       'CUP_optic_PSO_1': 'd10-9',
-      'CUP_srifle_SVD': 'd20-19',
-      'CUP_10Rnd_762x54_SVD_M': 'd1',
+      'CUP_srifle_SVD': 'd40-39',
+      'CUP_10Rnd_762x54_SVD_M': 'd6-5',
       'CUP_30Rnd_762x39_AK47_M': 'd3-1',
       'CUP_arifle_AKM': 'd5-4',
       'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': 'd5-4',
@@ -196,8 +196,8 @@ ItemDefinitions = [
       'CUP_arifle_AK107': 'd2+1',
       'CUP_optic_Kobra': 'd2+1',
       'CUP_optic_PSO_1': 'd5-4',
-      'CUP_srifle_SVD': 'd10-9',
-      'CUP_10Rnd_762x54_SVD_M': 'd1+1',
+      'CUP_srifle_SVD': 'd20-19',
+      'CUP_10Rnd_762x54_SVD_M': 'd3-2',
       'CUP_30Rnd_545x39_AK_M': '2d5+5',
       'V_TacVest_camo': 'd3-1',
       'V_TacVest_oli': 'd3-1',
@@ -221,8 +221,8 @@ ItemDefinitions = [
     'NATO heavy weapons',
     'IKRS_loot_heavy_nato_weapons',
     {
-      'CUP_optic_LeupoldMk4_10x40_LRT_Woodland': 'd2-1',
-      'CUP_srifle_M24_wdl': 'd2-1',
+      'CUP_optic_LeupoldMk4_10x40_LRT_Woodland': 'd20-19',
+      'CUP_srifle_M24_wdl': 'd20-19',
       'CUP_5Rnd_762x51_M24': 'd2',
       'CUP_launch_NLAW': 'd2',
       'CUP_NLAW_M': 'd2+2',
@@ -242,8 +242,8 @@ ItemDefinitions = [
       'CUP_arifle_RPK74': 'd2',
       'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '2d3+5',
       'CUP_optic_PSO_1': 'd2-1',
-      'CUP_srifle_SVD': 'd2-1',
-      'CUP_10Rnd_762x54_SVD_M': 'd5+3'
+      'CUP_srifle_SVD': 'd20-19',
+      'CUP_10Rnd_762x54_SVD_M': 'd3-2'
     }
   ),
 ];

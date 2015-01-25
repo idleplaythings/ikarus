@@ -13,7 +13,7 @@
         <tr>
           <th>Name</th>
           <th>Status</th>
-          <th>Companies</th>
+          <th>Time</th>
           <th>Players</th>
           {{#if debug}}
             <th>Debug</th>
@@ -24,9 +24,9 @@
         {{#each servers}}
           <tr>
             <td><a href="{{pathFor route='server'}}">{{name}}</a></td>
-            <td>{{status}}</td>
-            <td>{{companyCount}}</td>
-            <td>{{playerCount}}</td>
+            <td width="70px">{{status}}</td>
+            <td width="70px">{{getTimePlayed}}</td>
+            <td width="50px">{{playerCount}}</td>
             {{#if debug}}
               <td>
                 <button data-server-name="{{name}}" class="js-server-connect">Connect</button>

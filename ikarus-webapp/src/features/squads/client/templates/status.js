@@ -28,20 +28,52 @@ Template.squads_status.events({
   }
 });
 
+Template.squad_queue_status.destroyed = function () {
+  if (! this.countdowners) {
+    Object.keys(this.countdowners).forEach(function (key) {
+      this.countdowners[key].stop();
+    });
+  }
+};
+
 Template.squad_queue_status.helpers({
   inQueue: function() {
     return ServerQueue.getBySquad(Squad.getCurrent());
   },
 
   inGameServer: function() {
-    return Server.getByInGameSquad(Squad.getCurrent());
+    var server = Server.getByInGameSquad(Squad.getCurrent());
+    return server && server.isWaiting();
   },
 
   notInQueueOrGame: function(){
     var squad = Squad.getCurrent();
     return ! ServerQueue.getBySquad(Squad.getCurrent()) && ! Server.getByInGameSquad(squad);
+  },
+
+  getTimeToJoinServer: function () {
+    var server = Server.getByInGameSquad(Squad.getCurrent());
+    if ( server && server.isWaiting()) {
+      return getCountdowner(Template.instance(), this).getTime();
+    }
+    return "";
   }
 });
+
+function getCountdowner(template, squad) {
+  if (! template.countdowners) {
+    template.countdowners = {};
+  }
+
+  if (! template.countdowners[squad._id]) {
+    template.countdowners[squad._id] = new Countdowner(function(){
+      return squad.getConnectionDeadline();
+    },
+    "mm:ss");
+  }
+
+  return template.countdowners[squad._id];
+};
 
 Template.squad_queue_status.events({
   'click .joinQueue' : function () {

@@ -191,7 +191,7 @@ Squad.prototype.getAmountOfMembers = function() {
 }
 
 Squad.prototype.getMaxMembers = function() {
-  return Server.MAX_MEMBERS;
+  return Squad.MAX_MEMBERS;
 }
 
 Squad.prototype.remove = function() {

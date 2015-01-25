@@ -24,12 +24,6 @@ ItemDefinitions = [
 
   createWeapon('M4A1 assault rifle', 'CUP_arifle_M4A1_black', ['CUP_30Rnd_556x45_Stanag']),
 
-  createWeapon('M1014 Shotgun', 'CUP_sgun_M1014', ['CUP_8Rnd_B_Beneli_74Slug'], true),
-  createMagazine('8rnd 12 gauge slugs', 'CUP_8Rnd_B_Beneli_74Slug', 8, true),
-
-  createWeapon('MP5A5 smg', 'CUP_smg_MP5A5', ['CUP_30Rnd_9x19_MP5'], true),
-  createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30, true),
-
   createWeapon('Dragunov SVD sniper rifle', 'CUP_srifle_SVD', ['CUP_10Rnd_762x54_SVD_M']),
   createMagazine('10rnd 7.62x51mm', 'CUP_10Rnd_762x54_SVD_M', 10),
 
@@ -75,8 +69,6 @@ ItemDefinitions = [
   createGeneric('Slash bandolier (Black)', 'V_BandollierB_blk', true),
   createGeneric('Slash bandolier (Black)', 'V_BandollierB_oli', true),
   createGeneric('Fighter chestrig (Khaki)', 'V_Chestrig_khk', true),
-
-  createGeneric('First aid kit', 'FirstAidKit', true),
 
   createBackpack('Assault Pack (Khaki)', 'B_AssaultPack_khk', true),
 

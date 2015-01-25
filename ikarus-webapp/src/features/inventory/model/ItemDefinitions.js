@@ -106,7 +106,7 @@ ItemDefinitions = [
       'Binocular': 'd3-1',
       'CUP_srifle_LeeEnfield': 1,
       'CUP_10x_303_M': 'd5+2',
-      'CUP_srifle_CZ550': 'd20-19',
+      'CUP_srifle_CZ550': 'd40-39',
       'CUP_5x_22_LR_17_HMR_M': 'd3-2',
       'V_Press_F': 'd10-9',
       'V_TacVest_blk_POLICE': 'd10-8',

@@ -129,3 +129,28 @@ Feature: Servers
     And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
     Then player "Jane Doe" should not have a squad
 
+
+  Scenario: Server allowing squads in for only certain time
+    Given "1" squads are minimum to start a game
+    And severs wait "2" minutes for additional players before starting
+    And player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "321" exists
+    And company "Manatee-Men" exists
+    And company "Manatee-WOMEN" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "Jane Doe" is a member of company "Manatee-WOMEN"
+    And server "test-server" is registered
+    And server "test-server" has status "idle"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    And "John Doe" connects to server "test-server"
+    And status for server "test-server" should be "waiting"
+    And server waiting period has elapsed for server "test-server"
+    And I am logged in as "Jane Doe"
+    And I create a squad
+    When I enter my squad to the queue
+    Then Squad that has player "John Doe" should be playing on server "test-server"
+    And Squad that has player "Jane Doe" should not be playing on server "test-server"
+    And Squad that has player "Jane Doe" should be on queue in region "EU" at index "0"
+    Then status for server "test-server" should be "waiting"

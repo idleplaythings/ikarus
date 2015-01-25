@@ -7,9 +7,6 @@ Meteor.startup(function(){
 ServerQueueService = function ServerQueueService(){
   this._started = false;
   this._loopDelay = 1000;
-  this._minSquadsToStart = 1;
-  this._waitingTime = 2; //minutes
-  this._minSquadsToAbort = 0;
 }
 
 ServerQueueService.prototype.start = function() {
@@ -32,7 +29,7 @@ ServerQueueService.prototype.loop = function() {
 
 ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
   Server.getAllWaiting().forEach(function(server){
-    if (server.isWaiting() && server.getSquadsInGame().length <= this._minSquadsToAbort) {
+    if (server.isWaiting() && server.getSquadsInGame().length <= Server.MIN_SQUADS_TO_ABORT) {
       server.updateStatus(Server.STATUS_IDLE);
 
       var squads = server.getSquadsInGame();
@@ -53,7 +50,7 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
 ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
 
-    if (server.getStatusChanged().add(this._waitingTime, 'minutes').isAfter(moment())) {
+    if (server.getStatusChanged().add(Server.TIME_WAIT_FOR_NEWSQUADS, 'minutes').isAfter(moment())) {
       return;
     }
 
@@ -118,13 +115,18 @@ ServerQueueService.prototype.queueStatusChanged = function(server) {
 
 ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
   var queue = ServerQueue.getByRegion('EU');
-  if (server.isIdle() && queue.getLength() >= this._minSquadsToStart) {
+  if (server.isIdle() && queue.getLength() >= Server.MIN_SQUADS_TO_START) {
     server.updateStatus(Server.STATUS_WAITING);
   }
 };
 
 ServerQueueService.prototype._checkNeedsToMoveQueue = function(server) {
   if (server.isWaiting()){
+
+    if (server.getStatusChanged().add(Server.TIME_WAIT_FOR_NEWSQUADS, 'minutes').isBefore(moment())) {
+      return;
+    }
+
     var queue = ServerQueue.getByRegion('EU');
     queue.getQueue().forEach(function(squad){
       if (server.canFit(squad)) {
@@ -137,7 +139,7 @@ ServerQueueService.prototype._checkNeedsToMoveQueue = function(server) {
 
 ServerQueueService.prototype.enterQueue = function(squad) {
   var server = this._findServerForSquad(squad);
-  if (server && server.isWaiting()) {
+  if (server) {
     this._addSquadToGame(squad, server);
   } else {
     var queue = ServerQueue.getByRegion('EU');

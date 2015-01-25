@@ -15,6 +15,9 @@ Server.STATUS_WAITING = 'waiting';
 Server.STATUS_DOWN = 'down';
 
 Server.MAX_PLAYERS = 60;
+Server.TIME_WAIT_FOR_NEWSQUADS = 2; //minutes
+Server.MIN_SQUADS_TO_START = 1;
+Server.MIN_SQUADS_TO_ABORT = 0;
 
 Server.prototype.canFit = function(squad) {
   var players = 0;

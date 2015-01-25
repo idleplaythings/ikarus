@@ -133,7 +133,7 @@ function assertServerExists(app, serverName) {
 
 function getServerByName(app, name) {
   return app.findOneFrom('servers', function(server){
-    return server.name == name
+    return server.name == name;
   });
 }
 

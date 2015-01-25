@@ -250,7 +250,7 @@ Scenario: Squads can only have fixed amount of people
     And player "John Doe" should have a squad
     And I am logged in as "Jane Doe"
     When I join a same squad as "John Doe"
-    And player "Jane Doe" should not have a squad
+    Then player "Jane Doe" should not have a squad
 
 
 

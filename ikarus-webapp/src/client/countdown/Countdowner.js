@@ -29,30 +29,6 @@ Countdowner.prototype.setTime = function(source) {
 Countdowner.prototype.getTime = function() {
   this._dependency.depend();
   var now = moment();
-  var difference = Math.abs(now.diff(this._time, 'seconds'));
-
-  var hours = Math.floor(difference / (60*60));
-  var minutes = Math.floor((difference - (hours * 60 * 60)) / 60);
-  var seconds = difference % 60;
-
-  var result = "";
-
-  if (hours > 0) {
-    result += hours +"h ";
-  }
-
-  if (minutes > 0 || hours > 0) {
-    result += minutes +"m ";
-  }
-
-  result += seconds + "s";
-
-  return result;
-};
-
-Countdowner.prototype.getTime = function() {
-  this._dependency.depend();
-  var now = moment();
   var time = this._time.clone();
 
   if (now.isBefore(this._time)){

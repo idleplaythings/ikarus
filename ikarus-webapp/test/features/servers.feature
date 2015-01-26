@@ -17,6 +17,7 @@ Feature: Servers
     And "John Doe" is a member of company "Manatee-Men"
     And "Jane Doe" is a member of company "Manatee-WOMEN"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
@@ -24,6 +25,7 @@ Feature: Servers
     And I am logged in as "Jane Doe"
     And I create a squad
     And I enter my squad to the queue
+    And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     And "Jane Doe" connects to server "test-server"
     And status for server "test-server" should be "waiting"
@@ -42,6 +44,7 @@ Feature: Servers
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
@@ -55,6 +58,7 @@ Feature: Servers
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
@@ -72,8 +76,10 @@ Feature: Servers
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "idle"
     And server "test-server2" is registered
+    And I am logged in as server "test-server2"
     And server "test-server2" has status "waiting"
     And I am logged in as "John Doe"
     And I create a squad
@@ -90,8 +96,10 @@ Feature: Servers
     And company "Manatee-Women" exists
     And "Jane Doe" is a member of company "Manatee-Women"
     And server "full-server1" is registered
+    And I am logged in as server "full-server1"
     And server "full-server1" has status "idle"
     And server "full-server2" is registered
+    And I am logged in as server "full-server2"
     And server "full-server2" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
@@ -113,6 +121,7 @@ Feature: Servers
     And "John Doe" is a member of company "Manatee-Men"
     And "Jane Doe" is a member of company "Manatee-WOMEN"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
@@ -120,9 +129,11 @@ Feature: Servers
     And I am logged in as "Jane Doe"
     And I create a squad
     And I enter my squad to the queue
+    And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     And "Jane Doe" connects to server "test-server"
     And status for server "test-server" should be "waiting"
+    And I am logged in as "Jane Doe"
     When I leave my squad
     And servers have been checked for waiting abort
     Then status for server "test-server" should be "idle"
@@ -140,10 +151,12 @@ Feature: Servers
     And "John Doe" is a member of company "Manatee-Men"
     And "Jane Doe" is a member of company "Manatee-WOMEN"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
     And I enter my squad to the queue
+    And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     And status for server "test-server" should be "waiting"
     And server waiting period has elapsed for server "test-server"

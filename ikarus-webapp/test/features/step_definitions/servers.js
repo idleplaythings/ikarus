@@ -4,7 +4,7 @@ var serverStepDefinitions = function () {
   this.World = require("../support/world.js").World;
 
   this.Given(/^server "([^"]*)" is registered$/, function (serverName, callback) {
-    this.app.callRegisterServer(serverName)()
+    this.app.callTestingRegisterServer(serverName)()
       .finally(callback)
       .catch(this.handleError);
   });
@@ -98,7 +98,12 @@ var serverStepDefinitions = function () {
     this.app.callTestingSetMinTeamsToAbort(min)()
       .finally(callback)
       .catch(this.handleError);
+  });
 
+  this.Given(/^I am logged in as server "([^"]*)"$/, function (serverName, callback) {
+    this.app.callTestingLoginAsServer(serverName)()
+      .finally(callback)
+      .catch(this.handleError);
   });
 };
 

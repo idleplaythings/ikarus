@@ -139,9 +139,9 @@ App.prototype.addPlayerToCompany = function(username, companyName) {
   }.bind(this)
 };
 
-App.prototype.callRegisterServer = function(serverName) {
+App.prototype.callTestingRegisterServer = function(serverName) {
   return function() {
-    return this.callMethod('registerServer', [serverName]);
+    return this.callMethod('testingRegisterServer', [serverName, 'salakala']);
   }.bind(this)
 };
 
@@ -292,6 +292,12 @@ App.prototype.callTestingSetMinTeamsToAbort = function (max) {
 App.prototype.callTestingSetMaxSquadMembers = function (max) {
   return function() {
     return this.callMethod('testingSetMaxSquadMembers', [max]);
+  }.bind(this)
+};
+
+App.prototype.callTestingLoginAsServer = function (serverName) {
+  return function() {
+    return this.callMethod('testingLoginAsServer', [serverName]);
   }.bind(this)
 };
 

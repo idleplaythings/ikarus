@@ -88,6 +88,7 @@ Feature: Inventories
   Scenario: Squads disbanding before being locked get loot back
     Given player "John Doe" with Steam ID "123" exists
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "down"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
@@ -106,6 +107,7 @@ Feature: Inventories
   Scenario: Players disconnecting after squad is locked will NOT get the loot back
     Given player "John Doe" with Steam ID "123" exists
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
@@ -115,9 +117,10 @@ Feature: Inventories
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
-    When I leave my squad
-    Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
-    Then player "John Doe" should not have a squad
+    And I leave my squad
+    And "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
+    And player "John Doe" should not have a squad
+    And I am logged in as server "test-server"
     When server "test-server" has status "idle"
     Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
     Then no squad inventories should exists
@@ -127,6 +130,7 @@ Feature: Inventories
     Given player "John Doe" with Steam ID "123" exists
     And player "Jane Doe" with Steam ID "124" exists
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
@@ -147,6 +151,7 @@ Feature: Inventories
   Scenario: If server changes status from waiting to idle, squads get items back
     Given player "John Doe" with Steam ID "123" exists
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
@@ -156,6 +161,7 @@ Feature: Inventories
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
+    And I am logged in as server "test-server"
     When server "test-server" has status "idle"
     Then "Manatee-Men" should have "6" "CUP_arifle_AK74" in armory
     Then no squad inventories should exists

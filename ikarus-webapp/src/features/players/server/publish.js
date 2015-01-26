@@ -1,6 +1,6 @@
 Meteor.publish('Users', function () {
   return Meteor.users.find(
-    {},
+    {serverId: null},
     {
       fields: {
         'companyId': 1,

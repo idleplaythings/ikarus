@@ -58,6 +58,7 @@ Feature: Squads
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "playing"
     And I am logged in as "John Doe"
     And I create a squad
@@ -69,10 +70,12 @@ Feature: Squads
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And I am logged in as "John Doe"
     And I create a squad
     When I enter my squad to the queue
+    And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     Then Squad that has player "John Doe" should be playing on server "test-server"
     Then server "test-server" should have a player with Steam ID "123"
@@ -82,10 +85,12 @@ Feature: Squads
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "playing"
     And I am logged in as "John Doe"
     And I create a squad
     And I enter my squad to the queue
+    And I am logged in as server "test-server"
     When "John Doe" connects to server "test-server"
     Then server "test-server" should not have a player with Steam ID "123"
 
@@ -96,6 +101,7 @@ Feature: Squads
     And "John Doe" is a member of company "Manatee-Men"
     And "Jane Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And I am logged in as "John Doe"
     And I create a squad
@@ -103,6 +109,7 @@ Feature: Squads
     And I join a same squad as "John Doe"
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
+    And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     And deadline for connecting to game on squad that has player "Jane Doe" has elapsed
     Then player "Jane Doe" should have a squad
@@ -116,6 +123,7 @@ Feature: Squads
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And I am logged in as "John Doe"
     And I create a squad
@@ -124,6 +132,7 @@ Feature: Squads
     And deadline for connecting to game on squad that has player "John Doe" has elapsed
     Then player "John Doe" should have a squad
     When squad deadlines are checked
+    And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     Then server "test-server" should not have a player with Steam ID "123"
     Then no squad inventories should exists
@@ -136,6 +145,7 @@ Feature: Squads
     And "John Doe" is a member of company "Manatee-Men"
     And "Jane Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And I am logged in as "John Doe"
     And I create a squad
@@ -143,6 +153,7 @@ Feature: Squads
     And I join a same squad as "John Doe"
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
+    And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     And deadline for connecting to game on squad that has player "John Doe" has elapsed
     When squad deadlines are checked
@@ -159,6 +170,7 @@ Feature: Squads
     And "John Doe" is a member of company "Manatee-Men"
     And "Jane Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And I am logged in as "John Doe"
     And I create a squad
@@ -166,6 +178,7 @@ Feature: Squads
     And I join a same squad as "John Doe"
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
+    And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     And "Jane Doe" connects to server "test-server"
     And server "test-server" has status "playing"
@@ -179,6 +192,7 @@ Feature: Squads
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "down"
     And I am logged in as "John Doe"
     And I create a squad
@@ -193,6 +207,7 @@ Feature: Squads
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And I am logged in as "John Doe"
     And I create a squad
@@ -209,6 +224,7 @@ Feature: Squads
     And "John Doe" is a member of company "Manatee-Men"
     And "Jane Doe" is a member of company "Manatee-WOMEN"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "waiting"
     And I am logged in as "John Doe"
     And I create a squad
@@ -218,6 +234,7 @@ Feature: Squads
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And Squad that has player "Jane Doe" should be playing on server "test-server"
+    And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     And "Jane Doe" connects to server "test-server"
     And server "test-server" has status "playing"
@@ -230,11 +247,13 @@ Feature: Squads
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
+    And I am logged in as server "test-server"
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
+    And I am logged in as server "test-server"
     When server "test-server" has status "waiting"
     Then Squad that has player "John Doe" should be playing on server "test-server"
 

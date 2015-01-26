@@ -42,6 +42,10 @@ Template.squad_queue_status.helpers({
   },
 
   inGameServer: function() {
+    return Server.getByInGameSquad(Squad.getCurrent());
+  },
+
+  canJoinGame: function() {
     var server = Server.getByInGameSquad(Squad.getCurrent());
     return server && server.isWaiting();
   },

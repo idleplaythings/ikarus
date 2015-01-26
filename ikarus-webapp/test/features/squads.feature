@@ -257,7 +257,7 @@ Feature: Squads
     When server "test-server" has status "waiting"
     Then Squad that has player "John Doe" should be playing on server "test-server"
 
-Scenario: Squads can only have fixed amount of people
+  Scenario: Squads can only have fixed amount of people
     Given player "John Doe" with Steam ID "123" exists
     And player "Jane Doe" with Steam ID "321" exists
     And squad can have "1" members

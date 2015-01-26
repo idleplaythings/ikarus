@@ -24,12 +24,6 @@ ItemDefinitions = [
 
   createWeapon('M4A1 assault rifle', 'CUP_arifle_M4A1_black', ['CUP_30Rnd_556x45_Stanag']),
 
-  createWeapon('M1014 Shotgun', 'CUP_sgun_M1014', ['CUP_8Rnd_B_Beneli_74Slug'], true),
-  createMagazine('8rnd 12 gauge slugs', 'CUP_8Rnd_B_Beneli_74Slug', 8, true),
-
-  createWeapon('MP5A5 smg', 'CUP_smg_MP5A5', ['CUP_30Rnd_9x19_MP5'], true),
-  createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30, true),
-
   createWeapon('Dragunov SVD sniper rifle', 'CUP_srifle_SVD', ['CUP_10Rnd_762x54_SVD_M']),
   createMagazine('10rnd 7.62x51mm', 'CUP_10Rnd_762x54_SVD_M', 10),
 
@@ -76,8 +70,6 @@ ItemDefinitions = [
   createGeneric('Slash bandolier (Black)', 'V_BandollierB_oli', true),
   createGeneric('Fighter chestrig (Khaki)', 'V_Chestrig_khk', true),
 
-  createGeneric('First aid kit', 'FirstAidKit', true),
-
   createBackpack('Assault Pack (Khaki)', 'B_AssaultPack_khk', true),
 
   createGeneric('Combat fatigues (AAF)', 'U_I_CombatUniform'),
@@ -114,7 +106,7 @@ ItemDefinitions = [
       'Binocular': 'd3-1',
       'CUP_srifle_LeeEnfield': 1,
       'CUP_10x_303_M': 'd5+2',
-      'CUP_srifle_CZ550': 'd20-19',
+      'CUP_srifle_CZ550': 'd40-39',
       'CUP_5x_22_LR_17_HMR_M': 'd3-2',
       'V_Press_F': 'd10-9',
       'V_TacVest_blk_POLICE': 'd10-8',
@@ -133,8 +125,8 @@ ItemDefinitions = [
       'CUP_30Rnd_545x39_AK_M': '2d5+5',
       'CUP_optic_Kobra': 'd10-8',
       'CUP_optic_PSO_1': 'd10-9',
-      'CUP_srifle_SVD': 'd20-19',
-      'CUP_10Rnd_762x54_SVD_M': 'd1',
+      'CUP_srifle_SVD': 'd40-39',
+      'CUP_10Rnd_762x54_SVD_M': 'd6-5',
       'CUP_30Rnd_762x39_AK47_M': 'd3-1',
       'CUP_arifle_AKM': 'd5-4',
       'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': 'd5-4',
@@ -204,8 +196,8 @@ ItemDefinitions = [
       'CUP_arifle_AK107': 'd2+1',
       'CUP_optic_Kobra': 'd2+1',
       'CUP_optic_PSO_1': 'd5-4',
-      'CUP_srifle_SVD': 'd10-9',
-      'CUP_10Rnd_762x54_SVD_M': 'd1+1',
+      'CUP_srifle_SVD': 'd20-19',
+      'CUP_10Rnd_762x54_SVD_M': 'd3-2',
       'CUP_30Rnd_545x39_AK_M': '2d5+5',
       'V_TacVest_camo': 'd3-1',
       'V_TacVest_oli': 'd3-1',
@@ -229,8 +221,8 @@ ItemDefinitions = [
     'NATO heavy weapons',
     'IKRS_loot_heavy_nato_weapons',
     {
-      'CUP_optic_LeupoldMk4_10x40_LRT_Woodland': 'd2-1',
-      'CUP_srifle_M24_wdl': 'd2-1',
+      'CUP_optic_LeupoldMk4_10x40_LRT_Woodland': 'd20-19',
+      'CUP_srifle_M24_wdl': 'd20-19',
       'CUP_5Rnd_762x51_M24': 'd2',
       'CUP_launch_NLAW': 'd2',
       'CUP_NLAW_M': 'd2+2',
@@ -250,8 +242,8 @@ ItemDefinitions = [
       'CUP_arifle_RPK74': 'd2',
       'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '2d3+5',
       'CUP_optic_PSO_1': 'd2-1',
-      'CUP_srifle_SVD': 'd2-1',
-      'CUP_10Rnd_762x54_SVD_M': 'd5+3'
+      'CUP_srifle_SVD': 'd20-19',
+      'CUP_10Rnd_762x54_SVD_M': 'd3-2'
     }
   ),
 ];

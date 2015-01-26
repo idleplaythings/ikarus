@@ -7,6 +7,7 @@ Meteor.startup(function(){
 ServerQueueService = function ServerQueueService(){
   this._started = false;
   this._loopDelay = 1000;
+  this._serverFinder = new ServerFinder();
 }
 
 ServerQueueService.prototype.start = function() {
@@ -123,13 +124,9 @@ ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
 ServerQueueService.prototype._checkNeedsToMoveQueue = function(server) {
   if (server.isWaiting()){
 
-    if (server.getStatusChanged().add(Server.TIME_WAIT_FOR_NEWSQUADS, 'minutes').isBefore(moment())) {
-      return;
-    }
-
     var queue = ServerQueue.getByRegion('EU');
     queue.getQueue().forEach(function(squad){
-      if (server.canFit(squad)) {
+      if (this._serverFinder.canHaveSquad(squad, server)) {
         queue.removeSquadFromQueue(squad);
         this._addSquadToGame(squad, server);
       }
@@ -154,7 +151,7 @@ ServerQueueService.prototype.leaveQueue = function(squad) {
 };
 
 ServerQueueService.prototype._findServerForSquad = function(squad) {
-  return new ServerFinder().findServer(squad);
+  return this._serverFinder.findServer(squad);
 };
 
 ServerQueueService.prototype._addSquadToGame = function(squad, server) {

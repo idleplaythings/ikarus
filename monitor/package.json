@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "battle-node": "0.0.1",
+    "battle-node": "Lulz0rz/battle-node",
     "ddp": "^0.9.2",
     "q": "^1.1.2",
     "sock-rpc": "^1.0.5",

@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "battle-node": "^0.0.4",
+    "battle-node": "0.0.1",
     "ddp": "^0.9.2",
     "q": "^1.1.2",
     "sock-rpc": "^1.0.5",

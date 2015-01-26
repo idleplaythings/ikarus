@@ -94,7 +94,7 @@ function getArmoryByCompanyId(app, companyId) {
 
 function getUser(app, username) {
   return app.findOneFrom('users', function(user){
-    return user.services.steam.username === username;
+    return user.services.steam && user.services.steam.username === username;
   });
 }
 

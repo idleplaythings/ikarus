@@ -86,6 +86,12 @@ WebAppClient.prototype.call = function(name, args){
   );
 };
 
+WebAppClient.prototype.login = function(serverId, password) {
+  this.call('login', [
+    { user : { username : serverId }, password : password }
+  ]);
+}
+
 WebAppClient.prototype.registerServer = function(serverId) {
   this.call('registerServer', [ serverId ]);
 }

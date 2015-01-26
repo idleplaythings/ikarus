@@ -243,10 +243,29 @@ Server.prototype.getDoc = function() {
   return collections.ServerCollection.findOne({ _id: this._id });
 }
 
-Server.create = function(name) {
-  return Server.fromDoc({ _id: collections.ServerCollection.insert(
-      {name:name})
+Server.prototype.authenticateOrError = function() {
+  var user = Meteor.user();
+  if (! user || user.serverId !== this._id) {
+    throw new Meteor.Error(400, 'Unauthorized server access');
+  }
+
+  return true;
+}
+
+Server.create = function(name, password) {
+
+  var server = Server.fromDoc({ _id: collections.ServerCollection.insert(
+    {name:name})
   });
+
+  var userId = Accounts.createUser({
+    username: name,
+    password: password
+  });
+
+  Meteor.users.update({_id: userId}, {$set: {serverId: server._id}});
+
+  return server;
 };
 
 Server.getAll = function() {

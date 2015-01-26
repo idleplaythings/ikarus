@@ -35,6 +35,20 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
 
   Meteor.methods({
 
+    testingLoginAsServer: function(serverName) {
+      var server = Server.getByName(serverName);
+      var user = Meteor.users.findOne({serverId: server._id})
+      this.setUserId(user._id);
+    },
+
+    'testingRegisterServer': function(name) {
+      var server = Server.getByName(name);
+
+      if (!server) {
+        Server.create(name, 'salakala');
+      }
+    },
+
     testingSetMaxSquadMembers: function(max) {
       max = parseInt(max, 10);
       Squad.MAX_MEMBERS = max;
@@ -145,6 +159,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
     },
     testing_removeFixtures: function() {
       Meteor.users.remove({ testing: true });
+      Meteor.users.remove({ serverId: {$ne: null} });
       collections.CompanyCollection.remove({});
       collections.SquadCollection.remove({});
       collections.InventoryCollection.remove({});
@@ -172,7 +187,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       });
 
       servers.forEach(function (name) {
-        var server = Server.create(name);
+        var server = Server.create(name, 'salakala');
         server.updateDetails({
           host: 'ikarus1.tunk.io',
           port: '1234',

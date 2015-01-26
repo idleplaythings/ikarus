@@ -122,6 +122,7 @@ Monitor.prototype._startRpcServer = function() {
 
 Monitor.prototype._connectToWebApp = function() {
   var serverId = this._config.arma.serverId;
+  var serverPassword = this._config.webApp.serverPassword;
 
   this._webAppClient.connect(
     this._config.webApp.host,
@@ -129,7 +130,7 @@ Monitor.prototype._connectToWebApp = function() {
     function(err, reconnect) {
 
       if (! reconnect){
-        this._webAppClient.registerServer(serverId);
+        this._webAppClient.login(serverId, serverPassword);
         this._webAppClient.reportStatusIdle(serverId);
         this._webAppClient.updateDetails(
             serverId,

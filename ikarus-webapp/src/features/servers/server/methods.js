@@ -1,14 +1,7 @@
 Meteor.methods({
-  'registerServer': function(name) {
-    var server = Server.getByName(name);
-
-    if (!server) {
-      Server.create(name);
-    }
-  },
-
   'updateServerDetails': function(name, details) {
     var server = Server.getByName(name);
+    server.authenticateOrError();
 
     if (! server){
       throw new Meteor.Error(404, "server not found");
@@ -18,8 +11,8 @@ Meteor.methods({
   },
 
   'updateServerStatus': function(name, status) {
-
     var server = Server.getByName(name);
+    server.authenticateOrError();
 
     if (! server){
       throw new Meteor.Error(404, "server not found");

@@ -1,4 +1,5 @@
 Accounts.config({
   forbidClientAccountCreation: true,
-  sendVerificationEmail: false
+  sendVerificationEmail: false,
+  loginExpirationInDays: null
 });

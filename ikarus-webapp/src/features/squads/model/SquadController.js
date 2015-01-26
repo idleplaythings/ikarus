@@ -42,6 +42,7 @@ SquadController.prototype.leaveSquad = function(){
     Inventory.removeBySquad(squad);
     this._serverQueueService.leaveQueue(squad);
     squad.remove();
+    //console.log("Remove unlocked squad");
   }
 
   //Empty squad, in server, but server not playing yet. Free to leave, but lose inventory
@@ -51,6 +52,11 @@ SquadController.prototype.leaveSquad = function(){
     queue.removeSquadFromQueue(squad);
     server.removeSquadFromGame(squad);
     squad.remove();
+    //console.log("Remove LOCKED squad");
+  }
+
+  if (squad.exists()) {
+    console.log("LEFT EMPTY SQUAD");
   }
 
   //Todo: re-evaluate queues

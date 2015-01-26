@@ -68,7 +68,7 @@ module.exports = function(config){
       });
     });
   };
-
+/*
   BattlEyeClient.prototype.shutDownServer = function(){
     var deferred = Q.defer();
     console.log("shutting down server");
@@ -81,6 +81,7 @@ module.exports = function(config){
 
     return deferred.promise;
   };
+  */
 
   return new BattlEyeClient(config);
 };

@@ -2,12 +2,15 @@ Template.servers_list.created = function () {
   Meteor.subscribe('Servers');
 };
 
+var countdowners = {};
+
 Template.servers_list.destroyed = function () {
-  if (! this.countdowners) {
-    Object.keys(this.countdowners).forEach(function (key) {
-      this.countdowners[key].stop();
-    });
-  }
+
+  Object.keys(this.countdowners).forEach(function (key) {
+    this.countdowners[key].stop();
+  });
+
+  this.countdowners = {};
 };
 
 Template.servers_list.helpers({
@@ -19,26 +22,31 @@ Template.servers_list.helpers({
   },
 
   getTimePlayed: function() {
+    var server = this;
+    var time = server.getStatusChanged();
     if (this.isPlaying()){
-      return getCountdowner(Template.instance(), this).getTime();
+      return getCountdowner(this, time).getTime();
     }
 
     return "";
   }
 });
 
-function getCountdowner(template, server) {
-  if (! template.countdowners) {
-    template.countdowners = {};
+function getCountdowner(server, time) {
+  if (! countdowners) {
+    countdowners = {};
   }
 
-  if (! template.countdowners[server.getName()]) {
-    template.countdowners[server.getName()] = new Countdowner(function(){
-      return server.getStatusChanged();
-    });
+  if (countdowners[server.getName()]) {
+    countdowners[server.getName()].stop();
   }
 
-  return template.countdowners[server.getName()];
+  countdowners[server.getName()] = new Countdowner(function(){
+    return time;
+  });
+
+
+  return countdowners[server.getName()];
 };
 
 Template.servers_list.events({

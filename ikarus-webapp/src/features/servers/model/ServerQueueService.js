@@ -8,6 +8,8 @@ ServerQueueService = function ServerQueueService(){
   this._started = false;
   this._loopDelay = 1000;
   this._serverFinder = new ServerFinder();
+
+  this._serverStatusUpdates = [];
 }
 
 ServerQueueService.prototype.start = function() {
@@ -20,18 +22,61 @@ ServerQueueService.prototype.start = function() {
 
 ServerQueueService.prototype.loop = function() {
 
+  this.processStatusUpdates();
   this.checkSquadDeadlines();
   this.checkServerIsReadyToAbort();
   this.checkServerIsReadyToStart();
+  this.queueStatusChanged();
 
   Meteor.setTimeout(this.loop.bind(this), this._loopDelay);
 };
 
+ServerQueueService.prototype.updateServerStatus = function(server, status) {
+  this._serverStatusUpdates.push({server: server, status:status});
+}
+
+ServerQueueService.prototype.processStatusUpdates = function() {
+
+  var statusUpdate = this._serverStatusUpdates.shift();
+  while(statusUpdate) {
+    console.log("status updatoore");
+    this.changeServerStatus(statusUpdate.server, statusUpdate.status)
+    statusUpdate = this._serverStatusUpdates.shift();
+  }
+}
+
+ServerQueueService.prototype.changeServerStatus = function(server, status) {
+  if (status == Server.STATUS_IDLE || status == Server.STATUS_DOWN){
+
+    if (server.getStatus() == Server.STATUS_WAITING) {
+      server.getSquadsInGame().forEach(function(squad) {
+        if (! squad) {
+          return;
+        }
+
+        var company = Company.getBySquad(squad);
+        Inventory.returnItems(company, squad);
+      })
+    }
+
+    var players = Player.getAllByIds(server.playerIds);
+
+    server.removePlayers();
+    Squad.getAllByServer(server).forEach(function(squad) {
+      squad.remove();
+    })
+
+    Inventory.removeByServer(server);
+    server.removeAllSquadsFromGame();
+
+    server.updateStatus(status);
+  }
+};
 
 ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
   Server.getAllWaiting().forEach(function(server){
     if (server.isWaiting() && server.getSquadsInGame().length <= Server.MIN_SQUADS_TO_ABORT) {
-      server.updateStatus(Server.STATUS_IDLE);
+      server.updateStatus(Server.STATUS_DOWN);
 
       var squads = server.getSquadsInGame();
       var queue = ServerQueue.getByRegion('EU');
@@ -43,7 +88,6 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
       });
 
       server.removeAllSquadsFromGame();
-      this.queueStatusChanged();
     }
   }, this);
 };
@@ -63,43 +107,75 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
     }
 
     var readyToStart = squadsInGame.every(function(squad) {
+      try {
+        var steamIdsOnSquad = squad.getSteamIds();
 
-      var steamIdsOnSquad = squad.getSteamIds();
+        return steamIdsOnSquad.every(function(steamId) {
+          var inGame = steamIdsOnServer.indexOf(steamId) !== -1;
+          return inGame;
+        });
+      } catch (e) {
+        console.log(e.message, e.stack);
 
-      return steamIdsOnSquad.every(function(steamId) {
-        var inGame = steamIdsOnServer.indexOf(steamId) !== -1;
-        return inGame;
-      });
-    })
+        server.removeSquadFromGame(squad);
+        Inventory.removeBySquad(squad);
+        squad.remove();
+        return false;
+      }
+    });
+
 
     if (readyToStart) {
-      server.updateStatus(Server.STATUS_PLAYING)
-      squadsInGame.forEach(function(squad) {
-        squad.setConnectionDeadline(null);
-      });
+      try {
+        squadsInGame.forEach(function(squad) {
+          squad.setConnectionDeadline(null);
+        });
+
+        if (server.getStatus() == Server.STATUS_WAITING) {
+          server.updateStatus(Server.STATUS_PLAYING)
+        }
+      } catch (e) {
+        console.log(e.message, e.stack);
+
+        server.removeSquadFromGame(squad);
+        Inventory.removeBySquad(squad);
+        squad.remove();
+      }
     }
   }, this);
 };
 
 ServerQueueService.prototype.checkSquadDeadlines = function () {
   Squad.getAllOnDeadline().forEach(function(squad) {
-    if ( ! squad.isOnDeadline()) {
-      var server = squad.getServer();
-      var steamIdsOnSquad = squad.getSteamIds();
-      var steamIdsOnServer = server.getPlayerIds();
+    try {
+      if ( ! squad.isOnDeadline()) {
+        var server = squad.getServer();
+        var steamIdsOnSquad = squad.getSteamIds();
+        var steamIdsOnServer = server.getPlayerIds();
 
-      steamIdsOnSquad.filter(function(steamId) {
-        return steamIdsOnServer.indexOf(steamId) === -1;
-      }).forEach(function(steamId) {
-        squad.removePlayer(Player.getById(steamId));
-      });
+        steamIdsOnSquad.filter(function(steamId) {
+          return steamIdsOnServer.indexOf(steamId) === -1;
+        }).forEach(function(steamId) {
+          squad.removePlayer(Player.getById(steamId));
+        });
 
-      if (squad.isEmpty()) {
-        server.removeSquadFromGame(squad);
-        Inventory.removeBySquad(squad);
-        squad.remove();
+        if (squad.isEmpty()) {
+          server.removeSquadFromGame(squad);
+          Inventory.removeBySquad(squad);
+          squad.remove();
+        }
       }
-    };
+    } catch (e) {
+      console.log(e.message, e.stack);
+      if (squad.serverId) {
+        var server = Server.getById(squad.serverId);
+        if (server) {
+          server.removeSquadFromGame(squad);
+        }
+      }
+      Inventory.removeBySquad(squad);
+      squad.remove();
+    }
   });
 };
 
@@ -126,22 +202,32 @@ ServerQueueService.prototype._checkNeedsToMoveQueue = function(server) {
 
     var queue = ServerQueue.getByRegion('EU');
     queue.getQueue().forEach(function(squad){
-      if (this._serverFinder.canHaveSquad(squad, server)) {
+      try {
+        if (this._serverFinder.canHaveSquad(squad, server)) {
+          queue.removeSquadFromQueue(squad);
+          this._addSquadToGame(squad, server);
+        }
+      } catch (e) {
+        console.log(e.message, e.stack);
         queue.removeSquadFromQueue(squad);
-        this._addSquadToGame(squad, server);
+        Inventory.removeBySquad(squad);
+        squad.remove();
       }
     }, this);
   }
 };
 
 ServerQueueService.prototype.enterQueue = function(squad) {
+  if (ServerQueue.getBySquad(Squad.getCurrent())) {
+    return;
+  }
+
   var server = this._findServerForSquad(squad);
   if (server) {
     this._addSquadToGame(squad, server);
   } else {
     var queue = ServerQueue.getByRegion('EU');
     queue.addToQueue(squad);
-    this.queueStatusChanged();
   }
 };
 
@@ -155,8 +241,15 @@ ServerQueueService.prototype._findServerForSquad = function(squad) {
 };
 
 ServerQueueService.prototype._addSquadToGame = function(squad, server) {
-  server.addSquadToGame(squad);
-  squad.setServerId(server._id);
-  squad.getInventory().setServerId(server._id);
-  squad.setConnectionDeadline(new moment().add(5, 'minutes'));
+  try {
+    server.addSquadToGame(squad);
+    squad.setServerId(server._id);
+    squad.getInventory().setServerId(server._id);
+    squad.setConnectionDeadline(new moment().add(5, 'minutes'));
+  } catch (e) {
+    console.log(e.message, e.stack);
+    server.removeSquadFromGame(squad);
+    Inventory.removeBySquad(squad);
+    squad.remove();
+  }
 };

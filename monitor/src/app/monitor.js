@@ -24,11 +24,16 @@ Monitor.prototype.die = function () {
 
   this._webAppClient.reportStatusDown(this._config.arma.serverId);
   this._webAppClient.getReadyPromise().then(function(){
+    console.log("WEBAPP CLIENT READY");
+    this._webAppClient.disconnect();
+    if (this._armaServerProcess) {
+      console.log('killing arma');
 
-    this._battlEyeClient.shutDownServer().then(function(){
-      console.log("done, exiting");
+      this._armaServerProcess.kill('SIGTERM');
+      //process.exit();
+    } else {
       process.exit();
-    });
+    }
 
   }.bind(this));
 }
@@ -54,6 +59,7 @@ Monitor.prototype.start = function() {
 
 Monitor.prototype._startArma = function(){
 
+  console.log("START ARMA SERVER");
   if (process.env.ENV === 'dev') {
     return;
   }
@@ -63,7 +69,19 @@ Monitor.prototype._startArma = function(){
   var sockPort = this._config.rpc.port;
   var armaPort = this._config.arma.port;
   var BEpath = this._config.arma.BEpath;
-  var command = location + "/arma3server -name=server -config="+configLocation+" -sock_host=::1 -sock_port="+sockPort+" -port="+armaPort+" -mod=@ikrs; -BEpath="+BEpath;
+  //var command = location + "/arma3server -name=server -config="+configLocation+" -sock_host=::1 -sock_port="+sockPort+" -port="+armaPort+" -mod=@ikrs; -BEpath="+BEpath;
+  var command = location + "/arma3server";
+
+  var args = [
+    "-name=server",
+    "-config="+configLocation,
+    "-sock_host=::1",
+    "-sock_port="+sockPort,
+    "-port="+armaPort,
+    "-mod=@ikrs;",
+    "-BEpath="+BEpath
+  ];
+
   var options = {
     cwd: location,
     stdio: [
@@ -74,21 +92,18 @@ Monitor.prototype._startArma = function(){
     maxBuffer: 2024*1024
   };
 
-  this._armaServerProcess = child_process.exec(command, options, function (error, stdout, stderr) {
-    console.log('stdout: ' + stdout);
-    console.log('stderr: ' + stderr);
-    if (error !== null) {
-      console.log('exec error: ' + error);
-      process.exit();
-    }
-  });
+  this._armaServerProcess = child_process.spawn(command, args, options);
+  this._armaServerProcess.on("exit", function() {
+    console.log("Arma server dead");
+    process.exit();
+  })
 
   this._armaServerProcess.stdout.on('data', function(data) {
-    console.log("ARMA STDOUT says: ", data);
+    //console.log("ARMA STDOUT says: ", data);
   });
 
   this._armaServerProcess.stderr.on('data', function(data) {
-    console.log("ARMA STDERR says: ", data);
+    //console.log("ARMA STDERR says: ", data);
   });
 };
 
@@ -135,13 +150,14 @@ Monitor.prototype._connectToWebApp = function() {
     function(err, reconnect) {
 
       if (! reconnect){
+        console.log("connected to webApp");
         this._webAppClient.login(serverId, serverPassword);
         this._webAppClient.reportStatusIdle(serverId);
         this._webAppClient.updateDetails(
             serverId,
             _.pick(this._config.arma, 'host', 'port', 'password')
         );
-        this._status = Monitor.STATUS_IDLE;
+        //this._status = Monitor.STATUS_IDLE;
         this._initDdpObservers();
       }
 
@@ -184,11 +200,10 @@ Monitor.prototype._checkServerStatus = function() {
   var collection = this._webAppClient.getCollection('servers');
   var server = collection[Object.keys(collection).pop()];
   var nextStatus = server.status;
-  console.log(server);
 
-  console.log("statuses", nextStatus, this._status);
-  if (nextStatus !== this._status) {
-    console.log("set new nextstatus", nextStatus);
+
+  if (nextStatus && nextStatus !== this._status) {
+    console.log("change status from", this._status, "to", nextStatus);
     this._changeStatus(nextStatus);
   }
 };
@@ -206,7 +221,7 @@ Monitor.prototype._changeStatus = function(status) {
     this._startArma();
  }
 
-  if (status == Monitor.STATUS_IDLE) {
+  if (status == Monitor.STATUS_DOWN) {
     this.die();
   }
 

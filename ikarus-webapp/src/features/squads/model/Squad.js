@@ -2,6 +2,7 @@ var namespace = this;
 
 Squad = function Squad(args) {
   this._id = args._id;
+  this.serverId = args.serverId;
 }
 
 Squad.MAX_MEMBERS = 12;
@@ -176,6 +177,10 @@ Squad.prototype.setConnectionDeadline = function(time) {
 Squad.prototype.isOnDeadline = function(time) {
   var time = this.getConnectionDeadline();
   return time ? this.getConnectionDeadline().isAfter(moment()) : false;
+}
+
+Squad.prototype.exists = function() {
+  return Boolean(this.getDoc());
 }
 
 Squad.prototype.getDoc = function() {

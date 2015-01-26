@@ -57,6 +57,10 @@ WebAppClient.prototype.getReadyPromise = function(){
   return Q.all(this._promises);
 };
 
+WebAppClient.prototype.disconnect = function(){
+  this._ddpClient.close();
+};
+
 WebAppClient.prototype.call = function(name, args){
 
   var onResultPromise = Q.defer();
@@ -66,17 +70,17 @@ WebAppClient.prototype.call = function(name, args){
   this._promises.push(onDonePromise);
 
   var onResult = function(error, result){
-    console.log("Meteor method response 2", error, result);
+    //console.log("Meteor method response 2", error, result);
     onResultPromise.resolve();
   }.bind(this);
 
   var onDone = function(error, result){
-    console.log('DDP client data updated 2');
+    //console.log('DDP client data updated 2');
     onDonePromise.resolve();
   }.bind(this);
 
   console.log("Calling meteor method '" + name +"' ");
-  console.log(args);
+  //console.log(args);
 
   this._ddpClient.call(
     name,

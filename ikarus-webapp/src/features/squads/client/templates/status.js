@@ -29,55 +29,65 @@ Template.squads_status.events({
 });
 
 Template.squad_queue_status.destroyed = function () {
-  if (! this.countdowners) {
-    Object.keys(this.countdowners).forEach(function (key) {
-      this.countdowners[key].stop();
-    });
+  if (countdowner) {
+    countdowner.stop();
   }
-};
+  countdowner = null;
+}
 
 Template.squad_queue_status.helpers({
   inQueue: function() {
-    return ServerQueue.getBySquad(Squad.getCurrent());
+    var squad = Squad.getCurrent();
+
+    if (! squad) {
+      return false;
+    }
+
+    return ServerQueue.getBySquad(squad);
   },
 
   inGameServer: function() {
-    return Server.getByInGameSquad(Squad.getCurrent());
+    var squad = Squad.getCurrent();
+
+    if (! squad) {
+      return false;
+    }
+
+    return Server.getByInGameSquad(squad);
   },
 
   canJoinGame: function() {
-    var server = Server.getByInGameSquad(Squad.getCurrent());
+    var squad = Squad.getCurrent();
+    if (! squad) {
+      return false;
+    }
+    var server = Server.getByInGameSquad(squad);
     return server && server.isWaiting();
   },
 
   notInQueueOrGame: function(){
     var squad = Squad.getCurrent();
-    return ! ServerQueue.getBySquad(Squad.getCurrent()) && ! Server.getByInGameSquad(squad);
+    if (! squad) {
+      return false;
+    }
+    return ! ServerQueue.getBySquad(squad) && ! Server.getByInGameSquad(squad);
   },
 
   getTimeToJoinServer: function () {
-    var server = Server.getByInGameSquad(Squad.getCurrent());
-    if ( server && server.isWaiting()) {
-      return getCountdowner(Template.instance(), this).getTime();
+    if (countdowner) {
+      countdowner.stop();
     }
-    return "";
+
+    var time = Squad.getCurrent().getConnectionDeadline();
+    countdowner = new Countdowner(function() {
+      return time;
+    });
+    return countdowner.getTime();
   }
 });
 
-function getCountdowner(template, squad) {
-  if (! template.countdowners) {
-    template.countdowners = {};
-  }
+var countdowner = null;
 
-  if (! template.countdowners[squad._id]) {
-    template.countdowners[squad._id] = new Countdowner(function(){
-      return squad.getConnectionDeadline();
-    },
-    "mm:ss");
-  }
-
-  return template.countdowners[squad._id];
-};
 
 Template.squad_queue_status.events({
   'click .joinQueue' : function () {

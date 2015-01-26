@@ -27,11 +27,12 @@ Countdowner.prototype.setTime = function(source) {
 };
 
 Countdowner.prototype.getTime = function() {
+  this._dependency.depend();
+
   if (! this._time) {
     return "";
   }
 
-  this._dependency.depend();
   var now = moment();
   var time = this._time.clone();
 

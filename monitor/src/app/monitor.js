@@ -19,19 +19,24 @@ Monitor.STATUS_PLAYING = 'playing';
 Monitor.STATUS_WAITING = 'waiting';
 Monitor.STATUS_DOWN = 'down';
 
+Monitor.prototype.die = function () {
+  console.log('Monitor closing down');
+
+  this._webAppClient.reportStatusDown(this._config.arma.serverId);
+  this._webAppClient.getReadyPromise().then(function(){
+
+    this._battlEyeClient.shutDownServer().then(function(){
+      console.log("done, exiting");
+      process.exit();
+    });
+
+  }.bind(this));
+}
+
 Monitor.prototype.start = function() {
 
-  process.on( "SIGINT", function() {
-    console.log('CLOSING [SIGINT]');
-
-    if (this._armaServerProcess){
-      this._armaServerProcess.kill();
-    }
-
-    this._webAppClient.reportStatusDown(this._config.arma.serverId);
-
-    process.exit();
-  }.bind(this));
+  process.on("SIGINT", this.die.bind(this));
+  process.on("SIGTERM", this.die.bind(this));
 
   try {
     this._registerRpcCallbacks();
@@ -202,13 +207,7 @@ Monitor.prototype._changeStatus = function(status) {
  }
 
   if (status == Monitor.STATUS_IDLE) {
-    if (this._armaServerProcess){
-      this._armaServerProcess.kill();
-    }
-
-    this._webAppClient.reportStatusDown(this._config.arma.serverId);
-
-    process.exit();
+    this.die();
   }
 
 };

@@ -176,8 +176,10 @@ Feature: Servers
     And "John Doe" is a member of company "Manatee-Men"
     And "Jane Doe" is a member of company "Manatee-Men"
     And server "test-server1" is registered
+    And I am logged in as server "test-server1"
     And server "test-server1" has status "idle"
     And server "test-server2" is registered
+    And I am logged in as server "test-server2"
     And server "test-server2" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad

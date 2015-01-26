@@ -226,15 +226,7 @@ var squadSubmit = function(squadId, loot) {
 };
 
 var gameEnd = function() {
-  this._webAppClient.reportStatusDown(this._config.arma.serverId);
-  this._webAppClient.getReadyPromise().then(function(){
-
-    this._battlEyeClient.shutDownServer().then(function(){
-      console.log("done, exiting");
-      process.exit();
-    });
-
-  }.bind(this));
+  this.die();
 };
 
 var playerConnected = function(uid) {

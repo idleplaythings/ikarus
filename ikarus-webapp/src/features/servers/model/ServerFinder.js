@@ -9,9 +9,7 @@ ServerFinder.prototype.findServer = function (squad) {
 };
 
 ServerFinder.prototype.canHaveSquad = function (squad, server) {
-  var hasTime = server.getStatusChanged().add(Server.TIME_WAIT_FOR_NEWSQUADS, 'minutes').isAfter(moment());
-
   return server.canFit(squad) &&
-    hasTime &&
-    server.doesNotHaveSquadsFromSameCompany(squad);
+    server.stillTimeToJoin() &&
+    ! server.hasSquadsFromSameCompany(squad);
 };

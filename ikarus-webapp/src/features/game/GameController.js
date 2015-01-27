@@ -7,7 +7,6 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
   var player = this._getPlayer(playerUid);
   var server = this._getServer(serverName);
 
-  this._disconnectPlayerFromServers(player);
   return this._connectPlayerToServer(player, server);
 };
 
@@ -19,14 +18,9 @@ GameController.prototype.playerDisconnected = function(serverName, playerUid) {
   this._disconnectPlayerFromServer(player, server);
 };
 
-GameController.prototype._disconnectPlayerFromServers = function(player) {
-  Server.getAllByPlayer(player).map(function(server) {
-    this._disconnectPlayerFromServer(player, server);
-  }.bind(this));
-};
-
 GameController.prototype._connectPlayerToServer = function(player, server) {
   var squad = this._getSquad(player, server);
+  console.log(squad._id);
   if (! squad) {
     return false;
   }

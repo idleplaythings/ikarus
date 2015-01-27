@@ -70,7 +70,7 @@ WebAppClient.prototype.call = function(name, args){
   this._promises.push(onDonePromise);
 
   var onResult = function(error, result){
-    //console.log("Meteor method response 2", error, result);
+    console.log("Meteor method response 2", error, result);
     onResultPromise.resolve();
   }.bind(this);
 

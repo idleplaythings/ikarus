@@ -210,9 +210,11 @@ Monitor.prototype._checkServerStatus = function() {
 
 Monitor.prototype._changeStatus = function(status) {
 
+  var oldStatus = this._status;
   this._status = status;
 
-  if (status == Monitor.STATUS_PLAYING) {
+  if (status == Monitor.STATUS_PLAYING && oldStatus == Monitor.STATUS_WAITING) {
+    console.log("I AM SERIOUSLY DOING IT")
     this._battlEyeClient.lockServer();
     this._gameData.lock();
   }

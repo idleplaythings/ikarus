@@ -35,6 +35,20 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
 
   Meteor.methods({
 
+    testingSetServerStatus: function(serverName, status) {
+      collections.ServerCollection.update(
+        {name: serverName},
+        {$set:{
+          status: status,
+          statusChanged: moment().toString()
+        }}
+      );
+    },
+
+    testingEvaluateSquads: function() {
+      dic.get('ServerQueueService').process();
+    },
+
     testingLoginAsServer: function(serverName) {
       var server = Server.getByName(serverName);
       var user = Meteor.users.findOne({serverId: server._id})
@@ -83,7 +97,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
     },
 
     testingCheckSquadDeadlines: function() {
-      dic.get('ServerQueueService').checkSquadDeadlines();
+      dic.get('ServerQueueService').process();
     },
 
     testingElapseServerWaitingTime : function (serverId) {

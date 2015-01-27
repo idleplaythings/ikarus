@@ -91,10 +91,6 @@ Squad.prototype.setServerId = function(serverId) {
 }
 
 Squad.prototype.evaluateObjective = function(){
-  if (this.isLocked()) {
-    return;
-  }
-
   var objective = this.getObjective();
   if ( ! objective.validate(this) ) {
     this.setObjective(objective.defaultsTo)
@@ -174,7 +170,7 @@ Squad.prototype.setConnectionDeadline = function(time) {
   });
 }
 
-Squad.prototype.isOnDeadline = function(time) {
+Squad.prototype.isBeforeDeadline = function(time) {
   var time = this.getConnectionDeadline();
   return time ? this.getConnectionDeadline().isAfter(moment()) : false;
 }
@@ -201,6 +197,12 @@ Squad.prototype.getMaxMembers = function() {
 
 Squad.prototype.remove = function() {
   collections.SquadCollection.remove({ _id: this._id });
+}
+
+Squad.prototype.isJoinable = function() {
+  return ! this.isLocked() &&
+    this.getSteamIds().length < Squad.MAX_MEMBERS &&
+    this.getSteamIds().length > 0;
 }
 
 Squad.getAll = function(company) {

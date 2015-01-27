@@ -13,53 +13,19 @@ SquadController.prototype.createNewSquad = function(player, company){
 
 SquadController.prototype.joinSquad = function(squadId){
   var player = this._getPlayer();
-  var company = this._getCompany();
   this._checkNoSquad();
 
   var squad = this._getSquadById(squadId);
 
-  if (! squad.isLocked() && squad.getSteamIds().length < Squad.MAX_MEMBERS) {
-    squad.addPlayer(player);
-    squad.evaluateObjective();
-  }
+  this._serverQueueService.joinSquad(squad, player);
+
 };
 
 SquadController.prototype.leaveSquad = function(){
   var player = this._getPlayer();
   var squad = this._getSquad();
-  var company = this._getCompany();
-  var server = squad.getServer();
 
-  squad.removePlayer(player);
-
-  if (! squad.isLocked()) {
-    squad.evaluateObjective();
-  }
-
-  //Empty squad, not locked = free to do anything and get inventory back
-  if (squad.isEmpty() && ! squad.isLocked()){
-    Inventory.returnItems(company, squad);
-    Inventory.removeBySquad(squad);
-    this._serverQueueService.leaveQueue(squad);
-    squad.remove();
-    //console.log("Remove unlocked squad");
-  }
-
-  //Empty squad, in server, but server not playing yet. Free to leave, but lose inventory
-  if (squad.isEmpty() && server && ! server.isPlaying()) {
-    Inventory.removeBySquad(squad);
-    var queue = ServerQueue.getByRegion('EU');
-    queue.removeSquadFromQueue(squad);
-    server.removeSquadFromGame(squad);
-    squad.remove();
-    //console.log("Remove LOCKED squad");
-  }
-
-  if (squad.exists()) {
-    console.log("LEFT EMPTY SQUAD");
-  }
-
-  //Todo: re-evaluate queues
+  this._serverQueueService.leaveSquad(squad, player);
 };
 
 SquadController.prototype.enterSquadQueue = function(){

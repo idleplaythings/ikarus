@@ -4,12 +4,14 @@ Meteor.startup(function(){
   }
 });
 
-ServerQueueService = function ServerQueueService(){
+ServerQueueService = function ServerQueueService(queueSquadService){
   this._started = false;
   this._loopDelay = 1000;
   this._serverFinder = new ServerFinder();
 
   this._serverStatusUpdates = [];
+
+  this._queueSquadService = queueSquadService;
 }
 
 ServerQueueService.prototype.start = function() {
@@ -20,20 +22,31 @@ ServerQueueService.prototype.start = function() {
   this.loop();
 };
 
-ServerQueueService.prototype.loop = function() {
-
+ServerQueueService.prototype.process = function() {
+  this._queueSquadService.evaluateSquads();
   this.processStatusUpdates();
-  this.checkSquadDeadlines();
   this.checkServerIsReadyToAbort();
   this.checkServerIsReadyToStart();
   this.queueStatusChanged();
+};
 
+
+ServerQueueService.prototype.loop = function() {
+  this.process();
   Meteor.setTimeout(this.loop.bind(this), this._loopDelay);
+};
+
+ServerQueueService.prototype.joinSquad = function(squad, player) {
+  this._queueSquadService.joinSquad(squad, player);
+};
+
+ServerQueueService.prototype.leaveSquad = function(squad, player) {
+  this._queueSquadService.leaveSquad(squad, player);
 };
 
 ServerQueueService.prototype.updateServerStatus = function(server, status) {
   this._serverStatusUpdates.push({server: server, status:status});
-}
+};
 
 ServerQueueService.prototype.processStatusUpdates = function() {
 
@@ -63,6 +76,7 @@ ServerQueueService.prototype.changeServerStatus = function(server, status) {
 
     server.removePlayers();
     Squad.getAllByServer(server).forEach(function(squad) {
+      console.log("remove squad", squad._id);
       squad.remove();
     })
 
@@ -78,6 +92,7 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
     if (server.isWaiting() && server.getSquadsInGame().length <= Server.MIN_SQUADS_TO_ABORT) {
       server.updateStatus(Server.STATUS_DOWN);
 
+      console.log("SERVER", server.getName(), "aborting!");
       var squads = server.getSquadsInGame();
       var queue = ServerQueue.getByRegion('EU');
 
@@ -107,76 +122,25 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
     }
 
     var readyToStart = squadsInGame.every(function(squad) {
-      try {
-        var steamIdsOnSquad = squad.getSteamIds();
+      var steamIdsOnSquad = squad.getSteamIds();
 
-        return steamIdsOnSquad.every(function(steamId) {
-          var inGame = steamIdsOnServer.indexOf(steamId) !== -1;
-          return inGame;
-        });
-      } catch (e) {
-        console.log(e.message, e.stack);
-
-        server.removeSquadFromGame(squad);
-        Inventory.removeBySquad(squad);
-        squad.remove();
-        return false;
-      }
+      return steamIdsOnSquad.every(function(steamId) {
+        var inGame = steamIdsOnServer.indexOf(steamId) !== -1;
+        return inGame;
+      });
     });
 
 
     if (readyToStart) {
-      try {
-        squadsInGame.forEach(function(squad) {
-          squad.setConnectionDeadline(null);
-        });
+      squadsInGame.forEach(function(squad) {
+        squad.setConnectionDeadline(null);
+      });
 
-        if (server.getStatus() == Server.STATUS_WAITING) {
-          server.updateStatus(Server.STATUS_PLAYING)
-        }
-      } catch (e) {
-        console.log(e.message, e.stack);
-
-        server.removeSquadFromGame(squad);
-        Inventory.removeBySquad(squad);
-        squad.remove();
+      if (server.getStatus() == Server.STATUS_WAITING) {
+        server.updateStatus(Server.STATUS_PLAYING)
       }
     }
   }, this);
-};
-
-ServerQueueService.prototype.checkSquadDeadlines = function () {
-  Squad.getAllOnDeadline().forEach(function(squad) {
-    try {
-      if ( ! squad.isOnDeadline()) {
-        var server = squad.getServer();
-        var steamIdsOnSquad = squad.getSteamIds();
-        var steamIdsOnServer = server.getPlayerIds();
-
-        steamIdsOnSquad.filter(function(steamId) {
-          return steamIdsOnServer.indexOf(steamId) === -1;
-        }).forEach(function(steamId) {
-          squad.removePlayer(Player.getById(steamId));
-        });
-
-        if (squad.isEmpty()) {
-          server.removeSquadFromGame(squad);
-          Inventory.removeBySquad(squad);
-          squad.remove();
-        }
-      }
-    } catch (e) {
-      console.log(e.message, e.stack);
-      if (squad.serverId) {
-        var server = Server.getById(squad.serverId);
-        if (server) {
-          server.removeSquadFromGame(squad);
-        }
-      }
-      Inventory.removeBySquad(squad);
-      squad.remove();
-    }
-  });
 };
 
 ServerQueueService.prototype.serverStatusChanged = function(server) {
@@ -199,41 +163,29 @@ ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
 
 ServerQueueService.prototype._checkNeedsToMoveQueue = function(server) {
   if (server.isWaiting()){
+    console.log(server.getName(), "is waiting");
 
     var queue = ServerQueue.getByRegion('EU');
+    var toRemoveFromQueue = [];
     queue.getQueue().forEach(function(squad){
-      try {
-        if (this._serverFinder.canHaveSquad(squad, server)) {
-          queue.removeSquadFromQueue(squad);
-          this._addSquadToGame(squad, server);
-        }
-      } catch (e) {
-        console.log(e.message, e.stack);
-        queue.removeSquadFromQueue(squad);
-        Inventory.removeBySquad(squad);
-        squad.remove();
+      if (this._serverFinder.canHaveSquad(squad, server)) {
+        toRemoveFromQueue.push(squad);
+        this._addSquadToGame(squad, server);
       }
     }, this);
+
+    toRemoveFromQueue.forEach(function(squad) {
+      queue.removeSquadFromQueue(squad);
+    })
   }
 };
 
 ServerQueueService.prototype.enterQueue = function(squad) {
-  if (ServerQueue.getBySquad(Squad.getCurrent())) {
-    return;
-  }
-
-  var server = this._findServerForSquad(squad);
-  if (server) {
-    this._addSquadToGame(squad, server);
-  } else {
-    var queue = ServerQueue.getByRegion('EU');
-    queue.addToQueue(squad);
-  }
+  this._queueSquadService.joinQueue(squad);
 };
 
 ServerQueueService.prototype.leaveQueue = function(squad) {
-  var queue = ServerQueue.getByRegion('EU');
-  queue.removeSquadFromQueue(squad);
+  this._queueSquadService.leaveQueue(squad);
 };
 
 ServerQueueService.prototype._findServerForSquad = function(squad) {
@@ -241,15 +193,8 @@ ServerQueueService.prototype._findServerForSquad = function(squad) {
 };
 
 ServerQueueService.prototype._addSquadToGame = function(squad, server) {
-  try {
-    server.addSquadToGame(squad);
-    squad.setServerId(server._id);
-    squad.getInventory().setServerId(server._id);
-    squad.setConnectionDeadline(new moment().add(5, 'minutes'));
-  } catch (e) {
-    console.log(e.message, e.stack);
-    server.removeSquadFromGame(squad);
-    Inventory.removeBySquad(squad);
-    squad.remove();
-  }
+  server.addSquadToGame(squad);
+  squad.setServerId(server._id);
+  squad.getInventory().setServerId(server._id);
+  squad.setConnectionDeadline(new moment().add(5, 'minutes'));
 };

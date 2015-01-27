@@ -72,6 +72,7 @@ Feature: Servers
   Scenario: Squad is added to waiting server instead of idle server
     Given "2" squads are minimum to start a game
     And severs wait "2" minutes for additional players before starting
+    And servers abort waiting if only "-1" squad is on server
     And player "John Doe" with Steam ID "123" exists
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
@@ -135,8 +136,7 @@ Feature: Servers
     And status for server "test-server" should be "waiting"
     And I am logged in as "Jane Doe"
     When I leave my squad
-    And servers have been checked for waiting abort
-    Then status for server "test-server" should be "idle"
+    Then status for server "test-server" should be "down"
     And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
     Then player "Jane Doe" should not have a squad
 
@@ -166,7 +166,7 @@ Feature: Servers
     Then Squad that has player "John Doe" should be playing on server "test-server"
     And Squad that has player "Jane Doe" should not be playing on server "test-server"
     And Squad that has player "Jane Doe" should be on queue in region "EU" at index "0"
-    Then status for server "test-server" should be "waiting"
+    Then status for server "test-server" should be "playing"
 
   Scenario: Only one squad per company allowed per server
     Given "1" squads are minimum to start a game

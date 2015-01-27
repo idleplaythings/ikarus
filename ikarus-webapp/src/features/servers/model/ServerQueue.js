@@ -14,6 +14,7 @@ ServerQueue.prototype.removeSquadFromQueue = function(squad) {
 
 ServerQueue.prototype.getQueue = function() {
   var ids = get(this.getDoc(), 'queue') || [];
+  console.log("queue: ", ids);
   return ids.map(Squad.getById);
 }
 

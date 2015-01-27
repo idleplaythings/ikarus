@@ -1,4 +1,6 @@
-GameController = function GameController(){}
+GameController = function GameController(serverQueueService){
+  this._serverQueueService = serverQueueService;
+}
 
 GameController.prototype.playerConnected = function(serverName, playerUid) {
   console.log("connect playerUid", playerUid);
@@ -38,7 +40,7 @@ GameController.prototype._disconnectPlayerFromServer = function(player, server) 
   var squad = this._getSquad(player, server);
 
   if (squad && server.isPlaying()) {
-    squad.removePlayer(player);
+    this._serverQueueService.leaveSquad(squad, player);
   }
 };
 

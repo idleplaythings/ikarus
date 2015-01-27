@@ -9,8 +9,8 @@ Template.squads_status.helpers({
 
   joinableSquads: function () {
     return getCompanysSquads().filter(function(squad){
-      return ! squad.isLocked() && squad.getSteamIds().length < Squad.MAX_MEMBERS;
-    })
+      return squad.isJoinable();
+    });
   }
 });
 

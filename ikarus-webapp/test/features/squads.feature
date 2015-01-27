@@ -71,7 +71,7 @@ Feature: Squads
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
     When I enter my squad to the queue
@@ -102,7 +102,7 @@ Feature: Squads
     And "Jane Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
     And I am logged in as "Jane Doe"
@@ -124,19 +124,21 @@ Feature: Squads
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And deadline for connecting to game on squad that has player "John Doe" has elapsed
-    Then player "John Doe" should have a squad
+    And player "John Doe" should have a squad
     When squad deadlines are checked
+    Then player "John Doe" should not have a squad
+    And status for server "test-server" should be "down"
     And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
-    Then server "test-server" should not have a player with Steam ID "123"
-    Then no squad inventories should exists
-    Then no squads should exist
+    And server "test-server" should not have a player with Steam ID "123"
+    And no squad inventories should exists
+    And no squads should exist
 
   Scenario: Player being too slow to join the server and is removed from squad
     Given player "John Doe" with Steam ID "123" exists
@@ -146,7 +148,7 @@ Feature: Squads
     And "Jane Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
     And I am logged in as "Jane Doe"
@@ -171,7 +173,7 @@ Feature: Squads
     And "Jane Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
     And I am logged in as "Jane Doe"
@@ -208,7 +210,7 @@ Feature: Squads
     And "John Doe" is a member of company "Manatee-Men"
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
     And I enter my squad to the queue
@@ -225,7 +227,7 @@ Feature: Squads
     And "Jane Doe" is a member of company "Manatee-WOMEN"
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
     And I enter my squad to the queue

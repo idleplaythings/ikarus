@@ -30,7 +30,6 @@ Monitor.prototype.die = function () {
       console.log('killing arma');
 
       this._armaServerProcess.kill('SIGTERM');
-      //process.exit();
     } else {
       process.exit();
     }
@@ -156,7 +155,6 @@ Monitor.prototype._connectToWebApp = function() {
             serverId,
             _.pick(this._config.arma, 'host', 'port', 'password')
         );
-        //this._status = Monitor.STATUS_IDLE;
         this._initDdpObservers();
       }
 

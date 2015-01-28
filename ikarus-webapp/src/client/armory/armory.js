@@ -27,21 +27,32 @@ Template.armory.helpers({
 });
 
 jQuery.getJSON('/items.json').then(function(items) {
-  Template.armory.events({
-    'mouseenter .inventory-entry': function (event, template) {
-      var $elem = jQuery(event.target);
-      var armaClass = event.target.attributes.getNamedItem('data-armaclass').value;
+  var showItem = function (event, template) {
+    console.log('show');
+    var $elem = jQuery(event.target);
+    var armaClass = event.target.attributes.getNamedItem('data-armaclass').value;
 
-      var matches = items.filter(function(item) { return item.armaClass === armaClass; });
-      if (matches.length < 1) {
-        return;
-      }
-
-      $elem.find('img').remove();
-      $elem.prepend('<img src="/items/' + matches[0].img + '">');
-    },
-    'mouseleave .inventory-entry': function (event, template) {
-      jQuery(event.target).find('img').remove();
+    var matches = items.filter(function(item) { return item.armaClass === armaClass; });
+    if (matches.length < 1) {
+      return;
     }
+
+    $elem.find('img').remove();
+    $elem.prepend('<img src="/items/' + matches[0].img + '">');
+  };
+  var hideItem = function (event, template) {
+    var $target = jQuery(event.target);
+
+    if (!$target.is('img')) {
+      $target = $target.find('img');
+    }
+
+    $target.remove();
+  };
+
+  Template.armory.events({
+    'mouseenter .inventory-entry': showItem,
+    'mouseleave .inventory-entry': hideItem,
+    'mouseenter .inventory-entry img': hideItem
   });
 });

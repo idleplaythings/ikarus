@@ -25,9 +25,22 @@ var serverStepDefinitions = function () {
   });
 
   this.Given(/^server "([^"]*)" has status "([^"]*)"$/, function (serverName, status, callback) {
-    this.app.callServerStatus(serverName, status)()
-      .finally(callback)
-      .catch(this.handleError);
+    var app = this.app;
+
+    if (status == 'idle' || status == 'down') {
+      this.app.callServerStatus(serverName, status)()
+        .finally(function() {
+          app.callTestingEvaluateSquads()()
+            .finally(callback)
+            .catch(this.handleError);
+        })
+        .catch(this.handleError);
+    } else {
+      this.app.callTestingSetServerStatus(serverName, status)()
+        .finally(callback)
+        .catch(this.handleError);
+    }
+
   });
 
   this.Given(/^server "([^"]*)" has details (.*)$/, function (serverName, details, callback) {

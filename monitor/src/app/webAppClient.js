@@ -57,6 +57,10 @@ WebAppClient.prototype.getReadyPromise = function(){
   return Q.all(this._promises);
 };
 
+WebAppClient.prototype.disconnect = function(){
+  this._ddpClient.close();
+};
+
 WebAppClient.prototype.call = function(name, args){
 
   var onResultPromise = Q.defer();
@@ -71,12 +75,10 @@ WebAppClient.prototype.call = function(name, args){
   }.bind(this);
 
   var onDone = function(error, result){
-    console.log('DDP client data updated 2');
     onDonePromise.resolve();
   }.bind(this);
 
   console.log("Calling meteor method '" + name +"' ");
-  console.log(args);
 
   this._ddpClient.call(
     name,

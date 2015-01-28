@@ -301,6 +301,18 @@ App.prototype.callTestingLoginAsServer = function (serverName) {
   }.bind(this)
 };
 
+App.prototype.callTestingEvaluateSquads = function () {
+  return function() {
+    return this.callMethod('testingEvaluateSquads', []);
+  }.bind(this)
+};
+
+App.prototype.callTestingSetServerStatus = function (serverName, status) {
+  return function() {
+    return this.callMethod('testingSetServerStatus', [serverName, status]);
+  }.bind(this)
+};
+
 function handleMeteorMethodError(error) {
   if (error) {
     util.error('Error in Meteor method: ' + error.message);

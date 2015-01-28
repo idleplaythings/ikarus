@@ -69,18 +69,5 @@ module.exports = function(config){
     });
   };
 
-  BattlEyeClient.prototype.shutDownServer = function(){
-    var deferred = Q.defer();
-    console.log("shutting down server");
-    this.runCommand(function(battleNode){
-      battleNode.sendCommand('#shutdown', function() {
-        console.log("server shutdown");
-        deferred.resolve();
-      });
-    });
-
-    return deferred.promise;
-  };
-
   return new BattlEyeClient(config);
 };

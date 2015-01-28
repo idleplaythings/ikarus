@@ -19,17 +19,27 @@ var playersStepDefinitions = function () {
   this.When(/^"([^"]*)" connects to server "([^"]*)"$/, function (username, serverName, callback) {
 
     var user = getUser(this.app, username);
+    var app = this.app;
 
     this.app.callPlayerConnected(serverName, getSteamId(user))()
-      .finally(callback)
+      .finally(function() {
+        app.callTestingEvaluateSquads()()
+          .finally(callback)
+          .catch(this.handleError);
+      })
       .catch(this.handleError);
   });
 
   this.When(/^"([^"]*)" disconnects from server "([^"]*)"$/, function (username, serverName, callback) {
     var user = getUser(this.app, username);
+    var app = this.app;
 
     this.app.callPlayerDisconnected(serverName, getSteamId(user))()
-      .finally(callback)
+      .finally(function() {
+        app.callTestingEvaluateSquads()()
+          .finally(callback)
+          .catch(this.handleError);
+      })
       .catch(this.handleError);
   });
 

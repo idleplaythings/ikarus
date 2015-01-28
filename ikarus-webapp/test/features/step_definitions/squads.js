@@ -33,26 +33,46 @@ var squadsStepDefinitions = function () {
 
   this.When(/^I join a same squad as "([^"]*)"$/, function (username, callback) {
     var squadId = getSquadByUsername(this.app, username)._id;
-    this.app.callJoinSquad(squadId)()
-      .finally(callback)
+    var app = this.app;
+    app.callJoinSquad(squadId)()
+      .finally(function() {
+        app.callTestingEvaluateSquads()()
+          .finally(callback)
+          .catch(this.handleError);
+      })
       .catch(this.handleError);
   });
 
   this.Given(/^I leave my squad$/, function (callback) {
+    var app = this.app;
     this.app.callLeaveSquad()()
-      .finally(callback)
+      .finally(function() {
+        app.callTestingEvaluateSquads()()
+          .finally(callback)
+          .catch(this.handleError);
+      })
       .catch(this.handleError);
   });
 
   this.When(/^I enter my squad to the queue$/, function (callback) {
+    var app = this.app;
     this.app.callEnterSquadQueue()()
-      .finally(callback)
+      .finally(function() {
+        app.callTestingEvaluateSquads()()
+          .finally(callback)
+          .catch(this.handleError);
+      })
       .catch(this.handleError);
   });
 
   this.Then(/^I leave my squad from the queue$/, function (callback) {
+    var app = this.app;
     this.app.callLeaveSquadQueue()()
-      .finally(callback)
+      .finally(function() {
+        app.callTestingEvaluateSquads()()
+          .finally(callback)
+          .catch(this.handleError);
+      })
       .catch(this.handleError);
   });
 

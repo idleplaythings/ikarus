@@ -1,5 +1,6 @@
 dic.register('GameController', function (dic) {
   return new GameController(
+    dic.get('ServerQueueService')
   );
 }, {shared: true});
 

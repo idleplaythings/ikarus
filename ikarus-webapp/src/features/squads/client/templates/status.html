@@ -78,7 +78,7 @@
     <button class="leaveQueue btn btn-primary btn-lg btn-block">Not ready</button>
   {{/if}}
 
-  {{#if inGameServer}}
+  {{#if canJoinGame}}
     <h2>Time to join {{getTimeToJoinServer}}</h2>
     <a class="btn btn-primary btn-lg btn-block" href="{{inGameServer.getJoinUrl}}">
       Click to join server {{inGameServer.name}}

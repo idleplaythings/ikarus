@@ -108,7 +108,7 @@ Feature: Inventories
     Given player "John Doe" with Steam ID "123" exists
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And I am logged in as "John Doe"
@@ -131,7 +131,7 @@ Feature: Inventories
     And player "Jane Doe" with Steam ID "124" exists
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And I am logged in as "John Doe"
@@ -152,7 +152,7 @@ Feature: Inventories
     Given player "John Doe" with Steam ID "123" exists
     And server "test-server" is registered
     And I am logged in as server "test-server"
-    And server "test-server" has status "waiting"
+    And server "test-server" has status "idle"
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And I am logged in as "John Doe"

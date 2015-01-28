@@ -2,6 +2,7 @@ var namespace = this;
 
 Squad = function Squad(args) {
   this._id = args._id;
+  this.serverId = args.serverId;
 }
 
 Squad.MAX_MEMBERS = 12;
@@ -90,10 +91,6 @@ Squad.prototype.setServerId = function(serverId) {
 }
 
 Squad.prototype.evaluateObjective = function(){
-  if (this.isLocked()) {
-    return;
-  }
-
   var objective = this.getObjective();
   if ( ! objective.validate(this) ) {
     this.setObjective(objective.defaultsTo)
@@ -173,9 +170,13 @@ Squad.prototype.setConnectionDeadline = function(time) {
   });
 }
 
-Squad.prototype.isOnDeadline = function(time) {
+Squad.prototype.isBeforeDeadline = function(time) {
   var time = this.getConnectionDeadline();
   return time ? this.getConnectionDeadline().isAfter(moment()) : false;
+}
+
+Squad.prototype.exists = function() {
+  return Boolean(this.getDoc());
 }
 
 Squad.prototype.getDoc = function() {
@@ -196,6 +197,12 @@ Squad.prototype.getMaxMembers = function() {
 
 Squad.prototype.remove = function() {
   collections.SquadCollection.remove({ _id: this._id });
+}
+
+Squad.prototype.isJoinable = function() {
+  return ! this.isLocked() &&
+    this.getSteamIds().length < Squad.MAX_MEMBERS &&
+    this.getSteamIds().length > 0;
 }
 
 Squad.getAll = function(company) {

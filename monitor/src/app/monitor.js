@@ -97,11 +97,11 @@ Monitor.prototype._startArma = function(){
   })
 
   this._armaServerProcess.stdout.on('data', function(data) {
-    console.log("ARMA STDOUT says: ", data);
+    console.log("ARMA STDOUT says: ", data.toString());
   });
 
   this._armaServerProcess.stderr.on('data', function(data) {
-    console.log("ARMA STDERR says: ", data);
+    console.log("ARMA STDERR says: ", data.toString());
   });
 };
 

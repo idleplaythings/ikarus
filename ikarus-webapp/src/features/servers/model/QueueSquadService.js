@@ -120,7 +120,6 @@ QueueSquadService.prototype.evaluateSquad = function(squad) {
     Inventory.removeBySquad(squad);
     queue.removeSquadFromQueue(squad);
     squad.remove();
-    //console.log("Remove unlocked squad");
   }
 
   //Empty squad, in server, but server not playing yet. Free to leave, but lose inventory
@@ -129,7 +128,6 @@ QueueSquadService.prototype.evaluateSquad = function(squad) {
     queue.removeSquadFromQueue(squad);
     server.removeSquadFromGame(squad);
     squad.remove();
-    //console.log("Remove LOCKED squad");
   }
 }
 

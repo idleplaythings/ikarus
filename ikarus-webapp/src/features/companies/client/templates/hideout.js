@@ -16,35 +16,45 @@ Template.company_hideout.created = function(){
   });
 };
 
-function getOverlayDrawer(template, company) {
-  var $map = jQuery(template.find('img.map'));
+function drawOverlay($map) {
+  var template = this;
   var canvas = template.find('canvas.overlay');
   var ctx = canvas.getContext('2d');
 
-  return function (){
-    var position = company.getHideout();
+  var player = Player.getCurrent();
 
-    canvas.width = $map.width();
-    canvas.height = $map.height();
+  if (! player) {
+    return;
+  }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.arc(
-        position.x / 30000 * canvas.width,
-        canvas.height - (position.y - 1000) / 27000 * canvas.height,
-        10,
-        0,
-        Math.PI*2,
-        true
-    );
-    ctx.stroke();
-  };
+  var company = Company.getByPlayer(player);
+
+  if (! company) {
+    return;
+  }
+
+  var position = company.getHideout();
+  canvas.width = $map.width();
+  canvas.height = $map.height();
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+  ctx.arc(
+      position.x / 30000 * canvas.width,
+      canvas.height - (position.y - 1000) / 27000 * canvas.height,
+      10,
+      0,
+      Math.PI*2,
+      true
+  );
+  ctx.stroke();
 }
 
 Template.company_hideout.rendered = function(){
-  var drawOverlay = getOverlayDrawer(this, Company.getByPlayer(Player.getCurrent()));
-  Tracker.autorun(drawOverlay);
-  jQuery(window).resize(_.debounce(drawOverlay, 50));
+  var $map = jQuery(this.find('img.map'));
+  Tracker.autorun(drawOverlay.bind(this, $map));
+  $map.load(drawOverlay.bind(this, $map));
+  jQuery(window).resize(_.debounce(drawOverlay.bind(this, $map), 50));
 };
 
 Template.company_hideout.events({

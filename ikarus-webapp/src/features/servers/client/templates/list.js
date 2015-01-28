@@ -6,11 +6,11 @@ var countdowners = {};
 
 Template.servers_list.destroyed = function () {
 
-  Object.keys(this.countdowners).forEach(function (key) {
-    this.countdowners[key].stop();
+  Object.keys(countdowners).forEach(function (key) {
+    countdowners[key].stop();
   });
 
-  this.countdowners = {};
+  countdowners = {};
 };
 
 Template.servers_list.helpers({

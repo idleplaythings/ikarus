@@ -52,7 +52,6 @@ ServerQueueService.prototype.processStatusUpdates = function() {
 
   var statusUpdate = this._serverStatusUpdates.shift();
   while(statusUpdate) {
-    console.log("status updatoore");
     this.changeServerStatus(statusUpdate.server, statusUpdate.status)
     statusUpdate = this._serverStatusUpdates.shift();
   }
@@ -76,7 +75,6 @@ ServerQueueService.prototype.changeServerStatus = function(server, status) {
 
     server.removePlayers();
     Squad.getAllByServer(server).forEach(function(squad) {
-      console.log("remove squad", squad._id);
       squad.remove();
     })
 
@@ -92,7 +90,6 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
     if (server.isWaiting() && server.getSquadsInGame().length <= Server.MIN_SQUADS_TO_ABORT) {
       server.updateStatus(Server.STATUS_DOWN);
 
-      console.log("SERVER", server.getName(), "aborting!");
       var squads = server.getSquadsInGame();
       var queue = ServerQueue.getByRegion('EU');
 
@@ -163,7 +160,6 @@ ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
 
 ServerQueueService.prototype._checkNeedsToMoveQueue = function(server) {
   if (server.isWaiting()){
-    console.log(server.getName(), "is waiting");
 
     var queue = ServerQueue.getByRegion('EU');
     var toRemoveFromQueue = [];

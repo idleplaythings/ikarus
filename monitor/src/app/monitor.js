@@ -69,7 +69,6 @@ Monitor.prototype._startArma = function(){
   var sockPort = this._config.rpc.port;
   var armaPort = this._config.arma.port;
   var BEpath = this._config.arma.BEpath;
-  //var command = location + "/arma3server -name=server -config="+configLocation+" -sock_host=::1 -sock_port="+sockPort+" -port="+armaPort+" -mod=@ikrs; -BEpath="+BEpath;
   var command = location + "/arma3server";
 
   var args = [
@@ -99,11 +98,11 @@ Monitor.prototype._startArma = function(){
   })
 
   this._armaServerProcess.stdout.on('data', function(data) {
-    //console.log("ARMA STDOUT says: ", data);
+    console.log("ARMA STDOUT says: ", data);
   });
 
   this._armaServerProcess.stderr.on('data', function(data) {
-    //console.log("ARMA STDERR says: ", data);
+    console.log("ARMA STDERR says: ", data);
   });
 };
 

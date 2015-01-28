@@ -42,13 +42,6 @@ module.exports = function(armaSerializer){
     if (this._locked)
       return;
 
-    /*
-    console.log("SET SQUADS");
-    console.log(squads);
-    console.log();
-    console.log(inventories);
-    */
-
     if (squads){
       this._squads = Object.keys(squads).map(function(key){
         return new Squad(squads[key]);
@@ -68,8 +61,6 @@ module.exports = function(armaSerializer){
     } else {
       this._inventories = [];
     }
-
-    //console.log(this.getSquadData());
   };
 
   GameData.prototype.recognizeUid = function(uid) {

@@ -1,7 +1,5 @@
 Template.character_appearance.helpers({
   getHeadGear: function () {
-    //This is here to trigger reactivity on change
-    Player.getCurrent().getHeadgear();
     return appearance.headgear;
   },
 
@@ -10,8 +8,6 @@ Template.character_appearance.helpers({
   },
 
   getUniforms: function () {
-    //This is here to trigger reactivity on change
-    Player.getCurrent().getUniform();
     return appearance.uniforms;
   },
 
@@ -20,8 +16,6 @@ Template.character_appearance.helpers({
   },
 
   getVests: function () {
-    //This is here to trigger reactivity on change
-    Player.getCurrent().getVest();
     return appearance.vests;
   },
 

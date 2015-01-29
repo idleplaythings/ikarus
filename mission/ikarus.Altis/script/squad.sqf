@@ -64,6 +64,22 @@ getDisconnectedLoot = {
   _this select 0 select 9;
 };
 
+getPlayerGear = {
+  private ["_uid", "_gear"];
+  _uid = _this select 1;
+  _gear = nil;
+
+  {
+    if ((_x select 0) == _uid) then {
+      _gear = _x;
+    }
+  } forEach (_this select 0 select 10);
+
+  if (isNil {_gear}) exitWith {nil;};
+  _gear;
+};
+
+
 addDisconnectedLoot = {
   private ["_squad", "_currentLoot"];
   _squad = _this select 0;

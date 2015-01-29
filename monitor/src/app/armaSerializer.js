@@ -46,7 +46,7 @@ function serializeInventory(inventory){
 };
 
 function serializeGear(gear){
-  if (! inventory) {
+  if (! gear) {
     return [];
   }
 

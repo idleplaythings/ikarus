@@ -1,0 +1,62 @@
+<template name="character_appearance">
+  <h2>Character appearance</h2>
+
+  <div class="info-box bg-info">
+    <p>
+      Here you can select uniform, vest and headgear for your character. Please note that some equipments are not available here, but must instead be taken as squad equipment to the mission. Examples of these would be helmets and armoured vests.
+    </p>
+  </div>
+
+  <div class="row" style="margin-top:20px;">
+    <div class="col-md-6">
+
+      <div class="form-group">
+        <label for="headgear-select">Select headgear</label>
+
+        <select id="headgear-select" name="headgear-select" class="form-control">
+          <option value="">NONE</option>
+          {{#each getHeadGear}}
+            <option value="{{name}}" selected={{isHeadgearSelected name}}>{{name}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="vest-select">Select vest</label>
+
+        <select id="vest-select" name="vest-select" class="form-control">
+          <option value="">NONE</option>
+          {{#each getVests}}
+            <option value="{{name}}" selected={{isVestSelected name}}>{{name}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="uniform-select">Select uniform</label>
+
+        <select id="uniform-select" name="uniform-select" class="form-control">
+          <option value="">NONE</option>
+          {{#each getUniforms}}
+            <option value="{{name}}" selected={{isUniformSelected name}}>{{name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="info-box">
+        <p>
+          You can also select items in Arma 3 Virtual Arsenal, click the export button and paste the result here;
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="code-from-armory">Import from Arma 3</label>
+        <input type="text" class="form-control" id="code-from-armory" placeholder="paste here">
+
+        <button style="margin-top:20px;" id="parse-from-armory" class="btn btn-primary btn-lg">Parse</button>
+      </div>
+    </div>
+  </div>
+</template>

@@ -18,6 +18,29 @@ Squad.prototype.getPlayers = function() {
   return players;
 };
 
+Squad.prototype.addPlayerGear = function(player) {
+
+  var gear = player.getGear();
+
+  collections.SquadCollection.update({
+    _id: this._id
+  }, {
+    $addToSet: {
+      gear: gear
+    }
+  });
+};
+
+Squad.prototype.removePlayerGear = function(player) {
+  collections.SquadCollection.update({
+    _id: this._id
+  }, {
+    $pull: {
+      gear: {gear: {playerId: player._id}}
+    }
+  });
+};
+
 Squad.prototype.addPlayer = function(player) {
   collections.SquadCollection.update({
     _id: this._id

@@ -10,6 +10,30 @@ Player.prototype.getInvite = function(company) {
   }, null);
 };
 
+gettersAndSetters(
+  Player.prototype,
+  ['Headgear', 'Uniform', 'Vest'],
+  Meteor.users
+);
+
+Player.prototype.getGear = function() {
+
+  function getClassesFromList(name, list) {
+    var entry = list.filter(function(entry) {
+      return entry.name == name;
+    }).pop();
+
+    return entry ? entry.classes : null;
+  };
+
+  return {
+    steamId: this.getSteamId(),
+    headgear: getClassesFromList(this.getHeadgear(), appearance.headgear),
+    vest: getClassesFromList(this.getVest(), appearance.vests),
+    uniform: getClassesFromList(this.getUniform(), appearance.uniforms)
+  };
+};
+
 Player.prototype.isAdmin = function() {
   return get(this.getDoc(), 'admin');
 };

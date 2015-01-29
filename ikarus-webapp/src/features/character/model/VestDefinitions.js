@@ -1,4 +1,4 @@
-var vests = [
+appearance.vests = [
 	{ classes: ["V_BandollierB_khk"], name: "Slash Bandolier (Khaki)"},
 	{ classes: ["V_BandollierB_cbr"], name: "Slash Bandolier (Coyote)"},
 	{ classes: ["V_BandollierB_rgr"], name: "Slash Bandolier (Green)"},

@@ -10,7 +10,15 @@ module.exports = function(armaSerializer){
     steamIds: ["_SP_PLAYER_", "_SP_AI_"],
     startingLocation: {x:8500.0, y:11200.0},
     companyId: 'company',
-    objective: 'Supply'
+    objective: 'Supply',
+    gear: [
+      {
+        steamId: "_SP_PLAYER_",
+        headgear: ["H_Watchcap_cbr"],
+        vest: ["V_Chestrig_oli"],
+        uniform: ["Niko_USA_M81OD"]
+      }
+    ]
   });
 
   var testInventories = [

@@ -1,4 +1,4 @@
-var uniforms = [ 
+appearance.uniforms = [
   { classes: [ 'Niko_USA_AOR1', 'Niko_USA_R_McamAOR1' ], name: 'USA AOR1' },
   { classes: [ 'Niko_USA_AOR1Tan' ], name: 'USA AOR1 & Tan' },
   { classes: [ 'Niko_USA_AOR2', 'Niko_USA_R_US4CESWoodlandAOR2' ], name: 'USA AOR2' },
@@ -140,5 +140,5 @@ var uniforms = [
   { classes: [ 'mcamalpinemarpat' ], name: 'USA (R) Multicam Alpine & MARPAT' },
   { classes: [ 'mcamalpinepcu' ], name: 'USA (R) Multicam Alpine & PCU' },
   { classes: [ 'wintermarpatm81' ], name: 'USA (R) Winter MARPAT & M81' },
-  { classes: [ 'wintermarpatmarpat' ], name: 'USA (R) Winter MARPAT & MARPAT' } 
+  { classes: [ 'wintermarpatmarpat' ], name: 'USA (R) Winter MARPAT & MARPAT' }
 ];

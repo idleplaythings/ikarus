@@ -1,7 +1,4 @@
 appearance.headgear = [
-	{ classes: ["H_HelmetB_camo"], name: "ECH (Camo)"},
-	{ classes: ["H_HelmetB_paint"], name: "ECH (Spraypaint)"},
-	{ classes: ["H_HelmetB_light"], name: "ECH (Light)"},
 	{ classes: ["H_Booniehat_khk"], name: "Booniehat (Khaki)"},
 	{ classes: ["H_Booniehat_oli"], name: "Booniehat (Olive)"},
 	{ classes: ["H_Booniehat_indp"], name: "Booniehat (Khaki)"},

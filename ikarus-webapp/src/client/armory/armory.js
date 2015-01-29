@@ -34,6 +34,8 @@ jQuery.getJSON('/items.json').then(function(items) {
     var matches = items.filter(function(item) { return item.armaClass === armaClass; });
     if (matches.length < 1) {
       console.log('missing item ' + armaClass);
+      $elem.find('img').remove();
+      $elem.prepend('<img src="/missing-item.png">');
       return;
     }
 

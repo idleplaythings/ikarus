@@ -1,9 +1,9 @@
 <template name="armory">
   {{#each getInventory.getOtherThanMagazines}}
 
-  <div class="panel panel-default" style="margin-bottom:0px;">
+  <div class="panel panel-default inventory-entry armory" style="margin-bottom:0px;" data-armaclass="{{item.armaClass}}">
     <div class="panel-heading">
-      <div class="row inventory-entry armory" data-armaclass="{{item.armaClass}}">
+      <div class="row" data-armaclass="{{item.armaClass}}">
         {{#if currentSquad}}
           <div class="col-md-1 clickable add-to-inventory glyphicon glyphicon-plus" data-armaclass="{{item.armaClass}}">
 

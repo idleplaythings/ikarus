@@ -75,24 +75,18 @@ QueueSquadService.prototype.evaluateSquads = function() {
 };
 
 QueueSquadService.prototype.addPlayerToSquad = function(squad, player) {
-
-  var playingOnAServer = Server.getAllByPlayer(player).some(function(server) {
-    return server.isPlaying() &&
-        moment.duration(moment().diff(server.getStatusChanged())).asMinutes() < Server.TIME_MAX_MISSION_LENGTH;
-  });
-
-  if (playingOnAServer) {
+  if (
+    !player ||
+    !squad ||
+    !player.canJoinASquad() ||
+    !squad.exists() ||
+    !squad.isJoinable()
+  ) {
     return;
   }
 
-  if (Squad.getByPlayer(player) || ! squad.exists()) {
-    return;
-  }
-
-  if (squad.isJoinable()) {
-    squad.addPlayer(player);
-    squad.addPlayerGear(player);
-  }
+  squad.addPlayer(player);
+  squad.addPlayerGear(player);
 };
 
 QueueSquadService.prototype.removePlayerFromSquad = function(squad, player) {

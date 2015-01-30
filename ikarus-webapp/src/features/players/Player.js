@@ -82,6 +82,15 @@ Player.prototype.isMemberOf = function(company) {
   return company.getPlayerIds().indexOf(this.getSteamId()) !== -1;
 };
 
+Player.prototype.canJoinASquad = function(squad) {
+  var playingOnAServer = Server.getAllByPlayer(this).some(function(server) {
+    return server.isPlaying() &&
+      moment.duration(moment().diff(server.getStatusChanged())).asMinutes() < Server.TIME_MAX_MISSION_LENGTH;
+  });
+
+  return !playingOnAServer && !this.getSquad();
+};
+
 Player.getByMeteorId = function(id) {
   return Player.fromDoc(Meteor.users.findOne({ _id: id }));
 }

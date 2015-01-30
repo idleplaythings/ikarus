@@ -75,15 +75,18 @@ QueueSquadService.prototype.evaluateSquads = function() {
 };
 
 QueueSquadService.prototype.addPlayerToSquad = function(squad, player) {
-
-  if (Squad.getByPlayer(player) || ! squad.exists()) {
+  if (
+    !player ||
+    !squad ||
+    !player.canJoinASquad() ||
+    !squad.exists() ||
+    !squad.isJoinable()
+  ) {
     return;
   }
 
-  if (squad.isJoinable()) {
-    squad.addPlayer(player);
-    squad.addPlayerGear(player);
-  }
+  squad.addPlayer(player);
+  squad.addPlayerGear(player);
 };
 
 QueueSquadService.prototype.removePlayerFromSquad = function(squad, player) {

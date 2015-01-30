@@ -225,7 +225,7 @@ Squad.prototype.remove = function() {
 Squad.prototype.isJoinable = function() {
   return ! this.isLocked() &&
     this.getSteamIds().length < Squad.MAX_MEMBERS &&
-    this.getSteamIds().length > 0;
+    !this.serverId;
 }
 
 Squad.getAll = function(company) {

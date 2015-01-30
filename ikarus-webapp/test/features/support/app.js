@@ -241,9 +241,9 @@ App.prototype.callTestingElapseSquadTimeout = function (squadId) {
   }.bind(this)
 };
 
-App.prototype.callTestingElapseServerWaitingTime = function (serverId) {
+App.prototype.callTestingElapseServerStatusChanged = function (serverId) {
   return function() {
-    return this.callMethod('testingElapseServerWaitingTime', [serverId]);
+    return this.callMethod('testingElapseServerStatusChanged', [serverId]);
   }.bind(this)
 };
 

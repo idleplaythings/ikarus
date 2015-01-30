@@ -218,6 +218,69 @@ Feature: Squads
     And I leave my squad from the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
 
+  Scenario: When already on server, cannot join a squad
+    Given "1" squads are minimum to start a game
+    And severs wait "2" minutes for additional players before starting
+    Given player "John Doe" with Steam ID "123" exists
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And server "test-server" is registered
+    And I am logged in as server "test-server"
+    And server "test-server" has status "idle"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    Then Squad that has player "John Doe" should be playing on server "test-server"
+    And I am logged in as server "test-server"
+    And "John Doe" connects to server "test-server"
+    And status for server "test-server" should be "waiting"
+    When servers have been checked for game start
+    Then status for server "test-server" should be "waiting"
+    When status for server "test-server" changed long ago
+    And servers have been checked for game start
+    And Squad that has player "John Doe" should be playing on server "test-server"
+    Then status for server "test-server" should be "playing"
+    And server "test-server" should have a player with Steam ID "123"
+    And I am logged in as "John Doe"
+    When I leave my squad
+    Then status for server "test-server" should be "playing"
+    And server "test-server" should have a player with Steam ID "123"
+    And player "John Doe" should not have a squad
+    When I create a squad
+    Then player "John Doe" should not have a squad
+
+  Scenario: When already on server, can join a squad after game must have ended
+    Given "1" squads are minimum to start a game
+    And severs wait "2" minutes for additional players before starting
+    Given player "John Doe" with Steam ID "123" exists
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And server "test-server" is registered
+    And I am logged in as server "test-server"
+    And server "test-server" has status "idle"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I enter my squad to the queue
+    Then Squad that has player "John Doe" should be playing on server "test-server"
+    And I am logged in as server "test-server"
+    And "John Doe" connects to server "test-server"
+    And status for server "test-server" should be "waiting"
+    When servers have been checked for game start
+    Then status for server "test-server" should be "waiting"
+    When status for server "test-server" changed long ago
+    And servers have been checked for game start
+    And Squad that has player "John Doe" should be playing on server "test-server"
+    Then status for server "test-server" should be "playing"
+    And server "test-server" should have a player with Steam ID "123"
+    And I am logged in as "John Doe"
+    When I leave my squad
+    Then status for server "test-server" should be "playing"
+    And server "test-server" should have a player with Steam ID "123"
+    And player "John Doe" should not have a squad
+    When status for server "test-server" changed long ago
+    And I create a squad
+    Then player "John Doe" should have a squad
+
   Scenario: Squads being removed when server is idle
     Given player "John Doe" with Steam ID "123" exists
     Given player "Jane Doe" with Steam ID "321" exists

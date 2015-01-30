@@ -82,9 +82,9 @@ var serverStepDefinitions = function () {
       .catch(this.handleError);
   });
 
-  this.Given(/^server waiting period has elapsed for server "([^"]*)"$/, function (serverName, callback) {
+  this.Given(/^status for server "([^"]*)" changed long ago$/, function (serverName, callback) {
     var serverId = getServerByName(this.app, serverName)._id;
-    this.app.callTestingElapseServerWaitingTime(serverId)()
+    this.app.callTestingElapseServerStatusChanged(serverId)()
       .finally(callback)
       .catch(this.handleError);
   });

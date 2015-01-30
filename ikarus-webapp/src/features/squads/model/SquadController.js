@@ -2,19 +2,19 @@ SquadController = function SquadController(serverQueueService) {
   this._serverQueueService = serverQueueService;
 }
 
-SquadController.prototype.createNewSquad = function(player, company){
-  var player = this._getPlayer();
+SquadController.prototype.createNewSquad = function(){
   var company = this._getCompany();
-  this._checkNoSquad();
+
+  if (!company) {
+    return;
+  }
 
   var squad = this._initSquad(company);
-  squad.addPlayer(player);
-  squad.addPlayerGear(player);
+  this.joinSquad(squad._id);
 };
 
 SquadController.prototype.joinSquad = function(squadId){
   var player = this._getPlayer();
-  this._checkNoSquad();
 
   var squad = this._getSquadById(squadId);
 

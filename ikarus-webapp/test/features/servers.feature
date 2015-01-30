@@ -31,7 +31,7 @@ Feature: Servers
     And status for server "test-server" should be "waiting"
     When servers have been checked for game start
     Then status for server "test-server" should be "waiting"
-    When server waiting period has elapsed for server "test-server"
+    When status for server "test-server" changed long ago
     And servers have been checked for game start
     And Squad that has player "John Doe" should be playing on server "test-server"
     And Squad that has player "Jane Doe" should be playing on server "test-server"
@@ -159,7 +159,7 @@ Feature: Servers
     And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
     And status for server "test-server" should be "waiting"
-    And server waiting period has elapsed for server "test-server"
+    And status for server "test-server" changed long ago
     And I am logged in as "Jane Doe"
     And I create a squad
     When I enter my squad to the queue

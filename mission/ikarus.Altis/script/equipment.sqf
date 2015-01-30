@@ -1,3 +1,32 @@
+equipment_setPlayersGear = {
+  {
+    [_x] call equipment_setPlayerGear;
+  } forEach (call getAllPlayers);
+};
+
+equipment_setPlayerGear = {
+  private ["_unit", "_gear", "_squad", "_uid", "_item"];
+  _unit = _this select 0;
+  _squad = [_unit] call getSquadForUnit;
+  _uid = getPlayerUID _unit;
+
+  _gear = [_squad, _uid] call getPlayerGear;
+
+  if (isNil {_gear}) exitWith {};
+
+  if ( ! isNil {(_gear select 1)}) then {
+    _unit addHeadgear ((_gear select 1) call BIS_fnc_selectRandom);
+  };
+
+  if ( ! isNil {(_gear select 2)}) then {
+    _unit addVest ((_gear select 2) call BIS_fnc_selectRandom);
+  };
+
+  if ( ! isNil {(_gear select 3)}) then {
+    _unit forceAddUniform ((_gear select 3) call BIS_fnc_selectRandom);
+  };
+};
+
 equipment_equipUnit = {
   private ["_equipment", "_backupContainer"];
   _equipment = _this select 0;

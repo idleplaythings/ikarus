@@ -82,11 +82,13 @@ QueueSquadService.prototype.addPlayerToSquad = function(squad, player) {
 
   if (squad.isJoinable()) {
     squad.addPlayer(player);
+    squad.addPlayerGear(player);
   }
 };
 
 QueueSquadService.prototype.removePlayerFromSquad = function(squad, player) {
   squad.removePlayer(player);
+  squad.removePlayerGear(player);
 };
 
 QueueSquadService.prototype.addSquadToQueue = function(squad) {

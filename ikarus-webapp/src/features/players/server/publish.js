@@ -22,7 +22,10 @@ Meteor.publish('UserData', function () {
         'services.steam': 1,
         'invites': 1,
         'companyId': 1,
-        'steamId': 1
+        'steamId': 1,
+        'uniform': 1,
+        'vest': 1,
+        'headgear': 1
       }
     });
   } else {

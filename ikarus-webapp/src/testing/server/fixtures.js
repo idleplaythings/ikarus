@@ -157,8 +157,9 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       this.setUserId(id);
     },
 
-    testing_createTestUser: function(name, steamId) {
-      Meteor.users.insert({
+    testing_createTestUser: function(name, steamId, id) {
+
+      var insert = {
         testing: true,
         services: {
           steam: {
@@ -166,7 +167,13 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
             username: name
           }
         }
-      });
+      }
+
+      if (id) {
+        insert._id = id;
+      }
+
+      Meteor.users.insert(insert);
     },
     testing_createCompany: function(name) {
       Company.create().setName(name);

@@ -30,7 +30,8 @@ function serializeSquad(squad, inventory){
     [],
     squad.objective,
     [],
-    []
+    [],
+    serializeGear(squad.gear)
   ];
 };
 
@@ -41,5 +42,15 @@ function serializeInventory(inventory){
 
   return Object.keys(inventory.items).map(function(key){
     return [key, inventory.items[key]];
+  });
+};
+
+function serializeGear(gear){
+  if (! gear) {
+    return [];
+  }
+
+  return gear.map(function(entry){
+    return [entry.steamId, entry.headgear, entry.vest, entry.uniform];
   });
 };

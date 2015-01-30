@@ -28,6 +28,7 @@ Template.armory.helpers({
 
 jQuery.getJSON('/items.json').then(function(items) {
   var showItem = function (event, template) {
+
     var $elem = jQuery(event.target);
     var armaClass = event.target.attributes.getNamedItem('data-armaclass').value;
 

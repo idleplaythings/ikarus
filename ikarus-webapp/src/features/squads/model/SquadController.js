@@ -9,6 +9,7 @@ SquadController.prototype.createNewSquad = function(player, company){
 
   var squad = this._initSquad(company);
   squad.addPlayer(player);
+  squad.addPlayerGear(player);
 };
 
 SquadController.prototype.joinSquad = function(squadId){

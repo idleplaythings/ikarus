@@ -8,10 +8,11 @@
         </p>
         {{#if currentUser}}
           {{#each joinableSquads}}
-            <button class="joinSquad" data-squadId={{_id}}>Join {{getName}} squad</button> or
+            <button class="joinSquad btn btn-primary" data-squadId={{_id}}>Join {{getName}} squad</button> or
           {{/each}}
 
-          <button class="createSquad">Create squad</button>
+          <button class="createSquad btn btn-primary">Create squad</button>
+          <a href="{{pathFor route='character'}}" class="pull-right btn btn-primary">Character settings</a>
         {{/if}}
       </div>
     {{/if}}

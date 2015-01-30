@@ -80,6 +80,7 @@ missionControl_startGame = {
   missionControl_timeGameStarted = time;
 
   call hideout_movePlayersToHideout;
+  call equipment_setPlayersGear;
   call assembleSquads;
   call missionControl_pollGameEnd;
 };

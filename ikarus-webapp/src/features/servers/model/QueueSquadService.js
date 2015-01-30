@@ -76,6 +76,14 @@ QueueSquadService.prototype.evaluateSquads = function() {
 
 QueueSquadService.prototype.addPlayerToSquad = function(squad, player) {
 
+  var playingOnAServer = Server.getAllByPlayer(player).some(function(server) {
+    return server.isPlaying();
+  });
+
+  if (playingOnAServer) {
+    return;
+  }
+
   if (Squad.getByPlayer(player) || ! squad.exists()) {
     return;
   }

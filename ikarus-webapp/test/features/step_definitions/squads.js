@@ -26,8 +26,13 @@ var squadsStepDefinitions = function () {
   });
 
   this.When(/^I create a squad$/, function (callback) {
+    var app = this.app;
     this.app.callCreateSquad()()
-      .finally(callback)
+        .finally(function() {
+          app.callTestingEvaluateSquads()()
+              .finally(callback)
+              .catch(this.handleError);
+        })
       .catch(this.handleError);
   });
 

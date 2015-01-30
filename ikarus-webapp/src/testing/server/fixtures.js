@@ -100,7 +100,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       dic.get('ServerQueueService').process();
     },
 
-    testingElapseServerWaitingTime : function (serverId) {
+    testingElapseServerStatusChanged : function (serverId) {
       var time = new moment(0).toString();
       collections.ServerCollection.update(
         {

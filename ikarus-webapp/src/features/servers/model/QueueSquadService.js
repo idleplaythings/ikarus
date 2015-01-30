@@ -77,7 +77,8 @@ QueueSquadService.prototype.evaluateSquads = function() {
 QueueSquadService.prototype.addPlayerToSquad = function(squad, player) {
 
   var playingOnAServer = Server.getAllByPlayer(player).some(function(server) {
-    return server.isPlaying();
+    return server.isPlaying() &&
+        moment.duration(moment().diff(server.getStatusChanged())).asMinutes() < Server.TIME_MAX_MISSION_LENGTH;
   });
 
   if (playingOnAServer) {

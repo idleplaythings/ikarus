@@ -18,6 +18,7 @@ Server.MAX_PLAYERS = 60;
 Server.TIME_WAIT_FOR_NEWSQUADS = 2; //minutes
 Server.MIN_SQUADS_TO_START = 1;
 Server.MIN_SQUADS_TO_ABORT = 0;
+Server.TIME_MAX_MISSION_LENGTH = 75; //minutes
 
 Server.prototype.stillTimeToJoin = function() {
   return this.getStatusChanged().add(Server.TIME_WAIT_FOR_NEWSQUADS, 'minutes').isAfter(moment());

@@ -4,6 +4,10 @@ objective_guard_killRadius = 1000;
 
 objective_guard_construct = {};
 
+objective_guard_overridesAppearance = {
+  true;
+};
+
 objective_guard_onKilled = {
   private ["_unit", "_killer", "_guardData"];
   _unit = _this select 0;

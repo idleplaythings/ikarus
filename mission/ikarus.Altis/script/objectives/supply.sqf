@@ -10,6 +10,10 @@ objective_supply_construct = {
   [_depots, _players] call objective_supply_constructMarkers;
 };
 
+objective_supply_overridesAppearance = {
+  false;
+};
+
 objective_supply_defaultIfNeccessary = {};
 
 objective_supply_overrideMoveToHideout = {

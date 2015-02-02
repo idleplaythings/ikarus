@@ -25,6 +25,7 @@ Template.squads_status.events({
   },
   'click .leaveSquad' : function () {
     Meteor.call('leaveSquad');
+    Meteor.call('setPlayerReady', false);
   }
 });
 
@@ -90,6 +91,10 @@ var countdowner = null;
 
 
 Template.squad_queue_status.events({
+  'click .toggleReady' : function () {
+    var player = Player.getCurrent();
+    Meteor.call('setPlayerReady', !player.isReady());
+  },
   'click .joinQueue' : function () {
     Meteor.call('enterSquadQueue');
   },

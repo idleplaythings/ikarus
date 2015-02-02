@@ -25,7 +25,8 @@ Meteor.publish('UserData', function () {
         'steamId': 1,
         'uniform': 1,
         'vest': 1,
-        'headgear': 1
+        'headgear': 1,
+        'ready': 1
       }
     });
   } else {

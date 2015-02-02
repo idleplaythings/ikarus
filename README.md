@@ -9,7 +9,7 @@
 
 1. Install https://www.meteor.com/
 1. `cd ikarus-webapp/src`
-1. `meteor`
+1. `meteor --settings env/dev.json`
 1. Open http://localhost:3000/
 1. Configure steam login by following instructions on the page.
 

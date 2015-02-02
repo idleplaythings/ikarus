@@ -114,6 +114,7 @@ Feature: Inventories
     And I am logged in as "John Doe"
     And I create a squad
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
@@ -137,6 +138,7 @@ Feature: Inventories
     And I am logged in as "John Doe"
     And I create a squad
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
+    And I am ready
     And I enter my squad to the queue
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
     And "Manatee-Men" has "5" "CUP_arifle_AK107" in armory
@@ -158,6 +160,7 @@ Feature: Inventories
     And I am logged in as "John Doe"
     And I create a squad
     And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory

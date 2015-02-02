@@ -157,6 +157,12 @@ App.prototype.callPlayerDisconnected = function(serverName, steamId) {
   }.bind(this)
 };
 
+App.prototype.callSetPlayerReady = function (ready) {
+  return function() {
+    return this.callMethod('setPlayerReady', [ready]);
+  }.bind(this);
+};
+
 App.prototype.callTestAddToArmory = function(companyId, amount, armaclass) {
   return function() {
     return this.callMethod('testing_addToArmory', [companyId, amount, armaclass]);

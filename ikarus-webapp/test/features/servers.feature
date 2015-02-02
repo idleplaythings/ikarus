@@ -21,9 +21,11 @@ Feature: Servers
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And I am logged in as "Jane Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
@@ -48,6 +50,7 @@ Feature: Servers
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     When I enter my squad to the queue
     Then status for server "test-server" should be "idle"
 
@@ -62,6 +65,7 @@ Feature: Servers
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     When I leave my squad
@@ -84,6 +88,7 @@ Feature: Servers
     And server "test-server2" has status "waiting"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     When I enter my squad to the queue
     Then Squad that has player "John Doe" should be playing on server "test-server2"
 
@@ -104,10 +109,12 @@ Feature: Servers
     And server "full-server2" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "full-server1"
     And I am logged in as "Jane Doe"
     And I create a squad
+    And I am ready
     When I enter my squad to the queue
     Then Squad that has player "Jane Doe" should be playing on server "full-server2"
 
@@ -126,9 +133,11 @@ Feature: Servers
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And I am logged in as "Jane Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
@@ -155,6 +164,7 @@ Feature: Servers
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
@@ -162,6 +172,7 @@ Feature: Servers
     And status for server "test-server" changed long ago
     And I am logged in as "Jane Doe"
     And I create a squad
+    And I am ready
     When I enter my squad to the queue
     Then Squad that has player "John Doe" should be playing on server "test-server"
     And Squad that has player "Jane Doe" should not be playing on server "test-server"
@@ -183,9 +194,11 @@ Feature: Servers
     And server "test-server2" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And I am logged in as "Jane Doe"
     And I create a squad
+    And I am ready
     When I enter my squad to the queue
     Then status for server "test-server1" should be "waiting"
     And status for server "test-server2" should be "waiting"

@@ -1,4 +1,4 @@
-Meteor.publish('MySquad', function() {
+Meteor.publish('MyCompanyAndSquads', function() {
   if (! this.userId){
     this.ready();
     return;
@@ -8,10 +8,21 @@ Meteor.publish('MySquad', function() {
   var steamId = user.services.steam.id;
 
   return [
-    // collections.CompanyCollection.find({playerIds: {$in: [steamId]}}),
     collections.CompanyCollection.find({}),
     collections.SquadCollection.find({squadId: user.squadId}),
-    collections.InventoryCollection.find({companyId: user.companyId})
+    collections.InventoryCollection.find({companyId: user.companyId}),
+    Meteor.users.find(
+      {companyId: user.companyId},
+      {
+        fields: {
+          'companyId': 1,
+          'profile.name': 1,
+          'services.steam.id': 1,
+          'services.steam.avatar': 1,
+          'services.steam.username': 1,
+        }
+      }
+    )
   ];
 });
 
@@ -58,8 +69,25 @@ Meteor.publish('Company', function(companyId) {
   var playerIds = company.getPlayerIds();
 
   return [
-    collections.CompanyCollection.find({ _id: companyId }),
-    Meteor.users.find({ 'services.steam.id': { $in: playerIds } })
+    collections.CompanyCollection.find(
+      { _id: companyId },
+      {fields: {
+        name: 1,
+        playerIds: 1
+      }}
+    ),
+    Meteor.users.find(
+      {companyId: companyId},
+      {
+        fields: {
+          'companyId': 1,
+          'profile.name': 1,
+          'services.steam.id': 1,
+          'services.steam.avatar': 1,
+          'services.steam.username': 1,
+        }
+      }
+    )
   ];
 });
 
@@ -73,21 +101,4 @@ Meteor.publish('Companies', function() {
       }
     }
   );
-});
-
-Meteor.publish('MyCompany', function(companyId) {
-  if (! this.userId){
-    this.ready();
-    return;
-  }
-
-  var player = Player.getByMeteorId(this.userId);
-  var company = Company.getByPlayer(player);
-
-  if (! company || company._id !== companyId) {
-    this.ready();
-    return;
-  }
-
-  return collections.CompanyCollection.find({_id: company._id});
 });

@@ -32,7 +32,7 @@ Meteor.methods({
     dic.get('LootController').addStartingLoot(company);
   },
 
-  inviteToCompany: function(playerName) {
+  inviteToCompany: function(playerId) {
     var player = Player.getCurrent()
 
     if (player === null) {
@@ -45,7 +45,7 @@ Meteor.methods({
       throw new Meteor.Error(403, 'You have to belong to a company to invite members.');
     }
 
-    var invitee = Player.getByName(playerName);
+    var invitee = Player.getByMeteorId(playerId);
 
     if (invitee == null) {
       throw new Meteor.Error(404, 'Player not found');
@@ -62,6 +62,7 @@ Meteor.methods({
     var player = Player.getById(playerId);
     var company = Company.getById(companyId);
     company.addPlayer(player);
+    player.removeInvites();
   },
 
   leaveCompany: function(playerId, companyId) {

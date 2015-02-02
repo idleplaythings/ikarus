@@ -1,4 +1,13 @@
 <template name="players_list">
+
+  {{#if search}}
+    <div class="form-group">
+      <label for="search-players">Search players</label>
+
+      <input type="text" class="form-control" id="search-players" placeholder="search">
+    </div>
+  {{/if}}
+
   <div>
     <h2>Players ({{getPlayers.length}})</h2>
 
@@ -13,7 +22,12 @@
         {{#each getPlayers}}
           <tr>
             <td>{{this.getName}}</td>
-            <td>{{this.getCompany.getName}}</td>
+            <td>
+              {{this.getCompany.getName}}
+              {{#if canInvite _id}}
+                <button id="invite-to-company" data-playerId="{{_id}}" class="btn btn-primary">Invite</button>
+              {{/if}}
+            </td>
           </tr>
         {{else}}
           <tr>

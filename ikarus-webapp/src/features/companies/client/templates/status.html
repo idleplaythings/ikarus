@@ -4,9 +4,9 @@
       <h1>Company: {{ company.getName }}</h1>
 
       {{#if ownCompany}}
-        <button class="js-rename-company">Rename</button>
-        <button class="js-leave-company">Leave</button>
-        <button class="js-invite-to-company">Invite</button>
+        <button class="js-rename-company btn btn-primary">Rename</button>
+        <button class="js-leave-company btn btn-primary">Leave</button>
+        <a class="btn btn-primary" href="{{pathFor route='players'}}">Invite</a>
       {{/if}}
 
       <div class="row">

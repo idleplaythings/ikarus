@@ -20,7 +20,7 @@ GameController.prototype.playerDisconnected = function(serverName, playerUid) {
 
 GameController.prototype._connectPlayerToServer = function(player, server) {
   var squad = this._getSquad(player, server);
-  console.log(squad._id);
+
   if (! squad) {
     return false;
   }

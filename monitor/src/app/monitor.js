@@ -149,7 +149,7 @@ Monitor.prototype._connectToWebApp = function() {
 
       if (! reconnect){
         console.log("connected to webApp");
-        this._webAppClient.login(serverId, serverPassword);
+        this._webAppClient.login();
         this._webAppClient.reportStatusIdle(serverId);
         this._webAppClient.updateDetails(
             serverId,

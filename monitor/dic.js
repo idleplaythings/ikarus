@@ -37,8 +37,12 @@ module.exports = (function(){
   dic.register('WebAppClient', function (dic) {
     var WebAppClient = require('./src/app/webAppClient');
     var DDPClient = require('ddp');
+    var config = dic.get('Config');
+
     return new WebAppClient(
-      new DDPClient()
+      new DDPClient(),
+      config.arma.serverId,
+      config.webApp.serverPassword
     );
   });
 

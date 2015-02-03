@@ -1,8 +1,10 @@
 var Q = require('q');
 
-function WebAppClient(ddpClient) {
+function WebAppClient(ddpClient, serverId, serverPassword) {
   this._ddpClient = ddpClient;
   this._promises = [];
+  this._serverId = serverId;
+  this._serverPassword = serverPassword;
 };
 
 WebAppClient.prototype.connect = function(host, port, callback) {
@@ -72,6 +74,10 @@ WebAppClient.prototype.call = function(name, args){
   var onResult = function(error, result){
     console.log("Meteor method response 2", error, result);
     onResultPromise.resolve();
+    if (error && error.error == 400) {
+      this.login();
+      this.call(name, args);
+    }
   }.bind(this);
 
   var onDone = function(error, result){
@@ -88,9 +94,9 @@ WebAppClient.prototype.call = function(name, args){
   );
 };
 
-WebAppClient.prototype.login = function(serverId, password) {
+WebAppClient.prototype.login = function() {
   this.call('login', [
-    { user : { username : serverId }, password : password }
+    { user : { username : this._serverId }, password : this._serverPassword }
   ]);
 }
 

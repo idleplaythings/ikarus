@@ -76,7 +76,7 @@ WebAppClient.prototype.call = function(name, args){
     console.log("Meteor method response 2", error, result);
     onResultPromise.resolve();
     if (error && error.error == 401) {
-      this.retry();
+      this.retry(name, args);
     } else {
       this._connectionRetries = 0;
     }

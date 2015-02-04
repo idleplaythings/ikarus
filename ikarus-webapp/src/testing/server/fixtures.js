@@ -225,20 +225,12 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
 
         if (Math.random() > 0.2) {
           Company.getByName(getRandom(companies)).addPlayer(Player.getById(steamId))
-
-          if (Math.random() > 0.6) {
-            Meteor.call('playerConnected', getRandom(servers), steamId);
-          }
         }
       }
 
       var users = Meteor.users.find({ testing: null }).fetch().forEach(function(user) {
         var player = Player.getByName(get(user, 'services.steam.username'));
         Company.getByName(getRandom(companies)).addPlayer(player);
-
-        if (Math.random() > 0.5) {
-          Meteor.call('playerConnected', getRandom(servers), get(user, 'services.steam.id'));
-        }
       })
     }
   });

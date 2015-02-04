@@ -1,3 +1,7 @@
+Template.squads_status.created = function () {
+  Meteor.subscribe('MyCompanyAndSquads');
+};
+
 Template.squads_status.helpers({
   companyHasSquad: function () {
     return getCompanysSquads().length > 0;

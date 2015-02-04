@@ -84,7 +84,11 @@ Player.prototype.setCompanyId = function(companyId) {
 
 Player.prototype.addInvite = function(invite) {
   Meteor.users.update({ _id: this._id }, { $addToSet: { invites: invite }});
-}
+};
+
+Player.prototype.removeInvites = function() {
+  Meteor.users.update({ _id: this._id }, { $set: { invites: [] }});
+};
 
 Player.prototype.isMemberOf = function(company) {
   return company.getPlayerIds().indexOf(this.getSteamId()) !== -1;
@@ -133,7 +137,15 @@ Player.getCurrent = function() {
 
 Player.getAll = function() {
   return Meteor.users.find({}).fetch().map(Player.fromDoc);
-}
+};
+
+Player.getByPartialName = function(searchString) {
+  var reg = new RegExp(searchString, 'i');
+
+  return Meteor.users.find({
+    'services.steam.username': reg
+  }).fetch().map(Player.fromDoc);
+};
 
 Player.fromDoc = function(doc) {
   if (Boolean(doc) === false) {

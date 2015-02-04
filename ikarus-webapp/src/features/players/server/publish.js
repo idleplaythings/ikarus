@@ -1,18 +1,3 @@
-Meteor.publish('Users', function () {
-  return Meteor.users.find(
-    {serverId: null},
-    {
-      fields: {
-        'companyId': 1,
-        'profile.name': 1,
-        'services.steam.id': 1,
-        'services.steam.avatar': 1,
-        'services.steam.username': 1,
-      }
-    }
-  );
-});
-
 Meteor.publish('UserData', function () {
   if (this.userId) {
     return Meteor.users.find({
@@ -33,4 +18,22 @@ Meteor.publish('UserData', function () {
     this.ready();
     return;
   }
+});
+
+Meteor.publish('SearchPlayers', function(searchString) {
+
+  var reg = new RegExp(searchString, 'i');
+
+  return Meteor.users.find(
+    {
+      'services.steam.username': reg
+    },
+    {
+      fields: {
+        'services.steam': 1,
+        'companyId': 1,
+        'invites': 1
+      },
+      limit: 20
+    });
 });

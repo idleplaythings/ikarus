@@ -28,7 +28,9 @@ var companiesStepDefinitions = function () {
   });
 
   this.When(/^I invite "([^"]*)" to my company$/, function (name, callback) {
-    this.app.callInviteToCompany(name)()
+    var userId = getUser(this.app, name)._id;
+
+    this.app.callInviteToCompany(userId)()
       .finally(callback)
       .catch(this.handleError);
   });

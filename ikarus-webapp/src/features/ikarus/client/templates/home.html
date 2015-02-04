@@ -17,12 +17,12 @@
       {{> servers_list}}
     </div>
     <div class="col-md-4">
-      {{> companies_list}}
+      {{> queue_status}}
     </div>
     <div class="col-md-4">
-      {{#with playerListContext}}
-        {{> players_list}}
-      {{/with}}
+      <a class="btn btn-primary" href="{{pathFor route='companies'}}">Browse companies</a>
+
+      <a class="btn btn-primary" href="{{pathFor route='players'}}">Browse players</a>
     </div>
   </div>
 </template>

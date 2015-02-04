@@ -121,9 +121,9 @@ App.prototype.callCreateCompany = function(companyName) {
   }.bind(this)
 };
 
-App.prototype.callInviteToCompany = function(username) {
+App.prototype.callInviteToCompany = function(userId) {
   return function() {
-    return this.callMethod('inviteToCompany', [ username ]);
+    return this.callMethod('inviteToCompany', [ userId ]);
   }.bind(this)
 };
 

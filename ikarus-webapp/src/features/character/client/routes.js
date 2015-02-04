@@ -15,7 +15,7 @@ Router.map(function () {
     },
 
     subscriptions: function(){
-      Meteor.subscribe('UserData');
+      return Meteor.subscribe('UserData');
     }
   });
 });

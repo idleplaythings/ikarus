@@ -4,8 +4,8 @@ Router.map(function () {
     template: 'home',
     layoutTemplate: 'ikarus_default',
 
-    waitOn: function(){
-      Meteor.subscribe('UserData');
+    subscriptions: function(){
+      return Meteor.subscribe('UserData');
     }
   });
 });

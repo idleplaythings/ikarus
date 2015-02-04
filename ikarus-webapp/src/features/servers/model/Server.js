@@ -247,7 +247,7 @@ Server.prototype.getDoc = function() {
 Server.prototype.authenticateOrError = function() {
   var user = Meteor.user();
   if (! user || user.serverId !== this._id) {
-    throw new Meteor.Error(400, 'Unauthorized server access');
+    throw new Meteor.Error(401, 'Unauthorized server access');
   }
 
   return true;

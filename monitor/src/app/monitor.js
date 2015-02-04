@@ -22,7 +22,7 @@ Monitor.STATUS_DOWN = 'down';
 Monitor.prototype.die = function () {
   console.log('Monitor closing down');
 
-  this._webAppClient.reportStatusDown(this._config.arma.serverId);
+  this._webAppClient.reportStatusDown();
   this._webAppClient.getReadyPromise().then(function(){
     console.log("WEBAPP CLIENT READY");
     this._webAppClient.disconnect();
@@ -150,9 +150,8 @@ Monitor.prototype._connectToWebApp = function() {
       if (! reconnect){
         console.log("connected to webApp");
         this._webAppClient.login();
-        this._webAppClient.reportStatusIdle(serverId);
+        this._webAppClient.reportStatusIdle();
         this._webAppClient.updateDetails(
-            serverId,
             _.pick(this._config.arma, 'host', 'port', 'password')
         );
         this._initDdpObservers();
@@ -234,9 +233,7 @@ var squadSubmit = function(squadId, loot) {
   console.log("SQUAD SUBMIT", squadId);
   var squad = this._gameData.getSquadById(squadId);
   var squadLoot = this._gameData.receiveSquadData(squadId, loot);
-  this._webAppClient.reportMissionLoot(
-    this._config.arma.serverId, squad, squadLoot.loot
-  );
+  this._webAppClient.reportMissionLoot(squad, squadLoot.loot);
 };
 
 var gameEnd = function() {
@@ -255,7 +252,7 @@ var playerConnected = function(uid) {
   }
 
   this._gameData.playerConnected(uid);
-  this._webAppClient.reportPlayerConnected(this._config.arma.serverId, uid);
+  this._webAppClient.reportPlayerConnected(uid);
 
 
 };
@@ -272,7 +269,7 @@ var playerUnknown = function(uid) {
   });
 
   this._battlEyeClient.kickPlayer(uid);
-  this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
+  this._webAppClient.reportPlayerDisconnected(uid);
 };
 
 var playerDisconnected = function(uid) {
@@ -283,7 +280,7 @@ var playerDisconnected = function(uid) {
 
   this._gameData.playerDisconnected(uid);
   this._battlEyeClient.kickPlayer(uid);
-  this._webAppClient.reportPlayerDisconnected(this._config.arma.serverId, uid);
+  this._webAppClient.reportPlayerDisconnected(uid);
 };
 
 var shouldStartGame = function(test) {

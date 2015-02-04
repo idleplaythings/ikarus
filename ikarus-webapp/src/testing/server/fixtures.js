@@ -215,7 +215,9 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
           password: 'puuppa'
         });
       });
-      companies.forEach(Company.create);
+      companies.forEach(function(companyName) {
+        var company = Company.create(companyName);
+      });
 
       var players = 20 + Math.floor(Math.random() * 10);
 
@@ -231,7 +233,23 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       var users = Meteor.users.find({ testing: null }).fetch().forEach(function(user) {
         var player = Player.getByName(get(user, 'services.steam.username'));
         Company.getByName(getRandom(companies)).addPlayer(player);
-      })
+      });
+
+      var currentCompany = Company.getCurrent()
+      dic.get('LootController').addStartingLoot(currentCompany);
+      dic.get('LootController').receiveLootForCompany(
+        currentCompany,
+        [
+          'IKRS_loot_civilian_weapons',
+          'IKRS_loot_old_RU_weapons',
+          'IKRS_loot_old_nato_weapons',
+          'IKRS_loot_common_nato_weapons',
+          'IKRS_loot_common_RU_weapons',
+          'IKRS_loot_heavy_nato_weapons',
+          'IKRS_loot_heavy_RU_weapons'
+        ],
+        new ObjectiveSupply()
+      );
     }
   });
 }

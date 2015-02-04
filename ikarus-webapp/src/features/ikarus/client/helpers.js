@@ -3,7 +3,7 @@ Template.registerHelper('debug', function() {
 });
 
 Template.registerHelper('dev', function() {
-  return get(Meteor, 'settings.public.mode') === 'dev';
+  return isDevMode();
 });
 
 Template.registerHelper('currentPlayer', function() {

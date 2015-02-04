@@ -1,8 +1,11 @@
 var Q = require('q');
 
-function WebAppClient(ddpClient) {
+function WebAppClient(ddpClient, serverId, serverPassword) {
   this._ddpClient = ddpClient;
   this._promises = [];
+  this._serverId = serverId;
+  this._serverPassword = serverPassword;
+  this._connectionRetries = 0;
 };
 
 WebAppClient.prototype.connect = function(host, port, callback) {
@@ -72,6 +75,11 @@ WebAppClient.prototype.call = function(name, args){
   var onResult = function(error, result){
     console.log("Meteor method response 2", error, result);
     onResultPromise.resolve();
+    if (error && error.error == 401) {
+      this.retry(name, args);
+    } else {
+      this._connectionRetries = 0;
+    }
   }.bind(this);
 
   var onDone = function(error, result){
@@ -88,50 +96,61 @@ WebAppClient.prototype.call = function(name, args){
   );
 };
 
-WebAppClient.prototype.login = function(serverId, password) {
+WebAppClient.prototype.retry = function(name, args) {
+  this._connectionRetries++;
+
+  if (this._connectionRetries > 10) {
+    return;
+  }
+
+  this.login();
+  this.call(name, args);
+};
+
+WebAppClient.prototype.login = function() {
   this.call('login', [
-    { user : { username : serverId }, password : password }
+    { user : { username : this._serverId }, password : this._serverPassword }
   ]);
 }
 
-WebAppClient.prototype.registerServer = function(serverId) {
-  this.call('registerServer', [ serverId ]);
+WebAppClient.prototype.registerServer = function() {
+  this.call('registerServer', [ this._serverId ]);
 }
 
-WebAppClient.prototype.reportStatusDown = function(serverId) {
-  this.call('updateServerStatus', [serverId, 'down']);
+WebAppClient.prototype.reportStatusDown = function() {
+  this.call('updateServerStatus', [this._serverId, 'down']);
 };
 
-WebAppClient.prototype.reportStatusWaiting = function(serverId) {
-  this.call('updateServerStatus', [serverId, 'waiting']);
+WebAppClient.prototype.reportStatusWaiting = function() {
+  this.call('updateServerStatus', [this._serverId, 'waiting']);
 };
 
-WebAppClient.prototype.reportStatusPlaying = function(serverId) {
-  this.call('updateServerStatus', [serverId, 'playing']);
+WebAppClient.prototype.reportStatusPlaying = function() {
+  this.call('updateServerStatus', [this._serverId, 'playing']);
 };
 
-WebAppClient.prototype.reportStatusIdle = function(serverId) {
-  this.call('updateServerStatus', [serverId, 'idle']);
+WebAppClient.prototype.reportStatusIdle = function() {
+  this.call('updateServerStatus', [this._serverId, 'idle']);
 };
 
-WebAppClient.prototype.updateDetails = function(serverId, details) {
-  this.call('updateServerDetails', [serverId, details])
+WebAppClient.prototype.updateDetails = function(details) {
+  this.call('updateServerDetails', [this._serverId, details])
 };
 
-WebAppClient.prototype.reportPlayerConnected = function(serverId, uid) {
-  this.call('playerConnected', [serverId, uid]);
+WebAppClient.prototype.reportPlayerConnected = function(uid) {
+  this.call('playerConnected', [this._serverId, uid]);
 };
 
-WebAppClient.prototype.reportPlayerDisconnected = function(serverId, uid) {
-  this.call('playerDisconnected', [serverId, uid]);
+WebAppClient.prototype.reportPlayerDisconnected = function(uid) {
+  this.call('playerDisconnected', [this._serverId, uid]);
 };
 
-WebAppClient.prototype.reportMissionLoot = function(serverId, squad, loot) {
-  this.call('missionLoot', [serverId, squad._id, loot, squad.objective]);
+WebAppClient.prototype.reportMissionLoot = function(squad, loot) {
+  this.call('missionLoot', [this._serverId, squad._id, loot, squad.objective]);
 };
 
-WebAppClient.prototype.reportLockSquads = function(serverId) {
-  this.call('lockSquads', [serverId]);
+WebAppClient.prototype.reportLockSquads = function() {
+  this.call('lockSquads', [this._serverId]);
 };
 
 module.exports = WebAppClient;

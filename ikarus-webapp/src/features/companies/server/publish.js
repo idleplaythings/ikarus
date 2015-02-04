@@ -20,6 +20,7 @@ Meteor.publish('MyCompanyAndSquads', function() {
           'services.steam.id': 1,
           'services.steam.avatar': 1,
           'services.steam.username': 1,
+          'ready': 1
         }
       }
     )

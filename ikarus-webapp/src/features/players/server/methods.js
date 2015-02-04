@@ -10,5 +10,10 @@ Meteor.methods({
     var server = Server.getByName(serverName);
     server.authenticateOrError();
     dic.get('GameController').playerDisconnected(serverName, playerUid);
+  },
+
+  setPlayerReady: function(ready) {
+    var player = Player.getCurrent();
+    player.setReady(ready);
   }
 });

@@ -38,6 +38,14 @@ Player.prototype.isAdmin = function() {
   return get(this.getDoc(), 'admin');
 };
 
+Player.prototype.isReady = function() {
+  return get(this.getDoc(), 'ready');
+};
+
+Player.prototype.setReady = function(ready) {
+  Meteor.users.update({ _id: this._id }, { $set: { ready: !!ready }});
+};
+
 Player.prototype.hasInvite = function(company) {
   return Boolean(this.getInvite(company));
 };
@@ -89,6 +97,10 @@ Player.prototype.canJoinASquad = function(squad) {
   });
 
   return !playingOnAServer && !this.getSquad();
+};
+
+Player.prototype.isCurrent = function() {
+  return this._id === Player.getCurrent()._id;
 };
 
 Player.getByMeteorId = function(id) {

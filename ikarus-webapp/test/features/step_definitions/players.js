@@ -16,6 +16,13 @@ var playersStepDefinitions = function () {
       .catch(this.handleError);
   });
 
+  this.Given(/^I am ready$/, function (callback) {
+    var app = this.app;
+    this.app.callSetPlayerReady(true)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
   this.When(/^"([^"]*)" connects to server "([^"]*)"$/, function (username, serverName, callback) {
 
     var user = getUser(this.app, username);

@@ -144,6 +144,11 @@ Squad.prototype.isLocked = function() {
   return server && (server.isPlaying() || server.isWaiting());
 }
 
+Squad.prototype.allPlayersAreReady = function() {
+  return this.getPlayers().every(function(player) {
+    return player.isReady();
+  });
+};
 
 Squad.prototype.startQueuing = function() {
   collections.SquadCollection.update({

@@ -21,6 +21,11 @@ QueueSquadService.prototype.joinQueue = function(squad) {
   if (containsSquad(this._queueJoins, squad)) {
     return;
   }
+
+  if (!squad.allPlayersAreReady()) {
+    return;
+  }
+
   this._queueJoins.push(squad);
 };
 

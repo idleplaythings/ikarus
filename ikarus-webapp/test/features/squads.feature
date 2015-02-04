@@ -62,8 +62,35 @@ Feature: Squads
     And server "test-server" has status "playing"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     When I enter my squad to the queue
     And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
+
+  Scenario: All players need to be ready
+    Given player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "321" exists
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "Jane Doe" is a member of company "Manatee-Men"
+    And server "test-server" is registered
+    And I am logged in as server "test-server"
+    And server "test-server" has status "playing"
+    And I am logged in as "John Doe"
+    And I create a squad
+    When I enter my squad to the queue
+    Then Squad that has player "John Doe" should not be queuing on region "EU"
+    When I am ready
+    And I enter my squad to the queue
+    Then Squad that has player "John Doe" should be on queue in region "EU" at index "0"
+    When I leave my squad from the queue
+    Then Squad that has player "John Doe" should not be queuing on region "EU"
+    And I am logged in as "Jane Doe"
+    And I join a same squad as "John Doe"
+    When I enter my squad to the queue
+    Then Squad that has player "John Doe" should not be queuing on region "EU"
+    When I am ready
+    And I enter my squad to the queue
+    Then Squad that has player "John Doe" should be on queue in region "EU" at index "0"
 
   Scenario: Squad being added to server and player connecting
     Given player "John Doe" with Steam ID "123" exists
@@ -74,6 +101,7 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     When I enter my squad to the queue
     And I am logged in as server "test-server"
     And "John Doe" connects to server "test-server"
@@ -89,6 +117,7 @@ Feature: Squads
     And server "test-server" has status "playing"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And I am logged in as server "test-server"
     When "John Doe" connects to server "test-server"
@@ -105,8 +134,10 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I am logged in as "Jane Doe"
     And I join a same squad as "John Doe"
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And I am logged in as server "test-server"
@@ -127,6 +158,7 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And deadline for connecting to game on squad that has player "John Doe" has elapsed
@@ -151,8 +183,10 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I am logged in as "Jane Doe"
     And I join a same squad as "John Doe"
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And I am logged in as server "test-server"
@@ -176,8 +210,10 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I am logged in as "Jane Doe"
     And I join a same squad as "John Doe"
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And I am logged in as server "test-server"
@@ -198,6 +234,7 @@ Feature: Squads
     And server "test-server" has status "down"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
     When I leave my squad from the queue
@@ -213,6 +250,7 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And I leave my squad from the queue
@@ -229,6 +267,7 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     Then Squad that has player "John Doe" should be playing on server "test-server"
     And I am logged in as server "test-server"
@@ -260,6 +299,7 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     Then Squad that has player "John Doe" should be playing on server "test-server"
     And I am logged in as server "test-server"
@@ -293,9 +333,11 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And I am logged in as "Jane Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be playing on server "test-server"
     And Squad that has player "Jane Doe" should be playing on server "test-server"
@@ -316,6 +358,7 @@ Feature: Squads
     And server "test-server" has status "idle"
     And I am logged in as "John Doe"
     And I create a squad
+    And I am ready
     And I enter my squad to the queue
     And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
     And I am logged in as server "test-server"

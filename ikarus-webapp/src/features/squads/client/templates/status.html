@@ -66,8 +66,11 @@
   {{#each getPlayers}}
     <h4>
       {{> players_avatar this}}{{> players_name this}}
-      {{# if this = currentUser }}
-        <button class="leaveSquad">Leave</button>
+      {{# if this.isCurrent }}
+        <button class="leaveSquad btn btn-danger">Leave</button>
+      {{/if}}
+      {{# if this.isReady }}
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
       {{/if}}
     </h4>
   {{/each}}
@@ -76,7 +79,7 @@
 <template name="squad_queue_status">
   {{#if inQueue}}
     <h1>Waiting for server</h1>
-    <button class="leaveQueue btn btn-primary btn-lg btn-block">Not ready</button>
+    <button class="leaveQueue btn btn-danger btn-lg btn-block">Leave server queue</button>
   {{/if}}
 
   {{#if canJoinGame}}
@@ -99,7 +102,19 @@
   {{/if}}
 
   {{#if notInQueueOrGame}}
-    <button class="joinQueue btn btn-primary btn-lg btn-block">Ready</button>
+    {{#if currentPlayer.isReady }}
+      <button class="toggleReady btn btn-success btn-lg btn-block">Ready <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+    {{/if}}
+    {{#unless currentPlayer.isReady }}
+      <button class="toggleReady btn btn-primary btn-lg btn-block">Click when ready</button>
+    {{/unless}}
+
+    {{#if currentSquad.allPlayersAreReady }}
+      <button class="joinQueue btn btn-primary btn-lg btn-block">Enter squad into queue</button>
+    {{/if}}
+    {{#unless currentSquad.allPlayersAreReady }}
+      <button class="btn btn-primary btn-lg btn-block" disabled="disabled">Enter squad into queue</button>
+    {{/unless}}
   {{/if}}
 </template>
 

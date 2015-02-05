@@ -87,7 +87,7 @@ ItemDefinitions = [
   createWeapon('CZ 75 P-07 Duty handgun', 'CUP_hgun_Duty', ['16Rnd_9x21_Mag']),
   createMagazine('16rnd 9x21mm', '16Rnd_9x21_Mag', 16),
 
-  createWeapon('MP5 SD6', 'CUP_smg_MP5SD6', ['16Rnd_9x21_Mag']),
+  createWeapon('MP5 SD6', 'CUP_smg_MP5SD6', ['CUP_30Rnd_9x19_MP5']),
   createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30, true),
 
   createWeapon('Glock 17 handgun', 'CUP_hgun_Glock17', ['CUP_17Rnd_9x19_glock17']),

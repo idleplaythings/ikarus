@@ -144,10 +144,39 @@ Squad.prototype.isLocked = function() {
   return server && (server.isPlaying() || server.isWaiting());
 }
 
-Squad.prototype.allPlayersAreReady = function() {
-  return this.getPlayers().every(function(player) {
-    return player.isReady();
+Squad.prototype.setPlayerReady = function(player) {
+  collections.SquadCollection.update({
+    _id: this._id
+  }, {
+    $addToSet: {
+      readySteamIds: player.getSteamId()
+    }
   });
+};
+
+Squad.prototype.unsetPlayerReady = function(player){
+  collections.SquadCollection.update({
+    _id: this._id
+  }, {
+    $pull: {
+      readySteamIds: player.getSteamId()
+    }
+  });
+};
+
+Squad.prototype.getReadySteamIds = function() {
+  return get(this.getDoc(), 'readySteamIds') || [];
+};
+
+Squad.prototype.isPlayerReady = function(player) {
+  return this.getReadySteamIds().indexOf(player.getSteamId()) !== -1;
+};
+
+Squad.prototype.allPlayersAreReady = function() {
+  var steamIds = this.getSteamIds();
+  var readySteamIds = this.getReadySteamIds();
+  var unreadySteamIds = _.difference(steamIds, readySteamIds);
+  return unreadySteamIds.length === 0;
 };
 
 Squad.prototype.startQueuing = function() {

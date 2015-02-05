@@ -39,11 +39,12 @@ Player.prototype.isAdmin = function() {
 };
 
 Player.prototype.isReady = function() {
-  return get(this.getDoc(), 'ready');
+  return this.getSquad().isPlayerReady(this);
 };
 
 Player.prototype.setReady = function(ready) {
-  Meteor.users.update({ _id: this._id }, { $set: { ready: !!ready }});
+  var method = ready ? 'setPlayerReady' : 'unsetPlayerReady';
+  this.getSquad()[method](this);
 };
 
 Player.prototype.hasInvite = function(company) {

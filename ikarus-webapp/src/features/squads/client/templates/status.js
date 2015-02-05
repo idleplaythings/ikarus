@@ -21,15 +21,18 @@ Template.squads_status.helpers({
 Template.squads_status.events({
   'click .createSquad' : function () {
     Meteor.call('createSquad');
+    evaluateSquads();
   },
   'click .joinSquad' : function () {
     var squadId = jQuery(event.target).attr("data-squadId");
     console.log(squadId);
     Meteor.call('joinSquad', squadId);
+    evaluateSquads();
   },
   'click .leaveSquad' : function () {
     Meteor.call('leaveSquad');
     Meteor.call('setPlayerReady', false);
+    evaluateSquads();
   }
 });
 
@@ -101,9 +104,11 @@ Template.squad_queue_status.events({
   },
   'click .joinQueue' : function () {
     Meteor.call('enterSquadQueue');
+    evaluateSquads();
   },
   'click .leaveQueue' : function () {
     Meteor.call('leaveSquadQueue');
+    evaluateSquads();
   }
 });
 
@@ -115,4 +120,10 @@ function getCompanysSquads () {
   }
 
   return Squad.getByCompany(company);
+}
+
+function evaluateSquads() {
+  if (isDevMode()) {
+    Meteor.call('testingEvaluateSquads', false);
+  }
 }

@@ -87,7 +87,7 @@ ServerQueueService.prototype.changeServerStatus = function(server, status) {
 
 ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
   Server.getAllWaiting().forEach(function(server){
-    if (server.isWaiting() && server.getSquadsInGame().length <= Server.MIN_SQUADS_TO_ABORT) {
+    if (server.isWaiting() && server.getSquadsInGame().length <= server.getSquadsToAbort()) {
       server.updateStatus(Server.STATUS_DOWN);
 
       var squads = server.getSquadsInGame();
@@ -107,7 +107,7 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
 ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
 
-    if (server.getStatusChanged().add(Server.TIME_WAIT_FOR_NEWSQUADS, 'minutes').isAfter(moment())) {
+    if (server.getStatusChanged().add(server.getWaitingTime(), 'minutes').isAfter(moment())) {
       return;
     }
 
@@ -153,7 +153,7 @@ ServerQueueService.prototype.queueStatusChanged = function(server) {
 
 ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
   var queue = ServerQueue.getByRegion('EU');
-  if (server.isIdle() && queue.getLength() >= Server.MIN_SQUADS_TO_START) {
+  if (server.isIdle() && queue.getLength() >= server.getSquadsToStart()) {
     server.updateStatus(Server.STATUS_WAITING);
   }
 };

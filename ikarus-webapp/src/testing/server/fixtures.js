@@ -166,8 +166,9 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
             id: steamId,
             username: name
           }
-        }
-      }
+        },
+        admin: true
+      };
 
       if (id) {
         insert._id = id;

@@ -14,15 +14,42 @@ Server.STATUS_PLAYING = 'playing';
 Server.STATUS_WAITING = 'waiting';
 Server.STATUS_DOWN = 'down';
 
-Server.MAX_PLAYERS = 60;
+Server.MAX_PLAYERS = 50;
 Server.TIME_WAIT_FOR_NEWSQUADS = 2; //minutes
-Server.MIN_SQUADS_TO_START = 1;
-Server.MIN_SQUADS_TO_ABORT = 0;
+Server.MIN_SQUADS_TO_START = 2;
+Server.MIN_SQUADS_TO_ABORT = 1;
 Server.TIME_MAX_MISSION_LENGTH = 75; //minutes
 
+
+
+Server.prototype.getSquadsToAbort = function() {
+  return get(this.getDoc(), 'squadsToAbort') ||  Server.MIN_SQUADS_TO_ABORT;
+};
+
+Server.prototype.getSquadsToStart = function() {
+  return get(this.getDoc(), 'squadsToStart') ||  Server.MIN_SQUADS_TO_START;
+};
+
+Server.prototype.getWaitingTime = function() {
+  return get(this.getDoc(), 'waitingTime') ||  Server.TIME_WAIT_FOR_NEWSQUADS;
+};
+
+Server.prototype.getMaxPlayers = function() {
+  return get(this.getDoc(), 'maxPlayers') ||  Server.MAX_PLAYERS;
+};
+
+Server.prototype.updateSettings = function(settings) {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: settings
+  });
+};
+
+
 Server.prototype.stillTimeToJoin = function() {
-  return this.getStatusChanged().add(Server.TIME_WAIT_FOR_NEWSQUADS, 'minutes').isAfter(moment());
-}
+  return this.getStatusChanged().add(this.getWaitingTime(), 'minutes').isAfter(moment());
+};
 
 Server.prototype.canFit = function(squad) {
   var players = 0;
@@ -30,7 +57,7 @@ Server.prototype.canFit = function(squad) {
     players += inGameSquad.getSteamIds().length;
   });
 
-  return players + squad.getSteamIds().length <= Server.MAX_PLAYERS;
+  return players + squad.getSteamIds().length <= this.getMaxPlayers();
 }
 
 Server.prototype.hasSquadsFromSameCompany = function (squad) {

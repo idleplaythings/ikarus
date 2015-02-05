@@ -3,6 +3,33 @@
     {{#if server}}
       <h1>Server: {{ server.getName }}</h1>
 
+      {{#if currentPlayerIsAdmin}}
+        <table>
+          <thead>
+            <tr>
+              <th>Squads to abort</th>
+              <th>Squads to start</th>
+              <th>Waiting (minutes)</th>
+              <th>Max players</th>
+            </tr>
+          </thead>
+          <tbody>
+              <td>
+                <input class="serverSetting squadsToAbort" data-target="squadsToAbort" data-serverId="{{server._id}}" type="text" value="{{server.getSquadsToAbort}}" />
+              </td>
+              <td>
+                <input class="serverSetting squadsToStart" data-target="squadsToStart" data-serverId="{{server._id}}" type="text" value="{{server.getSquadsToStart}}" />
+              </td>
+              <td>
+                <input class="serverSetting waitingTime" data-target="waitingTime" data-serverId="{{server._id}}" type="text" value="{{server.getWaitingTime}}" />
+              </td>
+              <td>
+                <input class="serverSetting maxPlayers" data-target="maxPlayers" data-serverId="{{server._id}}" type="text" value="{{server.getMaxPlayers}}" />
+              </td>
+          </tbody>
+        </table>
+      {{/if}}
+
       <div class="row">
         <div class="col-md-12">
           {{> players_list server }}

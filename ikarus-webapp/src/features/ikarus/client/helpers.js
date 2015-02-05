@@ -17,3 +17,7 @@ Template.registerHelper('currentCompany', function() {
 Template.registerHelper('currentSquad', function() {
   return Squad.getCurrent();
 });
+
+Template.registerHelper('currentPlayerIsAdmin', function() {
+  return Player.getCurrent() ? Player.getCurrent().isAdmin() : false;
+});

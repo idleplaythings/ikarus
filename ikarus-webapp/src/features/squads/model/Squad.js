@@ -52,6 +52,7 @@ Squad.prototype.addPlayer = function(player) {
 };
 
 Squad.prototype.removePlayer = function(player){
+  this.unsetPlayerReady(player);
   collections.SquadCollection.update({
     _id: this._id
   }, {

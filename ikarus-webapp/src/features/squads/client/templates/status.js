@@ -31,7 +31,6 @@ Template.squads_status.events({
   },
   'click .leaveSquad' : function () {
     Meteor.call('leaveSquad');
-    Meteor.call('setPlayerReady', false);
     evaluateSquads();
   }
 });

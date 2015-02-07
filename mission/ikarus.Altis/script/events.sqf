@@ -3,11 +3,15 @@ lastConnectedPlayerUid = nil;
 
 
 "lastConnectedPlayerUid" addPublicVariableEventHandler {
-  _uid = _this select 1;
+  private ["_uid", "_unit"];
+  _uid = _this select 1 select 0;
+  _unit = _this select 1 select 1;
   diag_log "player connected";
   diag_log _uid;
   
   if (missionControl_gameStarted) exitWith {
+    _unit setDamage 1;
+    deleteVehicle _unit;
     ['playerUnknown', [_uid]] call sock_rpc;
   };
 

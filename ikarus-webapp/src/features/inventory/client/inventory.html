@@ -1,0 +1,44 @@
+<template name="inventory">
+  <div class="inventory">
+    <h3>Inventory ({{targetInventoryItemCount}} / {{targetInventoryMaxItemCount}})</h3>
+
+    <div class="row add-top">
+      {{#each layout}}
+        <div class="col-md-3">
+          <h3>{{title}}</h3>
+
+          {{#each items}}
+            <div class="inventory-entry" data-armaclass={{item.armaClass}}>
+              <div class="item {{#if targetCount}}in-inventory{{/if}}">
+                {{#unless locked}}
+                  {{> inventory_manage}}
+                {{/unless}}
+                <div class="title"><strong>{{item.name}} [{{targetCount}}/{{totalCount}}]</strong></div>
+              </div>
+
+              {{#if isWeapon}}
+                  {{#each getMagazines}}
+                    <div class="extras {{#if targetCount}}in-inventory{{/if}}">
+                      {{#unless locked}}
+                        {{> inventory_manage}}
+                      {{/unless}}
+                      <div class="title">{{item.name}} [{{targetCount}}/{{totalCount}}]</div>
+                    </div>
+                  {{else}}
+                    <div style="extras">No ammo.</div>
+                  {{/each}}
+              {{/if}}
+            </div>
+          {{/each}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="inventory_manage">
+  <div class="manage">
+    <button class="remove-from-inventory" data-armaclass={{item.armaClass}}>-</button>
+    <button class="add-to-inventory" data-armaclass={{item.armaClass}}>+</button>
+  </div>
+</template>

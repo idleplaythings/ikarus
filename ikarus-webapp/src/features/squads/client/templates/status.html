@@ -32,7 +32,7 @@
           {{> squad_players}}
         </div>
         <div class="col-md-4">
-
+          {{> squad_objective}}
         </div>
         <div class="col-md-4">
           {{> squad_queue_status}}
@@ -42,20 +42,12 @@
 
     <div class="row">
       {{#with currentSquad}}
-        <div class="col-md-4">
-          {{> squad_objective}}
-        </div>
-        <div class="col-md-4">
-          {{> squadMemberInventory}}
+        <div class="col-md-12">
+          {{#with squadInventoryView}}
+            {{> inventory}}
+          {{/with}}
         </div>
       {{/with}}
-      <div class="col-md-4">
-        <h2>Armory</h2>
-        {{#with currentCompany}}
-          {{> armory}}
-        {{/with}}
-      </div>
-
     </div>
   {{/if}}
 </template>

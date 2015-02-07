@@ -1,5 +1,6 @@
 Item = function Item(args){
   this.armaClass = args.armaClass;
+  this.tags = args.tags || [];
   this.name = args.name;
   this.unlimited = args.unlimited;
 }
@@ -43,3 +44,13 @@ Item.prototype.isGeneric = function(){
 Item.prototype.isBackpack = function(){
   return this instanceof ItemBackpack;
 };
+
+Item.prototype.hasTags = function(tags) {
+  if (tags instanceof Array === false) {
+    tags = [tags];
+  }
+
+  return this.tags.some(function(tag) {
+    return tags.indexOf(tag) > -1;
+  });
+}

@@ -1,5 +1,12 @@
 Template.squads_status.created = function () {
   Meteor.subscribe('MyCompanyAndSquads');
+
+  Tracker.autorun(function(){
+    var squad = Squad.getCurrent();
+    if (squad) {
+      Meteor.subscribe('SquadInventory', squad._id);
+    }
+  });
 };
 
 Template.squads_status.helpers({
@@ -15,6 +22,69 @@ Template.squads_status.helpers({
     return getCompanysSquads().filter(function(squad){
       return squad.isJoinable();
     });
+  },
+
+  squadInventoryView: function() {
+    var view = new InventoryView({
+      sourceInventory: Inventory.getByCompany(Company.getCurrent()),
+      targetInventory: Inventory.getBySquad(Squad.getCurrent())
+    });
+
+    view.addGroup(new InventoryColumn({
+      title: 'Primary Weps',
+      policy: function(itemWrapper) {
+        return itemWrapper.item.hasTags(['rifle', 'assault-rifle', 'sniper-rifle', 'smg', 'lmg', 'mmg']);
+      },
+      sort: function(itemWrapperA, itemWrapperB) {
+        var nameA = itemWrapperB.item.name.toLowerCase();
+        var nameB = itemWrapperA.item.name.toLowerCase();
+
+        return nameB.localeCompare(nameA);
+      }
+    }));
+
+    view.addGroup(new InventoryColumn({
+      title: 'Support Weps',
+      policy: function(itemWrapper) {
+        return itemWrapper.item.hasTags(['law', 'rpg', 'grenade-launcher', 'grenade']);
+      },
+      sort: function(itemWrapperA, itemWrapperB) {
+        var nameA = itemWrapperB.item.name.toLowerCase();
+        var nameB = itemWrapperA.item.name.toLowerCase();
+
+        return nameB.localeCompare(nameA);
+      }
+    }));
+
+    view.addGroup(new InventoryColumn({
+      title: 'Secondary Weps',
+      policy: function(itemWrapper) {
+        return itemWrapper.item.hasTags(['handgun']);
+      },
+      sort: function(itemWrapperA, itemWrapperB) {
+        var nameA = itemWrapperB.item.name.toLowerCase();
+        var nameB = itemWrapperA.item.name.toLowerCase();
+
+        return nameB.localeCompare(nameA);
+      }
+    }));
+
+    view.addGroup(new InventoryColumn({
+      title: 'Gear & Sights',
+      policy: function(itemWrapper) {
+        return itemWrapper.item.hasTags(['helmet', 'tactical-vest', 'backpack', 'binoculars', 'scope', 'sight']);
+      },
+      sort: function(itemWrapperA, itemWrapperB) {
+        var nameA = itemWrapperB.item.name.toLowerCase();
+        var nameB = itemWrapperA.item.name.toLowerCase();
+
+        return nameB.localeCompare(nameA);
+      }
+    }));
+
+    view.refresh();
+
+    return view;
   }
 });
 

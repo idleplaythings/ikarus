@@ -71,3 +71,49 @@ section h2 {
   padding: 10px;
   border-radius: 5px;
 }
+
+.inventory .inventory-entry {
+  position: relative;
+  background-color: #eee;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  font-size: 12px;
+}
+
+.inventory .inventory-entry .item {
+  padding: 5px 10px;
+  position: relative;
+}
+
+.inventory .inventory-entry .in-inventory {
+  background-color: #87BD73
+}
+
+.inventory .inventory-entry .extras {
+  padding: 5px 10px;
+  position: relative;
+}
+
+.inventory .inventory-entry .extras.in-inventory {
+  background-color: #C0E8B1
+}
+
+.inventory .inventory-entry .title {
+}
+
+.inventory .inventory-entry .manage {
+  float: right;
+  margin-top: -2px;
+  margin-right: -8px;
+}
+
+.inventory .inventory-entry > img.item-image {
+  height: 128px;
+  position: absolute;
+  top: -145px;
+  left: -10px;
+  border: 2px solid black;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+}

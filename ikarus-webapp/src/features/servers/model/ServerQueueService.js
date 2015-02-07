@@ -153,7 +153,7 @@ ServerQueueService.prototype.queueStatusChanged = function(server) {
 
 ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
   var queue = ServerQueue.getByRegion('EU');
-  if (server.isIdle() && queue.getLength() >= server.getSquadsToStart()) {
+  if (server.isIdle() && queue.getLengthOfUniqueCompanies() >= server.getSquadsToStart()) {
     server.updateStatus(Server.STATUS_WAITING);
   }
 };

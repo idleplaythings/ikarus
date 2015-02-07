@@ -204,3 +204,25 @@ Feature: Servers
     And status for server "test-server2" should be "waiting"
     Then Squad that has player "John Doe" should be playing on server "test-server1"
     And Squad that has player "Jane Doe" should be playing on server "test-server2"
+
+  Scenario: Only one squad from company allowed to server (only one server)
+    Given "2" squads are minimum to start a game
+    And player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "321" exists
+    And company "Manatee-Men" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "Jane Doe" is a member of company "Manatee-Men"
+    And server "test-server1" is registered
+    And I am logged in as server "test-server1"
+    And server "test-server1" has status "idle"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I am ready
+    And I enter my squad to the queue
+    And I am logged in as "Jane Doe"
+    And I create a squad
+    And I am ready
+    When I enter my squad to the queue
+    Then status for server "test-server1" should be "idle"
+    And Squad that has player "John Doe" should be on queue in region "EU" at index "0"
+    And Squad that has player "Jane Doe" should be on queue in region "EU" at index "1"

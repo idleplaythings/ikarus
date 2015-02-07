@@ -35,6 +35,20 @@ ServerQueue.prototype.getLength = function() {
   return queue.length;
 };
 
+ServerQueue.prototype.getLengthOfUniqueCompanies = function() {
+  var companyIds = [];
+  var queue = this.getQueue().filter(function(squad) {
+    if (companyIds.indexOf(squad.getCompanyId()) > -1) {
+      return false;
+    }
+
+    companyIds.push(squad.getCompanyId());
+    return true;
+  });
+
+  return queue.length;
+};
+
 ServerQueue.getBySquad = function (squad) {
   return ServerQueue.fromDoc(
     collections.ServerQueueCollection.findOne({queue: {$in: [squad._id]}})

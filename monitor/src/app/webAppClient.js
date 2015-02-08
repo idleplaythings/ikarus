@@ -12,10 +12,13 @@ WebAppClient.prototype.connect = function(host, port, callback) {
   this._ddpClient.host = host;
   this._ddpClient.port = port;
 
-  var that = this;
+  console.log("DDP connecting... ");
+
   this._ddpClient.connect(function(error, wasReconnect) {
     if (error) {
-      console.error('DDP connection error!');
+      console.error('DDP connection error!', error);
+      this._ddpClient.close();
+      setTimeout(this.connect.bind(this, host, port, callback), 10000);
       return;
     }
 
@@ -26,7 +29,7 @@ WebAppClient.prototype.connect = function(host, port, callback) {
     }
 
     callback(error, wasReconnect);
-  });
+  }.bind(this));
 }
 
 WebAppClient.prototype.subscribe = function(collection, params, callback) {

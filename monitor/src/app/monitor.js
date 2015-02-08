@@ -243,7 +243,7 @@ var gameEnd = function() {
 var playerConnected = function(uid) {
 
   if (! this._gameData.recognizeUid(uid)) {
-    this._battlEyeClient.kickPlayer(uid);
+    //this._battlEyeClient.kickPlayer(uid);
     return;
   }
 

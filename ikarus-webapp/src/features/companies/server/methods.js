@@ -25,6 +25,10 @@ Meteor.methods({
       throw new Meteor.Error(403, 'You have to log in to create a company.');
     }
 
+    if (Player.getCurrent().getCompany()) {
+      throw new Meteor.Error(400, 'You are already in a company.');
+    }
+
     var company = Company.create();
     company.setName(name);
     company.addPlayer(Player.getCurrent());
@@ -61,6 +65,19 @@ Meteor.methods({
   joinCompany: function(playerId, companyId) {
     var player = Player.getById(playerId);
     var company = Company.getById(companyId);
+
+    if (! player) {
+      throw new Meteor.Error(404, 'Player not found.');
+    }
+
+    if (player.getCompany()) {
+      throw new Meteor.Error(400, 'Plauer is already in a company.');
+    }
+
+    if (! company) {
+      throw new Meteor.Error(404, 'Company not found.');
+    }
+
     company.addPlayer(player);
     player.removeInvites();
   },
@@ -69,11 +86,20 @@ Meteor.methods({
     var player = Player.getById(playerId);
     var company = Company.getById(companyId);
 
+    if (! player) {
+      throw new Meteor.Error(404, 'Player not found.');
+    }
+
+    if (! company) {
+      throw new Meteor.Error(404, 'Company not found.');
+    }
+
     var squad = Squad.getByPlayer(player);
 
     if (squad){
       throw new Meteor.Error(400, "Can't leave company while in squad");
     }
+
     company.removePlayer(player);
   },
   renameCurrentCompany: function(newName) {

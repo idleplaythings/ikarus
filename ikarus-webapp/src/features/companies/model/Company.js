@@ -99,7 +99,7 @@ Company.getBySquad = function(squad) {
 };
 
 Company.getByPlayer = function(player) {
-  return Company.fromDoc(collections.CompanyCollection.findOne({ playerIds: { $in: [ player.getSteamId() ] }}));
+  return player.getCompany();
 };
 
 Company.getCurrent = function() {

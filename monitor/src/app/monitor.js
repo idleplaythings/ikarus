@@ -268,8 +268,8 @@ var playerUnknown = function(uid) {
     return connectedUid != uid;
   });
 
-  this._battlEyeClient.kickPlayer(uid);
-  this._webAppClient.reportPlayerDisconnected(uid);
+  //this._battlEyeClient.kickPlayer(uid);
+  //this._webAppClient.reportPlayerDisconnected(uid);
 };
 
 var playerDisconnected = function(uid) {

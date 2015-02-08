@@ -22,6 +22,16 @@ Template.character_appearance.helpers({
   isVestSelected: function (name) {
     return Player.getCurrent().getVest() == name;
   },
+
+  getModUrl: function() {
+    var params = [
+      '-world=empty',
+      '-nosplash',
+      '-mod=@ikrs'
+    ];
+
+    return 'steam://run/107410//' + params.join('%20');
+  }
 });
 
 Template.character_appearance.events({

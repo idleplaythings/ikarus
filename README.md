@@ -23,6 +23,6 @@
 
 ## Production
 
-WebApp - http://ikarus.meteor.com/
+WebApp - http://ikarus.idleplaythings.com/
 
 

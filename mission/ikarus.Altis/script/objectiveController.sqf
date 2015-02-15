@@ -70,6 +70,13 @@ objectiveController_callSquadObjective = {
   
 };
 
+objectiveController_getUnitsObjective = {
+  private ["_unit"];
+  _unit = _this select 0;
+
+  [([_unit] call getSquadForUnit)] call getChosenObjective;
+};
+
 
 
 

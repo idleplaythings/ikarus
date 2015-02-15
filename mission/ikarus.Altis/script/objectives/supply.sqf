@@ -64,7 +64,7 @@ objective_supply_constructMarkers = {
 };
 
 objective_supply_constructDepots = {
-  private ["_centerOfAO", "_numberOfDepots", "_depots", "_radius", "_depot", "_vehiclePos"];
+  private ["_centerOfAO", "_numberOfDepots", "_depots", "_radius", "_depot"];
   _centerOfAO = _this select 0;
   _numberOfDepots = call objective_supply_getAmountOfDepots;
   _radius = call objective_supply_getRadiusOfAO;
@@ -73,10 +73,7 @@ objective_supply_constructDepots = {
   while {_numberOfDepots > 0} do {
     _depot = [_centerOfAO, _radius] call objective_supply_constructDepot;
     
-    _vehiclePos = getPos _depot findEmptyPosition [10,30,"I_Truck_02_covered_F"];
-    if (count _vehiclePos > 0) then {
-      createVehicle [(call objective_supply_getDepotCarClass), _vehiclePos, [], 0, "none"];
-    };
+    [_depot] call objective_supply_createVehicle;
   
     _depots pushBack _depot;
     _numberOfDepots = _numberOfDepots - 1;
@@ -84,6 +81,33 @@ objective_supply_constructDepots = {
   
   _depots;
 };
+
+objective_supply_createVehicle = {
+  private ["_depot", "_vehiclePos", "_vehicleClass", "_vehicle"];
+  _depot = _this select 0;
+  _vehicleClass = call objective_supply_getDepotCarClass;
+  _vehiclePos = getPos _depot findEmptyPosition [10,30,_vehicleClass];
+
+  if (count _vehiclePos > 0) then {
+    _vehicle = createVehicle [_vehicleClass, _vehiclePos, [], 0, "none"];
+    _vehicle setVariable ['noGuards', true];
+
+    _vehicle addEventHandler ["GetIn",  
+    { 
+        private ["_veh", "_unit", "_noGuardAllowed", "_objective"]; 
+        _veh = _this select 0; 
+        _unit = _this select 2;
+        _noGuardAllowed = _veh getVariable ['noGuards', false];
+        _objective = [_unit] call objectiveController_getUnitsObjective;  
+
+        if (_objective == "guard" && _noGuardAllowed) then 
+        { 
+          _unit action ["Eject", vehicle _unit]; 
+        }; 
+    }]; 
+  };  
+};
+
 
 objective_supply_getDepotCarClass = {
   private ["_cars"];

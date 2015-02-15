@@ -83,6 +83,7 @@ missionControl_startGame = {
   call equipment_setPlayersGear;
   call assembleSquads;
   call missionControl_pollGameEnd;
+  call hideout_secureCaches;
 };
 
 missionControl_message = {

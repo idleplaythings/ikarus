@@ -82,8 +82,8 @@ missionControl_startGame = {
   call hideout_movePlayersToHideout;
   call equipment_setPlayersGear;
   call assembleSquads;
+  call player_setSquadVariable;
   call missionControl_pollGameEnd;
-  call hideout_secureCaches;
 };
 
 missionControl_message = {

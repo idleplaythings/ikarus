@@ -1,26 +1,6 @@
 
 hideout_hideoutRadius = 20;
 
-hideout_secureCaches = {
-  {
-    _x addEventHandler ["InventoryOpened", {
-      private ["_unit", "_container", "_squadId", "_squad", "_result"];
-      
-      _unit = _this select 0;
-      _container = _this select 1;
-      _squad = [_unit] call getSquadForUnit;
-      _squadId = _container getVariable ["squadId", ""];
-      _result = false;
-
-      if (_squadId != "" && _squadId != ([_squad] call getSquadId)) then {
-        _result = true;
-      };
-
-      _result;
-    }];
-  } forEach (call getAllPlayers);
-};
-
 hideout_createHideoutForSquads = {
  {
    [_x] call hideout_createHideoutForSquad;
@@ -112,7 +92,7 @@ hideout_createHideoutCache = {
   _box addWeaponCargoGlobal ['CUP_sgun_M1014', 4];
   _box addMagazineCargoGlobal ['CUP_8Rnd_B_Beneli_74Slug', 20];
   
-  _box setVariable ['squadId', ([_squad] call getSquadId)];
+  _box setVariable ['squadId', ([_squad] call getSquadId), true];
   _box;
 };
 

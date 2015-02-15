@@ -4,6 +4,14 @@ assembleSquads = {
   } forEach squads;
 };
 
+player_setSquadVariable = {
+  {
+    private ["_squad"];
+    _squad = [_x] call getSquadForUnit;
+    _x setVariable ["squadId", ([_squad] call getSquadId), true];
+  } forEach (call getAllPlayers);
+};
+
 joinPlayers = {
   private ["_players", "_leader"];
   _players = _this select 0;

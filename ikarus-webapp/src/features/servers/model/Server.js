@@ -23,19 +23,23 @@ Server.TIME_MAX_MISSION_LENGTH = 75; //minutes
 
 
 Server.prototype.getSquadsToAbort = function() {
-  return get(this.getDoc(), 'squadsToAbort') ||  Server.MIN_SQUADS_TO_ABORT;
+  var min = get(this.getDoc(), 'squadsToAbort');
+  return min !== null ? min : Server.MIN_SQUADS_TO_ABORT;
 };
 
 Server.prototype.getSquadsToStart = function() {
-  return get(this.getDoc(), 'squadsToStart') ||  Server.MIN_SQUADS_TO_START;
+  var min = get(this.getDoc(), 'squadsToStart');
+  return min !== null ? min : Server.MIN_SQUADS_TO_START;
 };
 
 Server.prototype.getWaitingTime = function() {
-  return get(this.getDoc(), 'waitingTime') ||  Server.TIME_WAIT_FOR_NEWSQUADS;
+  var min = get(this.getDoc(), 'waitingTime');
+  return min !== null ? min : Server.TIME_WAIT_FOR_NEWSQUADS;
 };
 
 Server.prototype.getMaxPlayers = function() {
-  return get(this.getDoc(), 'maxPlayers') ||  Server.MAX_PLAYERS;
+  var min = get(this.getDoc(), 'maxPlayers');
+  return min !== null ? min : Server.MAX_PLAYERS;
 };
 
 Server.prototype.updateSettings = function(settings) {

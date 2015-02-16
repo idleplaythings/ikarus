@@ -8,7 +8,7 @@ player_setSquadVariable = {
   {
     private ["_squad"];
     _squad = [_x] call getSquadForUnit;
-    _x setVariable ["squadId", ([_squad] call getSquadId), true];
+    _x setVariable ["playerSquadId", ([_squad] call getSquadId), true];
   } forEach (call getAllPlayers);
 };
 

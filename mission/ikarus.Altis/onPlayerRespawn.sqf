@@ -8,7 +8,7 @@ player addEventHandler ["InventoryOpened", {
   _unit = _this select 0;
   _container = _this select 1;
   _squadId = _container getVariable ["squadId", ""];
-  _playerSquadId = _unit getVariable ["squadId", ""];
+  _playerSquadId = _unit getVariable ["playerSquadId", ""];
   _result = false;
 
   if (_squadId != "" && _squadId != _playerSquadId) then {

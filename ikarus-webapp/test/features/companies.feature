@@ -18,3 +18,13 @@ Feature: Companies
     And I am a member of company "Manatee Men"
     When I invite "Jane Doe" to my company
     Then player "Jane Doe" should have an invitation to "Manatee Men"
+
+  Scenario: Leaving company
+    Given player "John Doe" with Steam ID "123" exists
+    And I am logged in as "John Doe"
+    And I create a company called "Manatee Men"
+    And I should be a member of the company "Manatee Men"
+    And company "Manatee Men" should have an inventory
+    When I leave my company
+    Then company "Manatee Men" should not exist
+    Then no company inventories should exsist

@@ -77,6 +77,10 @@ Inventory.removeByServer = function(server){
   collections.InventoryCollection.remove({serverId: server._id});
 };
 
+Inventory.removeByCompany = function(company){
+  collections.InventoryCollection.remove({companyId: company._id});
+};
+
 
 Inventory.returnItems = function(company, squad){
   var squadInventory = Inventory.getBySquad(squad);

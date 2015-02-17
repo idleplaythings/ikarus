@@ -13,7 +13,11 @@ Company.prototype.serialize = function() {
 
 Company.prototype.getName = function() {
   return get(this.getDoc(), 'name');
-}
+};
+
+Company.prototype.isEmpty = function() {
+  return this.getPlayerIds().length === 0;
+};
 
 Company.prototype.setName = function(name) {
   collections.CompanyCollection.update(
@@ -47,6 +51,12 @@ Company.prototype.removePlayer = function(player) {
       }
   });
   player.setCompanyId(null);
+};
+
+Company.prototype.remove = function() {
+  return collections.CompanyCollection.remove({
+    _id: this._id
+  });
 };
 
 Company.prototype.getPlayerIds = function() {

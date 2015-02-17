@@ -87,12 +87,16 @@ Monitor.prototype._startArma = function(){
       'pipe', // pipe child's stdout to parent
       'pipe'
     ],
-    maxBuffer: 2024*1024
+    maxBuffer: 16192*1024
   };
 
   this._armaServerProcess = child_process.spawn(command, args, options);
-  this._armaServerProcess.on("exit", function() {
-    console.log("Arma server dead");
+  this._armaServerProcess.on("error", function(error) {
+    console.log("Arma server error:", error);
+  })
+
+  this._armaServerProcess.on("exit", function(code, signal) {
+    console.log("Arma server dead, code:", code, "signal:", signal);
     process.exit();
   })
 

@@ -89,6 +89,7 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
   Server.getAllWaiting().forEach(function(server){
     if (server.isWaiting() && server.getSquadsInGame().length <= server.getSquadsToAbort()) {
       server.updateStatus(Server.STATUS_DOWN);
+      console.log(server.getName(), 'aborting');
 
       var squads = server.getSquadsInGame();
       var queue = ServerQueue.getByRegion('EU');

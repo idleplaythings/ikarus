@@ -220,6 +220,7 @@ Monitor.prototype._changeStatus = function(status) {
  }
 
   if (status == Monitor.STATUS_DOWN) {
+    console.log("Monitor told to go status down");
     this.die();
   }
 
@@ -237,6 +238,7 @@ var squadSubmit = function(squadId, loot) {
 };
 
 var gameEnd = function() {
+  console.log("Game ending, monitor dying");
   this.die();
 };
 

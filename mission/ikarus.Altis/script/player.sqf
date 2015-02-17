@@ -25,10 +25,20 @@ joinPlayers = {
 };
 
 getAllPlayers = {
+  private ["_players"];
   if ( missionControl_test ) exitWith {
     [player, friend, friend2];
   };
-  playableUnits;
+
+  _players = [];
+
+  {
+    if ( ! isNil {([_x] call getSquadForUnit)}) then {
+      _players pushBack _x;
+    }
+  } forEach playableUnits;
+
+  _players;
 };
 
 getAllAlivePlayers = {

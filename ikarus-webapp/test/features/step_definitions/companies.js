@@ -16,6 +16,12 @@ var companiesStepDefinitions = function () {
       .catch(this.handleError);
   });
 
+  this.When(/^I leave my company$/, function (callback) {
+    this.app.callLeaveCompany()()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
   this.Then(/^I should be a member of the company "([^"]*)"$/, function (companyName, callback) {
     assertMemberOf(this.app, this.username, companyName);
     callback();
@@ -50,7 +56,18 @@ var companiesStepDefinitions = function () {
     assertHasInventory(this.app, companyName)
     callback();
   });
+
+  this.Then(/^company "([^"]*)" should not exist$/, function (companyName, callback) {
+    assertCompanyDoesNotExist(this.app, companyName)
+    callback();
+  });
 };
+
+function assertCompanyDoesNotExist(app, companyName) {
+  var company = getCompanyByByName(app, companyName);
+
+  assert(! company);
+}
 
 function assertMemberOf(app, username, companyName) {
   var steamId = getSteamId(getUser(app, username));

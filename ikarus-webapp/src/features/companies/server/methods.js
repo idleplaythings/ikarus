@@ -33,7 +33,7 @@ Meteor.methods({
   },
 
   inviteToCompany: function(playerId) {
-    var player = Player.getCurrent()
+    var player = Player.getCurrent();
 
     if (player === null) {
       throw new Meteor.Error(403, 'You have to log in to invite members.');
@@ -65,16 +65,31 @@ Meteor.methods({
     player.removeInvites();
   },
 
-  leaveCompany: function(playerId, companyId) {
-    var player = Player.getById(playerId);
-    var company = Company.getById(companyId);
+  leaveCompany: function() {
+    var player = Player.getCurrent();
+
+    if (player === null) {
+      throw new Meteor.Error(403, 'You have to log in to leave company.');
+    }
+
+    var company = Company.getByPlayer(player);
+
+    if (company === null) {
+      throw new Meteor.Error(403, 'You have to belong to a company to leave it.');
+    }
 
     var squad = Squad.getByPlayer(player);
 
     if (squad){
       throw new Meteor.Error(400, "Can't leave company while in squad");
     }
+
     company.removePlayer(player);
+
+    if (company.isEmpty()) {
+      Inventory.removeByCompany(company);
+      company.remove();
+    }
   },
   renameCurrentCompany: function(newName) {
     var company = Company.getCurrent();

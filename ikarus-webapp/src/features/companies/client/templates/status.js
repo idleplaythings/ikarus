@@ -39,8 +39,6 @@ Template.companies_status.events({
 
       Meteor.call(
         'leaveCompany',
-        player.getSteamId(),
-        company._id,
         function (error, result) {
           if (error) {
             alert(error)

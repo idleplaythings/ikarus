@@ -44,6 +44,19 @@ var inventorysStepDefinitions = function () {
     callback();
   });
 
+  this.Then(/^no company inventories should exsist$/, function (callback) {
+    assertNoCompanyInventoriesExist(this.app);
+    callback();
+  });
+
+};
+
+function assertNoCompanyInventoriesExist(app){
+  var inventories = app.findFrom('inventories', function(inventory){
+    return inventory.companyId;
+  });
+
+  assert(inventories.length === 0);
 };
 
 function assertNoSquadInventoriesExists(app){

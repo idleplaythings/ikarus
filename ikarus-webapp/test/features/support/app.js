@@ -121,6 +121,12 @@ App.prototype.callCreateCompany = function(companyName) {
   }.bind(this)
 };
 
+App.prototype.callLeaveCompany = function() {
+  return function() {
+    return this.callMethod('leaveCompany', [ ]);
+  }.bind(this)
+};
+
 App.prototype.callInviteToCompany = function(userId) {
   return function() {
     return this.callMethod('inviteToCompany', [ userId ]);

@@ -33,7 +33,7 @@ Template.companies_status.events({
     );
   },
   'click .js-leave-company': function(event, template) {
-    if (confirm('Are you sure?')) {
+    if (confirm('Are you sure? (If last player leaves, company is deleted)')) {
       var player = Player.getCurrent();
       var company = player.getCompany();
 

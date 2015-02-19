@@ -28,7 +28,8 @@ module.exports = function(armaSerializer){
         'CUP_arifle_AK74': 1,
         'CUP_30Rnd_545x39_AK_M': 5,
         'SatchelCharge_Remote_Mag': 10,
-        'B_AssaultPack_khk': 1
+        'B_AssaultPack_khk': 1,
+        'UAZ_Unarmed': 1
       }
     }
   ];

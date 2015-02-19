@@ -111,7 +111,14 @@ objective_supply_createVehicle = {
 
 objective_supply_getDepotCarClass = {
   private ["_cars"];
-  _cars = ["UAZ_Unarmed", "BAF_Offroad_D", "BAF_Offroad_W"];
+  _cars = [
+    "C_Quadbike_01_F","C_Quadbike_01_F","C_Quadbike_01_F","C_Quadbike_01_F","C_Quadbike_01_F","C_Quadbike_01_F",
+    "C_Offroad_01_F", "C_Offroad_01_F", "C_Offroad_01_F",
+    "C_Van_01_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_box_F",
+    "UAZ_Unarmed",
+    "BAF_Offroad_D",
+    "BAF_Offroad_W"
+  ];
   
   _cars call BIS_fnc_selectRandom;
 };

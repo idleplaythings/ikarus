@@ -21,21 +21,7 @@ hideout_createHideoutForSquad = {
   
   [_squad, _building] call setSquadHideoutBuilding;
   
-  _vehiclePos = getPos _building findEmptyPosition [10,40,"I_Truck_02_covered_F"];
-  if (count _vehiclePos > 0) then {
-    createVehicle ["C_Hatchback_01_F", _vehiclePos, [], 0, "none"];
-  };
-  
-  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
-  if (count _vehiclePos > 0) then {
-    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
-  };
-  
-  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
-  if (count _vehiclePos > 0) then {
-    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
-  };
-  
+  [_building, _squad] call hideout_createVehicles;
   // create weapon cache
  
   _cache = [_squad, _building, _objectData] call hideout_createHideoutCache;
@@ -43,6 +29,34 @@ hideout_createHideoutForSquad = {
   
   [_squad, _building] call hideout_createHideoutTrigger;
   [_squad, _building] call hideout_createHidoutMarkerForPlayers;
+};
+
+hideout_createVehicles = {
+  private ["_building", "_squad", "_vehicleClass"];
+  _building = _this select 0;
+  _squad = _this select 1;
+  
+  _vehicleClass = [_squad] call equipment_getVehicle;
+
+  if (_vehicleClass == "") then {
+    _vehicleClass = "C_Hatchback_01_F";
+  };
+
+  _vehiclePos = getPos _building findEmptyPosition [10,40,_vehicleClass];
+  if (count _vehiclePos > 0) then {
+    createVehicle [_vehicleClass, _vehiclePos, [], 0, "none"];
+  };
+  
+  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
+  if (count _vehiclePos > 0) then {
+    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
+  };
+  
+  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
+  if (count _vehiclePos > 0) then {
+    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
+  };
+
 };
 
 hideout_createHidoutMarkerForPlayers = {

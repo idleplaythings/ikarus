@@ -4,6 +4,26 @@ equipment_setPlayersGear = {
   } forEach (call getAllPlayers);
 };
 
+equipment_getVehicle = {
+  private ["_squad", "_equipment", "_result"];
+  _squad = _this select 0;
+  _equipment = [_squad] call getSquadEquipment;
+  _result = "";
+
+  {
+    private ["_class", "_amount"];
+    _class = _x select 0;
+    
+    if ( _class isKindOf "car" or _class isKindOf "Helicopter" ) exitWith {
+      _result = _class;
+      _result;
+    };
+
+  } forEach _equipment;
+
+  _result;
+};
+
 equipment_setPlayerGear = {
   private ["_unit", "_gear", "_squad", "_uid", "_item"];
   _unit = _this select 0;

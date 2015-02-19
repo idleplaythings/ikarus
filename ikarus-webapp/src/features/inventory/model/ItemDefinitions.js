@@ -1,4 +1,13 @@
 ItemDefinitions = [
+
+  createGeneric('Pickup truck', 'C_Offroad_01_F', ['vehicle']),
+  createGeneric('SUV', 'C_SUV_01_F', ['vehicle']),
+  createGeneric('Hatchback sport', 'C_Hatchback_01_sport_F', ['vehicle']),
+  createGeneric('Flatbed', 'C_Van_01_transport_F', ['vehicle']),
+  createGeneric('UAZ', 'UAZ_Unarmed', ['vehicle']),
+  createGeneric('Landrower (Desert)', 'BAF_Offroad_D', ['vehicle']),
+  createGeneric('Landrower (Woodland)', 'BAF_Offroad_W', ['vehicle']),
+
   createWeapon('Lee Einfield rifle', 'CUP_srifle_LeeEnfield', ['rifle'], ['CUP_10x_303_M']),
   createMagazine('10rnd .303', 'CUP_10x_303_M', 10),
 
@@ -100,10 +109,10 @@ ItemDefinitions = [
   createWeapon('Zubr .45 revolver', 'hgun_Pistol_heavy_02_F', ['handgun'], ['6Rnd_45ACP_Cylinder']),
   createMagazine('6rnd .45 ACP cylinder', '6Rnd_45ACP_Cylinder', 6),
 
-  createWeapon('Vermin SMG .45 ACP', 'SMG_01_F', ['handgun'], ['30Rnd_45ACP_Mag_SMG_01']),
+  createWeapon('Vermin SMG .45 ACP', 'SMG_01_F', ['smg'], ['30Rnd_45ACP_Mag_SMG_01']),
   createMagazine('30rnd .45 ACP', '30Rnd_45ACP_Mag_SMG_01', 30),
 
-  createWeapon('Micro UZI PDW', 'CUP_hgun_MicroUzi', ['smg'], ['CUP_30Rnd_9x19_UZI']),
+  createWeapon('Micro UZI PDW', 'CUP_hgun_MicroUzi', ['handgun'], ['CUP_30Rnd_9x19_UZI']),
   createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_UZI', 10),
 
   createWeapon('M32 Grenadelauncher', 'CUP_glaunch_M32', ['grenade-launcher'], ['CUP_6Rnd_HE_M203', 'CUP_6Rnd_Smoke_M203']),

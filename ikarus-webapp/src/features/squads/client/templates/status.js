@@ -31,7 +31,7 @@ Template.squads_status.helpers({
     });
 
     view.addGroup(new InventoryColumn({
-      title: 'Primary Weps',
+      title: 'Primary Weapons',
       policy: function(itemWrapper) {
         return itemWrapper.item.hasTags(['rifle', 'assault-rifle', 'sniper-rifle', 'smg', 'lmg', 'mmg']);
       },
@@ -44,22 +44,9 @@ Template.squads_status.helpers({
     }));
 
     view.addGroup(new InventoryColumn({
-      title: 'Support Weps',
+      title: 'Seconday Weapons',
       policy: function(itemWrapper) {
-        return itemWrapper.item.hasTags(['law', 'rpg', 'grenade-launcher', 'grenade']);
-      },
-      sort: function(itemWrapperA, itemWrapperB) {
-        var nameA = itemWrapperB.item.name.toLowerCase();
-        var nameB = itemWrapperA.item.name.toLowerCase();
-
-        return nameB.localeCompare(nameA);
-      }
-    }));
-
-    view.addGroup(new InventoryColumn({
-      title: 'Secondary Weps',
-      policy: function(itemWrapper) {
-        return itemWrapper.item.hasTags(['handgun']);
+        return itemWrapper.item.hasTags(['law', 'rpg', 'grenade-launcher', 'grenade', 'handgun']);
       },
       sort: function(itemWrapperA, itemWrapperB) {
         var nameA = itemWrapperB.item.name.toLowerCase();
@@ -73,6 +60,19 @@ Template.squads_status.helpers({
       title: 'Gear & Sights',
       policy: function(itemWrapper) {
         return itemWrapper.item.hasTags(['helmet', 'tactical-vest', 'backpack', 'binoculars', 'scope', 'sight']);
+      },
+      sort: function(itemWrapperA, itemWrapperB) {
+        var nameA = itemWrapperB.item.name.toLowerCase();
+        var nameB = itemWrapperA.item.name.toLowerCase();
+
+        return nameB.localeCompare(nameA);
+      }
+    }));
+
+    view.addGroup(new InventoryColumn({
+      title: 'Vehicles',
+      policy: function(itemWrapper) {
+        return itemWrapper.item.hasTags(['vehicle']);
       },
       sort: function(itemWrapperA, itemWrapperB) {
         var nameA = itemWrapperB.item.name.toLowerCase();

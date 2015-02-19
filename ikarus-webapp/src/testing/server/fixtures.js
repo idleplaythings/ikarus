@@ -247,7 +247,9 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
           'IKRS_loot_common_nato_weapons',
           'IKRS_loot_common_RU_weapons',
           'IKRS_loot_heavy_nato_weapons',
-          'IKRS_loot_heavy_RU_weapons'
+          'IKRS_loot_heavy_RU_weapons',
+          'BAF_Offroad_D',
+          'C_Van_01_transport_F'
         ],
         new ObjectiveSupply()
       );

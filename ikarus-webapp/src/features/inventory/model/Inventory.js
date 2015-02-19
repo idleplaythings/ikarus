@@ -15,6 +15,12 @@ Inventory.prototype.isLocked = function(){
   return false;
 };
 
+Inventory.prototype.getAmountOfItemsWithTag = function(tag){
+  return this.items.filter(function(item){
+    return item.hasTags(tag);
+  }, this).length;
+};
+
 Inventory.prototype.getOrphanedMagazines = function(){
   return this.items.filter(function(item){
     if (! item.isMagazine())

@@ -7,9 +7,21 @@ Meteor.methods({
       return false;
     }
 
+    var squadInventory = Inventory.getBySquad(squad);
+
+    var item = dic.get('ItemFactory').createItemByArmaClass(armaClass);
+
+    if (! item) {
+      return;
+    }
+
+    if (item.hasTags('vehicle') && squadInventory.getAmountOfItemsWithTag('vehicle') > 0) {
+      return;
+    }
+
     Inventory.moveFromInventory(
       Inventory.getByCompany(company),
-      Inventory.getBySquad(squad),
+      squadInventory,
       armaClass
     );
   },

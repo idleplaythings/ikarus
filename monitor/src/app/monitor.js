@@ -77,8 +77,8 @@ Monitor.prototype._startArma = function(){
     "-sock_port="+sockPort,
     "-port="+armaPort,
     "-mod=@ikrs;",
-    "-BEpath="+BEpath,
-    "-noLogs"
+    "-BEpath="+BEpath
+    //"-noLogs"
   ];
 
   var options = {

@@ -68,6 +68,9 @@ missionControl_pollGameEnd = {
 missionControl_startGame = {
   private ["_squads"];
  
+  missionControl_gameStarted = true;
+  missionControl_timeGameStarted = time;
+
   call missionControl_displayGameStart;
   
   _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
@@ -75,9 +78,6 @@ missionControl_startGame = {
   
   call hideout_createHideoutForSquads;
   call objectiveController_createObjectives;
-  
-  missionControl_gameStarted = true;
-  missionControl_timeGameStarted = time;
 
   call hideout_movePlayersToHideout;
   call equipment_setPlayersGear;
@@ -115,8 +115,8 @@ missionControl_endGame = {
 };
 
 missionControl_displayGameStart = {
-  ["GAME STARTING NOW!"] call broadcastMessage;
-  sleep 5;
+  ["GAME STARTING IN 15 SECONDS!"] call broadcastMessage;
+  sleep 10;
 };
 
 call missionControl_startWhenReady;

@@ -13,5 +13,5 @@ returnPlayersToWaitingArea = {
       _unit setPos getPos _trigger;
     }
     
-	} forEach call getAllPlayers;
+	} forEach call getAllPlayersBeforeSquads;
 };

@@ -41,6 +41,14 @@ getAllPlayers = {
   _players;
 };
 
+getAllPlayersBeforeSquads = {
+  if ( missionControl_test ) exitWith {
+    [player, friend, friend2];
+  };
+
+  playableUnits;
+};
+
 getAllAlivePlayers = {
   private ["_players"];
   _players = [];
@@ -102,7 +110,7 @@ broadcastMessage = {
   
   {
     [[_message], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
-  } forEach call getAllPlayers;
+  } forEach call getAllPlayersBeforeSquads;
 };
 
 broadcastMessageTo = {

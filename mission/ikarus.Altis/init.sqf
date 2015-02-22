@@ -25,6 +25,7 @@ if (! isServer) exitwith {};
 [] execVM "script\events.sqf";
 [] execVM "script\buildingDestroyer.sqf";
 [] execVM "script\airstrike.sqf";
+[] execVM "script\timeAndWeather.sqf";
 
 [] execvm "script\zlt_civveh.sqf";
 

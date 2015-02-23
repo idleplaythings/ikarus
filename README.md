@@ -19,10 +19,27 @@
 1. npm install
 1. npm test
 
+
+## Arma3 & Monitor
+
+### Enable test mode in missionControl.sqf
+```
+# missionControl.sqf:
+missionControl_test = true;
+```
+
+### Launch Arma 3 with following paramters:
+-showscripterrors -sock_host=::1 -sock_port=1337 -mod=@ikrs;
+
+### Set ENV environment variable to dev for monitor
+$env:ENV="dev"
+
+### Launch monitor
+node main.js ./config.example
+
+
 # Environments
 
 ## Production
 
 WebApp - http://ikarus.idleplaythings.com/
-
-

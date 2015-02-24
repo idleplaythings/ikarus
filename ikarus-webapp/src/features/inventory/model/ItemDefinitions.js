@@ -8,6 +8,8 @@ ItemDefinitions = [
   createGeneric('Landrower (Desert)', 'BAF_Offroad_D', ['vehicle']),
   createGeneric('Landrower (Woodland)', 'BAF_Offroad_W', ['vehicle']),
 
+  createGeneric('GPS', 'ItemGPS', ['binoculars']),
+
   createWeapon('Lee Einfield rifle', 'CUP_srifle_LeeEnfield', ['rifle'], ['CUP_10x_303_M']),
   createMagazine('10rnd .303', 'CUP_10x_303_M', 10),
 
@@ -122,6 +124,33 @@ ItemDefinitions = [
   createWeapon('NLAW launcher', 'CUP_launch_NLAW', ['law'], ['CUP_NLAW_M']),
   createMagazine('NLAW AT rocket', 'CUP_NLAW_M', 1),
 
+  createWeapon('Sting SMG 9mm', 'SMG_02_F', ['smg'], ['30Rnd_9x21_Mag']),
+  createMagazine('30rnd 9x21 mm', '30Rnd_9x21_Mag', 30),
+
+  createGeneric('Mk17 Holosight SMG','optic_Holosight_smg', ['scope']),
+  createGeneric('ACO SMG (Red)','optic_Aco_smg', ['scope']),
+  createGeneric('ACO SMG (Green)','optic_ACO_grn_smg', ['scope']),
+  createGeneric('Sound Suppressor (.45 ACP)', 'muzzle_snds_acp', ['scope']),
+  createGeneric('Sound Suppressor (9 mm)', 'muzzle_snds_L', ['scope']),
+
+  createLoot(
+    'SMG Weapons',
+    'IKRS_loot_smg_weapons',
+    {
+      'Binocular': 'd5-2',
+      'ItemGPS': 'd5-3',
+      'SMG_02_F': 'd4-2',
+      'SMG_01_F': 'd4-2',
+      '30Rnd_9x21_Mag': 'd5+2',
+      '30Rnd_45ACP_Mag_SMG_01': 'd5+2',
+      'optic_Holosight_smg': 'd5-3',
+      'optic_Aco_smg': 'd5-1',
+      'optic_ACO_grn_smg': 'd5-1',
+      'muzzle_snds_acp': 'd8-7',
+      'muzzle_snds_L': 'd8-6'
+    }
+  ),
+
   createLoot(
     'Civilian Weapons',
     'IKRS_loot_civilian_weapons',
@@ -134,6 +163,7 @@ ItemDefinitions = [
       'H_HelmetB': 'd5-4',
       'SmokeShell': 'd3+1',
       'HandGrenade': 'd5-4',
+      'ItemGPS': 'd5-3',
 
       'CUP_glaunch_M79': 'd40-39',
       'CUP_1Rnd_HE_M203': 'd3-2',

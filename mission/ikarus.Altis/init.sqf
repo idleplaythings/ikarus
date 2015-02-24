@@ -18,13 +18,16 @@ if (! isServer) exitwith {};
 [] execVM "script\player.sqf";
 [] execVM "script\AO.sqf";
 [] execVM "script\loot.sqf";
+[] execVM "script\depots.sqf";
 [] execVM "script\objectiveController.sqf";
 [] execVM "script\objectives\supply.sqf";
 [] execVM "script\objectives\guard.sqf";
+[] execVM "script\objectives\hold.sqf";
 [] execVM "script\equipment.sqf";
 [] execVM "script\events.sqf";
 [] execVM "script\buildingDestroyer.sqf";
 [] execVM "script\airstrike.sqf";
+[] execVM "script\airdrop.sqf";
 [] execVM "script\timeAndWeather.sqf";
 
 [] execvm "script\zlt_civveh.sqf";

@@ -30,7 +30,7 @@ lootbox_tickOpen = {
   [[_unit], _lootLock] call lootbox_hint;
   
   if (_lootLock >= 100) then {
-    [_box] call lootbox_open;
+    [_box, _unit] call lootbox_open;
   };
 };
 
@@ -73,8 +73,9 @@ lootbox_hint = {
 };
 
 lootbox_open = {
-  private ["_box", "_openBox", "_position"];
+  private ["_box", "_unit", "_openBox", "_position"];
   _box = _this select 0;
+  _unit = _this select 1;
   _position = getPosASL _box;
   _direction = getDir _box;
   
@@ -89,15 +90,15 @@ lootbox_open = {
   clearItemCargoGlobal _openBox;
   clearBackpackCargoGlobal _openBox;
   
-  _openBox addBackpackCargoGlobal ['IKRS_loot_civilian_weapons', ((round random 3) + 3)];
-  _openBox addBackpackCargoGlobal ['IKRS_loot_old_RU_weapons', (round random 2)];
+  _openBox addBackpackCargoGlobal ['IKRS_loot_civilian_weapons', 4];
+  _openBox addBackpackCargoGlobal ['IKRS_loot_old_RU_weapons', 3];
   _openBox addBackpackCargoGlobal ['IKRS_loot_old_nato_weapons', (round random 1)];
   _openBox addBackpackCargoGlobal ['IKRS_loot_common_RU_weapons', ((ceil random 10) - 8)];
-  _openBox addBackpackCargoGlobal ['IKRS_loot_common_nato_weapons', ((ceil random 10) - 9)];
   _openBox addBackpackCargoGlobal ['IKRS_loot_heavy_RU_weapons', ((ceil random 4) - 3)];
-  _openBox addBackpackCargoGlobal ['IKRS_loot_heavy_nato_weapons', ((ceil random 10) - 9)];
   
   lootbox_boxes pushBack _openBox;
+
+  [([_unit] call getSquadForUnit), ["supply_objective_opening_reward1"]] call addDisconnectedLoot;
 };
 
 lootBox_deleteBoxesAround = {

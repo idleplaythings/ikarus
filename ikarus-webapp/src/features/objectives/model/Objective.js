@@ -9,7 +9,8 @@ Objective = function Objective() {
 Objective.getObjectives = function() {
   return [
     new ObjectiveSupply(),
-    new ObjectiveGuard()
+    new ObjectiveGuard(),
+    new ObjectiveHold()
   ];
 }
 

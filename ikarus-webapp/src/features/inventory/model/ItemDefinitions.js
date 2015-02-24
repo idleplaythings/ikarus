@@ -19,7 +19,7 @@ ItemDefinitions = [
   createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
   createMagazine('30rnd 5.45x39mm', 'CUP_30Rnd_545x39_AK_M', 30),
 
-  createWeapon('M249 lmg', 'CUP_lmg_M249', ['lmg'], ['CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 'CUP_30Rnd_556x45_Stanag']),
+  createWeapon('M249 lmg', 'CUP_lmg_M249', ['lmg'], ['CUP_200Rnd_TE4_Red_Tracer_556x45_M249', '30Rnd_556x45_Stanag']),
   createMagazine('200rnd box 5.56x45mm', 'CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 30),
 
   createWeapon('M14 battle rifle', 'CUP_srifle_M14', ['assault-rifle'], ['20Rnd_762x51_Mag']),
@@ -28,12 +28,12 @@ ItemDefinitions = [
   createWeapon('FN FAL (no rail)', 'CUP_arifle_FNFAL', ['assault-rifle'], ['CUP_20Rnd_762x51_FNFAL_M']),
   createMagazine('20rnd 7.62x51mm FN FAL', 'CUP_20Rnd_762x51_FNFAL_M', 20),
 
-  createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['assault-rifle'], ['CUP_30Rnd_556x45_Stanag']),
-  createMagazine('30rnd 5.56x45mm', 'CUP_30Rnd_556x45_Stanag', 30),
+  createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createMagazine('30rnd 5.56x45mm', '30Rnd_556x45_Stanag', 30),
 
-  createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['assault-rifle'], ['CUP_30Rnd_556x45_Stanag']),
+  createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
 
-  createWeapon('M4A1 assault rifle', 'CUP_arifle_M4A1_black', ['assault-rifle'], ['CUP_30Rnd_556x45_Stanag']),
+  createWeapon('M4A1 assault rifle', 'CUP_arifle_M4A1_black', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
 
   createWeapon('Dragunov SVD sniper rifle', 'CUP_srifle_SVD', ['sniper-rifle'], ['CUP_10Rnd_762x54_SVD_M']),
   createMagazine('10rnd 7.62x51mm', 'CUP_10Rnd_762x54_SVD_M', 10),
@@ -209,7 +209,7 @@ ItemDefinitions = [
     'IKRS_loot_old_nato_weapons',
     {
       'CUP_arifle_M16A2': 'd2',
-      'CUP_30Rnd_556x45_Stanag': 'd5+3',
+      '30Rnd_556x45_Stanag': 'd5+3',
       'CUP_arifle_M16A4_Base': 'd5-4',
       'CUP_optic_CompM2_Black': 'd5-4',
       'CUP_optic_RCO': 'd20-18',
@@ -234,6 +234,7 @@ ItemDefinitions = [
     'Common NATO weapons',
     'IKRS_loot_common_nato_weapons',
     {
+      '30Rnd_556x45_Stanag': '2d5',
       'CUP_arifle_M4A1_black': 'd2',
       'CUP_optic_CompM4': 'd10-8',
       'CUP_optic_CompM2_Black': 'd2',

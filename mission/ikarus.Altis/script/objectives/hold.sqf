@@ -115,26 +115,47 @@ objective_hold_destroyDepot = {
 };
 
 objective_hold_insideDepot = {
-  private ["_unit", "_objectiveData", "_time", "_held", "_increment"];
+  private ["_unit", "_objectiveData", "_time", "_held", "_increment", "_players"];
   _unit = _this select 0;
   _objectiveData = _this select 1;
   _time = call missionControl_getElapsedTime;
   _increment = 0.17;
 
+  _players = [_objectiveData] call objective_hold_getPlayersInBuilding;
+
   if (_time < 1500) exitWith {
-    hint "You can not hold this depot before 25 minutes has elapsed.";
+    {
+      ["You can not hold this depot before 25 minutes has elapsed.", "hint", _x, false, true] call BIS_fnc_MP;
+    } forEach _players;
   };
 
   _objectiveData set [1, ((_objectiveData select 1) + _increment)];
 
   _held = _objectiveData select 1;
 
-  hint ("Depot is " + str _held + "% held");
+  {
+    ["Depot is " + str _held + "% held", "hint", _x, false, true] call BIS_fnc_MP;
+  } forEach _players;
 
   if (_held >= 100 && ! (_objectiveData select 2)) then {
     _objectiveData set [2, true];
     [(_objectiveData select 0)] spawn objective_hold_setUpDrop;
   };
+};
+
+objective_hold_getPlayersInBuilding = {
+  private ["_objectiveData", "_players", "_building"];
+  _objectiveData = _this select 0;
+  _building = _objectiveData select 0 select 0;
+  _players = [];
+
+  {
+    if (_x distance _building < 10) then {
+      _players pushBack _x;
+    };
+  } forEach call getAllPlayers;
+
+  _players;
 };
 
 objective_hold_setUpDrop = {

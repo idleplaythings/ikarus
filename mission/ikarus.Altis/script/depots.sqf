@@ -10,7 +10,7 @@ depots_create_depots = {
 };
 
 depots_getTotalAmount = {
-	count depots_supply_depots + count depots_town_depots;
+	call depots_getAmountOfSupplyDepots + call depots_getAmountOfTownDepots;
 };
 
 depots_getAll = {

@@ -103,7 +103,7 @@ objective_guard_overrideMoveToHideout = {
   private ["_validDepots", "_depot", "_objects", "_position"];
   _squad = _this select 0;
   
-  _validDepots =  depots_getAll - objective_guard_used_depots;
+  _validDepots =  (call depots_getAll) - objective_guard_used_depots;
   _depot = _validDepots select 0;
   objective_guard_used_depots pushBack _depot;
   
@@ -115,7 +115,7 @@ objective_guard_overrideMoveToHideout = {
     _x setPosASL _position;
     [_x] call objective_guard_equipGuard;
     objective_guard_guards pushBack [_x, _depot, []];
-    [[getPos _depot], "markers_createGuardMarker", _x, false, true] call BIS_fnc_MP;
+    [[getPos (_depot select 0)], "markers_createGuardMarker", _x, false, true] call BIS_fnc_MP;
   } forEach ([_squad] call getPlayersInSquad);
     
   true;

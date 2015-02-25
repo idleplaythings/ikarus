@@ -33,7 +33,11 @@ lastConnectedPlayerUid = nil;
   
   diag_log "killer:";
   diag_log _killer;
-  
+
+  if (! isNil{_killer}) then {
+    diag_log getPlayerUID _killer;
+  };
+
   _squad = [_killer] call getSquadForUnit;
 
   if (! isNil{_squad}) then {

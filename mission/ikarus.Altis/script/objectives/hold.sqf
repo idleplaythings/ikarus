@@ -161,7 +161,7 @@ objective_hold_getPlayersInBuilding = {
 objective_hold_setUpDrop = {
   private ["_building", "_position", "_squads", "_squad", "_loot"];
   _building = _this select 0 select 0;
-  _position = [getPos _building, [3000, 6000]] call SHK_pos;
+  _position = [getPos _building, [2000, 4000]] call SHK_pos;
 
   _squads = [];
 
@@ -183,7 +183,7 @@ objective_hold_setUpDrop = {
     } forEach ([_x] call getPlayersInSquad);
   } forEach _squads;
 
-  sleep (150 + random 300);
+  sleep (300 + random 150);
 
   _loot = [
     'IKRS_loot_old_nato_weapons',

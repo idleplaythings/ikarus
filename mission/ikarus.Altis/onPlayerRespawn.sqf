@@ -2,13 +2,15 @@ private["_unit", "_oldUnit"];
 _unit = _this select 0;
 _oldUnit = _this select 1;
 
+lastDamager = "";
+
 player addEventHandler [ "hit", {
   private ["_unit", "_offender", "_damage"];
   _unit = _this select 0;
   _offender = _this select 1;
   _damage = _this select 2;
 
-  _unit globalChat format["I have been damaged by %1 for %2 units of damage", str _offender, str _damage];
+  lastDamager = getPlayerUID _offender;
 }];
 
 player addEventHandler ["InventoryOpened", {

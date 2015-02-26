@@ -10,6 +10,8 @@ player addEventHandler [ "hit", {
   _offender = _this select 1;
   _damage = _this select 2;
 
+  if ((getPlayerUID _unit) == (getPlayerUID _offender)) exitWith {};
+
   lastDamager = getPlayerUID _offender;
 }];
 

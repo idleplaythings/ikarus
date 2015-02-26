@@ -23,18 +23,19 @@ lastConnectedPlayerUid = nil;
   _unit = _this select 1 select 0;
   _killer = _this select 1 select 1;
   _unitUid = getPlayerUID _unit;
-  _killerUid = getPlayerUID _killerUid;
-  _lastDamagerUid = _this select 0 select 2;
+  _killerUid = getPlayerUID _killer;
 
-  diag_log ("lastDamager" + _lastDamagerUid);
-  
   if (! missionControl_gameStarted) exitWith {};
+  
+  _lastDamagerUid = _this select 1 select 2;
 
-  if (_unitUid == _killerUid || _killerUid == "") then {
+  diag_log format["lastDamager %1", _lastDamagerUid];
+
+  if (_unitUid == _killerUid || _killerUid == "" || isNil {_killerUid}) then {
     _killerUid = _lastDamagerUid;
   };
 
-  diag_log ("player killed: " +str _unitUid+ "killer:" + str _killerUid);
+  diag_log format["player killed: '%1' killer: '%2'", _unitUid, str _killerUid];
 
   _killer = [_killerUid] call getPlayerByUID;
   _squad = [_killer] call getSquadForUnit;

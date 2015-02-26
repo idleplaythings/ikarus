@@ -40,6 +40,10 @@ lastConnectedPlayerUid = nil;
 
   _squad = [_killer] call getSquadForUnit;
 
+  {
+    [(str _unit + "has been killed by" + str _killer), _x, false, true] call BIS_fnc_MP;
+  } forEach call getAllPlayers;
+
   if (! isNil{_squad}) then {
     [_squad, "onKilled", [_unit, _killer, true]] call objectiveController_callSquadObjective;
   };

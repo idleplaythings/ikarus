@@ -1,5 +1,5 @@
 //this is here so it is loaded for clients
- [] execVM "script\markers.sqf";
+[] execVM "script\markers.sqf";
   
 if (! isServer) exitwith {};
 
@@ -7,6 +7,8 @@ if (! isServer) exitwith {};
 [] execVM "lib\log.sqf";
 [] execVM "lib\sock.sqf";
 
+
+[] execVM "script\popoRandom.sqf";
 [] execVM "script\missionControl.sqf";
 [] execVM "script\waiting.sqf";
 [] execVM "script\squad.sqf";

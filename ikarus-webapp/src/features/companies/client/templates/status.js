@@ -18,65 +18,9 @@ Template.companies_status.helpers({
     return false;
   },
   companyInventoryView: function() {
-    var view = new InventoryView({
-      sourceInventory: Inventory.getByCompany(Company.getCurrent())
-    });
-
-    view.addGroup(new InventoryColumn({
-      title: 'Primary Weapons',
-      policy: function(itemWrapper) {
-        return itemWrapper.item.hasTags(['rifle', 'assault-rifle', 'sniper-rifle', 'smg', 'lmg', 'mmg']);
-      },
-      sort: function(itemWrapperA, itemWrapperB) {
-        var nameA = itemWrapperB.item.name.toLowerCase();
-        var nameB = itemWrapperA.item.name.toLowerCase();
-
-        return nameB.localeCompare(nameA);
-      }
-    }));
-
-    view.addGroup(new InventoryColumn({
-      title: 'Seconday Weapons',
-      policy: function(itemWrapper) {
-        return itemWrapper.item.hasTags(['law', 'rpg', 'grenade-launcher', 'grenade', 'handgun']);
-      },
-      sort: function(itemWrapperA, itemWrapperB) {
-        var nameA = itemWrapperB.item.name.toLowerCase();
-        var nameB = itemWrapperA.item.name.toLowerCase();
-
-        return nameB.localeCompare(nameA);
-      }
-    }));
-
-    view.addGroup(new InventoryColumn({
-      title: 'Gear & Sights',
-      policy: function(itemWrapper) {
-        return itemWrapper.item.hasTags(['helmet', 'tactical-vest', 'backpack', 'binoculars', 'scope', 'sight']);
-      },
-      sort: function(itemWrapperA, itemWrapperB) {
-        var nameA = itemWrapperB.item.name.toLowerCase();
-        var nameB = itemWrapperA.item.name.toLowerCase();
-
-        return nameB.localeCompare(nameA);
-      }
-    }));
-
-    view.addGroup(new InventoryColumn({
-      title: 'Vehicles',
-      policy: function(itemWrapper) {
-        return itemWrapper.item.hasTags(['vehicle']);
-      },
-      sort: function(itemWrapperA, itemWrapperB) {
-        var nameA = itemWrapperB.item.name.toLowerCase();
-        var nameB = itemWrapperA.item.name.toLowerCase();
-
-        return nameB.localeCompare(nameA);
-      }
-    }));
-
-    view.refresh();
-
-    return view;
+    var companyInventoryView = dic.get('CompanyInventoryView');
+    companyInventoryView.refresh();
+    return companyInventoryView;
   }
 });
 

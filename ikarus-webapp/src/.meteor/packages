@@ -7,7 +7,8 @@ meteor-platform
 kidovate:accounts-steam
 iron:router
 accounts-ui
-mizzao:bootstrap-3
 jquery
 momentjs:moment
 accounts-password
+nemo64:bootstrap
+less

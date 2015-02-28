@@ -6,19 +6,35 @@
       </div>
     {{/if}}
 
-    <header class="row">
-      <div class="col-md-7">
-        {{#if dev}}
-          <button class="js-reset pull-right">Regenerate Test Data</button>
-        {{/if}}
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Ikarus</a>
+        </div>
 
-        <h1><a href="/">Ikarus</a></h1>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Squad</a></li>
+            <li><a href="#">Companies</a></li>
+            <li><a href="#">Players</a></li>
+            <li><a href="#">Character</a></li>
+          </ul>
 
+          {{#if dev}}
+            <button class="btn btn-default navbar-btn js-reset">Regenerate Test Data</button>
+          {{/if}}
+
+          <p class="navbar-text navbar-right">
+            {{> players_status}}
+          </p>
+        </div>
       </div>
-      <div class="col-md-5">
-        {{> players_status}}
-      </div>
-    </header>
+    </nav>
 
     <div class="row">
       <div class="col-md-12">

@@ -45,7 +45,7 @@ LootController.prototype.receiveLootForCompany = function(company, loot, objecti
     }
   }, this);
 
-  this._itemFactory.createItems(objective.transformLoot(loot)).forEach(function(item){
+  this._itemFactory.createItems(objective.getAdditionalLoot(loot)).forEach(function(item){
     if (item.isLoot()){
       this._handleLootBackpack(companyInventory, item);
     } else {

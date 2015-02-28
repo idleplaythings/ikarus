@@ -1,14 +1,16 @@
-objective_supply_depots = [];
 
 objective_supply_construct = {
-  private ["_centerOfAO", "_depots", "_players"];
-  _centerOfAO = _this select 0;
+  private ["_depots", "_players"];
 
-  _depots = [ _centerOfAO] call objective_supply_constructDepots;
-  _players = call objective_supply_getPlayers;
-  objective_supply_depots = _depots;
-  [_depots, _players] call objective_supply_constructMarkers;
+  call objective_supply_constructDepots;
+  _depots = depots_supply_depots; 
+  _players = [['guard']] call objectiveController_getPlayersWithoutObjectives;
+  if (count _depots > 0) then {
+    [_depots, _players] call objective_supply_constructMarkers;
+  };
 };
+
+objective_supply_insideDepot = {};
 
 objective_supply_overridesAppearance = {
   false;
@@ -32,30 +34,21 @@ objective_supply_canOpenLootBoxes = {
   true;
 };
 
-objective_supply_getPlayers = {
-  private ["_players"];
-  _players = [];
-  
-  {
-    _players = _players + ([_x] call getPlayersInSquad);
-  } forEach (["supply"] call objectiveController_getSquadsWithObjective);
-
-  _players;
-};
-
 objective_supply_constructMarkers = {
-  private ["_depotPositions", "_players", "_radius", "_offset"];
-  _depotPositions = _this select 0;
+  private ["_depots", "_players", "_radius", "_offset"];
+  _depots = _this select 0;
   _players = _this select 1;
   _radius = 500;
   _offset = _radius / 2;
   
   {
-    _position = [_x, _offset] call SHK_pos;
+    private ["_building"];
+    _building = _x select 0;
+    _position = [_building, _offset] call SHK_pos;
     {
       [[_position, _radius], "markers_createSupplyMarker", _x, false, true] call BIS_fnc_MP;
     } forEach _players;  
-  } forEach _depotPositions;
+  } forEach _depots;
   
   
   {
@@ -64,22 +57,17 @@ objective_supply_constructMarkers = {
 };
 
 objective_supply_constructDepots = {
-  private ["_centerOfAO", "_numberOfDepots", "_depots", "_radius", "_depot"];
-  _centerOfAO = _this select 0;
-  _numberOfDepots = call objective_supply_getAmountOfDepots;
-  _radius = call objective_supply_getRadiusOfAO;
-  _depots = [];
-  
-  while {_numberOfDepots > 0} do {
-    _depot = [_centerOfAO, _radius] call objective_supply_constructDepot;
-    
-    [_depot] call objective_supply_createVehicle;
-  
-    _depots pushBack _depot;
-    _numberOfDepots = _numberOfDepots - 1;
-  };
-  
-  _depots;
+  {
+    private ["_building", "_objectData"];
+    _building = _x select 0;
+    _objectData = _x select 1;
+
+    [_building] call objective_supply_createVehicle;
+    [_building, _objectData] call objective_supply_placeLootBoxes;
+    [_building, objective_supply_cleanUpBox, [_building]] call buildingDestroyer_init;
+    [_building] spawn objective_supply_destroyDepot;
+
+  } forEach depots_supply_depots;
 };
 
 objective_supply_createVehicle = {
@@ -123,33 +111,6 @@ objective_supply_getDepotCarClass = {
   _cars call BIS_fnc_selectRandom;
 };
 
-objective_supply_constructDepot = {
-  private ["_centerOfAO", "_radius", "_position"];
-  _centerOfAO = _this select 0;
-  _radius = _this select 1;
-  
-  _position = [_centerOfAO, _radius] call SHK_pos;
-
-  [_position] call objective_supply_aquireClosestDepot;
-};
-
-objective_supply_aquireClosestDepot = {
-  private ["_position", "_buildingData", "_building", "_objectData"];
-  _position = _this select 0;
-  
-  _buildingData = [_position] call objective_supply_findHouseForDepot;
-  _building = _buildingData select 0;
-  _objectData = _buildingData select 1;
-  
-  [_building, _objectData] call houseFurnisher_furnish;
-  [_building, _objectData] call objective_supply_placeLootBoxes;
-  
-  [_building, objective_supply_cleanUpBox, [_building]] call buildingDestroyer_init;
-  [_building] spawn objective_supply_destroyDepot;
-  
-  _building;
-};
-
 objective_supply_destroyDepot = {
   sleep (3000 + random 300);
   [_this select 0] call airStrike_createFlyOverAndBombingRun;
@@ -186,43 +147,9 @@ objective_supply_getAmountOfDepots = {
   
   _amount = floor ((count _objectives) / 2);
   
-  if (_amount == 0) exitWith {
+  if (count _objectives == 1) exitWith {
     1;
   };
 
   _amount;
-};
-
-objective_supply_getRadiusOfAO = {
-  private ["_amount"];
-  (call objective_supply_getAmountOfDepots) * 0.5 * 1000;
-};
-
-objective_supply_checkIsSuitableForDepot = {
-  private ["_position"];
-  _position = _this select 0;
-  
-  [_position, 100] call depotPositions_checkNothingInDistance;
-  
-};
-
-objective_supply_findHouseForDepot = {
-  private ["_position", "_buildings", "_building", "_found", "_objects"];
-  _position = _this select 0;
-  _building = nil;
-  _objects = nil;
-  _found = false;
-  
-  _buildings = nearestObjects [_position, ["house"], 5000];
-  
-  for [{_i= 0},{_i < count _buildings and ! false},{_i = _i + 1}] do {
-    _building = _buildings select _i;
-    _objects = [_building] call depotPositions_getSupplyDepotObjects;
-    
-    if ( ! isNil {_objects} and [getPos _building] call objective_supply_checkIsSuitableForDepot) exitWith {
-      _building;
-    };
-  };
-  
-  [_building, _objects];
 };

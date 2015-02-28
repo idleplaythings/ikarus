@@ -2,6 +2,19 @@ private["_unit", "_oldUnit"];
 _unit = _this select 0;
 _oldUnit = _this select 1;
 
+lastDamager = "";
+
+player addEventHandler [ "hit", {
+  private ["_unit", "_offender", "_damage"];
+  _unit = _this select 0;
+  _offender = _this select 1;
+  _damage = _this select 2;
+
+  if ((getPlayerUID _unit) == (getPlayerUID _offender)) exitWith {};
+
+  lastDamager = getPlayerUID _offender;
+}];
+
 player addEventHandler ["InventoryOpened", {
   private ["_unit", "_container", "_squadId", "_playerSquadId", "_result"];
   

@@ -8,6 +8,8 @@ objective_guard_overridesAppearance = {
   true;
 };
 
+objective_guard_insideDepot = {};
+
 objective_guard_onKilled = {
   private ["_unit", "_killer", "_guardData"];
   _unit = _this select 0;
@@ -25,7 +27,7 @@ objective_guard_onKilled = {
   diag_log "does not have same squad";
   player globalChat "does not have same squad";
   
-  if ((_killer distance (_guardData select 1)) <= objective_guard_killRadius) exitWith {
+  if ((_killer distance (_guardData select 1 select 0)) <= objective_guard_killRadius) exitWith {
     diag_log "guard " + str _killer + " killed a trespasser";
     player globalChat "guard " + str _killer + " killed a trespasser";
     [_guardData] call objective_guard_reward;
@@ -89,9 +91,9 @@ objective_guard_getGuardData = {
 objective_guard_defaultIfNeccessary = {
   private ["_squads", "_supplyDepots"];
   _squads = ["guard"] call objectiveController_getSquadsWithObjective;
-  _supplyDepots = call objective_supply_getAmountOfDepots;
+  _depots = call depots_getTotalAmount;
   
-  if ((count _squads) > _supplyDepots ) exitWith {
+  if ((count _squads) > _depots ) exitWith {
     [(_squads call BIS_fnc_selectRandom), 'supply'] call setChosenObjective;
     call objective_guard_defaultIfNeccessary;
   };
@@ -101,20 +103,19 @@ objective_guard_overrideMoveToHideout = {
   private ["_validDepots", "_depot", "_objects", "_position"];
   _squad = _this select 0;
   
-  _validDepots =  objective_supply_depots - objective_guard_used_depots;
-  _depot = _validDepots call BIS_fnc_selectRandom;
+  _validDepots =  (call depots_getAll) - objective_guard_used_depots;
+  _depot = _validDepots select 0;
   objective_guard_used_depots pushBack _depot;
   
-  _objects = [_depot] call depotPositions_getSupplyDepotObjects;
-  _objects = [_objects, 1] call depotPositions_getRandomPlaceholdersFromObjects select 0;
+  _objects = [_depot select 1, 1] call depotPositions_getRandomPlaceholdersFromObjects select 0;
   
-  _position = [_depot, _objects] call houseFurnisher_getPosASLAndDirection select 0;
+  _position = [_depot select 0, _objects] call houseFurnisher_getPosASLAndDirection select 0;
   
   {
     _x setPosASL _position;
     [_x] call objective_guard_equipGuard;
     objective_guard_guards pushBack [_x, _depot, []];
-    [[getPos _depot], "markers_createGuardMarker", _x, false, true] call BIS_fnc_MP;
+    [[getPos (_depot select 0)], "markers_createGuardMarker", _x, false, true] call BIS_fnc_MP;
   } forEach ([_squad] call getPlayersInSquad);
     
   true;

@@ -1,7 +1,7 @@
 
 missionControl_gameStarted = false;
 missionControl_gameOver = false;
-missionControl_timeGameStarted = 0;
+missionControl_timeGameStarted = -1;
 
 missionControl_minSquads = 1;
 
@@ -13,7 +13,7 @@ missionControl_lastMessageTime = 0;
 missionControl_timeGameLength = 4500;
 
 missionControl_getElapsedTime = {
-  if (missionControl_timeGameStarted == 0) exitWith {
+  if (missionControl_timeGameStarted == -1) exitWith {
     0;
   };
   

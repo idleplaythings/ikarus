@@ -1,22 +1,12 @@
 ObjectiveGuard = function ObjectiveGuard() {
+  Objective.call(this);
+
   this.name = "Guard";
   this.minPlayers = 1;
   this.maxPlayers = 3;
   this.defaultsTo = new ObjectiveSupply();
 
-  this.description = "You will be guarding one of the objective depots."
-   + " You will be provided with default equipment, but please take"
-   + " other equipment too in case you don't get the this mission";
-};
-
-ObjectiveGuard.prototype = Object.create(Objective.prototype);
-
-ObjectiveGuard.prototype.allowLoot = function() {
-  return false;
-};
-
-ObjectiveGuard.prototype.transformLoot = function(loot) {
-  var transform = {
+  this._lootTransform = {
     'guard_objective_reward1': [
       'IKRS_loot_civilian_weapons',
       'IKRS_loot_old_RU_weapons'
@@ -26,22 +16,15 @@ ObjectiveGuard.prototype.transformLoot = function(loot) {
     ],
   };
 
-  var result = [];
+  this.description = "You will be guarding one of the objective depots."
+   + " You will be provided with default equipment, but please take"
+   + " other equipment too in case you don't get this mission";
+};
 
-  loot.map(function(lootEntry){
-    if (transform[lootEntry]){
-      return transform[lootEntry];
-    }
-    return null;
-  }).filter(function(lootEntry){
-    return lootEntry;
-  }).forEach(function(lootEntry){
-    result = result.concat(lootEntry);
-  });
+ObjectiveGuard.prototype = Object.create(Objective.prototype);
 
-  console.log("guard mission transform loot", result);
-
-  return result;
+ObjectiveGuard.prototype.allowLoot = function() {
+  return false;
 };
 
 ObjectiveGuard.prototype.validate = function(squad) {

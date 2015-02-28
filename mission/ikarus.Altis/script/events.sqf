@@ -1,7 +1,6 @@
 onPlayerKilled = nil;
 lastConnectedPlayerUid = nil;
 
-
 "lastConnectedPlayerUid" addPublicVariableEventHandler {
   private ["_uid", "_unit"];
   _uid = _this select 1 select 0;
@@ -20,27 +19,32 @@ lastConnectedPlayerUid = nil;
 };
 
 "onPlayerKilled" addPublicVariableEventHandler {
-  private ["_unit", "_killer", "_squad"];
+  private ["_unit", "_killer", "_unitUid", "_killerUid", "_lastDamagerUid", "_squad"];
   _unit = _this select 1 select 0;
   _killer = _this select 1 select 1;
-  
-  diag_log "player killed";
-  if (! missionControl_gameStarted) exitWith {};
+  _unitUid = getPlayerUID _unit;
+  _killerUid = getPlayerUID _killer;
 
-  diag_log " --- game is started";
-  _uid = getPlayerUID _unit;
-  diag_log _uid;
+  if (! missionControl_gameStarted) exitWith {};
   
-  diag_log "killer:";
-  diag_log _killer;
-  
+  _lastDamagerUid = _this select 1 select 2;
+
+  diag_log format["lastDamager %1", _lastDamagerUid];
+
+  if (_unitUid == _killerUid || _killerUid == "" || isNil {_killerUid}) then {
+    _killerUid = _lastDamagerUid;
+  };
+
+  diag_log format["player killed: '%1' killer: '%2'", _unitUid, str _killerUid];
+
+  _killer = [_killerUid] call getPlayerByUID;
   _squad = [_killer] call getSquadForUnit;
 
-  if (! isNil{_squad}) then {
+  if (! isNil {_killer} && ! isNil {_squad}) then {
     [_squad, "onKilled", [_unit, _killer, true]] call objectiveController_callSquadObjective;
   };
   
-  ['playerKilled', [_uid]] call sock_rpc;
+  ['playerKilled', [_unitUid]] call sock_rpc;
 };
 
 addMissionEventHandler ["HandleDisconnect", {

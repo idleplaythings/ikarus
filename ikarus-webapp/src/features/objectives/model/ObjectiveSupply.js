@@ -1,4 +1,6 @@
 ObjectiveSupply = function ObjectiveSupply() {
+  Objective.call(this);
+
   this.name = "Supply";
   this.minPlayers = 1;
   this.maxPlayers = null;

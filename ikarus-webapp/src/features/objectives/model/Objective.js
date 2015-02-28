@@ -4,6 +4,12 @@ Objective = function Objective() {
   this.maxPlayers = null;
 
   this.description = "";
+
+  this._lootTransform = {
+    'supply_objective_opening_reward1': [
+      'IKRS_loot_smg_weapons'
+    ]
+  };
 };
 
 Objective.getObjectives = function() {
@@ -29,27 +35,20 @@ Objective.prototype.allowLoot = function() {
   return true;
 };
 
-Objective.prototype.transformLoot = function(loot) {
-  var transform = {
-    'supply_objective_opening_reward1': [
-      'IKRS_loot_smg_weapons'
-    ]
-  };
-
+Objective.prototype.getAdditionalLoot = function(loot) {
   var result = [];
 
-  loot.map(function(lootEntry){
-    if (transform[lootEntry]){
-      return transform[lootEntry];
-    }
-    return null;
-  }).filter(function(lootEntry){
-    return lootEntry;
-  }).forEach(function(lootEntry){
-    result = result.concat(lootEntry);
-  });
-
-  console.log("SMG mission transform loot", result);
+  loot
+    .map(function(lootEntry){
+      if (this._lootTransform[lootEntry]){
+        return this._lootTransform[lootEntry];
+      }
+      return null;
+    }.bind(this))
+    .filter(_.identity)
+    .forEach(function(lootEntry){
+      result = result.concat(lootEntry);
+    });
 
   return result;
 };

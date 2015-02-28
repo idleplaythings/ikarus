@@ -30,6 +30,7 @@ ItemDefinitions = [
 
   createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
   createMagazine('30rnd 5.56x45mm', '30Rnd_556x45_Stanag', 30),
+  createMagazine('30rnd 5.56x45mm', 'CUP_30Rnd_556x45_Stanag', 30),
 
   createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
 

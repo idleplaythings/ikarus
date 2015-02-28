@@ -1,4 +1,6 @@
 ObjectiveHold = function ObjectiveHold() {
+  Objective.call(this);
+
   this.name = "Hold";
   this.minPlayers = 1;
   this.maxPlayers = null;

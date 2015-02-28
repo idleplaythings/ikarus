@@ -194,11 +194,11 @@ depotPositions_findDepotInTown = {
   _maxDistance = _this select 1;
   _position = [_startPosition] call getPositionInNearestTown;
 
-  if (_startPosition distance _position < _maxDistance) exitWith {
-    [_position] call depotPositions_findHouseForDepot;
+  if (_startPosition distance _position > _maxDistance) exitWith {
+    [_startPosition, _maxDistance] call depotPositions_findRandomHouseForDepot;
   };
 
-  [_startPosition, _maxDistance] call depotPositions_findRandomHouseForDepot;
+  [_position] call depotPositions_findHouseForDepot;
 };
 
 depotPositions_findRandomHouseForDepot = {
@@ -228,14 +228,15 @@ depotPositions_findHouseForDepot = {
   
   _buildings = nearestObjects [_position, ["house"], 5000];
   
-  for [{_i= 0},{_i < count _buildings and ! false},{_i = _i + 1}] do {
-    _building = _buildings select _i;
+  {
+    _building = _x;
     _objects = [_building] call depotPositions_getSupplyDepotObjects;
     
     if ( ! isNil {_objects} and [getPos _building] call depotPositions_checkIsSuitableForDepot) exitWith {
       _building;
     };
-  };
+  } forEach _buildings;
+
   
   [_building, _objects];
 };

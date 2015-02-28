@@ -21,7 +21,7 @@ objective_hold_overridesAppearance = {
 objective_hold_defaultIfNeccessary = {
   private ["_squads", "_supplyDepots"];
   _squads = ["hold"] call objectiveController_getSquadsWithObjective;
-  _depots = call depots_getAmountOfTownDepots;
+  _depots = call depots_getAmountOfTownDepotsToSpawn;
   
   if (_depots == 0) then {
     {

@@ -66,7 +66,7 @@ getPositionInNearestTown = {
   private ["_startPos", "_towns", "_position"];
   _startPos = _this select 0;
   
-  _towns = nearestLocations [_startPos, ["NameVillage","NameCity","NameCityCapital"], 25000]; 
+  _towns = nearestLocations [_startPos, ["NameVillage","NameCity","NameCityCapital"], 10000]; 
   _position = locationPosition (_towns select 0);
   
   _position set [0, (_position select 0) + (random 300) - (random 300)]; 

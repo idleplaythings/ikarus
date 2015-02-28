@@ -1,6 +1,10 @@
 <template name="inventory">
   <div class="inventory">
-    <h3>Inventory ({{targetInventoryItemCount}} / {{targetInventoryMaxItemCount}})</h3>
+    {{#if targetInventory}}
+      <h3>Inventory ({{targetInventoryItemCount}} / {{targetInventoryMaxItemCount}})</h3>
+    {{else}}
+      <h3>Armory</h3>
+    {{/if}}
 
     <div class="row add-top">
       {{#each layout}}
@@ -10,19 +14,29 @@
           {{#each items}}
             <div class="inventory-entry" data-armaclass={{item.armaClass}}>
               <div class="item {{#if targetCount}}in-inventory{{/if}}">
-                {{#unless locked}}
+                {{#if isManageable}}
                   {{> inventory_manage}}
-                {{/unless}}
-                <div class="title"><strong>{{item.name}} [{{targetCount}}/{{totalCount}}]</strong></div>
+                {{/if}}
+
+                {{#if isManageable}}
+                  <div class="title">{{item.name}} [{{targetCount}}/{{totalCount}}]</div>
+                {{else}}
+                  <div class="title">{{item.name}} [{{totalCount}}]</div>
+                {{/if}}
               </div>
 
               {{#if isWeapon}}
                   {{#each getMagazines}}
                     <div class="extras {{#if targetCount}}in-inventory{{/if}}">
-                      {{#unless locked}}
+                      {{#if isManageable}}
                         {{> inventory_manage}}
-                      {{/unless}}
-                      <div class="title">{{item.name}} [{{targetCount}}/{{totalCount}}]</div>
+                      {{/if}}
+
+                      {{#if isManageable}}
+                        <div class="title">{{item.name}} [{{targetCount}}/{{totalCount}}]</div>
+                      {{else}}
+                        <div class="title">{{item.name}} [{{totalCount}}]</div>
+                      {{/if}}
                     </div>
                   {{else}}
                     <div style="extras">No ammo.</div>

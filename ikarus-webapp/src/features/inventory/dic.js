@@ -9,3 +9,101 @@ dic.register('InventoryFactory', function (dic) {
     dic.get('ItemFactory')
   );
 }, {shared: true});
+
+dic.register('AlphabeticalInventoryColumnSort', function(div) {
+  return function(itemWrapperA, itemWrapperB) {
+    var nameA = itemWrapperB.item.name.toLowerCase();
+    var nameB = itemWrapperA.item.name.toLowerCase();
+
+    return nameB.localeCompare(nameA);
+  };
+});
+
+dic.register('PrimaryWeaponInventoryColumn', function(dic) {
+  return new InventoryColumn({
+    title: 'Primary Weapons',
+    policy: function(itemWrapper) {
+      return itemWrapper.item.hasTags([
+        'rifle',
+        'assault-rifle',
+        'sniper-rifle',
+        'smg',
+        'lmg',
+        'mmg'
+      ]);
+    },
+    sort: dic.get('AlphabeticalInventoryColumnSort')
+  });
+});
+
+dic.register('SecondaryWeaponInventoryColumn', function(dic) {
+  return new InventoryColumn({
+    title: 'Seconday Weapons',
+    policy: function(itemWrapper) {
+      return itemWrapper.item.hasTags([
+        'law',
+        'rpg',
+        'grenade-launcher',
+        'grenade',
+        'handgun'
+      ]);
+    },
+    sort: dic.get('AlphabeticalInventoryColumnSort')
+  });
+});
+
+dic.register('GearAndSightsInventoryColumn', function(dic) {
+  return new InventoryColumn({
+    title: 'Gear & Sights',
+    policy: function(itemWrapper) {
+      return itemWrapper.item.hasTags([
+        'helmet',
+        'tactical-vest',
+        'backpack',
+        'binoculars',
+        'scope',
+        'sight'
+      ]);
+    },
+    sort: dic.get('AlphabeticalInventoryColumnSort')
+  });
+});
+
+dic.register('VehiclesInventoryColumn', function(dic) {
+  return new InventoryColumn({
+    title: 'Vehicles',
+    policy: function(itemWrapper) {
+      return itemWrapper.item.hasTags([
+        'vehicle'
+      ]);
+    },
+    sort: dic.get('AlphabeticalInventoryColumnSort')
+  });
+});
+
+dic.register('SquadInventoryView', function(dic) {
+  var squadInventoryView = new InventoryView({
+    sourceInventory: Inventory.getByCompany(Company.getCurrent()),
+    targetInventory: Inventory.getBySquad(Squad.getCurrent())
+  });
+
+  squadInventoryView.addGroup(dic.get('PrimaryWeaponInventoryColumn'));
+  squadInventoryView.addGroup(dic.get('SecondaryWeaponInventoryColumn'));
+  squadInventoryView.addGroup(dic.get('GearAndSightsInventoryColumn'));
+  squadInventoryView.addGroup(dic.get('VehiclesInventoryColumn'));
+
+  return squadInventoryView;
+});
+
+dic.register('CompanyInventoryView', function(dic) {
+  var companyInventoryView = new InventoryView({
+    sourceInventory: Inventory.getByCompany(Company.getCurrent())
+  });
+
+  companyInventoryView.addGroup(dic.get('PrimaryWeaponInventoryColumn'));
+  companyInventoryView.addGroup(dic.get('SecondaryWeaponInventoryColumn'));
+  companyInventoryView.addGroup(dic.get('GearAndSightsInventoryColumn'));
+  companyInventoryView.addGroup(dic.get('VehiclesInventoryColumn'));
+
+  return companyInventoryView;
+});

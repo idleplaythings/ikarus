@@ -16,6 +16,11 @@ Template.companies_status.helpers({
     }
 
     return false;
+  },
+  companyInventoryView: function() {
+    var companyInventoryView = dic.get('CompanyInventoryView');
+    companyInventoryView.refresh();
+    return companyInventoryView;
   }
 });
 

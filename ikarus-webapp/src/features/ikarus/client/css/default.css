@@ -74,7 +74,7 @@ section h2 {
 
 .inventory .inventory-entry {
   position: relative;
-  background-color: #eee;
+  background-color: #ddd;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   font-size: 12px;
@@ -90,12 +90,13 @@ section h2 {
 }
 
 .inventory .inventory-entry .extras {
+  background-color: #eee;
   padding: 5px 10px;
   position: relative;
 }
 
 .inventory .inventory-entry .extras.in-inventory {
-  background-color: #C0E8B1
+  background-color: #C0E8B1;
 }
 
 .inventory .inventory-entry .title {

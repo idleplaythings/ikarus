@@ -41,14 +41,14 @@ Template.inventory.helpers({
 
     return null;
   },
-  locked: function() {
-    var inventory = get(Template.instance(), 'data.targetInventory');
+  isManageable: function() {
+    var targetInventory = get(Template.instance(), 'data.targetInventory');
 
-    if (inventory) {
-      return inventory.isLocked();
+    if (!targetInventory) {
+      return false;
     }
 
-    return null;
+    return !targetInventory.isLocked();
   }
 });
 

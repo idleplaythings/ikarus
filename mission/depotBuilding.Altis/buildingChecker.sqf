@@ -13,7 +13,10 @@ buildingChecker_Key = {
   _key = _this select 0 select 1;
 
   call buildingChecker_hint;
+
+  player globalChat str _key;
   
+  // * key left from enter;
   if (_key == 43) exitWith {
     if (count buildingChecker_matchedBuldings == 0) then {
       call buildingChecker_start;
@@ -138,7 +141,7 @@ buildingChecker_getCurrent = {
 
 buildingChecker_findLikeThis = {
   private ["_buildingClasses"];
-  _buildingClasses = [typeOf nearestBuilding curatorCamera] call similarBuildings_getSimilar;
+  _buildingClasses = [typeOf ([getPos curatorCamera] call getNearestBuilding)] call similarBuildings_getSimilar;
   [_buildingClasses] call buildingChecker_findBuildings;
 };
 

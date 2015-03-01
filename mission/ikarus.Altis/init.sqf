@@ -33,6 +33,6 @@ if (! isServer) exitwith {};
 [] execVM "script\airdrop.sqf";
 [] execVM "script\timeAndWeather.sqf";
 
-[] execVM "script\civilianVehicles.sqf";
+[{ call getAllPlayers }] execVM "script\civilianVehicles.sqf";
 
 call compile preprocessfile "SHK_pos\shk_pos_init.sqf";

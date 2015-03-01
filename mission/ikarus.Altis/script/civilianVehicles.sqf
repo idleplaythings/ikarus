@@ -1,12 +1,28 @@
 // adapted from v1c Civilian Vehicles from [STELS]Zealot
 
+private [
+    "_getPlayers",
+    "_vehicles",
+    "_locationsWithVehiclesSpawned",
+    "_vehicleClassesToSpawn",
+    "_gameSeed",
+    "_seed",
+    "_random",
+    "_selectRandom",
+    "_vehicleDirection",
+    "_spawnVehicles",
+    "_loop"
+];
+
 if (not isserver) exitwith {};
 
-// TODO respawn via vehicles or locations?
-civilianVehicles = [];
-civilianVehiclesSpawnedLocations = [];
+_getPlayers = _this select 0;
 
-civilianVehicleClasses = [
+// TODO respawn via vehicles or locations?
+_vehicles = [];
+_locationsWithVehiclesSpawned = [];
+
+_vehicleClassesToSpawn = [
     "C_Offroad_01_F",
     "C_Quadbike_01_F",
     "C_Hatchback_01_F",
@@ -17,24 +33,24 @@ civilianVehicleClasses = [
     "C_Van_01_fuel_F"
 ];
 
-civilianVehicleGameSeed = floor (random 1000);
-civilianVehicleSeed = 1;
+_gameSeed = floor (random 1000);
 
-zlt_fnc_random = {
+_seed = 1;
+_random = {
     private ["_a","_c","_m"];
     _a = 75;
     _c = 0;
     _m = 65537;
-    civilianVehicleSeed = ( civilianVehicleSeed * _a + _c ) mod (_m);
-    (civilianVehicleSeed / _m) ;
+    _seed = ( _seed * _a + _c ) mod (_m);
+    (_seed / _m) ;
 };
 
 
-zlt_fnc_selectrandom = {
-    _this select floor ( ([] call zlt_fnc_random) * count (_this));
+_selectRandom = {
+    _this select floor ( ([] call _random) * count (_this));
 };
 
-vehicleDirection = {
+_vehicleDirection = {
     private [
         "_direction",
         "_nearRoads",
@@ -57,81 +73,66 @@ vehicleDirection = {
     [_road, _connectedRoad] call BIS_fnc_DirTo;
 };
 
-zlt_fnc_civvehs = {
+_spawnVehicles = {
     private [
-        "_debug",
-        "_lrange",
-        "_t1",
-        "_startpos",
+        "_range",
+        "_startPosition",
         "_houses",
-        "_vehmax",
-        "_vehs",
-        "_attemps",
-        "_t2"
+        "_maxVehicleCount",
+        "_vehicleCount",
+        "_attempts"
     ];
 
-    _debug = [_this, 1, false] call bis_fnc_param;
-    _lrange = _this select 2;
-    _t1 = diag_ticktime;
-    
-    _startpos = _this select 0;
-    _houses = _startpos nearobjects ["House",_lrange];
+    _startPosition = _this select 0;
+    _range = _this select 1;
+
+    _houses = _startPosition nearobjects ["House", _range];
 
     if ( count _houses == 0 ) exitWith {};
 
-    _vehmax = (round ((sqrt (count _houses)) * 0.5)) max 1;
-    
-    _vehs = 0;
-    _attemps = 0;
-      
-    civilianVehicleSeed = civilianVehicleGameSeed + ((_startpos select 0) + (_startpos select 1) mod 64537);
+    _maxVehicleCount = (round ((sqrt (count _houses)) * 0.5)) max 1;
 
-    while {_vehs < _vehmax and _attemps < 10} do {
+    _vehicleCount = 0;
+    _attempts = 0;
+
+    _seed = _gameSeed + ((_startPosition select 0) + (_startPosition select 1) mod 64537);
+
+    while {_vehicleCount < _maxVehicleCount and _attempts < 10} do {
         private [
             "_house",
             "_class",
-            "_housepos",
-            "_newpos"
+            "_housePosition",
+            "_spawnPosition",
+            "_vehicle"
         ];
 
-        _house = _houses call zlt_fnc_selectrandom;
+        _house = _houses call _selectRandom;
     
         if (isNil {_house}) exitWith {
-          _attemps = _attemps + 1;
+          _attempts = _attempts + 1;
         };
     
-        _class = (civilianVehicleClasses call zlt_fnc_selectrandom);
-        _housepos = _house modeltoworld [0,0,0];
-        _newpos = _housepos findEmptyPosition [ 3 , 15, _class ];
+        _class = _vehicleClassesToSpawn call _selectRandom;
+        _housePosition = _house modeltoworld [0, 0, 0];
+        _spawnPosition = _housePosition findEmptyPosition [3, 15, _class];
         _houses = _houses - [_house];
 
-        if (count _newpos == 0) exitWith {
-            _attemps = _attemps + 1;
+        if (count _spawnPosition == 0) exitWith {
+            _attempts = _attempts + 1;
         };
 
-        _veh = _class createVehicle (_newpos );
-        _veh setvariable ["zlt_civveh", true];
-        civilianVehicles pushBack _veh;
+        _vehicle = _class createVehicle (_spawnPosition);
+        _vehicle setdir (_spawnPosition call _vehicleDirection);
+        _vehicle setvariable ["zlt_civveh", true];
 
-        _veh setdir (_newpos call vehicleDirection);
-        _attemps = 0;
-        _vehs = _vehs + 1;
-    };
+        _vehicles pushBack _vehicle;
 
-    _t2 = diag_ticktime;
-    if (_debug) then {
-        diag_log str ["civilianVehicles spawned", _t2-_t1];
+        _attempts = 0;
+        _vehicleCount = _vehicleCount + 1;
     };
 };
 
-playerInNonLandVehicle = {
-    private ["_player"];
-    _player = _this select 0;
-
-    _player != vehicle _player and not ((vehicle _player) isKindOf "LandVehicle");
-};
-
-zlt_civ_checkloop = {
+_loop = {
     private [
         "_players",
         "_playersWalkingOrInLandVehicle",
@@ -145,9 +146,11 @@ zlt_civ_checkloop = {
         "_despawnLocations"
     ];
 
-    _players = call getAllPlayers;
+    _players = call _getPlayers;
 
-    _playersWalkingOrInLandVehicle = [_players, { not ([_this] call playerInNonLandVehicle) }] call AEX_filter;
+    _playersWalkingOrInLandVehicle = [_players, {
+        _this == vehicle _this || (vehicle _this) isKindOf "LandVehicle" }
+    ] call AEX_filter;
 
     _positions = [_playersWalkingOrInLandVehicle, { getPos vehicle _this }] call AEX_map;
     _distinctPositions = [_positions, { _a distance _b > 100 }] call AEX_distinct;
@@ -162,30 +165,30 @@ zlt_civ_checkloop = {
     }, []] call AEX_reduce;
     _distinctDoNotClearLocations = [_doNotClearLocations] call AEX_distinct;
 
-    _spawnLocations = _distinctSpawnCandidateLocations - civilianVehiclesSpawnedLocations;
+    _spawnLocations = _distinctSpawnCandidateLocations - _locationsWithVehiclesSpawned;
 
     {
-        private ["_lrange", "_pos"];
+        private ["_range", "_pos"];
 
-        _lrange = switch (type _x) do {
+        _range = switch (type _x) do {
             case ("NameCityCapital") : { 250; };
             case ("NameCity") : { 150; };
             default { 50; }
         };
         _pos = position _x;
-        [ [_pos select 0, _pos select 1, 0], false, _lrange] call zlt_fnc_civvehs;
+        [ [_pos select 0, _pos select 1, 0], _range] call _spawnVehicles;
     } foreach _spawnLocations;
     
-    civilianVehiclesSpawnedLocations = civilianVehiclesSpawnedLocations + _spawnLocations;
+    _locationsWithVehiclesSpawned = _locationsWithVehiclesSpawned + _spawnLocations;
 
-    _despawnLocations = civilianVehiclesSpawnedLocations - _distinctDoNotClearLocations;
+    _despawnLocations = _locationsWithVehiclesSpawned - _distinctDoNotClearLocations;
 
     {
         private ["_pos", "_despawnCandidates"];
 
         _pos = [(position _x) select 0, (position _x) select 1, 0];
 
-        _despawnCandidates = [civilianVehicleClasses, {
+        _despawnCandidates = [_vehicleClassesToSpawn, {
             (_this select 0) + ( (_pos) nearEntities [(_this select 1), 300] )
         }, []] call AEX_reduce;
 
@@ -196,11 +199,12 @@ zlt_civ_checkloop = {
         } foreach _despawnCandidates;
     } foreach _despawnLocations;
 
-    civilianVehiclesSpawnedLocations = civilianVehiclesSpawnedLocations - _despawnLocations;
+    _locationsWithVehiclesSpawned = _locationsWithVehiclesSpawned - _despawnLocations;
 
 };
 
 while {true} do {
     sleep 3.4;
-    [] call zlt_civ_checkloop;
+    [] call _loop;
 };
+

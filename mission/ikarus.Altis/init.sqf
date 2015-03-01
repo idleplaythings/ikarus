@@ -7,6 +7,7 @@ if (! isServer) exitwith {};
 [] execVM "lib\log.sqf";
 [] execVM "lib\sock.sqf";
 
+[] execVM "script\array_ext.sqf";
 
 [] execVM "script\popoRandom.sqf";
 [] execVM "script\missionControl.sqf";
@@ -32,6 +33,6 @@ if (! isServer) exitwith {};
 [] execVM "script\airdrop.sqf";
 [] execVM "script\timeAndWeather.sqf";
 
-[] execvm "script\zlt_civveh.sqf";
+[{ call getAllPlayers }] execVM "script\civilianVehicles.sqf";
 
 call compile preprocessfile "SHK_pos\shk_pos_init.sqf";

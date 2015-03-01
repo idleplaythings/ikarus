@@ -153,7 +153,7 @@ _loop = {
     ] call AEX_filter;
 
     _positions = [_playersWalkingOrInLandVehicle, { getPos vehicle _this }] call AEX_map;
-    _distinctPositions = [_positions, { _a distance _b > 100 }] call AEX_distinct;
+    _distinctPositions = [_positions, { _a distance _b < 100 }] call AEX_distinct;
 
     _spawnCandidateLocations = [_distinctPositions, {
         (_this select 0) + (nearestLocations [(_this select 1), ["NameCityCapital","NameCity","NameVillage"], 1000])

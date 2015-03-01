@@ -9,7 +9,7 @@ buildingData = [];
 
 placeObjects = {
   private ["_data", "_building", "_objectData"];
-  _building = nearestBuilding curatorCamera;
+  _building = [getPos curatorCamera] call getNearestBuilding;
   
   if (isNil {buildingData select 0}) exitWith {
     hint "No object data saved!";
@@ -26,11 +26,17 @@ placeObjects = {
   [_building, (buildingData select 1)] call furnishAHouse;
 };
 
+getNearestBuilding = {
+  private ["_position"];
+  _position = _this select 0;
+  _position nearestObject "House";
+};
+
 saveObjects = {
   private ["_data", "_building", "_objectData", "_azimuth", "_height", "_aboveTerrain"];
   _data = [];
   _objectData = [];
-  _building = nearestBuilding curatorCamera;
+  _building = [getPos curatorCamera] call getNearestBuilding;
   
   _data set [0, [typeOf _building] call similarBuildings_getSimilar];
   _data set [1, _objectData];
@@ -41,7 +47,6 @@ saveObjects = {
     _height = getPosATL _x select 2;
     
     if ( _x getVariable "heightFromHouse" ) then {
-      player globalChat "object with heightFromHouse";
       _height = (getPosASL _x select 2) - (getPosASL _building select 2);
       _aboveTerrain = false;
     };
@@ -58,7 +63,8 @@ saveObjects = {
 findObjects = {
   private ["_allMObjects", "_building", "_distance"];
   _allMObjects = [];
-  _building = nearestBuilding curatorCamera;
+  _building = [getPos curatorCamera] call getNearestBuilding;
+  //_building = nearestBuilding curatorCamera;
   
   {
     _distance = [_building, _x] call BIS_fnc_distance2D;

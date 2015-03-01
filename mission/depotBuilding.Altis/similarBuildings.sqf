@@ -17,6 +17,24 @@ similarBuildings_list = [
     "Land_i_House_Big_02_V2_F",
     "Land_i_House_Big_02_V1_dam_F",
     "Land_i_House_Big_02_V1_F"
+  ],
+
+  //Big chapel
+  [
+    "Land_Chapel_V1_F",
+    "Land_Chapel_V2_F"
+  ],
+
+  //Land shop
+  [
+    "Land_u_Shop_01_V1_F",
+    "Land_u_Shop_01_V1_dam_F",
+    "Land_i_Shop_01_V1_F",
+    "Land_i_Shop_01_V1_dam_F",
+    "Land_i_Shop_01_V2_F",
+    "Land_i_Shop_01_V2_dam_F",
+    "Land_i_Shop_01_V3_F",
+    "Land_i_Shop_01_V3_dam_F"
   ]
 ];
 

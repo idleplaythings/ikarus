@@ -58,7 +58,6 @@ distance2d = {
   _y2 = (getPosASL (_this select 1)) select 1;
   
   _result = sqrt ((_x2 - x1)^2 + (_y2 - y1)^2);
-  player globalChat str _result;
   _result;
 };
 

@@ -9,32 +9,35 @@
         <a class="btn btn-primary" href="{{pathFor route='players'}}">Invite</a>
       {{/if}}
 
-      <div class="row">
-        {{#if ownCompany}}
+      {{#if ownCompany}}
+        <div class="row">
           {{#if currentSquad}}
             <div class="col-md-12">
               {{> players_list company }}
             </div>
           {{else}}
-            <div class="col-md-4">
+            <div class="col-md-6">
               {{> players_list company }}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               {{> company_hideout }}
             </div>
-            <div class="col-md-4">
-              <h2>Armory</h2>
-              {{#with company}}
-                {{> armory}}
-              {{/with}}
-            </div>
           {{/if}}
-        {{else}}
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            {{#with companyInventoryView}}
+              {{> inventory}}
+            {{/with}}
+          </div>
+        </div>
+      {{else}}
+        <div class="row">
           <div class="col-md-12">
             {{> players_list company }}
           </div>
-        {{/if}}
-      </div>
+        </div>
+      {{/if}}
     {{/if}}
   </div>
 </template>

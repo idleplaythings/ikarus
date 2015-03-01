@@ -4,12 +4,19 @@ Objective = function Objective() {
   this.maxPlayers = null;
 
   this.description = "";
+
+  this._lootTransform = {
+    'supply_objective_opening_reward1': [
+      'IKRS_loot_smg_weapons'
+    ]
+  };
 };
 
 Objective.getObjectives = function() {
   return [
     new ObjectiveSupply(),
-    new ObjectiveGuard()
+    new ObjectiveGuard(),
+    new ObjectiveHold()
   ];
 }
 
@@ -28,8 +35,22 @@ Objective.prototype.allowLoot = function() {
   return true;
 };
 
-Objective.prototype.transformLoot = function() {
-  return [];
+Objective.prototype.getAdditionalLoot = function(loot) {
+  var result = [];
+
+  loot
+    .map(function(lootEntry){
+      if (this._lootTransform[lootEntry]){
+        return this._lootTransform[lootEntry];
+      }
+      return null;
+    }.bind(this))
+    .filter(_.identity)
+    .forEach(function(lootEntry){
+      result = result.concat(lootEntry);
+    });
+
+  return result;
 };
 
 Objective.prototype.validate = function(squad) {

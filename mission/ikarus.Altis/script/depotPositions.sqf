@@ -187,3 +187,56 @@ depotPositions_checkNothingInDistance = {
   
   _result;
 };
+
+depotPositions_findDepotInTown = {
+  private ["_startPosition", "_position", "_maxDistance", "_building"];
+  _startPosition = _this select 0;
+  _maxDistance = _this select 1;
+  _position = [_startPosition] call getPositionInNearestTown;
+
+  if (_startPosition distance _position > _maxDistance) exitWith {
+    [_startPosition, _maxDistance] call depotPositions_findRandomHouseForDepot;
+  };
+
+  [_position] call depotPositions_findHouseForDepot;
+};
+
+depotPositions_findRandomHouseForDepot = {
+  private ["_startPosition", "_maxDistance", "_position"];
+  _startPosition = _this select 0;
+  _maxDistance = _this select 1;
+  
+  _position = [_startPosition, _maxDistance] call SHK_pos;
+
+  [_position] call depotPositions_findHouseForDepot;
+};
+
+depotPositions_checkIsSuitableForDepot = {
+  private ["_position"];
+  _position = _this select 0;
+  
+  [_position, 100] call depotPositions_checkNothingInDistance;
+  
+};
+
+depotPositions_findHouseForDepot = {
+  private ["_position", "_buildings", "_building", "_found", "_objects"];
+  _position = _this select 0;
+  _building = nil;
+  _objects = nil;
+  _found = false;
+  
+  _buildings = nearestObjects [_position, ["house"], 5000];
+  
+  {
+    _building = _x;
+    _objects = [_building] call depotPositions_getSupplyDepotObjects;
+    
+    if ( ! isNil {_objects} and [getPos _building] call depotPositions_checkIsSuitableForDepot) exitWith {
+      _building;
+    };
+  } forEach _buildings;
+
+  
+  [_building, _objects];
+};

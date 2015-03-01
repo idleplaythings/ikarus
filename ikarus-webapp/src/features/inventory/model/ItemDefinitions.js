@@ -8,6 +8,8 @@ ItemDefinitions = [
   createGeneric('Landrower (Desert)', 'BAF_Offroad_D', ['vehicle']),
   createGeneric('Landrower (Woodland)', 'BAF_Offroad_W', ['vehicle']),
 
+  createGeneric('GPS', 'ItemGPS', ['binoculars']),
+
   createWeapon('Lee Einfield rifle', 'CUP_srifle_LeeEnfield', ['rifle'], ['CUP_10x_303_M']),
   createMagazine('10rnd .303', 'CUP_10x_303_M', 10),
 
@@ -17,7 +19,7 @@ ItemDefinitions = [
   createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
   createMagazine('30rnd 5.45x39mm', 'CUP_30Rnd_545x39_AK_M', 30),
 
-  createWeapon('M249 lmg', 'CUP_lmg_M249', ['lmg'], ['CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 'CUP_30Rnd_556x45_Stanag']),
+  createWeapon('M249 lmg', 'CUP_lmg_M249', ['lmg'], ['CUP_200Rnd_TE4_Red_Tracer_556x45_M249', '30Rnd_556x45_Stanag']),
   createMagazine('200rnd box 5.56x45mm', 'CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 30),
 
   createWeapon('M14 battle rifle', 'CUP_srifle_M14', ['assault-rifle'], ['20Rnd_762x51_Mag']),
@@ -26,12 +28,13 @@ ItemDefinitions = [
   createWeapon('FN FAL (no rail)', 'CUP_arifle_FNFAL', ['assault-rifle'], ['CUP_20Rnd_762x51_FNFAL_M']),
   createMagazine('20rnd 7.62x51mm FN FAL', 'CUP_20Rnd_762x51_FNFAL_M', 20),
 
-  createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['assault-rifle'], ['CUP_30Rnd_556x45_Stanag']),
+  createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createMagazine('30rnd 5.56x45mm', '30Rnd_556x45_Stanag', 30),
   createMagazine('30rnd 5.56x45mm', 'CUP_30Rnd_556x45_Stanag', 30),
 
-  createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['assault-rifle'], ['CUP_30Rnd_556x45_Stanag']),
+  createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
 
-  createWeapon('M4A1 assault rifle', 'CUP_arifle_M4A1_black', ['assault-rifle'], ['CUP_30Rnd_556x45_Stanag']),
+  createWeapon('M4A1 assault rifle', 'CUP_arifle_M4A1_black', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
 
   createWeapon('Dragunov SVD sniper rifle', 'CUP_srifle_SVD', ['sniper-rifle'], ['CUP_10Rnd_762x54_SVD_M']),
   createMagazine('10rnd 7.62x51mm', 'CUP_10Rnd_762x54_SVD_M', 10),
@@ -122,6 +125,33 @@ ItemDefinitions = [
   createWeapon('NLAW launcher', 'CUP_launch_NLAW', ['law'], ['CUP_NLAW_M']),
   createMagazine('NLAW AT rocket', 'CUP_NLAW_M', 1),
 
+  createWeapon('Sting SMG 9mm', 'SMG_02_F', ['smg'], ['30Rnd_9x21_Mag']),
+  createMagazine('30rnd 9x21 mm', '30Rnd_9x21_Mag', 30),
+
+  createGeneric('Mk17 Holosight SMG','optic_Holosight_smg', ['scope']),
+  createGeneric('ACO SMG (Red)','optic_Aco_smg', ['scope']),
+  createGeneric('ACO SMG (Green)','optic_ACO_grn_smg', ['scope']),
+  createGeneric('Sound Suppressor (.45 ACP)', 'muzzle_snds_acp', ['scope']),
+  createGeneric('Sound Suppressor (9 mm)', 'muzzle_snds_L', ['scope']),
+
+  createLoot(
+    'SMG Weapons',
+    'IKRS_loot_smg_weapons',
+    {
+      'Binocular': 'd5-2',
+      'ItemGPS': 'd5-3',
+      'SMG_02_F': 'd4-2',
+      'SMG_01_F': 'd4-2',
+      '30Rnd_9x21_Mag': 'd5+2',
+      '30Rnd_45ACP_Mag_SMG_01': 'd5+2',
+      'optic_Holosight_smg': 'd5-3',
+      'optic_Aco_smg': 'd5-1',
+      'optic_ACO_grn_smg': 'd5-1',
+      'muzzle_snds_acp': 'd8-7',
+      'muzzle_snds_L': 'd8-6'
+    }
+  ),
+
   createLoot(
     'Civilian Weapons',
     'IKRS_loot_civilian_weapons',
@@ -134,6 +164,7 @@ ItemDefinitions = [
       'H_HelmetB': 'd5-4',
       'SmokeShell': 'd3+1',
       'HandGrenade': 'd5-4',
+      'ItemGPS': 'd5-3',
 
       'CUP_glaunch_M79': 'd40-39',
       'CUP_1Rnd_HE_M203': 'd3-2',
@@ -179,7 +210,7 @@ ItemDefinitions = [
     'IKRS_loot_old_nato_weapons',
     {
       'CUP_arifle_M16A2': 'd2',
-      'CUP_30Rnd_556x45_Stanag': 'd5+3',
+      '30Rnd_556x45_Stanag': 'd5+3',
       'CUP_arifle_M16A4_Base': 'd5-4',
       'CUP_optic_CompM2_Black': 'd5-4',
       'CUP_optic_RCO': 'd20-18',
@@ -204,6 +235,7 @@ ItemDefinitions = [
     'Common NATO weapons',
     'IKRS_loot_common_nato_weapons',
     {
+      '30Rnd_556x45_Stanag': '2d5',
       'CUP_arifle_M4A1_black': 'd2',
       'CUP_optic_CompM4': 'd10-8',
       'CUP_optic_CompM2_Black': 'd2',

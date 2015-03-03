@@ -5,6 +5,7 @@ private [
     "_vehicles",
     "_vehiclesSpawnedHouses",
     "_vehicleClassesToSpawn",
+    "_houseBlacklist",
     "_gameSeed",
     "_seed",
     "_random",
@@ -14,6 +15,7 @@ private [
     "_despawnVehicles",
     "_pierClasses",
     "_nearPiers",
+    "_boats",
     "_boatsSpawnedPiers",
     "_spawnBoats",
     "_despawnBoats",
@@ -36,6 +38,18 @@ _vehicleClassesToSpawn = [
     "C_Van_01_transport_F",
     "C_Van_01_box_F",
     "C_Van_01_fuel_F"
+];
+
+_houseBlacklist = [
+    "Land_spp_Mirror_F",
+    "Land_HighVoltageColumn_F",
+    "Land_HighVoltageTower_large_F",
+    "Land_HighVoltageColumnWire_F",
+    "Land_runway_edgelight",
+    "Land_runway_edgelight_blue_F",
+    "Land_NavigLight",
+    "Land_NavigLight_3_F",
+    "Land_PowerWireBig_direct_F"
 ];
 
 _gameSeed = floor (random 1000);
@@ -83,7 +97,6 @@ _vehicleDirection = {
 
 _spawnVehicles = {
     private [
-        "_t",
         "_positions",
         "_houses",
         "_housePositions",
@@ -92,51 +105,37 @@ _spawnVehicles = {
 
     _positions = _this;
 
-    _t = [diag_ticktime];
-
     _houses = [_positions, {
         (_this select 0) + ((_this select 1) nearObjects ["House", 1000]);
     }, []] call AEX_reduce;
 
-    _t pushBack (diag_ticktime - (_t select 0));
-
     _houses = [_houses, {
-        !(_this isKindOf "Land_spp_Mirror_F") &&
-        !(_this isKindOf "Land_HighVoltageColumn_F") &&
-        !(_this isKindOf "Land_HighVoltageTower_large_F") &&
-        !(_this isKindOf "Land_HighVoltageColumnWire_F");
+        private ['_house'];
+        _house = _this;
+        [_houseBlacklist, {
+            !(_house isKindOf _this);
+        }] call AEX_all;
     }] call AEX_filter;
-
-    _t pushBack (diag_ticktime - (_t select 0));
 
     _houses = [_houses, {
         private ['_id'];
         _id = netId _this;
-        _seed = parseNumber (_id select [3]);
+        _seed = _gameSeed + parseNumber (_id select [3]);
         (call _random) > 0.96;
     }] call AEX_filter;
 
-    _t pushBack (diag_ticktime - (_t select 0));
-
     _housePositions = [_houses - _vehiclesSpawnedHouses, {_this modeltoworld [0, 0, 0]}] call AEX_map;
 
-    _t pushBack (diag_ticktime - (_t select 0));
-    
     _vehiclesSpawnedHouses = _houses;
-
-    _t pushBack (diag_ticktime - (_t select 0));
 
     _spawnPositions = [_housePositions, {_this findEmptyPosition [3, 15]}] call AEX_map;
 
-    _t pushBack (diag_ticktime - (_t select 0));
-    
     _spawnPositions = [_spawnPositions, {count _this > 0}] call AEX_filter;
 
-    _t pushBack (diag_ticktime - (_t select 0));
-    
     {
         private ["_class", "_vehicle", "_marker"];
 
+        _seed = _gameSeed + floor ((_x select 0)*65537 + (_x select 1) mod 65537);
         _class = _vehicleClassesToSpawn call _selectRandom;
 
         _vehicle = _class createVehicle _x;
@@ -145,20 +144,11 @@ _spawnVehicles = {
 
         _vehicles pushBack _vehicle;
     } forEach _spawnPositions;
-
-    _t pushBack (diag_ticktime - (_t select 0));
-
-    if ((_t select 8) > 0.25) then {
-        //diag_log ("spawn: " + (str _t) + " with " + (str count _vehicles) + " vehicles");
-    };
-    
 };
 
 _despawnVehicles = {
-    private ["_t", "_positions", "_vehiclesToDespawn", "_housesBefore"];
+    private ["_positions", "_vehiclesToDespawn", "_housesBefore"];
     _positions = _this;
-
-    _t = [diag_ticktime];
 
     _vehiclesToDespawn = [_vehicles, {
         private ["_vehicle", "_nearPositions"];
@@ -169,26 +159,13 @@ _despawnVehicles = {
         count _nearPositions < 1;
     }] call AEX_filter;
 
-    _t pushBack (diag_ticktime - (_t select 0));
-    
     _vehicles = _vehicles - _vehiclesToDespawn;
-
-    _t pushBack (diag_ticktime - (_t select 0));
 
     _vehiclesToDespawn = [_vehiclesToDespawn, {
         ((count (crew _x)) == 0) && ((fuel _x) == 1);
     }] call AEX_filter;
 
-    _t pushBack (diag_ticktime - (_t select 0));
-    
     { deletevehicle _x; } forEach _vehiclesToDespawn;
-
-    _t pushBack (diag_ticktime - (_t select 0));
-    
-    if ((_t select 4) > 0.25) then {
-        //diag_log str ["before", _housesBefore, "after", (count _vehiclesSpawnedHouses)];
-        //diag_log ("despawn: " + (str _t) + " with " + (str count _vehicles) + " vehicles");
-    };
 };
 
 _boats = [];
@@ -236,7 +213,7 @@ _spawnBoats = {
 
     {
         private ["_class", "_vehicle"];
-        _class = "B_Lifeboat";
+        _class = "C_Boat_Civil_01_F";
         _vehicle = _class createVehicle _x;
         _vehicle setvariable ["zlt_civveh", true];
         _boats pushBack _vehicle;
@@ -282,22 +259,11 @@ _loop = {
     _positions = [_players, { getPos vehicle _this }] call AEX_map;
     _positions = [_positions, { _a distance _b < 100 }] call AEX_distinct;
 
-    _t1 = diag_ticktime;
-
     _positions call _spawnBoats;
     _positions call _despawnBoats;
 
-    _t2 = diag_ticktime;
-
     _positions call _spawnVehicles;
-    _t3 = diag_ticktime;
     _positions call _despawnVehicles;
-
-    _t4 = diag_ticktime;
-
-    if ((_t4-_t2) > 0.25) then {
-        //diag_log str ["boats", _t2-_t1, "vehicles spawn", _t3-_t2, "vehicles despawn", _t4-_t3];
-    };
 };
 
 while {true} do {

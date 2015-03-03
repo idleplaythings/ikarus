@@ -3,7 +3,7 @@
 private [
     "_getPlayers",
     "_vehicles",
-    "_locationsWithVehiclesSpawned",
+    "_vehiclesSpawnedHouses",
     "_vehicleClassesToSpawn",
     "_gameSeed",
     "_seed",
@@ -11,6 +11,12 @@ private [
     "_selectRandom",
     "_vehicleDirection",
     "_spawnVehicles",
+    "_despawnVehicles",
+    "_pierClasses",
+    "_nearPiers",
+    "_boatsSpawnedPiers",
+    "_spawnBoats",
+    "_despawnBoats",
     "_loop"
 ];
 
@@ -18,9 +24,8 @@ if (not isserver) exitwith {};
 
 _getPlayers = _this select 0;
 
-// TODO respawn via vehicles or locations?
 _vehicles = [];
-_locationsWithVehiclesSpawned = [];
+_vehiclesSpawnedHouses = [];
 
 _vehicleClassesToSpawn = [
     "C_Offroad_01_F",
@@ -36,15 +41,18 @@ _vehicleClassesToSpawn = [
 _gameSeed = floor (random 1000);
 
 _seed = 1;
+
 _random = {
-    private ["_a","_c","_m"];
+    private ["_a","_c","_m", "_res"];
+
     _a = 75;
     _c = 0;
     _m = 65537;
-    _seed = ( _seed * _a + _c ) mod (_m);
-    (_seed / _m) ;
-};
 
+    _seed = _seed % _m;
+    _seed = ( _seed * _a + _c ) mod (_m);
+    (_seed / _m);
+};
 
 _selectRandom = {
     _this select floor ( ([] call _random) * count (_this));
@@ -75,136 +83,227 @@ _vehicleDirection = {
 
 _spawnVehicles = {
     private [
-        "_range",
-        "_startPosition",
+        "_t",
+        "_positions",
         "_houses",
-        "_maxVehicleCount",
-        "_vehicleCount",
-        "_attempts"
+        "_housePositions",
+        "_spawnPositions"
     ];
 
-    _startPosition = _this select 0;
-    _range = _this select 1;
+    _positions = _this;
 
-    _houses = _startPosition nearobjects ["House", _range];
+    _t = [diag_ticktime];
 
-    if ( count _houses == 0 ) exitWith {};
+    _houses = [_positions, {
+        (_this select 0) + ((_this select 1) nearObjects ["House", 1000]);
+    }, []] call AEX_reduce;
 
-    _maxVehicleCount = (round ((sqrt (count _houses)) * 0.5)) max 1;
+    _t pushBack (diag_ticktime - (_t select 0));
 
-    _vehicleCount = 0;
-    _attempts = 0;
+    _houses = [_houses, {
+        !(_this isKindOf "Land_spp_Mirror_F") &&
+        !(_this isKindOf "Land_HighVoltageColumn_F") &&
+        !(_this isKindOf "Land_HighVoltageTower_large_F") &&
+        !(_this isKindOf "Land_HighVoltageColumnWire_F");
+    }] call AEX_filter;
 
-    _seed = _gameSeed + ((_startPosition select 0) + (_startPosition select 1) mod 64537);
+    _t pushBack (diag_ticktime - (_t select 0));
 
-    while {_vehicleCount < _maxVehicleCount and _attempts < 10} do {
-        private [
-            "_house",
-            "_class",
-            "_housePosition",
-            "_spawnPosition",
-            "_vehicle"
-        ];
+    _houses = [_houses, {
+        private ['_id'];
+        _id = netId _this;
+        _seed = parseNumber (_id select [3]);
+        (call _random) > 0.96;
+    }] call AEX_filter;
 
-        _house = _houses call _selectRandom;
+    _t pushBack (diag_ticktime - (_t select 0));
+
+    _housePositions = [_houses - _vehiclesSpawnedHouses, {_this modeltoworld [0, 0, 0]}] call AEX_map;
+
+    _t pushBack (diag_ticktime - (_t select 0));
     
-        if (isNil {_house}) exitWith {
-          _attempts = _attempts + 1;
-        };
+    _vehiclesSpawnedHouses = _houses;
+
+    _t pushBack (diag_ticktime - (_t select 0));
+
+    _spawnPositions = [_housePositions, {_this findEmptyPosition [3, 15]}] call AEX_map;
+
+    _t pushBack (diag_ticktime - (_t select 0));
     
+    _spawnPositions = [_spawnPositions, {count _this > 0}] call AEX_filter;
+
+    _t pushBack (diag_ticktime - (_t select 0));
+    
+    {
+        private ["_class", "_vehicle", "_marker"];
+
         _class = _vehicleClassesToSpawn call _selectRandom;
-        _housePosition = _house modeltoworld [0, 0, 0];
-        _spawnPosition = _housePosition findEmptyPosition [3, 15, _class];
-        _houses = _houses - [_house];
 
-        if (count _spawnPosition == 0) exitWith {
-            _attempts = _attempts + 1;
-        };
-
-        _vehicle = _class createVehicle (_spawnPosition);
-        _vehicle setdir (_spawnPosition call _vehicleDirection);
+        _vehicle = _class createVehicle _x;
+        _vehicle setdir (_x call _vehicleDirection);
         _vehicle setvariable ["zlt_civveh", true];
 
-        _vehicles pushBack _vehicle;
+        _marker = createMarkerLocal ["vehicle" + (str _vehicle), getPos _vehicle];
+        _marker setMarkerTypeLocal "hd_start";
 
-        _attempts = 0;
-        _vehicleCount = _vehicleCount + 1;
+        _vehicles pushBack _vehicle;
+    } forEach _spawnPositions;
+
+    _t pushBack (diag_ticktime - (_t select 0));
+
+    if ((_t select 8) > 0.25) then {
+        //diag_log ("spawn: " + (str _t) + " with " + (str count _vehicles) + " vehicles");
     };
+    
+};
+
+_despawnVehicles = {
+    private ["_t", "_positions", "_vehiclesToDespawn", "_housesBefore"];
+    _positions = _this;
+
+    _t = [diag_ticktime];
+
+    _vehiclesToDespawn = [_vehicles, {
+        private ["_vehicle", "_nearPositions"];
+        _vehicle = _this;
+
+        _nearPositions = [_positions, { _vehicle distance _this < 1000 }] call AEX_filter;
+
+        count _nearPositions < 1;
+    }] call AEX_filter;
+
+    _t pushBack (diag_ticktime - (_t select 0));
+    
+    _vehicles = _vehicles - _vehiclesToDespawn;
+
+    _t pushBack (diag_ticktime - (_t select 0));
+
+    _vehiclesToDespawn = [_vehiclesToDespawn, {
+        ((count (crew _x)) == 0) && ((fuel _x) == 1);
+    }] call AEX_filter;
+
+    _t pushBack (diag_ticktime - (_t select 0));
+    
+    { deletevehicle _x; } forEach _vehiclesToDespawn;
+
+    _t pushBack (diag_ticktime - (_t select 0));
+    
+    if ((_t select 4) > 0.25) then {
+        //diag_log str ["before", _housesBefore, "after", (count _vehiclesSpawnedHouses)];
+        //diag_log ("despawn: " + (str _t) + " with " + (str count _vehicles) + " vehicles");
+    };
+};
+
+_boats = [];
+_boatsSpawnedPiers = [];
+
+_pierClasses = [
+    "Land_Pier_F",
+    "Land_nav_pier_m_F",
+    "Land_Pier_small_F",
+    "Land_Pier_wall_F",
+    "Land_RowBoat_V1_F",
+    "Land_RowBoat_V2_F",
+    "Land_RowBoat_V3_F",
+    "Land_UWreck_FishingBoat_F",
+    "Land_BeachBooth_01_F"
+];
+
+_nearPiers = {
+    private ["_position"];
+    _position = _this;
+    [_pierClasses, {
+        (_this select 0) + (_position nearObjects [(_this select 1), 1000]);
+    }, []] call AEX_reduce;
+};
+
+_spawnBoats = {
+    private ["_positions", "_piers", "_pierPositions", "_spawnPositions"];
+    _positions = _this;
+
+    _piers = [_positions, {
+        (_this select 0) + ((_this select 1) call _nearPiers);
+    }, []] call AEX_reduce;
+
+    _piers = _piers - _boatsSpawnedPiers;
+    _boatsSpawnedPiers = _boatsSpawnedPiers + _piers;
+
+    _pierPositions = [_piers, {_this modeltoworld [0, 0, 0]}] call AEX_map;
+    _pierPositions = [_pierPositions, {
+        _seed = _gameSeed + floor ((_this select 0)*65537 + (_this select 1) mod 65537);
+        (call _random) > 0.75;
+    }] call AEX_filter;
+
+    _spawnPositions = [_pierPositions, {selectBestPlaces [_this, 30, "waterDepth", 1, 5] select 0 select 0}] call AEX_map;
+    _spawnPositions = [_spawnPositions, {count _this > 0}] call AEX_filter;
+
+    {
+        private ["_class", "_vehicle"];
+        _class = "B_Lifeboat";
+        _vehicle = _class createVehicle _x;
+        _vehicle setvariable ["zlt_civveh", true];
+        _boats pushBack _vehicle;
+    } forEach _spawnPositions;
+};
+
+_despawnBoats = {
+    private ["_positions", "_boatsToDespawn"];
+    _positions = _this;
+
+    _boatsToDespawn = [_boats, {
+        private ["_boat", "_nearPositions"];
+        _boat = _this;
+
+        _nearPositions = [_positions, { _boat distance _this < 1000 }] call AEX_filter;
+
+        count _nearPositions < 1;
+    }] call AEX_filter;
+
+    _boatsToDespawn = [_boatsToDespawn, {
+        _x getvariable ["zlt_civveh", false] and {count crew _x == 0 and fuel _x == 1};
+    }] call AEX_filter;
+
+    { deletevehicle _x; } forEach _boatsToDespawn;
+
+    _boatsSpawnedPiers = [_boatsSpawnedPiers, {
+        private ["_pier", "_distances"];
+        _pier = _this;
+        _distances = [_positions, { _this distance _pier }] call AEX_map;
+        _distances = [_distances, { _this < 1000 }] call AEX_filter;
+        count _distances > 0;
+    }] call AEX_filter;
 };
 
 _loop = {
     private [
         "_players",
-        "_playersWalkingOrInLandVehicle",
-        "_positions",
-        "_distinctPositions",
-        "_spawnCandidateLocations",
-        "_distinctSpawnCandidateLocations",
-        "_doNotClearLocations",
-        "_distinctDoNotClearLocations",
-        "_spawnLocations",
-        "_despawnLocations"
+        "_positions"
     ];
 
     _players = call _getPlayers;
 
-    _playersWalkingOrInLandVehicle = [_players, {
-        _this == vehicle _this || (vehicle _this) isKindOf "LandVehicle" }
-    ] call AEX_filter;
+    _positions = [_players, { getPos vehicle _this }] call AEX_map;
+    _positions = [_positions, { _a distance _b < 100 }] call AEX_distinct;
 
-    _positions = [_playersWalkingOrInLandVehicle, { getPos vehicle _this }] call AEX_map;
-    _distinctPositions = [_positions, { _a distance _b < 100 }] call AEX_distinct;
+    _t1 = diag_ticktime;
 
-    _spawnCandidateLocations = [_distinctPositions, {
-        (_this select 0) + (nearestLocations [(_this select 1), ["NameCityCapital","NameCity","NameVillage"], 1000])
-    }, []] call AEX_reduce;
-    _distinctSpawnCandidateLocations = [_spawnCandidateLocations] call AEX_distinct;
+    _positions call _spawnBoats;
+    _positions call _despawnBoats;
 
-    _doNotClearLocations = [_distinctPositions, {
-        (_this select 0) + (nearestLocations [(_this select 1), ["NameCityCapital","NameCity","NameVillage"], 2500])
-    }, []] call AEX_reduce;
-    _distinctDoNotClearLocations = [_doNotClearLocations] call AEX_distinct;
+    _t2 = diag_ticktime;
 
-    _spawnLocations = _distinctSpawnCandidateLocations - _locationsWithVehiclesSpawned;
+    _positions call _spawnVehicles;
+    _t3 = diag_ticktime;
+    _positions call _despawnVehicles;
 
-    {
-        private ["_range", "_pos"];
+    _t4 = diag_ticktime;
 
-        _range = switch (type _x) do {
-            case ("NameCityCapital") : { 250; };
-            case ("NameCity") : { 150; };
-            default { 50; }
-        };
-        _pos = position _x;
-        [ [_pos select 0, _pos select 1, 0], _range] call _spawnVehicles;
-    } foreach _spawnLocations;
-    
-    _locationsWithVehiclesSpawned = _locationsWithVehiclesSpawned + _spawnLocations;
-
-    _despawnLocations = _locationsWithVehiclesSpawned - _distinctDoNotClearLocations;
-
-    {
-        private ["_pos", "_despawnCandidates"];
-
-        _pos = [(position _x) select 0, (position _x) select 1, 0];
-
-        _despawnCandidates = [_vehicleClassesToSpawn, {
-            (_this select 0) + ( (_pos) nearEntities [(_this select 1), 300] )
-        }, []] call AEX_reduce;
-
-        {
-            if ( _x getvariable ["zlt_civveh", false] and {count crew _x == 0 and fuel _x == 1}) then {
-                deletevehicle _x;
-            };
-        } foreach _despawnCandidates;
-    } foreach _despawnLocations;
-
-    _locationsWithVehiclesSpawned = _locationsWithVehiclesSpawned - _despawnLocations;
-
+    if ((_t4-_t2) > 0.25) then {
+        //diag_log str ["boats", _t2-_t1, "vehicles spawn", _t3-_t2, "vehicles despawn", _t4-_t3];
+    };
 };
 
 while {true} do {
     sleep 3.4;
     [] call _loop;
 };
-

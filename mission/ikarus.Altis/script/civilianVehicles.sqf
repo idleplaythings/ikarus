@@ -143,9 +143,6 @@ _spawnVehicles = {
         _vehicle setdir (_x call _vehicleDirection);
         _vehicle setvariable ["zlt_civveh", true];
 
-        _marker = createMarkerLocal ["vehicle" + (str _vehicle), getPos _vehicle];
-        _marker setMarkerTypeLocal "hd_start";
-
         _vehicles pushBack _vehicle;
     } forEach _spawnPositions;
 

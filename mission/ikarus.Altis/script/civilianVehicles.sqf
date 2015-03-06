@@ -53,18 +53,19 @@ _houseBlacklist = [
 ];
 
 _gameSeed = floor (random 1000);
-
 _seed = 1;
 
 _random = {
-    private ["_a","_c","_m", "_res"];
+    private ["_a", "_c", "_m"];
 
-    _a = 75;
+    _a = 255;
     _c = 0;
     _m = 65537;
 
     _seed = _seed % _m;
+
     _seed = ( _seed * _a + _c ) mod (_m);
+
     (_seed / _m);
 };
 
@@ -84,12 +85,12 @@ _vehicleDirection = {
     _direction = (random 360);
     _nearRoads = _this nearRoads 10;
 
-    if (count _nearRoads < 1) exitWith { _direction };
+    if ((count _nearRoads) < 1) exitWith { _direction };
 
     _road = _nearRoads select 0;
     _roadConnectedTo = roadsConnectedTo _road;
 
-    if (count _roadConnectedTo < 1) exitWith { _direction };
+    if ((count _roadConnectedTo) < 1) exitWith { _direction };
 
     _connectedRoad = _roadConnectedTo select 0;
     [_road, _connectedRoad] call BIS_fnc_DirTo;
@@ -110,7 +111,7 @@ _spawnVehicles = {
     }, []] call AEX_reduce;
 
     _houses = [_houses, {
-        private ['_house'];
+        private ["_house"];
         _house = _this;
         [_houseBlacklist, {
             !(_house isKindOf _this);
@@ -118,9 +119,7 @@ _spawnVehicles = {
     }] call AEX_filter;
 
     _houses = [_houses, {
-        private ['_id'];
-        _id = netId _this;
-        _seed = _gameSeed + parseNumber (_id select [3]);
+        _seed = _gameSeed + parseNumber ((netId _this) select [3]);
         (call _random) > 0.96;
     }] call AEX_filter;
 
@@ -130,10 +129,10 @@ _spawnVehicles = {
 
     _spawnPositions = [_housePositions, {_this findEmptyPosition [3, 15]}] call AEX_map;
 
-    _spawnPositions = [_spawnPositions, {count _this > 0}] call AEX_filter;
+    _spawnPositions = [_spawnPositions, {(count _this) > 0}] call AEX_filter;
 
     {
-        private ["_class", "_vehicle", "_marker"];
+        private ["_class", "_vehicle"];
 
         _seed = _gameSeed + floor ((_x select 0)*65537 + (_x select 1) mod 65537);
         _class = _vehicleClassesToSpawn call _selectRandom;
@@ -154,9 +153,7 @@ _despawnVehicles = {
         private ["_vehicle", "_nearPositions"];
         _vehicle = _this;
 
-        _nearPositions = [_positions, { _vehicle distance _this < 1000 }] call AEX_filter;
-
-        count _nearPositions < 1;
+        [_positions, { (_vehicle distance _this) > 1000 }] call AEX_all;
     }] call AEX_filter;
 
     _vehicles = _vehicles - _vehiclesToDespawn;
@@ -199,17 +196,17 @@ _spawnBoats = {
         (_this select 0) + ((_this select 1) call _nearPiers);
     }, []] call AEX_reduce;
 
-    _piers = _piers - _boatsSpawnedPiers;
-    _boatsSpawnedPiers = _boatsSpawnedPiers + _piers;
+    _pierPositions = [_piers - _boatsSpawnedPiers, {_this modeltoworld [0, 0, 0]}] call AEX_map;
 
-    _pierPositions = [_piers, {_this modeltoworld [0, 0, 0]}] call AEX_map;
+    _boatsSpawnedPiers = _piers;
+
     _pierPositions = [_pierPositions, {
         _seed = _gameSeed + floor ((_this select 0)*65537 + (_this select 1) mod 65537);
         (call _random) > 0.75;
     }] call AEX_filter;
 
     _spawnPositions = [_pierPositions, {selectBestPlaces [_this, 30, "waterDepth", 1, 5] select 0 select 0}] call AEX_map;
-    _spawnPositions = [_spawnPositions, {count _this > 0}] call AEX_filter;
+    _spawnPositions = [_spawnPositions, {(count _this) > 0}] call AEX_filter;
 
     {
         private ["_class", "_vehicle"];
@@ -228,24 +225,14 @@ _despawnBoats = {
         private ["_boat", "_nearPositions"];
         _boat = _this;
 
-        _nearPositions = [_positions, { _boat distance _this < 1000 }] call AEX_filter;
-
-        count _nearPositions < 1;
+        [_positions, { (_boat distance _this) > 1000 }] call AEX_all;
     }] call AEX_filter;
 
     _boatsToDespawn = [_boatsToDespawn, {
-        _x getvariable ["zlt_civveh", false] and {count crew _x == 0 and fuel _x == 1};
+        ((count (crew _x)) == 0) && ((fuel _x) == 1);
     }] call AEX_filter;
 
     { deletevehicle _x; } forEach _boatsToDespawn;
-
-    _boatsSpawnedPiers = [_boatsSpawnedPiers, {
-        private ["_pier", "_distances"];
-        _pier = _this;
-        _distances = [_positions, { _this distance _pier }] call AEX_map;
-        _distances = [_distances, { _this < 1000 }] call AEX_filter;
-        count _distances > 0;
-    }] call AEX_filter;
 };
 
 _loop = {
@@ -256,8 +243,8 @@ _loop = {
 
     _players = call _getPlayers;
 
-    _positions = [_players, { getPos vehicle _this }] call AEX_map;
-    _positions = [_positions, { _a distance _b < 100 }] call AEX_distinct;
+    _positions = [_players, { getPos (vehicle _this) }] call AEX_map;
+    _positions = [_positions, { (_a distance _b) < 100 }] call AEX_distinct;
 
     _positions call _spawnBoats;
     _positions call _despawnBoats;
@@ -268,5 +255,6 @@ _loop = {
 
 while {true} do {
     sleep 3.4;
+
     [] call _loop;
 };

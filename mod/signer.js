@@ -20,10 +20,13 @@ files.filter(function(filename) {
 	return filename.indexOf('.pbo') > -1;
 }).forEach(function(pbo) {
 
-	var path = folder + "/" + pbo;
+	var oldPath = folder + "/" + pbo;
+	var path = folder + "/" + pbo.toLowerCase();
 	if (pbo.indexOf('.bisign') > -1) {
-		fs.unlinkSync(path);
+		fs.unlinkSync(oldPath);
 	} else {
+		fs.renameSync(oldPath, path+"temp");
+		fs.renameSync(path+"temp", path);
 		var command = '"'+sign + '" "' + key + '" "' + path + '"';
 		//console.log(command);
 		

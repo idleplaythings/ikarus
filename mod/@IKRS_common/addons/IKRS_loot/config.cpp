@@ -28,7 +28,7 @@
 
   class IKRS_loot_old_RU_weapons : IKRS_loot_Backpack
   {
-    displayName = "Loot (Old Russian weapons)";
+    displayName = "Loot (Old Opfor weapons)";
   };
 
   class IKRS_loot_old_nato_weapons : IKRS_loot_Backpack
@@ -38,7 +38,7 @@
 
   class IKRS_loot_common_RU_weapons : IKRS_loot_Backpack
   {
-    displayName = "Loot (Common Russian weapons)";
+    displayName = "Loot (Common Opfor weapons)";
   };
 
   class IKRS_loot_common_nato_weapons : IKRS_loot_Backpack
@@ -48,11 +48,36 @@
 
   class IKRS_loot_heavy_RU_weapons : IKRS_loot_Backpack
   {
-    displayName = "Loot (Russian heavy weapons)";
+    displayName = "Loot (Heavy Opfor weapons)";
   };
 
   class IKRS_loot_heavy_nato_weapons : IKRS_loot_Backpack
   {
-    displayName = "Loot (Nato heavy weapons)";
+    displayName = "Loot (Heavy Nato weapons)";
+  };
+
+  class IKRS_loot_special_nato_weapons : IKRS_loot_Backpack
+  {
+    displayName = "Loot (Special Nato weapons)";
+  };
+
+  class IKRS_loot_special_RU_weapons : IKRS_loot_Backpack
+  {
+    displayName = "Loot (Special Opfor weapons)";
+  };
+
+  class IKRS_loot_smg_weapons : IKRS_loot_Backpack
+  {
+    displayName = "Loot (SMG weapons)";
+  };
+
+  class IKRS_loot_modern_nato_weapons : IKRS_loot_Backpack
+  {
+    displayName = "Loot (Modern Nato weapons)";
+  };
+
+  class IKRS_loot_modern_opfor_weapons : IKRS_loot_Backpack
+  {
+    displayName = "Loot (Modern Opfor weapons)";
   };
 };

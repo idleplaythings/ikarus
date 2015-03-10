@@ -115,9 +115,7 @@ class Mission
 		"cup_weapons_mk48",
 		"cup_weapons_scar",
 		"cup_weapons_compatibility",
-		"cup_weapons_curator",
-		"cup_creatures_people_military_dummyinfantryset_magazinesmassadjustment",
-		"cup_creatures_people_military_dummyinfantryset_weaponsmassadjustment"
+		"cup_weapons_curator"
 	};
 	addOnsAuto[]=
 	{

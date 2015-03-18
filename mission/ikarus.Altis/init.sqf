@@ -9,6 +9,7 @@ if (! isServer) exitwith {};
 
 [] execVM "script\array_ext.sqf";
 
+[] execVM "script\emptyPositionFinder.sqf";
 [] execVM "script\popoRandom.sqf";
 [] execVM "script\missionControl.sqf";
 [] execVM "script\waiting.sqf";

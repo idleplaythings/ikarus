@@ -9,4 +9,5 @@ function Squad(args) {
   this.objective = args.objective || 'Supply';
   this.locked = args.locked;
   this.gear = args.gear;
+  this.baseModules = args.baseModules;
 }

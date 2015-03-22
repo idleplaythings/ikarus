@@ -1,14 +1,18 @@
+emptyPositionFinder_maxGradient = 0.3;
+emptyPositionFinder_radius = 10;
+
 emptyPositionFinder_findClosest = {
-  private ["_startPosition", "_maxDistance", "_step", "_result"];
+  private ["_startPosition", "_maxDistance", "_validation", "_step", "_result"];
   _startPosition = _this select 0;
   _maxDistance = _this select 1;
+  _validation = [_this, 2, {true;}] call BIS_fnc_param;
 
   _startPosition = [_startPosition, 0] call SHK_pos;
 
   _step = 0;
 
   while {true} do {
-    _result = [_startPosition, _step] call emptyPositionFinder_checkArea;
+    _result = [_startPosition, _step, _validation] call emptyPositionFinder_checkArea;
 
     if (count _result == 3) exitWith {};
 
@@ -21,22 +25,23 @@ emptyPositionFinder_findClosest = {
 };
 
 emptyPositionFinder_checkArea = {
-  private ["_startPosition", "_distance", "_result", "_direction", "_step"];
+  private ["_startPosition", "_distance", "_validation", "_result", "_direction", "_step"];
   _startPosition = _this select 0; 
   _distance = _this select 1;
+  _validation = _this select 2;
 
   _result = [];
   _direction = 0;
   _step = 10;
 
-  if (_distance == 0 && ([_startPosition, 10, 0.7] call emptyPositionFinder_isFlatAndEmpty)) exitWith {
+  if (_distance == 0 && ([_startPosition, emptyPositionFinder_radius, emptyPositionFinder_maxGradient] call emptyPositionFinder_isFlatAndEmpty) && [_startPosition] call _validation) exitWith {
     _startPosition;
   };
 
   while {_direction <= 360} do {
     private ["_position"];
     _position = [_direction, _distance, _startPosition] call getPositionInDirection;
-    if ([_position, 10, 0.7] call emptyPositionFinder_isFlatAndEmpty) exitWith {
+    if ([_position, emptyPositionFinder_radius, emptyPositionFinder_maxGradient] call emptyPositionFinder_isFlatAndEmpty && [_position] call _validation) exitWith {
       _result = _position;
     };
 
@@ -66,24 +71,3 @@ emptyPositionFinder_isFlatAndEmpty = {
 
   false;
 };
-
-/*
-depotPositions_findBestPlace = {
-  private ["_startPosition", "_maxDistance", "_exp", "_prec"];
-  _startPosition = _this select 0;
-  _maxDistance = _this select 1;
-  _exp = "(1 + meadow) * (1 - forest) * (1 - trees) * (1 - sea)";
-  _prec = 10;
-
-  selectBestPlaces [_startPosition, _maxDistance, _exp, _prec, 1] select 0 select 0;
-};
-
-depotPositions_findRandomEmptyPosition = {
-  private ["_startPosition", "_maxDistance", "_size", "_position"];
-  _startPosition = _this select 0;
-  _maxDistance = _this select 1;
-  _size = _this select 2;
-  
-  [_startPosition, [0, _maxDistance], [0, 360], 0, [0, 0], _size] call SHK_pos;
-};
-*/

@@ -9,10 +9,10 @@ player createDiaryRecord ["Diary", ["Credits",
 ]];
 
 markers_createHideoutMarker = {
-  private ["_building, _marker"];
-  _building = _this select 0;
+  private ["_position, _marker"];
+  _position = _this select 0;
  
-  _marker = createMarkerLocal ["hideout", getPos _building];
+  _marker = createMarkerLocal ["hideout", _position];
   _marker setMarkerTypeLocal "hd_start";
   
   player createDiaryRecord ["Diary", ["Hideout", 

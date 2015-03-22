@@ -109,7 +109,7 @@ objective_guard_overrideMoveToHideout = {
   
   _objects = [_depot select 1, 1] call depotPositions_getRandomPlaceholdersFromObjects select 0;
   
-  _position = [_depot select 0, _objects] call houseFurnisher_getPosASLAndDirection select 0;
+  _position = [_depot select 0, _objects] call houseFurnisher_getPosASLAndDirectionFromBuilding select 0;
   
   {
     _x setPosASL _position;

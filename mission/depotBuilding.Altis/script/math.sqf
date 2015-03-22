@@ -2,7 +2,7 @@ getNormalizedDirectionFromBuilding = {
   private ["_building", "_object", "_direction"];
   _building = _this select 0;
   _object = _this select 1;
-  
+
   _direction = [_building, _object] call getDirectionBetween;
   [_direction, getDir _building * -1] call addToDirection;
 };
@@ -10,6 +10,7 @@ getNormalizedDirectionFromBuilding = {
 getDirectionBetween = {
   _vd = getPosASL (_this select 1) vectorDiff getPosASL (_this select 0);
   _dir = (_vd select 0) atan2 (_vd select 1); //_dir range from -180 to +180 
+
   if (_dir < 0) then {_dir = 360 + _dir}; //_dir range from 0 to 360
   _dir;
 };
@@ -32,7 +33,7 @@ addToDirection = {
   if ((_current + _add >= 0) and (_current + _add <= 360)) then {
       _result = _current + _add;
   };
-  
+
   _result
 };
 

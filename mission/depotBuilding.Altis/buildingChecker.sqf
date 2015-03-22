@@ -22,6 +22,12 @@ buildingChecker_Key = {
       call buildingChecker_start;
     };
   };
+
+  //^ key
+  if (_key == 27) exitWith {
+    call saveObjectsFromArrow;
+    call buildingChecker_copyToClipboard;
+  };
   
   if (_key == 39) exitWith {
     call buildingChecker_back;

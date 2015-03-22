@@ -126,7 +126,7 @@ objective_supply_placeLootBoxes = {
   
   {
     private ["_directionAndPosition", "_direction", "_position", "_box"];
-    _directionAndPosition = [_building, _x] call houseFurnisher_getPosASLAndDirection;
+    _directionAndPosition = [_building, _x] call houseFurnisher_getPosASLAndDirectionFromBuilding;
     _position = _directionAndPosition select 0;
     _direction = _directionAndPosition select 1; 
     

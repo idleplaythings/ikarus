@@ -8,7 +8,7 @@ module.exports = function(armaSerializer){
   var testSquad = new Squad({
     _id: 'id',
     steamIds: ["_SP_PLAYER_", "_SP_AI_"],
-    startingLocation: {x:8500.0, y:11200.0},
+    startingLocation: {x:8500.0, y:12200.0},
     companyId: 'company',
     objective: 'Guard',
     gear: [
@@ -18,6 +18,9 @@ module.exports = function(armaSerializer){
         vest: ["V_Chestrig_oli"],
         uniform: ["Niko_USA_M81OD"]
       }
+    ],
+    baseModules: [
+      'primary1'
     ]
   });
 

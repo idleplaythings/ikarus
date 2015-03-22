@@ -18,6 +18,18 @@ Squad.prototype.getPlayers = function() {
   return players;
 };
 
+Squad.prototype.setBaseModules = function(modules) {
+  collections.SquadCollection.update({
+      _id: this._id
+    }, {
+      $set: {
+        baseModules: modules.map(function(module) {
+          return module.serialize();
+        })
+      }
+  });
+};
+
 Squad.prototype.addPlayerGear = function(player) {
 
   var gear = player.getGear();

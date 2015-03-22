@@ -30,6 +30,23 @@ Company.prototype.setName = function(name) {
   });
 }
 
+Company.prototype.getBaseModules = function() {
+  var modules = get(this.getDoc(), 'baseModules') || ['Primary1', 'Garage1', 'WeaponCache1', 'ReconStation1'];
+  return BaseModule.create(modules);
+};
+
+Company.prototype.setBaseModules = function(modules) {
+  collections.CompanyCollection.update({
+      _id: this._id
+    }, {
+      $set: {
+        baseModules: modules.map(function(module) {
+          return module.serialize();
+        })
+      }
+  });
+};
+
 Company.prototype.addPlayer = function(player) {
   collections.CompanyCollection.update({
       _id: this._id

@@ -91,6 +91,7 @@ houseFurnisher_placeObject = {
   _object = createVehicle [_objectClass, [0,0,3000], [], 0, "FLYING"];
   _object setDir _direction;
   _object setPosASL _position;
+  //_object enableSimulation false;
 
   _object;
 };

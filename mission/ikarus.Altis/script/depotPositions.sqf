@@ -89,7 +89,8 @@ depotPositions_list = [
 ];
 
 depotPositions_placeHolderObjects = [
-  "Land_CargoBox_V1_F"
+  "Land_CargoBox_V1_F",
+  "C_Offroad_01_F"
 ];
 
 depotPositions_isPlaceHolder = {
@@ -100,11 +101,12 @@ depotPositions_getRandomPlaceholdersFromObjects = {
   private ["_objects", "_candidates", "_result", "_amount"];
   _objects = _this select 0;
   _amount = _this select 1;
+  _objectClass = [_this, 2, ""] call BIS_fnc_param;
   _candidates = [];
   _result = [];
   
   {
-    if ([_x select 0] call depotPositions_isPlaceHolder) then {
+    if (_x select 0 == _objectClass || (_objectClass == "" && [_x select 0] call depotPositions_isPlaceHolder)) then {
       _candidates set [count _candidates, _x];
     };
   } forEach _objects;

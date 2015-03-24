@@ -49,26 +49,6 @@ hideout_createHideoutForSquad = {
 
   _hideoutPosition = [_startPosition, 1000, _validation] call emptyPositionFinder_findClosest;
   [_squad, _hideoutPosition] call hideout_createHideout;
-  
-  /*
-  _hideoutBuildingData = [_startPosition] call hideout_findHouseSuitableForHideout;
-  _building = _hideoutBuildingData select 0;
-  _objectData = _hideoutBuildingData select 1;
-
-  hideoutBuilding = _building;
-  [_building, _objectData] call houseFurnisher_furnish;
-  
-  [_squad, _building] call setSquadHideoutBuilding;
-  
-  [_building, _squad] call hideout_createVehicles;
-  // create weapon cache
- 
-  _cache = [_squad, _building, _objectData] call hideout_createHideoutCache;
-  [_squad, _cache] call setSquadCache;
-  
-  [_squad, _building] call hideout_createHideoutTrigger;
-  [_squad, _building] call hideout_createHidoutMarkerForPlayers;
-  */
 };
 
 hideout_createHideout = {
@@ -82,8 +62,7 @@ hideout_createHideout = {
   [_squad, _position] call hideout_createHideoutTrigger;
   [_squad, _position] call hideout_createHidoutMarkerForPlayers;
   [_squad, ([_position, _direction, _moduleData] call baseModule_getCacheLocation)] call hideout_createHideoutCache;
-
-  //vehicles
+  [_squad, ([_position, _direction, _moduleData] call baseModule_getVehicleLocations)] call hideout_createVehicles;
 
   _hideoutData = [
     _squad,
@@ -96,31 +75,23 @@ hideout_createHideout = {
 };
 
 hideout_createVehicles = {
-  private ["_building", "_squad", "_vehicleClass"];
-  _building = _this select 0;
-  _squad = _this select 1;
+  private ["_squad", "_positions", "_vehicle"];
+  _squad = _this select 0;
+  _positions = _this select 1;
   
   _vehicleClass = [_squad] call equipment_getVehicle;
+
+  if (count _positions == 0) exitWith {
+    [_squad, [_vehicleClass]] call addDisconnectedLoot;
+  };
 
   if (_vehicleClass == "") then {
     _vehicleClass = "C_Hatchback_01_F";
   };
 
-  _vehiclePos = getPos _building findEmptyPosition [10,40,_vehicleClass];
-  if (count _vehiclePos > 0) then {
-    createVehicle [_vehicleClass, _vehiclePos, [], 0, "none"];
-  };
-  
-  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
-  if (count _vehiclePos > 0) then {
-    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
-  };
-  
-  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
-  if (count _vehiclePos > 0) then {
-    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
-  };
-
+  _vehicle = createVehicle [_vehicleClass, [0,0,3000], [], 0, "FLY"];
+  _vehicle setPosASL (_positions select 0 select 0);
+  _vehicle setDir (_positions select 0 select 1);
 };
 
 hideout_createHidoutMarkerForPlayers = {
@@ -137,7 +108,7 @@ hideout_createHideoutCache = {
   private ["_squad", "_moduleData", "_box", "_equipment", "_weapons", "_directionAndPosition", "_direction", "_position"];
   _squad = _this select 0;
   _directionAndPosition = _this select 1;
-  player globalChat str _directionAndPosition;
+
   _position = _directionAndPosition select 0;
   _direction = _directionAndPosition select 1; 
   
@@ -228,47 +199,7 @@ hideout_moveSquadToHideout = {
     _x setPosASL (_hideout select 1);
   } forEach ([_squad] call getPlayersInSquad);
   
-};/*
-hideout_findHouseSuitableForHideout = {
-  private ["_position", "_buildings", "_building", "_found", "_objects"];
-  _position = _this select 0;
-  _building = nil;
-  _objects = nil;
-  _found = false;
-  
-  _buildings = nearestObjects [_position, ["house"], 5000];
-  
-  {
-    _building = _x;
-    _objects = [_building] call depotPositions_getHideoutObjects;
-    
-    if ( ! isNil {_objects} and [_building] call hideout_checkIsSuitableHouseForHideout) exitWith {
-      _building;
-    };
-  } forEach _buildings;
-  
-  [_building, _objects];
 };
-
-
-hideout_checkIsSuitableHouseForHideout = {
-  private ["_building", "_vehiclePos"];
-  _building = _this select 0;
-  
-  _vehiclePos = getPos _building findEmptyPosition [10,40,"I_Truck_02_covered_F"];
-  if (count _vehiclePos == 0) exitWith {
-    player globalChat "no room for car";
-    false;
-  };
-  
-  if ( ! ([getPosASL _building, 100] call depotPositions_checkNothingInDistance)) exitWith {
-    player globalChat "something too close";
-    false;
-  };
-  
-  true;
-};
-*/
 
 hideout_isInHideout = {
   private ["_unit", "_squad", "_hideout"];

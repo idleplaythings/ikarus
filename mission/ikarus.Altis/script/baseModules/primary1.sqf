@@ -1,5 +1,7 @@
 baseModule_primary1_isPrimary = {true;};
 
+baseModule_primary1_onCreated = {}; 
+
 baseModule_primary1_data = {
 	[
 		["Land_ClutterCutter_medium_F",42.7386,9.42922,45,0.460907,true],

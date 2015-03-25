@@ -65,7 +65,9 @@ class Mission
 		"A3_Weapons_F_NATO",
 		"A3_Structures_F_EPA_Mil_Scrapyard",
 		"CUP_Weapons_AmmoBoxes",
-		"A3_Weapons_F_ItemHolders"
+		"A3_Weapons_F_ItemHolders",
+		"A3_Structures_F_EPA_Items_Medical",
+		"AGM_Medical"
 	};
 	addOnsAuto[]=
 	{
@@ -131,6 +133,8 @@ class Mission
 		"A3_Structures_F_EPA_Mil_Scrapyard",
 		"CUP_Weapons_AmmoBoxes",
 		"A3_Weapons_F_ItemHolders",
+		"A3_Structures_F_EPA_Items_Medical",
+		"AGM_Medical",
 		"a3_map_altis"
 	};
 	randomSeed=74317;
@@ -301,7 +305,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=437;
+		items=451;
 		class Item0
 		{
 			position[]={13815.1,22.432272,19166};
@@ -4889,10 +4893,148 @@ class Mission
 			leader=1;
 			skill=1;
 		};
+		class Item437
+		{
+			position[]={-1000,-0.021081313,-1000};
+			id=442;
+			side="EMPTY";
+			vehicle="Sign_Sphere10cm_F";
+			skill=0.60000002;
+		};
+		class Item438
+		{
+			position[]={14382.4,17.888798,16058.4};
+			azimut=134.882;
+			id=443;
+			side="EMPTY";
+			vehicle="Land_cargo_addon02_V2_F";
+			skill=0.60000002;
+		};
+		class Item439
+		{
+			position[]={14382.7,17.887331,16059.5};
+			offsetY=0.81298298;
+			id=444;
+			side="EMPTY";
+			vehicle="Item_FirstAidKit";
+			skill=0.60000002;
+		};
+		class Item440
+		{
+			position[]={14382.4,17.887064,16059.7};
+			azimut=123.098;
+			offsetY=0.81300902;
+			id=445;
+			side="EMPTY";
+			vehicle="Item_FirstAidKit";
+			skill=0.60000002;
+		};
+		class Item441
+		{
+			position[]={14381.1,17.889999,16057.2};
+			azimut=309.85501;
+			offsetY=0.0199604;
+			id=446;
+			side="EMPTY";
+			vehicle="Land_Sun_chair_green_F";
+			skill=0.60000002;
+		};
+		class Item442
+		{
+			position[]={14382.4,17.888533,16058.6};
+			azimut=134.343;
+			offsetY=0.0199509;
+			id=447;
+			side="EMPTY";
+			vehicle="Land_Sun_chair_green_F";
+			skill=0.60000002;
+		};
+		class Item443
+		{
+			position[]={14382.7,17.886932,16059.8};
+			azimut=144.838;
+			offsetY=-7.62939e-006;
+			id=448;
+			side="EMPTY";
+			vehicle="Land_CampingTable_small_F";
+			skill=0.60000002;
+		};
+		class Item444
+		{
+			position[]={14382.9,17.886799,16059.9};
+			azimut=358.77399;
+			offsetY=2.6702901e-005;
+			id=449;
+			side="EMPTY";
+			vehicle="Land_Bucket_clean_F";
+			skill=0.60000002;
+		};
+		class Item445
+		{
+			position[]={14382.8,17.886663,16060};
+			azimut=356.20001;
+			offsetY=0.94422901;
+			id=450;
+			side="EMPTY";
+			vehicle="Land_Defibrillator_F";
+			skill=0.60000002;
+		};
+		class Item446
+		{
+			position[]={14383,17.886932,16059.8};
+			azimut=138.642;
+			offsetY=0.76227403;
+			id=451;
+			side="EMPTY";
+			vehicle="Land_DisinfectantSpray_F";
+			skill=0.60000002;
+		};
+		class Item447
+		{
+			position[]={14380.8,17.889198,16058.1};
+			azimut=1.34649;
+			offsetY=-4.7683701e-005;
+			id=452;
+			side="EMPTY";
+			vehicle="Land_BottlePlastic_V2_F";
+			skill=0.60000002;
+		};
+		class Item448
+		{
+			position[]={14384.2,17.887331,16059.5};
+			azimut=134.903;
+			offsetY=1.90735e-006;
+			id=453;
+			side="EMPTY";
+			vehicle="AGM_Box_Medical";
+			skill=0.60000002;
+		};
+		class Item449
+		{
+			position[]={14382.107,17.889999,16053.348};
+			azimut=312;
+			offsetY=0.00144005;
+			id=454;
+			side="EMPTY";
+			vehicle="Sign_Arrow_Yellow_F";
+			leader=1;
+			skill=1;
+		};
+		class Item450
+		{
+			position[]={14382.499,17.88896,16058.279};
+			azimut=312;
+			offsetY=0.00144005;
+			id=455;
+			side="EMPTY";
+			vehicle="Land_ClutterCutter_large_F";
+			leader=1;
+			skill=1;
+		};
 	};
 	class Sensors
 	{
-		items=107;
+		items=109;
 		class Item0
 		{
 			position[]={0,0.054282699,0};
@@ -5971,6 +6113,26 @@ class Mission
 			};
 		};
 		class Item106
+		{
+			position[]={0,0.038096175,0};
+			type="ERROR";
+			age="UNKNOWN";
+			expCond="call cba_common_fnc_monitorFrameRender";
+			class Effects
+			{
+			};
+		};
+		class Item107
+		{
+			position[]={0,0.038096175,0};
+			type="ERROR";
+			age="UNKNOWN";
+			expCond="if ((cba_events_keypressed + 10) < time) then { call cba_events_fnc_attach_handler }";
+			class Effects
+			{
+			};
+		};
+		class Item108
 		{
 			position[]={0,0.038096175,0};
 			type="ERROR";

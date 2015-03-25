@@ -39,6 +39,7 @@ if (! isServer) exitwith {};
 [] execVM "script\baseModules\garage1.sqf";
 [] execVM "script\baseModules\weaponCache1.sqf";
 [] execVM "script\baseModules\reconStation1.sqf";
+[] execVM "script\baseModules\medicalStation1.sqf";
 
 [{ call getAllPlayers }] execVM "script\civilianVehicles.sqf";
 

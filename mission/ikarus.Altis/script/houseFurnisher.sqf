@@ -75,12 +75,16 @@ houseFurnisher_getPosASLAndDirection = {
 };
 
 houseFurnisher_placeObject = {
-  private ["_origoPosition", "_origoDirection", "_data", "_objectClass", "_aboveTerrain", "_direction", "_position", "_directionAndPosition"];
+  private ["_origoPosition", "_origoDirection", "_data", "_objectClass", "_aboveTerrain", "_direction", "_position", "_directionAndPosition", "_disableSimulation"];
   _origoPosition = _this select 0;
   _origoDirection = _this select 1;
   _data = _this select 2;
   _objectClass = _data select 0;
   _aboveTerrain = _data select 5;
+  _disableSimulation = false;
+  if (! isNil {_data select 6;}) then {
+    _disableSimulation = true;
+  };
   
    if ([_objectClass] call depotPositions_isPlaceHolder) exitWith {};
   
@@ -91,7 +95,10 @@ houseFurnisher_placeObject = {
   _object = createVehicle [_objectClass, [0,0,3000], [], 0, "FLYING"];
   _object setDir _direction;
   _object setPosASL _position;
-  //_object enableSimulation false;
+
+  if (_disableSimulation) then {
+    _object enableSimulation false;
+  };
 
   _object;
 };

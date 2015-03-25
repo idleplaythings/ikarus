@@ -2,6 +2,9 @@
   <div class="inventory">
     {{#if targetInventory}}
       <h3>Inventory ({{targetInventoryItemCount}} / {{targetInventoryMaxItemCount}})</h3>
+      <h2>Vehicles: {{vehicleSlots}}/{{getUsedVehicleSlots}}</h2>
+      <h2>Armoured vehicles: {{armorSlots}}/{{getUsedArmorSlots}}</h2>
+      <h2>Helicopters: {{heloSlots}}/{{getUsedHeloSlots}}</h2>
     {{else}}
       <h3>Armory</h3>
     {{/if}}

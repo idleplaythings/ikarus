@@ -1,4 +1,5 @@
 BaseModulePrimary1 = function BaseModulePrimary1(){
+  BaseModule.call(this);
   this._id = "Primary1";
   this.name = "Camp";
   this.description = "An irregular camp of couple tents, a fire and two ATVs." +

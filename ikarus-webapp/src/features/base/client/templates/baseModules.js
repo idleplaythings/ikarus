@@ -29,13 +29,14 @@ Template.base_module.helpers({
 });
 
 Template.base_modules.events({
-  'click .objective' : function() {
-    var name = jQuery(event.target).attr("data-objectiveName");
-    console.log(name);
+  'click .module' : function() {
+    var moduleId = jQuery(event.target).attr("data-moduleId");
+    var module = BaseModule.create(moduleId);
+    console.log(module);
 
     Meteor.call(
-      'changeObjective',
-      name,
+      'changeBaseModule',
+      moduleId,
       function (error, result) {
         console.log(error, result);
       }

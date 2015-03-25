@@ -1,4 +1,5 @@
 BaseModuleGarage1 = function BaseModuleGarage1 () {
+  BaseModule.call(this);
   this._id = "Garage1";
   this.name = "Garage";
   this.description = "Garage allows you to select one vehicle to take on mission.";

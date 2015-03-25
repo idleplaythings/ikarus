@@ -21,6 +21,31 @@ BaseModule.prototype.serialize = function () {
   return this._id;
 };
 
+BaseModule.calculateVehicleSlots = function(modules) {
+  var slots = 0;
+  modules.forEach(function(module){
+    slots += module.carSlots;
+  });
+  console.log(modules);
+  return slots;
+};
+
+BaseModule.calculateArmorSlots = function(modules) {
+  var slots = 0;
+  modules.forEach(function(module){
+    slots += module.armorSlots;
+  });
+  return slots;
+};
+
+BaseModule.calculateHeloSlots = function(modules) {
+  var slots = 0;
+  modules.forEach(function(module){
+    slots += module.heloSlots;
+  });
+  return slots;
+};
+
 BaseModule.create = function (id) {
   if (id.constructor === Array) {
     return id.map(BaseModule.create);

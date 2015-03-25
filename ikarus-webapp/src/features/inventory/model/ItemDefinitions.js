@@ -1,12 +1,12 @@
 ItemDefinitions = [
 
-  createGeneric('Pickup truck', 'C_Offroad_01_F', ['vehicle']),
-  createGeneric('SUV', 'C_SUV_01_F', ['vehicle']),
-  createGeneric('Hatchback sport', 'C_Hatchback_01_sport_F', ['vehicle']),
-  createGeneric('Flatbed', 'C_Van_01_transport_F', ['vehicle']),
-  createGeneric('UAZ', 'UAZ_Unarmed', ['vehicle']),
-  createGeneric('Landrower (Desert)', 'BAF_Offroad_D', ['vehicle']),
-  createGeneric('Landrower (Woodland)', 'BAF_Offroad_W', ['vehicle']),
+  createGeneric('Pickup truck', 'C_Offroad_01_F', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('SUV', 'C_SUV_01_F', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('Hatchback sport', 'C_Hatchback_01_sport_F', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('Flatbed', 'C_Van_01_transport_F', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('UAZ', 'UAZ_Unarmed', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('Landrower (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('Landrower (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
 
   createGeneric('GPS', 'ItemGPS', ['binoculars']),
 

@@ -30,6 +30,11 @@ Squad.prototype.setBaseModules = function(modules) {
   });
 };
 
+Squad.prototype.getBaseModules = function() {
+  var modules = get(this.getDoc(), 'baseModules');
+  return BaseModule.create(modules);
+};
+
 Squad.prototype.addPlayerGear = function(player) {
 
   var gear = player.getGear();

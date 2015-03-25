@@ -82,10 +82,16 @@ dic.register('VehiclesInventoryColumn', function(dic) {
 });
 
 dic.register('SquadInventoryView', function(dic) {
+  var squad = Squad.getCurrent();
   var squadInventoryView = new InventoryView({
     sourceInventory: Inventory.getByCompany(Company.getCurrent()),
-    targetInventory: Inventory.getBySquad(Squad.getCurrent())
+    targetInventory: Inventory.getBySquad(squad)
   });
+
+  var modules = squad.getBaseModules();
+  squadInventoryView.vehicleSlots = BaseModule.calculateVehicleSlots(modules);
+  squadInventoryView.armorSlots = BaseModule.calculateArmorSlots(modules);
+  squadInventoryView.heloSlots = BaseModule.calculateHeloSlots(modules);
 
   squadInventoryView.addGroup(dic.get('PrimaryWeaponInventoryColumn'));
   squadInventoryView.addGroup(dic.get('SecondaryWeaponInventoryColumn'));

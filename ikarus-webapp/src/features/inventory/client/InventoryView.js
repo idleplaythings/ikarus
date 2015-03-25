@@ -4,7 +4,22 @@ InventoryView = function InventoryView(args) {
   this.itemsByClass = {}
   this.groups = [];
   this.layout = [];
+  this.vehicleSlots = 0;
+  this.armorSlots = 0;
+  this.heloSlots = 0;
 }
+
+InventoryView.prototype.getUsedVehicleSlots = function() {
+  return this.targetInventory.getAmountOfItemsWithTag(['vehicle', 'unarmored']);
+};
+
+InventoryView.prototype.getUsedArmorSlots = function() {
+  return this.targetInventory.getAmountOfItemsWithTag(['vehicle', 'armored']);
+};
+
+InventoryView.prototype.getUsedHeloSlots = function() {
+  return this.targetInventory.getAmountOfItemsWithTag(['helicopter']);
+};
 
 InventoryView.prototype.addGroup = function(column) {
   this.groups.push(column);

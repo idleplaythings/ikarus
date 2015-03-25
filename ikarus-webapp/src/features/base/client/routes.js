@@ -6,7 +6,6 @@ Router.map(function () {
 
     action: function() {
       if (this.ready()) {
-        console.log("hi");
         var company = Company.getById(this.params._id);
         var player = Player.getCurrent();
 

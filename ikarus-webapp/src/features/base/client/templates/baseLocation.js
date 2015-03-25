@@ -1,4 +1,4 @@
-Template.company_hideout.created = function(){
+Template.base_location.created = function(){
   Tracker.autorun(function(){
     var player = Player.getCurrent();
 
@@ -50,14 +50,14 @@ function drawOverlay($map) {
   ctx.stroke();
 }
 
-Template.company_hideout.rendered = function(){
+Template.base_location.rendered = function(){
   var $map = jQuery(this.find('img.map'));
   Tracker.autorun(drawOverlay.bind(this, $map));
   $map.load(drawOverlay.bind(this, $map));
   jQuery(window).resize(_.debounce(drawOverlay.bind(this, $map), 50));
 };
 
-Template.company_hideout.events({
+Template.base_location.events({
   'click .map': function(event, template){
     var map = jQuery(template.find('img.map'));
 

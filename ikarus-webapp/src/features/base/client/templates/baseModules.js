@@ -7,6 +7,18 @@ Template.base_modules.helpers({
 
   normalModules: function() {
     return BaseModule.getNormalModules();
+  },
+
+  spaceUsedBySecondaryModules: function() {
+    var modules = this.getBaseModules();
+    var size = 0;
+    modules.forEach(function(selectedModule) {
+      if (! selectedModule.isPrimary()) {
+        size += selectedModule.size;
+      }
+    });
+
+    return size;
   }
 });
 
@@ -32,14 +44,10 @@ Template.base_modules.events({
   'click .module' : function() {
     var moduleId = jQuery(event.target).attr("data-moduleId");
     var module = BaseModule.create(moduleId);
-    console.log(module);
 
     Meteor.call(
       'changeBaseModule',
-      moduleId,
-      function (error, result) {
-        console.log(error, result);
-      }
+      moduleId
     );
   }
 });

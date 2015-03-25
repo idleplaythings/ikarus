@@ -45,12 +45,22 @@ Item.prototype.isBackpack = function(){
   return this instanceof ItemBackpack;
 };
 
+Item.prototype.hasSomeTags = function(tags) {
+  if (tags instanceof Array === false) {
+    tags = [tags];
+  }
+
+  return tags.some(function(tag){
+    return this.tags.indexOf(tag) > -1;
+  }.bind(this));
+};
+
 Item.prototype.hasTags = function(tags) {
   if (tags instanceof Array === false) {
     tags = [tags];
   }
 
-  return this.tags.some(function(tag) {
-    return tags.indexOf(tag) > -1;
-  });
-}
+  return tags.every(function(tag){
+    return this.tags.indexOf(tag) > -1;
+  }.bind(this));
+};

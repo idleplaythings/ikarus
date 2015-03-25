@@ -7,6 +7,7 @@ BaseModule = function BaseModule() {
   this.carSlots = 0;
   this.armorSlots = 0;
   this.heloSlots = 0;
+  this.size = 1;
 };
 
 BaseModule.prototype.isPrimary = function () {
@@ -26,7 +27,6 @@ BaseModule.calculateVehicleSlots = function(modules) {
   modules.forEach(function(module){
     slots += module.carSlots;
   });
-  console.log(modules);
   return slots;
 };
 

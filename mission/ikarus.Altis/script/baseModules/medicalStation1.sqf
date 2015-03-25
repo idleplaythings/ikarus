@@ -1,5 +1,13 @@
 baseModule_medicalStation1_isPrimary = {false;};
 
+"becomeMedic" addPublicVariableEventHandler {
+  private ["_box", "_unit"];
+  _box = _this select 1 select 0;
+  _unit = _this select 1 select 1;
+  [_box, _unit] call baseModule_medicalStation1_becomeMedic;
+};
+
+
 baseModule_medicalStation1_onCreated = {
   private ["_objects", "_box", "_weapons", "_weaponIndex"];
   _objects = _this select 0;
@@ -14,7 +22,11 @@ baseModule_medicalStation1_onCreated = {
 
       _box addItemCargoGlobal ['AGM_Epipen', 5];
       _box addItemCargoGlobal ['AGM_Bloodbag', 2];
-      _box addAction ["Become medic", "[_this select 0, _this select 1] call baseModule_medicalStation1_becomeMedic;"];
+
+      {
+        [[_box], "client_setUpBecomeMedic", _x, false, false] call BIS_fnc_MP;
+      } forEach call getAllPlayersBeforeSquads;
+
     };
   } forEach _objects;
 
@@ -25,7 +37,10 @@ baseModule_medicalStation1_becomeMedic = {
   _box = _this select 0;
   _medic = _this select 1;
 
-  _box removeAction 0;
+  {
+    [[_box], "client_removeBecomeMedic", _x, false, false] call BIS_fnc_MP;
+  } forEach call getAllPlayersBeforeSquads;
+
   _medic setVariable ["AGM_IsMedic", true];
   ["You are now a medic!", _medic] call broadcastMessageTo;
 };

@@ -1,5 +1,6 @@
 //this is here so it is loaded for clients
 [] execVM "script\markers.sqf";
+[] execVM "script\client.sqf";
   
 if (! isServer) exitwith {};
 

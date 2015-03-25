@@ -30,14 +30,15 @@ baseModule_create = {
 };
 
 baseModule_getCacheLocation = {
-  private ["_moduleData", "_primaryModuleData", "_position", "_direction"];
+  private ["_moduleData", "_primaryModuleData", "_position", "_direction", "_primaryModuleIndex"];
   _position = _this select 0;
   _direction = _this select 1;
   _moduleData = _this select 2;
   _primaryModuleData = [_moduleData] call baseModule_getPrimaryModule;
+  _primaryModuleIndex = [_moduleData] call baseModule_getPrimaryModuleIndex;
 
   _objectData = [(_primaryModuleData select 1), 1] call depotPositions_getRandomPlaceholdersFromObjects;
-  [_position, _direction, _objectData select 0] call houseFurnisher_getPosASLAndDirection; 
+  [_position, ([_direction, (_primaryModuleIndex * 90)] call addToDirection), _objectData select 0] call houseFurnisher_getPosASLAndDirection; 
 };
 
 baseModule_getVehicleLocations = {
@@ -66,10 +67,23 @@ baseModule_getPrimaryModule = {
   {
     if ([_x select 0, 'isPrimary', []] call baseModule_callModule) exitWith {
       _primary = _x;
-    }
+    };
   } forEach _moduleData;
 
   _primary
+};
+
+baseModule_getPrimaryModuleIndex = {
+  private ["_moduleData", "_index"];
+  _moduleData = _this select 0;
+  _index = 0;
+
+  {
+    if ([_x select 0, 'isPrimary', []] call baseModule_callModule) exitWith {};
+    _index = _index +1;
+  } forEach _moduleData;
+
+  _index;
 };
 
 baseModule_callModule = {

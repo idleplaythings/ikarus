@@ -20,8 +20,8 @@ module.exports = function(armaSerializer){
       }
     ],
     baseModules: [
-      "Primary1",
       "Garage1",
+      "Primary1",
       "WeaponCache1",
       "MedicalStation1"
     ]

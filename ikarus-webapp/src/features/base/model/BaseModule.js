@@ -8,6 +8,19 @@ BaseModule = function BaseModule() {
   this.armorSlots = 0;
   this.heloSlots = 0;
   this.size = 1;
+  this._removeLoot = {};
+};
+
+BaseModule.prototype.removeLoot = function (loot) {
+  return loot.filter(function(lootItem) {
+    if (this._removeLoot[lootItem] && this._removeLoot[lootItem] > 0) {
+
+      this._removeLoot[lootItem]--;
+      return false;
+    }
+
+    return true;
+  }.bind(this));
 };
 
 BaseModule.prototype.isPrimary = function () {

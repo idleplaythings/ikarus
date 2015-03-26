@@ -14,19 +14,39 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Ikarus</a>
+          <a class="navbar-brand" href="{{pathFor route='home'}}">Ikarus</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#">Squad</a></li>
-            <li><a href="#">Companies</a></li>
-            <li><a href="#">Players</a></li>
-            <li><a href="#">Character</a></li>
+            {{#if currentCompany}}
+              <li><a href="{{pathFor route='my-squad'}}">Squad</a></li>
+            {{/if}}
+            {{#if currentPlayer}}
+              <li><a href="{{pathFor route='my-company'}}">Company</a></li>
+            {{/if}}
+            {{#if currentPlayer}}
+              <li><a href="{{pathFor route='my-character'}}">Character</a></li>
+            {{/if}}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Browse <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{{pathFor route='companies'}}">Companies</a></li>
+                <li><a href="{{pathFor route='servers'}}">Servers</a></li>
+                <li><a href="{{pathFor route='players'}}">Players</a></li>
+              </ul>
+            </li>
           </ul>
 
           {{#if dev}}
-            <button class="btn btn-default navbar-btn js-reset">Regenerate Test Data</button>
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Development <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#" class="js-reset">Regenerate Test Data</a></li>
+                </ul>
+              </li>
+            </ul>
           {{/if}}
 
           <p class="navbar-text navbar-right">

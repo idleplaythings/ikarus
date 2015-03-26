@@ -1,5 +1,29 @@
 Router.map(function () {
-  this.route('/company/:_id', {
+  this.route('/company', {
+    name: 'my-company',
+    template: 'companies_company',
+    layoutTemplate: 'ikarus_default',
+
+    subscriptions: function () {
+      return [
+        Meteor.subscribe('MyCompanyAndSquads')
+      ];
+    }
+  });
+
+  this.route('/companies', {
+    name: 'companies',
+    template: 'companies_list',
+    layoutTemplate: 'ikarus_default',
+
+    subscriptions: function () {
+      return [
+        Meteor.subscribe('Companies')
+      ];
+    }
+  });
+
+  this.route('/companies/:_id', {
     name: 'company',
     template: 'companies_status',
     layoutTemplate: 'ikarus_default',
@@ -14,18 +38,6 @@ Router.map(function () {
         Meteor.subscribe('MyCompanyAndSquads'),
         Meteor.subscribe('Company', this.params._id),
         Meteor.subscribe('UserData')
-      ];
-    }
-  });
-
-  this.route('/companies', {
-    name: 'companies',
-    template: 'companies_list',
-    layoutTemplate: 'ikarus_default',
-
-    subscriptions: function () {
-      return [
-        Meteor.subscribe('Companies')
       ];
     }
   });

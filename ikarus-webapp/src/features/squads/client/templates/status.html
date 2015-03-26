@@ -68,6 +68,8 @@
 </template>
 
 <template name="squad_queue_status">
+  {{> queue_status}}
+
   {{#if inQueue}}
     <h1>Waiting for server</h1>
     <button class="leaveQueue btn btn-danger btn-lg btn-block">Leave server queue</button>

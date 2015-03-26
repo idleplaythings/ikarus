@@ -1,33 +1,7 @@
 <template name="home">
 
-  <div class="row">
-    <div class="col-md-12">
-      {{> players_company}}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      {{> squads_status}}
-    </div>
-  </div>
-
   <div class="row add-top">
     <div class="col-md-4">
-      {{> servers_list}}
-    </div>
-    <div class="col-md-4">
-      {{> queue_status}}
-    </div>
-    <div class="col-md-4">
-      <a class="btn btn-primary btn-block" href="{{pathFor route='companies'}}">Browse companies</a>
-      <a class="btn btn-primary btn-block" href="{{pathFor route='players'}}">Browse players</a>
-      {{#if currentUser}}
-        <a class="btn btn-primary btn-block" href="{{pathFor route='character'}}">My character</a>
-      {{/if}}
-      {{#if currentCompany}}
-        <a class="btn btn-primary btn-block" href="{{pathFor route='company' _id=currentCompany._id}}">My company</a>
-      {{/if}}
       <a class="btn btn-primary btn-block" href="https://s3-eu-west-1.amazonaws.com/ikarus.idleplaythings.com/mod/%40ikrs_v0.2.5.zip">Download mod</a>
     </div>
   </div>

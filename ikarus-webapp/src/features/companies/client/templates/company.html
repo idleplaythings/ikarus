@@ -1,0 +1,13 @@
+<template name="companies_company">
+  {{companyName}}
+
+  <div class="row">
+    <div class="col-md-12">
+      {{> players_company}}
+    </div>
+  </div>
+
+  {{#with companyContext}}
+    {{> companies_status}}
+  {{/with}}
+</template>

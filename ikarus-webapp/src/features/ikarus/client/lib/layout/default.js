@@ -1,4 +1,5 @@
 Template.ikarus_default.onCreated(function() {
+  this.subscribe('UserData');
   this.subscribe('MyCompanyAndSquads');
 });
 

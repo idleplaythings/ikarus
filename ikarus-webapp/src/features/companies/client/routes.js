@@ -2,25 +2,13 @@ Router.map(function () {
   this.route('/company', {
     name: 'my-company',
     template: 'companies_company',
-    layoutTemplate: 'ikarus_default',
-
-    subscriptions: function () {
-      return [
-        Meteor.subscribe('MyCompanyAndSquads')
-      ];
-    }
+    layoutTemplate: 'ikarus_default'
   });
 
   this.route('/companies', {
     name: 'companies',
     template: 'companies_list',
-    layoutTemplate: 'ikarus_default',
-
-    subscriptions: function () {
-      return [
-        Meteor.subscribe('Companies')
-      ];
-    }
+    layoutTemplate: 'ikarus_default'
   });
 
   this.route('/companies/:_id', {

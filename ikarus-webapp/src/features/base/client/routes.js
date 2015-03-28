@@ -9,11 +9,17 @@ Router.map(function () {
         var company = Company.getById(this.params._id);
         var player = Player.getCurrent();
 
-        if (! company || ! player.getCompany() || player.getCompany()._id != company._id) {
-          Router.go('company', {_id: this.params._id});
-        } else {
-          this.render();
+        if (! company) {
+          Router.go('home');
+          return;
         }
+
+        if (! player.isMemberOf(company)) {
+          Router.go('company', {_id: this.params._id});
+          return;
+        }
+
+        this.render();
       }
     },
 

@@ -7,21 +7,22 @@ loot_findSquadLoot = {
 };
 
 loot_findLootInHideout = {
-  private ["_squad", "_lootList", "_building"];
+  private ["_squad", "_lootList", "_hideoutPosition"];
   _squad = _this select 0;
   _lootList = [];
-  
-  _building = [_squad] call getSquadHideoutBuilding;
-  _lootList = _lootList + [_building, _lootList] call loot_checkSupplies;
+
+  _hideoutPosition = [_squad] call hideout_getHideoutForSquad select 1;
+  _lootList = _lootList + [_hideoutPosition] call loot_checkSupplies;
   
   _lootList;
 };
 
 loot_checkSupplies = {
-  private ["_building", "_lootList", "_objects"];
-  _building = _this select 0;
+  private ["_hideoutPosition", "_lootList", "_objects"];
+  _hideoutPosition = _this select 0;
   _lootList = [];
-  _objects = _building nearSupplies hideout_hideoutRadius;
+  _hideoutPosition set [2, 0];
+  _objects = _hideoutPosition nearSupplies hideout_hideoutRadius;
 
   {
     if ( _x isKindOf "car" or _x isKindOf "Helicopter" ) then {

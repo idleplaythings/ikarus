@@ -7,22 +7,14 @@
         <button class="js-rename-company btn btn-primary">Rename</button>
         <button class="js-leave-company btn btn-primary">Leave</button>
         <a class="btn btn-primary" href="{{pathFor route='players'}}">Invite</a>
+        <a class="btn btn-primary" href="{{pathFor route='company base' _id=company._id}}">Base</a>
       {{/if}}
 
       {{#if ownCompany}}
         <div class="row">
-          {{#if currentSquad}}
-            <div class="col-md-12">
-              {{> players_list company }}
-            </div>
-          {{else}}
-            <div class="col-md-6">
-              {{> players_list company }}
-            </div>
-            <div class="col-md-6">
-              {{> company_hideout }}
-            </div>
-          {{/if}}
+          <div class="col-md-12">
+            {{> players_list company }}
+          </div>
         </div>
         <div class="row">
           <div class="col-md-12">

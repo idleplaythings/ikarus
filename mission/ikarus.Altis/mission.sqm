@@ -41,8 +41,6 @@ class Mission
 		"cba_xeh_a3",
 		"agm_core",
 		"agm_interaction",
-		"agm_logistics",
-		"agm_medical",
 		"agm_noradio",
 		"agm_resting",
 		"agm_wind",

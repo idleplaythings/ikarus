@@ -47,7 +47,7 @@ getPositionInDirection = {
   _x = _x + (_distance * (sin _direction));
   _y = _y + (_distance * (cos _direction));
 
-  [_x, _y];
+  [_x, _y, 0];
 };
 
 distance2d = {

@@ -29,11 +29,19 @@ LootController.prototype.receiveLoot = function(squadId, loot, objectiveName) {
   var squad = this._getSquad(squadId);
   var company = this._getCompany(squad);
   var objective = new namespace["Objective" + objectiveName];
+  var modules = squad.getBaseModules();
 
-  this.receiveLootForCompany(company, loot, objective);
+  this.receiveLootForCompany(company, loot, objective, modules);
 };
 
-LootController.prototype.receiveLootForCompany = function(company, loot, objective) {
+LootController.prototype.receiveLootForCompany = function(company, loot, objective, modules) {
+  if (! modules) {
+    modules = [];
+  }
+  modules.forEach(function(module){
+    loot = module.removeLoot(loot);
+  });
+
   var items = this._itemFactory.createItems(loot);
   var companyInventory = Inventory.getByCompany(company);
 

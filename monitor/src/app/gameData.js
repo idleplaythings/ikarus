@@ -18,6 +18,12 @@ module.exports = function(armaSerializer){
         vest: ["V_Chestrig_oli"],
         uniform: ["Niko_USA_M81OD"]
       }
+    ],
+    baseModules: [
+      "Garage1",
+      "Primary1",
+      "WeaponCache1",
+      "MedicalStation1"
     ]
   });
 

@@ -76,7 +76,7 @@ objective_hold_constructDepots = {
     objective_hold_objectData pushBack _objectiveData;
     _objectData = [_x select 1, 1] call depotPositions_getRandomPlaceholdersFromObjects select 0;
 
-    _directionAndPosition = [_x select 0, _objectData] call houseFurnisher_getPosASLAndDirection;
+    _directionAndPosition = [_x select 0, _objectData] call houseFurnisher_getPosASLAndDirectionFromBuilding;
     _position = _directionAndPosition select 0;
     _direction = _directionAndPosition select 1;
     _object = createVehicle ["Land_SatellitePhone_F", [0,0,3000], [], 0, "FLYING"];

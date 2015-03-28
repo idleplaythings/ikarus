@@ -15,7 +15,11 @@ Meteor.methods({
       return;
     }
 
-    if (item.hasTags('vehicle') && squadInventory.getAmountOfItemsWithTag('vehicle') > 0) {
+    var modules = squad.getBaseModules();
+    var vehicleSlots = BaseModule.calculateVehicleSlots(modules);
+
+
+    if (item.hasTags('vehicle') && squadInventory.getAmountOfItemsWithTag('vehicle') > (vehicleSlots - 1)) {
       return;
     }
 

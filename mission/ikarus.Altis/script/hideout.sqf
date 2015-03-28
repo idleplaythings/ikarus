@@ -1,5 +1,20 @@
 
+hideout_hideouts = []; // [squad, position, direction, modules]
 hideout_hideoutRadius = 20;
+
+hideout_getHideoutForSquad = {
+  private ["_squad", "_hideout"];
+  _squad = _this select 0;
+  _hideout = [];
+
+  {
+    if ((_x select 0 select 0) == (_squad select 0)) exitWith {
+      _hideout = _x;
+    };
+  } forEach hideout_hideouts;
+
+  _hideout;
+};
 
 hideout_createHideoutForSquads = {
  {
@@ -7,77 +22,93 @@ hideout_createHideoutForSquads = {
  } forEach squads;
 };
 
+hideout_distanceFromClosestHideout = {
+  private ["_distance", "_position"];
+  _position = _this select 0;
+  _distance = 999999;
+
+  {
+    if (_x select 1 distance _position < _distance) then {
+      _distance = _x select 1 distance _position;
+    };
+  } forEach hideout_hideouts;
+
+  _distance;
+};
+
 hideout_createHideoutForSquad = {
-  private ["_startPosition", "_squad", "_building", "_objectData", "_hideoutBuildingData", "_vehiclePos", "_cache"];
+  private ["_startPosition", "_squad", "_validation"];
   _squad = _this select 0;
   _startPosition = [_squad] call getSquadStartingPosition;
-  
-  _hideoutBuildingData = [_startPosition] call hideout_findHouseSuitableForHideout;
-  _building = _hideoutBuildingData select 0;
-  _objectData = _hideoutBuildingData select 1;
+  _validation = {
+    private ["_position"];
+    _position = _this select 0;
 
-  hideoutBuilding = _building;
-  [_building, _objectData] call houseFurnisher_furnish;
-  
-  [_squad, _building] call setSquadHideoutBuilding;
-  
-  [_building, _squad] call hideout_createVehicles;
-  // create weapon cache
- 
-  _cache = [_squad, _building, _objectData] call hideout_createHideoutCache;
-  [_squad, _cache] call setSquadCache;
-  
-  [_squad, _building] call hideout_createHideoutTrigger;
-  [_squad, _building] call hideout_createHidoutMarkerForPlayers;
+    [_position] call hideout_distanceFromClosestHideout > 100;
+  };
+
+  _hideoutPosition = [_startPosition, 1000, _validation] call emptyPositionFinder_findClosest;
+  [_squad, _hideoutPosition] call hideout_createHideout;
+};
+
+hideout_createHideout = {
+  private ["_squad", "_position", "_direction", "_modules", "_hideoutData", "_moduleData"];
+  _squad = _this select 0;
+  _position = ATLToASL (_this select 1);
+  _direction = 0;
+  _modules = [_squad] call getHideoutModules;
+  _moduleData = [_modules, _position, _direction] call baseModule_createBaseModules;
+
+  [_squad, _position] call hideout_createHideoutTrigger;
+  [_squad, _position] call hideout_createHidoutMarkerForPlayers;
+  [_squad, ([_position, _direction, _moduleData] call baseModule_getCacheLocation)] call hideout_createHideoutCache;
+  [_squad, ([_position, _direction, _moduleData] call baseModule_getVehicleLocations)] call hideout_createVehicles;
+
+  _hideoutData = [
+    _squad,
+    _position,
+    _direction,
+    _moduleData
+  ];
+
+  hideout_hideouts pushBack _hideoutData;
 };
 
 hideout_createVehicles = {
-  private ["_building", "_squad", "_vehicleClass"];
-  _building = _this select 0;
-  _squad = _this select 1;
+  private ["_squad", "_positions", "_vehicle"];
+  _squad = _this select 0;
+  _positions = _this select 1;
   
   _vehicleClass = [_squad] call equipment_getVehicle;
+
+  if (count _positions == 0) exitWith {
+    [_squad, [_vehicleClass]] call addDisconnectedLoot;
+  };
 
   if (_vehicleClass == "") then {
     _vehicleClass = "C_Hatchback_01_F";
   };
 
-  _vehiclePos = getPos _building findEmptyPosition [10,40,_vehicleClass];
-  if (count _vehiclePos > 0) then {
-    createVehicle [_vehicleClass, _vehiclePos, [], 0, "none"];
-  };
-  
-  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
-  if (count _vehiclePos > 0) then {
-    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
-  };
-  
-  _vehiclePos = getPos _building findEmptyPosition [5,50,"C_Quadbike_01_F"];
-  if (count _vehiclePos > 0) then {
-    createVehicle ["C_Quadbike_01_F", _vehiclePos, [], 0, "none"];
-  };
-
+  _vehicle = createVehicle [_vehicleClass, [0,0,3000], [], 0, "FLY"];
+  _vehicle setPosASL (_positions select 0 select 0);
+  _vehicle setDir (_positions select 0 select 1);
 };
 
 hideout_createHidoutMarkerForPlayers = {
-  private ["_building", "_squad"];
+  private ["_position", "_squad"];
   _squad = _this select 0;
-  _building = _this select 1;
+  _position = _this select 1;
   
   {
-    [[_building], "markers_createHideoutMarker", _x, false, true] call BIS_fnc_MP;
+    [[_position], "markers_createHideoutMarker", _x, false, true] call BIS_fnc_MP;
   } forEach ([_squad] call getPlayersInSquad);  
 };
 
 hideout_createHideoutCache = {
-  private ["_squad", "_building", "_box", "_equipment", "_weapons", "_objectData"];
+  private ["_squad", "_moduleData", "_box", "_equipment", "_weapons", "_directionAndPosition", "_direction", "_position"];
   _squad = _this select 0;
-  _building = _this select 1;
-  _objectData = _this select 2;
-  _objectData = [_objectData, 1] call depotPositions_getRandomPlaceholdersFromObjects;
+  _directionAndPosition = _this select 1;
 
-  private ["_directionAndPosition", "_direction", "_position"];
-  _directionAndPosition = [_building, (_objectData select 0)] call houseFurnisher_getPosASLAndDirection;
   _position = _directionAndPosition select 0;
   _direction = _directionAndPosition select 1; 
   
@@ -111,11 +142,11 @@ hideout_createHideoutCache = {
 };
 
 hideout_createHideoutTrigger = {
-  private ["_squad", "_building", "_trigger"];
+  private ["_squad", "_position", "_trigger"];
   _squad = _this select 0;
-  _building = _this select 1;
+  _position = _this select 1;
   
-  _trigger = createTrigger["EmptyDetector", getPos _building];
+  _trigger = createTrigger["EmptyDetector", _position];
   _trigger setTriggerArea[hideout_hideoutRadius, hideout_hideoutRadius, 0, false];
   _trigger setTriggerActivation["ANY", "PRESENT", true];
   _trigger setTriggerStatements[
@@ -160,73 +191,32 @@ hideout_movePlayersToHideout = {
 };
 
 hideout_moveSquadToHideout = {
-  private ["_squad", "_building", "_position", "_cache"];
+  private ["_squad", "_hideout", "_position", "_cache"];
   _squad = _this select 0;
-  _building = [_squad] call getSquadHideoutBuilding;
-  _cache = [_squad] call getSquadCache;
+  _hideout = [_squad] call hideout_getHideoutForSquad;
   
   {
-    _x setPosASL getPosASL _cache;
+    _x setPosASL (_hideout select 1);
   } forEach ([_squad] call getPlayersInSquad);
   
 };
 
-hideout_findHouseSuitableForHideout = {
-  private ["_position", "_buildings", "_building", "_found", "_objects"];
-  _position = _this select 0;
-  _building = nil;
-  _objects = nil;
-  _found = false;
-  
-  _buildings = nearestObjects [_position, ["house"], 5000];
-  
-  {
-    _building = _x;
-    _objects = [_building] call depotPositions_getHideoutObjects;
-    
-    if ( ! isNil {_objects} and [_building] call hideout_checkIsSuitableHouseForHideout) exitWith {
-      _building;
-    };
-  } forEach _buildings;
-  
-  [_building, _objects];
-};
-
-hideout_checkIsSuitableHouseForHideout = {
-  private ["_building", "_vehiclePos"];
-  _building = _this select 0;
-  
-  _vehiclePos = getPos _building findEmptyPosition [10,40,"I_Truck_02_covered_F"];
-  if (count _vehiclePos == 0) exitWith {
-    player globalChat "no room for car";
-    false;
-  };
-  
-  if ( ! ([getPosASL _building, 100] call depotPositions_checkNothingInDistance)) exitWith {
-    player globalChat "something too close";
-    false;
-  };
-  
-  true;
-};
-
-
 hideout_isInHideout = {
-  private ["_unit", "_squad", "_building"];
+  private ["_unit", "_squad", "_hideout"];
   _unit = _this select 0;
   _squad = [_unit] call getSquadForUnit;
-  
+
   if (isNil{_squad}) exitWith {false;};
+
+  _hideout = [_squad] call hideout_getHideoutForSquad;
   
-  _building = [_squad] call getSquadHideoutBuilding;
-  
-  if (([_building, _unit] call BIS_fnc_distance2D) > hideout_hideoutRadius) exitWith {false;};
+  if (([(_hideout select 1), _unit] call BIS_fnc_distance2D) > hideout_hideoutRadius) exitWith {false;};
   
   true;
 };
 
 hideout_bodyIsInHideout = {
-  private ["_body", "_uid", "_squad", "_building"];
+  private ["_body", "_uid", "_squad", "_hideout"];
   _body = _this select 0;
   _uid = _this select 1;
   _squad = [_uid] call getSquadForUid;
@@ -235,9 +225,9 @@ hideout_bodyIsInHideout = {
   diag_log "squad";
   diag_log squad;
   
-  _building = [_squad] call getSquadHideoutBuilding;
+  _hideout = [_squad] call hideout_getHideoutForSquad;
   
-  if (([_building, _body] call BIS_fnc_distance2D) > hideout_hideoutRadius) exitWith {false;};
+  if (([(_hideout select 1), _body] call BIS_fnc_distance2D) > hideout_hideoutRadius) exitWith {false;};
   
   diag_log "true";
   true;

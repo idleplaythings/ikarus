@@ -1,0 +1,27 @@
+<template name="base_modules">
+
+
+  <h2>Primary module (required)</h2>
+
+  {{#each primaryModules}}
+    {{> base_module}}
+  {{/each}}
+
+  <h2>Secondary modules {{spaceUsedBySecondaryModules}}/3</h2>
+
+  {{#each normalModules}}
+    {{> base_module}}
+  {{/each}}
+
+</template>
+
+<template name="base_module">
+  <div class="panel panel-default {{getStatusClass}} clickable">
+    <div class="panel-heading module" data-moduleId="{{_id}}">
+      {{name}}
+    </div>
+    <div class="panel-body">
+      {{description}}
+    </div>
+  </div>
+</template>

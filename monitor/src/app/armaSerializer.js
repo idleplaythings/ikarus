@@ -23,13 +23,13 @@ function serializeSquad(squad, inventory){
   return [
     squad._id,
     squad.steamIds,
-    [squad.startingLocation.x, squad.startingLocation.y],
+    [squad.startingLocation.x, squad.startingLocation.y, 0],
     serializeInventory(inventory),
     null,
     null,
     [],
     squad.objective,
-    [],
+    squad.baseModules,
     [],
     serializeGear(squad.gear)
   ];

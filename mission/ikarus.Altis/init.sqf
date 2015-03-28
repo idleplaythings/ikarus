@@ -1,5 +1,6 @@
 //this is here so it is loaded for clients
 [] execVM "script\markers.sqf";
+[] execVM "script\client.sqf";
   
 if (! isServer) exitwith {};
 
@@ -9,6 +10,7 @@ if (! isServer) exitwith {};
 
 [] execVM "script\array_ext.sqf";
 
+[] execVM "script\emptyPositionFinder.sqf";
 [] execVM "script\popoRandom.sqf";
 [] execVM "script\missionControl.sqf";
 [] execVM "script\waiting.sqf";
@@ -32,6 +34,13 @@ if (! isServer) exitwith {};
 [] execVM "script\airstrike.sqf";
 [] execVM "script\airdrop.sqf";
 [] execVM "script\timeAndWeather.sqf";
+
+[] execVM "script\baseModules\baseModule.sqf";
+[] execVM "script\baseModules\primary1.sqf";
+[] execVM "script\baseModules\garage1.sqf";
+[] execVM "script\baseModules\weaponCache1.sqf";
+[] execVM "script\baseModules\reconStation1.sqf";
+[] execVM "script\baseModules\medicalStation1.sqf";
 
 [{ call getAllPlayers }] execVM "script\civilianVehicles.sqf";
 

@@ -23,7 +23,7 @@ dic.register('PrimaryWeaponInventoryColumn', function(dic) {
   return new InventoryColumn({
     title: 'Primary Weapons',
     policy: function(itemWrapper) {
-      return itemWrapper.item.hasTags([
+      return itemWrapper.item.hasSomeTags([
         'rifle',
         'assault-rifle',
         'sniper-rifle',
@@ -38,9 +38,9 @@ dic.register('PrimaryWeaponInventoryColumn', function(dic) {
 
 dic.register('SecondaryWeaponInventoryColumn', function(dic) {
   return new InventoryColumn({
-    title: 'Seconday Weapons',
+    title: 'Secondary Weapons',
     policy: function(itemWrapper) {
-      return itemWrapper.item.hasTags([
+      return itemWrapper.item.hasSomeTags([
         'law',
         'rpg',
         'grenade-launcher',
@@ -56,7 +56,7 @@ dic.register('GearAndSightsInventoryColumn', function(dic) {
   return new InventoryColumn({
     title: 'Gear & Sights',
     policy: function(itemWrapper) {
-      return itemWrapper.item.hasTags([
+      return itemWrapper.item.hasSomeTags([
         'helmet',
         'tactical-vest',
         'backpack',
@@ -73,7 +73,7 @@ dic.register('VehiclesInventoryColumn', function(dic) {
   return new InventoryColumn({
     title: 'Vehicles',
     policy: function(itemWrapper) {
-      return itemWrapper.item.hasTags([
+      return itemWrapper.item.hasSomeTags([
         'vehicle'
       ]);
     },
@@ -82,10 +82,16 @@ dic.register('VehiclesInventoryColumn', function(dic) {
 });
 
 dic.register('SquadInventoryView', function(dic) {
+  var squad = Squad.getCurrent();
   var squadInventoryView = new InventoryView({
     sourceInventory: Inventory.getByCompany(Company.getCurrent()),
-    targetInventory: Inventory.getBySquad(Squad.getCurrent())
+    targetInventory: Inventory.getBySquad(squad)
   });
+
+  var modules = squad.getBaseModules();
+  squadInventoryView.vehicleSlots = BaseModule.calculateVehicleSlots(modules);
+  squadInventoryView.armorSlots = BaseModule.calculateArmorSlots(modules);
+  squadInventoryView.heloSlots = BaseModule.calculateHeloSlots(modules);
 
   squadInventoryView.addGroup(dic.get('PrimaryWeaponInventoryColumn'));
   squadInventoryView.addGroup(dic.get('SecondaryWeaponInventoryColumn'));

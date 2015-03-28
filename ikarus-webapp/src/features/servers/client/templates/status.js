@@ -1,8 +1,8 @@
-Template.servers_status.created = function () {
-  Meteor.subscribe('Users');
-  Meteor.subscribe('Servers');
-  Meteor.subscribe('Companies');
-};
+Template.servers_status.onCreated(function () {
+  this.subscribe('Users');
+  this.subscribe('Servers');
+  this.subscribe('Companies');
+});
 
 Template.servers_status.helpers({
   server: function () {

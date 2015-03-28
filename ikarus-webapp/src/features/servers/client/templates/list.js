@@ -1,6 +1,6 @@
-Template.servers_list.created = function () {
-  Meteor.subscribe('Servers');
-};
+Template.servers_list.onCreated(function () {
+  this.subscribe('Servers');
+});
 
 var countdowners = {};
 

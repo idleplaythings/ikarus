@@ -1,7 +1,7 @@
-Template.companies_status.created = function () {
-  Meteor.subscribe('Users');
-  Meteor.subscribe('Companies');
-};
+Template.companies_status.onCreated(function () {
+  this.subscribe('Users');
+  this.subscribe('Companies');
+});
 
 Template.companies_status.helpers({
   company: function () {

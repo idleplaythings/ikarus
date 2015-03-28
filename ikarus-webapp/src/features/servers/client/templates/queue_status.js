@@ -1,6 +1,6 @@
-Template.queue_status.created = function() {
-  Meteor.subscribe('Servers');
-};
+Template.queue_status.onCreated(function() {
+  this.subscribe('Servers');
+});
 
 Template.queue_status.helpers({
   numberOfSquads: function() {

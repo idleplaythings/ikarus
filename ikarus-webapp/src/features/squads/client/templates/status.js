@@ -1,13 +1,14 @@
-Template.squads_status.created = function () {
-  Meteor.subscribe('MyCompanyAndSquads');
+Template.squads_status.onCreated(function () {
+  this.subscribe('MyCompanyAndSquads');
 
+  var self = this;
   Tracker.autorun(function(){
     var squad = Squad.getCurrent();
     if (squad) {
-      Meteor.subscribe('SquadInventory', squad._id);
+      self.subscribe('SquadInventory', squad._id);
     }
   });
-};
+});
 
 Template.squads_status.helpers({
   companyHasSquad: function () {

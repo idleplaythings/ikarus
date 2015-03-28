@@ -1,4 +1,5 @@
-Template.base_location.created = function(){
+Template.base_location.onCreated(function(){
+  var self = this;
   Tracker.autorun(function(){
     var player = Player.getCurrent();
 
@@ -12,9 +13,9 @@ Template.base_location.created = function(){
       return;
     }
 
-    Meteor.subscribe('MyCompany', company._id);
+    self.subscribe('MyCompany', company._id);
   });
-};
+});
 
 function drawOverlay($map) {
   var template = this;

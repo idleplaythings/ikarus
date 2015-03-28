@@ -1,6 +1,6 @@
-Template.ikarus_default.created = function() {
-  Meteor.subscribe('MyCompanyAndSquads');
-};
+Template.ikarus_default.onCreated(function() {
+  this.subscribe('MyCompanyAndSquads');
+});
 
 Template.ikarus_default.helpers({
   noSteamConfigured: function() {

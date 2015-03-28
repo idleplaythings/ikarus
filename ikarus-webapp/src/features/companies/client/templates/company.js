@@ -1,6 +1,6 @@
-Template.companies_company.created = function () {
-  Meteor.subscribe('MyCompaniesAndSquads');
-};
+Template.companies_company.onCreated(function () {
+  this.subscribe('MyCompaniesAndSquads');
+});
 
 Template.companies_company.helpers({
   companyName: function() {

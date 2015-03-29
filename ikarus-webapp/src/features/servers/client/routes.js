@@ -1,5 +1,11 @@
 Router.map(function () {
-  this.route('/server/:_id', {
+  this.route('/servers', {
+    name: 'servers',
+    template: 'servers_list',
+    layoutTemplate: 'ikarus_default'
+  });
+
+  this.route('/servers/:_id', {
     name: 'server',
     template: 'servers_status',
     layoutTemplate: 'ikarus_default',

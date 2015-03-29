@@ -1,6 +1,6 @@
 Router.map(function () {
   this.route('/character', {
-    name: 'character',
+    name: 'my-character',
     template: 'character_status',
     layoutTemplate: 'ikarus_default',
 

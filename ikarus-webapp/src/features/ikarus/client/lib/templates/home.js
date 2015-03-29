@@ -1,7 +1,7 @@
-Template.home.created = function() {
-  Meteor.subscribe('MySquad');
-  Meteor.subscribe('Users');
-};
+Template.home.onCreated(function() {
+  this.subscribe('MySquad');
+  this.subscribe('Users');
+});
 
 Template.home.helpers({
   playerListContext: function() {

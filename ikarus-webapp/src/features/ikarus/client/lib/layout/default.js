@@ -1,3 +1,8 @@
+Template.ikarus_default.onCreated(function() {
+  this.subscribe('UserData');
+  this.subscribe('MyCompanyAndSquads');
+});
+
 Template.ikarus_default.helpers({
   noSteamConfigured: function() {
     return Accounts.loginServiceConfiguration.find({ service: 'steam' }).count() === 0;

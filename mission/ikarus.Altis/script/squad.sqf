@@ -146,3 +146,10 @@ getSquadsWithPlayers = {
 
   _squads;
 };
+
+getSquadLeader = {
+  private ["_squad"];
+  _squad = _this select 0;
+
+  [_squad] call getPlayersInSquad select 0;
+};

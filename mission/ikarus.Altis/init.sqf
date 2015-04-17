@@ -1,6 +1,7 @@
 //this is here so it is loaded for clients
 [] execVM "script\markers.sqf";
 [] execVM "script\client.sqf";
+[] execVM "script\dialog\objectiveDialog.sqf";
   
 if (! isServer) exitwith {};
 

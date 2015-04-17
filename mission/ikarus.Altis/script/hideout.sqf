@@ -59,10 +59,10 @@ hideout_createHideout = {
   _modules = [_squad] call getHideoutModules;
   _moduleData = [_modules, _position, _direction] call baseModule_createBaseModules;
 
-  [_squad, _position] call hideout_createHideoutTrigger;
   [_squad, _position] call hideout_createHidoutMarkerForPlayers;
   [_squad, ([_position, _direction, _moduleData] call baseModule_getCacheLocation)] call hideout_createHideoutCache;
   [_squad, ([_position, _direction, _moduleData] call baseModule_getVehicleLocations)] call hideout_createVehicles;
+  [_squad, _position] call hideout_createHideoutTrigger;
 
   _hideoutData = [
     _squad,
@@ -129,13 +129,13 @@ hideout_createHideoutCache = {
   
   [_equipment, _box] call equipment_equipUnit;
   
-  _box addItemCargoGlobal ['AGM_Bandage', 30];
-  _box addItemCargoGlobal ['AGM_Morphine', 10];
+  //_box addItemCargoGlobal ['AGM_Bandage', 30];
+  //_box addItemCargoGlobal ['AGM_Morphine', 10];
   _box addItemCargoGlobal ['V_Rangemaster_belt', 8];
-  _box addWeaponCargoGlobal ['CUP_smg_MP5A5', 4];
-  _box addMagazineCargoGlobal ['CUP_30Rnd_9x19_MP5', 20];
-  _box addWeaponCargoGlobal ['CUP_sgun_M1014', 4];
-  _box addMagazineCargoGlobal ['CUP_8Rnd_B_Beneli_74Slug', 20];
+  _box addWeaponCargoGlobal ['SMG_02_F', 4];
+  _box addMagazineCargoGlobal ['30Rnd_9x21_Mag', 20];
+  //_box addWeaponCargoGlobal ['CUP_sgun_M1014', 4];
+  //_box addMagazineCargoGlobal ['CUP_8Rnd_B_Beneli_74Slug', 20];
   
   _box setVariable ['squadId', ([_squad] call getSquadId), true];
   _box;
@@ -157,7 +157,7 @@ hideout_createHideoutTrigger = {
 };
 
 hideout_hideoutTriggerActivate = {
-  private ["_unitsPresent", "_squadId", "_squad", "_playersInSquad", "_playersAtHideout"];
+  private ["_unitsPresent", "_squadId", "_squad", "_playersInSquad", "_playersAtHideout", "_hideout"];
   _unitsPresent = _this select 0;
   _squadId = _this select 1;
   _squad = [_squadId] call getSquadById;
@@ -171,10 +171,9 @@ hideout_hideoutTriggerActivate = {
       };
     };
     
-    if (! (_x in _unitsPresent)) then {
-      if (_x in _playersAtHideout) then {
-        ["", "hint", _x, true] call BIS_fnc_MP;
-      };
+    if (! missionControl_objectivesGenerated && ! (_x in _unitsPresent)) then {
+      _hideout = [_squad] call hideout_getHideoutForSquad;
+      _x setPosASL (_hideout select 1);
     };
    
   } forEach _playersInSquad;
@@ -184,9 +183,7 @@ hideout_hideoutTriggerActivate = {
 
 hideout_movePlayersToHideout = {
   {
-    if (! ([_x, "overrideMoveToHideout", [_x]] call objectiveController_callSquadObjective)) then {
-      [_x] call hideout_moveSquadToHideout;
-    };
+    [_x] call hideout_moveSquadToHideout;
   } forEach squads;
 };
 

@@ -10,6 +10,16 @@ objective_supply_construct = {
   };
 };
 
+objective_supply_onObjectivesCreated = {};
+
+objective_supply_displayName = {
+  "Supply run";
+};
+
+objective_supply_validate = {
+  true;
+};
+
 objective_supply_insideDepot = {};
 
 objective_supply_overridesAppearance = {

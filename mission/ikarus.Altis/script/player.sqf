@@ -15,6 +15,10 @@ player_setSquadVariable = {
 joinPlayers = {
   private ["_players", "_leader"];
   _players = _this select 0;
+
+  {
+     [_x] join grpNull;
+  } forEach _players;
   
   _leader = _players select 0;
   

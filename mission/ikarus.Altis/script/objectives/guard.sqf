@@ -4,6 +4,20 @@ objective_guard_killRadius = 1000;
 
 objective_guard_construct = {};
 
+objective_guard_displayName = {
+  "Guard duty";
+};
+
+objective_guard_onObjectivesCreated = {
+  call objective_guard_moveSquadsToDepot;
+};
+
+objective_guard_validate = {
+  private ["_squad"];
+  _squad = _this select 0;
+  count ([_squad] call getPlayersInSquad) <= 3;
+};
+
 objective_guard_overridesAppearance = {
   true;
 };
@@ -40,10 +54,7 @@ objective_guard_onDisconnected = {
   _unit = _this select 1;
   _inHideout = _this select 2;
   
-  player globalChat "guard disconnect";
-  
   if (_inHideout) then {
-    player globalChat "hideout";
     _guardData = [_unit] call objective_guard_getGuardData;
     
     _amount = count (_guardData select 2);
@@ -62,7 +73,7 @@ objective_guard_canOpenLootBoxes = {
 
 objective_guard_reward = {
   private ["_guardData", "_squad", "_reward"];
-  player globalChat "reward!";
+
   _guardData = _this select 0;
   _reward = ["guard_objective_reward1"];
   _squad = [(_guardData select 0)] call getSquadForUnit;
@@ -99,7 +110,15 @@ objective_guard_defaultIfNeccessary = {
   };
 };
 
-objective_guard_overrideMoveToHideout = {
+objective_guard_moveSquadsToDepot = {
+  {
+    if (([_x] call getChosenObjective) == 'Guard') then {
+      [_x] call objective_guard_moveToDepot;
+    }
+  } forEach squads;
+};
+
+objective_guard_moveToDepot = {
   private ["_validDepots", "_depot", "_objects", "_position"];
   _squad = _this select 0;
   
@@ -128,18 +147,30 @@ objective_guard_overrideHideoutCache = {
 objective_guard_equipGuard = {
   private ["_unit"];
   _unit = _this select 0;
+
+  _loot = [_unit] call loot_checkUnit;
+  _squad = [_unit] call getSquadForUnit;
+  [_squad, _loot] call addDisconnectedLoot;
   
+  removeAllWeapons _unit;
+  removeAllItems _unit;
+  removeAllAssignedItems _unit;
   removeUniform _unit;
+  removeVest _unit;
+  removeBackpack _unit;
+  removeHeadgear _unit;
 
   _unit forceAddUniform "U_Marshal";
+  _unit addHeadgear "H_Cap_police";
   _unit addVest "V_TacVest_blk_POLICE";
-  for "_i" from 1 to 6 do {_unit addItemToVest "CUP_30Rnd_545x39_AK_M";};
+  for "_i" from 1 to 6 do {_unit addItemToVest "30Rnd_556x45_Stanag";};
+  for "_i" from 1 to 3 do {_unit addItemToUniform "16Rnd_9x21_Mag";};
+  _unit addItemToVest "FirstAidKit";
 
-  for "_i" from 1 to 6 do {_unit addItemToUniform "AGM_Bandage";};
-  for "_i" from 1 to 2 do {_unit addItemToUniform "AGM_Morphine";};
-
-  _unit addWeaponGlobal "CUP_arifle_AK74";
+  _unit addWeaponGlobal "arifle_TRG20_F";
+  _unit addPrimaryWeaponItem "acc_flashlight";
   _unit addWeaponGlobal "Binocular";
+  _unit addWeaponGlobal "hgun_P07_F";
 
   _unit linkItem "ItemMap";
   _unit linkItem "ItemCompass";

@@ -5,6 +5,7 @@ baseModule_weaponCache1_onCreated = {
   _objects = _this select 0;
   _weaponIndex = 0;
 
+  /*
   _weapons = [
     "CUP_srifle_LeeEnfield",
     "CUP_arifle_RPK74",
@@ -13,18 +14,33 @@ baseModule_weaponCache1_onCreated = {
     "CUP_arifle_AK74",
     "CUP_arifle_AK74"
   ];
+  */
+
+  _weapons = [
+    "arifle_Mk20_F",
+    "arifle_Mk20C_F",
+    "arifle_TRG21_F",
+    "arifle_TRG21_F",
+    "arifle_TRG20_F",
+    "arifle_TRG20_F"
+  ];
 
   {
-    if (typeOf _x == "CUP_TKBasicAmmunitionBox_EP1") then {
+    if (typeOf _x == "Box_IND_Ammo_F") then {
       _box = _x;
       clearWeaponCargoGlobal _box;
       clearMagazineCargoGlobal _box;
       clearItemCargoGlobal _box;
       clearBackpackCargoGlobal _box;
 
+      /*
       _box addMagazineCargoGlobal ['CUP_30Rnd_545x39_AK_M', 20];
       _box addMagazineCargoGlobal ['CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 5];
       _box addMagazineCargoGlobal ['CUP_10x_303_M', 5];
+      */
+
+      _box addMagazineCargoGlobal ['30Rnd_556x45_Stanag', 30];
+
     };
 
     if (typeOf _x == "Sign_Arrow_Yellow_F") then {
@@ -54,7 +70,7 @@ baseModule_weaponCache1_data = {
     ["Land_PaperBox_open_empty_F",17.27,5.03966,174.498,4.00543e-005,true],
     ["Land_WoodenTable_large_F",78.2293,3.62136,90.713,0.000799179,true],
     ["Land_PaperBox_closed_F",33.0606,5.71261,47.9973,-5.72205e-006,true],
-    ["CUP_TKBasicAmmunitionBox_EP1",75.9967,2.18434,260.385,1.33514e-005,true],
+    ["Box_IND_Ammo_F",75.9967,2.18434,260.385,1.33514e-005,true],
     ["Land_ClutterCutter_large_F",41.7168,3.76578,359.999,0.00144958,true]
   ];
 };

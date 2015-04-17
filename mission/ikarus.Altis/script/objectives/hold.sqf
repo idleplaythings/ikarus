@@ -14,6 +14,18 @@ objective_hold_construct = {
   };
 };
 
+objective_hold_onObjectivesCreated = {};
+
+objective_hold_displayName = {
+  "Hold";
+};
+
+objective_hold_validate = {
+  private ["_squad"];
+  _squad = _this select 0;
+  count ([_squad] call getPlayersInSquad) > 2;
+};
+
 objective_hold_overridesAppearance = {
   false;
 };

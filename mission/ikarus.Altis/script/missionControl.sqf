@@ -12,6 +12,10 @@ missionControl_lastMessageTime = 0;
 
 missionControl_timeGameLength = 4500;
 
+missionControl_timeObjectivesGenerated = -1;
+missionControl_objectivesGenerated = false;
+
+
 missionControl_getElapsedTime = {
   if (missionControl_timeGameStarted == -1) exitWith {
     0;
@@ -71,21 +75,34 @@ missionControl_startGame = {
   missionControl_gameStarted = true;
   missionControl_timeGameStarted = time;
 
+
   call missionControl_displayGameStart;
   
   _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
   [_squads] call setSquadData;
   
   call hideout_createHideoutForSquads;
-  call objectiveController_createObjectives;
+  //
 
   call hideout_movePlayersToHideout;
   call equipment_setPlayersGear;
   call assembleSquads;
   call player_setSquadVariable;
+
+  missionControl_timeObjectivesGenerated = time + 120;
+
+  call objectiveController_startObjectiveChoosing;
+
+  waitUntil {time >= missionControl_timeObjectivesGenerated};
+  missionControl_objectivesGenerated = true;
+  call objectiveController_hideChooseObjectiveMenu;
+  call objectiveController_createObjectives;
+
+  ["OBJECTIVES GENERATED. GOOD LUCK AND HAVE FUN!"] call broadcastMessage;
   call missionControl_pollGameEnd;
 };
 
+/*
 missionControl_message = {
   if (time - missionControl_lastMessageTime > 10) then {
     private ["_message", "_squads"];
@@ -95,6 +112,7 @@ missionControl_message = {
     [_message] call broadcastMessage;
   };
 };
+*/
 
 missionControl_endGame = {
   missionControl_gameOver = true;

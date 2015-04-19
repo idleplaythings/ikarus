@@ -7,7 +7,7 @@ missionControl_minSquads = 1;
 
 missionControl_waitingTimeSeconds = 5;
 missionControl_timeWaitingStarted = 0;
-missionControl_test = false;
+missionControl_test = ! isDedicated;
 missionControl_lastMessageTime = 0;
 
 missionControl_timeGameLength = 4500;

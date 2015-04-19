@@ -123,6 +123,12 @@ _spawnVehicles = {
         (call _random) > 0.96;
     }] call AEX_filter;
 
+    _houses = [_houses, {
+        private ["_house"];
+        _house = _this;
+        [getPos _house] call hideout_distanceFromClosestHideout > 100;
+    }] call AEX_filter;
+
     _housePositions = [_houses - _vehiclesSpawnedHouses, {_this modeltoworld [0, 0, 0]}] call AEX_map;
 
     _vehiclesSpawnedHouses = _houses;

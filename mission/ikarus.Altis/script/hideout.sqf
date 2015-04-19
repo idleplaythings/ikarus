@@ -92,6 +92,8 @@ hideout_createVehicles = {
   _vehicle = createVehicle [_vehicleClass, [0,0,3000], [], 0, "FLY"];
   _vehicle setPosASL (_positions select 0 select 0);
   _vehicle setDir (_positions select 0 select 1);
+
+  [_vehicle] call vehicle_preventUseBeforeObjectives;
 };
 
 hideout_createHidoutMarkerForPlayers = {
@@ -171,7 +173,7 @@ hideout_hideoutTriggerActivate = {
       };
     };
     
-    if (! missionControl_objectivesGenerated && ! (_x in _unitsPresent)) then {
+    if (alive _x && ! missionControl_objectivesGenerated && ! (_x in _unitsPresent)) then {
       _hideout = [_squad] call hideout_getHideoutForSquad;
       _x setPosASL (_hideout select 1);
     };

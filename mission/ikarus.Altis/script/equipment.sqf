@@ -30,8 +30,6 @@ equipment_setPlayerGear = {
   _squad = [_unit] call getSquadForUnit;
   _uid = getPlayerUID _unit;
 
-  if ([_squad, "overridesAppearance", [_squad]] call objectiveController_callSquadObjective) exitWith {};
-
   _gear = [_squad, _uid] call getPlayerGear;
 
   if (isNil {_gear}) exitWith {};

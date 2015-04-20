@@ -13,15 +13,18 @@ baseModule_medicalStation1_onCreated = {
   _objects = _this select 0;
 
   {
-    if (typeOf _x == "AGM_Box_Medical") then {
+    if (typeOf _x == "Box_IND_Ammo_F") then {
       _box = _x;
       clearWeaponCargoGlobal _box;
       clearMagazineCargoGlobal _box;
       clearItemCargoGlobal _box;
       clearBackpackCargoGlobal _box;
 
+      _box addItemCargoGlobal ['Item_FirstAidKit', 10];
+      /*
       _box addItemCargoGlobal ['AGM_Epipen', 5];
       _box addItemCargoGlobal ['AGM_Bloodbag', 2];
+      */
 
       {
         [[_box], "client_setUpBecomeMedic", _x, false, false] call BIS_fnc_MP;
@@ -57,7 +60,7 @@ baseModule_medicalStation1_data = {
     ["Land_Defibrillator_F",53.9429,6.68731,44.2365,0.8,true, true],
     ["Land_DisinfectantSpray_F",55.892,6.51483,186.738,0.8,true, true],
     ["Land_BottlePlastic_V2_F",32.6144,4.92858,49.5396,-5.14984e-005,true],
-    ["AGM_Box_Medical",66.7862,6.49854,182.903,0,true],
+    ["Box_IND_Ammo_F",66.7862,6.49854,182.903,0,true],
     ["Land_ClutterCutter_large_F",52.5401,4.94716,0,0.00144005,true]
   ];
 };

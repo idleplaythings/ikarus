@@ -1,6 +1,69 @@
 
 objectiveController_types = ['supply', 'hold', 'guard'];
 
+"chooseObjective" addPublicVariableEventHandler {
+  private ["_unit", "_objective", "_squad"];
+  _unit = _this select 1 select 0;
+  _objective = _this select 1 select 1;
+  _squad = [_unit] call getSquadForUnit;
+  [_squad, _objective] call objectiveController_changeSquadObjective;
+};
+
+objectiveController_startObjectiveChoosing = {
+  {
+    [_x] call objectiveController_sendChooseObjectiveMenu;
+  } forEach squads;
+};
+
+objectiveController_sendChooseObjectiveMenu = {
+  private ["_leader", "_objectives", "_squad", "_valid", "_displayName"];
+  _squad = _this select 0;
+  _objectives = [];
+
+  _leader = [_squad] call getSquadLeader;
+
+  if ( isNil {_leader}) exitWith {};
+
+  {
+    _valid = [_x, 'validate', [_squad]] call objectiveController_callObjective;
+    if (_valid) then {
+      _displayName = [_x, 'displayName', []] call objectiveController_callObjective;
+      _objectives pushBack [_displayName, _x];
+    };
+  } forEach objectiveController_types;
+
+  [
+    [
+      _objectives,
+      ([_squad] call getChosenObjective),
+      missionControl_timeObjectivesGenerated
+    ], 
+    "objectiveDialog_show", 
+    _leader, 
+    false, 
+    true
+  ] call BIS_fnc_MP;
+};
+
+objectiveController_hideChooseObjectiveMenu = {
+  {
+    [[], "objectiveDialog_ready", _x, false, true] call BIS_fnc_MP;
+  } forEach call getAllPlayers;
+};
+
+objectiveController_changeSquadObjective = {
+  private ["_objective", "_squad", "_valid"];
+
+  if (missionControl_objectivesGenerated) exitWith {};
+
+  _squad = _this select 0;
+  _objective = _this select 1;
+  _valid = [_objective, 'validate', [_squad]] call objectiveController_callObjective;
+  if (! _valid) exitWith {};
+
+  [_squad, _objective] call setChosenObjective;
+};
+
 objectiveController_createObjectives = {
   private ["_AO_center"];
   
@@ -8,7 +71,7 @@ objectiveController_createObjectives = {
   ["defaultIfNeccessary", []] call objectiveController_callObjectives;
   [_AO_center] call depots_create_depots;
   ["construct", []] call objectiveController_callObjectives;
-  
+  ["onObjectivesCreated", []] call objectiveController_callObjectives;
 };
 
 objectiveController_getSquadsWithObjectives = {

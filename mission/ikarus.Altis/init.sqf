@@ -1,6 +1,7 @@
 //this is here so it is loaded for clients
 [] execVM "script\markers.sqf";
 [] execVM "script\client.sqf";
+[] execVM "script\dialog\objectiveDialog.sqf";
   
 if (! isServer) exitwith {};
 
@@ -24,6 +25,7 @@ if (! isServer) exitwith {};
 [] execVM "script\AO.sqf";
 [] execVM "script\loot.sqf";
 [] execVM "script\depots.sqf";
+[] execVM "script\vehicle.sqf";
 [] execVM "script\objectiveController.sqf";
 [] execVM "script\objectives\supply.sqf";
 [] execVM "script\objectives\guard.sqf";

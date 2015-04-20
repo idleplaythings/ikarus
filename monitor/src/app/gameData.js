@@ -10,7 +10,7 @@ module.exports = function(armaSerializer){
     steamIds: ["_SP_PLAYER_", "_SP_AI_"],
     startingLocation: {x:8500.0, y:11200.0},
     companyId: 'company',
-    objective: 'Guard',
+    objective: 'Supply',
     gear: [
       {
         steamId: "_SP_PLAYER_",
@@ -31,8 +31,6 @@ module.exports = function(armaSerializer){
     {
       squadId: "id",
       items: {
-        'CUP_arifle_AK74': 1,
-        'CUP_30Rnd_545x39_AK_M': 5,
         'SatchelCharge_Remote_Mag': 10,
         'B_AssaultPack_khk': 1,
         'UAZ_Unarmed': 1

@@ -10,6 +10,16 @@ objective_supply_construct = {
   };
 };
 
+objective_supply_onObjectivesCreated = {};
+
+objective_supply_displayName = {
+  "Supply run";
+};
+
+objective_supply_validate = {
+  true;
+};
+
 objective_supply_insideDepot = {};
 
 objective_supply_overridesAppearance = {
@@ -80,19 +90,7 @@ objective_supply_createVehicle = {
     _vehicle = createVehicle [_vehicleClass, _vehiclePos, [], 0, "none"];
     _vehicle setVariable ['noGuards', true];
 
-    _vehicle addEventHandler ["GetIn",  
-    { 
-        private ["_veh", "_unit", "_noGuardAllowed", "_objective"]; 
-        _veh = _this select 0; 
-        _unit = _this select 2;
-        _noGuardAllowed = _veh getVariable ['noGuards', false];
-        _objective = [_unit] call objectiveController_getUnitsObjective;  
-
-        if (_objective == "guard" && _noGuardAllowed) then 
-        { 
-          _unit action ["Eject", vehicle _unit]; 
-        }; 
-    }]; 
+    [_vehicle] call vehicle_preventGuardUse;
   };  
 };
 

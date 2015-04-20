@@ -1,3 +1,6 @@
+#include "defines.hpp"
+#include "dialogs.hpp"
+
 disabledAI=1;
 respawn="INSTANT";
 respawnDelay = 60;

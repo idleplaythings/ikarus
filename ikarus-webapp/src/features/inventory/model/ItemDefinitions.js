@@ -1,5 +1,5 @@
 ItemDefinitions = [
-  
+
   //VEHICLES
   createGeneric('Pickup truck', 'C_Offroad_01_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('SUV', 'C_SUV_01_F', ['vehicle', 'unarmored', 'unarmed']),
@@ -32,24 +32,22 @@ ItemDefinitions = [
   createWeapon('Katiba', 'arifle_Katiba_F', ['assault-rifle'], ['30Rnd_65x39_caseless_green']),
   createWeapon('Katiba (GL)', 'arifle_Katiba_GL_F', ['assault-rifle'], ['30Rnd_65x39_caseless_green', '1Rnd_HE_Grenade_shell']),
   createMagazine('30rnd 6.5 caseless CSAT', '30Rnd_65x39_caseless_green', 30),
-  
+
   createWeapon('Mk20 (Camo)', 'arifle_Mk20_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
   createWeapon('Mk20 (Desert)', 'arifle_Mk20_plain_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
   createWeapon('Mk20 Carbine (Camo)', 'arifle_Mk20C_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
   createWeapon('Mk20 Carbine (Desert)', 'arifle_Mk20C_plain_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
-
+  createWeapon('Mk20 GL (Camo)', 'arifle_Mk20_GL_F', ['assault-rifle'], ['30Rnd_556x45_Stanag', '1Rnd_HE_Grenade_shell']),
+  createWeapon('Mk20 GL (Desert)', 'arifle_Mk20_GL_plain_F', ['assault-rifle'], ['30Rnd_556x45_Stanag', '1Rnd_HE_Grenade_shell']),
 
   createWeapon('TRG-21', 'arifle_TRG21_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
   createWeapon('TRG-20 Carbine', 'arifle_TRG20_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
   createWeapon('TRG-21 GL', 'arifle_TRG21_GL_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
 
-  createWeapon('Mk20 GL (Camo)', 'arifle_Mk20_GL_F', ['assault-rifle'], ['30Rnd_556x45_Stanag', '1Rnd_HE_Grenade_shell']),
-  createWeapon('Mk20 GL (Desert)', 'arifle_Mk20_GL_plain_F', ['assault-rifle'], ['30Rnd_556x45_Stanag', '1Rnd_HE_Grenade_shell']),
-
   createWeapon('MX', 'arifle_MX_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag']),
   createWeapon('MX (Black)', 'arifle_MX_Black_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag']),
   createWeapon('MX GL', 'arifle_MX_GL_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag', '1Rnd_HE_Grenade_shell']),
-  createWeapon('MX GL (Black)', 'arifle_MX_SW_Black_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag', '1Rnd_HE_Grenade_shell']),
+  createWeapon('MX GL (Black)', 'arifle_MX_GL_Black_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag', '1Rnd_HE_Grenade_shell']),
   createWeapon('MX Carbine', 'arifle_MXC_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag']),
   createWeapon('MX Carbine (Black)', 'arifle_MXC_Black_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag']),
 
@@ -61,13 +59,16 @@ ItemDefinitions = [
   createWeapon('M14 battle rifle', 'CUP_srifle_M14', ['assault-rifle'], ['20Rnd_762x51_Mag']),
   createMagazine('20rnd 7.62x51mm NATO', '20Rnd_762x51_Mag', 20),
 
+  createWeapon('FN FAL (no rail)', 'CUP_arifle_FNFAL', ['assault-rifle'], ['CUP_20Rnd_762x51_FNFAL_M']),
+  createMagazine('20rnd 7.62x51mm FN FAL', 'CUP_20Rnd_762x51_FNFAL_M', 20),
+
+  //BATTLE RIFLES (Vanilla)
+
   createWeapon('Mk14 7.62mm (camo)', 'srifle_DMR_06_camo_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
   createWeapon('Mk14 7.62mm (olive)', 'srifle_DMR_06_olive_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
 
   createWeapon('Mk18 ABR 7.62 mm', 'srifle_EBR_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
 
-  createWeapon('FN FAL (no rail)', 'CUP_arifle_FNFAL', ['assault-rifle'], ['CUP_20Rnd_762x51_FNFAL_M']),
-  createMagazine('20rnd 7.62x51mm FN FAL', 'CUP_20Rnd_762x51_FNFAL_M', 20),
 
 
 
@@ -81,7 +82,7 @@ ItemDefinitions = [
 
   createWeapon('PKM mmg', 'CUP_lmg_PKM', ['mmg'], ['CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M']),
   createMagazine('100rnd 7.62x54mm', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M', 100),
-  
+
   //MACHINE GUNS (Vanilla)
 
   createWeapon('MX Support weapon', 'arifle_MX_SW_F', ['lmg'], ['30Rnd_65x39_caseless_mag']),
@@ -171,10 +172,6 @@ ItemDefinitions = [
   createGeneric('Tactical vest (black)', 'V_TacVest_blk', ['tactical-vest']),
   createGeneric('Tactical vest (olive)', 'V_TacVest_oli', ['tactical-vest']),
 
-  //Heavy armor
-  createGeneric('GA Carrier GL Rig (digi)', 'V_PlateCarrierIAGL_dgtl', ['tactical-vest']),
-  createGeneric('GA Carrier GL Rig (olive)', 'V_PlateCarrierIAGL_oli', ['tactical-vest']),
-
   //Light armor
   createGeneric('GA carrier lite (digi)', 'V_PlateCarrierIA1_dgtl', ['tactical-vest']),
   //Medium armor
@@ -186,6 +183,10 @@ ItemDefinitions = [
 
   //Medium armor
   createGeneric('Carrier rig (green, US)', 'V_PlateCarrier2_rgr', ['tactical-vest']),
+
+  //Heavy armor
+  createGeneric('GA Carrier GL Rig (digi)', 'V_PlateCarrierIAGL_dgtl', ['tactical-vest']),
+  createGeneric('GA Carrier GL Rig (olive)', 'V_PlateCarrierIAGL_oli', ['tactical-vest']),
 
   //Heavy armor
   createGeneric('Carrier GL Rig (green, US)', 'V_PlateCarrierGL_rgr', ['tactical-vest']),
@@ -202,9 +203,9 @@ ItemDefinitions = [
 
 
 
-  
 
-  
+
+
 
 
   //WEAPON ATTACHMENTS (CUP)
@@ -218,7 +219,7 @@ ItemDefinitions = [
   createGeneric('Aimpoint CompM4 optic', 'CUP_optic_CompM4', ['scope']),
 
   //WEAPON ATTACHMENTS (Vanilla)
-  
+
   createGeneric('Mk17 Holosight SMG','optic_Holosight_smg', ['scope']),
   createGeneric('ACO SMG (Red)','optic_Aco_smg', ['scope']),
   createGeneric('ACO SMG (Green)','optic_ACO_grn_smg', ['scope']),
@@ -233,7 +234,7 @@ ItemDefinitions = [
   createGeneric('DMS','optic_DMS', ['scope']),
   createGeneric('RCO', 'optic_Hamr', ['scope']),
   createGeneric('MRCO', 'optic_MRCO', ['scope']),
-  
+
   createGeneric('Bipod (black) (NATO)', 'bipod_01_F_blk', ['scope']),
   createGeneric('Bipod (MTP) (NATO)', 'bipod_01_F_mtp', ['scope']),
   createGeneric('Bipod (desert) (NATO)', 'bipod_01_F_snd', ['scope']),
@@ -256,7 +257,7 @@ ItemDefinitions = [
 
 
   //PISTOLS (CUP)
-  
+
   createWeapon('Makarov handgun', 'CUP_hgun_Makarov', ['handgun'], ['CUP_8Rnd_9x18_Makarov_M']),
   createMagazine('8rnd 9x18mm', 'CUP_8Rnd_9x18_Makarov_M', 8),
 
@@ -340,7 +341,7 @@ ItemDefinitions = [
       '1Rnd_HE_Grenade_shell': 'd5-4',
 
       'srifle_DMR_06_camo_F': 'd80-79',
-      'srifle_DMR_06_olive_F' 'd80-79',
+      'srifle_DMR_06_olive_F': 'd80-79',
       '20Rnd_762x51_Mag': 'd10-8',
 
       //'CUP_glaunch_M79': 'd40-39',
@@ -357,14 +358,13 @@ ItemDefinitions = [
     'Old Russian Weapons',
     'IKRS_loot_old_RU_weapons',
     {
-      'arifle_Katiba_C_F': 'd2', 
+      'arifle_Katiba_C_F': 'd2',
       'arifle_Katiba_F': 'd2-1',
       'arifle_Katiba_GL_F': 'd10-9',
-      '30Rnd_65x39_caseless_green': '1d5+3',
-      '1Rnd_HE_Grenade_shell': '2d5-7',
-      'srifle_DMR_01_F', 'd40-39', //Rahim
+      '30Rnd_65x39_caseless_green': '2d5+3',
+      'srifle_DMR_01_F': 'd40-39', //Rahim
       '10Rnd_762x54_Mag': 'd5-4',
-  
+
       //'CUP_arifle_AK74': 'd2',
       //'CUP_30Rnd_545x39_AK_M': '2d5+5',
       //'CUP_optic_Kobra': 'd10-8',
@@ -381,6 +381,10 @@ ItemDefinitions = [
       'H_HelmetIA': 'd3',
       'SmokeShell': '3d3',
       'HandGrenade': 'd3',
+      'bipod_02_F_blk': 'd5-3',
+      'bipod_02_F_hex': 'd5-3',
+      'bipod_02_F_tan': 'd5-3',
+
 
       //'CUP_sgun_Saiga12K': 'd2-1',
       //'CUP_8Rnd_B_Saiga12_74Slug_M': 'd3-1',
@@ -394,8 +398,25 @@ ItemDefinitions = [
     'Old NATO weapons',
     'IKRS_loot_old_nato_weapons',
     {
+      'arifle_Mk20_F':            'd2-1',
+      'arifle_Mk20_plain_F':      'd2-1',
+      'arifle_Mk20C_F':           'd2-1',
+      'arifle_Mk20C_plain_F':     'd2-1',
+      'arifle_Mk20_GL_F':         'd10-9',
+      'arifle_Mk20_GL_plain_F':   'd10-9',
+
+
+      'arifle_MX_F':              'd2-1',
+      'arifle_MX_Black_F':        'd20-19',
+      'arifle_MX_GL_F':           'd10-9',
+      'arifle_MX_GL_Black_F':     'd20-19',
+      'arifle_MXC_F':             'd2',
+      'arifle_MXC_Black_F':       'd10-9',
+      '30Rnd_65x39_caseless_mag': '2d5+3',
+
+
       //'CUP_arifle_M16A2': 'd2',
-      '30Rnd_556x45_Stanag': 'd5+3',
+      '30Rnd_556x45_Stanag': '2d5+3',
       //'CUP_arifle_M16A4_Base': 'd5-4',
       //'CUP_optic_CompM2_Black': 'd5-4',
       //'CUP_optic_RCO': 'd20-18',
@@ -404,7 +425,9 @@ ItemDefinitions = [
       'V_TacVest_blk': 'd3-1',
       'V_PlateCarrier1_rgr': 'd5-4',
       //'CUP_srifle_M14': 'd10-9',
-      '20Rnd_762x51_Mag': 'd2-1',
+      'srifle_DMR_06_camo_F': 'd10-9',
+      'srifle_DMR_06_olive_F': 'd10-9',
+      '20Rnd_762x51_Mag': 'd3-1',
       'H_HelmetB': 'd3-1',
       'SmokeShell': '3d3',
       'HandGrenade': '2d3',
@@ -420,7 +443,22 @@ ItemDefinitions = [
     'Common NATO weapons',
     'IKRS_loot_common_nato_weapons',
     {
-      '30Rnd_556x45_Stanag': '2d5',
+      'arifle_Mk20_F':            'd2-1',
+      'arifle_Mk20_plain_F':      'd2-1',
+      'arifle_Mk20C_F':           'd2-1',
+      'arifle_Mk20C_plain_F':     'd2-1',
+      'arifle_Mk20_GL_F':         'd10-9',
+      'arifle_Mk20_GL_plain_F':   'd10-9',
+
+      'arifle_MX_F':              'd2',
+      'arifle_MX_Black_F':        'd20-19',
+      'arifle_MX_GL_F':           'd10-9',
+      'arifle_MX_GL_Black_F':     'd20-19',
+      'arifle_MXC_F':             'd2',
+      'arifle_MXC_Black_F':       'd10-9',
+      '30Rnd_65x39_caseless_mag': '2d5+3',
+
+      '30Rnd_556x45_Stanag': '2d5+5',
       //'CUP_arifle_M4A1_black': 'd2',
       //'CUP_optic_CompM4': 'd10-8',
       //'CUP_optic_CompM2_Black': 'd2',
@@ -435,6 +473,8 @@ ItemDefinitions = [
       'V_PlateCarrier2_rgr': 'd5-4',
       //'CUP_srifle_M24_wdl': 'd20-19',
       //'CUP_5Rnd_762x51_M24': 'd3-2',
+      'srifle_EBR_F': 'd10-9',
+      '20Rnd_762x51_Mag': 'd4-1',
       'H_HelmetB': 'd3+1',
       'SmokeShell': '3d3',
       'HandGrenade': '2d3',
@@ -442,8 +482,14 @@ ItemDefinitions = [
       //'CUP_sgun_AA12': 'd3-2',
       //'CUP_20Rnd_B_AA12_Pellets': 'd2-1',
 
-      'hgun_Pistol_heavy_02_F': 'd2-1',
-      '6Rnd_45ACP_Cylinder': 'd3-1'
+      'V_PlateCarrierIAGL_dgtl': 'd20-19',
+      'V_PlateCarrierIAGL_oli': 'd20-19',
+      'V_PlateCarrierGL_rgr': 'd10-9',
+      'V_PlateCarrierGL_blk': 'd10-9',
+      'V_PlateCarrierGL_mtp': 'd10-9',
+      'V_PlateCarrierSpec_rgr': 'd20-19',
+      'V_PlateCarrierSpec_blk': 'd20-19',
+      'V_PlateCarrierSpec_mtp': 'd20-19',
     }
   ),
 
@@ -451,16 +497,15 @@ ItemDefinitions = [
     'Common Russian weapons',
     'IKRS_loot_common_RU_weapons',
     {
-      'arifle_Katiba_C_F': 'd2', 
+      'arifle_Katiba_C_F': 'd2',
       'arifle_Katiba_F': 'd2',
       'arifle_Katiba_GL_F': 'd10-8',
       '30Rnd_65x39_caseless_green': '2d5+5',
-      '1Rnd_HE_Grenade_shell': '2d5-7',
-      'srifle_DMR_01_F', 'd20-19', //Rahim
+      'srifle_DMR_01_F': 'd20-19', //Rahim
       '10Rnd_762x54_Mag': 'd5-3',
       'optic_ACO_grn':'d2+1',
       'optic_Arco': 'd5-4',
-      'optic_MRCO': 'd5-1',
+      'optic_MRCO': 'd5-4',
       'srifle_DMR_05_blk_F': 'd40-39',
       'srifle_DMR_05_hex_F': 'd40-39',
       'srifle_DMR_05_tan_F': 'd40-39',
@@ -488,6 +533,13 @@ ItemDefinitions = [
 
       'SMG_01_F': 'd2-1',
       '30Rnd_45ACP_Mag_SMG_01': 'd4-1',
+      'bipod_02_F_blk': 'd5-3',
+      'bipod_02_F_hex': 'd5-3',
+      'bipod_02_F_tan': 'd5-3',
+
+
+      'hgun_Pistol_heavy_02_F': 'd2-1',
+      '6Rnd_45ACP_Cylinder': 'd5-1'
 
       //'CUP_hgun_MicroUzi' : 'd2-1',
       //'CUP_30Rnd_9x19_UZI' : 'd3-1'
@@ -508,6 +560,53 @@ ItemDefinitions = [
       //'CUP_glaunch_M32': 'd3-2',
       //'CUP_6Rnd_HE_M203': 'd2-1',
       //'CUP_6Rnd_Smoke_M203': 'd2-1',
+
+      'arifle_MX_SW_F':           'd2-1',
+      'arifle_MX_SW_Black_F':     'd2-1',
+      '100Rnd_65x39_caseless_mag': '2d3+2',
+
+      'LMG_Mk200_F':              'd3-2',
+      '200Rnd_65x39_cased_Box':   'd3+1',
+
+
+      'MMG_02_camo_F':            'd10-9',
+      'MMG_02_black_F':           'd10-9',
+      'MMG_02_sand_F':            'd10-9',
+      '130Rnd_338_Mag':           'd3',
+
+      'V_PlateCarrierIAGL_dgtl':  'd5-4',
+      'V_PlateCarrierIAGL_oli':   'd5-4',
+      'V_PlateCarrierGL_rgr':     'd5-4',
+      'V_PlateCarrierGL_blk':     'd5-4',
+      'V_PlateCarrierGL_mtp':     'd5-4',
+      'V_PlateCarrierSpec_rgr':   'd5-4',
+      'V_PlateCarrierSpec_blk':   'd5-4',
+      'V_PlateCarrierSpec_mtp':   'd5-4',
+
+      '1Rnd_HE_Grenade_shell':    '2d4+3',
+
+      'optic_DMS':                'd20-19',
+
+      'srifle_DMR_03_F':          'd20-19',
+      'srifle_DMR_03_khaki_F':    'd20-19',
+      'srifle_DMR_03_tan_F':      'd20-19',
+      'srifle_DMR_03_multicam_F': 'd20-19',
+      'srifle_DMR_03_woodland_F': 'd20-19',
+      '20Rnd_762x51_Mag':         'd4+1',
+
+      'arifle_MXM_F':             'd2-1',
+      'arifle_MXM_Black_F':       'd2-1',
+
+      'optic_Holosight':          'd2+1',
+      'optic_Aco':                'd2+1',
+      'optic_Hamr':               'd3-2',
+      'optic_MRCO':               'd3-2',
+
+      'bipod_01_F_blk':           'd5-3',
+      'bipod_01_F_mtp':           'd5-3',
+      'bipod_01_F_snd':           'd5-3',
+
+
     }
   ),
 
@@ -519,13 +618,21 @@ ItemDefinitions = [
       'srifle_DMR_05_hex_F': 'd20-19',
       'srifle_DMR_05_tan_F': 'd20-19',
       '10Rnd_93x64_DMR_05_Mag': 'd6-2',
-      'LMG_Zafir_F':, 'd4-3' 
+      'LMG_Zafir_F': 'd4-3',
       '150Rnd_762x54_Box': 'd3',
-
+      'optic_ACO_grn':'d2+1',
+      'optic_Arco': 'd3-2',
+      'optic_MRCO': 'd3-2',
       'MMG_01_hex_F': 'd10-9',
       'MMG_01_tan_F': 'd10-9',
-      '150rnd 9.3x64mm belt': 'd3', 
+      '150Rnd_93x64_Mag': 'd3',
       'optic_DMS': 'd20-19',
+      'bipod_02_F_blk': 'd5-3',
+      'bipod_02_F_hex': 'd5-3',
+      'bipod_02_F_tan': 'd5-3',
+      'srifle_DMR_01_F': 'd10-9', //Rahim
+      '10Rnd_762x54_Mag': 'd5',
+      '1Rnd_HE_Grenade_shell': '2d4+3',
       //'CUP_launch_RPG7V': 'd3-1',
       //'CUP_PG7V_M': 'd3+2',
       //'CUP_lmg_PKM': 'd4-3',

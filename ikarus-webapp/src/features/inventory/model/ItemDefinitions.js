@@ -1,5 +1,6 @@
 ItemDefinitions = [
-
+  
+  //VEHICLES
   createGeneric('Pickup truck', 'C_Offroad_01_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('SUV', 'C_SUV_01_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Hatchback sport', 'C_Hatchback_01_sport_F', ['vehicle', 'unarmored', 'unarmed']),
@@ -8,7 +9,101 @@ ItemDefinitions = [
   createGeneric('Landrower (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrower (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
 
-  createGeneric('GPS', 'ItemGPS', ['binoculars']),
+  //ASSAULT RIFLES (CUP)
+
+  createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
+  createMagazine('30rnd 5.45x39mm', 'CUP_30Rnd_545x39_AK_M', 30),
+
+  createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createMagazine('30rnd 5.56x45mm', '30Rnd_556x45_Stanag', 30),
+  createMagazine('30rnd 5.56x45mm', 'CUP_30Rnd_556x45_Stanag', 30),
+
+  createWeapon('AKM assault rifle', 'CUP_arifle_AKM', ['assault-rifle'], ['CUP_30Rnd_762x39_AK47_M']),
+  createMagazine('30rnd 7.62x39mm', 'CUP_30Rnd_762x39_AK47_M', 30),
+
+  createWeapon('M4A1 assault rifle', 'CUP_arifle_M4A1_black', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+
+  createWeapon('AK-107 assault rifle', 'CUP_arifle_AK107', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
+
+  //ASSAULT RIFLES (Vanilla)
+
+  createWeapon('Katiba Carbine', 'arifle_Katiba_C_F', ['assault-rifle'], ['30Rnd_65x39_caseless_green']),
+  createWeapon('Katiba', 'arifle_Katiba_F', ['assault-rifle'], ['30Rnd_65x39_caseless_green']),
+  createWeapon('Katiba (GL)', 'arifle_Katiba_GL_F', ['assault-rifle'], ['30Rnd_65x39_caseless_green', '1Rnd_HE_Grenade_shell']),
+  createMagazine('30rnd 6.5 caseless CSAT', '30Rnd_65x39_caseless_green', 30),
+  
+  createWeapon('Mk20 (Camo)', 'arifle_Mk20_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createWeapon('Mk20 (Desert)', 'arifle_Mk20_plain_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createWeapon('Mk20 Carbine (Camo)', 'arifle_Mk20C_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createWeapon('Mk20 Carbine (Desert)', 'arifle_Mk20C_plain_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+
+
+  createWeapon('TRG-21', 'arifle_TRG21_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createWeapon('TRG-20 Carbine', 'arifle_TRG20_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createWeapon('TRG-21 GL', 'arifle_TRG21_GL_F', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+
+  createWeapon('Mk20 GL (Camo)', 'arifle_Mk20_GL_F', ['assault-rifle'], ['30Rnd_556x45_Stanag', '1Rnd_HE_Grenade_shell']),
+  createWeapon('Mk20 GL (Desert)', 'arifle_Mk20_GL_plain_F', ['assault-rifle'], ['30Rnd_556x45_Stanag', '1Rnd_HE_Grenade_shell']),
+
+  createWeapon('MX', 'arifle_MX_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag']),
+  createWeapon('MX (Black)', 'arifle_MX_Black_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag']),
+  createWeapon('MX GL', 'arifle_MX_GL_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag', '1Rnd_HE_Grenade_shell']),
+  createWeapon('MX GL (Black)', 'arifle_MX_SW_Black_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag', '1Rnd_HE_Grenade_shell']),
+  createWeapon('MX Carbine', 'arifle_MXC_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag']),
+  createWeapon('MX Carbine (Black)', 'arifle_MXC_Black_F', ['assault-rifle'], ['30Rnd_65x39_caseless_mag']),
+
+  createMagazine('30rnd 6.5 caseless NATO', '30Rnd_65x39_caseless_mag', 30),
+
+
+
+  //BATTLE RIFLES (CUP)
+  createWeapon('M14 battle rifle', 'CUP_srifle_M14', ['assault-rifle'], ['20Rnd_762x51_Mag']),
+  createMagazine('20rnd 7.62x51mm NATO', '20Rnd_762x51_Mag', 20),
+
+  createWeapon('Mk14 7.62mm (camo)', 'srifle_DMR_06_camo_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
+  createWeapon('Mk14 7.62mm (olive)', 'srifle_DMR_06_olive_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
+
+  createWeapon('Mk18 ABR 7.62 mm', 'srifle_EBR_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
+
+  createWeapon('FN FAL (no rail)', 'CUP_arifle_FNFAL', ['assault-rifle'], ['CUP_20Rnd_762x51_FNFAL_M']),
+  createMagazine('20rnd 7.62x51mm FN FAL', 'CUP_20Rnd_762x51_FNFAL_M', 20),
+
+
+
+  //MACHINE GUNS (CUP)
+
+  createWeapon('M249 lmg', 'CUP_lmg_M249', ['lmg'], ['CUP_200Rnd_TE4_Red_Tracer_556x45_M249', '30Rnd_556x45_Stanag']),
+  createMagazine('200rnd box 5.56x45mm', 'CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 30),
+
+  createWeapon('RPK-74 lmg', 'CUP_arifle_RPK74', ['lmg'], ['CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 'CUP_30Rnd_545x39_AK_M']),
+  createMagazine('75rnd 5.45x39mm', 'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 75),
+
+  createWeapon('PKM mmg', 'CUP_lmg_PKM', ['mmg'], ['CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M']),
+  createMagazine('100rnd 7.62x54mm', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M', 100),
+  
+  //MACHINE GUNS (Vanilla)
+
+  createWeapon('MX Support weapon', 'arifle_MX_SW_F', ['lmg'], ['30Rnd_65x39_caseless_mag']),
+  createWeapon('MX Support weapon (black)', 'arifle_MX_SW_Black_F', ['lmg'], ['30Rnd_65x39_caseless_mag']),
+  createMagazine('100rnd 6.5 caseless NATO', '100Rnd_65x39_caseless_mag', 100),
+
+  createWeapon('Mk 200 LMG', 'LMG_Mk200_F', ['lmg'], ['200Rnd_65x39_cased_Box']),
+  createMagazine('6.5mm 200Rnd belt', '200Rnd_65x39_cased_Box', 200),
+
+  createWeapon('Zafir 7.62 LMG', 'LMG_Zafir_F', ['mmg'], ['150Rnd_762x54_Box']),
+  createMagazine('150rnd 7.62x54mm box', '150Rnd_762x54_Box', 150),
+
+  createWeapon('Navid 9.3mm MMG (hex)', 'MMG_01_hex_F', ['mmg'], ['150Rnd_93x64_Mag']),
+  createWeapon('Navid 9.3mm MMG (desert)', 'MMG_01_tan_F', ['mmg'], ['150Rnd_93x64_Mag']),
+  createMagazine('150rnd 9.3x64mm belt', '150Rnd_93x64_Mag', 150),
+
+  createWeapon('SPMG .338 MMG (camo)', 'MMG_02_camo_F', ['lmg'], ['130Rnd_338_Mag']),
+  createWeapon('SPMG .338 MMG (black)', 'MMG_02_black_F', ['lmg'], ['130Rnd_338_Mag']),
+  createWeapon('SPMG .338 MMG (desert)', 'MMG_02_sand_F', ['lmg'], ['130Rnd_338_Mag']),
+  createMagazine('130rnd .338 NM Belt', '130Rnd_338_Mag', 130),
+
+  //SNIPER RIFLES (CUP)
 
   createWeapon('Lee Einfield rifle', 'CUP_srifle_LeeEnfield', ['rifle'], ['CUP_10x_303_M']),
   createMagazine('10rnd .303', 'CUP_10x_303_M', 10),
@@ -16,47 +111,103 @@ ItemDefinitions = [
   createWeapon('CZ 550 hunting rifle', 'CUP_srifle_CZ550', ['rifle'], ['CUP_5x_22_LR_17_HMR_M']),
   createMagazine('5rnd 22Lr', 'CUP_5x_22_LR_17_HMR_M', 5),
 
-  createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
-  createMagazine('30rnd 5.45x39mm', 'CUP_30Rnd_545x39_AK_M', 30),
-
-  createWeapon('M249 lmg', 'CUP_lmg_M249', ['lmg'], ['CUP_200Rnd_TE4_Red_Tracer_556x45_M249', '30Rnd_556x45_Stanag']),
-  createMagazine('200rnd box 5.56x45mm', 'CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 30),
-
-  createWeapon('M14 battle rifle', 'CUP_srifle_M14', ['assault-rifle'], ['20Rnd_762x51_Mag']),
-  createMagazine('20rnd 7.62x51mm NATO', '20Rnd_762x51_Mag', 20),
-
-  createWeapon('FN FAL (no rail)', 'CUP_arifle_FNFAL', ['assault-rifle'], ['CUP_20Rnd_762x51_FNFAL_M']),
-  createMagazine('20rnd 7.62x51mm FN FAL', 'CUP_20Rnd_762x51_FNFAL_M', 20),
-
-  createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
-  createMagazine('30rnd 5.56x45mm', '30Rnd_556x45_Stanag', 30),
-  createMagazine('30rnd 5.56x45mm', 'CUP_30Rnd_556x45_Stanag', 30),
-
-  createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
-
-  createWeapon('M4A1 assault rifle', 'CUP_arifle_M4A1_black', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
-
   createWeapon('Dragunov SVD sniper rifle', 'CUP_srifle_SVD', ['sniper-rifle'], ['CUP_10Rnd_762x54_SVD_M']),
   createMagazine('10rnd 7.62x51mm', 'CUP_10Rnd_762x54_SVD_M', 10),
 
-  createWeapon('AKM assault rifle', 'CUP_arifle_AKM', ['assault-rifle'], ['CUP_30Rnd_762x39_AK47_M']),
-  createMagazine('30rnd 7.62x39mm', 'CUP_30Rnd_762x39_AK47_M', 30),
+  createWeapon('M24 sniper rifle', 'CUP_srifle_M24_wdl', ['sniper-rifle'], ['CUP_5Rnd_762x51_M24']),
+  createMagazine('5rnd 762x51mm NATO', 'CUP_5Rnd_762x51_M24', 5),
 
-  createWeapon('RPK-74 lmg', 'CUP_arifle_RPK74', ['lmg'], ['CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 'CUP_30Rnd_545x39_AK_M']),
-  createMagazine('75rnd 5.45x39mm', 'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 75),
+  //SNIPER RIFLES (Vanilla)
 
-  createWeapon('PKM mmg', 'CUP_lmg_PKM', ['mmg'], ['CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M']),
-  createMagazine('100rnd 7.62x54mm', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M', 100),
+  createWeapon('MAR-10 .338 (black)', 'srifle_DMR_02_F', ['sniper-rifle'], ['10Rnd_338_Mag']),
+  createWeapon('MAR-10 .338 (camo)', 'srifle_DMR_02_camo_F', ['sniper-rifle'], ['10Rnd_338_Mag']),
+  createWeapon('MAR-10 .338 (desert)', 'srifle_DMR_02_sniper_F', ['sniper-rifle'], ['10Rnd_338_Mag']),
+  createMagazine('10rnd .338', '10Rnd_338_Mag', 10),
 
-  createWeapon('AK-107 assault rifle', 'CUP_arifle_AK107', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
+  createWeapon('Mk-I EMR 7.62mm (black)', 'srifle_DMR_03_F', ['sniper-rifle'], ['20Rnd_762x51_Mag']),
+  createWeapon('Mk-I EMR 7.62mm (khaki)', 'srifle_DMR_03_khaki_F', ['sniper-rifle'], ['20Rnd_762x51_Mag']),
+  createWeapon('Mk-I EMR 7.62mm (desert)', 'srifle_DMR_03_tan_F', ['sniper-rifle'], ['20Rnd_762x51_Mag']),
+  createWeapon('Mk-I EMR 7.62mm (camo)', 'srifle_DMR_03_multicam_F', ['sniper-rifle'], ['20Rnd_762x51_Mag']),
+  createWeapon('Mk-I EMR 7.62mm (woodland)', 'srifle_DMR_03_woodland_F', ['sniper-rifle'], ['20Rnd_762x51_Mag']),
+
+  createWeapon('ASP-1 Kir 12.7mm (black)', 'srifle_DMR_04_F', ['sniper-rifle'], ['10Rnd_127x54_Mag']),
+  createWeapon('ASP-1 Kir 12.7mm (desert)', 'srifle_DMR_04_Tan_F', ['sniper-rifle'], ['10Rnd_127x54_Mag']),
+  createMagazine('10rnd 12.7mm mag', '10Rnd_127x54_Mag', 10),
+
+  createWeapon('Cyrus 9.3mm (black)', 'srifle_DMR_05_blk_F', ['sniper-rifle'], ['10Rnd_93x64_DMR_05_Mag']),
+  createWeapon('Cyrus 9.3mm (hex)', 'srifle_DMR_05_hex_F', ['sniper-rifle'], ['10Rnd_93x64_DMR_05_Mag']),
+  createWeapon('Cyrus 9.3mm (desert)', 'srifle_DMR_05_tan_F', ['sniper-rifle'], ['10Rnd_93x64_DMR_05_Mag']),
+  createMagazine('10rnd 9.3mm mag', '10Rnd_93x64_DMR_05_Mag', 10),
+
+  createWeapon('Rahim 7.62mm', 'srifle_DMR_01_F', ['sniper-rifle'], ['10Rnd_762x54_Mag']),
+  createMagazine('10rnd 7.62x54mm Mag', '10Rnd_762x54_Mag', 10),
+
+  createWeapon('MXM Marksman rifle', 'arifle_MXM_F', ['sniper-rifle'], ['30Rnd_65x39_caseless_mag']),
+  createWeapon('MXM Marksman rifle (black)', 'arifle_MXM_Black_F', ['sniper-rifle'], ['30Rnd_65x39_caseless_mag']),
+
+  //LAUCHERS (CUP)
 
   createWeapon('RPG-7V launcher', 'CUP_launch_RPG7V', ['rpg'], ['CUP_PG7V_M']),
   createMagazine('RPG-7 AT rocket', 'CUP_PG7V_M', 1),
 
-  createWeapon('M24 sniper rifle', 'CUP_srifle_M24_wdl', ['sniper-rifle'], ['CUP_5Rnd_762x51_M24']),
-  createMagazine('5rnd 762x51mm NATO', 'CUP_5Rnd_762x51_M24', 1),
+  createWeapon('M79 Grenadelauncher', 'CUP_glaunch_M79', ['grenade-launcher'], ['CUP_1Rnd_HE_M203', 'CUP_1Rnd_Smoke_M203', 'CUP_1Rnd_SmokeRed_M203']),
+  createMagazine('HE M203 grenade', 'CUP_1Rnd_HE_M203', 1),
+  createMagazine('Smoke M203 grenade', 'CUP_1Rnd_Smoke_M203', 1),
+  createMagazine('Red smoke M203 grenade', 'CUP_1Rnd_SmokeRed_M203', 1),
 
-  createGeneric('Binoculars', 'Binocular', ['binoculars']),
+  createWeapon('M32 Grenadelauncher', 'CUP_glaunch_M32', ['grenade-launcher'], ['CUP_6Rnd_HE_M203', 'CUP_6Rnd_Smoke_M203']),
+  createMagazine('HE M203 grenade', 'CUP_6Rnd_HE_M203', 6),
+  createMagazine('Smoke M203 grenade', 'CUP_6Rnd_Smoke_M203', 6),
+
+  createWeapon('NLAW launcher', 'CUP_launch_NLAW', ['law'], ['CUP_NLAW_M']),
+  createMagazine('NLAW AT rocket', 'CUP_NLAW_M', 1),
+
+
+  //WEARABLES
+
+  createBackpack('Assault Pack (Khaki)', 'B_AssaultPack_khk', ['backpack'], true),
+
+  createGeneric('Tactical vest (camo)', 'V_TacVest_camo', ['tactical-vest']),
+  createGeneric('Tactical vest (black)', 'V_TacVest_blk', ['tactical-vest']),
+  createGeneric('Tactical vest (olive)', 'V_TacVest_oli', ['tactical-vest']),
+
+  //Heavy armor
+  createGeneric('GA Carrier GL Rig (digi)', 'V_PlateCarrierIAGL_dgtl', ['tactical-vest']),
+  createGeneric('GA Carrier GL Rig (olive)', 'V_PlateCarrierIAGL_oli', ['tactical-vest']),
+
+  //Light armor
+  createGeneric('GA carrier lite (digi)', 'V_PlateCarrierIA1_dgtl', ['tactical-vest']),
+  //Medium armor
+  createGeneric('GA carrier rig (digi)', 'V_PlateCarrierIA2_dgtl', ['tactical-vest']),
+
+  //Light armor
+  createGeneric('Carrier lite (black, US)', 'V_PlateCarrier1_blk', ['tactical-vest']),
+  createGeneric('Carrier lite (green, US)', 'V_PlateCarrier1_rgr', ['tactical-vest']),
+
+  //Medium armor
+  createGeneric('Carrier rig (green, US)', 'V_PlateCarrier2_rgr', ['tactical-vest']),
+
+  //Heavy armor
+  createGeneric('Carrier GL Rig (green, US)', 'V_PlateCarrierGL_rgr', ['tactical-vest']),
+  createGeneric('Carrier GL Rig (black, US)', 'V_PlateCarrierGL_blk', ['tactical-vest']),
+  createGeneric('Carrier GL Rig (mtp, US)', 'V_PlateCarrierGL_mtp', ['tactical-vest']),
+
+  //Medium heavy armor
+  createGeneric('Carrier Special Rig (green, US)', 'V_PlateCarrierSpec_rgr', ['tactical-vest']),
+  createGeneric('Carrier Special Rig (black, US)', 'V_PlateCarrierSpec_blk', ['tactical-vest']),
+  createGeneric('Carrier Special Rig (mtp, US)', 'V_PlateCarrierSpec_mtp', ['tactical-vest']),
+
+  createGeneric('ECH helmet', 'H_HelmetB', ['helmet']),
+  createGeneric('MICH helmet', 'H_HelmetIA', ['helmet']),
+
+
+
+  
+
+  
+
+
+  //WEAPON ATTACHMENTS (CUP)
 
   createGeneric('Kobra Reflex Sight', 'CUP_optic_Kobra', ['sight']),
   createGeneric('PSO-1 Scope', 'CUP_optic_PSO_1', ['scope']),
@@ -66,73 +217,89 @@ ItemDefinitions = [
   createGeneric('Trijicon ACOG optic', 'CUP_optic_RCO', ['scope']),
   createGeneric('Aimpoint CompM4 optic', 'CUP_optic_CompM4', ['scope']),
 
-  createBackpack('Assault Pack (Khaki)', 'B_AssaultPack_khk', ['backpack'], true),
-
-  createGeneric('Tactical vest (camo)', 'V_TacVest_camo', ['tactical-vest']),
-  createGeneric('Tactical vest (black)', 'V_TacVest_blk', ['tactical-vest']),
-  createGeneric('Tactical vest (olive)', 'V_TacVest_oli', ['tactical-vest']),
-
-  createGeneric('GA carrier lite (digi)', 'V_PlateCarrierIA1_dgtl', ['tactical-vest']),
-  createGeneric('GA carrier rig (digi)', 'V_PlateCarrierIA2_dgtl', ['tactical-vest']),
-
-  createGeneric('Carrier lite (green, US)', 'V_PlateCarrier1_rgr', ['tactical-vest']),
-  createGeneric('Carrier rig (green, US)', 'V_PlateCarrier2_rgr', ['tactical-vest']),
-
-  createGeneric('ECH helmet', 'H_HelmetB', ['helmet']),
-  createGeneric('MICH helmet', 'H_HelmetIA', ['helmet']),
-
-  createGeneric('RGO Hand grenade', 'HandGrenade', ['grenade']),
-  createGeneric('Smoke grenade', 'SmokeShell', ['grenade']),
-
-
-  createWeapon('M79 Grenadelauncher', 'CUP_glaunch_M79', ['grenade-launcher'], ['CUP_1Rnd_HE_M203', 'CUP_1Rnd_Smoke_M203', 'CUP_1Rnd_SmokeRed_M203']),
-  createMagazine('HE M203 grenade', 'CUP_1Rnd_HE_M203', 1),
-  createMagazine('Smoke M203 grenade', 'CUP_1Rnd_Smoke_M203', 1),
-  createMagazine('Red smoke M203 grenade', 'CUP_1Rnd_SmokeRed_M203', 1),
-
-  createWeapon('Makarov handgun', 'CUP_hgun_Makarov', ['handgun'], ['CUP_8Rnd_9x18_Makarov_M']),
-  createMagazine('8rnd 9x18mm', 'CUP_8Rnd_9x18_Makarov_M', 8),
-
-  createWeapon('Saiga12K shotgun', 'CUP_sgun_Saiga12K', ['shotgun'], ['CUP_8Rnd_B_Saiga12_74Slug_M']),
-  createMagazine('8rnd Saiga 74 slug', 'CUP_8Rnd_B_Saiga12_74Slug_M', 8),
-
-  createWeapon('CZ 75 P-07 Duty handgun', 'CUP_hgun_Duty', ['handgun'], ['16Rnd_9x21_Mag']),
-  createMagazine('16rnd 9x21mm', '16Rnd_9x21_Mag', 16),
-
-
-  createWeapon('MP5 SD6', 'CUP_smg_MP5SD6', ['smg'], ['CUP_30Rnd_9x19_MP5']),
-  createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30, true),
-
-  createWeapon('Glock 17 handgun', 'CUP_hgun_Glock17', ['handgun'], ['CUP_17Rnd_9x19_glock17']),
-  createMagazine('17rnd 9x19mm', 'CUP_17Rnd_9x19_glock17', 17),
-
-  createWeapon('AA-12 shotgun', 'CUP_sgun_AA12', ['shotgun'], ['CUP_20Rnd_B_AA12_Pellets']),
-  createMagazine('20rnd pellets', 'CUP_20Rnd_B_AA12_Pellets', 20),
-
-  createWeapon('Zubr .45 revolver', 'hgun_Pistol_heavy_02_F', ['handgun'], ['6Rnd_45ACP_Cylinder']),
-  createMagazine('6rnd .45 ACP cylinder', '6Rnd_45ACP_Cylinder', 6),
-
-  createWeapon('Vermin SMG .45 ACP', 'SMG_01_F', ['smg'], ['30Rnd_45ACP_Mag_SMG_01']),
-  createMagazine('30rnd .45 ACP', '30Rnd_45ACP_Mag_SMG_01', 30),
-
-  createWeapon('Micro UZI PDW', 'CUP_hgun_MicroUzi', ['handgun'], ['CUP_30Rnd_9x19_UZI']),
-  createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_UZI', 10),
-
-  createWeapon('M32 Grenadelauncher', 'CUP_glaunch_M32', ['grenade-launcher'], ['CUP_6Rnd_HE_M203', 'CUP_6Rnd_Smoke_M203']),
-  createMagazine('HE M203 grenade', 'CUP_6Rnd_HE_M203', 6),
-  createMagazine('Smoke M203 grenade', 'CUP_6Rnd_Smoke_M203', 6),
-
-  createWeapon('NLAW launcher', 'CUP_launch_NLAW', ['law'], ['CUP_NLAW_M']),
-  createMagazine('NLAW AT rocket', 'CUP_NLAW_M', 1),
-
-  createWeapon('Sting SMG 9mm', 'SMG_02_F', ['smg'], ['30Rnd_9x21_Mag']),
-  createMagazine('30rnd 9x21 mm', '30Rnd_9x21_Mag', 30),
-
+  //WEAPON ATTACHMENTS (Vanilla)
+  
   createGeneric('Mk17 Holosight SMG','optic_Holosight_smg', ['scope']),
   createGeneric('ACO SMG (Red)','optic_Aco_smg', ['scope']),
   createGeneric('ACO SMG (Green)','optic_ACO_grn_smg', ['scope']),
   createGeneric('Sound Suppressor (.45 ACP)', 'muzzle_snds_acp', ['scope']),
   createGeneric('Sound Suppressor (9 mm)', 'muzzle_snds_L', ['scope']),
+
+  createGeneric('Mk17 Holosight','optic_Holosight', ['scope']),
+  createGeneric('ACO (Red)','optic_Aco', ['scope']),
+  createGeneric('ACO (Green)','optic_ACO_grn', ['scope']),
+
+  createGeneric('ARCO','optic_Arco', ['scope']),
+  createGeneric('DMS','optic_DMS', ['scope']),
+  createGeneric('RCO', 'optic_Hamr', ['scope']),
+  createGeneric('MRCO', 'optic_MRCO', ['scope']),
+  
+  createGeneric('Bipod (black) (NATO)', 'bipod_01_F_blk', ['scope']),
+  createGeneric('Bipod (MTP) (NATO)', 'bipod_01_F_mtp', ['scope']),
+  createGeneric('Bipod (desert) (NATO)', 'bipod_01_F_snd', ['scope']),
+  createGeneric('Bipod (black) (CSAT)', 'bipod_02_F_blk', ['scope']),
+  createGeneric('Bipod (hex) (CSAT)', 'bipod_02_F_hex', ['scope']),
+  createGeneric('Bipod (desert) (CSAT)', 'bipod_02_F_tan', ['scope']),
+  createGeneric('Bipod (black) (AAF)', 'bipod_03_F_blk', ['scope']),
+  createGeneric('Bipod (olive) (AAF)', 'bipod_03_F_oli', ['scope']),
+
+
+
+  //GENERIC
+
+  createGeneric('GPS', 'ItemGPS', ['binoculars']),
+  createGeneric('Binoculars', 'Binocular', ['binoculars']),
+  createGeneric('RGO Hand grenade', 'HandGrenade', ['grenade']),
+  createGeneric('Smoke grenade', 'SmokeShell', ['grenade']),
+
+  createMagazine('40mm HE grenade', '1Rnd_HE_Grenade_shell', 1),
+
+
+  //PISTOLS (CUP)
+  
+  createWeapon('Makarov handgun', 'CUP_hgun_Makarov', ['handgun'], ['CUP_8Rnd_9x18_Makarov_M']),
+  createMagazine('8rnd 9x18mm', 'CUP_8Rnd_9x18_Makarov_M', 8),
+
+  createWeapon('CZ 75 P-07 Duty handgun', 'CUP_hgun_Duty', ['handgun'], ['16Rnd_9x21_Mag']),
+  createMagazine('16rnd 9x21mm', '16Rnd_9x21_Mag', 16),
+
+  createWeapon('Glock 17 handgun', 'CUP_hgun_Glock17', ['handgun'], ['CUP_17Rnd_9x19_glock17']),
+  createMagazine('17rnd 9x19mm', 'CUP_17Rnd_9x19_glock17', 17),
+
+  createWeapon('Micro UZI PDW', 'CUP_hgun_MicroUzi', ['handgun'], ['CUP_30Rnd_9x19_UZI']),
+  createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_UZI', 10),
+
+  //PISTOLS (Vanilla)
+
+  createWeapon('Zubr .45 revolver', 'hgun_Pistol_heavy_02_F', ['handgun'], ['6Rnd_45ACP_Cylinder']),
+  createMagazine('6rnd .45 ACP cylinder', '6Rnd_45ACP_Cylinder', 6),
+
+
+
+
+  //SHOTGUNS (CUP)
+  createWeapon('Saiga12K shotgun', 'CUP_sgun_Saiga12K', ['shotgun'], ['CUP_8Rnd_B_Saiga12_74Slug_M']),
+  createMagazine('8rnd Saiga 74 slug', 'CUP_8Rnd_B_Saiga12_74Slug_M', 8),
+
+  createWeapon('AA-12 shotgun', 'CUP_sgun_AA12', ['shotgun'], ['CUP_20Rnd_B_AA12_Pellets']),
+  createMagazine('20rnd pellets', 'CUP_20Rnd_B_AA12_Pellets', 20),
+
+
+
+
+  //SMGS (CUP)
+
+  createWeapon('MP5 SD6', 'CUP_smg_MP5SD6', ['smg'], ['CUP_30Rnd_9x19_MP5']),
+  createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30, true),
+
+  //SMGS (Vanilla)
+
+  createWeapon('Vermin SMG .45 ACP', 'SMG_01_F', ['smg'], ['30Rnd_45ACP_Mag_SMG_01']),
+  createMagazine('30rnd .45 ACP', '30Rnd_45ACP_Mag_SMG_01', 30),
+
+  createWeapon('Sting SMG 9mm', 'SMG_02_F', ['smg'], ['30Rnd_9x21_Mag']),
+  createMagazine('30rnd 9x21 mm', '30Rnd_9x21_Mag', 30),
+
 
   createLoot(
     'SMG Weapons',
@@ -157,22 +324,32 @@ ItemDefinitions = [
     'IKRS_loot_civilian_weapons',
     {
       'Binocular': 'd3-1',
-      'CUP_srifle_LeeEnfield': 1,
-      'CUP_10x_303_M': 'd5+2',
-      'CUP_srifle_CZ550': 'd40-39',
-      'CUP_5x_22_LR_17_HMR_M': 'd3-2',
+      //'CUP_srifle_LeeEnfield': 1,
+      //'CUP_10x_303_M': 'd5+2',
+      //'CUP_srifle_CZ550': 'd40-39',
+      //'CUP_5x_22_LR_17_HMR_M': 'd3-2',
       'H_HelmetB': 'd5-4',
       'SmokeShell': 'd3+1',
       'HandGrenade': 'd5-4',
       'ItemGPS': 'd5-3',
 
-      'CUP_glaunch_M79': 'd40-39',
-      'CUP_1Rnd_HE_M203': 'd3-2',
-      'CUP_1Rnd_Smoke_M203': 'd3-2',
-      'CUP_1Rnd_SmokeRed_M203': 'd3-2',
+      'arifle_TRG21_F': 'd2-1',
+      'arifle_TRG20_F': '1',
+      'arifle_TRG21_GL_F': 'd10-9',
+      '20Rnd_762x51_Mag': 'd5+5',
+      '1Rnd_HE_Grenade_shell': 'd5-4',
 
-      'CUP_hgun_Makarov': 1,
-      'CUP_8Rnd_9x18_Makarov_M' : 'd3'
+      'srifle_DMR_06_camo_F': 'd80-79',
+      'srifle_DMR_06_olive_F' 'd80-79',
+      '20Rnd_762x51_Mag': 'd10-8',
+
+      //'CUP_glaunch_M79': 'd40-39',
+      //'CUP_1Rnd_HE_M203': 'd3-2',
+      //'CUP_1Rnd_Smoke_M203': 'd3-2',
+      //'CUP_1Rnd_SmokeRed_M203': 'd3-2',
+
+      //'CUP_hgun_Makarov': 1,
+      //'CUP_8Rnd_9x18_Makarov_M' : 'd3'
     }
   ),
 
@@ -180,15 +357,23 @@ ItemDefinitions = [
     'Old Russian Weapons',
     'IKRS_loot_old_RU_weapons',
     {
-      'CUP_arifle_AK74': 'd2',
-      'CUP_30Rnd_545x39_AK_M': '2d5+5',
-      'CUP_optic_Kobra': 'd10-8',
-      'CUP_optic_PSO_1': 'd10-9',
-      'CUP_srifle_SVD': 'd40-39',
-      'CUP_10Rnd_762x54_SVD_M': 'd6-5',
-      'CUP_30Rnd_762x39_AK47_M': 'd3-1',
-      'CUP_arifle_AKM': 'd5-4',
-      'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': 'd5-4',
+      'arifle_Katiba_C_F': 'd2', 
+      'arifle_Katiba_F': 'd2-1',
+      'arifle_Katiba_GL_F': 'd10-9',
+      '30Rnd_65x39_caseless_green': '1d5+3',
+      '1Rnd_HE_Grenade_shell': '2d5-7',
+      'srifle_DMR_01_F', 'd40-39', //Rahim
+      '10Rnd_762x54_Mag': 'd5-4',
+  
+      //'CUP_arifle_AK74': 'd2',
+      //'CUP_30Rnd_545x39_AK_M': '2d5+5',
+      //'CUP_optic_Kobra': 'd10-8',
+      //'CUP_optic_PSO_1': 'd10-9',
+      //'CUP_srifle_SVD': 'd40-39',
+      //'CUP_10Rnd_762x54_SVD_M': 'd6-5',
+      //'CUP_30Rnd_762x39_AK47_M': 'd3-1',
+      //'CUP_arifle_AKM': 'd5-4',
+      //'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': 'd5-4',
       'V_TacVest_camo': 'd3-1',
       'V_TacVest_oli': 'd3-1',
       'V_TacVest_blk': 'd3-1',
@@ -197,11 +382,11 @@ ItemDefinitions = [
       'SmokeShell': '3d3',
       'HandGrenade': 'd3',
 
-      'CUP_sgun_Saiga12K': 'd2-1',
-      'CUP_8Rnd_B_Saiga12_74Slug_M': 'd3-1',
+      //'CUP_sgun_Saiga12K': 'd2-1',
+      //'CUP_8Rnd_B_Saiga12_74Slug_M': 'd3-1',
 
-      'CUP_hgun_Duty': 2,
-      '16Rnd_9x21_Mag' : 'd6'
+      //'CUP_hgun_Duty': 2,
+      //'16Rnd_9x21_Mag' : 'd6'
     }
   ),
 
@@ -209,25 +394,25 @@ ItemDefinitions = [
     'Old NATO weapons',
     'IKRS_loot_old_nato_weapons',
     {
-      'CUP_arifle_M16A2': 'd2',
+      //'CUP_arifle_M16A2': 'd2',
       '30Rnd_556x45_Stanag': 'd5+3',
-      'CUP_arifle_M16A4_Base': 'd5-4',
-      'CUP_optic_CompM2_Black': 'd5-4',
-      'CUP_optic_RCO': 'd20-18',
+      //'CUP_arifle_M16A4_Base': 'd5-4',
+      //'CUP_optic_CompM2_Black': 'd5-4',
+      //'CUP_optic_RCO': 'd20-18',
       'V_TacVest_camo': 'd3-1',
       'V_TacVest_oli': 'd3-1',
       'V_TacVest_blk': 'd3-1',
       'V_PlateCarrier1_rgr': 'd5-4',
-      'CUP_srifle_M14': 'd10-9',
+      //'CUP_srifle_M14': 'd10-9',
       '20Rnd_762x51_Mag': 'd2-1',
       'H_HelmetB': 'd3-1',
       'SmokeShell': '3d3',
       'HandGrenade': '2d3',
 
-      'CUP_smg_MP5SD6': 'd3-2',
+      //'CUP_smg_MP5SD6': 'd3-2',
 
-      'CUP_hgun_Glock17': 2,
-      'CUP_17Rnd_9x19_glock17' : 'd6'
+      //'CUP_hgun_Glock17': 2,
+      //'CUP_17Rnd_9x19_glock17' : 'd6'
     }
   ),
 
@@ -236,26 +421,26 @@ ItemDefinitions = [
     'IKRS_loot_common_nato_weapons',
     {
       '30Rnd_556x45_Stanag': '2d5',
-      'CUP_arifle_M4A1_black': 'd2',
-      'CUP_optic_CompM4': 'd10-8',
-      'CUP_optic_CompM2_Black': 'd2',
-      'CUP_optic_RCO': 'd10-8',
-      'CUP_200Rnd_TE4_Red_Tracer_556x45_M249': 'd3-2',
-      'CUP_launch_NLAW': 'd10-9',
-      'CUP_NLAW_M': 'd5-4',
+      //'CUP_arifle_M4A1_black': 'd2',
+      //'CUP_optic_CompM4': 'd10-8',
+      //'CUP_optic_CompM2_Black': 'd2',
+      //'CUP_optic_RCO': 'd10-8',
+      //'CUP_200Rnd_TE4_Red_Tracer_556x45_M249': 'd3-2',
+      //'CUP_launch_NLAW': 'd10-9',
+      //'CUP_NLAW_M': 'd5-4',
       'V_TacVest_camo': 'd3-1',
       'V_TacVest_oli': 'd3-1',
       'V_TacVest_blk': 'd3-1',
       'V_PlateCarrier1_rgr': 'd2',
       'V_PlateCarrier2_rgr': 'd5-4',
-      'CUP_srifle_M24_wdl': 'd20-19',
-      'CUP_5Rnd_762x51_M24': 'd3-2',
+      //'CUP_srifle_M24_wdl': 'd20-19',
+      //'CUP_5Rnd_762x51_M24': 'd3-2',
       'H_HelmetB': 'd3+1',
       'SmokeShell': '3d3',
       'HandGrenade': '2d3',
 
-      'CUP_sgun_AA12': 'd3-2',
-      'CUP_20Rnd_B_AA12_Pellets': 'd2-1',
+      //'CUP_sgun_AA12': 'd3-2',
+      //'CUP_20Rnd_B_AA12_Pellets': 'd2-1',
 
       'hgun_Pistol_heavy_02_F': 'd2-1',
       '6Rnd_45ACP_Cylinder': 'd3-1'
@@ -266,32 +451,46 @@ ItemDefinitions = [
     'Common Russian weapons',
     'IKRS_loot_common_RU_weapons',
     {
-      'CUP_arifle_AK107': 'd2+1',
-      'CUP_optic_Kobra': 'd2+1',
-      'CUP_optic_PSO_1': 'd5-4',
-      'CUP_srifle_SVD': 'd20-19',
-      'CUP_10Rnd_762x54_SVD_M': 'd3-2',
-      'CUP_30Rnd_545x39_AK_M': '2d5+5',
+      'arifle_Katiba_C_F': 'd2', 
+      'arifle_Katiba_F': 'd2',
+      'arifle_Katiba_GL_F': 'd10-8',
+      '30Rnd_65x39_caseless_green': '2d5+5',
+      '1Rnd_HE_Grenade_shell': '2d5-7',
+      'srifle_DMR_01_F', 'd20-19', //Rahim
+      '10Rnd_762x54_Mag': 'd5-3',
+      'optic_ACO_grn':'d2+1',
+      'optic_Arco': 'd5-4',
+      'optic_MRCO': 'd5-1',
+      'srifle_DMR_05_blk_F': 'd40-39',
+      'srifle_DMR_05_hex_F': 'd40-39',
+      'srifle_DMR_05_tan_F': 'd40-39',
+      '10Rnd_93x64_DMR_05_Mag': 'd6-4',
+      //'CUP_arifle_AK107': 'd2+1',
+      //'CUP_optic_Kobra': 'd2+1',
+      //'CUP_optic_PSO_1': 'd5-4',
+      //'CUP_srifle_SVD': 'd20-19',
+      //'CUP_10Rnd_762x54_SVD_M': 'd3-2',
+      //'CUP_30Rnd_545x39_AK_M': '2d5+5',
       'V_TacVest_camo': 'd3-1',
       'V_TacVest_oli': 'd3-1',
       'V_TacVest_blk': 'd3-1',
       'V_PlateCarrierIA1_dgtl': 'd2',
       'V_PlateCarrierIA2_dgtl': 'd5-4',
-      'CUP_lmg_PKM': 'd10-9',
-      'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd5-3',
-      'CUP_launch_RPG7V': 'd10-9',
-      'CUP_PG7V_M': 'd2-1',
+      //'CUP_lmg_PKM': 'd10-9',
+      //'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd5-3',
+      //'CUP_launch_RPG7V': 'd10-9',
+      //'CUP_PG7V_M': 'd2-1',
       'H_HelmetIA': 'd3+2',
       'SmokeShell': '3d3',
       'HandGrenade': '2d3',
-      'CUP_arifle_FNFAL': 'd10-9',
-      'CUP_20Rnd_762x51_FNFAL_M': 'd3+1',
+      //'CUP_arifle_FNFAL': 'd10-9',
+      //'CUP_20Rnd_762x51_FNFAL_M': 'd3+1',
 
       'SMG_01_F': 'd2-1',
       '30Rnd_45ACP_Mag_SMG_01': 'd4-1',
 
-      'CUP_hgun_MicroUzi' : 'd2-1',
-      'CUP_30Rnd_9x19_UZI' : 'd3-1'
+      //'CUP_hgun_MicroUzi' : 'd2-1',
+      //'CUP_30Rnd_9x19_UZI' : 'd3-1'
     }
   ),
 
@@ -299,16 +498,16 @@ ItemDefinitions = [
     'NATO heavy weapons',
     'IKRS_loot_heavy_nato_weapons',
     {
-      'CUP_launch_NLAW': 'd10-9',
-      'CUP_NLAW_M': 'd5-4',
-      'CUP_optic_LeupoldMk4_10x40_LRT_Woodland': 'd20-19',
-      'CUP_srifle_M24_wdl': 'd20-19',
-      'CUP_5Rnd_762x51_M24': 'd2',
-      'CUP_lmg_M249': 'd2-1',
-      'CUP_200Rnd_TE4_Red_Tracer_556x45_M249': 'd3+2',
-      'CUP_glaunch_M32': 'd3-2',
-      'CUP_6Rnd_HE_M203': 'd2-1',
-      'CUP_6Rnd_Smoke_M203': 'd2-1',
+      //'CUP_launch_NLAW': 'd10-9',
+      //'CUP_NLAW_M': 'd5-4',
+      //'CUP_optic_LeupoldMk4_10x40_LRT_Woodland': 'd20-19',
+      //'CUP_srifle_M24_wdl': 'd20-19',
+      //'CUP_5Rnd_762x51_M24': 'd2',
+      //'CUP_lmg_M249': 'd2-1',
+      //'CUP_200Rnd_TE4_Red_Tracer_556x45_M249': 'd3+2',
+      //'CUP_glaunch_M32': 'd3-2',
+      //'CUP_6Rnd_HE_M203': 'd2-1',
+      //'CUP_6Rnd_Smoke_M203': 'd2-1',
     }
   ),
 
@@ -316,15 +515,26 @@ ItemDefinitions = [
     'Russian heavy weapons',
     'IKRS_loot_heavy_RU_weapons',
     {
-      'CUP_launch_RPG7V': 'd3-1',
-      'CUP_PG7V_M': 'd3+2',
-      'CUP_lmg_PKM': 'd4-3',
-      'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd3',
-      'CUP_arifle_RPK74': 'd2',
-      'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '2d3+5',
-      'CUP_optic_PSO_1': 'd2-1',
-      'CUP_srifle_SVD': 'd20-19',
-      'CUP_10Rnd_762x54_SVD_M': 'd3-2'
+      'srifle_DMR_05_blk_F': 'd20-19',
+      'srifle_DMR_05_hex_F': 'd20-19',
+      'srifle_DMR_05_tan_F': 'd20-19',
+      '10Rnd_93x64_DMR_05_Mag': 'd6-2',
+      'LMG_Zafir_F':, 'd4-3' 
+      '150Rnd_762x54_Box': 'd3',
+
+      'MMG_01_hex_F': 'd10-9',
+      'MMG_01_tan_F': 'd10-9',
+      '150rnd 9.3x64mm belt': 'd3', 
+      'optic_DMS': 'd20-19',
+      //'CUP_launch_RPG7V': 'd3-1',
+      //'CUP_PG7V_M': 'd3+2',
+      //'CUP_lmg_PKM': 'd4-3',
+      //'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd3',
+      //'CUP_arifle_RPK74': 'd2',
+      //'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '2d3+5',
+      //'CUP_optic_PSO_1': 'd2-1',
+      //'CUP_srifle_SVD': 'd20-19',
+      //'CUP_10Rnd_762x54_SVD_M': 'd3-2'
     }
   ),
 ];

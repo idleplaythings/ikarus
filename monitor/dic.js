@@ -15,8 +15,14 @@ module.exports = (function(){
       dic.get('Config'),
       dic.get('GameData'),
       dic.get('WebAppClient'),
-      dic.get('BattlEyeClient')
+      dic.get('BattlEyeClient'),
+      dic.get('EventLog')
     );
+  });
+
+  dic.register('EventLog', function (dic) {
+    var EventLog = require('./src/domain/EventLog');
+    return new EventLog();
   });
 
   dic.register('GameData', function (dic) {

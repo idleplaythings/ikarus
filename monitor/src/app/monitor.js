@@ -2,13 +2,14 @@ var child_process = require('child_process');
 
 var _ = require('underscore');
 
-function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient) {
+function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient, eventLog) {
   this._rpcServer = rpcServer;
   this._config = config;
   this._gameData = gameData;
   this._webAppClient = webAppClient;
   this._battlEyeClient = battlEyeClient;
   this._armaServerProcess = null;
+  this._eventLog = eventLog;
 
   this._connectedSteamIds = [];
   this._status = Monitor.STATUS_DOWN;
@@ -243,6 +244,7 @@ var squadSubmit = function(squadId, loot) {
 };
 
 var gameEnd = function() {
+  this._webAppClient.submitLog(this._eventLog);
   console.log("Game ending, monitor dying");
   this.die();
 };
@@ -260,12 +262,11 @@ var playerConnected = function(uid) {
 
   this._gameData.playerConnected(uid);
   this._webAppClient.reportPlayerConnected(uid);
-
-
 };
 
-var playerKilled = function(uid) {
+var playerKilled = function(uid, killerUid) {
   console.log("MONITOR: ", uid, "killed");
+  this._eventLog.addEntry({type:"killed", victim: 'uid', killer: 'killerUid'});
   this._battlEyeClient.kickPlayer(uid);
   this._gameData.playerKilled(uid);
 };

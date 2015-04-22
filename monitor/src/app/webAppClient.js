@@ -114,11 +114,15 @@ WebAppClient.prototype.login = function() {
   this.call('login', [
     { user : { username : this._serverId }, password : this._serverPassword }
   ]);
-}
+};
+
+WebAppClient.prototype.submitLog = function(eventLog) {
+  this.call('submitLog', [ this._serverId, eventLog ]);
+};
 
 WebAppClient.prototype.registerServer = function() {
   this.call('registerServer', [ this._serverId ]);
-}
+};
 
 WebAppClient.prototype.reportStatusDown = function() {
   this.call('updateServerStatus', [this._serverId, 'down']);

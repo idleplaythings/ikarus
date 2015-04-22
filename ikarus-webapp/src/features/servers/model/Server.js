@@ -106,6 +106,7 @@ Server.prototype.getPassword = function() {
 Server.prototype.getJoinUrl = function() {
   var params = [
       '-world=empty',
+      '-nolauncher',
       '-nosplash',
       '-mod=@ikrs',
       '-connect=' + this.getHost(),

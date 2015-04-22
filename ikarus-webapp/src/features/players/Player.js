@@ -108,9 +108,25 @@ Player.prototype.isCurrent = function() {
   return this._id === Player.getCurrent()._id;
 };
 
+Player.prototype.addKill = function () {
+  Meteor.users.update({ _id: this._id }, { $inc: { kills: 1 }});
+};
+
+Player.prototype.getKills = function () {
+  get(this.getDoc(), 'kills') || 0;
+};
+
+Player.prototype.addDeath = function () {
+  Meteor.users.update({ _id: this._id }, { $inc: { deaths: 1 }});
+};
+
+Player.prototype.getDeaths = function () {
+  get(this.getDoc(), 'deaths') || 0;
+};
+
 Player.getByMeteorId = function(id) {
   return Player.fromDoc(Meteor.users.findOne({ _id: id }));
-}
+};
 
 Player.getById = function(playerId) {
   return Player.fromDoc(Meteor.users.findOne({ 'services.steam.id': playerId }));

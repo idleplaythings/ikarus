@@ -135,9 +135,9 @@ objective_hold_insideDepot = {
 
   _players = [_objectiveData] call objective_hold_getPlayersInBuilding;
 
-  if (_time < 1500) exitWith {
+  if (_time < 1800) exitWith {
     {
-      ["You can not hold this depot before 25 minutes has elapsed.", "hint", _x, false, true] call BIS_fnc_MP;
+      ["You can not hold this depot before 30 minutes has elapsed.", "hint", _x, false, true] call BIS_fnc_MP;
     } forEach _players;
   };
 

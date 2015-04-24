@@ -1,15 +1,26 @@
 <template name="inventory">
   <div class="inventory">
     {{#if targetInventory}}
-      <h3>Inventory ({{targetInventoryItemCount}} / {{targetInventoryMaxItemCount}})</h3>
-      <h2>Vehicles: {{vehicleSlots}}/{{getUsedVehicleSlots}}</h2>
-      <h2>Armoured vehicles: {{armorSlots}}/{{getUsedArmorSlots}}</h2>
-      <h2>Helicopters: {{heloSlots}}/{{getUsedHeloSlots}}</h2>
+      <div class="row add-top">
+        <div class="col-md-3">
+          <h3><strong>Items {{targetInventoryItemCount}} / {{targetInventoryMaxItemCount}}
+          </strong></h3>
+        </div>
+        <div class="col-md-3">
+          <h3><strong>Vehicles: {{vehicleSlots}}/{{getUsedVehicleSlots}}</strong></h3>
+        </div>
+        <div class="col-md-3">
+          <h3><strong>Armoured vehicles: {{armorSlots}}/{{getUsedArmorSlots}}</strong></h3>
+        </div>
+        <div class="col-md-3">
+          <h3><strong>Helicopters: {{heloSlots}}/{{getUsedHeloSlots}}</strong></h3>
+        </div>
+      </div>
     {{else}}
       <h3>Armory</h3>
     {{/if}}
 
-    <div class="row add-top">
+    <div class="row">
       {{#each layout}}
         <div class="col-md-3">
           <h3>{{title}}</h3>

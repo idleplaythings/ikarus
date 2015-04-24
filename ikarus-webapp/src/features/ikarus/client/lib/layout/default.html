@@ -1,60 +1,65 @@
 <template name="ikarus_default">
+
+  <nav class="ikarus-nav navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{pathFor route='home'}}">Ikarus</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          {{#if currentCompany}}
+            <li><a href="{{pathFor route='my-squad'}}">Squad</a></li>
+          {{/if}}
+          {{#if currentPlayer}}
+            <li><a href="{{pathFor route='my-company'}}">Company</a></li>
+          {{/if}}
+          {{#if currentPlayer}}
+            <li><a href="{{pathFor route='my-character'}}">Character</a></li>
+          {{/if}}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Browse <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="{{pathFor route='companies'}}">Companies</a></li>
+              <li><a href="{{pathFor route='servers'}}">Servers</a></li>
+              <li><a href="{{pathFor route='players'}}">Players</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="{{pathFor route='howtoplay'}}">How to play</a>
+          </li>
+        </ul>
+
+        {{#if dev}}
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Development <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" class="js-reset">Regenerate Test Data</a></li>
+              </ul>
+            </li>
+          </ul>
+        {{/if}}
+
+        <p class="navbar-text navbar-right">
+          {{> players_status}}
+        </p>
+      </div>
+    </div>
+  </nav>
+
   <div class="ikarus-main container-fluid">
     {{#if noSteamConfigured}}
       <div style="position: absolute; z-index: 1000;">
         {{> loginButtons}}
       </div>
     {{/if}}
-
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{pathFor route='home'}}">Ikarus</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            {{#if currentCompany}}
-              <li><a href="{{pathFor route='my-squad'}}">Squad</a></li>
-            {{/if}}
-            {{#if currentPlayer}}
-              <li><a href="{{pathFor route='my-company'}}">Company</a></li>
-            {{/if}}
-            {{#if currentPlayer}}
-              <li><a href="{{pathFor route='my-character'}}">Character</a></li>
-            {{/if}}
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Browse <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="{{pathFor route='companies'}}">Companies</a></li>
-                <li><a href="{{pathFor route='servers'}}">Servers</a></li>
-                <li><a href="{{pathFor route='players'}}">Players</a></li>
-              </ul>
-            </li>
-          </ul>
-
-          {{#if dev}}
-            <ul class="nav navbar-nav">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Development <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#" class="js-reset">Regenerate Test Data</a></li>
-                </ul>
-              </li>
-            </ul>
-          {{/if}}
-
-          <p class="navbar-text navbar-right">
-            {{> players_status}}
-          </p>
-        </div>
-      </div>
-    </nav>
 
     <div class="row">
       <div class="col-md-12">

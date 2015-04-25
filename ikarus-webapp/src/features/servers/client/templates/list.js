@@ -1,5 +1,6 @@
 Template.servers_list.onCreated(function () {
   this.subscribe('Servers');
+  this.subscribe('serverStatus');
 });
 
 var countdowners = {};
@@ -14,9 +15,6 @@ Template.servers_list.destroyed = function () {
 };
 
 Template.servers_list.helpers({
-  created: function() {
-    Meteor.subscribe('serverStatus');
-  },
   servers: function() {
     return Server.getAll();
   },

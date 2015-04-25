@@ -1,3 +1,9 @@
+body {
+  background-image: url("/tausta.jpg");
+  background-size: 100% auto;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
 
 html {
   overflow-y: scroll;
@@ -5,6 +11,29 @@ html {
 
 body {
   margin: 0 20px auto 20px;
+}
+
+.ikarus-nav {
+  position:fixed;
+  z-index:99999;
+  width:100%;
+  left:0;
+  top:0;
+  border-bottom:1px solid darkgray;
+}
+
+.ikarus-nav h2 {
+  display:inline;
+  line-height: 50px;
+  padding-left:10px;
+}
+
+.ikarus-nav h2.danger {
+  color:#C23A00;
+}
+
+.ikarus-nav h2.success {
+  color:#62A300;
 }
 
 #login-buttons-image-steam {
@@ -15,9 +44,18 @@ body {
 .clickable {
   cursor: pointer;
 }
+.info-box {
+  margin-top: 10px;
+}
 
 .ikarus-main {
   max-width: 1200px;
+  background-color: rgba(255,255,255,0.95);
+  padding-top: 80px;
+  padding-bottom: 50px;
+  height: calc(100%);
+  border: 1px solid lightgray;
+  border-top: 0px solid lightgray;
 }
 
 table {
@@ -46,8 +84,13 @@ header h2 {
 }
 
 header h1 {
+  text-align: center;
   margin: 0;
   padding: 0;
+}
+
+h1 {
+  text-align: center;
 }
 
 h2 {

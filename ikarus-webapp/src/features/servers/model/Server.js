@@ -19,7 +19,41 @@ Server.TIME_WAIT_FOR_NEWSQUADS = 2; //minutes
 Server.MIN_SQUADS_TO_START = 2;
 Server.MIN_SQUADS_TO_ABORT = 1;
 Server.TIME_MAX_MISSION_LENGTH = 75; //minutes
+Server.TIME_AVERAGE_MISSION_LENGTH = 60; //minutes
 
+Server.prototype.getTimeRemainingToApproximateGameEnd = function () {
+  if (! this.isPlaying()) {
+    return undefined;
+  }
+
+  return this.getStatusChanged()
+    .add(server.TIME_AVERAGE_MISSION_LENGTH, 'minutes')
+    .diff(moment(), 'seconds');
+};
+
+Server.prototype.getSquadsRemainingToStart = function () {
+  if (! this.isIdle()) {
+    return undefined;
+  }
+
+  return this.getSquadsToStart() - this.getSquadsInGame().length;
+};
+
+Server.prototype.getStartTime = function () {
+  if (! this.isWaiting()) {
+    return undefined;
+  }
+
+  return this.getStatusChanged().add(this.getWaitingTime(), 'minutes');
+};
+
+Server.prototype.getStartTimeLeft = function () {
+  if (! this.isWaiting()) {
+    return undefined;
+  }
+
+  return this.getStartTime().diff(moment(), 'seconds');
+};
 
 
 Server.prototype.getSquadsToAbort = function() {
@@ -307,6 +341,10 @@ Server.getAll = function() {
 
 Server.getAllWaiting = function() {
   return collections.ServerCollection.find({status: Server.STATUS_WAITING}).fetch().map(Server.fromDoc);
+};
+
+Server.getAllPlaying = function() {
+  return collections.ServerCollection.find({status: Server.STATUS_PLAYING}).fetch().map(Server.fromDoc);
 };
 
 Server.getByInGameSquad = function(squad) {

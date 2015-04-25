@@ -4,10 +4,10 @@ Meteor.startup(function(){
   }
 });
 
-ServerQueueService = function ServerQueueService(queueSquadService){
+ServerQueueService = function ServerQueueService(queueSquadService, serverFinder){
   this._started = false;
   this._loopDelay = 1000;
-  this._serverFinder = new ServerFinder();
+  this._serverFinder = serverFinder;
 
   this._serverStatusUpdates = [];
 
@@ -29,7 +29,6 @@ ServerQueueService.prototype.process = function() {
   this.checkServerIsReadyToStart();
   this.queueStatusChanged();
 };
-
 
 ServerQueueService.prototype.loop = function() {
   this.process();
@@ -109,7 +108,7 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
 ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
 
-    if (server.getStatusChanged().add(server.getWaitingTime(), 'minutes').isAfter(moment())) {
+    if (server.getStartTime().isAfter(moment())) {
       return;
     }
 

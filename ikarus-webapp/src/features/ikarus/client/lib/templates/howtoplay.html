@@ -1,0 +1,30 @@
+<template name="howtoplay">
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>HOW TO PLAY</h1>
+
+      <div class="info-box bg-info">
+        <p>
+          Begin with downloading the mod from the button below. Extract the mod to arma3 folder under your steam folder.
+        </p>
+
+        <a href="https://s3-eu-west-1.amazonaws.com/ikarus.idleplaythings.com/mod/%40ikrs_v0.3.0.zip" class="createSquad btn btn-primary">Download mod</a>
+      </div>
+
+      {{#unless currentPlayer}}
+        <div class="info-box bg-info">
+          <p>
+            Next, you should log in with your steam credentials. The login service is provided and secured by steam and we won't get access any of your credentials.
+          </p>
+
+          {{> players_status}}
+        </div>
+      {{/unless}}
+
+      {{> players_company}}
+
+      {{> squads_status}}
+    </div>
+  </div>
+</template>

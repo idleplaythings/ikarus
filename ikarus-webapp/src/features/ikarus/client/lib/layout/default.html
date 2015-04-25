@@ -34,6 +34,10 @@
           <li>
             <a href="{{pathFor route='howtoplay'}}">How to play</a>
           </li>
+
+          <li>
+            <a href="http://www.reddit.com/r/ikarus">Subreddit</a>
+          </li>
         </ul>
 
         {{#if dev}}
@@ -46,6 +50,9 @@
             </li>
           </ul>
         {{/if}}
+
+        <h2 style="margin-left:50px;">NEXT GAME:</h2>{{> nextGameAvailable}}
+        <h2>ACTIVE GAMES: {{gamesActive}}</h2>
 
         <p class="navbar-text navbar-right">
           {{> players_status}}

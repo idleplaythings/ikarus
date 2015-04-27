@@ -1,0 +1,57 @@
+<template name="marketPlaceView">
+
+  <div class="row add-top">
+    <div class="col-md-6">
+      {{#each getItems}}
+        <div class="panel panel-default {{getStatusClass}} clickable">
+          <div class="panel-heading marketEntry" data-armaClass="{{getArmaClass}}">
+            {{getName}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="col-md-6">
+      {{#with getSelectedItem}}
+        {{#with getItem}}
+          {{> itemInfoLarge}}
+        {{/with}}
+
+        {{#if currentCompany}}
+          <div class="row add-top">
+            <div class="col-md-4">
+              <h4>OWNED</h4>
+              <h4>{{amountInArmory getItem.armaClass}}</h4>
+            </div>
+            <div class="col-md-4">
+              <h4>COST</h4>
+              {{#each getTotalCosts}}
+                {{item.name}}: {{amount}} ({{amountInArmory item.armaClass}})
+              {{/each}}
+            </div>
+          </div>
+
+          <div class="row add-top marketBuyRow">
+            <div class="col-md-4">
+               <button class="buyless btn btn-primary" style="width:100%;"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+            </div>
+            <div class="col-md-4">
+              {{amountToBuy}}
+            </div>
+            <div class="col-md-4">
+               <button class="buymore btn btn-primary" style="width:100%;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+            </div>
+          </div>
+
+          <div class="row add-top">
+            <div class="col-md-12">
+              <button id="buy-button" class="btn {{affordClass}}" style="width:100%;">{{buyText}}</button>
+            </div>
+          </div>
+        {{/if}}
+      {{/with}}
+    </div>
+
+  </div>
+
+</template>

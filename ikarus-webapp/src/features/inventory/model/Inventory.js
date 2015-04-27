@@ -15,6 +15,12 @@ Inventory.prototype.isLocked = function(){
   return false;
 };
 
+Inventory.prototype.getAmountOfItemsWithClass = function(armaClass){
+  return this.items.filter(function(item){
+    return item.armaClass == armaClass;
+  }, this).length;
+};
+
 Inventory.prototype.getAmountOfItemsWithTag = function(tag){
   return this.items.filter(function(item){
     return item.hasTags(tag);
@@ -122,7 +128,9 @@ Inventory.moveFromInventory = function(from, to, armaClass){
   Inventory.removeFromInventory(from, item) && Inventory.addToInventory(to, item);
 };
 
-Inventory.removeFromInventory = function(inventory, item){
+Inventory.removeFromInventory = function(inventory, item, amount){
+
+  amount = amount !== undefined ? amount * -1 : -1;
 
   var armaClass = item.armaClass;
   if (item.unlimited && inventory instanceof InventoryCompany) {
@@ -134,7 +142,7 @@ Inventory.removeFromInventory = function(inventory, item){
   var gt = {};
   gt['items.' + armaClass] = {$gt: 0};
   var dec = {};
-  dec['items.' + armaClass] = -1;
+  dec['items.' + armaClass] = amount;
 
   var result = collections.InventoryCollection.update(
     {$and :
@@ -151,7 +159,9 @@ Inventory.removeFromInventory = function(inventory, item){
   return result;
 };
 
-Inventory.addToInventory = function(inventory, item){
+Inventory.addToInventory = function(inventory, item, amount){
+
+  amount = amount !== undefined ? amount : 1;
 
   var armaClass = item.armaClass;
   if (item.unlimited && inventory instanceof InventoryCompany) {
@@ -159,7 +169,7 @@ Inventory.addToInventory = function(inventory, item){
   }
 
   var inc = {};
-  inc['items.' + armaClass] = 1;
+  inc['items.' + armaClass] = amount;
 
   var result = collections.InventoryCollection.update(
     {_id: inventory._id},

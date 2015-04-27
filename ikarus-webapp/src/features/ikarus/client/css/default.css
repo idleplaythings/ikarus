@@ -15,7 +15,7 @@ body {
 
 .ikarus-nav {
   position:fixed;
-  z-index:99999;
+  z-index:5;
   width:100%;
   left:0;
   top:0;
@@ -151,7 +151,8 @@ section h2 {
   margin-right: -8px;
 }
 
-.inventory .inventory-entry > img.item-image {
+.itemTooltip {
+  z-index:10;
   height: 128px;
   position: absolute;
   top: -145px;
@@ -160,4 +161,39 @@ section h2 {
   background: white;
   padding: 10px;
   border-radius: 5px;
+}
+
+.itemInfo.small .item-image {
+  height:100%;
+}
+
+.itemInfo.large .item-image {
+  width:100%;
+}
+
+.itemInfo.small{
+  height: 100%;
+  padding:0 10px;
+}
+
+.itemInfo h3 {
+  text-align: center;
+}
+
+.itemInfo.small h4 {
+  line-height: 10%;
+  height:10%;
+  padding:0;
+  margin:0;
+}
+
+.itemInfo.small div {
+  height: 90%;
+  padding:0;
+  margin:0;
+}
+
+.marketBuyRow {
+  text-align: center;
+  font-size: 32px;
 }

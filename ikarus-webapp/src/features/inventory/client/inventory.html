@@ -26,7 +26,7 @@
           <h3>{{title}}</h3>
 
           {{#each items}}
-            <div class="inventory-entry" data-armaclass={{item.armaClass}}>
+            <div class="inventory-entry show-item-tooltip-small" data-armaclass={{item.armaClass}}>
               <div class="item {{#if targetCount}}in-inventory{{/if}}">
                 {{#if isManageable}}
                   {{> inventory_manage}}

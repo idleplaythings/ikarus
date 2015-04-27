@@ -10,16 +10,10 @@ LootController = function LootController(
 
 LootController.prototype.addStartingLoot = function(company) {
   var loot = [
-    'IKRS_loot_civilian_weapons',
-    'IKRS_loot_civilian_weapons',
-    'IKRS_loot_civilian_weapons',
-    'IKRS_loot_civilian_weapons',
-    'IKRS_loot_old_RU_weapons',
-    'IKRS_loot_smg_weapons',
-    'IKRS_loot_old_nato_weapons',
-    'C_Offroad_01_F',
-    'C_Offroad_01_F',
+    'IKRS_STARTING_LOOT'
   ];
+
+
 
   this.receiveLootForCompany(company, loot, new ObjectiveSupply());
 };

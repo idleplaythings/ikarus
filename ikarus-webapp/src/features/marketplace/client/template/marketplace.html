@@ -1,0 +1,19 @@
+<template name="marketplace">
+
+  <div class="row">
+    <h1>MARKETPLACE</h1>
+  </div>
+
+  <div class="row add-top">
+    <div class="col-md-12">
+      {{#each categories}}
+        <button class="btn btn-primary marketCategory" data-marketCategory="{{_id}}">{{name}}</button>
+      {{/each}}
+    </div>
+  </div>
+
+  {{#with marketContext}}
+    {{> marketPlaceView}}
+  {{/with}}
+
+</template>

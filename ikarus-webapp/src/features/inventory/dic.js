@@ -69,6 +69,19 @@ dic.register('GearAndSightsInventoryColumn', function(dic) {
   });
 });
 
+dic.register('ResourcesAndSpecialEquipmentInventoryColumn', function(dic) {
+  return new InventoryColumn({
+    title: 'Vehicles and Resources',
+    policy: function(itemWrapper) {
+      return itemWrapper.item.hasSomeTags([
+        'resource',
+        'vehicle'
+      ]);
+    },
+    sort: dic.get('AlphabeticalInventoryColumnSort')
+  });
+});
+
 dic.register('VehiclesInventoryColumn', function(dic) {
   return new InventoryColumn({
     title: 'Vehicles',
@@ -109,7 +122,7 @@ dic.register('CompanyInventoryView', function(dic) {
   companyInventoryView.addGroup(dic.get('PrimaryWeaponInventoryColumn'));
   companyInventoryView.addGroup(dic.get('SecondaryWeaponInventoryColumn'));
   companyInventoryView.addGroup(dic.get('GearAndSightsInventoryColumn'));
-  companyInventoryView.addGroup(dic.get('VehiclesInventoryColumn'));
+  companyInventoryView.addGroup(dic.get('ResourcesAndSpecialEquipmentInventoryColumn'));
 
   return companyInventoryView;
 });

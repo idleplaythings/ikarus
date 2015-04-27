@@ -60,8 +60,6 @@ function getNextServer() {
 };
 
 function changeDependency(dependency) {
-  console.log("start");
-
   var loop = function () {
     dependency.changed();
     Meteor.setTimeout(loop, 1000);

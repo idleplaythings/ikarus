@@ -309,6 +309,7 @@ ItemDefinitions = [
     'Starting loot',
     'IKRS_STARTING_LOOT',
     {
+      'money': 500,
       'Binocular': 10,
       'arifle_TRG21_F': 10,
       '30Rnd_556x45_Stanag': 50

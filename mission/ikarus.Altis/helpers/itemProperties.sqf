@@ -1,6 +1,6 @@
 itemProperties_crawl = {
   _weapons = "('Rifle' in ([_x, true ] call BIS_fnc_returnParents))" configClasses (configFile >> "CfgWeapons"); 
-  _data = "var weaponProperties = {";
+  _data = "weaponProperties = {";
 
   {
     _data = _data + ([_x] call itemProperties_inspectWeapon);
@@ -9,7 +9,7 @@ itemProperties_crawl = {
   _data = _data + "};\n\n\n";
 
   _magazines = "('CA_Magazine' in ([_x, true ] call BIS_fnc_returnParents))" configClasses (configFile >> "CfgMagazines"); 
-  _data = _data + "var magazineProperties = {";
+  _data = _data + "magazineProperties = {";
 
   {
     _data = _data + ([_x] call itemProperties_inspectMagazine);
@@ -18,7 +18,7 @@ itemProperties_crawl = {
   _data = _data + "};\n\n\n";
 
   _ammo = "('BulletBase' in ([_x, true ] call BIS_fnc_returnParents))" configClasses (configFile >> "CfgAmmo"); 
-  _data = _data + "var ammoProperties = {";
+  _data = _data + "ammoProperties = {";
 
   {
     _data = _data + ([_x] call itemProperties_inspectAmmo);
@@ -58,7 +58,7 @@ itemProperties_inspectWeapon = {
 
   } forEach ([_weapon, 1, true, true ] call BIS_fnc_returnChildren);
 
-  configName _weapon + ": {"
+  "'" + configName _weapon + "': {"
     + " dispersion: " + str _dispersion + ","
     + " recoil: '" + _recoil + "',"
     + " initSpeed: " + str _initSpeed + ","
@@ -78,7 +78,7 @@ itemProperties_inspectMagazine = {
   _initSpeed = getNumber (_magazine >> 'initSpeed');
   _mass = getNumber (_magazine >> 'mass');;
 
-  configName _magazine + ": {"
+  "'" + configName _magazine + "': {"
     + " ammo: " + str _ammo + ","
     + " count: '" + str _count + "'," 
     + " initSpeed: " + str _initSpeed + ","
@@ -91,7 +91,7 @@ itemProperties_inspectAmmo = {
   _ammo = _this select 0;
   _hit = getNumber (_ammo >> 'hit');
 
-  configName _ammo + ": {"
+  "'" + configName _ammo + "': {"
     + " hit: " + str _hit
   + "},\n";  
 };

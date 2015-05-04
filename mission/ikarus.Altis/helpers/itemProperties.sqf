@@ -42,7 +42,7 @@ itemProperties_inspectWeapon = {
   _mass = 0;
 
   {
-    if (configName _x == "Single" || configName _x == "FullAuto" || configName _x == "Burst") then {
+    if (configName _x == "Single" || configName _x == "FullAuto" || configName _x == "Burst" || configName _x == "manual" ) then {
       if (_dispersion == 0) then {
         _dispersion = getNumber (_x >> "dispersion");
       };

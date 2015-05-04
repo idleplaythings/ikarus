@@ -153,6 +153,9 @@ objective_guard_equipGuard = {
   [_squad, _loot] call addDisconnectedLoot;
   
   removeAllWeapons _unit;
+  _unit removeWeaponGlobal (primaryWeapon _unit);
+  _unit removeWeaponGlobal (secondaryWeapon _unit);
+  _unit removeWeaponGlobal (handgunWeapon _unit);
   removeAllItems _unit;
   removeAllAssignedItems _unit;
   removeUniform _unit;

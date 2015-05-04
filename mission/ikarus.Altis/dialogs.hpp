@@ -68,7 +68,7 @@ class ikrs_ui_co_dialog
       y = 0.730939 * safezoneH + safezoneY;
       w = 0.195962 * safezoneW;
       h = 0.0219942 * safezoneH;
-      action = "[] call objectiveDialog_ready;"
+      action = "[] call objectiveDialog_ready;";
     };
     ////////////////////////////////////////////////////////
     // GUI EDITOR OUTPUT END

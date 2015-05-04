@@ -152,30 +152,5 @@ objective_guard_equipGuard = {
   _squad = [_unit] call getSquadForUnit;
   [_squad, _loot] call addDisconnectedLoot;
   
-  removeAllWeapons _unit;
-  _unit removeWeaponGlobal (primaryWeapon _unit);
-  _unit removeWeaponGlobal (secondaryWeapon _unit);
-  _unit removeWeaponGlobal (handgunWeapon _unit);
-  removeAllItems _unit;
-  removeAllAssignedItems _unit;
-  removeUniform _unit;
-  removeVest _unit;
-  removeBackpack _unit;
-  removeHeadgear _unit;
-
-  _unit forceAddUniform "U_Marshal";
-  _unit addHeadgear "H_Cap_police";
-  _unit addVest "V_TacVest_blk_POLICE";
-  for "_i" from 1 to 6 do {_unit addItemToVest "30Rnd_556x45_Stanag";};
-  for "_i" from 1 to 3 do {_unit addItemToUniform "16Rnd_9x21_Mag";};
-  _unit addItemToVest "FirstAidKit";
-
-  _unit addWeaponGlobal "arifle_TRG20_F";
-  _unit addPrimaryWeaponItem "acc_flashlight";
-  _unit addWeaponGlobal "Binocular";
-  _unit addWeaponGlobal "hgun_P07_F";
-
-  _unit linkItem "ItemMap";
-  _unit linkItem "ItemCompass";
-  _unit linkItem "ItemWatch";
+  [[], "client_equipGuard", _unit, false, false] call BIS_fnc_MP;
 };

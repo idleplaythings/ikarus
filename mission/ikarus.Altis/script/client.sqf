@@ -15,9 +15,6 @@ client_removeBecomeMedic = {
 client_equipGuard = {
 
   removeAllWeapons player;
-  player removeWeaponGlobal (primaryWeapon player);
-  player removeWeaponGlobal (secondaryWeapon player);
-  player removeWeaponGlobal (handgunWeapon player);
   removeAllItems player;
   removeAllAssignedItems player;
   removeUniform player;

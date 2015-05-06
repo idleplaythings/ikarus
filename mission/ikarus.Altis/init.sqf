@@ -44,6 +44,8 @@ if (! isServer) exitwith {};
 [] execVM "script\baseModules\reconStation1.sqf";
 [] execVM "script\baseModules\medicalStation1.sqf";
 
+[] execVM "helpers\itemProperties.sqf";
+
 [{ call getAllPlayers }] execVM "script\civilianVehicles.sqf";
 
 call compile preprocessfile "SHK_pos\shk_pos_init.sqf";

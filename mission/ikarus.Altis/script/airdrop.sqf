@@ -23,7 +23,7 @@ airdrop_land = {
   _box setVelocity _velocity;
 
   detach _para;
-  _para disableCollisionWith _box;   
+  _para disableCollisionWith _box;
 };
 
 airdrop_create = {

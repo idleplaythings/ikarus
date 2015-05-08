@@ -102,18 +102,6 @@ missionControl_startGame = {
   call missionControl_pollGameEnd;
 };
 
-/*
-missionControl_message = {
-  if (time - missionControl_lastMessageTime > 10) then {
-    private ["_message", "_squads"];
-    missionControl_lastMessageTime = time;
-
-    _message = format["%1 squads in game. Need %2 to start the game.", str count call getSquadsWithPlayers, str missionControl_minSquads];
-    [_message] call broadcastMessage;
-  };
-};
-*/
-
 missionControl_endGame = {
   missionControl_gameOver = true;
   hint "end game";

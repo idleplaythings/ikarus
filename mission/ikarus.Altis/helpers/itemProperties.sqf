@@ -31,7 +31,8 @@ itemProperties_crawl = {
 };
 
 itemProperties_inspectWeapon = {
-  private ["_weapon", "_dispersion", "_recoil", "_initSpeed", "_dexterity", "_inertia", "_magazines", "_mass"];
+  private ["_weapon", "_reloadTime", "_dispersion", "_recoil", "_initSpeed", "_dexterity", "_inertia", "_magazines", "_mass"];
+  private ["_reloadTime", "_reloadTimeBurst", "_reloadTimeAuto"];
   _weapon = _this select 0;
   _dispersion = 0;
   _recoil = '';
@@ -39,6 +40,9 @@ itemProperties_inspectWeapon = {
   _dexterity = getNumber (_weapon >> 'dexterity');
   _inertia = getNumber (_weapon >> 'inertia');
   _magazines = getArray (_weapon >> 'magazines');
+  _reloadTime = 0;
+  _reloadTimeBurst = 0;
+  _reloadTimeAuto = 0;
   _mass = 0;
 
   {
@@ -52,6 +56,20 @@ itemProperties_inspectWeapon = {
       };
     };
 
+    if (configName _x == "Single" || configName _x == "manual" ) then {
+      if (_reloadTime == 0) then {
+        _reloadTime = getNumber (_x >> "reloadTime");
+      };
+    };
+
+    if (configName _x == "Burst") then {
+      _reloadTimeBurst = getNumber (_x >> "reloadTime");
+    };
+
+    if (configName _x == "FullAuto") then {
+      _reloadTimeAuto = getNumber (_x >> "reloadTime");
+    };
+
     if (configName _x == "WeaponSlotsInfo" ) then {
       _mass = getNumber (_x >> 'mass');
     };
@@ -61,6 +79,9 @@ itemProperties_inspectWeapon = {
   "'" + configName _weapon + "': {"
     + " dispersion: " + str _dispersion + ","
     + " recoil: '" + _recoil + "',"
+    + " reloadTime: '" + str _reloadTime + "',"
+    + " reloadTimeBurst: '" + str _reloadTimeBurst + "',"
+    + " reloadTimeAuto: '" + str _reloadTimeAuto + "',"
     + " initSpeed: " + str _initSpeed + ","
     + " dexterity: " + str _dexterity + ","
     + " inertia: " + str _inertia + ","
@@ -96,3 +117,4 @@ itemProperties_inspectAmmo = {
   + "},\n";  
 };
 
+call itemProperties_crawl;

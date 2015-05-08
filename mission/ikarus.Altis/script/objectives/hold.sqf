@@ -1,5 +1,5 @@
 objective_hold_objectData = [];
-
+objective_hold_increment = 0.17;
 
 objective_hold_construct = {
   private ["_centerOfAO", "_depots", "_players"];
@@ -84,7 +84,7 @@ objective_hold_constructMarkers  = {
 objective_hold_constructDepots = {
   private ["_objectData", "_objectiveData", "_directionAndPosition", "_direction", "_position", "_object"];
   {
-    _objectiveData = [_x, 0, false];
+    _objectiveData = [_x, [], false];
     objective_hold_objectData pushBack _objectiveData;
     _objectData = [_x select 1, 1] call depotPositions_getRandomPlaceholdersFromObjects select 0;
 
@@ -126,33 +126,71 @@ objective_hold_destroyDepot = {
   [_building, 0] call airStrike_createBomb;
 };
 
-objective_hold_insideDepot = {
-  private ["_unit", "_objectiveData", "_time", "_held", "_increment", "_players"];
-  _unit = _this select 0;
+objective_hold_getSquadHoldData = {
+  private ["_squad", "_objectiveData", "_result"];
+  _squad = _this select 0;
   _objectiveData = _this select 1;
-  _time = call missionControl_getElapsedTime;
-  _increment = 0.17;
-
-  _players = [_objectiveData] call objective_hold_getPlayersInBuilding;
-
-  if (_time < 1800) exitWith {
-    {
-      ["You can not hold this depot before 30 minutes has elapsed.", "hint", _x, false, true] call BIS_fnc_MP;
-    } forEach _players;
-  };
-
-  _objectiveData set [1, ((_objectiveData select 1) + _increment)];
-
-  _held = _objectiveData select 1;
+  _result = nil;
 
   {
-    ["Depot is " + str _held + "% held", "hint", _x, false, true] call BIS_fnc_MP;
-  } forEach _players;
+    if ((_x select 0) == ([_squad] call getSquadId)) exitWith {
+      _result = _x;
+    };
+  } forEach (_objectiveData select 1);
 
-  if (_held >= 100 && ! (_objectiveData select 2)) then {
-    _objectiveData set [2, true];
-    [(_objectiveData select 0)] spawn objective_hold_setUpDrop;
+  if (isNil {_result}) then {
+    _result = [([_squad] call getSquadId), 0];
+    (_objectiveData select 1) pushBack _result;
   };
+
+  _result;
+};
+
+objective_hold_insideDepot = {
+  private ["_unit", "_squad", "_objectiveData", "_time", "_held", "_increment", "_players"];
+  _unit = _this select 0;
+  _squad = [_unit] call getSquadForUnit;
+  _objectiveData = _this select 1;
+  _time = call missionControl_getElapsedTime;
+  _increment = objective_hold_increment;
+
+  if (_time < 1800) exitWith {};
+  
+  _held = [_squad, _objectiveData] call objective_hold_getSquadHoldData;
+
+  if ((_held select 1) >= 100) exitWith {};
+
+  _held set [1, ((_held select 1) + _increment)];
+
+
+  if ((_held select 1) >= 100) then {
+    
+    if (! (_objectiveData select 2)) then {
+      [_objectiveData] call objective_hold_setUpDrop;
+    };
+
+    [_squad, (_objectiveData select 3)] call objective_hold_giveLocation;
+  };
+};
+
+objective_hold_informPlayers = {
+  private ["_objectiveData", "_players", "_squad", "_held", "_can", "_time"];
+  _objectiveData = _this select 0;
+  _time = call missionControl_getElapsedTime;
+  _players = [_objectiveData] call objective_hold_getPlayersInBuilding;
+
+  {
+    _squad = [_x] call getSquadForUnit;
+    _held = [_squad, _objectiveData] call objective_hold_getSquadHoldData select 1;
+    _can = [_x, "canOpenLootBoxes", [_x]] call objectiveController_callUnitObjective;
+
+    if (_time < 1800) then {
+      ["You can not hold this depot before 30 minutes has elapsed.", "hint", _x, false, true] call BIS_fnc_MP;
+    } else {
+      ["Depot is " + str _held + "% held", "hint", _x, false, true] call BIS_fnc_MP;
+    };
+
+  } forEach _players;
 };
 
 objective_hold_getPlayersInBuilding = {
@@ -170,43 +208,44 @@ objective_hold_getPlayersInBuilding = {
   _players;
 };
 
+objective_hold_giveLocation = {
+  private ["_squad", "_position"];
+  _squad = _this select 0;
+  _position = _this select 1;
+  _squads = [];
+  
+  {
+    [[_position], "markers_createSupplyDropMarker", _x, false, true] call BIS_fnc_MP;
+  } forEach ([_squad] call getPlayersInSquad);
+};
+
 objective_hold_setUpDrop = {
-  private ["_building", "_position", "_squads", "_squad", "_loot"];
-  _building = _this select 0 select 0;
+  private ["_objectiveData", "_building", "_position"];
+  _objectiveData = _this select 0;
+
+  _building = _objectiveData select 0 select 0;
   _position = [getPos _building, 2000, 4000] call popoRandom_findLand;
 
-  _squads = [];
+  _objectiveData set [2, true];
+  _objectiveData set [3, _position];
 
-  {
-    if (_x distance _building < 10) then {
-      _squad = [_x] call getSquadForUnit;
-      if ! (_squad in _squads) then {
-        _squads pushBack _squad;
-      };
-    };
-  } forEach call getAllPlayers;
+  [_position] spawn {
+    private ["_position", "_loot"];
+    _position = _this select 0;
 
-  player globalChat str count _squads;
+    sleep (120 + random 60);
 
-  {
-    {
-      player globalChat "add marker";
-      [[_position], "markers_createSupplyDropMarker", _x, false, true] call BIS_fnc_MP;
-    } forEach ([_x] call getPlayersInSquad);
-  } forEach _squads;
+    _loot = [
+      'IKRS_loot_old_nato_weapons',
+      'IKRS_loot_old_nato_weapons',
+      'IKRS_loot_old_nato_weapons',
+      'IKRS_loot_common_nato_weapons',
+      'IKRS_loot_common_nato_weapons',
+      'IKRS_loot_heavy_nato_weapons'
+    ];
 
-  sleep (300 + random 150);
-
-  _loot = [
-    'IKRS_loot_old_nato_weapons',
-    'IKRS_loot_old_nato_weapons',
-    'IKRS_loot_old_nato_weapons',
-    'IKRS_loot_common_nato_weapons',
-    'IKRS_loot_common_nato_weapons',
-    'IKRS_loot_heavy_nato_weapons'
-  ];
-
-  [_position, _loot] call airdrop_create;
+    [_position, _loot] call airdrop_create;
+  };
 };
 
 objective_hold_getAmountOfDepots = {
@@ -228,20 +267,25 @@ objective_hold_getAmountOfDepots = {
 
 objective_hold_isInsideDepot = {
   {
-    private ["_objectiveData", "_building", "_player", "_depot", "_can", "_done"];
+    private ["_objectiveData", "_building", "_player", "_depot", "_can", "_squadIds", "_squadId"];
     _objectiveData = _x;
     _depot = _objectiveData select 0;
     _building = _depot select 0;
-    _done = _objectiveData select 2;
+    _squadIds = [];
 
     {
       _player = _x;
+      _squadId = [([_player] call getSquadForUnit)] call getSquadId;
+
       _can = [_player, "canOpenLootBoxes", [_player]] call objectiveController_callUnitObjective;
 
-      if (_can && ! _done && _building distance _player < 10) exitWith {
+      if (_can && _building distance _player < 10 && ! (_squadId in _squadIds)) then {
+        _squadIds pushBack _squadId;
         [_player, _objectiveData] call objective_hold_insideDepot;
       };
     } forEach call getAllPlayers;
+
+    [_objectiveData] call objective_hold_informPlayers;
   } forEach objective_hold_objectData;
 };
 

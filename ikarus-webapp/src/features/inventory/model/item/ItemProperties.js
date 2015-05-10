@@ -219,12 +219,12 @@ weaponProperties = {'Rifle': { dispersion: 0, recoil: '', initSpeed: 0, dexterit
 'MMG_01_hex_F': { dispersion: 0.00145, recoil: 'recoil_auto_primary_3outof10', initSpeed: 0, dexterity: 1.7, inertia: 1.2, magazines: ["150Rnd_93x64_Mag"], mass: 220},
 'MMG_01_tan_F': { dispersion: 0.00145, recoil: 'recoil_auto_primary_3outof10', initSpeed: 0, dexterity: 1.7, inertia: 1.2, magazines: ["150Rnd_93x64_Mag"], mass: 220},
 'MMG_01_hex_ARCO_LP_F': { dispersion: 0.00145, recoil: 'recoil_auto_primary_3outof10', initSpeed: 0, dexterity: 1.7, inertia: 1.2, magazines: ["150Rnd_93x64_Mag"], mass: 220},
-'MMG_02_base_F': { dispersion: 0, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
-'MMG_02_camo_F': { dispersion: 0, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
-'MMG_02_black_F': { dispersion: 0, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
-'MMG_02_sand_F': { dispersion: 0, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
-'MMG_02_sand_RCO_LP_F': { dispersion: 0, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
-'MMG_02_black_RCO_BI_F': { dispersion: 0, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
+'MMG_02_base_F': { dispersion: 0.00073, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
+'MMG_02_camo_F': { dispersion: 0.00073, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
+'MMG_02_black_F': { dispersion: 0.00073, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
+'MMG_02_sand_F': { dispersion: 0.00073, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
+'MMG_02_sand_RCO_LP_F': { dispersion: 0.00073, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
+'MMG_02_black_RCO_BI_F': { dispersion: 0.00073, recoil: '', initSpeed: 0, dexterity: 1.7, inertia: 1, magazines: ["130Rnd_338_Mag"], mass: 200},
 };
 
 

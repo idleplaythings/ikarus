@@ -5,6 +5,10 @@ Item = function Item(args){
   this.unlimited = args.unlimited;
 }
 
+Item.prototype.getProperties = function(){
+  return [];
+};
+
 Item.prototype.populate = function(args){
   return this;
 };

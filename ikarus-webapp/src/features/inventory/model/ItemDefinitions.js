@@ -248,8 +248,10 @@ ItemDefinitions = [
 
 
 
+  //WEAPON ATTACHMENTS (HLC)
 
-
+  createGeneric('Kobra Reflex Sight', 'hlc_optic_kobra', ['sight']),
+  createGeneric('PSO-1 Scope', 'HLC_Optic_PSO1', ['scope']),
 
   //WEAPON ATTACHMENTS (CUP)
 

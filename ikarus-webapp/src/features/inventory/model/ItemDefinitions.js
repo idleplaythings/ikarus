@@ -13,6 +13,43 @@ ItemDefinitions = [
   createGeneric('Landrower (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrower (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
 
+  //ASSAULT RIFLES (HLC)
+
+  createWeapon('Izhmash AK74', 'hlc_rifle_ak74', ['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('Izhmash AKS74','hlc_rifle_aks74',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('Izhmash AK12','hlc_rifle_ak12',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('Izhmash AK12(GL)','hlc_rifle_ak12GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('Izhmash RPK12,','hlc_rifle_RPK12',['lmg'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('Izhmash AKS74U','hlc_rifle_aks74u',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('Izhmash RPK74','hlc_rifle_rpk74n',['lmg'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('Izhmash AKS74(GL)','hlc_rifle_aks74_GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('ZID AEK971S','hlc_rifle_aek971',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+
+  createWeapon('Izhmash AK47','hlc_rifle_ak47',['assault-rifle'], ["hlc_30Rnd_762x39_b_ak","hlc_45Rnd_762x39_m_rpk"]),
+  createWeapon('Izhmash AKM','hlc_rifle_akm',['assault-rifle'], ["hlc_30Rnd_762x39_b_ak","hlc_45Rnd_762x39_m_rpk"]),
+  createWeapon('Izhmash RPK','hlc_rifle_rpk',['lmg'], ["hlc_30Rnd_762x39_b_ak","hlc_45Rnd_762x39_m_rpk"]),
+
+  createMagazine('30rnd 5.45x39mm', 'hlc_30Rnd_545x39_B_AK', 30),
+  createMagazine('75rnd 5.45x39mm', 'hlc_45Rnd_545x39_t_rpk', 75),
+
+  createMagazine('30rnd 7.62x39mm', 'hlc_30Rnd_762x39_b_ak', 30),
+  createMagazine('75rnd 7.62x39mm', 'hlc_45Rnd_762x39_m_rpk', 75),
+
+  createWeapon('AR15 Sanitised Carbine', 'hlc_rifle_RU556', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('AR15 Magpul Carbine', 'hlc_rifle_RU5562', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('Colt M4 CQB-R', 'hlc_rifle_CQBR', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('Colt M4 Carbine', 'hlc_rifle_M4', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('Colt M4 Carbine (GL)', 'hlc_rifle_m4m203', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('BCM "Jack" Carbine', 'hlc_rifle_bcmjack', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('Colt Carbine', 'hlc_rifle_Colt727', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('Colt Carbine(GL)', 'hlc_rifle_Colt727_GL', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('Bushmaster .300 Carbine', 'hlc_rifle_Bushmaster300', ['assault-rifle'], ["29rnd_300BLK_STANAG"]),
+  createWeapon('AR15 .300 Dissipator', 'hlc_rifle_vendimus', ['assault-rifle'], ["29rnd_300BLK_STANAG"]),
+  createWeapon('AAC "Honey-Badger"', 'hlc_rifle_honeybadger', ['assault-rifle'], ["29rnd_300BLK_STANAG"]),
+  createWeapon('RRA LAR-15', 'hlc_rifle_SAMR', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  
+  createMagazine('29rnd .300 cal blackout', '29rnd_300BLK_STANAG', 29),
+ 
   //ASSAULT RIFLES (CUP)
 
   createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
@@ -68,6 +105,8 @@ ItemDefinitions = [
 
   //BATTLE RIFLES (Vanilla)
 
+  createWeapon('Springfield Armory M14', 'hlc_rifle_M14', ['assault-rifle'], ['20Rnd_762x51_Mag']),
+  
   createWeapon('Mk14 7.62mm (camo)', 'srifle_DMR_06_camo_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
   createWeapon('Mk14 7.62mm (olive)', 'srifle_DMR_06_olive_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
 

@@ -3,13 +3,9 @@
     <h3>{{name}}</h3>
     <div class="col-md-6">
       <table>
-        <tr><td>ACCURACY</td><td>0</td></tr>
-        <tr><td>CALIBER</td><td>0</td></tr>
-        <tr><td>MUZZLE VELOCITY</td><td>0</td></tr>
-        <tr><td>RECOIL</td><td>0</td></tr>
-        <tr><td>RATE OF FIRE</td><td>0</td></tr>
-        <tr><td>WEIGHT</td><td>0</td></tr>
-        <tr><td>DEXTERITY</td><td>0</td></tr>
+        {{#each getProperties}}
+          <tr><td>{{name}}</td><td>{{value}}</td></tr>
+        {{/each}}
       </table>
     </div>
     <div class="col-md-6">

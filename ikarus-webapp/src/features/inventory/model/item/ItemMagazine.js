@@ -16,3 +16,27 @@ ItemMagazine.prototype.populate = function(args){
 
   return this;
 };
+
+ItemMagazine.prototype.getProperties = function(){
+  var magazine = magazineProperties[this.armaClass];
+
+  if ( ! magazine) {
+    return [];
+  }
+
+  var damage = this.getDamage(magazine.ammo);
+
+  return [
+    {name: 'Damage', value: damage},
+    {name: 'Mass', value: magazine.mass}
+  ];
+};
+
+ItemMagazine.prototype.getDamage = function (ammo) {
+  var ammo = ammoProperties[ammo];
+  if (! ammo) {
+    return 0;
+  }
+
+  return ammo.hit;
+};

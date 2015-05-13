@@ -40,6 +40,9 @@ itemProperties_inspectWeapon = {
   _dexterity = getNumber (_weapon >> 'dexterity');
   _inertia = getNumber (_weapon >> 'inertia');
   _magazines = getArray (_weapon >> 'magazines');
+  _displayName = getText (_weapon >> 'displayName');
+  _ACE_barrelTwist = getNumber (_weapon >> 'ACE_barrelTwist');
+  _ACE_barrelLength = getNumber (_weapon >> 'ACE_barrelLength');
   _reloadTime = 0;
   _reloadTimeBurst = 0;
   _reloadTimeAuto = 0;
@@ -77,6 +80,7 @@ itemProperties_inspectWeapon = {
   } forEach ([_weapon, 1, true, true ] call BIS_fnc_returnChildren);
 
   "'" + configName _weapon + "': {"
+    + ' displayName: "' + _displayName + '",'
     + " dispersion: " + str _dispersion + ","
     + " recoil: '" + _recoil + "',"
     + " reloadTime: '" + str _reloadTime + "',"
@@ -86,6 +90,8 @@ itemProperties_inspectWeapon = {
     + " dexterity: " + str _dexterity + ","
     + " inertia: " + str _inertia + ","
     + " magazines: " + str _magazines + ","
+    + " barrelTwist: " + str _ACE_barrelTwist + ","
+    + " barrelLength: " + str _ACE_barrelLength + ","
     + " mass: " + str _mass
   + "},\n";  
 };
@@ -97,7 +103,7 @@ itemProperties_inspectMagazine = {
   _ammo = getText (_magazine >> 'ammo');
   _count = getNumber (_magazine >> 'count');
   _initSpeed = getNumber (_magazine >> 'initSpeed');
-  _mass = getNumber (_magazine >> 'mass');;
+  _mass = getNumber (_magazine >> 'mass');
 
   "'" + configName _magazine + "': {"
     + " ammo: " + str _ammo + ","

@@ -13,6 +13,32 @@ marketDefinitions = [
       'arifle_Katiba_C_F':      {money: 150},
       'arifle_Katiba_F':        {money: 170},
       'arifle_Katiba_GL_F':     {money: 450},
+
+      'hlc_rifle_ak74':         {money: 20},
+      'hlc_rifle_aks74':        {money: 20},
+      'hlc_rifle_ak12':         {money: 100},
+      'hlc_rifle_ak12GL':       {money: 300},
+      'hlc_rifle_aks74u':       {money: 10},
+      'hlc_rifle_aks74_GL':     {money: 100},
+      'hlc_rifle_aek971':       {money: 30},
+
+      'hlc_rifle_ak47':         {money: 50},
+      'hlc_rifle_akm':          {money: 30},
+
+      'hlc_rifle_RU556':        {money: 120},
+      'hlc_rifle_RU5562':       {money: 120},
+      'hlc_rifle_CQBR':         {money: 120},
+      'hlc_rifle_M4':           {money: 120},
+      'hlc_rifle_m4m203':       {money: 420},
+      'hlc_rifle_bcmjack':      {money: 120},
+      'hlc_rifle_Colt727':      {money: 120},
+      'hlc_rifle_Colt727_GL':   {money: 420},
+      'hlc_rifle_SAMR':         {money: 120},
+  
+      'hlc_rifle_Bushmaster300':{money: 200},
+      'hlc_rifle_vendimus':     {money: 200},
+      'hlc_rifle_honeybadger':  {money: 200},
+      
     }
   },
 
@@ -32,6 +58,7 @@ marketDefinitions = [
       'srifle_DMR_06_camo_F':   {money: 600},
       'srifle_DMR_06_olive_F':  {money: 600},
       'srifle_EBR_F':           {money: 1200},
+      'hlc_rifle_M14':          {money: 450},
     }
   },
 
@@ -48,6 +75,10 @@ marketDefinitions = [
       'MMG_02_camo_F':          {money: 2200},
       'MMG_02_black_F':         {money: 2200},
       'MMG_02_sand_F':          {money: 2200},
+      'hlc_rifle_rpk':          {money: 300},
+      'hlc_rifle_rpk74n':       {money: 350},
+      'hlc_rifle_RPK12':        {money: 400},
+  
     }
   },
 
@@ -105,6 +136,12 @@ marketDefinitions = [
       '10Rnd_762x54_Mag':              {money: 100},
       '30Rnd_45ACP_Mag_SMG_01':        {money: 5},
       '30Rnd_9x21_Mag':                {money: 5},
+
+      'hlc_30Rnd_545x39_B_AK':         {money: 5},
+      'hlc_45Rnd_545x39_t_rpk':        {money: 20},
+
+      'hlc_30Rnd_762x39_b_ak':         {money: 10},
+      'hlc_45Rnd_762x39_m_rpk':        {money: 30},
 
     }
   },

@@ -306,6 +306,14 @@ ItemDefinitions = [
   createMagazine('30rnd 9x21 mm', '30Rnd_9x21_Mag', 30),
 
   createLoot(
+    'Stack of money',
+    'IKRS_loot_money',
+    {
+      'money': 100
+    }
+  ),
+
+  createLoot(
     'Starting loot',
     'IKRS_STARTING_LOOT',
     {

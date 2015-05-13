@@ -8,11 +8,11 @@ ObjectiveGuard = function ObjectiveGuard() {
 
   this._lootTransform = {
     'guard_objective_reward1': [
-      'IKRS_loot_civilian_weapons',
-      'IKRS_loot_old_RU_weapons'
+      'IKRS_loot_money',
+      'IKRS_loot_money'
     ],
     'guard_objective_reward2': [
-      'IKRS_loot_common_RU_weapons'
+      'IKRS_loot_money'
     ],
   };
 

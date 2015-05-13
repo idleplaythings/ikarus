@@ -30,10 +30,10 @@ ItemDefinitions = [
   createWeapon('Izhmash RPK','hlc_rifle_rpk',['lmg'], ["hlc_30Rnd_762x39_b_ak","hlc_45Rnd_762x39_m_rpk"]),
 
   createMagazine('30rnd 5.45x39mm', 'hlc_30Rnd_545x39_B_AK', 30),
-  createMagazine('75rnd 5.45x39mm', 'hlc_45Rnd_545x39_t_rpk', 75),
+  createMagazine('45rnd 5.45x39mm', 'hlc_45Rnd_545x39_t_rpk', 75),
 
   createMagazine('30rnd 7.62x39mm', 'hlc_30Rnd_762x39_b_ak', 30),
-  createMagazine('75rnd 7.62x39mm', 'hlc_45Rnd_762x39_m_rpk', 75),
+  createMagazine('45rnd 7.62x39mm', 'hlc_45Rnd_762x39_m_rpk', 75),
 
   createWeapon('AR15 Sanitised Carbine', 'hlc_rifle_RU556', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
   createWeapon('AR15 Magpul Carbine', 'hlc_rifle_RU5562', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),

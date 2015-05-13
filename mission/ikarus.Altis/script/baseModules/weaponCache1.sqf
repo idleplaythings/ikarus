@@ -5,24 +5,15 @@ baseModule_weaponCache1_onCreated = {
   _objects = _this select 0;
   _weaponIndex = 0;
 
-  /*
-  _weapons = [
-    "CUP_srifle_LeeEnfield",
-    "CUP_arifle_RPK74",
-    "CUP_arifle_AK74",
-    "CUP_arifle_AK74",
-    "CUP_arifle_AK74",
-    "CUP_arifle_AK74"
-  ];
-  */
+
 
   _weapons = [
-    "arifle_Mk20_F",
-    "arifle_Mk20C_F",
-    "arifle_TRG21_F",
-    "arifle_TRG21_F",
-    "arifle_TRG20_F",
-    "arifle_TRG20_F"
+    "hlc_rifle_rpk74n",
+    "hlc_rifle_aks74",
+    "hlc_rifle_ak74",
+    "hlc_rifle_ak74",
+    "hlc_rifle_ak74",
+    "hlc_rifle_aks74"
   ];
 
   {
@@ -33,13 +24,8 @@ baseModule_weaponCache1_onCreated = {
       clearItemCargoGlobal _box;
       clearBackpackCargoGlobal _box;
 
-      /*
-      _box addMagazineCargoGlobal ['CUP_30Rnd_545x39_AK_M', 20];
-      _box addMagazineCargoGlobal ['CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 5];
-      _box addMagazineCargoGlobal ['CUP_10x_303_M', 5];
-      */
-
-      _box addMagazineCargoGlobal ['30Rnd_556x45_Stanag', 30];
+      _box addMagazineCargoGlobal ['hlc_30Rnd_545x39_B_AK', 30];
+      _box addMagazineCargoGlobal ['hlc_45Rnd_545x39_t_rpk', 5];
 
     };
 

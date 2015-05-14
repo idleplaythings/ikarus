@@ -35,7 +35,8 @@ class Mission
 		"hafm_uk_wheeled",
 		"hafm_hmmwv",
 		"cba_xeh_a3",
-		"ace_medical"
+		"ace_medical",
+		"ace_common"
 	};
 	addOnsAuto[]=
 	{
@@ -1086,7 +1087,7 @@ class Mission
 						};
 						class Item1
 						{
-							value="0";
+							value="1";
 							parentCls="ACE_moduleAdvancedMedicalSettings";
 							typeName="enableAdvancedWounds";
 						};
@@ -1156,13 +1157,13 @@ class Mission
 						items=12;
 						class Item0
 						{
-							value="1";
+							value="2";
 							parentCls="ACE_moduleMedicalSettings";
 							typeName="level";
 						};
 						class Item1
 						{
-							value="1";
+							value="2";
 							parentCls="ACE_moduleMedicalSettings";
 							typeName="medicSetting";
 						};

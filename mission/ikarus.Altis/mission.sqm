@@ -1156,7 +1156,7 @@ class Mission
 						items=12;
 						class Item0
 						{
-							value="2";
+							value="1";
 							parentCls="ACE_moduleMedicalSettings";
 							typeName="level";
 						};

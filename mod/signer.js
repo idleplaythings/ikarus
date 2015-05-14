@@ -1,5 +1,6 @@
 var fs = require('fs');
-var exec = require('child_process').exec;
+var execSync = require('child_process').execSync;
+
 
 var sign = process.argv[2];
 var key = process.argv[3];
@@ -19,25 +20,31 @@ files.filter(function(filename) {
 
   return filename.indexOf('.pbo') > -1;
 }).forEach(function(pbo) {
+  var oldPath = folder + "/" + pbo;
+  if (pbo.indexOf('.bisign') > -1) {
+    fs.unlinkSync(oldPath);
+    console.log("deleting old ", pbo);
+  }
+});
+
+files = fs.readdirSync(folder);
+
+files.filter(function(filename) {
+  if (! filename) {
+    return false;
+  }
+
+  return filename.indexOf('.pbo') > -1;
+}).forEach(function(pbo) {
 
   var oldPath = folder + "/" + pbo;
   var path = folder + "/" + pbo.toLowerCase();
-  if (pbo.indexOf('.bisign') > -1) {
-    fs.unlinkSync(oldPath);
-  } else {
+  if (pbo.indexOf('.bisign') == -1) {
     fs.renameSync(oldPath, path+"temp");
     fs.renameSync(path+"temp", path);
     var command = '"'+sign + '" "' + key + '" "' + path + '"';
-    //console.log(command);
     
-    exec(command,
-      function (error, stdout, stderr) {
-        if (error !== null) {
-          console.log('exec error: ' + error);
-        }
-    });
-    
+    var result = execSync(command, []);
+    console.log("signing ", pbo);
   }
-  
-  console.log(pbo);
 });

@@ -135,6 +135,7 @@ hideout_createHideoutCache = {
   _box addItemCargoGlobal ['ACE_packingBandage', 30];
   _box addItemCargoGlobal ['ACE_elasticBandage', 30];
   _box addItemCargoGlobal ['ACE_fieldDressing', 30];
+  _box addItemCargoGlobal ['ACE_EarPlugs', 12];
 
   _box addItemCargoGlobal ['ACE_tourniquet', 10];
   _box addItemCargoGlobal ['ACE_morphine', 10];

@@ -11,6 +11,7 @@ function Monitor(rpcServer, config, gameData, webAppClient, battlEyeClient) {
   this._armaServerProcess = null;
 
   this._connectedSteamIds = [];
+  this._deadSteamIds = [];
   this._status = Monitor.STATUS_DOWN;
 }
 
@@ -119,6 +120,7 @@ Monitor.prototype._registerRpcCallbacks = function() {
   this._registerRpcCallback('playerUnknown', playerUnknown);
   this._registerRpcCallback('playerDisconnected', playerDisconnected);
   this._registerRpcCallback('shouldStartGame', shouldStartGame);
+  this._registerRpcCallback('getSquadByUid', getSquadByUid);
 };
 
 Monitor.prototype._registerRpcCallback = function(name, callback) {
@@ -216,8 +218,6 @@ Monitor.prototype._changeStatus = function(status) {
 
   if (status == Monitor.STATUS_PLAYING && oldStatus == Monitor.STATUS_WAITING) {
     console.log("I AM SERIOUSLY DOING IT")
-    this._battlEyeClient.lockServer();
-    this._gameData.lock();
   }
 
   if (status == Monitor.STATUS_WAITING) {
@@ -247,11 +247,20 @@ var gameEnd = function() {
   this.die();
 };
 
+var getSquadForUid = function(uid) {
+  return this._gameData.getSquadDataForUid(uid);
+};
+
 var playerConnected = function(uid) {
 
   if (! this._gameData.recognizeUid(uid)) {
     this._battlEyeClient.kickPlayer(uid);
-    return;
+    return false;
+  }
+
+  if (this._deadSteamIds.indexOf(uid !== -1)) {
+    this._battlEyeClient.kickPlayer(uid);
+    return false;
   }
 
   if (this._connectedSteamIds.indexOf(uid) === -1) {
@@ -260,8 +269,7 @@ var playerConnected = function(uid) {
 
   this._gameData.playerConnected(uid);
   this._webAppClient.reportPlayerConnected(uid);
-
-
+  return true;
 };
 
 var playerKilled = function(uid) {
@@ -284,6 +292,10 @@ var playerDisconnected = function(uid) {
   this._connectedSteamIds = this._connectedSteamIds.filter(function(connectedUid) {
     return connectedUid != uid;
   });
+
+  if (this._status == Monitor.STATUS_PLAYING) {
+    this._deadSteamIds.push(uid);
+  }
 
   this._gameData.playerDisconnected(uid);
   this._battlEyeClient.kickPlayer(uid);

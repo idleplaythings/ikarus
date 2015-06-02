@@ -25,6 +25,12 @@ Template.squads_status.helpers({
     });
   },
 
+  reinforceableSquads: function () {
+    return getCompanysSquads().filter(function(squad){
+      return squad.isReinforceable();
+    });
+  },
+
   squadInventoryView: function() {
     var squadInventoryView = dic.get('SquadInventoryView');
     squadInventoryView.refresh();

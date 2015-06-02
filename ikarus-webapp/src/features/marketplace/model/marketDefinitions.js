@@ -34,11 +34,11 @@ marketDefinitions = [
       'hlc_rifle_Colt727':      {money: 120},
       'hlc_rifle_Colt727_GL':   {money: 420},
       'hlc_rifle_SAMR':         {money: 120},
-  
+
       'hlc_rifle_Bushmaster300':{money: 200},
       'hlc_rifle_vendimus':     {money: 200},
       'hlc_rifle_honeybadger':  {money: 200},
-      
+
     }
   },
 
@@ -78,7 +78,7 @@ marketDefinitions = [
       'hlc_rifle_rpk':          {money: 300},
       'hlc_rifle_rpk74n':       {money: 350},
       'hlc_rifle_RPK12':        {money: 400},
-  
+
     }
   },
 
@@ -142,7 +142,7 @@ marketDefinitions = [
 
       'hlc_30Rnd_762x39_b_ak':         {money: 10},
       'hlc_45Rnd_762x39_m_rpk':        {money: 30},
-
+      '29rnd_300BLK_STANAG':           {money: 30},
     }
   },
 
@@ -194,6 +194,8 @@ marketDefinitions = [
       'optic_Hamr':               {money: 1000},
       'optic_MRCO':               {money: 700},
       'optic_DMS':                {money: 2000},
+      'hlc_optic_kobra':          {money: 20},
+      'HLC_Optic_PSO1':           {money: 400},
 
 
       'bipod_01_F_blk':   {money: 50},
@@ -213,3 +215,9 @@ marketDefinitions = [
     }
   },
 ];
+
+marketDefinitions.forEach(function (market) {
+  Object.keys(market.items).forEach(function (key) {
+    market.items[key] = {money: 1};
+  });
+});

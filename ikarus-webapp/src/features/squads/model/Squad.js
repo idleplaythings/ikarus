@@ -6,6 +6,7 @@ Squad = function Squad(args) {
 }
 
 Squad.MAX_MEMBERS = 12;
+Squad.MAX_REINFORCEMENTS = 8;
 
 Squad.prototype.getName = function() {
   var player = this.getPlayers()[0];
@@ -159,7 +160,7 @@ Squad.prototype.getSteamIds = function() {
 
 Squad.prototype.isLocked = function() {
   var server = this.getServer();
-  return server && (server.isPlaying() || server.isWaiting());
+  return server && server.isPlaying();
 }
 
 Squad.prototype.setPlayerReady = function(player) {
@@ -278,6 +279,21 @@ Squad.prototype.isJoinable = function() {
   return ! this.isLocked() &&
     this.getSteamIds().length < Squad.MAX_MEMBERS &&
     !this.serverId;
+}
+
+Squad.prototype.isReinforceable = function() {
+
+  if (this.isJoinable()) {
+    return false;
+  }
+
+  var server = this.getServer();
+
+  if (! server || server.getStartTime().add(35, 'minutes').isBefore(new moment())) {
+    return false;
+  }
+
+  return this.getSteamIds().length < Squad.MAX_REINFORCEMENTS;
 }
 
 Squad.getAll = function(company) {

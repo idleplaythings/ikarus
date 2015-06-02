@@ -123,6 +123,15 @@ module.exports = function(armaSerializer){
     );
   };
 
+  GameData.prototype.getSquadDataForUid = function(uid){
+
+    var squad = this._squads.filter(function (squad) {
+      return squad.steamIds.indexOf(uid) !== -1;
+    }).pop();
+
+    return this._armaSerializer.serializeSquadForArma(squad, inventories);
+  };
+
   GameData.prototype.receiveSquadData = function(id, serializedLoot){
     var loot = new SquadLoot(id).deserializeFromArma(serializedLoot);
     return loot;

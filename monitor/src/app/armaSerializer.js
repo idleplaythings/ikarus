@@ -12,6 +12,13 @@ ArmaSerializer.prototype.serializeForArma = function(squads, inventories){
   });
 }
 
+ArmaSerializer.prototype.serializeSquadForArma = function(squad, inventories){
+  return serializeSquad(
+    squad,
+    getInventoryForSquad(squad, inventories)
+  );
+}
+
 function getInventoryForSquad(squad, inventories){
   return inventories.filter(function(inventory){
     return inventory.squadId === squad._id;

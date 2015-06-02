@@ -7,6 +7,10 @@
           Squads are formed from the people in your <strong>company</strong>, {{currentCompany.getName}}.
         </p>
         {{#if currentUser}}
+          {{#each reinforceableSquads}}
+            <button class="joinSquad btn btn-primary" data-squadId={{_id}}>Reinforce {{getName}} squad</button> or
+          {{/each}}
+
           {{#each joinableSquads}}
             <button class="joinSquad btn btn-primary" data-squadId={{_id}}>Join {{getName}} squad</button> or
           {{/each}}

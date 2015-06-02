@@ -85,7 +85,7 @@ QueueSquadService.prototype.addPlayerToSquad = function(squad, player) {
     !squad ||
     !player.canJoinASquad() ||
     !squad.exists() ||
-    !squad.isJoinable()
+    (! squad.isJoinable() && ! squad.isReinforceable())
   ) {
     return;
   }
@@ -145,11 +145,10 @@ function checkSquadDeadline (squad, server) {
   if (server && ! squad.isBeforeDeadline()) {
     var steamIdsOnSquad = squad.getSteamIds();
     var steamIdsOnServer = server.getPlayerIds();
-
-    steamIdsOnSquad.filter(function(steamId) {
-      return steamIdsOnServer.indexOf(steamId) === -1;
-    }).forEach(function(steamId) {
-      squad.removePlayer(Player.getById(steamId));
-    });
+    if (steamIdsOnServer.length === 0) {
+      steamIdsOnSquad.forEach(function(steamId) {
+        squad.removePlayer(Player.getById(steamId));
+      });
+    }
   }
 }

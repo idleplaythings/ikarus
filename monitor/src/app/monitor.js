@@ -259,7 +259,7 @@ var playerConnected = function(uid) {
     return false;
   }
 
-  if (this._deadSteamIds.indexOf(uid !== -1)) {
+  if (this._deadSteamIds.indexOf(uid) !== -1) {
     console.log("Player already dead, kicking");
     this._battlEyeClient.kickPlayer(uid);
     return false;

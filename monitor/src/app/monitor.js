@@ -120,7 +120,7 @@ Monitor.prototype._registerRpcCallbacks = function() {
   this._registerRpcCallback('playerUnknown', playerUnknown);
   this._registerRpcCallback('playerDisconnected', playerDisconnected);
   this._registerRpcCallback('shouldStartGame', shouldStartGame);
-  this._registerRpcCallback('getSquadByUid', getSquadByUid);
+  this._registerRpcCallback('getSquadForUid', getSquadForUid);
 };
 
 Monitor.prototype._registerRpcCallback = function(name, callback) {

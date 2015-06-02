@@ -125,7 +125,10 @@ module.exports = function(armaSerializer){
 
   GameData.prototype.getSquadDataForUid = function(uid){
 
-    var squad = this._squads.filter(function (squad) {
+    var squads = this._squads.slice(0);
+    var inventories = this._inventories.slice(0);
+
+    var squad = squads.filter(function (squad) {
       return squad.steamIds.indexOf(uid) !== -1;
     }).pop();
 

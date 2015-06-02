@@ -36,6 +36,7 @@ if (! isServer) exitwith {};
 [] execVM "script\airstrike.sqf";
 [] execVM "script\airdrop.sqf";
 [] execVM "script\timeAndWeather.sqf";
+[] execVM "script\reinforcements.sqf";
 
 [] execVM "script\baseModules\baseModule.sqf";
 [] execVM "script\baseModules\primary1.sqf";

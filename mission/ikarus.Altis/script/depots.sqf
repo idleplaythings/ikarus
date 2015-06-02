@@ -17,6 +17,10 @@ depots_getAll = {
   depots_town_depots + depots_supply_depots;
 };
 
+depots_getRandom = {
+  (call depots_getAll) call BIS_fnc_selectRandom;
+};
+
 depots_create_town = {
   private ["_centerOfAO"];
   _centerOfAO = _this select 0;

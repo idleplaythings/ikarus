@@ -19,6 +19,10 @@ getSquadPlayerUIDs = {
   _this select 0 select 1;
 };
 
+setSquadPlayerUIDs = {
+  _this select 0 set [1, _this select 1];
+};
+
 getSquadStartingPosition = {
   _this select 0 select 2;
 };
@@ -64,7 +68,8 @@ getDisconnectedLoot = {
 };
 
 getPlayerGear = {
-  private ["_uid", "_gear"];
+  private ["_uid", "_gear", "_squad"];
+  _squad = _this select 0;
   _uid = _this select 1;
   _gear = nil;
 
@@ -72,7 +77,7 @@ getPlayerGear = {
     if ((_x select 0) == _uid) then {
       _gear = _x;
     }
-  } forEach (_this select 0 select 10);
+  } forEach (_squad select 10);
 
   if (isNil {_gear}) exitWith {nil;};
   _gear;

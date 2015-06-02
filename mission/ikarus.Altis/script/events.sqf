@@ -2,20 +2,22 @@ onPlayerKilled = nil;
 lastConnectedPlayerUid = nil;
 
 "lastConnectedPlayerUid" addPublicVariableEventHandler {
-  private ["_uid", "_unit"];
+  private ["_uid", "_unit", "_approved"];
   _uid = _this select 1 select 0;
   _unit = _this select 1 select 1;
   diag_log "player connected";
   diag_log _uid;
-  
-  if (missionControl_gameStarted) exitWith {
+
+  _approved = ['playerConnected', [_uid]] call sock_rpc;
+
+  if (! _approved) exitWith {
     _unit setDamage 1;
     deleteVehicle _unit;
-    ['playerUnknown', [_uid]] call sock_rpc;
   };
 
-  diag_log "game is NOT started";
-  ['playerConnected', [_uid]] call sock_rpc;
+  if (missionControl_objectivesGenerated || missionControl_gameStarted) exitWith {
+    [_unit, _uid] call reinforcements_playerConnected;
+  };
 };
 
 "onPlayerKilled" addPublicVariableEventHandler {

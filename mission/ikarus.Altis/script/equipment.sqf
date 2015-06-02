@@ -25,9 +25,18 @@ equipment_getVehicle = {
 };
 
 equipment_setPlayerGear = {
-  private ["_unit", "_gear", "_squad", "_uid", "_item"];
+  private ["_unit", "_squad", "_uid"];
   _unit = _this select 0;
   _squad = [_unit] call getSquadForUnit;
+  _uid = getPlayerUID _unit;
+
+  [_unit, _squad] call equipment_setPlayerGearFromSquad;
+};
+
+equipment_setPlayerGearFromSquad = {
+  private ["_unit", "_gear", "_squad", "_uid", "_item"];
+  _unit = _this select 0;
+  _squad = _this select 1;
   _uid = getPlayerUID _unit;
 
   _gear = [_squad, _uid] call getPlayerGear;

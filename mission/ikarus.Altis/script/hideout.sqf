@@ -106,6 +106,13 @@ hideout_createHidoutMarkerForPlayers = {
   } forEach ([_squad] call getPlayersInSquad);  
 };
 
+hideout_createHidoutMarkerForPlayer = {
+  private ["_unit", "_hideout", "_squad"];
+  _unit = _this select 0;
+  _hideout = [([_unit] call getSquadForUnit)] call hideout_getHideoutForSquad;
+  [[(_hideout select 1)], "markers_createHideoutMarker", _unit, false, true] call BIS_fnc_MP;
+};
+
 hideout_createHideoutCache = {
   private ["_squad", "_moduleData", "_box", "_equipment", "_weapons", "_directionAndPosition", "_direction", "_position"];
   _squad = _this select 0;
@@ -191,8 +198,7 @@ hideout_hideoutTriggerActivate = {
     };
     
     if (alive _x && ! missionControl_objectivesGenerated && ! (_x in _unitsPresent)) then {
-      _hideout = [_squad] call hideout_getHideoutForSquad;
-      _x setPosASL (_hideout select 1);
+      [_unit, _squad] call hideout_movePlayerToHideout;
     };
    
   } forEach _playersInSquad;
@@ -206,8 +212,17 @@ hideout_movePlayersToHideout = {
   } forEach squads;
 };
 
+hideout_movePlayerToHideout = {
+  private ["_squad", "_hideout", "_position", "_unit"];
+  _unit = _this select 0;
+  _squad = _this select 1;
+  _hideout = [_squad] call hideout_getHideoutForSquad;
+
+  _unit setPosASL (_hideout select 1);
+};
+
 hideout_moveSquadToHideout = {
-  private ["_squad", "_hideout", "_position", "_cache"];
+  private ["_squad", "_hideout", "_position"];
   _squad = _this select 0;
   _hideout = [_squad] call hideout_getHideoutForSquad;
   

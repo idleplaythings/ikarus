@@ -8,9 +8,18 @@ player_setSquadVariable = {
   {
     private ["_squad"];
     _squad = [_x] call getSquadForUnit;
-    _x setVariable ["playerSquadId", ([_squad] call getSquadId), true];
+    [_x, _squad] call player_setSquadVariableForUnit;
   } forEach (call getAllPlayers);
 };
+
+player_setSquadVariableForUnit = {
+  private ["_squad", "_unit"];
+  _unit = _this select 0;
+  _squad = _this select 1;
+
+  _unit setVariable ["playerSquadId", ([_squad] call getSquadId), true];
+};
+
 
 joinPlayers = {
   private ["_players", "_leader"];

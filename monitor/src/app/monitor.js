@@ -59,6 +59,10 @@ Monitor.prototype.start = function() {
 
 Monitor.prototype._startArma = function(){
 
+  if (this._armaServerProcess) {
+    return;
+  }
+  
   console.log("START ARMA SERVER");
   if (process.env.ENV === 'dev') {
     return;

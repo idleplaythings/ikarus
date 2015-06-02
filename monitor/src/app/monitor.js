@@ -254,11 +254,13 @@ var getSquadForUid = function(uid) {
 var playerConnected = function(uid) {
 
   if (! this._gameData.recognizeUid(uid)) {
+    console.log("Player not recognized");
     this._battlEyeClient.kickPlayer(uid);
     return false;
   }
 
   if (this._deadSteamIds.indexOf(uid !== -1)) {
+    console.log("Player already dead, kicking");
     this._battlEyeClient.kickPlayer(uid);
     return false;
   }

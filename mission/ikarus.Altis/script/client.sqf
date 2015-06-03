@@ -38,3 +38,7 @@ client_equipGuard = {
   player linkItem "ItemCompass";
   player linkItem "ItemWatch";
 };
+
+client_addParachute = {
+  player addBackpackGlobal "B_Parachute";
+};

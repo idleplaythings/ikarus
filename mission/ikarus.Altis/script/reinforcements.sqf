@@ -77,5 +77,5 @@ reinforcements_paradrop = {
 
   _position set [2, 5000];
   _unit setPos _position;
-  _unit addBackpackGlobal "B_Parachute";
+  [[], "client_addParachute", _unit, false, false] call BIS_fnc_MP;
 };

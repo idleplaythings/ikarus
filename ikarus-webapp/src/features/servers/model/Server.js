@@ -27,7 +27,7 @@ Server.prototype.getTimeRemainingToApproximateGameEnd = function () {
   }
 
   return this.getStatusChanged()
-    .add(server.TIME_AVERAGE_MISSION_LENGTH, 'minutes')
+    .add(Server.TIME_AVERAGE_MISSION_LENGTH, 'minutes')
     .diff(moment(), 'seconds');
 };
 
@@ -45,6 +45,14 @@ Server.prototype.getStartTime = function () {
   }
 
   return this.getStatusChanged().add(this.getWaitingTime(), 'minutes');
+};
+
+Server.prototype.getPlayTimeElapsed = function () {
+  if (! this.isPlaying()) {
+    return undefined;
+  }
+
+  return this.getStatusChanged().diff(moment(), 'seconds');
 };
 
 Server.prototype.getStartTimeLeft = function () {
@@ -137,6 +145,36 @@ Server.prototype.getPassword = function() {
   return get(this.getDoc(), 'password');
 }
 
+Server.prototype.markDead = function (player) {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $addToSet: {
+      deadSteamIds: player.getSteamId()
+    }
+  });
+};
+
+Server.prototype.isDead = function (player) {
+  return this.getDeadSteamIds().filter(function (id) {
+    return player.getSteamId() === id;
+  }).pop();
+};
+
+Server.prototype.resetDead = function () {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      deadSteamIds: []
+    }
+  });
+};
+
+Server.prototype.getDeadSteamIds = function () {
+  return get(this.getDoc(), 'deadSteamIds') || [];
+};
+
 Server.prototype.getJoinUrl = function() {
   var params = [
       '-world=empty',
@@ -202,6 +240,7 @@ Server.prototype.updateStatus = function(status) {
   });
 
   this.markStatusChange();
+  this.resetDead();
 }
 
 Server.prototype.updateDetails = function(details) {

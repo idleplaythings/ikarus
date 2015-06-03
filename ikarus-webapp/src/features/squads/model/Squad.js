@@ -160,7 +160,7 @@ Squad.prototype.getSteamIds = function() {
 
 Squad.prototype.isLocked = function() {
   var server = this.getServer();
-  return server && server.isPlaying();
+  return server && (server.isWaiting() || server.isPlaying());
 }
 
 Squad.prototype.setPlayerReady = function(player) {
@@ -289,7 +289,13 @@ Squad.prototype.isReinforceable = function() {
 
   var server = this.getServer();
 
-  if (! server || server.getStartTime().add(35, 'minutes').isBefore(new moment())) {
+  if (! server || (server.isPlaying() && server.getPlayTimeElapsed() > 35 * 60)) {
+    return false;
+  }
+
+  var player = Player.getCurrent();
+
+  if (! player || server.isDead(player)) {
     return false;
   }
 

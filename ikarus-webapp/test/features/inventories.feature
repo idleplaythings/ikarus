@@ -137,18 +137,18 @@ Feature: Inventories
     And "John Doe" is a member of company "Manatee-Men"
     And I am logged in as "John Doe"
     And I create a squad
-    And "John Doe" has "1" "CUP_arifle_AK74" in his inventory
+    And "John Doe" has "1" "hlc_rifle_ak74" in his inventory
     And I am ready
     And I enter my squad to the queue
-    And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
-    And "Manatee-Men" has "5" "CUP_arifle_AK107" in armory
+    And "Manatee-Men" has "5" "hlc_rifle_ak74" in armory
+    And "Manatee-Men" has "5" "hlc_rifle_rpk74n" in armory
     And I am logged in as "John Doe"
-    When I remove "CUP_arifle_AK74" from my inventory
-    And I add "CUP_arifle_AK107" to my inventory
-    Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
-    Then "Manatee-Men" should have "5" "CUP_arifle_AK107" in armory
-    Then "John Doe" should have "0" "CUP_arifle_AK107" in his inventory
-    Then "John Doe" should have "1" "CUP_arifle_AK74" in his inventory
+    When I remove "hlc_rifle_ak74" from my inventory
+    And I add "hlc_rifle_rpk74n" to my inventory
+    Then "Manatee-Men" should have "5" "hlc_rifle_ak74" in armory
+    Then "Manatee-Men" should have "5" "hlc_rifle_rpk74n" in armory
+    Then "John Doe" should have "0" "hlc_rifle_rpk74n" in his inventory
+    Then "John Doe" should have "1" "hlc_rifle_ak74" in his inventory
 
   Scenario: If server changes status from waiting to idle, squads get items back
     Given player "John Doe" with Steam ID "123" exists

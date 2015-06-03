@@ -34,6 +34,7 @@ GameController.prototype._disconnectPlayerFromServer = function(player, server) 
   var squad = this._getSquad(player, server);
 
   if (squad && server.isPlaying()) {
+    server.markDead(player);
     this._serverQueueService.leaveSquad(squad, player);
   }
 };

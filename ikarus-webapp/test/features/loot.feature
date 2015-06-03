@@ -31,7 +31,7 @@ Feature: Loot
     And I enter my squad to the queue
     And I am logged in as server "test-server"
     When mission loot "guard_objective_reward2" is sent from server "test-server" to squad containing "John Doe" from objective "Guard"
-    Then "Manatee-Men" should have "1" "CUP_arifle_AK74" in armory
+    Then "Manatee-Men" should have "100" "money" in armory
 
   Scenario: Cant get loot backpacks from guard mission
     Given player "John Doe" with Steam ID "123" exists
@@ -58,5 +58,5 @@ Feature: Loot
     And I create a squad
     And I enter my squad to the queue
     And I am logged in as server "test-server"
-    When mission loot "CUP_srifle_LeeEnfield" is sent from server "test-server" to squad containing "John Doe" from objective "Supply"
-    Then "Manatee-Men" should have "0" "CUP_srifle_LeeEnfield" in armory
+    When mission loot "hlc_rifle_ak74" is sent from server "test-server" to squad containing "John Doe" from objective "Supply"
+    Then "Manatee-Men" should have "0" "hlc_rifle_ak74" in armory

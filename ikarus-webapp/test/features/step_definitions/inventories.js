@@ -84,6 +84,9 @@ function assertArmoryContains(app, companyName, amount, armaclass){
 function assertCountIs(inventory, armaclass, amount){
   amount = parseInt(amount);
   var count = inventory.items[armaclass] ? inventory.items[armaclass] : 0;
+  if (count !== amount) {
+    console.log("expected to find ", amount, "instead got", count);
+  }
   assert(count === amount);
 }
 

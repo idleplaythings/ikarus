@@ -89,7 +89,12 @@ Template.squad_queue_status.helpers({
       return false;
     }
     var server = Server.getByInGameSquad(squad);
-    return server && server.isWaiting();
+    var player = Player.getCurrent();
+
+    if (! player || ! server || server.isDead(player)) {
+      return false;
+    }
+    return server.isWaiting() || server.isPlaying();
   },
 
   notInQueueOrGame: function(){

@@ -150,4 +150,5 @@ objective_supply_getAmountOfDepots = {
   };
 
   _amount;
+  10;
 };

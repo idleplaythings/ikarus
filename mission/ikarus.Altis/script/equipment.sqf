@@ -54,6 +54,9 @@ equipment_setPlayerGearFromSquad = {
   if ( ! isNil {(_gear select 3)}) then {
     _unit forceAddUniform ((_gear select 3) call BIS_fnc_selectRandom);
   };
+
+  for "_i" from 1 to 3 do {_unit addItemToUniform "9Rnd_45ACP_Mag";};
+  _unit addWeaponGlobal "hgun_ACPC2_F";
 };
 
 equipment_equipUnit = {

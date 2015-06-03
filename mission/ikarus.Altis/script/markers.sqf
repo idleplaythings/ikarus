@@ -21,7 +21,6 @@ markers_createHideoutMarker = {
     + ' All loot gathered during the mission will be preserved if you bring them back to the hideout.'
   ]];
 };
-
 markers_createGuardMarker = {
   private ["_position"];
   _position = _this select 0;
@@ -29,12 +28,15 @@ markers_createGuardMarker = {
   _name = "guard" + str _position;
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerTypeLocal "hd_objective";
-  
+};
+
+markers_createGuardBriefing = {
   player createDiaryRecord ["Diary", ["Guard", 
-    'You are tasked to guard this <marker name="'+_name+'">depot</marker>'
-    + '<br/><br/>You will get rewards for each enemy player you kill on 1km radius of the depot.'
+    'You are tasked to guard any depot marked on the map.'
+    + '<br/><br/>You will get rewards for each enemy player you kill on 1km radius of any depot.'
     + ' You will get extra rewards for each kill, if you get back to your hideout alive.'
     + '<br/><br/>NOTE: You will not get any loot from loot backpacks you bring to your hideout!'
+    + '<br/><br/>NOTE: You will get penalties from killing other guards!'
   ]];
 };
 

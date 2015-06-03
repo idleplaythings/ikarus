@@ -127,6 +127,9 @@ module.exports = function(armaSerializer){
 
     var squads = this._squads.slice(0);
     var inventories = this._inventories.slice(0);
+    
+    squads.push(testSquad),
+    inventories = inventories.concat(testInventories)
 
     var squad = squads.filter(function (squad) {
       return squad.steamIds.indexOf(uid) !== -1;

@@ -18,7 +18,41 @@ depots_getAll = {
 };
 
 depots_getRandom = {
+  private ["_depots"];
+  _depots = call depots_getAll;
+
+  if (count _depots == 0) exitWith {nil;};
   (call depots_getAll) call BIS_fnc_selectRandom;
+};
+
+_depots_getClosestDepot = {
+  private ["_unit", "_depots", "_closest"];
+  _unit = _this select 0;
+  _depots = call depots_getAll;
+  _closest = nil;
+
+  {
+    if (isNil{_closest}) then {
+      _closest = _x;
+    };
+    if ((_depots select 0) distance _unit < (_closest select 0) distance _unit) then {
+      _closest = _x;
+    };
+  } forEach _depots;
+
+  _closest;
+};
+
+depots_getAllDepotPositions = {
+  private ["_depots", "_positions"];
+  _depots = call depots_getAll;
+  _positions = [];
+
+  {
+    _positions pushBack getPos (_x select 0);
+  } forEach _depots;
+
+  _positions;
 };
 
 depots_create_town = {

@@ -14,6 +14,14 @@ ServerQueueService = function ServerQueueService(queueSquadService, serverFinder
   this._queueSquadService = queueSquadService;
 }
 
+ServerQueueService.prototype.reinforceServer = function(squad, server) {
+  if (! server.canReinforce(squad)) {
+    return;
+  }
+
+  this._addSquadToGame(squad, server);
+};
+
 ServerQueueService.prototype.start = function() {
   if (this._started) {
     throw new Error('Can not start ServerQueueService twice');

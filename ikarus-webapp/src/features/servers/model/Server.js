@@ -21,6 +21,10 @@ Server.MIN_SQUADS_TO_ABORT = 1;
 Server.TIME_MAX_MISSION_LENGTH = 75; //minutes
 Server.TIME_AVERAGE_MISSION_LENGTH = 60; //minutes
 
+Server.prototype.canReinforce = function (squad) {
+  return this.isPlaying() && this.canFit(squad) && this.getPlayTimeElapsed() < (35*60);
+},
+
 Server.prototype.getTimeRemainingToApproximateGameEnd = function () {
   if (! this.isPlaying()) {
     return undefined;

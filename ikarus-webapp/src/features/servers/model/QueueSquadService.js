@@ -85,7 +85,7 @@ QueueSquadService.prototype.addPlayerToSquad = function(squad, player) {
     !squad ||
     !player.canJoinASquad() ||
     !squad.exists() ||
-    (! squad.isJoinable() && ! squad.isReinforceable())
+    (! squad.isJoinable() && ! squad.isReinforceable(player))
   ) {
     return;
   }

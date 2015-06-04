@@ -2,6 +2,17 @@ SquadController = function SquadController(serverQueueService) {
   this._serverQueueService = serverQueueService;
 }
 
+SquadController.prototype.reinforceServer = function (serverId) {
+  var server = Server.getById(serverId);
+  var squad = Squad.getCurrent();
+
+  if (! server || ! squad) {
+    return;
+  }
+
+  this._serverQueueService.reinforceServer(squad, server);
+};
+
 SquadController.prototype.createNewSquad = function(){
   var company = this._getCompany();
 

@@ -26,8 +26,9 @@ Template.squads_status.helpers({
   },
 
   reinforceableSquads: function () {
+    var player = Player.getCurrent();
     return getCompanysSquads().filter(function(squad){
-      return squad.isReinforceable();
+      return squad.isReinforceable(player);
     });
   },
 
@@ -97,6 +98,17 @@ Template.squad_queue_status.helpers({
     return server.isWaiting() || server.isPlaying();
   },
 
+  reinforceableServers: function () {
+    var squad = Squad.getCurrent();
+    if (! squad) {
+      return [];
+    }
+
+    return Server.getAllPlaying().filter(function(server) {
+      return server.canReinforce(squad);
+    });
+  },
+
   notInQueueOrGame: function(){
     var squad = Squad.getCurrent();
     if (! squad) {
@@ -128,6 +140,11 @@ Template.squad_queue_status.events({
   },
   'click .joinQueue' : function () {
     Meteor.call('enterSquadQueue');
+    evaluateSquads();
+  },
+  'click .reinforce' : function () {
+    var serverId = jQuery(event.target).attr("data-serverId");
+    Meteor.call('reinforceServer', serverId);
     evaluateSquads();
   },
   'click .leaveQueue' : function () {

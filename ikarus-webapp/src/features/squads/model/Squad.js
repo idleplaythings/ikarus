@@ -281,7 +281,7 @@ Squad.prototype.isJoinable = function() {
     !this.serverId;
 }
 
-Squad.prototype.isReinforceable = function() {
+Squad.prototype.isReinforceable = function(player) {
 
   if (this.isJoinable()) {
     return false;
@@ -292,8 +292,6 @@ Squad.prototype.isReinforceable = function() {
   if (! server || (server.isPlaying() && server.getPlayTimeElapsed() > 35 * 60)) {
     return false;
   }
-
-  var player = Player.getCurrent();
 
   if (! player || server.isDead(player)) {
     return false;

@@ -17,8 +17,10 @@ Meteor.methods({
 
   'joinSquad': function(squadId) {
     dic.get('SquadController').joinSquad(squadId);
+  },
+
+  'reinforceServer': function (serverId) {
+    dic.get('SquadController').reinforceServer(serverId);
   }
-
-
 
 });

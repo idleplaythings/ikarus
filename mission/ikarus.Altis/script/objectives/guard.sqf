@@ -7,8 +7,13 @@ objective_guard_displayName = {
   "Guard duty";
 };
 
+objective_guard_setPlayerRating = {};
+
 objective_guard_onObjectivesCreated = {
   call objective_guard_moveSquadsToDepot;
+  if (count squads == 1) then {
+    call objective_guard_createAIGuards;
+  };
 };
 
 objective_guard_validate = {
@@ -165,4 +170,94 @@ objective_guard_equipGuard = {
   [_squad, _loot] call addDisconnectedLoot;
   
   [[], "client_equipGuard", _unit, false, false] call BIS_fnc_MP;
+};
+
+objective_guard_createAIGuards = {
+  private ["_position", "_guard", "_group", "_patrol", "_offset", "_positions", "_waypoint"];
+  _position = getPos (call depots_getRandom select 0);
+  _group = createGroup west;
+  _patrol = createGroup west;
+
+  for "_i" from 1 to 6 do {
+    _offset = [_position, 10, 50] call popoRandom_findLand;
+    [_offset, _group] call objective_guard_createAIGuard;
+  };
+
+  _waypoint = _group addWaypoint [_position, 0];
+  _waypoint setWaypointType "DISMISSED";
+  _waypoint setWaypointBehaviour "SAFE";
+  _waypoint setWaypointCombatMode "RED";
+  _waypoint setWaypointStatements ["true",""];
+  _waypoint setWaypointSpeed "NO CHANGE";
+
+  _waypoint = _group addWaypoint [_position, 1];
+  _waypoint setWaypointType "SAD";
+  _waypoint setWaypointBehaviour "COMBAT";
+  _waypoint setWaypointCombatMode "RED";
+  _waypoint setWaypointStatements ["true",""];
+  _waypoint setWaypointSpeed "NO CHANGE";
+
+  _positions = [
+    [(_position select 0) - 50, (_position select 1) + 50],
+    [(_position select 0) + 50, (_position select 1) + 50],
+    [(_position select 0) + 50, (_position select 1) - 50],
+    [(_position select 0) - 50, (_position select 1) - 50]
+  ];
+
+  for "_i" from 1 to 2 do {
+    [(_positions select 0), _patrol] call objective_guard_createAIGuard;
+  };
+
+  _waypoint = _patrol addWaypoint [(_positions select 0), 0];
+  _waypoint setWaypointType "MOVE";
+  _waypoint setWaypointBehaviour "SAFE";
+  _waypoint setWaypointCombatMode "RED";
+  _waypoint setWaypointStatements ["true",""];
+  _waypoint setWaypointSpeed "NO CHANGE";
+  _waypoint setWaypointFormation "FILE";
+
+  _patrol addWaypoint [(_positions select 1), 1];
+  _patrol addWaypoint [(_positions select 2), 2];
+  _waypoint = _patrol addWaypoint [(_positions select 3), 3];
+  _waypoint setWaypointType "CYCLE";
+ 
+};
+
+objective_guard_createAIGuard = {
+  private ["_position", "_guard", "_group"];
+  _position = _this select 0;
+  _group = _this select 1;
+  _guard = _group createUnit ["B_Soldier_02_f", _position, [], 0, "FORM"];
+  [_guard] call objective_guard_equipAIGuard;
+  _guard;
+};
+
+
+objective_guard_equipAIGuard = {
+  private ["_unit"];
+  _unit = _this select 0;
+
+  removeAllWeapons _unit;
+  removeAllItems _unit;
+  removeAllAssignedItems _unit;
+  removeUniform _unit;
+  removeVest _unit;
+  removeBackpack _unit;
+  removeHeadgear _unit;
+
+  _unit forceAddUniform "U_Marshal";
+  _unit addHeadgear "H_Cap_police";
+  _unit addVest "V_TacVest_blk_POLICE";
+  for "_i" from 1 to 6 do {_unit addItemToVest "30Rnd_556x45_Stanag";};
+  for "_i" from 1 to 3 do {_unit addItemToUniform "16Rnd_9x21_Mag";};
+  _unit addItemToVest "FirstAidKit";
+
+  _unit addWeaponGlobal "arifle_TRG20_F";
+  _unit addPrimaryWeaponItem "acc_flashlight";
+  _unit addWeaponGlobal "Binocular";
+  _unit addWeaponGlobal "hgun_P07_F";
+
+  _unit linkItem "ItemMap";
+  _unit linkItem "ItemCompass";
+  _unit linkItem "ItemWatch";
 };

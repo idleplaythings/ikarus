@@ -16,6 +16,12 @@ objective_supply_displayName = {
   "Supply run";
 };
 
+objective_supply_setPlayerRating = {
+  private ["_unit"];
+  _unit = _this select 0;
+  _unit addRating -20000;
+};
+
 objective_supply_validate = {
   true;
 };

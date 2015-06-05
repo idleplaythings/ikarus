@@ -56,6 +56,8 @@ reinforcements_moveToStart = {
   _unit = _this select 0;
   _squad = [_unit] call getSquadForUnit;
 
+  [_unit, 'setPlayerRating', [_unit]] call objectiveController_callUnitObjective;
+
   [_unit, _squad] call player_setSquadVariableForUnit;
   [_unit] call hideout_createHidoutMarkerForPlayer;
 

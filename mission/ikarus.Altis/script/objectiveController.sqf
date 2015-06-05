@@ -9,6 +9,12 @@ objectiveController_types = ['supply', 'hold', 'guard'];
   [_squad, _objective] call objectiveController_changeSquadObjective;
 };
 
+objectiveController_setPlayerRatings = {
+  {
+    [_x, 'setPlayerRating', [_x]] call objectiveController_callUnitObjective;
+  } forEach (call getAllPlayers);
+};
+
 objectiveController_startObjectiveChoosing = {
   {
     [_x] call objectiveController_sendChooseObjectiveMenu;
@@ -72,6 +78,7 @@ objectiveController_createObjectives = {
   [_AO_center] call depots_create_depots;
   ["construct", []] call objectiveController_callObjectives;
   ["onObjectivesCreated", []] call objectiveController_callObjectives;
+  call objectiveController_setPlayerRatings;
 };
 
 objectiveController_getSquadsWithObjectives = {

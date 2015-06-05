@@ -26,14 +26,6 @@ reinforcements_createGuardSquad = {
   squads = squads + [_squad];
   [_squad] call hideout_createHideoutForSquad;
   [_squad, "guard"] call objectiveController_changeSquadObjective;
-  _depot = call depots_getRandom;
-
-  //if there are no depots yet, we can deduct that objectives are not generated
-  if (! isNil{_depot}) then {
-    [_unit] call objective_guard_equipGuard;
-    [_unit] call objective_guard_createGuardMarkersForUnit;
-  };
-
   [_unit] call reinforcements_moveToStart;
 };
 
@@ -56,7 +48,7 @@ reinforcements_moveToStart = {
   _unit = _this select 0;
   _squad = [_unit] call getSquadForUnit;
 
-  [_unit, 'setPlayerRating', [_unit]] call objectiveController_callUnitObjective;
+  [_unit, 'joinInProgress', [_unit]] call objectiveController_callUnitObjective;
 
   [_unit, _squad] call player_setSquadVariableForUnit;
   [_unit] call hideout_createHidoutMarkerForPlayer;

@@ -7,6 +7,17 @@ objective_guard_displayName = {
   "Guard duty";
 };
 
+objective_guard_joinInProgress = {
+  private ["_unit", "_depot"];
+  _unit = _this select 0;
+  
+  _depot = call depots_getRandom;
+  if (! isNil{_depot}) then {
+    [_unit] call objective_guard_equipGuard;
+    [_unit] call objective_guard_createGuardMarkersForUnit;
+  };
+};
+
 objective_guard_setPlayerRating = {};
 
 objective_guard_onObjectivesCreated = {

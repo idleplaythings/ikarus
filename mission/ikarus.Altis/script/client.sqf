@@ -46,5 +46,5 @@ client_addParachute = {
 client_addRating = {
   private ["_number"];
   _number = _this select 0;
-  _unit addRating _number;
+  player addRating _number;
 };

@@ -246,7 +246,7 @@ depotPositions_findRandomHouseForDepot = {
   _startPosition = _this select 0;
   _maxDistance = _this select 1;
   
-  _position = [_startPosition, _maxDistance] call SHK_pos;
+  _position = [_startPosition, 0, _maxDistance] call popoRandom_findLand;
 
   [_position] call depotPositions_findHouseForDepot;
 };

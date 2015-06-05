@@ -254,7 +254,6 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
 				};
 			};
 		};
@@ -274,7 +273,6 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
 				};
 			};
 		};
@@ -286,15 +284,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5481.2319,27.299999,14996.948};
+					position[]={5481.3804,27.299999,14996.835};
 					id=4;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1";
 				};
 			};
 		};
@@ -306,15 +303,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5482.3965,27.299999,14996.29};
+					position[]={5482.6221,27.299999,14995.901};
 					id=5;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2";
 				};
 			};
 		};
@@ -326,15 +322,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5483.4434,27.299999,14995.437};
+					position[]={5484.1733,27.299999,14994.97};
 					id=6;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3";
 				};
 			};
 		};
@@ -346,15 +341,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5479.8677,27.299999,15001.021};
+					position[]={5479.752,27.299999,15000.787};
 					id=7;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_5";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_4";
 				};
 			};
 		};
@@ -366,15 +360,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5481.3286,27.299999,14999.64};
+					position[]={5481.2129,27.299999,14999.405};
 					id=8;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_1_1";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="friend_1";
 				};
 			};
 		};
@@ -386,15 +379,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5482.5508,27.299999,14998.616};
+					position[]={5482.5835,27.299999,14998.269};
 					id=9;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2_1";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1_1";
 				};
 			};
 		};
@@ -406,15 +398,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5483.7153,27.299999,14997.958};
+					position[]={5483.8252,27.299999,14997.335};
 					id=10;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3_1";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2_1";
 				};
 			};
 		};
@@ -426,15 +417,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5484.7622,27.299999,14997.104};
+					position[]={5485.3765,27.299999,14996.403};
 					id=11;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4_1";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3_1";
 				};
 			};
 		};
@@ -446,15 +436,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5481.2256,27.299999,15002.572};
+					position[]={5480.9536,27.299999,15002.187};
 					id=12;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_6";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_5";
 				};
 			};
 		};
@@ -466,15 +455,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5482.6865,27.299999,15001.19};
+					position[]={5482.4146,27.299999,15000.805};
 					id=13;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_1_2";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="friend_2";
 				};
 			};
 		};
@@ -486,15 +474,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5483.9087,27.299999,15000.167};
+					position[]={5483.7852,27.299999,14999.668};
 					id=14;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2_2";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1_2";
 				};
 			};
 		};
@@ -506,15 +493,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5485.0732,27.299999,14999.509};
+					position[]={5485.0269,27.299999,14998.734};
 					id=15;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3_2";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2_2";
 				};
 			};
 		};
@@ -526,15 +512,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5486.1201,27.299999,14998.655};
+					position[]={5486.5781,27.299999,14997.803};
 					id=16;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4_2";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3_2";
 				};
 			};
 		};
@@ -546,15 +531,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5471.8389,27.299999,15004.549};
+					position[]={5482.3887,27.299999,15003.545};
 					id=17;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_7";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_6";
 				};
 			};
 		};
@@ -566,15 +550,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5473.2998,27.299999,15003.167};
+					position[]={5483.8496,27.299999,15002.163};
 					id=18;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_1_3";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="friend_3";
 				};
 			};
 		};
@@ -586,15 +569,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5474.522,27.299999,15002.144};
+					position[]={5485.2202,27.299999,15001.026};
 					id=19;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2_3";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1_3";
 				};
 			};
 		};
@@ -606,15 +588,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5475.6865,27.299999,15001.485};
+					position[]={5486.4619,27.299999,15000.093};
 					id=20;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3_3";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2_3";
 				};
 			};
 		};
@@ -626,15 +607,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5476.7334,27.299999,15000.632};
+					position[]={5488.0132,27.299999,14999.161};
 					id=21;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4_3";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3_3";
 				};
 			};
 		};
@@ -646,15 +626,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5473.7393,27.299999,15005.988};
+					position[]={5483.6694,27.299999,15004.667};
 					id=22;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_8";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_7";
 				};
 			};
 		};
@@ -666,15 +645,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5475.2002,27.299999,15004.606};
+					position[]={5485.1304,27.299999,15003.285};
 					id=23;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_1_4";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="friend_4";
 				};
 			};
 		};
@@ -686,15 +664,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5476.4224,27.299999,15003.583};
+					position[]={5486.501,27.299999,15002.148};
 					id=24;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2_4";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1_4";
 				};
 			};
 		};
@@ -706,15 +683,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5477.5869,27.299999,15002.925};
+					position[]={5487.7427,27.299999,15001.215};
 					id=25;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3_4";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2_4";
 				};
 			};
 		};
@@ -726,15 +702,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5478.6338,27.299999,15002.071};
+					position[]={5489.2939,27.299999,15000.283};
 					id=26;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4_4";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3_4";
 				};
 			};
 		};
@@ -746,15 +721,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5475.4458,27.299999,15007.307};
+					position[]={5463.7319,27.299999,14999.82};
 					id=27;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_9";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_8";
 				};
 			};
 		};
@@ -766,15 +740,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5476.9067,27.299999,15005.925};
+					position[]={5465.1929,27.299999,14998.438};
 					id=28;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_1_5";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="friend_5";
 				};
 			};
 		};
@@ -786,15 +759,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5478.1289,27.299999,15004.901};
+					position[]={5466.5635,27.299999,14997.302};
 					id=29;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2_5";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1_5";
 				};
 			};
 		};
@@ -806,15 +778,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5479.2935,27.299999,15004.243};
+					position[]={5467.8052,27.299999,14996.368};
 					id=30;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3_5";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2_5";
 				};
 			};
 		};
@@ -826,15 +797,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5480.3403,27.299999,15003.39};
+					position[]={5469.3564,27.299999,14995.437};
 					id=31;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4_5";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3_5";
 				};
 			};
 		};
@@ -846,15 +816,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5477.1904,27.299999,15009.009};
+					position[]={5464.9351,27.299999,15001.254};
 					id=32;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_10";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_4_1";
 				};
 			};
 		};
@@ -866,15 +835,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5478.6514,27.299999,15007.627};
+					position[]={5466.396,27.299999,14999.872};
 					id=33;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_1_6";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="friend_1_1";
 				};
 			};
 		};
@@ -886,15 +854,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5479.8735,27.299999,15006.604};
+					position[]={5467.7666,27.299999,14998.735};
 					id=34;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2_6";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1_1_1";
 				};
 			};
 		};
@@ -906,15 +873,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5481.0381,27.299999,15005.945};
+					position[]={5469.0083,27.299999,14997.802};
 					id=35;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3_6";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2_1_1";
 				};
 			};
 		};
@@ -926,15 +892,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5482.085,27.299999,15005.092};
+					position[]={5470.5596,27.299999,14996.87};
 					id=36;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4_6";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3_1_1";
 				};
 			};
 		};
@@ -946,15 +911,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5482.9702,27.299999,15004.124};
+					position[]={5466.1367,27.299999,15002.653};
 					id=37;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_11";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_5_1";
 				};
 			};
 		};
@@ -966,15 +930,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5484.4312,27.299999,15002.742};
+					position[]={5467.5977,27.299999,15001.271};
 					id=38;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_1_7";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="friend_2_1";
 				};
 			};
 		};
@@ -986,15 +949,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5485.6533,27.299999,15001.719};
+					position[]={5468.9683,27.299999,15000.135};
 					id=39;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2_7";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1_2_1";
 				};
 			};
 		};
@@ -1006,15 +968,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5486.8179,27.299999,15001.061};
+					position[]={5470.21,27.299999,14999.201};
 					id=40;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3_7";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2_2_1";
 				};
 			};
 		};
@@ -1026,15 +987,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5487.8647,27.299999,15000.207};
+					position[]={5471.7612,27.299999,14998.27};
 					id=41;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4_7";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3_2_1";
 				};
 			};
 		};
@@ -1046,15 +1006,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5468.9692,27.299999,15001.101};
+					position[]={5467.5718,27.299999,15004.012};
 					id=42;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_12";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_6_1";
 				};
 			};
 		};
@@ -1066,15 +1025,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5470.4302,27.299999,14999.719};
+					position[]={5469.0327,27.299999,15002.63};
 					id=43;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_1_8";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="friend_3_1";
 				};
 			};
 		};
@@ -1086,15 +1044,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5471.6523,27.299999,14998.695};
+					position[]={5470.4033,27.299999,15001.493};
 					id=44;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2_8";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1_3_1";
 				};
 			};
 		};
@@ -1106,15 +1063,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5472.8169,27.299999,14998.037};
+					position[]={5471.645,27.299999,15000.56};
 					id=45;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3_8";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2_3_1";
 				};
 			};
 		};
@@ -1126,15 +1082,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5473.8638,27.299999,14997.184};
+					position[]={5473.1963,27.299999,14999.628};
 					id=46;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4_8";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3_3_1";
 				};
 			};
 		};
@@ -1146,15 +1101,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5477.2305,27.299999,14995.628};
+					position[]={5468.8525,27.299999,15005.134};
 					id=47;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_13";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_7_1";
 				};
 			};
 		};
@@ -1166,15 +1120,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5478.2651,27.299999,14994.594};
+					position[]={5470.3135,27.299999,15003.752};
 					id=48;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_1_9";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="friend_4_1";
 				};
 			};
 		};
@@ -1186,15 +1139,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5479.4478,27.299999,14993.769};
+					position[]={5471.6841,27.299999,15002.615};
 					id=49;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_2_9";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_1_4_1";
 				};
 			};
 		};
@@ -1206,15 +1158,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5481.0781,27.299999,14992.564};
+					position[]={5472.9258,27.299999,15001.682};
 					id=50;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_3_9";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_2_4_1";
 				};
 			};
 		};
@@ -1226,15 +1177,14 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5482.125,27.299999,14991.711};
+					position[]={5474.4771,27.299999,15000.75};
 					id=51;
 					side="WEST";
 					vehicle="B_Soldier_F";
 					player="PLAY CDG";
 					leader=1;
 					skill=0.60000002;
-					text="gm_4_9";
-					init="removeAllWeapons this;    removeAllItems this;    removeAllAssignedItems this;    removeUniform this;    removeVest this;    removeBackpack this;    removeHeadgear this;";
+					text="gm_3_4_1";
 				};
 			};
 		};

@@ -25,7 +25,7 @@ reinforcements_createGuardSquad = {
 
   squads = squads + [_squad];
   [_squad] call hideout_createHideoutForSquad;
-  [_squad, "guard"] call objectiveController_changeSquadObjective;
+  [_squad, "guard"] call setChosenObjective;
   [_unit] call reinforcements_moveToStart;
 };
 

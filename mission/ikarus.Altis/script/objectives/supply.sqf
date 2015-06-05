@@ -26,7 +26,7 @@ objective_supply_joinInProgress = {
 objective_supply_setPlayerRating = {
   private ["_unit"];
   _unit = _this select 0;
-  _unit addRating -20000;
+  [[-20000], "client_addRating", _unit, false, false] call BIS_fnc_MP;
 };
 
 objective_supply_validate = {
@@ -163,5 +163,4 @@ objective_supply_getAmountOfDepots = {
   };
 
   _amount;
-  10;
 };

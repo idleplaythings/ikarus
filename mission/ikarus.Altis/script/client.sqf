@@ -42,3 +42,9 @@ client_equipGuard = {
 client_addParachute = {
   player addBackpackGlobal "B_Parachute";
 };
+
+client_addRating = {
+  private ["_number"];
+  _number = _this select 0;
+  _unit addRating _number;
+};

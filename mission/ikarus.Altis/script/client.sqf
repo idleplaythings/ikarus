@@ -19,7 +19,11 @@ client_equipGuard = {
   removeAllAssignedItems player;
   removeUniform player;
   removeVest player;
-  removeBackpack player;
+  
+  if (backpack _unit != "B_Parachute") then {
+    removeBackpack player;
+  };
+  
   removeHeadgear player;
 
   player forceAddUniform "U_Marshal";

@@ -40,8 +40,13 @@ equipment_setPlayerGearFromSquad = {
   _uid = getPlayerUID _unit;
 
   _gear = [_squad, _uid] call getPlayerGear;
+  _unit linkItem "ItemMap";
+  _unit linkItem "ItemCompass";
+  _unit linkItem "ItemWatch";
 
-  if (isNil {_gear}) exitWith {};
+  if (isNil {_gear}) then {
+    _unit forceAddUniform "U_B_HeliPilotCoveralls";
+  };
 
   if ( ! isNil {(_gear select 1)}) then {
     _unit addHeadgear ((_gear select 1) call BIS_fnc_selectRandom);
@@ -57,10 +62,6 @@ equipment_setPlayerGearFromSquad = {
 
   for "_i" from 1 to 3 do {_unit addItemToUniform "9Rnd_45ACP_Mag";};
   _unit addWeaponGlobal "hgun_ACPC2_F";
-
-  _unit linkItem "ItemMap";
-  _unit linkItem "ItemCompass";
-  _unit linkItem "ItemWatch";
 };
 
 equipment_equipUnit = {

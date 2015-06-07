@@ -9,6 +9,7 @@ missionControl_waitingTimeSeconds = 5;
 missionControl_timeWaitingStarted = 0;
 missionControl_test = ! isDedicated;
 missionControl_lastMessageTime = 0;
+missionControl_reinforcementsWait = false;
 
 missionControl_timeGameLength = 4500;
 
@@ -34,7 +35,9 @@ missionControl_pollReadyToStartFromMonitor = {
     private ["_start"];
     
     while { ! missionControl_gameStarted } do {
-  
+
+      sleep 1;
+
       _start = ['shouldStartGame', [missionControl_test]] call sock_rpc;
      
       if (isNil {_start}) then {
@@ -45,7 +48,6 @@ missionControl_pollReadyToStartFromMonitor = {
         call missionControl_startGame;
       };
       
-      sleep 1;
     }
   }
 };
@@ -73,11 +75,10 @@ missionControl_startGame = {
   private ["_squads"];
  
   missionControl_gameStarted = true;
+  missionControl_reinforcementsWait = true;
+
   missionControl_timeGameStarted = time;
 
-
-  call missionControl_displayGameStart;
-  
   _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
   [_squads] call setSquadData;
   
@@ -93,10 +94,13 @@ missionControl_startGame = {
 
   call objectiveController_startObjectiveChoosing;
 
+  missionControl_reinforcementsWait = false;
   waitUntil {time >= missionControl_timeObjectivesGenerated};
+  missionControl_reinforcementsWait = true;
   missionControl_objectivesGenerated = true;
   call objectiveController_hideChooseObjectiveMenu;
   call objectiveController_createObjectives;
+  missionControl_reinforcementsWait = false;
 
   ["OBJECTIVES GENERATED. GOOD LUCK AND HAVE FUN!"] call broadcastMessage;
   call missionControl_pollGameEnd;
@@ -118,11 +122,6 @@ missionControl_endGame = {
   sleep 10;
   
   ['gameEnd'] call sock_rpc;
-};
-
-missionControl_displayGameStart = {
-  ["GAME STARTING IN 15 SECONDS!"] call broadcastMessage;
-  sleep 10;
 };
 
 call missionControl_startWhenReady;

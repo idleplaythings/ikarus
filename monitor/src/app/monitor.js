@@ -236,7 +236,7 @@ Monitor.prototype._changeStatus = function(status) {
 };
 
 var squadsRetrieve = function(test) {
-  return this._gameData.getSquadData(test);
+  return this._gameData.getSquadData(this._connectedSteamIds, test);
 };
 
 var squadSubmit = function(squadId, loot) {

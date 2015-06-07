@@ -108,7 +108,7 @@ module.exports = function(armaSerializer){
     }).pop();
   };
 
-  GameData.prototype.getSquadData = function(demo){
+  GameData.prototype.getSquadData = function(connectedSteamIds, demo){
 
     var squads = this._squads.slice(0);
     var inventories = this._inventories.slice(0);
@@ -116,6 +116,14 @@ module.exports = function(armaSerializer){
     if (demo){
       squads.push(testSquad),
       inventories = inventories.concat(testInventories)
+    }
+
+    if (! demo) {
+      squads = squads.filter(function (squad) {
+        return squad.steamIds.some(function(steamId) {
+          return connectedSteamIds.indexOf(steamId) !== -1;
+        });
+      });
     }
 
     return this._armaSerializer.serializeForArma(

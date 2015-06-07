@@ -7,9 +7,10 @@ reinforcements_playerConnected = {
   
   [_unit, _squad] call equipment_setPlayerGearFromSquad;
 
-  _existingSquad = [_uid] call getSquadForUid;
+  _existingSquad = [([_squad] call getSquadId)] call getSquadById;
 
   if (isNil{_existingSquad}) exitWith {
+    systemChat "existing squad nil";
     [_unit, _squad] call reinforcements_createGuardSquad;
   };
 
@@ -24,14 +25,7 @@ reinforcements_createGuardSquad = {
 
   squads = squads + [_squad];
   [_squad] call hideout_createHideoutForSquad;
-  [_squad, "guard"] call objectiveController_changeSquadObjective;
-  _depot = call depots_getRandom;
-
-  //if there are no depots yet, we can deduct that objectives are not generated
-  if (isNil{_depot}) then {
-    [_unit] call objective_guard_equipGuard;
-  };
-
+  [_squad, "guard"] call setChosenObjective;
   [_unit] call reinforcements_moveToStart;
 };
 
@@ -54,6 +48,8 @@ reinforcements_moveToStart = {
   _unit = _this select 0;
   _squad = [_unit] call getSquadForUnit;
 
+  [_unit, 'joinInProgress', [_unit]] call objectiveController_callUnitObjective;
+
   [_unit, _squad] call player_setSquadVariableForUnit;
   [_unit] call hideout_createHidoutMarkerForPlayer;
 
@@ -64,7 +60,6 @@ reinforcements_paradrop = {
   private ["_unit", "_depot", "_squad", "_position"];
   _unit = _this select 0;
 
-  _unit addBackpack "B_Parachute";
   _depot = call depots_getRandom;
   if (isNil{_depot}) exitWith {
     _squad = [_unit] call getSquadForUnit;
@@ -76,4 +71,5 @@ reinforcements_paradrop = {
 
   _position set [2, 5000];
   _unit setPos _position;
+  [[], "client_addParachute", _unit, false, false] call BIS_fnc_MP;
 };

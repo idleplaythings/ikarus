@@ -122,5 +122,3 @@ itemProperties_inspectAmmo = {
     + " hit: " + str _hit
   + "},\n";  
 };
-
-call itemProperties_crawl;

@@ -40,7 +40,7 @@ joinPlayers = {
 getAllPlayers = {
   private ["_players"];
   if ( missionControl_test ) exitWith {
-    [player, friend, friend2];
+    [player, friend];
   };
 
   _players = [];
@@ -56,7 +56,7 @@ getAllPlayers = {
 
 getAllPlayersBeforeSquads = {
   if ( missionControl_test ) exitWith {
-    [player, friend, friend2];
+    [player, friend];
   };
 
   playableUnits;

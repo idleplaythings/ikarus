@@ -14,6 +14,16 @@ objective_hold_construct = {
   };
 };
 
+objective_hold_joinInProgress = {
+  private ["_unit"];
+  _unit = _this select 0;
+  [_unit] call objective_hold_setPlayerRating;
+};
+
+objective_hold_setPlayerRating = {
+  _this call objective_supply_setPlayerRating;
+};
+
 objective_hold_onObjectivesCreated = {};
 
 objective_hold_displayName = {

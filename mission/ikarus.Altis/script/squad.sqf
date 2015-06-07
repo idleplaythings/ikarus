@@ -83,7 +83,6 @@ getPlayerGear = {
   _gear;
 };
 
-
 addDisconnectedLoot = {
   private ["_squad", "_currentLoot"];
   _squad = _this select 0;
@@ -98,16 +97,20 @@ setPlayersAtHideout = {
   _this select 0 set [6, _newList];
 };
 
-
 getSquadById = {
-  private ["_squadId"];
+  private ["_squadId", "_squad"];
   _squadId = _this select 0;
-  
+  _squad = nil;
+
   {
     if ([_x] call getSquadId == _squadId) exitWith {
-      _x
+      _squad = _x;
     };
   } forEach squads;
+
+  if (isNil {_squad}) exitWith {nil;};
+
+  _squad;
 };
 
 getSquadForUnit = {

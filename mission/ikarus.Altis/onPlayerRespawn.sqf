@@ -4,6 +4,14 @@ _oldUnit = _this select 1;
 
 lastDamager = "";
 
+removeAllWeapons player;
+removeAllItems player;
+removeAllAssignedItems player;
+removeUniform player;
+removeVest player;
+removeBackpack player;
+removeHeadgear player;
+
 player addEventHandler [ "hit", {
   private ["_unit", "_offender", "_damage"];
   _unit = _this select 0;

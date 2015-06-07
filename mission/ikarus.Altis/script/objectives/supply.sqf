@@ -10,10 +10,23 @@ objective_supply_construct = {
   };
 };
 
+
 objective_supply_onObjectivesCreated = {};
 
 objective_supply_displayName = {
   "Supply run";
+};
+
+objective_supply_joinInProgress = {
+  private ["_unit"];
+  _unit = _this select 0;
+  [_unit] call objective_supply_setPlayerRating;
+};
+
+objective_supply_setPlayerRating = {
+  private ["_unit"];
+  _unit = _this select 0;
+  [[-20000], "client_addRating", _unit, false, false] call BIS_fnc_MP;
 };
 
 objective_supply_validate = {

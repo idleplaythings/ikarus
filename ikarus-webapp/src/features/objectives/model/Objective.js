@@ -35,13 +35,18 @@ Objective.prototype.allowLoot = function() {
   return true;
 };
 
+Objective.prototype.getLootTransform = function(loot) {
+  return this._lootTransform;
+};
+
 Objective.prototype.getAdditionalLoot = function(loot) {
   var result = [];
+  var lootTransform = this.getLootTransform();
 
   loot
     .map(function(lootEntry){
-      if (this._lootTransform[lootEntry]){
-        return this._lootTransform[lootEntry];
+      if (lootTransform[lootEntry]){
+        return lootTransform[lootEntry];
       }
       return null;
     }.bind(this))

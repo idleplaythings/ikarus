@@ -152,7 +152,7 @@ objective_assasination_targetKilled = {
   _assasinData = _this select 1;
   
   sleep (10 + random 20);
-  ["You have killed your target. You will get a new target soon, if possible", _killer] call broadcastMessageTo;
+  ["You have killed your target. You will get a new target soon, if possible", _unit] call broadcastMessageTo;
   sleep (60 + random 120);
   _assasinData set [1, ([] call objective_assasination_getTargetForUnit)];
 };
@@ -195,16 +195,17 @@ objective_assasination_defaultIfNeccessary = {};
 objective_assasination_overrideHideoutCache = {false;};
 
 objective_assasination_updateMarkers = {
-  private ["_assasin", "_target", "_position"];
+  private ["_assasin", "_target", "_position", "_radius"];
+  _radius = 300;
 
   {
     if (isNil {_x select 1}) exitWith {};
 
     _assasin = _x select 0;
     _target = _x select 1;
-    _position = [_target, [0, 100], random 360, 1] call SHK_pos;
+    _position = [_target, [0, _radius], random 360, 1] call SHK_pos;
 
-    [[_position, 100], "markers_updateAssasinMarker", _x, false, true] call BIS_fnc_MP;
+    [[_position, _radius], "markers_updateAssasinMarker", _assasin, false, true] call BIS_fnc_MP;
   } forEach objective_assasination_assasinData;
 };
 

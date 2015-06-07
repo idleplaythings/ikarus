@@ -3,6 +3,8 @@ reinforcements_playerConnected = {
   _unit = _this select 0;
   _uid = _this select 1;
 
+  waitUntil {! missionControl_reinforcementsWait};
+
   _squad = ['getSquadForUid', [_uid]] call sock_rpc;
   
   [_unit, _squad] call equipment_setPlayerGearFromSquad;
@@ -10,7 +12,6 @@ reinforcements_playerConnected = {
   _existingSquad = [([_squad] call getSquadId)] call getSquadById;
 
   if (isNil{_existingSquad}) exitWith {
-    systemChat "existing squad nil";
     [_unit, _squad] call reinforcements_createGuardSquad;
   };
 

@@ -25,17 +25,20 @@ depots_getRandom = {
   (call depots_getAll) call BIS_fnc_selectRandom;
 };
 
-_depots_getClosestDepot = {
+depots_getClosestDepot = {
   private ["_unit", "_depots", "_closest"];
   _unit = _this select 0;
   _depots = call depots_getAll;
   _closest = nil;
 
+  systemChat "depots_getClosestDepot";
+  systemChat str (count _depots);
+
   {
     if (isNil{_closest}) then {
       _closest = _x;
     };
-    if ((_depots select 0) distance _unit < (_closest select 0) distance _unit) then {
+    if ((_x select 0) distance _unit < (_closest select 0) distance _unit) then {
       _closest = _x;
     };
   } forEach _depots;

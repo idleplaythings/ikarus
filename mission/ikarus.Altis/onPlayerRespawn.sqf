@@ -40,6 +40,36 @@ player addEventHandler ["InventoryOpened", {
 }];
 
 
+[] spawn {
+  private ["_isGuard", "_noUniform"];
+  _noUniform = false;
+  while { true } do {
+
+    sleep 1;
+    _isGuard = player getVariable ["isGuard", false];
+    if (! _isGuard && uniform player == "U_Marshal") then {
+      removeUniform player;
+      ["Only guards are allowed to wear guard uniform"] call BIS_fnc_dynamicText;
+    };
+
+    if (! _isGuard && vest player == "V_TacVest_blk_POLICE") then {
+      removeVest player;
+      ["Only guards are allowed to wear guard uniform"] call BIS_fnc_dynamicText;
+    };
+
+    if (! _noUniform && _isGuard && (uniform player != "U_Marshal" || vest player != "V_TacVest_blk_POLICE")) then {
+      _noUniform = true;
+      ["Guards will consider you enemy without your uniform and you cannot get any guard rewards"] call BIS_fnc_dynamicText;
+      [-20000] call client_addRating;
+    };
+
+    if (_noUniform && _isGuard && (uniform player == "U_Marshal" && vest player == "V_TacVest_blk_POLICE")) then {
+      _noUniform = false;
+      [20000] call client_addRating;
+    };
+  };
+};
+
 lastConnectedPlayerUid = [getPlayerUID _unit, _unit];
 
 publicVariableServer "lastConnectedPlayerUid";

@@ -40,10 +40,11 @@ objective_guard_overridesAppearance = {
 objective_guard_insideDepot = {};
 
 objective_guard_onKilled = {
-  private ["_unit", "_killer", "_guardData"];
+  private ["_unit", "_killer", "_guardData", "_closestDepot"];
   _unit = _this select 0;
   _killer = _this select 1;
-   
+  
+  systemChat "player killed (guard objective)";
   diag_log "player killed (guard objective)";
 
   _guardData = [_killer] call objective_guard_getGuardData;
@@ -56,9 +57,21 @@ objective_guard_onKilled = {
   diag_log "does not have same squad";
   player globalChat "does not have same squad";
   
-  if ((_killer distance ([_killer] call depots_getClosestDepot)) <= objective_guard_killRadius) exitWith {
+  _closestDepot = [_killer] call depots_getClosestDepot select 0;
+
+  if ((_killer distance _closestDepot) <= objective_guard_killRadius) exitWith {
     diag_log "guard " + str _killer + " killed a trespasser";
     player globalChat "guard " + str _killer + " killed a trespasser";
+
+    if (rating _unit > 0 && uniform _unit == "U_Marshal" && vest _unit == "V_TacVest_blk_POLICE" && ! isNil{([_unit] call objective_guard_getGuardData);}) exitWith {
+      ["You killed a friendly guard", _killer] call broadcastMessageTo;
+      [_guardData] call objective_guard_penalize;
+    };
+
+    if (uniform _killer != "U_Marshal" && vest _killer != "V_TacVest_blk_POLICE") exitWith {
+      ["You have to be wearing guard uniform and vest to be rewarded for kills", _killer] call broadcastMessageTo;
+    };
+
     [_guardData] call objective_guard_reward;
   };
 };
@@ -84,6 +97,20 @@ objective_guard_onDisconnected = {
 
 objective_guard_canOpenLootBoxes = {
   false;
+};
+
+objective_guard_penalize = {
+  private ["_guardData", "_squad", "_penalty"];
+
+  _guardData = _this select 0;
+  _penalty = ["guard_objective_penalty"];
+  _squad = [(_guardData select 0)] call getSquadForUnit;
+
+  if (isNil{_squad}) exitWith {false;};
+    
+  [_squad, _penalty] call addDisconnectedLoot;
+  
+  _guardData set [1, (_guardData select 1) + _penalty ];
 };
 
 objective_guard_reward = {
@@ -179,6 +206,8 @@ objective_guard_equipGuard = {
   _loot = [_unit] call loot_checkUnit;
   _squad = [_unit] call getSquadForUnit;
   [_squad, _loot] call addDisconnectedLoot;
+
+  _unit setVariable ["isGuard", true, true];
   
   [[], "client_equipGuard", _unit, false, false] call BIS_fnc_MP;
 };

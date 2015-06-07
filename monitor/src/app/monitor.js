@@ -272,7 +272,7 @@ var playerConnected = function(uid) {
   }
 
   if (this._connectedSteamIds.indexOf(uid) === -1) {
-    this._connectedSteamIds.push();
+    this._connectedSteamIds.push(uid);
   }
 
   this._gameData.playerConnected(uid);

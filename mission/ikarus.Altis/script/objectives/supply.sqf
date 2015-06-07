@@ -30,7 +30,8 @@ objective_supply_setPlayerRating = {
 };
 
 objective_supply_validate = {
-  true;
+  if (count squads == 1) exitWith {true;};
+  count ([_squad] call getPlayersInSquad) > 1;
 };
 
 objective_supply_insideDepot = {};

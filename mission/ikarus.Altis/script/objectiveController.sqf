@@ -1,5 +1,5 @@
 
-objectiveController_types = ['supply', 'hold', 'guard'];
+objectiveController_types = ['supply', 'hold', 'guard', 'assasination'];
 
 "chooseObjective" addPublicVariableEventHandler {
   private ["_unit", "_objective", "_squad"];
@@ -105,6 +105,14 @@ objectiveController_getSquadsWithObjective = {
   } forEach squads;
   
   _squads;
+};
+
+objectiveController_unitHasObjective = {
+  private ["_unit", "_objective"];
+  _unit = _this select 0;
+  _objective = _this select 1;
+
+  ([_unit] call objectiveController_getUnitsObjective) == _objective;
 };
 
 objectiveController_getSquadsWithOutObjective = {

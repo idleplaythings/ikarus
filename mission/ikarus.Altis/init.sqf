@@ -30,6 +30,7 @@ if (! isServer) exitwith {};
 [] execVM "script\objectives\supply.sqf";
 [] execVM "script\objectives\guard.sqf";
 [] execVM "script\objectives\hold.sqf";
+[] execVM "script\objectives\assasination.sqf";
 [] execVM "script\equipment.sqf";
 [] execVM "script\events.sqf";
 [] execVM "script\buildingDestroyer.sqf";

@@ -85,7 +85,12 @@ depots_create_supply = {
 };
 
 depots_getAmountOfNormalDepotsToSpawn = {
-  call objective_supply_getAmountOfDepots;
+  private ["_amount"];
+  _amount = call objective_supply_getAmountOfDepots;
+
+  if (_amount == 0 && call objective_assasination_getAmountOfDepots > 0) exitWith {1;};
+
+  _amount;
 };
 
 depots_getRadiusOfSupplyAO = {

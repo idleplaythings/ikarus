@@ -30,7 +30,7 @@ objective_guard_onObjectivesCreated = {
 objective_guard_validate = {
   private ["_squad"];
   _squad = _this select 0;
-  count ([_squad] call getPlayersInSquad) <= 3;
+  count ([_squad] call getPlayersInSquad) <= 3 && count squads > 1;
 };
 
 objective_guard_overridesAppearance = {

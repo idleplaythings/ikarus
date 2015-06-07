@@ -33,7 +33,7 @@ objective_hold_displayName = {
 objective_hold_validate = {
   private ["_squad"];
   _squad = _this select 0;
-  count ([_squad] call getPlayersInSquad) > 2;
+  count ([_squad] call getPlayersInSquad) > 2 && count squads > 1;
 };
 
 objective_hold_overridesAppearance = {

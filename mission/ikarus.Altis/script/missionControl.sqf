@@ -80,11 +80,10 @@ missionControl_startGame = {
   missionControl_timeGameStarted = time;
 
   _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
+  [str (count _squads)] call broadcastMessage;
   [_squads] call setSquadData;
   
   call hideout_createHideoutForSquads;
-  //
-
   call hideout_movePlayersToHideout;
   call equipment_setPlayersGear;
   call assembleSquads;

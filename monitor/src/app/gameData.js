@@ -7,7 +7,7 @@ module.exports = function(armaSerializer){
 
   var testSquad = new Squad({
     _id: 'id',
-    steamIds: ["_SP_PLAYER_", "_SP_AI_"],
+    steamIds: ["_SP_PLAYER_"],
     startingLocation: {x:8500.0, y:11200.0},
     companyId: 'company',
     objective: 'Supply',
@@ -27,9 +27,39 @@ module.exports = function(armaSerializer){
     ]
   });
 
+  var testSquad2 = new Squad({
+    _id: 'id2',
+    steamIds: ["_SP_AI_"],
+    startingLocation: {x:9500.0, y:11200.0},
+    companyId: 'company',
+    objective: 'Supply',
+    gear: [
+      {
+        steamId: "_SP_AI_",
+        headgear: ["H_Watchcap_cbr"],
+        vest: ["V_Chestrig_oli"],
+        uniform: ["Niko_USA_M81OD"]
+      }
+    ],
+    baseModules: [
+      "Garage1",
+      "Primary1",
+      "WeaponCache1",
+      "MedicalStation1"
+    ]
+  });
+
   var testInventories = [
     {
       squadId: "id",
+      items: {
+        'SatchelCharge_Remote_Mag': 10,
+        'B_AssaultPack_khk': 1,
+        'UAZ_Unarmed': 1
+      }
+    },
+    {
+      squadId: "id2",
       items: {
         'SatchelCharge_Remote_Mag': 10,
         'B_AssaultPack_khk': 1,
@@ -114,7 +144,8 @@ module.exports = function(armaSerializer){
     var inventories = this._inventories.slice(0);
 
     if (demo){
-      squads.push(testSquad),
+      squads.push(testSquad);
+      squads.push(testSquad2);
       inventories = inventories.concat(testInventories)
     }
 

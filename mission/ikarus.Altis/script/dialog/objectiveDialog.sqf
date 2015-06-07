@@ -3,10 +3,16 @@ objectiveDialog_canDestroy = false;
 objectiveDialog_objectives = [];
 objectiveDialog_currentObjective = 'Supply';
 objectiveDialog_time = -1;
+objectiveDialog_showing = false;
 
 objectiveDialog_show = {
   private ["_index"];
   disableSerialization;
+
+  if (objectiveDialog_showing) exitWith {};
+
+  objectiveDialog_showing = true;
+  
   _index = 0;
   objectiveDialog_objectives = _this select 0;
   objectiveDialog_currentObjective = _this select 1;
@@ -45,6 +51,7 @@ objectiveDialog_chooseObjective = {
   chooseObjective = [player, objectiveDialog_currentObjective];
   publicVariableServer "chooseObjective";
 
+  systemChat str objectiveDialog_currentObjective;
   // This is for singleplayer testing
   if (isServer) then {
     private ['_squad'];
@@ -57,6 +64,7 @@ objectiveDialog_chooseObjective = {
 };
 
 objectiveDialog_ready = {
+  objectiveDialog_showing = false;
   objectiveDialog_canDestroy = true;
   objectiveDialog_time = -1;
   findDisplay 10 closeDisplay 1;
@@ -72,7 +80,7 @@ objectiveDialog_getDescription = {
   };
 
   if (objectiveDialog_currentObjective == "Guard") exitWith {
-    "GUARD DUTY<br/><br/>You will be guarding one of the objective depots."
+    "GUARD DUTY<br/><br/>You will be guarding the objective depots."
    + " You will be provided with default equipment. If there are not enough depots to guard"
    + " this objective defaults to SUPPLY RUN. You will get rewards for all enemies you kill in 1km"
    + " radius of the depot.";
@@ -82,6 +90,11 @@ objectiveDialog_getDescription = {
     "HOLD<br/><br/>You must take and hold one of the depots."
    + " When you have held the depot for 10 minutes, you will get a location"
    + " of a supply drop. Secure and loot that drop.";
+  };
+
+  if (objectiveDialog_currentObjective == "Assasination") exitWith {
+    "ASSASINATION<br/><br/>You will get a target and will know aproximate location of that"
+   + " target on the map. If you manage to kill the target, you will be rewarded.";
   };
 
   "";

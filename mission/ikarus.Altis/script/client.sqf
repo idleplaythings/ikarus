@@ -13,14 +13,13 @@ client_removeBecomeMedic = {
 };
 
 client_equipGuard = {
-
   removeAllWeapons player;
   removeAllItems player;
   removeAllAssignedItems player;
   removeUniform player;
   removeVest player;
-  
-  if (backpack _unit != "B_Parachute") then {
+
+  if (backpack player != "B_Parachute") then {
     removeBackpack player;
   };
   
@@ -41,6 +40,8 @@ client_equipGuard = {
   player linkItem "ItemMap";
   player linkItem "ItemCompass";
   player linkItem "ItemWatch";
+
+  ["You are a guard. Your task is to protect depots marked on the map. Do not kill other guards!"] call BIS_fnc_dynamicText;
 };
 
 client_addParachute = {

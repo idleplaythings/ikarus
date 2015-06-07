@@ -1,9 +1,8 @@
 player createDiaryRecord ["Diary", ["Credits", 
   'Ikarus made possible by these third party mods and scripts:<br/>'
-  + '<br/>Community Upgrade Project - Weapons Pack by CUP Team'
+  + '<br/>HLC weapon packs'
   + '<br/>Unlocked Uniforms by Pepe Hal'
-  + '<br/>Authentic Gameplay Modification by BWMod Team'
-  + '<br/>Civilian Vehicles by zealot111'
+  + '<br/>ACE 3'
   + '<br/>SHK pos by Shuko'
   + '<br/> Node.js Extension for Arma 3 by micovery'
 ]];
@@ -133,6 +132,37 @@ markers_createHoldBriefing = {
     + '<br/><br/>Following areas contain a depot somewhere inside:<br/>'
     + _markersText
   ]];
+};
+
+markers_createAssasinBriefing = {
+  player createDiaryRecord ["Diary", ["Assasination", 
+    'You have taken an assasination contract. You must track and kill your target.'
+    + ' You will see the aproximate location of the target as a red circle on your map.'
+    + ' When you have killed your target, you will get a new one in couple of minutes if'
+    + ' suitable targets are available.'
+    + '<br/><br/>You will get more rewards if you complete multiple assasinations. You will also'
+    + ' get extra rewards for assasinations if you get back to your base alive.'
+  ]];
+};
+
+markers_assasinMarker = nil;
+
+markers_updateAssasinMarker = {
+  private ["_position", "_radius", "_marker"];
+  _position = _this select 0;
+  _radius = _this select 1;
+ 
+  if (isNil {markers_assasinMarker}) then {
+    _marker = createMarkerLocal ["assasination", _position];
+    _marker setMarkerBrushLocal "SOLID";
+    _marker setMarkerColorLocal "ColorRed";
+    _marker setMarkerShape "ELLIPSE";
+    _marker setMarkerSize [_radius, _radius];
+    _marker setMarkerAlpha 0.6;
+    markers_assasinMarker = _marker;
+  };
+
+  markers_assasinMarker setMarkerPosLocal _position;
 };
 
 markers_textMessage = {

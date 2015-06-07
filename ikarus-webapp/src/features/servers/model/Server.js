@@ -56,7 +56,7 @@ Server.prototype.getPlayTimeElapsed = function () {
     return undefined;
   }
 
-  return this.getStatusChanged().diff(moment(), 'seconds');
+  return moment().diff(this.getStatusChanged(), 'seconds');
 };
 
 Server.prototype.getStartTimeLeft = function () {

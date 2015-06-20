@@ -24,6 +24,7 @@ if (! isServer) exitwith {};
 [] execVM "script\player.sqf";
 [] execVM "script\AO.sqf";
 [] execVM "script\loot.sqf";
+[] execVM "script\lootItems.sqf";
 [] execVM "script\depots.sqf";
 [] execVM "script\vehicle.sqf";
 [] execVM "script\objectiveController.sqf";

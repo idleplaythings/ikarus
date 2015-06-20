@@ -33,7 +33,7 @@ marketDefinitions = [
       'hlc_rifle_bcmjack':      {money: 120},
       'hlc_rifle_Colt727':      {money: 120},
       'hlc_rifle_Colt727_GL':   {money: 420},
-      'hlc_rifle_SAMR':         {money: 120},
+      'hlc_rifle_samr2':        {money: 120},
 
       'hlc_rifle_Bushmaster300':{money: 200},
       'hlc_rifle_vendimus':     {money: 200},
@@ -215,9 +215,3 @@ marketDefinitions = [
     }
   },
 ];
-
-marketDefinitions.forEach(function (market) {
-  Object.keys(market.items).forEach(function (key) {
-    market.items[key] = {money: 1};
-  });
-});

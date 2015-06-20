@@ -134,3 +134,19 @@ equipment_addItem = {
   
   _backupContainer addItemCargoGlobal [_class, 1];
 };
+
+equipment_unitHasItem = {
+  private ["_unit", "_class"];
+  _unit = _this select 0;
+  _class = _this select 1;
+
+  _class in items _unit;
+};
+
+equipment_removeItemFromUnit = {
+  private ["_unit", "_item"];
+  _unit = _this select 0;
+  _item = _this select 1;
+
+  _unit removeItem _item;
+};

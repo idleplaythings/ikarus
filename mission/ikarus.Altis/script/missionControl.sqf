@@ -80,7 +80,6 @@ missionControl_startGame = {
   missionControl_timeGameStarted = time;
 
   _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
-  [str (count _squads)] call broadcastMessage;
   [_squads] call setSquadData;
   
   call hideout_createHideoutForSquads;
@@ -89,7 +88,7 @@ missionControl_startGame = {
   call assembleSquads;
   call player_setSquadVariable;
 
-  missionControl_timeObjectivesGenerated = time + 60;
+  missionControl_timeObjectivesGenerated = time + 6;
 
   call objectiveController_startObjectiveChoosing;
 

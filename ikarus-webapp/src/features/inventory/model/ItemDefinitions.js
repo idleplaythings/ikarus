@@ -2,6 +2,17 @@ ItemDefinitions = [
 
   //RESOURCES
 
+  IKRS_loot_key1
+  IKRS_loot_key2
+  IKRS_intelligence_weapon
+  IKRS_intelligence_vehicle
+  IKRS_intelligence_helo
+
+  createGeneric('Loot key level 1', 'IKRS_loot_key1', ['resource']),
+  createGeneric('Loot key level 2', 'IKRS_loot_key2', ['resource']),
+  createGeneric('Intelligence (Weapon depot)', 'IKRS_intelligence_weapon', ['resource']),
+  createGeneric('Intelligence (Vehicle depot) (Weapon depot)ney', 'IKRS_intelligence_vehicle', ['resource']),
+  createGeneric('Intelligence (Helicopter depot)', 'IKRS_intelligence_helo', ['resource']),
   createGeneric('Money', 'money', ['resource', 'non mission item']),
 
   //VEHICLES
@@ -47,6 +58,7 @@ ItemDefinitions = [
   createWeapon('AR15 .300 Dissipator', 'hlc_rifle_vendimus', ['assault-rifle'], ["29rnd_300BLK_STANAG"]),
   createWeapon('AAC "Honey-Badger"', 'hlc_rifle_honeybadger', ['assault-rifle'], ["29rnd_300BLK_STANAG"]),
   createWeapon('RRA LAR-15', 'hlc_rifle_SAMR', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('RRA LAR-15', 'hlc_rifle_samr2', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
   
   createMagazine('29rnd .300 cal blackout', '29rnd_300BLK_STANAG', 29),
  
@@ -103,9 +115,16 @@ ItemDefinitions = [
   createWeapon('FN FAL (no rail)', 'CUP_arifle_FNFAL', ['assault-rifle'], ['CUP_20Rnd_762x51_FNFAL_M']),
   createMagazine('20rnd 7.62x51mm FN FAL', 'CUP_20Rnd_762x51_FNFAL_M', 20),
 
+  //BATTLE RIFLES (HLC)
+  
+  createWeapon('Springfield Armory M14', 'hlc_rifle_M14', ['assault-rifle'], ['20Rnd_762x51_Mag']),
+  createWeapon('FN C1A1', 'hlc_rifle_c1A1', ['assault-rifle'], ['20Rnd_762x51_Mag']),
+  
+  createWeapon('G3A3 RIS', 'hlc_rifle_g3a3ris', ['assault-rifle'], ['20Rnd_762x51_Mag']),
+  
+
   //BATTLE RIFLES (Vanilla)
 
-  createWeapon('Springfield Armory M14', 'hlc_rifle_M14', ['assault-rifle'], ['20Rnd_762x51_Mag']),
   
   createWeapon('Mk14 7.62mm (camo)', 'srifle_DMR_06_camo_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
   createWeapon('Mk14 7.62mm (olive)', 'srifle_DMR_06_olive_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
@@ -113,7 +132,14 @@ ItemDefinitions = [
   createWeapon('Mk18 ABR 7.62 mm', 'srifle_EBR_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
 
 
+  //MACHINE GUNS (HLC)
 
+  createWeapon('M249E2 lmg (no rail)', 'hlc_lmg_M249E2', ['lmg'], ['hlc_200rnd_556x45_T_SAW', '30Rnd_556x45_Stanag']),
+  createMagazine('200rnd box 5.56x45mm', 'hlc_200rnd_556x45_T_SAW', 30),
+
+  createWeapon('M249E2 lmg (RIS/13.7 in)', 'hlc_m249_pip1', ['lmg'], ['hlc_200rnd_556x45_T_SAW', '30Rnd_556x45_Stanag']),
+  
+  
 
   //MACHINE GUNS (CUP)
 
@@ -189,6 +215,18 @@ ItemDefinitions = [
   createWeapon('MXM Marksman rifle', 'arifle_MXM_F', ['sniper-rifle'], ['30Rnd_65x39_caseless_mag']),
   createWeapon('MXM Marksman rifle (black)', 'arifle_MXM_Black_F', ['sniper-rifle'], ['30Rnd_65x39_caseless_mag']),
 
+
+  //LAUNCHERS
+
+  createWeapon('RPG-7V launcher', 'launch_RPG7V', ['rpg'], ['RPG7_PG7V']),
+  createMagazine('RPG-7 AT rocket', 'RPG7_PG7V', 1),
+
+  createWeapon('NLAW', 'launch_NLAW_F', ['rpg'], ['NLAW_F']),
+  createMagazine('NLAW AT rocket', 'NLAW_F', 1),
+
+  createWeapon('RPG-32', 'launch_RPG32_F', ['rpg'], ['RPG32_F']),
+  createMagazine('RPG-32 AT rocket', 'RPG32_F', 1),
+  
   //LAUCHERS (CUP)
 
   createWeapon('RPG-7V launcher', 'CUP_launch_RPG7V', ['rpg'], ['CUP_PG7V_M']),
@@ -268,6 +306,9 @@ ItemDefinitions = [
   createGeneric('Mk17 Holosight SMG','optic_Holosight_smg', ['scope']),
   createGeneric('ACO SMG (Red)','optic_Aco_smg', ['scope']),
   createGeneric('ACO SMG (Green)','optic_ACO_grn_smg', ['scope']),
+
+
+  createGeneric('Honeybadger supressor', 'muzzle_HBADGER', ['scope']),
   createGeneric('Sound Suppressor (.45 ACP)', 'muzzle_snds_acp', ['scope']),
   createGeneric('Sound Suppressor (9 mm)', 'muzzle_snds_L', ['scope']),
 
@@ -347,10 +388,10 @@ ItemDefinitions = [
   createMagazine('30rnd 9x21 mm', '30Rnd_9x21_Mag', 30),
 
   createLoot(
-    'Stack of money',
-    'IKRS_loot_money',
+    'Valuables, money',
+    'IKRS_loot_valuables',
     {
-      'money': 100
+      'money': '5d5+50'
     }
   ),
 
@@ -360,8 +401,8 @@ ItemDefinitions = [
     {
       'money': 500,
       'Binocular': 10,
-      'arifle_TRG21_F': 10,
-      '30Rnd_556x45_Stanag': 50
+      'hlc_rifle_ak74': 10,
+      'hlc_30Rnd_545x39_B_AK': 50
     }
   ),
 
@@ -369,7 +410,6 @@ ItemDefinitions = [
     'SMG Weapons',
     'IKRS_loot_smg_weapons',
     {
-      'money': 'd20+5',
       'Binocular': 'd5-2',
       'ItemGPS': 'd5-3',
       'SMG_02_F': 'd4-2',
@@ -385,321 +425,175 @@ ItemDefinitions = [
   ),
 
   createLoot(
-    'Civilian Weapons',
-    'IKRS_loot_civilian_weapons',
+    'Warsaw pact, old',
+    'IKRS_loot_warsaw_old',
     {
-      'money': 'd20+5',
-      'Binocular': 'd3-1',
-      //'CUP_srifle_LeeEnfield': 1,
-      //'CUP_10x_303_M': 'd5+2',
-      //'CUP_srifle_CZ550': 'd40-39',
-      //'CUP_5x_22_LR_17_HMR_M': 'd3-2',
-      'H_HelmetB': 'd5-4',
-      'SmokeShell': 'd2',
-      'HandGrenade': 'd5-4',
+      'Binocular': 'd5-2',
       'ItemGPS': 'd5-3',
-
-      'arifle_TRG21_F': 'd2-1',
-      'arifle_TRG20_F': '1',
-      'arifle_TRG21_GL_F': 'd10-9',
-
-      'srifle_DMR_06_camo_F': 'd80-79',
-      'srifle_DMR_06_olive_F': 'd80-79',
-
-      //'CUP_glaunch_M79': 'd40-39',
-      //'CUP_1Rnd_HE_M203': 'd3-2',
-      //'CUP_1Rnd_Smoke_M203': 'd3-2',
-      //'CUP_1Rnd_SmokeRed_M203': 'd3-2',
-
-      //'CUP_hgun_Makarov': 1,
-      //'CUP_8Rnd_9x18_Makarov_M' : 'd3'
+      'hlc_rifle_ak47':'d2+1',
+      'hlc_rifle_akm': 'd5+2',
+      'hlc_rifle_rpk': 'd2-1',
+      'hlc_30Rnd_762x39_b_ak': '10d3+20',
+      'hlc_45Rnd_762x39_m_rpk': 'd5+5'
     }
   ),
 
   createLoot(
-    'Old Russian Weapons',
-    'IKRS_loot_old_RU_weapons',
+    'Warsaw pact, standard',
+    'IKRS_loot_warsaw_standard',
     {
-      'money': 'd40+30',
-      'arifle_Katiba_C_F': 'd10-9',
-      'arifle_Katiba_F': 'd10-9',
-      'srifle_DMR_01_F': 'd40-39', //Rahim
-
-      //'CUP_arifle_AK74': 'd2',
-      //'CUP_30Rnd_545x39_AK_M': '2d5+5',
-      //'CUP_optic_Kobra': 'd10-8',
-      //'CUP_optic_PSO_1': 'd10-9',
-      //'CUP_srifle_SVD': 'd40-39',
-      //'CUP_10Rnd_762x54_SVD_M': 'd6-5',
-      //'CUP_30Rnd_762x39_AK47_M': 'd3-1',
-      //'CUP_arifle_AKM': 'd5-4',
-      //'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': 'd5-4',
-      'V_TacVest_camo': 'd3-2',
-      'V_TacVest_oli': 'd3-2',
-      'V_TacVest_blk': 'd3-2',
-      'V_PlateCarrierIA1_dgtl': 'd10-9',
-      'H_HelmetIA': 'd5-4',
-      'SmokeShell': 'd5',
-      'HandGrenade': 'd3',
-      'bipod_02_F_blk': 'd5-4',
-      'bipod_02_F_hex': 'd5-4',
-      'bipod_02_F_tan': 'd5-4',
-
-
-      //'CUP_sgun_Saiga12K': 'd2-1',
-      //'CUP_8Rnd_B_Saiga12_74Slug_M': 'd3-1',
-
-      //'CUP_hgun_Duty': 2,
-      //'16Rnd_9x21_Mag' : 'd6'
+      'Binocular': 'd5-2',
+      'ItemGPS': 'd5-3',
+      'hlc_rifle_ak74': 'd5+2', 
+      'hlc_rifle_aks74': 'd2',
+      'hlc_rifle_rpk74n': 'd2-1',
+      'hlc_rifle_aks74_GL': 'd10-9',
+      'hlc_30Rnd_545x39_B_AK': '10d3+20',
+      'hlc_45Rnd_545x39_t_rpk': 'd5+5'
     }
   ),
 
   createLoot(
-    'Old NATO weapons',
-    'IKRS_loot_old_nato_weapons',
+    'Warsaw pact, explosives and ammo',
+    'IKRS_loot_warsaw_ammo',
     {
-      'money': 'd50+30',
-      'arifle_Mk20_F':            'd10-9',
-      'arifle_Mk20_plain_F':      'd10-9',
-      'arifle_Mk20C_F':           'd10-9',
-      'arifle_Mk20C_plain_F':     'd10-9',
-      'arifle_Mk20_GL_F':         'd30-29',
-      'arifle_Mk20_GL_plain_F':   'd30-29',
-
-
-      'arifle_MX_F':              'd20-19',
-      'arifle_MX_Black_F':        'd20-19',
-      'arifle_MX_GL_F':           'd20-19',
-      'arifle_MX_GL_Black_F':     'd20-19',
-      'arifle_MXC_F':             'd10-9',
-      'arifle_MXC_Black_F':       'd10-9',
-
-
-      //'CUP_arifle_M16A2': 'd2',
-      '30Rnd_556x45_Stanag': '2d5+3',
-      //'CUP_arifle_M16A4_Base': 'd5-4',
-      //'CUP_optic_CompM2_Black': 'd5-4',
-      //'CUP_optic_RCO': 'd20-18',
-      'V_TacVest_camo': 'd3-2',
-      'V_TacVest_oli': 'd3-2',
-      'V_TacVest_blk': 'd3-2',
-      'V_PlateCarrier1_rgr': 'd5-4',
-      //'CUP_srifle_M14': 'd10-9',
-      'srifle_DMR_06_camo_F': 'd40-39',
-      'srifle_DMR_06_olive_F': 'd40-39',
-      'H_HelmetB': 'd3-2',
-      'SmokeShell': 'd5',
-      'HandGrenade': 'd3',
-
-      //'CUP_smg_MP5SD6': 'd3-2',
-
-      //'CUP_hgun_Glock17': 2,
-      //'CUP_17Rnd_9x19_glock17' : 'd6'
+      '1Rnd_HE_Grenade_shell': '2d3+2',
+      'RPG7_PG7V': 'd2+2'
     }
   ),
 
   createLoot(
-    'Common NATO weapons',
-    'IKRS_loot_common_nato_weapons',
+    'NATO, standard',
+    'IKRS_loot_nato_standard',
     {
-      'money': 'd60+30',
-      'arifle_Mk20_F':            'd10-9',
-      'arifle_Mk20_plain_F':      'd10-9',
-      'arifle_Mk20C_F':           'd10-9',
-      'arifle_Mk20C_plain_F':     'd10-9',
-      'arifle_Mk20_GL_F':         'd30-29',
-      'arifle_Mk20_GL_plain_F':   'd30-29',
+      'Binocular': 'd5-2',
+      'ItemGPS': 'd5-3',
+      'hlc_rifle_M4': 'd2-1',
+      'hlc_rifle_Colt727': 'd2',
+      'hlc_rifle_Colt727_GL': 'd10-9',
 
-
-      'arifle_MX_F':              'd20-19',
-      'arifle_MX_Black_F':        'd20-19',
-      'arifle_MX_GL_F':           'd20-19',
-      'arifle_MX_GL_Black_F':     'd20-19',
-      'arifle_MXC_F':             'd10-9',
-      'arifle_MXC_Black_F':       'd10-9',
-      '30Rnd_65x39_caseless_mag': 'd5',
-
-      '30Rnd_556x45_Stanag': '2d5+5',
-      //'CUP_arifle_M4A1_black': 'd2',
-      //'CUP_optic_CompM4': 'd10-8',
-      //'CUP_optic_CompM2_Black': 'd2',
-      //'CUP_optic_RCO': 'd10-8',
-      //'CUP_200Rnd_TE4_Red_Tracer_556x45_M249': 'd3-2',
-      //'CUP_launch_NLAW': 'd10-9',
-      //'CUP_NLAW_M': 'd5-4',
-      'V_TacVest_camo': 'd3-2',
-      'V_TacVest_oli': 'd3-2',
-      'V_TacVest_blk': 'd3-2',
-      'V_PlateCarrier1_rgr': 'd5-4',
-      'V_PlateCarrier2_rgr': 'd5-4',
-      //'CUP_srifle_M24_wdl': 'd20-19',
-      //'CUP_5Rnd_762x51_M24': 'd3-2',
-      'srifle_EBR_F': 'd40-39',
-      'H_HelmetB': 'd3-2',
-      'SmokeShell': '3d3',
-      'HandGrenade': '2d3',
-
-      //'CUP_sgun_AA12': 'd3-2',
-      //'CUP_20Rnd_B_AA12_Pellets': 'd2-1',
-
-      'V_PlateCarrierIAGL_dgtl': 'd20-19',
-      'V_PlateCarrierIAGL_oli': 'd20-19',
-      'V_PlateCarrierGL_rgr': 'd10-9',
-      'V_PlateCarrierGL_blk': 'd10-9',
-      'V_PlateCarrierGL_mtp': 'd10-9',
-      'V_PlateCarrierSpec_rgr': 'd20-19',
-      'V_PlateCarrierSpec_blk': 'd20-19',
-      'V_PlateCarrierSpec_mtp': 'd20-19',
+      '30Rnd_556x45_Stanag': '5d3+10'
     }
   ),
 
   createLoot(
-    'Common Russian weapons',
-    'IKRS_loot_common_RU_weapons',
+    'NATO, explosives and ammo',
+    'IKRS_loot_nato_ammo',
     {
-      'money': 'd60+30',
-      'arifle_Katiba_C_F': 'd10-9',
-      'arifle_Katiba_F': 'd10-9',
-      'arifle_Katiba_GL_F': 'd20-19',
-      'srifle_DMR_01_F': 'd40-39', //Rahim
-      'optic_ACO_grn':'d10-9',
-      'srifle_DMR_05_blk_F': 'd40-39',
-      'srifle_DMR_05_hex_F': 'd40-39',
-      'srifle_DMR_05_tan_F': 'd40-39',
-      //'CUP_arifle_AK107': 'd2+1',
-      //'CUP_optic_Kobra': 'd2+1',
-      //'CUP_optic_PSO_1': 'd5-4',
-      //'CUP_srifle_SVD': 'd20-19',
-      //'CUP_10Rnd_762x54_SVD_M': 'd3-2',
-      //'CUP_30Rnd_545x39_AK_M': '2d5+5',
-      'V_TacVest_camo': 'd3-2',
-      'V_TacVest_oli': 'd3-2',
-      'V_TacVest_blk': 'd3-2',
-      'V_PlateCarrierIA1_dgtl': 'd10-9',
-      'V_PlateCarrierIA2_dgtl': 'd10-9',
-      //'CUP_lmg_PKM': 'd10-9',
-      //'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd5-3',
-      //'CUP_launch_RPG7V': 'd10-9',
-      //'CUP_PG7V_M': 'd2-1',
-      'H_HelmetIA': 'd3-2',
-      'SmokeShell': '3d3',
-      'HandGrenade': '2d3',
-      //'CUP_arifle_FNFAL': 'd10-9',
-      //'CUP_20Rnd_762x51_FNFAL_M': 'd3+1',
-
-      'SMG_01_F': 'd2-1',
-      '30Rnd_45ACP_Mag_SMG_01': 'd4-1',
-      'bipod_02_F_blk': 'd5-4',
-      'bipod_02_F_hex': 'd5-4',
-      'bipod_02_F_tan': 'd5-4',
-
-
-      'hgun_Pistol_heavy_02_F': 'd2-1',
-      '6Rnd_45ACP_Cylinder': 'd5-1'
-
-      //'CUP_hgun_MicroUzi' : 'd2-1',
-      //'CUP_30Rnd_9x19_UZI' : 'd3-1'
+      '1Rnd_HE_Grenade_shell': '2d3+2',
+      'NLAW_F': 'd2+2',
+      '20Rnd_762x51_Mag': 'd5+3',
+      'hlc_200rnd_556x45_T_SAW': 'd3+2'
     }
   ),
 
   createLoot(
-    'NATO heavy weapons',
-    'IKRS_loot_heavy_nato_weapons',
+    'NATO, modern',
+    'IKRS_loot_nato_modern',
     {
-      'money': 'd100+100',
-      //'CUP_launch_NLAW': 'd10-9',
-      //'CUP_NLAW_M': 'd5-4',
-      //'CUP_optic_LeupoldMk4_10x40_LRT_Woodland': 'd20-19',
-      //'CUP_srifle_M24_wdl': 'd20-19',
-      //'CUP_5Rnd_762x51_M24': 'd2',
-      //'CUP_lmg_M249': 'd2-1',
-      //'CUP_200Rnd_TE4_Red_Tracer_556x45_M249': 'd3+2',
-      //'CUP_glaunch_M32': 'd3-2',
-      //'CUP_6Rnd_HE_M203': 'd2-1',
-      //'CUP_6Rnd_Smoke_M203': 'd2-1',
-
-      'arifle_MX_SW_F':           'd20-19',
-      'arifle_MX_SW_Black_F':     'd20-19',
-
-      'LMG_Mk200_F':              'd20-19',
-
-
-      'MMG_02_camo_F':            'd40-39',
-      'MMG_02_black_F':           'd40-39',
-      'MMG_02_sand_F':            'd40-39',
-
-      'V_PlateCarrierIAGL_dgtl':  'd5-4',
-      'V_PlateCarrierIAGL_oli':   'd5-4',
-      'V_PlateCarrierGL_rgr':     'd5-4',
-      'V_PlateCarrierGL_blk':     'd5-4',
-      'V_PlateCarrierGL_mtp':     'd5-4',
-      'V_PlateCarrierSpec_rgr':   'd5-4',
-      'V_PlateCarrierSpec_blk':   'd5-4',
-      'V_PlateCarrierSpec_mtp':   'd5-4',
-
-      '1Rnd_HE_Grenade_shell':    '2d4+3',
-
-      'optic_DMS':                'd40-39',
-
-      'srifle_DMR_03_F':          'd40-39',
-      'srifle_DMR_03_khaki_F':    'd40-39',
-      'srifle_DMR_03_tan_F':      'd40-39',
-      'srifle_DMR_03_multicam_F': 'd40-39',
-      'srifle_DMR_03_woodland_F': 'd40-39',
-
-      'arifle_MXM_F':             'd20-19',
-      'arifle_MXM_Black_F':       'd20-19',
-
-      'optic_Holosight':          'd2',
-      'optic_Aco':                'd2',
-      'optic_Hamr':               'd20-19',
-      'optic_MRCO':               'd20-19',
-
-      'bipod_01_F_blk':           'd5-3',
-      'bipod_01_F_mtp':           'd5-3',
-      'bipod_01_F_snd':           'd5-3',
-
-
+      'Binocular': 'd5-2',
+      'ItemGPS': 'd5-3',
+      'arifle_MX_F': 'd2',
+      'arifle_MX_GL_F': 'd10-9',
+      'arifle_MXC_F': 'd2',
+      
+      '30Rnd_65x39_caseless_mag': '5d3+10'
     }
   ),
 
   createLoot(
-    'Russian heavy weapons',
-    'IKRS_loot_heavy_RU_weapons',
+    'NATO, modern explosives and ammo',
+    'IKRS_loot_nato_modern_ammo',
     {
-      'money': 'd100+100',
-      'srifle_DMR_05_blk_F': 'd40-39',
-      'srifle_DMR_05_hex_F': 'd40-39',
-      'srifle_DMR_05_tan_F': 'd40-39',
-
-      'LMG_Zafir_F': 'd40-39',
-
-      'optic_ACO_grn':'d2+1',
-      'optic_Arco': 'd20-19',
-      'optic_MRCO': 'd20-19',
-
-      'MMG_01_hex_F': 'd40-39',
-      'MMG_01_tan_F': 'd40-39',
-
-      'optic_DMS': 'd40-39',
-
-      'bipod_02_F_blk': 'd5-3',
-      'bipod_02_F_hex': 'd5-3',
-      'bipod_02_F_tan': 'd5-3',
-
-      'srifle_DMR_01_F': 'd10-9', //Rahim
-      '1Rnd_HE_Grenade_shell': '2d4+3',
-      //'CUP_launch_RPG7V': 'd3-1',
-      //'CUP_PG7V_M': 'd3+2',
-      //'CUP_lmg_PKM': 'd4-3',
-      //'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd3',
-      //'CUP_arifle_RPK74': 'd2',
-      //'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '2d3+5',
-      //'CUP_optic_PSO_1': 'd2-1',
-      //'CUP_srifle_SVD': 'd20-19',
-      //'CUP_10Rnd_762x54_SVD_M': 'd3-2'
+      '1Rnd_HE_Grenade_shell': '2d3+2',
+      'NLAW_F': 'd2+2',
+      '20Rnd_762x51_Mag': 'd5+3',
+      '200Rnd_65x39_cased_Box': 'd3+2'
     }
   ),
+
+  createLoot(
+    'CSAT, modern',
+    'IKRS_loot_csat_modern',
+    {
+      'Binocular': 'd5-2',
+      'ItemGPS': 'd5-3',
+      'arifle_Katiba_C_F': 'd2',
+      'arifle_Katiba_F': 'd2',
+      'arifle_Katiba_GL_F': 'd10-9',
+
+      '30Rnd_65x39_caseless_green': '5d3+10'
+    }
+  ),
+
+  createLoot(
+    'CSAT, modern explosives and ammo',
+    'IKRS_loot_csat_modern_ammo',
+    {
+      '1Rnd_HE_Grenade_shell': '2d3+2',
+      'RPG32_F': 'd2+2',
+      '150Rnd_762x54_Box': 'd3+2'
+    }
+  ),
+
+  createLoot(
+    'Assasin survive reward',
+    'IKRS_loot_assasin',
+    {
+      
+    }
+  ),
+
+  createLoot(
+    'Body armor, light',
+    'IKRS_loot_armor_light',
+    {
+      'V_TacVest_camo': 'd2+1',
+      'V_TacVest_blk': 'd2+1',
+      'V_TacVest_oli': 'd2+1',
+    }
+  ),
+
+  createLoot(
+    'Body armor, medium',
+    'IKRS_loot_armor_medium',
+    {
+      'V_PlateCarrierIA1_dgtl': 'd2',
+      'V_PlateCarrierIA2_dgtl': 'd2',
+      'V_PlateCarrier1_blk': 'd2-1',
+      'V_PlateCarrier1_rgr': 'd2-1',
+      'V_PlateCarrier2_rgr': 'd2-1',
+      'V_PlateCarrierSpec_rgr': 'd3-2',
+      'V_PlateCarrierSpec_blk': 'd3-2',
+      'V_PlateCarrierSpec_mtp': 'd3-2',
+
+      'H_HelmetB': 'd2',
+      'H_HelmetIA' 'd2',
+    } 
+  ),
+
+  createLoot(
+    'Body armor, heavy',
+    'IKRS_loot_armor_heavy',
+    {
+      'V_PlateCarrierIAGL_dgtl': 'd2',
+      'V_PlateCarrierIAGL_oli': 'd2',
+      'V_PlateCarrierGL_rgr': 'd2-1',
+      'V_PlateCarrierGL_blk': 'd2-1',
+      'V_PlateCarrierGL_mtp': 'd2-1',
+
+      'H_HelmetB': 'd2',
+      'H_HelmetIA' 'd2',
+    } 
+  ),
+
+  createLoot(
+    'Rare weapons',
+    'IKRS_loot_rare_weapons',
+    {
+    } 
+  ),
+
 ];
 
 function createLoot(name, armaClass, loot){

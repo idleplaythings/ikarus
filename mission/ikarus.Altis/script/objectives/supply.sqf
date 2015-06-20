@@ -129,22 +129,26 @@ objective_supply_destroyDepot = {
 };
 
 objective_supply_placeLootBoxes = {
-  private ["_building", "_objectData", "_amount"];
+  private ["_building", "_objectData"];
   _building = _this select 0;
   _objectData = _this select 1;
   
-  _amount = 2;
-  _objectData = [_objectData, _amount] call depotPositions_getRandomPlaceholdersFromObjects;
   
-  {
-    private ["_directionAndPosition", "_direction", "_position", "_box"];
-    _directionAndPosition = [_building, _x] call houseFurnisher_getPosASLAndDirectionFromBuilding;
+  _objectData = [_objectData, 3] call depotPositions_getRandomPlaceholdersFromObjects;
+  
+  for "_i" from 0 to 2 do {
+    private ["_data", "_directionAndPosition", "_direction", "_position", "_box"];
+    _data = _objectData select _i;
+    _directionAndPosition = [_building, _data] call houseFurnisher_getPosASLAndDirectionFromBuilding;
     _position = _directionAndPosition select 0;
     _direction = _directionAndPosition select 1; 
     
-    [_position, _direction] call lootbox_create;
-    
-  } forEach _objectData;
+    if (_i < 2) then {
+      [_position, _direction] call lootbox_create;
+    } else {
+      [_position, _direction, 1] call lootbox_create;
+    };
+  };
 };
 
 objective_supply_cleanUpBox = {

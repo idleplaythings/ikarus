@@ -92,12 +92,13 @@ objective_hold_constructMarkers  = {
 };
 
 objective_hold_constructDepots = {
-  private ["_objectData", "_objectiveData", "_directionAndPosition", "_direction", "_position", "_object"];
+  private ["_objectData", "_objectiveData", "_directionAndPosition", "_direction", "_position", "_object", "_objectDatas"];
   {
     _objectiveData = [_x, [], false];
     objective_hold_objectData pushBack _objectiveData;
-    _objectData = [_x select 1, 1] call depotPositions_getRandomPlaceholdersFromObjects select 0;
+    _objectDatas = [_x select 1, 2] call depotPositions_getRandomPlaceholdersFromObjects;
 
+    _objectData = _objectDatas select 0;
     _directionAndPosition = [_x select 0, _objectData] call houseFurnisher_getPosASLAndDirectionFromBuilding;
     _position = _directionAndPosition select 0;
     _direction = _directionAndPosition select 1;
@@ -107,7 +108,13 @@ objective_hold_constructDepots = {
 
     [_x select 0, objective_hold_cleanUp, [_objectiveData]] call buildingDestroyer_init;
     [_x select 0] spawn objective_hold_destroyDepot;
-    
+
+    _objectData = _objectDatas select 1;
+    _directionAndPosition = [_x select 0, _objectData] call houseFurnisher_getPosASLAndDirectionFromBuilding;
+    _position = _directionAndPosition select 0;
+    _direction = _directionAndPosition select 1;
+    [_position, _direction, 2] call lootbox_create;
+
   } forEach depots_town_depots;
 };
 
@@ -245,16 +252,7 @@ objective_hold_setUpDrop = {
 
     sleep (120 + random 60);
 
-    _loot = [
-      'IKRS_loot_old_nato_weapons',
-      'IKRS_loot_old_nato_weapons',
-      'IKRS_loot_old_nato_weapons',
-      'IKRS_loot_common_nato_weapons',
-      'IKRS_loot_common_nato_weapons',
-      'IKRS_loot_heavy_nato_weapons'
-    ];
-
-    [_position, _loot] call airdrop_create;
+    [_position, lootItems_populateHoldAirdropBox] call airdrop_create;
   };
 };
 
@@ -273,6 +271,7 @@ objective_hold_getAmountOfDepots = {
   };
 
   _amount;
+  1;
 };
 
 objective_hold_isInsideDepot = {

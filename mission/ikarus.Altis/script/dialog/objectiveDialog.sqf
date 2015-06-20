@@ -51,7 +51,6 @@ objectiveDialog_chooseObjective = {
   chooseObjective = [player, objectiveDialog_currentObjective];
   publicVariableServer "chooseObjective";
 
-  systemChat str objectiveDialog_currentObjective;
   // This is for singleplayer testing
   if (isServer) then {
     private ['_squad'];

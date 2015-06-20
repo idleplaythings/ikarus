@@ -27,9 +27,9 @@ airdrop_land = {
 };
 
 airdrop_create = {
-  private ["_target", "_plane", "_targeting", "_loot", "_box"];
+  private ["_target", "_plane", "_targeting", "_lootFunction", "_box"];
   _target = _this select 0;
-  _loot = _this select 1;
+  _lootFunction = _this select 1;
   _plane = [_target] call airDrop_createHelo;
 
   private ["_distance"];
@@ -51,9 +51,7 @@ airdrop_create = {
   clearItemCargoGlobal _box;
   clearBackpackCargoGlobal _box;
 
-  {
-    _box addBackpackCargoGlobal [_x, 1];
-  } forEach _loot;
+  call compile format ["[_box] call %1;", _lootFunction];
 
   _box call airdrop_drop;
   

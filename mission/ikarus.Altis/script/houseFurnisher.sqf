@@ -3,9 +3,10 @@ houseFurnisher_furnish = {
   private ["_building", "_data", "_objects"];
   _building = _this select 0;
   _data = _this select 1;
+  _objects = [];
   
-  _objects = [getPosASL _building, getDir _building, _data] call houseFurnisher_furnish_location;
-  
+  _objects = _objects + ([getPosASL _building, getDir _building, _data] call houseFurnisher_furnish_location);
+
   [_building, houseFurnisher_clearBuilding, [_building, _objects]] call buildingDestroyer_init;
 };
 
@@ -19,7 +20,7 @@ houseFurnisher_furnish_location = {
   [_origoPosition] call depotPositions_registerPosition;
 
   {
-    _objects pushBack ([_origoPosition, _origoDirection, _x] call houseFurnisher_placeObject);
+    _objects = _objects + ([_origoPosition, _origoDirection, _x] call houseFurnisher_placeObject);
   } forEach _data;
   
   _objects;
@@ -75,18 +76,36 @@ houseFurnisher_getPosASLAndDirection = {
 };
 
 houseFurnisher_placeObject = {
-  private ["_origoPosition", "_origoDirection", "_data", "_objectClass", "_aboveTerrain", "_direction", "_position", "_directionAndPosition", "_disableSimulation"];
+  private [
+    "_objects",
+    "_origoPosition",
+    "_origoDirection",
+    "_data",
+    "_objectClass",
+    "_aboveTerrain",
+    "_direction",
+    "_position",
+    "_directionAndPosition",
+    "_disableSimulation",
+    "_extraObjects"
+  ];
+
   _origoPosition = _this select 0;
   _origoDirection = _this select 1;
   _data = _this select 2;
   _objectClass = _data select 0;
   _aboveTerrain = _data select 5;
-  _disableSimulation = false;
-  if (! isNil {_data select 6;}) then {
-    _disableSimulation = true;
+  _objects = [];
+
+  _extraObjects = nil;
+  if (count _data >= 8) then {
+    _extraObjects = _data select 7;
   };
-  
-   if ([_objectClass] call depotPositions_isPlaceHolder) exitWith {};
+
+  _disableSimulation = false;
+  if (count _data >= 7) then {
+    _disableSimulation = _data select 6;
+  };
   
   _directionAndPosition = [_origoPosition, _origoDirection, _data] call houseFurnisher_getPosASLAndDirection;
   _position = _directionAndPosition select 0;
@@ -96,11 +115,24 @@ houseFurnisher_placeObject = {
   _object setDir _direction;
   _object setPosASL _position;
 
+  if ([_objectClass] call depotPositions_isPlaceHolder) then {
+    _object hideObjectGlobal true;
+    _object enableSimulation false;
+  };
+
   if (_disableSimulation) then {
     _object enableSimulation false;
   };
 
-  _object;
+  _objects pushBack _object;
+
+  if (!isNil{_extraObjects}) then {
+    private ["_extraData"];
+    _extraData = [_extraObjects] call depotPositions_getDepotObjectsByType;
+    _objects = _objects + ([getPosASL _object, getDir _object, _extraData] call houseFurnisher_furnish_location);
+  };
+
+  _objects;
 };
 
 

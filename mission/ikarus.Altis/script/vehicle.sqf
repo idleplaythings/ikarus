@@ -18,6 +18,7 @@ vehicle_preventUseBeforeObjectives = {
 vehicle_preventGuardUse = {
   private ["_vehicle"];
   _vehicle = _this select 0;
+  _vehicle setVariable ['noGuards', true];
 
   _vehicle addEventHandler ["GetIn",  
     { 
@@ -28,9 +29,36 @@ vehicle_preventGuardUse = {
       _objective = [_unit] call objectiveController_getUnitsObjective;  
 
       if (_objective == "guard" && _noGuardAllowed) then 
-      { 
+      {
+        ["Guards are not allowed to operate this vehicle", _unit] call broadcastMessageTo;
         _unit action ["Eject", vehicle _unit]; 
       }; 
+  }]; 
+};
+
+vehicle_needsKey = {
+  private ["_vehicle"];
+  _vehicle = _this select 0;
+  _vehicle setVariable ['needsKey', true];
+
+  _vehicle addEventHandler ["GetIn",  
+    { 
+      private ["_veh", "_unit", "_needsKey", "_hasKey", "_objective"]; 
+      _veh = _this select 0; 
+      _unit = _this select 2;
+      _needsKey = _veh getVariable ['needsKey', false];
+      _hasKey = [_unit, 'IKRS_vehicle_key'] call equipment_unitHasItem;
+
+      if (_needsKey && ! _hasKey) exitWith {
+        ["This vehicle needs a key to operate", _unit] call broadcastMessageTo;
+        _unit action ["Eject", vehicle _unit]; 
+      };
+
+      if (_needsKey && _hasKey) exitWith {
+        ["Vehicle has been unlocked", _unit] call broadcastMessageTo;
+        [_unit, 'IKRS_vehicle_key'] call equipment_removeItemFromUnit;
+        _veh setVariable ['needsKey', false, true];
+      };
   }]; 
 };
 

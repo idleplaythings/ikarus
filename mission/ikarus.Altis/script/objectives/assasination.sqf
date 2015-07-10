@@ -218,10 +218,5 @@ _this spawn {
 };
 
 objective_assasination_getAmountOfDepots = {
-  private ["_objectives", "_amount"];
-  _objectives = ["assasination"] call objectiveController_getSquadsWithObjective;
-  
-  if (count _objectives > 0) exitWith {1;};
-
   0;
 };

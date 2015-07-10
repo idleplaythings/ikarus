@@ -102,8 +102,6 @@ objective_supply_createVehicle = {
 
   if (count _vehiclePos > 0) then {
     _vehicle = createVehicle [_vehicleClass, _vehiclePos, [], 0, "none"];
-    _vehicle setVariable ['noGuards', true];
-
     [_vehicle] call vehicle_preventGuardUse;
   };  
 };
@@ -159,8 +157,12 @@ objective_supply_cleanUpBox = {
 
 objective_supply_getAmountOfDepots = {
   private ["_objectives", "_amount"];
+
+  if (count (["military"] call objectiveController_getSquadsWithObjective) > 0) exitWith {
+    0;
+  };
+
   _objectives = ["supply"] call objectiveController_getSquadsWithObjective;
-  
   _amount = floor ((count _objectives) / 2);
   
   if (count _objectives == 1) exitWith {

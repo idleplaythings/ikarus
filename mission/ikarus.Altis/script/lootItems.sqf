@@ -130,12 +130,18 @@ lootItems_populateHoldAirdropBox = {
 };
 
 lootItems_populateSupplyBox = {
-  private ["_container", "_level", "_arguments"];
+  private ["_container", "_level", "_arguments", "_extraLoot"];
   _container = _this select 0;
   _level = _this select 1;
+  _extraLoot = _this select 2;
+
   _arguments = [_container];
 
   call compile format ["_arguments call lootItems_populateSupplyBoxLevel_%1;", _level];
+
+  {
+    [_x, _container] call lootItems_addItemToContainer;
+  } forEach _extraLoot;
 };
 
 lootItems_populateSupplyBoxLevel_0 = {
@@ -201,6 +207,13 @@ lootItems_populateSupplyBoxLevel_3 = {
   _container = _this select 0;
   
   ['highend_weapon', _container, 1, 0] call lootItems_addRandomAmount;
+};
+
+lootItems_populateSupplyBoxLevel_4 = {
+  private ["_container"];
+  _container = _this select 0;
+
+  [['battleRifles', 'modern_tacticool', 'nato_tacticool'], _container, 2, -1] call lootItems_addRandomAmount;
 };
 
 lootItems_getRandomAmount = {

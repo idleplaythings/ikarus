@@ -1,5 +1,5 @@
 
-objectiveController_types = ['supply', 'hold', 'guard', 'assasination'];
+objectiveController_types = ['supply', 'hold', 'guard', 'assasination', 'military'];
 
 "chooseObjective" addPublicVariableEventHandler {
   private ["_unit", "_objective", "_squad"];

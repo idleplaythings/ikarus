@@ -88,12 +88,18 @@ objectiveDialog_getDescription = {
   if (objectiveDialog_currentObjective == "Hold") exitWith {
     "HOLD<br/><br/>You must take and hold one of the depots."
    + " When you have held the depot for 10 minutes, you will get a location"
-   + " of a supply drop. Secure and loot that drop.";
+   + " of a supply drop. Secure that drop.";
   };
 
   if (objectiveDialog_currentObjective == "Assasination") exitWith {
     "ASSASINATION<br/><br/>You will get a target and will know aproximate location of that"
    + " target on the map. If you manage to kill the target, you will be rewarded.";
+  };
+
+  if (objectiveDialog_currentObjective == "Military") exitWith {
+    "MILITARY BASE RAID<br/><br/>This mission will consume intellignece item. Map will contain"
+    + " one military base that all squads will fight over. Military base will contain the best equipment"
+    + " available.";
   };
 
   "";

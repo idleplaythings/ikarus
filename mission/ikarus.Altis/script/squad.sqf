@@ -91,6 +91,33 @@ addDisconnectedLoot = {
   _squad set [9, _currentLoot];
 };
 
+hasDisconnectedLoot = {
+  private ["_squad", "_currentLoot", "_class", "_result"];
+  _squad = _this select 0;
+  _class = _this select 1;
+  _result = false;
+
+  _currentLoot = _squad select 9;
+
+  {
+    if (_x == _class) exitWith {
+      _result = true;
+    };
+  } forEach _currentLoot;
+
+  _result;
+};
+
+removeDisconnectedLoot = {
+  private ["_squad", "_currentLoot", "_loot"];
+  _squad = _this select 0;
+  _loot = _this select 1;
+
+  _currentLoot = (_squad select 9) - _loot;
+
+  _squad set [9, _currentLoot];
+};
+
 setPlayersAtHideout = {
   private ["_newList"];
   _newList = + _this select 1;

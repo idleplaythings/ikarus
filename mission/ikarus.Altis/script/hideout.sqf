@@ -135,9 +135,8 @@ hideout_createHideoutCache = {
   if ([_squad, "overrideHideoutCache", [_squad, _equipment, _box]] call objectiveController_callSquadObjective) exitWith {
     _box;
   };
-  
-  [_equipment, _box] call equipment_equipUnit;
-  
+
+  [_equipment, _box, _squad] call equipment_equipHideoutCache;
   
   _box addItemCargoGlobal ['ACE_packingBandage', 30];
   _box addItemCargoGlobal ['ACE_elasticBandage', 30];
@@ -149,13 +148,6 @@ hideout_createHideoutCache = {
   _box addItemCargoGlobal ['ACE_atropine', 10];
   _box addItemCargoGlobal ['ACE_epinephrine', 10];
   _box addItemCargoGlobal ['ACE_quikclot', 10];
-
-  _box addItemCargoGlobal ['ACE_plasmaIV_500', 2];
-  _box addItemCargoGlobal ['ACE_plasmaIV_250', 2];
-  _box addItemCargoGlobal ['ACE_bloodIV_500', 2];
-  _box addItemCargoGlobal ['ACE_bloodIV_250', 2];
-  _box addItemCargoGlobal ['ACE_salineIV_500', 2];
-  _box addItemCargoGlobal ['ACE_salineIV_250', 2];
 
   _box addItemCargoGlobal ['V_Rangemaster_belt', 8];
   _box addWeaponCargoGlobal ['hlc_rifle_aks74u', 4];

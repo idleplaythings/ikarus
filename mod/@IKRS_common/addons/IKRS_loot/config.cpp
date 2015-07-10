@@ -52,6 +52,12 @@
     descriptionUse = "Unlocks premium mission";
   };
 
+  class IKRS_vehicle_key: IKRS_loot_key {
+    displayName = "Vehicle key";
+    descriptionShort = "Unlocks vehicle at military depot";
+    descriptionUse = "Unlocks vehicle at military depot";
+  };
+
  };
 
  class CfgVehicles

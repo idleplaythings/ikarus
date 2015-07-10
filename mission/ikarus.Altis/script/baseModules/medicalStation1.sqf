@@ -20,16 +20,19 @@ baseModule_medicalStation1_onCreated = {
       clearItemCargoGlobal _box;
       clearBackpackCargoGlobal _box;
 
-      _box addItemCargoGlobal ['Item_FirstAidKit', 10];
-      /*
-      _box addItemCargoGlobal ['AGM_Epipen', 5];
-      _box addItemCargoGlobal ['AGM_Bloodbag', 2];
-      */
+      _box addItemCargoGlobal ['ACE_plasmaIV_500', 2];
+      _box addItemCargoGlobal ['ACE_plasmaIV_250', 2];
+      _box addItemCargoGlobal ['ACE_bloodIV_500', 2];
+      _box addItemCargoGlobal ['ACE_bloodIV_250', 2];
+      _box addItemCargoGlobal ['ACE_salineIV_500', 2];
+      _box addItemCargoGlobal ['ACE_salineIV_250', 2];
 
+      /*
       {
         [[_box], "client_setUpBecomeMedic", _x, false, false] call BIS_fnc_MP;
       } forEach call getAllPlayersBeforeSquads;
-
+      */
+      
     };
   } forEach _objects;
 

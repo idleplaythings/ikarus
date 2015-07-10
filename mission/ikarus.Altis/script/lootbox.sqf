@@ -19,6 +19,17 @@ lootbox_create = {
   _object;
 };
 
+lootBox_addExtraLoot = {
+  private ["_box", "_loot", "_currentLoot"];
+  _box = _this select 0;
+  _loot = _this select 1;
+
+  _currentLoot = _box getVariable ["extraLoot", []];
+  _currentLoot = _currentLoot + _loot;
+
+  _box setVariable ["extraLoot", _currentLoot, false];
+};
+
 lootBox_getBoxClass = {
   private ["_level"];
   _level = _this select 0;
@@ -66,7 +77,7 @@ lootbox_getUnlockIncrement = {
   _timeElapsed = call missionControl_getElapsedTime;
   
   if (_timeElapsed < 1500) exitWith {
-    0;
+    10;
   }; 
   
   if (_timeElapsed > 1800) exitWith {
@@ -93,19 +104,26 @@ lootbox_hint = {
   _units = _this select 0;
   _value = _this select 1;
   
+  if (_value == 0) exitWith {
+    {
+      ["You can't open this box yet", "hintSilent", _x, false, true] call BIS_fnc_MP;
+    } forEach _units;
+  };
+
   {
     ["Loot box is " + str _value + "% open", "hintSilent", _x, false, true] call BIS_fnc_MP;
   } forEach _units;
 };
 
 lootbox_open = {
-  private ["_box", "_unit", "_openBox", "_position", "_level"];
+  private ["_box", "_unit", "_openBox", "_position", "_level", "_extraLoot"];
   _box = _this select 0;
   _unit = _this select 1;
   _position = getPosASL _box;
   _direction = getDir _box;
   _level = _box getVariable ["level", 0];
-  
+  _extraLoot = _box getVariable ["extraLoot", []];
+
   deleteVehicle _box;
 
   _openBox = createVehicle ["IG_supplyCrate_F", [0,0,3000], [], 0, "FLYING"];
@@ -117,11 +135,15 @@ lootbox_open = {
   clearItemCargoGlobal _openBox;
   clearBackpackCargoGlobal _openBox;
   
-  [_openBox, _level] call lootItems_populateSupplyBox;
+
+  [_openBox, _level, _extraLoot] call lootItems_populateSupplyBox;
   
   lootbox_boxes pushBack _openBox;
 
-  [([_unit] call getSquadForUnit), ["supply_objective_opening_reward1"]] call addDisconnectedLoot;
+  if (_level == 0) then {
+    [([_unit] call getSquadForUnit), ["supply_objective_opening_reward1"]] call addDisconnectedLoot;
+  };
+  
   [_unit, _level] call lootBox_removeKey;
 };
 
@@ -156,7 +178,7 @@ lootBox_hasKeyToOpen = {
   _unit = _this select 0;
   _level = _this select 1;
 
-  if (_level == 0 || _level == 3) exitWith {true;};
+  if (_level == 0 || _level > 2) exitWith {true;};
 
   _key = "IKRS_loot_key" + str _level;
 

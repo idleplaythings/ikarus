@@ -1,3 +1,9 @@
+equipment_toDisconnectedLoot = [
+  "IKRS_intelligence_weapon",
+  "IKRS_intelligence_vehicle",
+  "IKRS_intelligence_helo"
+];
+
 equipment_setPlayersGear = {
   {
     [_x] call equipment_setPlayerGear;
@@ -64,12 +70,36 @@ equipment_setPlayerGearFromSquad = {
   _unit addWeaponGlobal "hgun_ACPC2_F";
 };
 
+equipment_equipHideoutCache = {
+  private ["_equipment", "_backupContainer", "_squad"];
+  _equipment = _this select 0;
+  _backupContainer = _this select 1;
+  _squad = _this select 2;
+  
+  {
+    private ["_class", "_amount"];
+    _class = _x select 0;
+    _amount = _x select 1;
+    
+    if (_class in equipment_toDisconnectedLoot) then {
+      while {_amount > 0} do {
+        [_squad, [_class]] call addDisconnectedLoot;
+        _amount = _amount - 1;
+      };
+    } else {
+      while {_amount > 0} do {
+        [_class, _backupContainer] call equipment_addEquipment;
+        _amount = _amount - 1;
+      };
+    }
+  
+  } forEach _equipment;
+};
+
 equipment_equipUnit = {
   private ["_equipment", "_backupContainer"];
   _equipment = _this select 0;
   _backupContainer = _this select 1;
-
-  diag_log str _equipment;
   
   {
     private ["_class", "_amount"];

@@ -1,5 +1,6 @@
 depots_supply_depots = [];
 depots_town_depots = [];
+depots_military_depots = [];
 
 depots_create_depots = {
   private ["_centerOfAO"];
@@ -7,14 +8,17 @@ depots_create_depots = {
 
   [_centerOfAO] call depots_create_supply;
   [_centerOfAO] call depots_create_town;
+  [_centerOfAO] call depots_create_military;
 };
 
 depots_getTotalAmount = {
-  call depots_getAmountOfNormalDepotsToSpawn + call depots_getAmountOfTownDepotsToSpawn;
+  call depots_getAmountOfNormalDepotsToSpawn 
+  + call depots_getAmountOfTownDepotsToSpawn 
+  + call depots_getAmountOfMilitaryDepotsToSpawn;
 };
 
 depots_getAll = {
-  depots_town_depots + depots_supply_depots;
+  depots_town_depots + depots_supply_depots + depots_military_depots;
 };
 
 depots_getRandom = {
@@ -31,9 +35,6 @@ depots_getClosestDepot = {
   _depots = call depots_getAll;
   _closest = nil;
 
-  systemChat "depots_getClosestDepot";
-  systemChat str (count _depots);
-
   {
     if (isNil{_closest}) then {
       _closest = _x;
@@ -44,6 +45,14 @@ depots_getClosestDepot = {
   } forEach _depots;
 
   _closest;
+};
+
+depots_getDistanceToClosestDepot = {
+  private ["_unit", "_closest"];
+  _unit = _this select 0;
+  _closest = [_unit] call depots_getClosestDepot;
+
+  _closest distance _unit;
 };
 
 depots_getAllDepotPositions = {
@@ -84,6 +93,24 @@ depots_create_supply = {
   };
 };
 
+depots_create_military = {
+  private ["_centerOfAO"];
+  _centerOfAO = _this select 0;
+  _radius = call depots_getRadiusOfSupplyAO;
+  _numberOfDepots = call depots_getAmountOfMilitaryDepotsToSpawn;
+
+  while {_numberOfDepots > 0} do {
+    _depot = [_centerOfAO, _radius] call depots_constructMilitaryDepot;
+    depots_military_depots pushBack _depot;
+    _numberOfDepots = _numberOfDepots - 1;
+  };
+};
+
+depots_getAmountOfMilitaryDepotsToSpawn = {
+  private ["_amount"];
+  call objective_military_getAmountOfDepots;
+};
+
 depots_getAmountOfNormalDepotsToSpawn = {
   private ["_amount"];
   _amount = call objective_supply_getAmountOfDepots;
@@ -95,6 +122,22 @@ depots_getAmountOfNormalDepotsToSpawn = {
 
 depots_getRadiusOfSupplyAO = {
   (call depots_getAmountOfNormalDepotsToSpawn) * 0.5 * 1000;
+};
+
+depots_constructMilitaryDepot = {
+  private ["_centerOfAO", "_radius", "_position", "_data", "_objectData"];
+
+  _centerOfAO = _this select 0;
+  _radius = _this select 1;
+  _position = [_centerOfAO, 0, _radius] call popoRandom_findLand;
+  _position = [_position, 1000, {true;}] call emptyPositionFinder_findClosest;
+
+  _data = [] call depotPositions_getPremiumDepotObjects;
+  _objectData = [_position, random 360, _data] call houseFurnisher_furnish_location;
+
+  player setPos _position;
+
+  [_position, _objectData];
 };
 
 depots_constructSupplyDepot = {

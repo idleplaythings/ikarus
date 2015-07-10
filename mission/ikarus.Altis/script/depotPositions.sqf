@@ -84,6 +84,83 @@ depotPositions_list = [
     [["Land_Cargo_Patrol_V2_F",356.257,1.76922,179.884,8.51218,false],["Land_PowerPoleWooden_F",118.819,6.96049,359.697,0.329695,false],["Land_GH_Stairs_F",146.561,3.87196,269.535,3.58046,false],["Land_Wreck_Van_F",207.845,4.28668,92.9054,0.0270844,true],["Land_City_4m_F",20.0738,9.58912,269.697,0.00653458,true],["Land_Wreck_Skodovka_F",200.723,3.60605,275.685,1.89771,true],["Land_Wall_Tin_4",225.125,3.43434,1.02148,0.0653915,false],["Land_Shoot_House_Wall_Crouch_F",191.953,4.25309,180.138,4.1699,false],["Land_Shoot_House_Wall_Crouch_F",231.717,5.09826,268.911,3.95352,false],["Land_Shoot_House_Wall_Stand_F",339.597,7.91156,181.152,4.1655,false],["Land_Shoot_House_Wall_Crouch_F",215.767,5.03115,180.006,4.11955,false],["Land_Shoot_House_Wall_Crouch_F",163.12,4.44751,180.023,4.19263,false],["Land_Shoot_House_Wall_Crouch_F",114.74,5.63886,179.792,7.55627,false],["Land_Shoot_House_Wall_Crouch_F",128.41,6.41928,179.862,7.58561,false],["Land_Shoot_House_Wall_Crouch_F",116.653,6.84875,88.8878,7.59762,false],["Land_GarbageContainer_closed_F",11.5861,11.1396,2.49954,0.00448608,true],["Land_CargoBox_V1_F",247.374,3.1172,1.5448,0.308628,false],["Land_CargoBox_V1_F",333.411,6.5481,0.142029,4.18027,false],["Land_CargoBox_V1_F",9.45688,4.02254,180.082,0.30884,false],["Land_Pallet_F",223.124,1.82808,270.431,0.278091,false],["Land_Pallet_F",223.266,1.83251,269.485,0.417152,false],["Land_Sacks_heap_F",183.32,3.74174,96.4081,2.6787,true],["Land_Rack_F",1.17828,6.68068,87.2408,4.15009,false],["Land_CratesShabby_F",140.414,4.02801,180.976,4.14399,false],["Land_Sleeping_bag_brown_F",286.13,3.30727,178.705,0.424196,false],["Land_Sleeping_bag_F",329.528,5.12256,104.858,0.381365,false],["Land_Sleeping_bag_F",296.539,1.2649,26.5619,0.247808,false],["Land_CampingTable_small_F",302.107,3.46592,26.0561,4.14964,false],["Land_Sack_F",141.136,2.49643,26.4516,4.1749,false],["Land_ChairPlastic_F",322.653,5.29869,25.2987,4.14974,false],["Land_CratesPlastic_F",193.899,4.14584,271.933,2.67652,true],["Land_CratesPlastic_F",206.949,3.94555,181.019,2.67623,true],["Land_Tyre_F",204.292,4.15006,15.7206,3.1616,true],["Land_GasCooker_F",308.327,4.088,22.1142,4.14974,false],["Land_Map_unfolded_F",328.44,5.35921,26.648,4.14959,false],["Land_Camping_Light_off_F",312.651,3.72961,19.3438,4.14926,false],["Land_GasCanister_F",308.839,4.38304,29.6023,4.14981,false],["Land_BakedBeans_F",308.085,4.16616,25.0929,4.14981,false],["Land_BakedBeans_F",307.653,4.32284,24.4442,4.14982,false],["Land_Magazine_rifle_F",316.208,4.84805,139.39,4.14979,false],["Land_Magazine_rifle_F",316.977,4.95745,26.6377,4.1498,false],["Land_Magazine_rifle_F",317.356,5.15228,22.1666,4.14983,false],["Land_Magazine_rifle_F",315.623,4.98927,166.556,4.14983,false]],
     [[15940.7,16243.4,0.0272827],[16052.1,16208.3,0.184174],[14184.6,16529.8,-0.105125],[16027.9,16448.5,-0.0263023],[16857.4,15465,0.0417366],[16631.7,16133.2,0.0902081],[16668.6,16154.8,-0.0384064],[12972,15066.8,0.0348377],[12967.6,15118.2,-0.0328693]],
     []
+  ],
+
+  //Green military cargo HQ
+  [
+    ["extra for Land Cargo HQ"],
+    ["Land_Cargo_HQ_V1_F"],
+    [
+      ["Land_CargoBox_V1_F",73.3059,5.02614,339.443,0.636299,false],
+      ["Land_CargoBox_V1_F",58.7783,6.37735,17.3136,3.14326,false],
+      ["Land_Cargo_Patrol_V1_F",323.542,2.07757,90.0094,3.02631,false],
+      ["Land_Mil_WallBig_4m_F",38.5564,3.78247,90.5759,-1.0,false],
+      ["Land_Mil_WallBig_4m_F",219.754,1.92482,89.6108,-1.0,false],
+      ["Land_Mil_WallBig_4m_F",126.836,1.62047,90.5769,-1.0,false],
+      ["Land_Mil_WallBig_4m_F",110.104,2.50783,90.5738,-1.0,false],
+      ["Land_Mil_WallBig_4m_F",24.5347,3.13263,90.5788,-1.0,false],
+      ["Land_Mil_WallBig_4m_F",116.263,1.99591,90.5769,-1.0,false],
+      ["Land_Mil_WallBig_4m_F",333.565,2.77584,89.6124,-1.0,false],
+      ["Land_Mil_WallBig_Corner_F",14.5658,2.4836,132.846,-1.0,false],
+      ["Land_Mil_WallBig_Corner_F",150.847,3.2813,132.812,-1.0,false],
+      ["Land_Mil_WallBig_Corner_F",353.077,2.4595,132.852,-1.0,false],
+      ["Land_HBarrier_3_F",310.03,5.06701,89.3044,3.09628,false],
+      ["Land_HBarrier_3_F",268.04,3.75858,89.3103,3.08565,false],
+      ["Land_City_Pillar_F",320.452,6.3063,90.1784,9.44138e-005,false],
+      ["Land_City_Pillar_F",255.174,4.22388,90.1904,2.67029e-005,false],
+      ["Land_City_Pillar_F",251.294,4.74352,90.1883,3.91006e-005,false],
+      ["Land_City_Pillar_F",317.458,6.67224,88.4214,8.01086e-005,false],
+      ["Land_City_Pillar_F",317.017,5.96638,90.1834,8.01086e-005,false],
+      ["Land_City_Pillar_F",314.088,6.25324,90.1784,9.44138e-005,false],
+      ["Land_City_Pillar_F",256.324,4.63917,90.1883,2.95639e-005,false],
+      ["Land_City_Pillar_F",249.686,4.33765,90.1893,2.95639e-005,false],
+      ["Land_CargoBox_V1_F",92.2272,4.80447,67.0602,3.17573,false],
+      ["Land_BagFence_Long_F",181.433,1.41064,180.607,8.06458,false],
+      ["Land_BagFence_Long_F",301.788,5.05614,89.4934,4.26722,false],
+      ["Land_BagFence_Long_F",20.2889,3.27577,89.9418,8.16235,false],
+      ["Land_BagFence_Long_F",81.6509,1.18167,88.7897,8.75744,false],
+      ["Land_BagFence_Long_F",181.705,1.26713,183.079,8.81531,false],
+      ["Land_BagFence_Long_F",272.51,4.28398,89.1104,4.26291,false],
+      ["Land_BagFence_Long_F",358.64,4.53164,180.567,8.0607,false],
+      ["Land_BagFence_Long_F",84.8816,1.10572,89.9418,8.15822,false],
+      ["Land_BagFence_Corner_F",317.013,6.02706,267.965,4.29225,false],
+      ["Land_BagFence_Corner_F",254.487,4.26124,180.157,4.29349,false]
+    ],
+    [],
+    []
+  ],
+
+  //PREMIUM DEPOT (Two H barrier bunkers and military cargo HQ)
+  [
+    ['premium'],
+    ["Sign_Arrow_Yellow_F"],
+    [
+      ["C_Offroad_01_F",312.348,9.89674,183,0.000707626,true],
+      ["Land_HBarrierBig_F",307.282,16.7294,273.799,1.90735e-006,true],
+      ["Land_HBarrierBig_F",235.955,16.1653,273.799,1.90735e-006,true],
+      ["Land_HBarrierBig_F",329.803,15.3449,183.258,-0.000112534,true],
+      ["Land_HBarrierBig_F",212.675,14.6842,183.258,-6.48499e-005,true],
+      ["Land_Cargo10_light_green_F",232.694,6.80211,1.94394,-3.8147e-006,true],
+      ["Land_Cargo10_yellow_F",243.412,10.3548,273.207,0,true],
+      ["Land_Workbench_01_F",223.41,14.3252,3.33563,-0.000177383,true],
+      ["Land_Pallet_F",217.023,11.7959,47.9999,3.8147e-006,true],
+      ["Land_Cargo_HQ_V1_F",98.1329,7.22434,182.112,0,true, false, "extra for Land Cargo HQ"],
+      ["Land_HBarrierTower_F",167.375,13.6416,2.37299,0,true],
+      ["Land_HBarrierBig_F",144.418,15.7786,183.258,0,true],
+      ["Land_HBarrierBig_F",177.216,12.7521,183.258,0,true],
+      ["Land_HBarrierBig_F",121.396,14.9893,270.967,0,true],
+      ["Land_HBarrierTower_F",20.0801,14.2969,183,0,true],
+      ["Land_HBarrierBig_F",3.36273,12.9802,183.258,0,true],
+      ["Land_HBarrierBig_F",60.8747,14.6515,270.967,0,true],
+      ["Land_HBarrierBig_F",36.5737,15.7497,183.258,0,true],
+      ["Land_MetalBarrel_F",9.46167,11.1491,47.2251,0.000370026,true],
+      ["Land_MetalBarrel_F",7.47754,11.4723,47.0229,0.000236511,true],
+      ["Land_MetalBarrel_F",0.374878,11.3076,47.4093,6.48499e-005,true],
+      ["Land_BarrelWater_F",5.51324,10.7398,47.8339,6.86646e-005,true],
+      ["WaterPump_01_forest_F",48.6161,13.6219,1.9733,0.000862122,true]
+    ],
+    [],
+    []
   ]
 
 ];
@@ -126,6 +203,27 @@ depotPositions_getRandomPlaceholdersFromObjects = {
   _result;
 };
 
+depotPositions_getDepotObjectsByType = {
+  private ["_candidates", "_type"];
+  _type = _this select 0;
+  
+  _candidates = [_type] call depotPositions_findCandidates;
+  
+  if (isNil{_candidates} or count _candidates == 0) exitWith {nil};
+
+  [_candidates] call depotPositions_randomizeFromCandidates;
+};
+
+depotPositions_getPremiumDepotObjects = {
+  private ["_candidates"];
+  
+  _candidates = ['premium'] call depotPositions_findCandidates;
+  
+  if (isNil{_candidates} or count _candidates == 0) exitWith {nil};
+
+  [_candidates] call depotPositions_randomizeFromCandidates;
+};
+
 depotPositions_getSupplyDepotObjects = {
   private ["_building", "_type", "_candidates"];
   _building = _this select 0;
@@ -157,15 +255,24 @@ depotPositions_randomizeFromCandidates = {
 depotPositions_findCandidates = {
   private ["_type", "_building", "_candidates"];
   _type = _this select 0;
-  _building = _this select 1;
+  _building = nil;
+  if (count _this >= 2) then {
+    _building = _this select 1;
+  };
   _candidates = [];
   
   {
-    if (((typeOf _building) in (_x select 1)) and (_type in (_x select 0))) then {
-      if ([_building, _x select 3, _x select 4] call depotPositions_checkWhiteAndBlackList) then {
+    if (isNil{_building}) then {
+      if (_type in (_x select 0)) then {
         _candidates pushBack (_x select 2);
       };
-    }; 
+    } else {
+      if (((typeOf _building) in (_x select 1)) and (_type in (_x select 0))) then {
+        if ([_building, _x select 3, _x select 4] call depotPositions_checkWhiteAndBlackList) then {
+          _candidates pushBack (_x select 2);
+        };
+      };
+    };
   } forEach depotPositions_list;
 
    _candidates;
@@ -173,9 +280,11 @@ depotPositions_findCandidates = {
 
 depotPositions_checkWhiteAndBlackList = {
   private ["_building", "_whiteList", "_blackList", "_position"];
-  _building = _this select 0;
+  _building = [_this, 0, nil] call BIS_fnc_param;
   _whiteList = _this select 1;
   _blackList = _this select 2;
+
+  if (isNil{_building}) exitWith {true;};
   
   _position = getPos _building;
 

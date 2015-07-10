@@ -55,7 +55,8 @@ module.exports = function(armaSerializer){
       items: {
         'SatchelCharge_Remote_Mag': 10,
         'B_AssaultPack_khk': 1,
-        'UAZ_Unarmed': 1
+        'UAZ_Unarmed': 1,
+        'IKRS_intelligence_helo': 1
       }
     },
     {
@@ -63,7 +64,8 @@ module.exports = function(armaSerializer){
       items: {
         'SatchelCharge_Remote_Mag': 10,
         'B_AssaultPack_khk': 1,
-        'UAZ_Unarmed': 1
+        'UAZ_Unarmed': 1,
+        'IKRS_intelligence_helo': 1
       }
     }
   ];

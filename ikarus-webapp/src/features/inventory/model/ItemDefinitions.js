@@ -2,12 +2,6 @@ ItemDefinitions = [
 
   //RESOURCES
 
-  IKRS_loot_key1
-  IKRS_loot_key2
-  IKRS_intelligence_weapon
-  IKRS_intelligence_vehicle
-  IKRS_intelligence_helo
-
   createGeneric('Loot key level 1', 'IKRS_loot_key1', ['resource']),
   createGeneric('Loot key level 2', 'IKRS_loot_key2', ['resource']),
   createGeneric('Intelligence (Weapon depot)', 'IKRS_intelligence_weapon', ['resource']),
@@ -23,6 +17,16 @@ ItemDefinitions = [
   createGeneric('UAZ', 'UAZ_Unarmed', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrower (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrower (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
+
+
+  createGeneric('Jackal L2A1 (Desert)', 'BAF_Jackal2_L2A1_D', ['vehicle', 'armored', 'armed']),
+  createGeneric('Jackal L2A1 (Woodland)', 'BAF_Jackal2_L2A1_W', ['vehicle', 'armored', 'armed']),
+  createGeneric('Fennek', 'I_MRAP_03_F', ['vehicle', 'armored', 'unarmed']),
+  createGeneric('M-ATV', 'B_MRAP_01_F', ['vehicle', 'armored', 'unarmed']),
+  createGeneric('Punisher', 'O_MRAP_02_F', ['vehicle', 'armored', 'unarmed']),
+  createGeneric('UAZ (AGS)', 'UAZ_AGS30', ['vehicle', 'armored', 'unarmed']),
+  
+  createGeneric('Littlebird', 'B_Heli_Light_01_F', ['helicopter', 'unarmed']),
 
   //ASSAULT RIFLES (HLC)
 

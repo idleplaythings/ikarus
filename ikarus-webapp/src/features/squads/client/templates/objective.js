@@ -21,7 +21,7 @@ Template.squad_objective.helpers({
 });
 
 Template.squad_objective.events({
-  'click .objective' : function() {
+  'click .objective' : function(event, template) {
     var name = jQuery(event.target).attr("data-objectiveName");
     console.log(name);
 

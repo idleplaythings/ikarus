@@ -181,13 +181,14 @@ Server.prototype.getDeadSteamIds = function () {
 
 Server.prototype.getJoinUrl = function() {
   var params = [
-      '-world=empty',
-      '-nolauncher',
-      '-nosplash',
-      '-mod=@ikrs',
-      '-connect=' + this.getHost(),
-      '-port=' + this.getPort(),
-      '-password=' + this.getPassword()
+    '-usebe',
+    '-world=empty',
+    '-nolauncher',
+    '-nosplash',
+    '-mod=@ikrs',
+    '-connect=' + this.getHost(),
+    '-port=' + this.getPort(),
+    '-password=' + this.getPassword()
   ];
 
   return 'steam://run/107410//' + params.join('%20');

@@ -13,7 +13,7 @@ ObjectiveAssasination = function ObjectiveAssasination() {
       'IKRS_loot_valuables'
     ],
     'assasination_objective_reward2': [
-      'IKRS_loot_valuables'
+      'IKRS_loot_valuables',
       'IKRS_loot_assasin'
     ],
   };

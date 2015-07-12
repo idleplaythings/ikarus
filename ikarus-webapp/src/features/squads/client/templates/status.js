@@ -142,7 +142,7 @@ Template.squad_queue_status.events({
     Meteor.call('enterSquadQueue');
     evaluateSquads();
   },
-  'click .reinforce' : function () {
+  'click .reinforce' : function (event, template) {
     var serverId = jQuery(event.target).attr("data-serverId");
     Meteor.call('reinforceServer', serverId);
     evaluateSquads();

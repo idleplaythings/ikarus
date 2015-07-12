@@ -35,7 +35,7 @@ depots_getClosestDepot = {
   _depots = call depots_getAll;
 
   if (count _depots == 0) exitWith {
-    99999999;
+    nil;
   };
 
   _closest = nil;
@@ -57,6 +57,10 @@ depots_getDistanceToClosestDepot = {
   _unit = _this select 0;
   _closest = [_unit] call depots_getClosestDepot;
 
+  if (isNil{_closest}) exitWith {
+    999999999;
+  };
+  
   _closest distance _unit;
 };
 

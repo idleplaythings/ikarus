@@ -462,7 +462,7 @@ ItemDefinitions = [
     'IKRS_loot_warsaw_ammo',
     {
       '1Rnd_HE_Grenade_shell': '2d3+2',
-      'RPG7_PG7V': 'd2+2'
+      'RPG32_F': 'd2+2'
     }
   ),
 

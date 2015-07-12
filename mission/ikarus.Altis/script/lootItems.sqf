@@ -1,7 +1,7 @@
 lootItems_definitions = [
   ['warsaw_tacticool', ['hlc_rifle_ak12','hlc_rifle_ak12GL','hlc_rifle_RPK12']],
   ['opfor_light_sniper', [['srifle_DMR_01_F', '10Rnd_762x54_Mag', '10Rnd_762x54_Mag']]],
-  ['warsaw_heavy', [['launch_RPG7V', 'RPG7_PG7V', 'RPG7_PG7V']]],
+  ['warsaw_heavy', [['launch_RPG32_F', 'RPG32_F', 'RPG32_F']]],
   ['medium_optics', ['optic_Arco', 'optic_Hamr', 'optic_MRCO']],
   ['bibods', ['bipod_01_F_blk', 'bipod_01_F_mtp', 'bipod_01_F_snd', 'bipod_02_F_blk', 'bipod_03_F_oli']],
   ['reflexsights', 

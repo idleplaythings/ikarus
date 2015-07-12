@@ -60,8 +60,8 @@ depots_getDistanceToClosestDepot = {
   if (isNil{_closest}) exitWith {
     999999999;
   };
-  
-  _closest distance _unit;
+
+  (_closest select 0) distance _unit;
 };
 
 depots_getAllDepotPositions = {

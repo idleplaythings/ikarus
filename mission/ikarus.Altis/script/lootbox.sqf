@@ -71,7 +71,7 @@ lootbox_getUnlockIncrement = {
   _level = _box getVariable ["level", 0];
 
   if (_level == 0) then {
-    level = 1;
+    _level = 1;
   };
 
   _timeElapsed = call missionControl_getElapsedTime;

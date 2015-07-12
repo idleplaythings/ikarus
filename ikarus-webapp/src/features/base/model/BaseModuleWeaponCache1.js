@@ -2,7 +2,7 @@ BaseModuleWeaponCache1 = function BaseModuleWeaponCache1 () {
   BaseModule.call(this);
   this._id = "WeaponCache1";
   this.name = "Insurgent weapon cache";
-  this.description = "Provides you with 4 AKs, 1 RPK, 1 Lee Einfield and plenty of ammo for each";
+  this.description = "Provides you with 5 AKs, 1 RPK and plenty of ammo.";
   this._removeLoot = {
     'hlc_rifle_rpk74n': 1,
     'hlc_rifle_aks74': 2,

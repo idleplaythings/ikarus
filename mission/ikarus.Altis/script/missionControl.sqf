@@ -88,7 +88,7 @@ missionControl_startGame = {
   call assembleSquads;
   call player_setSquadVariable;
 
-  missionControl_timeObjectivesGenerated = time + 6;
+  missionControl_timeObjectivesGenerated = time + 60;
 
   call objectiveController_startObjectiveChoosing;
 

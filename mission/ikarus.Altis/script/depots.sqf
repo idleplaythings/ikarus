@@ -135,8 +135,6 @@ depots_constructMilitaryDepot = {
   _data = [] call depotPositions_getPremiumDepotObjects;
   _objectData = [_position, random 360, _data] call houseFurnisher_furnish_location;
 
-  player setPos _position;
-
   [_position, _objectData];
 };
 

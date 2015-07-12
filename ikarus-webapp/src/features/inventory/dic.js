@@ -84,10 +84,11 @@ dic.register('ResourcesAndSpecialEquipmentInventoryColumn', function(dic) {
 
 dic.register('VehiclesInventoryColumn', function(dic) {
   return new InventoryColumn({
-    title: 'Vehicles',
+    title: 'Vehicles and mission resources',
     policy: function(itemWrapper) {
       return itemWrapper.item.hasSomeTags([
-        'vehicle'
+        'vehicle',
+        'missionkey'
       ]);
     },
     sort: dic.get('AlphabeticalInventoryColumnSort')

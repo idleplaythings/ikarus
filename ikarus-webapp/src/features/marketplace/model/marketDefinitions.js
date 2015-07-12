@@ -29,7 +29,7 @@ marketDefinitions = [
       'hlc_rifle_RU5562':       {money: 120},
       'hlc_rifle_CQBR':         {money: 120},
       'hlc_rifle_M4':           {money: 120},
-      'hlc_rifle_m4m203':       {money: 420},
+      //'hlc_rifle_m4m203':       {money: 420}, Sounds not working
       'hlc_rifle_bcmjack':      {money: 120},
       'hlc_rifle_Colt727':      {money: 120},
       'hlc_rifle_Colt727_GL':   {money: 420},

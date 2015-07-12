@@ -144,16 +144,9 @@ objective_military_overridesAppearance = {
 
 objective_military_insideDepot = {};
 
-objective_military_onKilled = {
-  private ["_unit", "_killer"];
-  _unit = _this select 0;
-  _killer = _this select 1;
-  
-};
+objective_military_onKilled = {};
 
-objective_military_onDisconnected = {
-
-};
+objective_military_onDisconnected = {};
 
 objective_military_canOpenLootBoxes = {true;};
 

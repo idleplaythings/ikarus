@@ -25,7 +25,7 @@ ItemDefinitions = [
   createGeneric('M-ATV', 'B_MRAP_01_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('Punisher', 'O_MRAP_02_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('UAZ (AGS)', 'UAZ_AGS30', ['vehicle', 'armored', 'unarmed']),
-  
+
   createGeneric('Littlebird', 'B_Heli_Light_01_F', ['helicopter', 'unarmed']),
 
   //ASSAULT RIFLES (HLC)
@@ -63,9 +63,9 @@ ItemDefinitions = [
   createWeapon('AAC "Honey-Badger"', 'hlc_rifle_honeybadger', ['assault-rifle'], ["29rnd_300BLK_STANAG"]),
   createWeapon('RRA LAR-15', 'hlc_rifle_SAMR', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
   createWeapon('RRA LAR-15', 'hlc_rifle_samr2', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
-  
+
   createMagazine('29rnd .300 cal blackout', '29rnd_300BLK_STANAG', 29),
- 
+
   //ASSAULT RIFLES (CUP)
 
   createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
@@ -120,16 +120,16 @@ ItemDefinitions = [
   createMagazine('20rnd 7.62x51mm FN FAL', 'CUP_20Rnd_762x51_FNFAL_M', 20),
 
   //BATTLE RIFLES (HLC)
-  
+
   createWeapon('Springfield Armory M14', 'hlc_rifle_M14', ['assault-rifle'], ['20Rnd_762x51_Mag']),
   createWeapon('FN C1A1', 'hlc_rifle_c1A1', ['assault-rifle'], ['20Rnd_762x51_Mag']),
-  
+
   createWeapon('G3A3 RIS', 'hlc_rifle_g3a3ris', ['assault-rifle'], ['20Rnd_762x51_Mag']),
-  
+
 
   //BATTLE RIFLES (Vanilla)
 
-  
+
   createWeapon('Mk14 7.62mm (camo)', 'srifle_DMR_06_camo_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
   createWeapon('Mk14 7.62mm (olive)', 'srifle_DMR_06_olive_F', ['assault-rifle'], ['20Rnd_762x51_Mag']),
 
@@ -142,8 +142,8 @@ ItemDefinitions = [
   createMagazine('200rnd box 5.56x45mm', 'hlc_200rnd_556x45_T_SAW', 30),
 
   createWeapon('M249E2 lmg (RIS/13.7 in)', 'hlc_m249_pip1', ['lmg'], ['hlc_200rnd_556x45_T_SAW', '30Rnd_556x45_Stanag']),
-  
-  
+
+
 
   //MACHINE GUNS (CUP)
 
@@ -230,7 +230,7 @@ ItemDefinitions = [
 
   createWeapon('RPG-32', 'launch_RPG32_F', ['rpg'], ['RPG32_F']),
   createMagazine('RPG-32 AT rocket', 'RPG32_F', 1),
-  
+
   //LAUCHERS (CUP)
 
   createWeapon('RPG-7V launcher', 'CUP_launch_RPG7V', ['rpg'], ['CUP_PG7V_M']),
@@ -448,7 +448,7 @@ ItemDefinitions = [
     {
       'Binocular': 'd5-2',
       'ItemGPS': 'd5-3',
-      'hlc_rifle_ak74': 'd5+2', 
+      'hlc_rifle_ak74': 'd5+2',
       'hlc_rifle_aks74': 'd2',
       'hlc_rifle_rpk74n': 'd2-1',
       'hlc_rifle_aks74_GL': 'd10-9',
@@ -500,7 +500,7 @@ ItemDefinitions = [
       'arifle_MX_F': 'd2',
       'arifle_MX_GL_F': 'd10-9',
       'arifle_MXC_F': 'd2',
-      
+
       '30Rnd_65x39_caseless_mag': '5d3+10'
     }
   ),
@@ -544,7 +544,7 @@ ItemDefinitions = [
     'Assasin survive reward',
     'IKRS_loot_assasin',
     {
-      
+
     }
   ),
 
@@ -572,8 +572,8 @@ ItemDefinitions = [
       'V_PlateCarrierSpec_mtp': 'd3-2',
 
       'H_HelmetB': 'd2',
-      'H_HelmetIA' 'd2',
-    } 
+      'H_HelmetIA': 'd2',
+    }
   ),
 
   createLoot(
@@ -587,15 +587,15 @@ ItemDefinitions = [
       'V_PlateCarrierGL_mtp': 'd2-1',
 
       'H_HelmetB': 'd2',
-      'H_HelmetIA' 'd2',
-    } 
+      'H_HelmetIA': 'd2',
+    }
   ),
 
   createLoot(
     'Rare weapons',
     'IKRS_loot_rare_weapons',
     {
-    } 
+    }
   ),
 
 ];

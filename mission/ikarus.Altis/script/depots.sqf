@@ -33,6 +33,11 @@ depots_getClosestDepot = {
   private ["_unit", "_depots", "_closest"];
   _unit = _this select 0;
   _depots = call depots_getAll;
+
+  if (count _depots == 0) exitWith {
+    99999999;
+  };
+
   _closest = nil;
 
   {

@@ -72,7 +72,7 @@ missionControl_pollGameEnd = {
 };
 
 missionControl_startGame = {
-  private ["_squads"];
+  private ["_squads", "_objectiveWait"];
  
   missionControl_gameStarted = true;
   missionControl_reinforcementsWait = true;
@@ -88,7 +88,13 @@ missionControl_startGame = {
   call assembleSquads;
   call player_setSquadVariable;
 
-  missionControl_timeObjectivesGenerated = time + 60;
+  if ( missionControl_test ) then {
+    _objectiveWait = 10;
+  } else {
+    _objectiveWait = 60;
+  };
+
+  missionControl_timeObjectivesGenerated = time + _objectiveWait;
 
   call objectiveController_startObjectiveChoosing;
 

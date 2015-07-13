@@ -140,9 +140,8 @@ objective_supply_placeLootBoxes = {
   for "_i" from 0 to 2 do {
     private ["_data", "_directionAndPosition", "_direction", "_position", "_box"];
     _data = _objectData select _i;
-    _directionAndPosition = [_building, _data] call houseFurnisher_getPosASLAndDirectionFromBuilding;
-    _position = _directionAndPosition select 0;
-    _direction = _directionAndPosition select 1; 
+    _position = getPosASL _data;
+    _direction = direction _data; 
     
     if (_i < 2) then {
       [_position, _direction] call lootbox_create;

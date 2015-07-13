@@ -147,7 +147,7 @@ module.exports = function(armaSerializer){
 
     if (demo){
       squads.push(testSquad);
-      squads.push(testSquad2);
+      //squads.push(testSquad2);
       inventories = inventories.concat(testInventories)
     }
 

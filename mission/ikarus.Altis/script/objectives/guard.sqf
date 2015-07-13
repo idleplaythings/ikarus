@@ -44,7 +44,6 @@ objective_guard_onKilled = {
   _unit = _this select 0;
   _killer = _this select 1;
   
-  systemChat "player killed (guard objective)";
   diag_log "player killed (guard objective)";
 
   _guardData = [_killer] call objective_guard_getGuardData;
@@ -168,12 +167,12 @@ objective_guard_moveSquadsToDepot = {
 };
 
 objective_guard_moveToDepot = {
-  private ["_depot", "_objects", "_position"];
+  private ["_depot", "_object", "_position"];
   _squad = _this select 0;
   
   _depot = call depots_getRandom;
-  _objects = [_depot select 1, 1] call depotPositions_getRandomPlaceholdersFromObjects select 0;
-  _position = [_depot select 0, _objects] call houseFurnisher_getPosASLAndDirectionFromBuilding select 0;
+  _object = [_depot select 1, 1] call depotPositions_getRandomPlaceholdersFromObjects select 0;
+  _position = getPosASL _object;
   
   {
     _x setPosASL _position;
@@ -214,7 +213,12 @@ objective_guard_equipGuard = {
 
 objective_guard_createAIGuards = {
   private ["_position", "_guard", "_group", "_patrol", "_offset", "_positions", "_waypoint"];
-  _position = getPos (call depots_getRandom select 0);
+  _position = (call depots_getRandom select 0);
+
+  if (typeName _position != "ARRAY") then {
+    _position = getPos _position;
+  };
+
   _group = createGroup west;
   _patrol = createGroup west;
 

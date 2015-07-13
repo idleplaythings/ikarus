@@ -40,7 +40,7 @@ joinPlayers = {
 getAllPlayers = {
   private ["_players"];
   if ( missionControl_test ) exitWith {
-    [player, friend];
+    [player];
   };
 
   _players = [];

@@ -171,7 +171,46 @@ depotPositions_placeHolderObjects = [
 ];
 
 depotPositions_isPlaceHolder = {
-  _this select 0 in depotPositions_placeHolderObjects;
+  private ["_thing"];
+  _thing = _this select 0;
+
+  if (typeName _thing == "OBJECT") then {
+    _thing = typeOf _thing;
+  };
+
+  _thing in depotPositions_placeHolderObjects;
+};
+
+depotPositions_getRandomPlaceholdersFromObjectData = {
+  private ["_objects", "_candidates", "_result", "_amount"];
+  _objects = _this select 0;
+  _amount = _this select 1;
+  _objectClass = [_this, 2, ""] call BIS_fnc_param;
+  _candidates = [];
+  _result = [];
+  
+  {
+    private ["_class"];
+    _class = _x select 0;
+
+    if (_class == _objectClass || (_objectClass == "" && [_class] call depotPositions_isPlaceHolder)) then {
+      _candidates set [count _candidates, _x];
+    };
+  } forEach _objects;
+  
+  if ( count _candidates < _amount ) then {
+    _amount = count _candidates;
+  };
+  
+  while {_amount > 0} do {
+    private ["_chosen"];
+    _amount = _amount - 1;
+    _chosen = _candidates call BIS_fnc_selectRandom;
+    _candidates = _candidates - [_chosen];
+    _result pushBack _chosen;
+  };
+  
+  _result;
 };
 
 depotPositions_getRandomPlaceholdersFromObjects = {
@@ -183,7 +222,10 @@ depotPositions_getRandomPlaceholdersFromObjects = {
   _result = [];
   
   {
-    if (_x select 0 == _objectClass || (_objectClass == "" && [_x select 0] call depotPositions_isPlaceHolder)) then {
+    private ["_class"];
+    _class = typeOf _x;
+
+    if (_class == _objectClass || (_objectClass == "" && [_class] call depotPositions_isPlaceHolder)) then {
       _candidates set [count _candidates, _x];
     };
   } forEach _objects;

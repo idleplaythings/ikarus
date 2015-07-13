@@ -8,6 +8,8 @@ houseFurnisher_furnish = {
   _objects = _objects + ([getPosASL _building, getDir _building, _data] call houseFurnisher_furnish_location);
 
   [_building, houseFurnisher_clearBuilding, [_building, _objects]] call buildingDestroyer_init;
+
+  _objects;
 };
 
 houseFurnisher_furnish_location = {

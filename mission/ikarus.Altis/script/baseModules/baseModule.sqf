@@ -37,7 +37,7 @@ baseModule_getCacheLocation = {
   _primaryModuleData = [_moduleData] call baseModule_getPrimaryModule;
   _primaryModuleIndex = [_moduleData] call baseModule_getPrimaryModuleIndex;
 
-  _objectData = [(_primaryModuleData select 1), 1] call depotPositions_getRandomPlaceholdersFromObjects;
+  _objectData = [(_primaryModuleData select 1), 1] call depotPositions_getRandomPlaceholdersFromObjectData;
   [_position, ([_direction, (_primaryModuleIndex * 90)] call addToDirection), _objectData select 0] call houseFurnisher_getPosASLAndDirection; 
 };
 
@@ -50,7 +50,7 @@ baseModule_getVehicleLocations = {
   _index = 0;
 
   {
-    _objectData = [(_x select 1), 100, "C_Offroad_01_F"] call depotPositions_getRandomPlaceholdersFromObjects;
+    _objectData = [(_x select 1), 100, "C_Offroad_01_F"] call depotPositions_getRandomPlaceholdersFromObjectData;
     {
       _result pushBack ([_position, ([_direction, _index * 90] call addToDirection), _x] call houseFurnisher_getPosASLAndDirection); 
     } forEach _objectData;

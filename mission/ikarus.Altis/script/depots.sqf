@@ -25,7 +25,9 @@ depots_getRandom = {
   private ["_depots"];
   _depots = call depots_getAll;
 
-  if (count _depots == 0) exitWith {nil;};
+  if (count _depots == 0) exitWith {
+    nil;
+  };
   (call depots_getAll) call BIS_fnc_selectRandom;
 };
 
@@ -70,7 +72,11 @@ depots_getAllDepotPositions = {
   _positions = [];
 
   {
-    _positions pushBack getPos (_x select 0);
+    if (typeName (_x select 0) == "ARRAY") then {
+      _positions pushBack (_x select 0);
+    } else {
+      _positions pushBack getPos (_x select 0);
+    };
   } forEach _depots;
 
   _positions;
@@ -148,7 +154,7 @@ depots_constructMilitaryDepot = {
 };
 
 depots_constructSupplyDepot = {
-  private ["_centerOfAO", "_radius", "_buildingData", "_building", "_objectData"];
+  private ["_centerOfAO", "_radius", "_buildingData", "_building", "_objectData", "_objects"];
   _centerOfAO = _this select 0;
   _radius = _this select 1;
 
@@ -156,13 +162,13 @@ depots_constructSupplyDepot = {
   _building = _buildingData select 0;
   _objectData = _buildingData select 1;
 
-  [_building, _objectData] call houseFurnisher_furnish;
+  _objects = [_building, _objectData] call houseFurnisher_furnish;
 
-  [_building, _objectData];
+  [_building, _objects];
 };
 
 depots_constructTownDepot = {
-  private ["_centerOfAO", "_radius", "_buildingData", "_building", "_objectData"];
+  private ["_centerOfAO", "_radius", "_buildingData", "_building", "_objectData", "_objects"];
   _centerOfAO = _this select 0;
   _radius = _this select 1;
 
@@ -170,9 +176,9 @@ depots_constructTownDepot = {
   _building = _buildingData select 0;
   _objectData = _buildingData select 1;
 
-  [_building, _objectData] call houseFurnisher_furnish;
+  _objects = [_building, _objectData] call houseFurnisher_furnish;
 
-  [_building, _objectData];
+  [_building, _objects];
 };
 
 depots_getAmountOfTownDepotsToSpawn = {

@@ -99,9 +99,8 @@ objective_hold_constructDepots = {
     _objectDatas = [_x select 1, 2] call depotPositions_getRandomPlaceholdersFromObjects;
 
     _objectData = _objectDatas select 0;
-    _directionAndPosition = [_x select 0, _objectData] call houseFurnisher_getPosASLAndDirectionFromBuilding;
-    _position = _directionAndPosition select 0;
-    _direction = _directionAndPosition select 1;
+    _position = getPosASL _objectData;
+    _direction = direction _objectData;
     _object = createVehicle ["Land_SatellitePhone_F", [0,0,3000], [], 0, "FLYING"];
     _object setDir _direction;
     _object setPosASL _position;
@@ -110,9 +109,8 @@ objective_hold_constructDepots = {
     [_x select 0] spawn objective_hold_destroyDepot;
 
     _objectData = _objectDatas select 1;
-    _directionAndPosition = [_x select 0, _objectData] call houseFurnisher_getPosASLAndDirectionFromBuilding;
-    _position = _directionAndPosition select 0;
-    _direction = _directionAndPosition select 1;
+    _position = getPosASL _objectData;
+    _direction = direction _objectData;
     [_position, _direction, 2] call lootbox_create;
 
   } forEach depots_town_depots;

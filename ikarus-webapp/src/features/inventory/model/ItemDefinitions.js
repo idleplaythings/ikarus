@@ -26,7 +26,7 @@ ItemDefinitions = [
   createGeneric('Punisher', 'O_MRAP_02_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('UAZ (AGS)', 'UAZ_AGS30', ['vehicle', 'armored', 'unarmed']),
 
-  createGeneric('Littlebird', 'B_Heli_Light_01_F', ['helicopter', 'unarmed']),
+  createGeneric('Littlebird', 'B_Heli_Light_01_F', ['vehicle', 'helicopter', 'unarmed']),
 
   //ASSAULT RIFLES (HLC)
 

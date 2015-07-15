@@ -23,11 +23,7 @@ objective_supply_joinInProgress = {
   [_unit] call objective_supply_setPlayerRating;
 };
 
-objective_supply_setPlayerRating = {
-  private ["_unit"];
-  _unit = _this select 0;
-  [[-20000], "client_addRating", _unit, false, false] call BIS_fnc_MP;
-};
+objective_supply_setPlayerRating = {};
 
 objective_supply_validate = {
   if (count squads == 1) exitWith {

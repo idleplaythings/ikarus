@@ -6,7 +6,6 @@ class Mission
 		"a3_map_altis",
 		"A3_Characters_F_Civil",
 		"a3_characters_f",
-		"A3_Characters_F_OPFOR",
 		"ikrs_loot",
 		"cba_xeh",
 		"extended_eventhandlers",

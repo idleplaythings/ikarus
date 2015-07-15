@@ -12,6 +12,8 @@ removeVest player;
 removeBackpack player;
 removeHeadgear player;
 
+player addEventHandler[ "HandleRating", {}];
+
 player addEventHandler [ "hit", {
   private ["_unit", "_offender", "_damage"];
   _unit = _this select 0;

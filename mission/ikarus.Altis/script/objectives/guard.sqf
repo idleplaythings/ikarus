@@ -1,5 +1,9 @@
 objective_guard_guards = []; //array containing unit, depot and rewards
 objective_guard_killRadius = 1000;
+objective_guard_eastGroup = nil;
+
+objective_guard_eastSide = createCenter east;
+objective_guard_eastGroup = createGroup east;
 
 objective_guard_construct = {};
 
@@ -178,6 +182,7 @@ objective_guard_moveToDepot = {
     _x setPosASL _position;
     [_x] call objective_guard_equipGuard;
     [_x] call objective_guard_createGuardMarkersForUnit;
+    [_x] joinSilent objective_guard_eastGroup;
   } forEach ([_squad] call getPlayersInSquad);
     
   true;
@@ -219,8 +224,8 @@ objective_guard_createAIGuards = {
     _position = getPos _position;
   };
 
-  _group = createGroup west;
-  _patrol = createGroup west;
+  _group = createGroup east;
+  _patrol = createGroup east;
 
   for "_i" from 1 to 6 do {
     _offset = [_position, 10, 50] call popoRandom_findLand;
@@ -257,7 +262,7 @@ objective_guard_createAIGuards = {
   _waypoint setWaypointBehaviour "SAFE";
   _waypoint setWaypointCombatMode "RED";
   _waypoint setWaypointStatements ["true",""];
-  _waypoint setWaypointSpeed "NO CHANGE";
+  _waypoint setWaypointSpeed "LIMITED";
   _waypoint setWaypointFormation "FILE";
 
   _patrol addWaypoint [(_positions select 1), 1];
@@ -271,7 +276,7 @@ objective_guard_createAIGuard = {
   private ["_position", "_guard", "_group"];
   _position = _this select 0;
   _group = _this select 1;
-  _guard = _group createUnit ["B_Soldier_02_f", _position, [], 0, "FORM"];
+  _guard = _group createUnit ["O_G_Soldier_F", _position, [], 0, "FORM"];
   [_guard] call objective_guard_equipAIGuard;
   _guard;
 };

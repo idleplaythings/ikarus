@@ -66,7 +66,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=52;
+		items=53;
 		class Item0
 		{
 			side="LOGIC";
@@ -78,7 +78,7 @@ class Mission
 					position[]={5118.2905,19.078888,14817.447};
 					class args
 					{
-						items=9;
+						items=11;
 						class Item0
 						{
 							value="0";
@@ -99,7 +99,7 @@ class Mission
 						};
 						class Item3
 						{
-							value="2";
+							value="0";
 							parentCls="ACE_moduleAdvancedMedicalSettings";
 							typeName="medicSetting_PAK";
 						};
@@ -117,7 +117,7 @@ class Mission
 						};
 						class Item6
 						{
-							value="2";
+							value="0";
 							parentCls="ACE_moduleAdvancedMedicalSettings";
 							typeName="medicSetting_SurgicalKit";
 						};
@@ -132,6 +132,18 @@ class Mission
 							value="3";
 							parentCls="ACE_moduleAdvancedMedicalSettings";
 							typeName="useLocation_SurgicalKit";
+						};
+						class Item9
+						{
+							value="0";
+							parentCls="ACE_moduleAdvancedMedicalSettings";
+							typeName="healHitPointAfterAdvBandage";
+						};
+						class Item10
+						{
+							value="1";
+							parentCls="ACE_moduleAdvancedMedicalSettings";
+							typeName="painIsOnlySuppressed";
 						};
 					};
 					id=0;
@@ -154,7 +166,7 @@ class Mission
 					position[]={5221.4961,16.22407,14671.04};
 					class args
 					{
-						items=12;
+						items=13;
 						class Item0
 						{
 							value="2";
@@ -205,23 +217,29 @@ class Mission
 						};
 						class Item8
 						{
-							value="0";
+							value="1";
 							parentCls="ACE_moduleMedicalSettings";
-							typeName="preventInstaDeath";
+							typeName="remoteControlledAI";
 						};
 						class Item9
 						{
-							value="1";
+							value="0";
 							parentCls="ACE_moduleMedicalSettings";
-							typeName="bleedingCoefficient";
+							typeName="preventInstaDeath";
 						};
 						class Item10
 						{
 							value="1";
 							parentCls="ACE_moduleMedicalSettings";
-							typeName="painCoefficient";
+							typeName="bleedingCoefficient";
 						};
 						class Item11
+						{
+							value="1";
+							parentCls="ACE_moduleMedicalSettings";
+							typeName="painCoefficient";
+						};
+						class Item12
 						{
 							value="1";
 							parentCls="ACE_moduleMedicalSettings";
@@ -253,6 +271,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm";
+					syncId=0;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -272,6 +292,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend";
+					syncId=1;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -291,6 +313,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1";
+					syncId=2;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -310,6 +334,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2";
+					syncId=3;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -329,6 +355,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3";
+					syncId=4;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -348,6 +376,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_4";
+					syncId=5;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -367,6 +397,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_1";
+					syncId=6;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -386,6 +418,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1_1";
+					syncId=7;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -405,6 +439,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2_1";
+					syncId=8;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -424,6 +460,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_1";
+					syncId=9;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -443,6 +481,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_5";
+					syncId=10;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -462,6 +502,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_2";
+					syncId=11;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -481,6 +523,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1_2";
+					syncId=12;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -500,6 +544,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2_2";
+					syncId=13;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -519,6 +565,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_2";
+					syncId=14;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -538,6 +586,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_6";
+					syncId=15;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -557,6 +607,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_3";
+					syncId=16;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -576,6 +628,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1_3";
+					syncId=17;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -595,6 +649,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2_3";
+					syncId=18;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -614,6 +670,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_3";
+					syncId=19;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -633,6 +691,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_7";
+					syncId=20;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -652,6 +712,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_4";
+					syncId=21;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -671,6 +733,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1_4";
+					syncId=22;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -690,6 +754,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2_4";
+					syncId=23;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -709,6 +775,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_4";
+					syncId=24;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -728,6 +796,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_8";
+					syncId=25;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -747,6 +817,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_5";
+					syncId=26;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -766,6 +838,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1_5";
+					syncId=27;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -785,6 +859,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2_5";
+					syncId=28;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -804,6 +880,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_5";
+					syncId=29;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -823,6 +901,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_4_1";
+					syncId=30;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -842,6 +922,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_1_1";
+					syncId=31;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -861,6 +943,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1_1_1";
+					syncId=32;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -880,6 +964,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2_1_1";
+					syncId=33;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -899,6 +985,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_1_1";
+					syncId=34;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -918,6 +1006,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_5_1";
+					syncId=35;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -937,6 +1027,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_2_1";
+					syncId=36;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -956,6 +1048,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1_2_1";
+					syncId=37;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -975,6 +1069,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2_2_1";
+					syncId=38;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -994,6 +1090,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_2_1";
+					syncId=39;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1013,6 +1111,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_6_1";
+					syncId=40;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1032,6 +1132,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_3_1";
+					syncId=41;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1051,6 +1153,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1_3_1";
+					syncId=42;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1070,6 +1174,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2_3_1";
+					syncId=43;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1089,6 +1195,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_3_1";
+					syncId=44;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1108,6 +1216,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_7_1";
+					syncId=45;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1127,6 +1237,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="friend_4_1";
+					syncId=46;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1146,6 +1258,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_1_4_1";
+					syncId=47;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1165,6 +1279,8 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_2_4_1";
+					syncId=48;
+					synchronizations[]={50};
 				};
 			};
 		};
@@ -1184,6 +1300,44 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_4_1";
+					syncId=49;
+					synchronizations[]={50};
+				};
+			};
+		};
+		class Item52
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5473.4741,27.299999,14986.612};
+					class args
+					{
+						items=2;
+						class Item0
+						{
+							value="";
+							parentCls="ACE_moduleAssignMedicRoles";
+							typeName="EnableList";
+						};
+						class Item1
+						{
+							value="1";
+							parentCls="ACE_moduleAssignMedicRoles";
+							typeName="role";
+						};
+					};
+					id=52;
+					side="LOGIC";
+					vehicle="ACE_moduleAssignMedicRoles";
+					leader=1;
+					lock="UNLOCKED";
+					skill=0.60000002;
+					syncId=50;
+					synchronizations[]={0,1,2,3,4,5,6,7,8,9,14,13,12,11,10,15,16,17,18,19,24,23,22,21,20,49,44,39,34,29,28,33,38,43,48,47,42,37,32,27,26,31,36,41,46,45,40,35,30,25};
 				};
 			};
 		};

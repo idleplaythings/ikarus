@@ -73,7 +73,7 @@ airStrike_createPlane = {
   _waypoint = group _plane addWaypoint [_targetPosition, 0];
   _waypoint setWaypointType "MOVE";
   _waypoint setWaypointBehaviour "COMBAT";
-  _waypoint setWaypointCombatMode "RED";
+  _waypoint setWaypointCombatMode "BLUE";
   _waypoint setWaypointStatements ["true",""];
   _waypoint setWaypointSpeed "NO CHANGE"; 
  

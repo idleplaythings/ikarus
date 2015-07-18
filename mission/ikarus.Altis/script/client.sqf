@@ -30,6 +30,7 @@ client_equipGuard = {
   player addVest "V_TacVest_blk_POLICE";
   for "_i" from 1 to 6 do {player addItemToVest "30Rnd_556x45_Stanag";};
   for "_i" from 1 to 3 do {player addItemToUniform "16Rnd_9x21_Mag";};
+  for "_i" from 1 to 3 do {player addItemToUniform "SmokeShell";};
   player addItemToVest "FirstAidKit";
 
   player addWeaponGlobal "arifle_TRG20_F";

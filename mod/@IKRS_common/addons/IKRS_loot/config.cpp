@@ -89,6 +89,11 @@
     mass = 200;
   };
 
+  class IKRS_outpost_back : IKRS_loot_Backpack
+  {
+    displayName = "Outpost";
+  };
+
   class IKRS_loot_warsaw_old : IKRS_loot_Backpack
   {
     displayName = "Loot (Warsaw pact, old)";

@@ -128,6 +128,11 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
     }
 
     var readyToStart = squadsInGame.every(function(squad) {
+
+      if ( ! squad.isBeforeDeadline()) {
+        return true;
+      }
+
       var steamIdsOnSquad = squad.getSteamIds();
 
       return steamIdsOnSquad.every(function(steamId) {

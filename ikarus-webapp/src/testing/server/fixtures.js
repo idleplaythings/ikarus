@@ -27,8 +27,9 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
     }));
 
     for (var i in ItemDefinitions) {
-      if (ItemDefinitions[i].armaClass == 'IKRS_loot_common_RU_weapons') {
-        ItemDefinitions[i].loot = {'CUP_arifle_AK74': 1};
+
+      if (ItemDefinitions[i].armaClass == 'IKRS_loot_valuables') {
+        ItemDefinitions[i].loot = {'money': 50};
       }
     }
   });

@@ -41,7 +41,7 @@ Template.base_module.helpers({
 });
 
 Template.base_modules.events({
-  'click .module' : function() {
+  'click .module' : function(event, template) {
     var moduleId = jQuery(event.target).attr("data-moduleId");
     var module = BaseModule.create(moduleId);
 

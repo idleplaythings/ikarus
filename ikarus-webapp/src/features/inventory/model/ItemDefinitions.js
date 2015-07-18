@@ -33,11 +33,11 @@ ItemDefinitions = [
   createWeapon('Izhmash AK74', 'hlc_rifle_ak74', ['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
   createWeapon('Izhmash AKS74','hlc_rifle_aks74',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
   createWeapon('Izhmash AK12','hlc_rifle_ak12',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
-  createWeapon('Izhmash AK12(GL)','hlc_rifle_ak12GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('Izhmash AK12(GL)','hlc_rifle_ak12GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk", "1Rnd_HE_Grenade_shell"]),
   createWeapon('Izhmash RPK12,','hlc_rifle_RPK12',['lmg'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
   createWeapon('Izhmash AKS74U','hlc_rifle_aks74u',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
   createWeapon('Izhmash RPK74','hlc_rifle_rpk74n',['lmg'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
-  createWeapon('Izhmash AKS74(GL)','hlc_rifle_aks74_GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
+  createWeapon('Izhmash AKS74(GL)','hlc_rifle_aks74_GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk", "1Rnd_HE_Grenade_shell"]),
   createWeapon('ZID AEK971S','hlc_rifle_aek971',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
 
   createWeapon('Izhmash AK47','hlc_rifle_ak47',['assault-rifle'], ["hlc_30Rnd_762x39_b_ak","hlc_45Rnd_762x39_m_rpk"]),

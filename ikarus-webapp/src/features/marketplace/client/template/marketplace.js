@@ -10,7 +10,7 @@ Template.marketplace.helpers({
 });
 
 Template.marketplace.events({
-  'click button.marketCategory': function () {
+  'click button.marketCategory': function (event, template) {
     var $elem = jQuery(event.target);
     var value = event.target.attributes.getNamedItem('data-marketCategory').value;
     Session.set('selectedMarketCategory', value);

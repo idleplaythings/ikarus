@@ -41,7 +41,7 @@ Objective.prototype.getLootTransform = function(loot) {
 
 Objective.prototype.getAdditionalLoot = function(loot) {
   var result = [];
-  var lootTransform = this.getLootTransform();
+  var lootTransform = this.getLootTransform(loot);
 
   loot
     .map(function(lootEntry){

@@ -50,7 +50,7 @@ baseModule_medicalStation1_becomeMedic = {
     [[_box], "client_removeBecomeMedic", _x, false, false] call BIS_fnc_MP;
   } forEach call getAllPlayersBeforeSquads;
 
-  _medic setVariable ["ace_medical_medicClass", 1];
+  _medic setVariable ["ace_medical_medicClass", 1, true];
   ["You are now a medic!", _medic] call broadcastMessageTo;
 };
 

@@ -20,18 +20,21 @@ baseModule_medicalStation1_onCreated = {
       clearItemCargoGlobal _box;
       clearBackpackCargoGlobal _box;
 
-      _box addItemCargoGlobal ['ACE_plasmaIV_500', 2];
-      _box addItemCargoGlobal ['ACE_plasmaIV_250', 2];
-      _box addItemCargoGlobal ['ACE_bloodIV_500', 2];
-      _box addItemCargoGlobal ['ACE_bloodIV_250', 2];
-      _box addItemCargoGlobal ['ACE_salineIV_500', 2];
-      _box addItemCargoGlobal ['ACE_salineIV_250', 2];
+      _box addItemCargoGlobal ['ACE_plasmaIV_500', 4];
+      _box addItemCargoGlobal ['ACE_bloodIV_500', 4];
+      _box addItemCargoGlobal ['ACE_salineIV_500', 4];
+      _box addItemCargoGlobal ['ACE_packingBandage', 10];
+      _box addItemCargoGlobal ['ACE_elasticBandage', 10];
+      _box addItemCargoGlobal ['ACE_fieldDressing', 20];
+      _box addItemCargoGlobal ['ACE_tourniquet', 4];
+      _box addItemCargoGlobal ['ACE_quikclot', 10];
+      _box addItemCargoGlobal ['ACE_morphine', 6];
+      _box addItemCargoGlobal ['ACE_atropine', 6];
+      _box addItemCargoGlobal ['ACE_epinephrine', 6];
 
-      /*
       {
         [[_box], "client_setUpBecomeMedic", _x, false, false] call BIS_fnc_MP;
       } forEach call getAllPlayersBeforeSquads;
-      */
       
     };
   } forEach _objects;
@@ -47,7 +50,7 @@ baseModule_medicalStation1_becomeMedic = {
     [[_box], "client_removeBecomeMedic", _x, false, false] call BIS_fnc_MP;
   } forEach call getAllPlayersBeforeSquads;
 
-  _medic setVariable ["AGM_IsMedic", true];
+  _medic setVariable ["ace_medical_medicClass", 1];
   ["You are now a medic!", _medic] call broadcastMessageTo;
 };
 

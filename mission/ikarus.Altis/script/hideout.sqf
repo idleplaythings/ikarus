@@ -138,16 +138,11 @@ hideout_createHideoutCache = {
 
   [_equipment, _box, _squad] call equipment_equipHideoutCache;
   
-  _box addItemCargoGlobal ['ACE_packingBandage', 30];
-  _box addItemCargoGlobal ['ACE_elasticBandage', 30];
-  _box addItemCargoGlobal ['ACE_fieldDressing', 30];
+  
   _box addItemCargoGlobal ['ACE_EarPlugs', 12];
-
+  _box addItemCargoGlobal ['ACE_quikclot', 40];
   _box addItemCargoGlobal ['ACE_tourniquet', 10];
   _box addItemCargoGlobal ['ACE_morphine', 10];
-  _box addItemCargoGlobal ['ACE_atropine', 10];
-  _box addItemCargoGlobal ['ACE_epinephrine', 10];
-  _box addItemCargoGlobal ['ACE_quikclot', 10];
 
   _box addItemCargoGlobal ['V_Rangemaster_belt', 8];
   _box addWeaponCargoGlobal ['hlc_rifle_aks74u', 4];

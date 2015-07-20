@@ -105,6 +105,7 @@ missionControl_startGame = {
   call objectiveController_hideChooseObjectiveMenu;
   call objectiveController_createObjectives;
   missionControl_reinforcementsWait = false;
+  call outpost_createOutposts;
 
   ["OBJECTIVES GENERATED. GOOD LUCK AND HAVE FUN!"] call broadcastMessage;
   call missionControl_pollGameEnd;
@@ -115,12 +116,14 @@ missionControl_endGame = {
   hint "end game";
   
   {
-    private ["_squad", "_loot"];
+    private ["_squad", "_loot", "_outposts", "_squadId"];
     _squad = _x;
     _loot = [_squad] call loot_findSquadLoot;
     _loot = _loot + ([_squad] call getDisconnectedLoot);
+    _squadId = [_squad] call getSquadId;
 
-    ['squadSubmit', [([_squad] call getSquadId), str _loot]] call sock_rpc;  
+    ['squadSubmit', [_squadId, str _loot]] call sock_rpc;
+    ['outpostsSubmit', [_squadId, ([_squad] call outpost_getOutpostsChangesForSquad)]] call sock_rpc; 
   } forEach squads;
   
   sleep 10;

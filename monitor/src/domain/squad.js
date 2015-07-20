@@ -10,4 +10,5 @@ function Squad(args) {
   this.locked = args.locked;
   this.gear = args.gear;
   this.baseModules = args.baseModules;
+  this.outposts = args.outposts;
 }

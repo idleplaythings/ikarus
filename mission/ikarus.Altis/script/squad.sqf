@@ -63,10 +63,6 @@ getHideoutModules = {
   _this select 0 select 8;
 };
 
-getDisconnectedLoot = {
-  _this select 0 select 9;
-};
-
 getPlayerGear = {
   private ["_uid", "_gear", "_squad"];
   _squad = _this select 0;
@@ -77,18 +73,26 @@ getPlayerGear = {
     if ((_x select 0) == _uid) then {
       _gear = _x;
     }
-  } forEach (_squad select 10);
+  } forEach (_squad select 9);
 
   if (isNil {_gear}) exitWith {nil;};
   _gear;
 };
 
+getOutpostLocations = {
+  _this select 0 select 10;
+};
+
+getDisconnectedLoot = {
+  _this select 0 select 11;
+};
+
 addDisconnectedLoot = {
   private ["_squad", "_currentLoot"];
   _squad = _this select 0;
-  _currentLoot = (_squad select 9) + (_this select 1);
+  _currentLoot = (_squad select 11) + (_this select 1);
 
-  _squad set [9, _currentLoot];
+  _squad set [11, _currentLoot];
 };
 
 hasDisconnectedLoot = {
@@ -97,7 +101,7 @@ hasDisconnectedLoot = {
   _class = _this select 1;
   _result = false;
 
-  _currentLoot = _squad select 9;
+  _currentLoot = _squad select 11;
 
   {
     if (_x == _class) exitWith {
@@ -113,9 +117,9 @@ removeDisconnectedLoot = {
   _squad = _this select 0;
   _loot = _this select 1;
 
-  _currentLoot = (_squad select 9) - _loot;
+  _currentLoot = (_squad select 11) - _loot;
 
-  _squad set [9, _currentLoot];
+  _squad set [11, _currentLoot];
 };
 
 setPlayersAtHideout = {

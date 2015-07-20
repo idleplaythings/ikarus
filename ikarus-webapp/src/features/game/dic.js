@@ -10,3 +10,7 @@ dic.register('LootController', function (dic) {
     dic.get('Dice')
   );
 }, {shared: true});
+
+dic.register('OutpostController', function (dic) {
+  return new OutpostController();
+}, {shared: true});

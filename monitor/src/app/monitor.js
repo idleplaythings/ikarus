@@ -118,6 +118,7 @@ Monitor.prototype._startArma = function(){
 Monitor.prototype._registerRpcCallbacks = function() {
   this._registerRpcCallback('squadsRetrieve', squadsRetrieve);
   this._registerRpcCallback('squadSubmit', squadSubmit);
+  this._registerRpcCallback('outpostsSubmit', outpostsSubmit);
   this._registerRpcCallback('gameEnd', gameEnd);
   this._registerRpcCallback('playerConnected', playerConnected);
   this._registerRpcCallback('playerKilled', playerKilled);
@@ -246,6 +247,22 @@ var squadSubmit = function(squadId, loot) {
   var squad = this._gameData.getSquadById(squadId);
   var squadLoot = this._gameData.receiveSquadData(squadId, loot);
   this._webAppClient.reportMissionLoot(squad, squadLoot.loot);
+};
+
+var outpostsSubmit = function(squadId, changes) {
+  var squad = this._gameData.getSquadById(squadId);
+  var objectChanges = {
+    newOutposts: changes[0].map(function (location) {
+      return {x: location[0], y: location[1]};
+    }),
+    removedOutposts: changes[1].map(function (location) {
+      return {x: location[0], y: location[1]};
+    }),
+  };
+
+  console.log("OUTPOST SUBMIT", squadId, objectChanges);
+
+  this._webAppClient.reportOutpostChanges(squad, changes);
 };
 
 var gameEnd = function() {

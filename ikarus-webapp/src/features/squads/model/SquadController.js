@@ -59,6 +59,7 @@ SquadController.prototype._initSquad = function(company) {
   squad.setCompanyId(company._id);
   squad.setStartingLocation(company);
   squad.setBaseModules(company.getBaseModules());
+  squad.setOutpostLocations(company.getOutpostLocations());
   Inventory.createForSquad(squad);
   return squad;
 };

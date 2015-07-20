@@ -92,7 +92,17 @@ Squad.prototype.setStartingLocation = function(company) {
       startingLocation: company.getHideout()
     }
   });
-}
+};
+
+Squad.prototype.setOutpostLocations = function (locations) {
+  collections.SquadCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      outposts: locations
+    }
+  });
+};
 
 Squad.prototype.getCompanyId = function() {
   return get(this.getDoc(), 'companyId');

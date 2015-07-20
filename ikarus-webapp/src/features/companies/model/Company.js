@@ -111,7 +111,33 @@ Company.prototype.setHideout = function(hideout) {
       hideout: hideout
     }
   });
-}
+};
+
+Company.prototype.removeOutpostAtPosition = function (position) {
+  collections.CompanyCollection.update({
+    _id: this._id,
+    outposts: position
+  }, {
+    $pull: {
+      outposts: position
+    }
+  });
+};
+
+Company.prototype.addOutpostAtPosition = function (position) {
+  collections.CompanyCollection.update({
+    _id: this._id,
+    outposts: { $size: {lt: 6}}
+  }, {
+    $push: {
+      outposts: position
+    }
+  });
+};
+
+Company.prototype.getOutpostLocations = function () {
+  return get(this.getDoc(), 'outposts') || [];
+};
 
 Company.getById = function(companyId) {
   return Company.fromDoc(collections.CompanyCollection.findOne({ _id: companyId }));

@@ -54,10 +54,10 @@ ItemDefinitions = [
   createWeapon('AR15 Magpul Carbine', 'hlc_rifle_RU5562', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
   createWeapon('Colt M4 CQB-R', 'hlc_rifle_CQBR', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
   createWeapon('Colt M4 Carbine', 'hlc_rifle_M4', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
-  createWeapon('Colt M4 Carbine (GL)', 'hlc_rifle_m4m203', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('Colt M4 Carbine (GL)', 'hlc_rifle_m4m203', ['assault-rifle'], ["30Rnd_556x45_Stanag", "1Rnd_HE_Grenade_shell"]),
   createWeapon('BCM "Jack" Carbine', 'hlc_rifle_bcmjack', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
   createWeapon('Colt Carbine', 'hlc_rifle_Colt727', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
-  createWeapon('Colt Carbine(GL)', 'hlc_rifle_Colt727_GL', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('Colt Carbine(GL)', 'hlc_rifle_Colt727_GL', ['assault-rifle'], ["30Rnd_556x45_Stanag", "1Rnd_HE_Grenade_shell"]),
   createWeapon('Bushmaster .300 Carbine', 'hlc_rifle_Bushmaster300', ['assault-rifle'], ["29rnd_300BLK_STANAG"]),
   createWeapon('AR15 .300 Dissipator', 'hlc_rifle_vendimus', ['assault-rifle'], ["29rnd_300BLK_STANAG"]),
   createWeapon('AAC "Honey-Badger"', 'hlc_rifle_honeybadger', ['assault-rifle'], ["29rnd_300BLK_STANAG"]),
@@ -462,7 +462,9 @@ ItemDefinitions = [
     'IKRS_loot_warsaw_ammo',
     {
       '1Rnd_HE_Grenade_shell': '2d3+2',
-      'RPG32_F': 'd2+2'
+      'RPG32_F': 'd2+2',
+      'HandGrenade': '4d3+15',
+      'SmokeShell': '4d3+15'
     }
   ),
 
@@ -487,7 +489,9 @@ ItemDefinitions = [
       '1Rnd_HE_Grenade_shell': '2d3+2',
       'NLAW_F': 'd2+2',
       '20Rnd_762x51_Mag': 'd5+3',
-      'hlc_200rnd_556x45_T_SAW': 'd3+2'
+      'hlc_200rnd_556x45_T_SAW': 'd3+2',
+      'HandGrenade': '4d3+15',
+      'SmokeShell': '4d3+15'
     }
   ),
 
@@ -512,7 +516,9 @@ ItemDefinitions = [
       '1Rnd_HE_Grenade_shell': '2d3+2',
       'NLAW_F': 'd2+2',
       '20Rnd_762x51_Mag': 'd5+3',
-      '200Rnd_65x39_cased_Box': 'd3+2'
+      '200Rnd_65x39_cased_Box': 'd3+2',
+      'HandGrenade': '4d3+15',
+      'SmokeShell': '4d3+15'
     }
   ),
 
@@ -536,7 +542,9 @@ ItemDefinitions = [
     {
       '1Rnd_HE_Grenade_shell': '2d3+2',
       'RPG32_F': 'd2+2',
-      '150Rnd_762x54_Box': 'd3+2'
+      '150Rnd_762x54_Box': 'd3+2',
+      'HandGrenade': '4d3+15',
+      'SmokeShell': '4d3+15'
     }
   ),
 

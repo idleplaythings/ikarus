@@ -14,6 +14,28 @@ removeHeadgear player;
 
 player addEventHandler[ "HandleRating", {}];
 
+player addEventHandler [ "take", {
+  private ["_unit", "_container", "_item"];
+  _unit = _this select 0;
+  _container = _this select 1;
+  _item = _this select 2;
+
+  if (_item == "IKRS_outpost_backpack") then {
+    call client_setUpDeployOutpost;
+  };
+}];
+
+player addeventhandler ["Put",{
+  private ["_unit", "_container", "_item"];
+  _unit = _this select 0; 
+  _container = _this select 1;
+  _item = _this select 2;
+
+  if (_item == "IKRS_outpost_backpack") then {
+    call client_removeDeployOutpost;
+  };
+}];
+
 player addEventHandler [ "hit", {
   private ["_unit", "_offender", "_damage"];
   _unit = _this select 0;

@@ -22,7 +22,7 @@ module.exports = function(armaSerializer){
     baseModules: [
       "Garage1",
       "Primary1",
-      "WeaponCache1",
+      "OutpostMap1",
       "MedicalStation1"
     ]
   });
@@ -56,7 +56,8 @@ module.exports = function(armaSerializer){
         'SatchelCharge_Remote_Mag': 10,
         'B_AssaultPack_khk': 1,
         'B_Heli_Light_01_F': 1,
-        'IKRS_intelligence_helo': 1
+        'IKRS_intelligence_helo': 1,
+        'IKRS_outpost_backpack': 3
       }
     },
     {

@@ -89,7 +89,7 @@
     mass = 200;
   };
 
-  class IKRS_outpost_back : IKRS_loot_Backpack
+  class IKRS_outpost_backpack : IKRS_loot_Backpack
   {
     displayName = "Outpost";
   };

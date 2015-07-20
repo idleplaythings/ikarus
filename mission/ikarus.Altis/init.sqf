@@ -40,6 +40,7 @@ if (! isServer) exitwith {};
 [] execVM "script\airdrop.sqf";
 [] execVM "script\timeAndWeather.sqf";
 [] execVM "script\reinforcements.sqf";
+[] execVM "script\outpost.sqf";
 
 [] execVM "script\baseModules\baseModule.sqf";
 [] execVM "script\baseModules\primary1.sqf";
@@ -47,6 +48,7 @@ if (! isServer) exitwith {};
 [] execVM "script\baseModules\weaponCache1.sqf";
 [] execVM "script\baseModules\reconStation1.sqf";
 [] execVM "script\baseModules\medicalStation1.sqf";
+[] execVM "script\baseModules\outpostmap1.sqf";
 
 [] execVM "helpers\itemProperties.sqf";
 

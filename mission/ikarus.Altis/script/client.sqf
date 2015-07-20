@@ -1,3 +1,35 @@
+client_setupOutpostAction = nil;
+
+client_setUpDismantleOutpost = {
+  private ["_object"];
+  _object = _this select 0;
+
+  dismantleOutpost = [player];
+  
+  if (missionControl_test) then { //for singleplayer testing
+    _object addAction ["Dismantle outpost", {[player] call outpost_dismantle;}];
+  } else {
+    _object addAction ["Dismantle outpost", 'publicVariableServer "dismantleOutpost"'];
+  };
+};
+
+client_setUpDeployOutpost = {
+  deployOutpost = [player];
+
+  if (missionControl_test) then { //for singleplayer testing
+    client_setupOutpostAction = player addAction ["Deploy outpost", {[player] call outpost_deploy;}];
+  } else {
+    client_setupOutpostAction = player addAction ["Deploy outpost", 'publicVariableServer "deployOutpost"'];
+  };
+};
+
+client_removeDeployOutpost = {
+  if (isNil{client_setupOutpostAction}) exitWith {};
+
+  player removeAction client_setupOutpostAction;
+};
+
+
 client_setUpBecomeMedic = {
   private ["_box"];
   _box = _this select 0;

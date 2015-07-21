@@ -62,7 +62,7 @@ Monitor.prototype._startArma = function(){
   if (this._armaServerProcess) {
     return;
   }
-  
+
   console.log("START ARMA SERVER");
   if (process.env.ENV === 'dev') {
     return;
@@ -262,7 +262,7 @@ var outpostsSubmit = function(squadId, changes) {
 
   console.log("OUTPOST SUBMIT", squadId, objectChanges);
 
-  this._webAppClient.reportOutpostChanges(squad, changes);
+  this._webAppClient.reportOutpostChanges(squad, objectChanges);
 };
 
 var gameEnd = function() {

@@ -8,6 +8,7 @@ Meteor.methods({
   'outpostChanges': function(serverName, squadId, changes){
     var server = Server.getByName(serverName);
     server.authenticateOrError();
+    console.log("outposts", changes);
    	dic.get('OutpostController').outpostChanges(squadId, changes);
   },
 });

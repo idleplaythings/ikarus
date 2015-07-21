@@ -10,20 +10,40 @@ client_setUpOutpostMapTeleportActions = {
     _text = _x select 0;
     _position = _x select 1;
 
-    if (isServer) then { //for single player testing
-      _object addAction [
-        _text, 
-        '[player, '+(str _position)+'] call baseModule_outpostmap1_teleport;'
-      ];
-    } else {
-      _object addAction [
-        _text, 
-        'teleportToOutpost = [player, '+(str _position)+']; publicVariableServer "teleportToOutpost";'
-      ];
-    }
+    _object addAction [
+      _text, 
+      '['+(str _position)+'] call client_doTeleportToOutpost;'
+    ];
     
   } forEach _actions;
 
+};
+
+client_doTeleportToOutpost = {
+  private ["_position"];
+  _position = _this select 0;
+
+  if (isServer) then { //for single player testing
+    [
+      [player, _position],
+      baseModule_outpostmap1_teleport,
+      "Teleporting in 5 seconds. Moving will cancel this",
+      "Teleport cancelled"
+    ] spawn client_doWithCancelTimer;
+  } else {
+    [
+      [_position],
+      {
+        private ["_position"];
+        _position = _this select 0;
+
+        teleportToOutpost = [player, _position]; 
+        publicVariableServer "teleportToOutpost";
+      },
+      "Teleporting in 5 seconds. Moving will cancel this",
+      "Teleport cancelled"
+    ] spawn client_doWithCancelTimer;
+  }
 };
 
 client_rempoveOutpostMapTeleportActions = {
@@ -37,8 +57,52 @@ client_setUpDismantleOutpost = {
   private ["_object"];
   _object = _this select 0;
 
+  
+  _object addAction [
+    "Dismantle outpost", 
+    {
+      [
+        [],
+        client_doDismantleOutpost,
+        "Dismantling outpost in 5 seconds. Moving will cancel this",
+        "Dismantle cancelled"
+      ] spawn client_doWithCancelTimer;
+    }
+  ];
+};
+
+client_doDismantleOutpost = {
   dismantleOutpost = [player];
-  _object addAction ["Dismantle outpost", 'publicVariableServer "dismantleOutpost"'];
+  publicVariableServer "dismantleOutpost"
+};
+
+client_doingSomething = false;
+
+client_doWithCancelTimer = {
+  private ["_position", "_readyTime", "_arguments", "_callback", "_startText", "_cancelText"];
+  _position = getPos player;
+  _readyTime = time + 5;
+  _arguments = _this select 0;
+  _callback = _this select 1;
+  _startText = _this select 2;
+  _cancelText = _this select 3;
+
+  if (client_doingSomething) exitWith {};
+  client_doingSomething = true;
+
+  [_startText] spawn BIS_fnc_dynamicText;
+
+  waitUntil {
+    getPos player distance _position > 0 || time > _readyTime;
+  };
+
+  client_doingSomething = false;
+
+  if (getPos player distance _position > 0) exitWith {
+    [_cancelText] call BIS_fnc_dynamicText;
+  };
+
+  _arguments call _callback;
 };
 
 client_setUpDeployOutpost = {

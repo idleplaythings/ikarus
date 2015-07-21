@@ -18,8 +18,10 @@ client_setUpDeployOutpost = {
   systemChat "add action";
   diag_log "add action";
   if (missionControl_test) then { //for singleplayer testing
+    systemChat "this is test!";
     client_setupOutpostAction = player addAction ["Deploy outpost", {[player] call outpost_deploy;}];
   } else {
+    systemChat "actually adding an action";
     client_setupOutpostAction = player addAction ["Deploy outpost", 'publicVariableServer "deployOutpost"'];
   };
 };

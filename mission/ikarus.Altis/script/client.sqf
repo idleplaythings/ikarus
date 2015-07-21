@@ -15,7 +15,8 @@ client_setUpDismantleOutpost = {
 
 client_setUpDeployOutpost = {
   deployOutpost = [player];
-
+  systemChat "add action";
+  diag_log "add action";
   if (missionControl_test) then { //for singleplayer testing
     client_setupOutpostAction = player addAction ["Deploy outpost", {[player] call outpost_deploy;}];
   } else {

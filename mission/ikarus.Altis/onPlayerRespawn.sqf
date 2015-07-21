@@ -20,6 +20,8 @@ player addEventHandler [ "take", {
   _container = _this select 1;
   _item = _this select 2;
 
+  systemChat "take";
+  systemChat str _item;
   if (_item == "IKRS_outpost_backpack") then {
     call client_setUpDeployOutpost;
   };

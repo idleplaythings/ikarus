@@ -122,7 +122,7 @@ broadcastMessage = {
   _message = _this select 0;
   
   {
-    [[_message], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
+    [[_message], "markers_textMessage", _x, false, true] call BIS_fnc_MP;
   } forEach call getAllPlayersBeforeSquads;
 };
 
@@ -131,5 +131,5 @@ broadcastMessageTo = {
   _message = _this select 0;
   _recipient = _this select 1;
   
-  [[_message], "markers_textMessage", _recipient, false, false] call BIS_fnc_MP;
+  [[_message], "markers_textMessage", _recipient, false, true] call BIS_fnc_MP;
 };

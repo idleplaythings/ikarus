@@ -1,3 +1,4 @@
+client_isTest = ! isDedicated;
 client_setupOutpostAction = nil;
 
 client_setUpDismantleOutpost = {
@@ -6,7 +7,7 @@ client_setUpDismantleOutpost = {
 
   dismantleOutpost = [player];
   
-  if (missionControl_test) then { //for singleplayer testing
+  if (client_isTest) then { //for singleplayer testing
     _object addAction ["Dismantle outpost", {[player] call outpost_dismantle;}];
   } else {
     _object addAction ["Dismantle outpost", 'publicVariableServer "dismantleOutpost"'];
@@ -15,13 +16,9 @@ client_setUpDismantleOutpost = {
 
 client_setUpDeployOutpost = {
   deployOutpost = [player];
-  systemChat "add action";
-  diag_log "add action";
-  if (missionControl_test) then { //for singleplayer testing
-    systemChat "this is test!";
+  if (client_isTest) then { //for singleplayer testing
     client_setupOutpostAction = player addAction ["Deploy outpost", {[player] call outpost_deploy;}];
   } else {
-    systemChat "actually adding an action";
     client_setupOutpostAction = player addAction ["Deploy outpost", 'publicVariableServer "deployOutpost"'];
   };
 };

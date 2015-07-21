@@ -220,7 +220,7 @@ outpost_createOutpost = {
   _trigger setTriggerArea[20, 20, 0, false];
   _trigger setTriggerActivation["ANY", "PRESENT", true];
 
-
+  systemChat "outpost is " + (str _active);
   _outpost = [
     _squad,
     _position,
@@ -287,6 +287,42 @@ outpost_getClosestOutpost = {
   } forEach outpost_outposts;
 
   _closest;
+};
+
+outpost_getClosestActiveOutpost = {
+  private ["_unit", "_closest"];
+  _unit = _this select 0;
+
+  if (count outpost_outposts == 0) exitWith {
+    nil;
+  };
+
+  _closest = nil;
+
+  {
+    if (_x select 4) then {
+      if (isNil{_closest}) then {
+        _closest = _x;
+      };
+      if ((_x select 1) distance _unit < (_closest select 1) distance _unit) then {
+        _closest = _x;
+      };
+    };
+  } forEach outpost_outposts;
+
+  _closest;
+};
+
+outpost_getDistanceToClosestActiveOutpost = {
+  private ["_unit", "_closest"];
+  _unit = _this select 0;
+  _closest = [_unit] call outpost_getClosestActiveOutpost;
+
+  if (isNil{_closest}) exitWith {
+    999999999;
+  };
+
+  (_closest select 1) distance _unit;
 };
 
 outpost_getDistanceToClosestOutpost = {

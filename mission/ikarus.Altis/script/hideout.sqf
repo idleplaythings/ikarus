@@ -238,15 +238,17 @@ hideout_bodyIsInHideout = {
   _body = _this select 0;
   _uid = _this select 1;
   _squad = [_uid] call getSquadForUid;
-  diag_log "hideout_bodyIsInHideout";
+
   if (isNil{_squad}) exitWith {false;};
-  diag_log "squad";
-  diag_log squad;
   
   _hideout = [_squad] call hideout_getHideoutForSquad;
   
-  if (([(_hideout select 1), _body] call BIS_fnc_distance2D) > hideout_hideoutRadius) exitWith {false;};
+  if (([(_hideout select 1), _body] call BIS_fnc_distance2D) <= hideout_hideoutRadius) exitWith {true;};
   
-  diag_log "true";
-  true;
+  if (([_body] call outpost_getDistanceToClosestActiveOutpost) <= hideout_hideoutRadius) exitWith {
+    systemChat "In outpost!";
+    true;
+  };
+
+  false;
 };

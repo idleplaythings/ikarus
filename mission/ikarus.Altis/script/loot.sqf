@@ -2,6 +2,24 @@ loot_findSquadLoot = {
   private ["_squad", "_lootList"];
   _squad = _this select 0;
   _lootList = [_squad] call loot_findLootInHideout;
+
+  {
+    _lootList = _lootList + ([_squad, _x] call loot_findLootInOutpost);
+  } forEach ([_squad] call outpost_getOutpostsForSquad);
+
+  _lootList;
+};
+
+loot_findLootInOutpost = {
+  private ["_squad", "_lootList", "_outpost"];
+  _squad = _this select 0;
+  _outpost = _this select 1;
+  _lootList = [];
+
+  if (! (_outpost select 4)) exitWith {_lootList;};
+
+  systemChat "looking at loot in outpost";
+  _lootList = _lootList + ([_outpost select 1] call loot_checkSupplies);
   
   _lootList;
 };
@@ -12,7 +30,7 @@ loot_findLootInHideout = {
   _lootList = [];
 
   _hideoutPosition = [_squad] call hideout_getHideoutForSquad select 1;
-  _lootList = _lootList + [_hideoutPosition] call loot_checkSupplies;
+  _lootList = _lootList + ([_hideoutPosition] call loot_checkSupplies);
   
   _lootList;
 };

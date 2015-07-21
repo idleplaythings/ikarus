@@ -142,7 +142,9 @@ objective_supply_placeLootBoxes = {
     if (_i < 2) then {
       [_position, _direction] call lootbox_create;
     } else {
-      [_position, _direction, 1] call lootbox_create;
+      if (count squads > 1) then {
+        [_position, _direction, 1] call lootbox_create;
+      }
     };
   };
 };

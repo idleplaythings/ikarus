@@ -140,7 +140,7 @@ Inventory.removeFromInventory = function(inventory, item, amount){
   var exists = {};
   exists['items.' + armaClass] = {$exists: true};
   var gt = {};
-  gt['items.' + armaClass] = {$gt: 0};
+  gt['items.' + armaClass] = {$gte: amount * -1};
   var dec = {};
   dec['items.' + armaClass] = amount;
 

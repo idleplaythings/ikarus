@@ -210,8 +210,9 @@ marketDefinitions = [
       'ItemGPS':          {money: 300},
       'Binocular':        {money: 50},
 
-      'HandGrenade':      {money: 50},
-      'SmokeShell':       {money: 10},
+      'HandGrenade':      {money: 10},
+      'SmokeShell':       {money: 5},
+      'IKRS_outpost_backpack': {money: 100}
     }
   },
 ];

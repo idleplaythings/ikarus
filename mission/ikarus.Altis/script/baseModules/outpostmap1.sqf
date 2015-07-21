@@ -25,6 +25,10 @@ baseModule_outpostmap1_teleport = {
 
   if (missionControl_timeObjectivesGenerated + 5*60 < time) exitWith {};
 
+  if (loadAbs _unit > 300) exitWith {
+    ["You are carrying too much weight to teleport", _unit] call broadCastMessageTo;
+  };
+
   _unit setPos (_outpost select 1);
 };
 

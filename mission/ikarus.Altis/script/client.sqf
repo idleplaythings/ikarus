@@ -1,4 +1,3 @@
-client_isTest = ! isDedicated;
 client_setupOutpostAction = nil;
 
 client_setUpDismantleOutpost = {
@@ -6,21 +5,12 @@ client_setUpDismantleOutpost = {
   _object = _this select 0;
 
   dismantleOutpost = [player];
-  
-  if (client_isTest) then { //for singleplayer testing
-    _object addAction ["Dismantle outpost", {[player] call outpost_dismantle;}];
-  } else {
-    _object addAction ["Dismantle outpost", 'publicVariableServer "dismantleOutpost"'];
-  };
+  _object addAction ["Dismantle outpost", 'publicVariableServer "dismantleOutpost"'];
 };
 
 client_setUpDeployOutpost = {
   deployOutpost = [player];
-  if (client_isTest) then { //for singleplayer testing
-    client_setupOutpostAction = player addAction ["Deploy outpost", {[player] call outpost_deploy;}];
-  } else {
-    client_setupOutpostAction = player addAction ["Deploy outpost", 'publicVariableServer "deployOutpost"'];
-  };
+  client_setupOutpostAction = player addAction ["Deploy outpost", 'publicVariableServer "deployOutpost"'];
 };
 
 client_removeDeployOutpost = {

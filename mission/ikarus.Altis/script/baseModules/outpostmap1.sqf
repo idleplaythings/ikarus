@@ -21,6 +21,8 @@ baseModule_outpostmap1_teleport = {
 
   if (isNil{_outpost} || !(_outpost select 4)) exitWith {};
 
+  if ([_position] call outpost_getDistanceToClosestOutpost > 10) exitWith {};
+
   if (isNil {_squad} || ([_squad] call getSquadId) != ([_outpost select 0] call getSquadId)) exitWith {};
 
   if (missionControl_timeObjectivesGenerated + 5*60 < time) exitWith {};

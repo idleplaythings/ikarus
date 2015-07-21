@@ -22,6 +22,24 @@ hideout_createHideoutForSquads = {
  } forEach squads;
 };
 
+hideout_getClosestHideout = {
+  private ["_position", "_closest"];
+  _position = _this select 0;
+  _closest = nil;
+  
+  {
+    if (isNil{_closest}) then {
+      _closest = _x;
+    };
+
+    if (_x select 1 distance _position < _closest select 1 distance _position) then {
+      _closest = _x;
+    };
+  } forEach hideout_hideouts;
+
+  _closest;
+};
+
 hideout_distanceFromClosestHideout = {
   private ["_distance", "_position"];
   _position = _this select 0;
@@ -246,7 +264,6 @@ hideout_bodyIsInHideout = {
   if (([(_hideout select 1), _body] call BIS_fnc_distance2D) <= hideout_hideoutRadius) exitWith {true;};
   
   if (([_body] call outpost_getDistanceToClosestActiveOutpost) <= hideout_hideoutRadius) exitWith {
-    systemChat "In outpost!";
     true;
   };
 

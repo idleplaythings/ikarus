@@ -104,8 +104,8 @@ missionControl_startGame = {
   missionControl_objectivesGenerated = true;
   call objectiveController_hideChooseObjectiveMenu;
   call objectiveController_createObjectives;
-  missionControl_reinforcementsWait = false;
   call outpost_createOutposts;
+  missionControl_reinforcementsWait = false;
 
   ["OBJECTIVES GENERATED. GOOD LUCK AND HAVE FUN!"] call broadcastMessage;
   call missionControl_pollGameEnd;

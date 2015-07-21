@@ -1,4 +1,5 @@
 outpost_outposts = [];
+outpost_outpostsCreated = false;
 
 "deployOutpost" addPublicVariableEventHandler {
   private ["_unit"];
@@ -40,6 +41,7 @@ outpost_createOutposts = {
     } forEach ([_squad] call getPlayersInSquad);
   } forEach squads;
 
+  outpost_outpostsCreated = true;
 };
 
 outpost_dismantle = {
@@ -113,6 +115,14 @@ outpost_deploy = {
   if (backpack _unit != "IKRS_outpost_backpack") exitWith {};
 
   _position = getPos _unit findEmptyPosition [0,4,"C_Hatchback_01_F"];
+
+  if (! missionControl_objectivesGenerated) exitWith {
+    ["You have to wait until mission objectives are generated before deployin an outpost", _unit] call broadCastMessageTo; 
+  };
+
+  if (count ([([_unit] call getSquadForUnit)] call outpost_getOutpostsForSquad) >= 6) exitWith {
+    ["You are not allowed to have more than six outposts", _unit] call broadCastMessageTo; 
+  };
 
   if (count _position == 0) exitWith {
     ["There is no room to deploy an outpost in here", _unit] call broadCastMessageTo; 
@@ -220,7 +230,6 @@ outpost_createOutpost = {
   _trigger setTriggerArea[20, 20, 0, false];
   _trigger setTriggerActivation["ANY", "PRESENT", true];
 
-  systemChat "outpost is " + (str _active);
   _outpost = [
     _squad,
     _position,
@@ -340,9 +349,7 @@ outpost_getDistanceToClosestOutpost = {
 outpost_objects_deploy = [
   ["Box_FIA_Ammo_F",66.9637,1.4725,345.766,-5.72205e-006,true],
   ["Land_TentDome_F",311.524,3.04777,3.79001,0,true,true],
-  ["Headgear_H_Booniehat_khk",345.59,0.805463,48,0.70,false],
   ["Land_CampingTable_F",353.272,1.37319,102.223,3.8147e-006,false,true],
-  ["Item_Binocular",2.03931,1.68859,48,0.8,false],
   ["Land_CanisterPlastic_F",346.242,2.5219,48.3085,0,true],
   ["Land_Ammobox_rounds_F",354.358,2.01297,17.5618,0.8,false,true],
   ["Land_Ammobox_rounds_F",341.786,1.22516,9.34409,0.8,false,true],

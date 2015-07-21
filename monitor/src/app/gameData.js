@@ -26,7 +26,8 @@ module.exports = function(armaSerializer){
       "MedicalStation1"
     ],
     outposts: [
-      {x:9500.0, y:11200.0}
+      {x:9500.0, y:11200.0},
+      {x:9500.0, y:17200.0}
     ]
   });
 

@@ -1,6 +1,72 @@
 baseModule_outpostmap1_isPrimary = {false;};
 
-baseModule_outpostmap1_onCreated = {};
+"teleportToOutpost" addPublicVariableEventHandler {
+  private ["_unit", "_position"];
+  _unit = _this select 1 select 0;
+  _position = _this select 1 select 1;
+
+  [_unit, _position] call baseModule_outpostmap1_teleport;
+};
+
+baseModule_outpostmap1_onCreated = {
+  _this spawn baseModule_outpostmap1_spawnActionController;
+};
+
+baseModule_outpostmap1_teleport = {
+  private ["_unit", "_position", "_outpost", "_squad"];
+  _unit = _this select 0;
+  _position = _this select 1;
+  _outpost = [_position] call outpost_getClosestOutpost;
+  _squad = [_unit] call getSquadForUnit;
+
+  if (isNil{_outpost} || !(_outpost select 4)) exitWith {};
+
+  if (isNil {_squad} || ([_squad] call getSquadId) != ([_outpost select 0] call getSquadId)) exitWith {};
+
+  if (missionControl_timeObjectivesGenerated + 5*60 < time) exitWith {};
+
+  _unit setPos (_outpost select 1);
+};
+
+baseModule_outpostmap1_spawnActionController = {
+  private ["_objects", "_map", "_squad"];
+  _objects = _this select 0;
+  _map = nil;
+
+  {
+    if (typeOf _x == "MapBoard_altis_F") then {
+      _map = _x;
+    }
+  } forEach _objects;
+
+  waitUntil {outpost_outpostsCreated};
+
+  _squad = [_map] call hideout_getClosestHideout select 0;
+
+  {
+    private ["_actions"];
+    _actions = [];
+    {
+      private ["_outpost"];
+      _outpost = _x;
+      if (_outpost select 4) then {
+        _actions pushBack [
+          "Teleport to outpost #" + (str (count _actions + 1)) + " at " + (str (_outpost select 1)),
+          _outpost select 1
+        ];
+      };
+
+    } forEach ([_squad] call outpost_getOutpostsForSquad);
+
+    [[_map, _actions], "client_setUpOutpostMapTeleportActions", _x, false, false] call BIS_fnc_MP;
+  } forEach ([_squad] call getPlayersInSquad);
+
+  waitUntil {missionControl_timeObjectivesGenerated + 5*60 < time};
+
+  {
+    [[_map], "client_rempoveOutpostMapTeleportActions", _x, false, false] call BIS_fnc_MP;
+  } forEach call getAllPlayers;
+};
 
 baseModule_outpostmap1_data = {
   [

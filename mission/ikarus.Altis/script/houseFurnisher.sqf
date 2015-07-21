@@ -123,7 +123,7 @@ houseFurnisher_placeObject = {
   };
 
   if (_disableSimulation) then {
-    _object enableSimulation false;
+    _object enableSimulationGlobal false;
   };
 
   _objects pushBack _object;

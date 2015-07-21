@@ -1,5 +1,38 @@
 client_setupOutpostAction = nil;
 
+client_setUpOutpostMapTeleportActions = {
+  private ["_object", "_actions"];
+  _object = _this select 0;
+  _actions = _this select 1;
+
+  { 
+    private ["_text", "_position"];
+    _text = _x select 0;
+    _position = _x select 1;
+
+    if (isServer) then { //for single player testing
+      _object addAction [
+        _text, 
+        '[player, '+(str _position)+'] call baseModule_outpostmap1_teleport;'
+      ];
+    } else {
+      _object addAction [
+        _text, 
+        'teleportToOutpost = [player, '+(str _position)+']; publicVariableServer "teleportToOutpost";'
+      ];
+    }
+    
+  } forEach _actions;
+
+};
+
+client_rempoveOutpostMapTeleportActions = {
+  private ["_object"];
+  _object = _this select 0;
+
+  removeAllActions _object;
+};
+
 client_setUpDismantleOutpost = {
   private ["_object"];
   _object = _this select 0;

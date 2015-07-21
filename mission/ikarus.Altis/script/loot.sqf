@@ -18,7 +18,6 @@ loot_findLootInOutpost = {
 
   if (! (_outpost select 4)) exitWith {_lootList;};
 
-  systemChat "looking at loot in outpost";
   _lootList = _lootList + ([_outpost select 1] call loot_checkSupplies);
   
   _lootList;
@@ -44,7 +43,9 @@ loot_checkSupplies = {
 
   {
     if ( _x isKindOf "car" or _x isKindOf "Helicopter" ) then {
-      _lootList = _lootList + [typeOf _x];
+      if (simulationEnabled _x) then {
+        _lootList = _lootList + [typeOf _x];
+      };
     };
     
     if (_x isKindOf "man") then {

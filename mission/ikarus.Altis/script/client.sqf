@@ -23,6 +23,10 @@ client_teleportToOutpost = {
   private ["_position"];
   _position = _this select 0;
 
+  if (loadAbs player > 300) exitWith {
+    ["You are carrying too much weight to teleport"] call BIS_fnc_dynamicText;
+  };
+
   
   if (isServer) then { //for single player testing
     [

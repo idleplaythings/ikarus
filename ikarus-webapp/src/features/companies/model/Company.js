@@ -127,7 +127,7 @@ Company.prototype.removeOutpostAtPosition = function (position) {
 Company.prototype.addOutpostAtPosition = function (position) {
   collections.CompanyCollection.update({
     _id: this._id,
-    outposts: { $size: {lt: 6}}
+    $or: [{outposts: {$exists: false}}, {$where: 'this.outposts.length < 6'}]
   }, {
     $push: {
       outposts: position

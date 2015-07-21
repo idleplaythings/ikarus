@@ -2,7 +2,7 @@ ItemDefinitions = [
 
   //RESOURCES
 
-  
+
   createGeneric('Outpost backpack', 'IKRS_outpost_backpack', ['resource', 'missionkey']),
   createGeneric('Loot key level 1', 'IKRS_loot_key1', ['resource', 'missionkey']),
   createGeneric('Loot key level 2', 'IKRS_loot_key2', ['resource', 'missionkey']),
@@ -35,11 +35,11 @@ ItemDefinitions = [
   createWeapon('Izhmash AK74', 'hlc_rifle_ak74', ['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
   createWeapon('Izhmash AKS74','hlc_rifle_aks74',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
   createWeapon('Izhmash AK12','hlc_rifle_ak12',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
-  createWeapon('Izhmash AK12(GL)','hlc_rifle_ak12GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk", "1Rnd_HE_Grenade_shell"]),
+  createWeapon('Izhmash AK12(GL)','hlc_rifle_ak12GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk", "hlc_VOG25_AK"]),
   createWeapon('Izhmash RPK12,','hlc_rifle_RPK12',['lmg'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
   createWeapon('Izhmash AKS74U','hlc_rifle_aks74u',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
   createWeapon('Izhmash RPK74','hlc_rifle_rpk74n',['lmg'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
-  createWeapon('Izhmash AKS74(GL)','hlc_rifle_aks74_GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk", "1Rnd_HE_Grenade_shell"]),
+  createWeapon('Izhmash AKS74(GL)','hlc_rifle_aks74_GL',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk", "hlc_VOG25_AK"]),
   createWeapon('ZID AEK971S','hlc_rifle_aek971',['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),
 
   createWeapon('Izhmash AK47','hlc_rifle_ak47',['assault-rifle'], ["hlc_30Rnd_762x39_b_ak","hlc_45Rnd_762x39_m_rpk"]),
@@ -346,6 +346,8 @@ ItemDefinitions = [
   createGeneric('Smoke grenade', 'SmokeShell', ['grenade']),
 
   createMagazine('40mm HE grenade', '1Rnd_HE_Grenade_shell', 1),
+  createMagazine('40mm VOG25 HE grenade', 'hlc_VOG25_AK', 1),
+
 
 
   //PISTOLS (CUP)
@@ -408,7 +410,8 @@ ItemDefinitions = [
       'money': 500,
       'Binocular': 10,
       'hlc_rifle_ak74': 10,
-      'hlc_30Rnd_545x39_B_AK': 50
+      'hlc_30Rnd_545x39_B_AK': 50,
+      'IKRS_outpost_backpack': 3
     }
   ),
 
@@ -463,7 +466,7 @@ ItemDefinitions = [
     'Warsaw pact, explosives and ammo',
     'IKRS_loot_warsaw_ammo',
     {
-      '1Rnd_HE_Grenade_shell': '2d3+2',
+      'hlc_VOG25_AK': '2d3+2',
       'RPG32_F': 'd2+2',
       'HandGrenade': '4d3+15',
       'SmokeShell': '4d3+15'

@@ -12,17 +12,18 @@ client_setUpOutpostMapTeleportActions = {
 
     _object addAction [
       _text, 
-      '['+(str _position)+'] call client_doTeleportToOutpost;'
+      '['+(str _position)+'] call client_teleportToOutpost;'
     ];
     
   } forEach _actions;
 
 };
 
-client_doTeleportToOutpost = {
+client_teleportToOutpost = {
   private ["_position"];
   _position = _this select 0;
 
+  
   if (isServer) then { //for single player testing
     [
       [player, _position],
@@ -31,19 +32,22 @@ client_doTeleportToOutpost = {
       "Teleport cancelled"
     ] spawn client_doWithCancelTimer;
   } else {
+  
     [
       [_position],
-      {
-        private ["_position"];
-        _position = _this select 0;
-
-        teleportToOutpost = [player, _position]; 
-        publicVariableServer "teleportToOutpost";
-      },
+      client_doTeleportToOutpost,
       "Teleporting in 5 seconds. Moving will cancel this",
       "Teleport cancelled"
     ] spawn client_doWithCancelTimer;
   }
+};
+
+client_doTeleportToOutpost = {
+  private ["_position"];
+  _position = _this select 0;
+
+  teleportToOutpost = [player, _position]; 
+  publicVariableServer "teleportToOutpost";
 };
 
 client_rempoveOutpostMapTeleportActions = {

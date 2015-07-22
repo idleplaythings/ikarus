@@ -64,9 +64,9 @@ markers_createMilitaryBriefing = {
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerBrushLocal "SOLID";
   _marker setMarkerColorLocal "ColorBlue";
-  _marker setMarkerShape "ELLIPSE";
-  _marker setMarkerSize [_radius, _radius];
-  _marker setMarkerAlpha 0.6;
+  _marker setMarkerShapeLocal "ELLIPSE";
+  _marker setMarkerSizeLocal [_radius, _radius];
+  _marker setMarkerAlphaLocal 0.6;
 
   _task = player createSimpleTask ["MilitaryBaseRaid"];
 
@@ -152,9 +152,9 @@ markers_createSupplyMarker = {
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerBrushLocal "SOLID";
   _marker setMarkerColorLocal "ColorBlack";
-  _marker setMarkerShape "ELLIPSE";
-  _marker setMarkerSize [_radius, _radius];
-  _marker setMarkerAlpha 0.8;
+  _marker setMarkerShapeLocal "ELLIPSE";
+  _marker setMarkerSizeLocal [_radius, _radius];
+  _marker setMarkerAlphaLocal 0.8;
   
   markers_supplyMarkerNames pushBack _name;
 };
@@ -170,9 +170,9 @@ markers_createHoldMarker = {
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerBrushLocal "SOLID";
   _marker setMarkerColorLocal "ColorRed";
-  _marker setMarkerShape "ELLIPSE";
-  _marker setMarkerSize [_radius, _radius];
-  _marker setMarkerAlpha 0.8;
+  _marker setMarkerShapeLocal "ELLIPSE";
+  _marker setMarkerSizeLocal [_radius, _radius];
+  _marker setMarkerAlphaLocal 0.8;
   
   markers_holdMarkerNames pushBack _name;
 };
@@ -262,12 +262,12 @@ markers_updateAssasinMarker = {
     _marker = createMarkerLocal ["assasination", _position];
     _marker setMarkerBrushLocal "SOLID";
     _marker setMarkerColorLocal "ColorRed";
-    _marker setMarkerShape "ELLIPSE";
-    _marker setMarkerSize [_radius, _radius];
-    _marker setMarkerAlpha 0.6;
+    _marker setMarkerShapeLocal "ELLIPSE";
+    _marker setMarkerSizeLocal [_radius, _radius];
+    _marker setMarkerAlphaLocal 0.6;
     markers_assasinMarker = _marker;
   };
-
+Local
   markers_assasinMarker setMarkerPosLocal _position;
 };
 

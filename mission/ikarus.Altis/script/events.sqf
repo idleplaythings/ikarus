@@ -60,6 +60,7 @@ addMissionEventHandler ["HandleDisconnect", {
   if ( ! missionControl_gameStarted) exitWith {
     diag_log "disconnected before game start";
     ['playerDisconnected', [_uid]] call sock_rpc;
+    deleteVehicle _unit;
   };
   
   if ([_unit, _uid] call hideout_bodyIsInHideout and alive _unit) exitWith {

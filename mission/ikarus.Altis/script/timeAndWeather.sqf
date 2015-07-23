@@ -22,7 +22,7 @@ _clearAfternoon = {
 
 _foggyAfternoon = {
   _dateTime = [2035, 4, 12, 14, 10];
-  _weather = [1.0, 0.4, 0.0, 0.0];
+  _weather = [0.7, 0.4, 0.0, 0.0];
   _wind = [random 5, random 5, false];
 };
 
@@ -34,7 +34,7 @@ _clearEvening = {
 
 _foggyEvening = {
   _dateTime = [2035, 4, 12, 17, 30];
-  _weather = [1.0, 0.4, 0.0, 0.0];
+  _weather = [0.7, 0.4, 0.0, 0.0];
   _wind = [random 5, random 5, false];
 };
 
@@ -56,14 +56,14 @@ _missionSetting = [
   _clearAfternoon,
   _clearAfternoon,
   _clearAfternoon,
-  _clearAfternoon,
-  _foggyAfternoon,
   _foggyAfternoon,
   _foggyAfternoon,
   _foggyAfternoon,
   _clearEvening,
   _clearEvening,
   _foggyEvening,
+  _night,
+  _night,
   _night
 ] call BIS_fnc_selectRandom;
 [] call _missionSetting;

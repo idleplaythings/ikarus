@@ -18,7 +18,7 @@ ObjectiveGuard = function ObjectiveGuard() {
 
   this._lootTransformPenalty = {
     'guard_objective_reward1': [
-      'IKRS_loot_valuables',
+      'IKRS_loot_valuables'
     ]
   };
 

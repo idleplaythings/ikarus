@@ -124,6 +124,10 @@ outpost_deploy = {
     ["You are not allowed to have more than six outposts", _unit] call broadCastMessageTo; 
   };
 
+  if (vehicle _unit != _unit) exitWith {
+    ["You can't deploy outpost from a vehicle", _unit] call broadCastMessageTo; 
+  };
+
   if (count _position == 0) exitWith {
     ["There is no room to deploy an outpost in here", _unit] call broadCastMessageTo; 
   };
@@ -219,6 +223,7 @@ outpost_createOutpost = {
       clearMagazineCargoGlobal _object;
       clearItemCargoGlobal _object;
       clearBackpackCargoGlobal _object;
+      _object allowDamage false;
 
       {
         [[_object], "client_setUpDismantleOutpost", _x, false, false] call BIS_fnc_MP;

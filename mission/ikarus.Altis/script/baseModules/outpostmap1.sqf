@@ -29,6 +29,8 @@ baseModule_outpostmap1_teleport = {
 
   if (loadAbs _unit > 300) exitWith {};
 
+  if (vehicle _unit != _unit) exitWith {};
+
   _unit setPos (_outpost select 1);
 };
 

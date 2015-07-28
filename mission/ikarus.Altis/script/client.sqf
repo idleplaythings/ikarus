@@ -28,6 +28,10 @@ client_teleportToOutpost = {
   };
 
   
+  if (vehicle player != player) exitWith {
+    ["You can't teleport while in vehicle"] call BIS_fnc_dynamicText;
+  };
+
   if (isServer) then { //for single player testing
     [
       [player, _position],

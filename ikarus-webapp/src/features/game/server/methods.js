@@ -1,6 +1,5 @@
 Meteor.methods({
   'missionLoot': function(serverName, squadId, loot, objectiveName){
-    console.log("OBJECTIVE:", objectiveName);
     var server = Server.getByName(serverName);
     server.authenticateOrError();
     dic.get('LootController').receiveLoot(squadId, loot, objectiveName);

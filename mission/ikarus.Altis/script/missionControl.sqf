@@ -122,7 +122,7 @@ missionControl_endGame = {
     _loot = _loot + ([_squad] call getDisconnectedLoot);
     _squadId = [_squad] call getSquadId;
 
-    ['squadSubmit', [_squadId, str _loot]] call sock_rpc;
+    ['squadSubmit', [_squadId, [_squad] call getChosenObjective, str _loot]] call sock_rpc;
     ['outpostsSubmit', [_squadId, ([_squad] call outpost_getOutpostsChangesForSquad)]] call sock_rpc; 
   } forEach squads;
   

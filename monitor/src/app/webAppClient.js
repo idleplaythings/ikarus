@@ -148,8 +148,8 @@ WebAppClient.prototype.reportPlayerDisconnected = function(uid) {
   this.call('playerDisconnected', [this._serverId, uid]);
 };
 
-WebAppClient.prototype.reportMissionLoot = function(squad, loot) {
-  this.call('missionLoot', [this._serverId, squad._id, loot, squad.objective]);
+WebAppClient.prototype.reportMissionLoot = function(squad, objective, loot) {
+  this.call('missionLoot', [this._serverId, squad._id, loot, objective]);
 };
 
 WebAppClient.prototype.reportOutpostChanges = function(squad, changes) {

@@ -267,7 +267,7 @@ markers_updateAssasinMarker = {
     _marker setMarkerAlphaLocal 0.6;
     markers_assasinMarker = _marker;
   };
-Local
+
   markers_assasinMarker setMarkerPosLocal _position;
 };
 

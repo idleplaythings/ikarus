@@ -242,11 +242,11 @@ var squadsRetrieve = function(test) {
   return squads;
 };
 
-var squadSubmit = function(squadId, loot) {
+var squadSubmit = function(squadId, objective, loot) {
   console.log("SQUAD SUBMIT", squadId);
   var squad = this._gameData.getSquadById(squadId);
   var squadLoot = this._gameData.receiveSquadData(squadId, loot);
-  this._webAppClient.reportMissionLoot(squad, squadLoot.loot);
+  this._webAppClient.reportMissionLoot(squad, objective, squadLoot.loot);
 };
 
 var outpostsSubmit = function(squadId, changes) {

@@ -21,7 +21,7 @@ LootController.prototype.addStartingLoot = function(company) {
 LootController.prototype.receiveLoot = function(squadId, loot, objectiveName) {
   var squad = this._getSquad(squadId);
   var company = this._getCompany(squad);
-  objectiveName = objectiveName.charAt(0).toUpperCase() + objectiveName.slice(1);
+  objectiveName = objectiveName.charAt(0).toUpperCase() + objectiveName.slice(1).toLowerCase();
   var objective = new namespace["Objective" + objectiveName];
   var modules = squad.getBaseModules();
 

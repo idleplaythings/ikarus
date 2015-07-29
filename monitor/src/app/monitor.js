@@ -243,7 +243,7 @@ var squadsRetrieve = function(test) {
 };
 
 var squadSubmit = function(squadId, objective, loot) {
-  console.log("SQUAD SUBMIT", squadId);
+  console.log("SQUAD SUBMIT", squadId, objective);
   var squad = this._gameData.getSquadById(squadId);
   var squadLoot = this._gameData.receiveSquadData(squadId, loot);
   this._webAppClient.reportMissionLoot(squad, objective, squadLoot.loot);

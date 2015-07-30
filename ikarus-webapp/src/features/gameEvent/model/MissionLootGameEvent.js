@@ -1,7 +1,7 @@
 MissionLootGameEvent = function MissionLootGameEvent (args) {
   GameEvent.call(this, args);
-  this.parentItem = this.payload.p;
-  this.itemClasses = this.payload.i;
+  this.parentItem = this.payload.p || null;
+  this.itemClasses = this.payload.i || [];
 };
 
 MissionLootGameEvent.prototype = Object.create(GameEvent.prototype);
@@ -11,13 +11,13 @@ MissionLootGameEvent.TYPE = 100;
 GameEvent.events.push(MissionLootGameEvent);
 
 MissionLootGameEvent.create = function (
-  gameId, companyId, position, parentItem, itemClasses
+  gameId, companyId, parentItem, itemClasses
 ) {
   var event = GameEvent.create(
     gameId,
     companyId,
     MissionLootGameEvent.TYPE,
-    null, 
+    null,
     null,
     {
       p: parentItem,

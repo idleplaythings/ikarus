@@ -13,9 +13,19 @@ GameEndGameEvent.create = function (gameId, timeStamp) {
     gameId,
     null,
     GameEndGameEvent.TYPE,
-    timeStamp, 
+    timeStamp,
     null,
     null
   );
   return new GameEndGameEvent(event);
+};
+
+GameEndGameEvent.getLatest = function (limit) {
+  if (! limit) {
+    limit = 5;
+  }
+
+  return collections.GameEventCollection.find(
+    {t: GameEndGameEvent.TYPE}, {limit: limit}
+  ).fetch().map(GameEvent.deserialize);
 };

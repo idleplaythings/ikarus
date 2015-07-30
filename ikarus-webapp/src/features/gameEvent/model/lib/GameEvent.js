@@ -33,23 +33,29 @@ GameEvent.create = function(gameId, companyId, type, timeStamp, position, payloa
   gameEvent._id = id;
 
   return gameEvent;
-}
-
-gameEvent.Event.prototype.serialize = function () {
-  return [
-    this.gameId,
-    this.companyId,
-    this.type,
-    this.timeStamp,
-    this.position,
-    payload
-  ];
 };
 
-gameEvent.Event.deserialize = function (document) {
-  var gameEvent = new GameEvent(
-    document[0], document[1], document[2], document[3], document[4], document[5]
-  );
+GameEvent.prototype.serialize = function () {
+  return {
+      g: this.gameId,
+      c: this.companyId,
+      t: this.type,
+      ts: this.timeStamp,
+      p: this.position,
+      pl: this.payload
+  };
+};
+
+GameEvent.deserialize = function (document) {
+  var gameEvent = new GameEvent({
+    _id: document._id,
+    gameId: document.g,
+    companyId: document.c,
+    type: document.t,
+    timeStamp: document.ts,
+    position: document.p,
+    paylod: document.pl
+  });
 
   var SpecificEventClass = GameEvent.events.filter(function(eventClass){
     return eventClass.TYPE == gameEvent.type;
@@ -62,3 +68,10 @@ gameEvent.Event.deserialize = function (document) {
 
   return new SpecificEventClass(gameEvent);
 };
+
+GameEvent.getEventsForGame = function (gameId) {
+  return collections.GameEventCollection.find({g: gameId}).fetch().map(GameEvent.deserialize);
+};
+
+
+

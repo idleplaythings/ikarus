@@ -1,28 +1,30 @@
-PlayerDeathGameEvent = function PlayerDeathGameEvent (
-  gameId,
-  timeStamp,
-  victim,
-  killer,
-  weaponArmaClass
-  ) {
-  this.gameId = gameId;
-  this.type = PlayerDeathGameEvent.TYPE;
-  this.timeStamp = timeStamp;
-  this.victim = victim;
-  this.killer = killer;
-  this.weaponArmaClass = weaponArmaClass;
+PlayerDeathGameEvent = function PlayerDeathGameEvent (args) {
+  GameEvent.call(this, args);
+  this.victim = this.payload.v;
+  this.killer = this.payload.k;
+  this.weaponArmaClass = this.payload.k;
 };
 
-PlayerDeathGameEvent.TYPE = 1;
+PlayerDeathGameEvent.prototype = Object.create(GameEvent.prototype);
 
-PlayerDeathGameEvent.prototype.serialize = function () {
-  return {
-    v: this.victim,
-    k: this.killer,
-    w: this.weaponArmaClass
-  }
-};
+PlayerDeathGameEvent.TYPE = 11;
 
-PlayerDeathGameEvent.deserialize = function (gameEvent) {
-  return new PlayerDeathGameEvent()
+GameEvent.events.push(PlayerDeathGameEvent);
+
+PlayerDeathGameEvent.create = function (
+  gameId, companyId, timeStamp, position, victim, killer, weaponArmaClass
+) {
+  var event = GameEvent.create(
+    gameId,
+    companyId,
+    PlayerDeathGameEvent.TYPE,
+    timeStamp, 
+    position,
+    {
+      v: victim,
+      k: killer,
+      w: weaponArmaClass
+    }
+  );
+  return new PlayerDeathGameEvent(event);
 };

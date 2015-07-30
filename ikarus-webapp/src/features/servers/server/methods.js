@@ -18,8 +18,6 @@ Meteor.methods({
       throw new Meteor.Error(404, "server not found");
     }
 
-    console.log("update server status",name,  status);
-
     dic.get('ServerQueueService').updateServerStatus(server, status);
   },
 

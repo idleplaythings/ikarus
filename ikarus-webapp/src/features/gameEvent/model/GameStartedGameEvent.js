@@ -8,12 +8,13 @@ GameStartedGameEvent.TYPE = 1;
 
 GameEvent.events.push(GameStartedGameEvent);
 
-GameStartedGameEvent.create = function (gameId, timeStamp) {
+GameStartedGameEvent.create = function (gameId) {
+  var timeStamp = Date.now();
   var event = GameEvent.create(
     gameId,
     null,
     GameStartedGameEvent.TYPE,
-    timeStamp, 
+    timeStamp,
     null,
     null
   );

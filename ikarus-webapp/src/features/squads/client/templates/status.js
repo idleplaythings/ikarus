@@ -46,7 +46,6 @@ Template.squads_status.events({
   },
   'click .joinSquad' : function (event, template) {
     var squadId = jQuery(event.target).attr("data-squadId");
-    console.log(squadId);
     Meteor.call('joinSquad', squadId);
     evaluateSquads();
   },

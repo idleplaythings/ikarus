@@ -10,14 +10,15 @@ PlayerLeftGameEvent.TYPE = 9;
 GameEvent.events.push(PlayerLeftGameEvent);
 
 PlayerLeftGameEvent.create = function (
-  gameId, companyId, timeStamp, player, position
+  gameId, companyId, player
 ) {
+  var timeStamp = Date.now();
   var event = GameEvent.create(
     gameId,
     companyId,
     PlayerLeftGameEvent.TYPE,
-    timeStamp, 
-    position,
+    timeStamp,
+    null,
     {
       p: player,
     }

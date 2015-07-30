@@ -15,7 +15,6 @@ Meteor.methods({
 
     costs.forEach(function (cost) {
       var success = Inventory.removeFromInventory(armory, cost.item, cost.amount);
-      console.log(success);
 
       if (! success) {
         reimburse(armory, paid);

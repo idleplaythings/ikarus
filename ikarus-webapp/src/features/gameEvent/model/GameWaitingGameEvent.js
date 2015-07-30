@@ -8,12 +8,13 @@ GameWaitingGameEvent.TYPE = 2;
 
 GameEvent.events.push(GameWaitingGameEvent);
 
-GameWaitingGameEvent.create = function (gameId, timeStamp) {
+GameWaitingGameEvent.create = function (gameId) {
+  var timeStamp = Date.now();
   var event = GameEvent.create(
     gameId,
     null,
     GameWaitingGameEvent.TYPE,
-    timeStamp, 
+    timeStamp,
     null,
     null
   );

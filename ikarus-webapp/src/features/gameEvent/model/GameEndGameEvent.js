@@ -8,7 +8,8 @@ GameEndGameEvent.TYPE = 3;
 
 GameEvent.events.push(GameEndGameEvent);
 
-GameEndGameEvent.create = function (gameId, timeStamp) {
+GameEndGameEvent.create = function (gameId) {
+  var timeStamp = Date.now();
   var event = GameEvent.create(
     gameId,
     null,

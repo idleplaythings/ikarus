@@ -297,10 +297,17 @@ var playerConnected = function(uid) {
   return true;
 };
 
-var playerKilled = function(uid) {
-  console.log("MONITOR: ", uid, "killed");
+var playerKilled = function(uid, killerUid, killerWeapon, position) {
+  console.log("MONITOR: ", uid, "killed", "killer", killerUid, "with", killerWeapon, "at", position);
   this._battlEyeClient.kickPlayer(uid);
   this._gameData.playerKilled(uid);
+  if (position) {
+    position = {
+      x: position[0],
+      y: position[1]
+    };
+  }
+  this._webAppClient.reportPlayerKilled(uid, killerUid, killerWeapon, position);
 };
 
 var playerUnknown = function(uid) {

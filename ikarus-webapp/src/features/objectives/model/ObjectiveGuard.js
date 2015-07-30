@@ -32,7 +32,6 @@ var ObjectiveGuard_PENALTY = "guard_objective_penalty";
 ObjectiveGuard.prototype = Object.create(Objective.prototype);
 
 ObjectiveGuard.prototype.getLootTransform = function(loot) {
-  console.log(loot);
   var penaltyCount = loot.filter(function(entry) {
     return entry == ObjectiveGuard_PENALTY;
   }).length;

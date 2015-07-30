@@ -23,7 +23,6 @@ Template.servers_status.events({
 
 function setServerSetting(serverId, target) {
   var value = jQuery(".serverSetting."+target).val();
-  console.log(target, value);
 
   var settings = {};
   settings[target] = value;

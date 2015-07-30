@@ -12,13 +12,14 @@ PlayerDeathGameEvent.TYPE = 11;
 GameEvent.events.push(PlayerDeathGameEvent);
 
 PlayerDeathGameEvent.create = function (
-  gameId, companyId, timeStamp, position, victim, killer, weaponArmaClass
+  gameId, companyId, position, victim, killer, weaponArmaClass
 ) {
+  var timeStamp = Date.now();
   var event = GameEvent.create(
     gameId,
     companyId,
     PlayerDeathGameEvent.TYPE,
-    timeStamp, 
+    timeStamp,
     position,
     {
       v: victim,

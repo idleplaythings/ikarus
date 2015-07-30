@@ -10,13 +10,14 @@ PlayerJoinedGameEvent.TYPE = 10;
 GameEvent.events.push(PlayerJoinedGameEvent);
 
 PlayerJoinedGameEvent.create = function (
-  gameId, companyId, timeStamp, player
+  gameId, companyId, player
 ) {
+  var timeStamp = Date.now();
   var event = GameEvent.create(
     gameId,
     companyId,
     PlayerJoinedGameEvent.TYPE,
-    timeStamp, 
+    timeStamp,
     null,
     {
       p: player,

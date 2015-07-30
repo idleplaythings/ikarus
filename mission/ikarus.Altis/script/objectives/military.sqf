@@ -77,10 +77,12 @@ objective_military_populateVehicleDepot = {
 
   {
     if (typeOf _x == "C_Offroad_01_F") then {
-       private ["_vehicle"];
-      _vehicle = createVehicle [_vehicleClass, [0,0,3000], [], 0, "CAN_COLLIDE"];
-      _vehicle setPosASL (getPosAsl _x);
-      _vehicle setDir (direction _x);
+      private ["_vehicle"];
+      _vehicle = [
+        _vehicleClass,
+        getpos _x,
+        direction _x
+      ] call vehicle_spawnVehicle;
 
       [_vehicle] call vehicle_needsKey;
     };

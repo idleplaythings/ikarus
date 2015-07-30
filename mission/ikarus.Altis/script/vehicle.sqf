@@ -1,3 +1,21 @@
+vehicle_spawnVehicle = {
+  private ["_vehicleClass", "_position", "_direction", "_vehicle"];
+  _vehicleClass = _this select 0;
+  _position = _this select 1;
+  _direction = _this select 2;
+
+  _vehicle = createVehicle [_vehicleClass, [0,0,3000], [], 0, "CAN_COLLIDE"];
+  _vehicle setPos _position;
+  _vehicle setDir _direction;
+
+  clearWeaponCargoGlobal _vehicle;
+  clearMagazineCargoGlobal _vehicle;
+  clearItemCargoGlobal _vehicle;
+  clearBackpackCargoGlobal _vehicle;
+
+  _vehicle;
+};
+
 vehicle_preventUseBeforeObjectives = {
   private ["_vehicle"];
   _vehicle = _this select 0;

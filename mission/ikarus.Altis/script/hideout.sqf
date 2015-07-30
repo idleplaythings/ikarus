@@ -107,9 +107,11 @@ hideout_createVehicles = {
     _vehicleClass = "C_Hatchback_01_F";
   };
 
-  _vehicle = createVehicle [_vehicleClass, [0,0,3000], [], 0, "CAN_COLLIDE"];
-  _vehicle setPosASL (_positions select 0 select 0);
-  _vehicle setDir (_positions select 0 select 1);
+  _vehicle = [
+    _vehicleClass,
+    ASLToATL (_positions select 0 select 0),
+    (_positions select 0 select 1)
+  ] call vehicle_spawnVehicle;
 
   [_vehicle] call vehicle_preventUseBeforeObjectives;
 };

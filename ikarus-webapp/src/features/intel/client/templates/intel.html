@@ -1,0 +1,13 @@
+<template name="intel_intel">
+	<div class="info-box bg-warning">
+		It is <b>{{currentDateTime}}</b> and the weather is <b>{{currentWeather}}</b>.
+
+		Current wind speed measures at <b>{{currentWindSpeed}}</b>.
+
+		{{#if noChangeInWeather}}
+			The weather is expected to remain unchanged for the hour.
+		{{else}}
+			The weather forecast predicts it will be <b>{{forecastWeather}}</b> within the hour.
+		{{/if}}
+	</div>
+</template>

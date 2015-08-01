@@ -11,20 +11,20 @@ DateTime = function DateTime(args) {
 };
 
 DateTime.prototype.advance = function() {
-  var nextTimes = this.getNextTimes();
+  var nextTimes = this.getNextTimeTypes();
 
   var randomValue = Math.random();
-  var nextTime = null;
+  var nextTimeType = null;
 
   nextTimes.reduce(function(prev, current) {
-    if (!nextTime && randomValue <= prev + current.probability) {
-      nextTime = current.time;
+    if (!nextTimeType && randomValue <= prev + current.probability) {
+      nextTimeType = current.time;
     }
 
     return prev + current.probability;
   }, 0);
 
-  return new nextTime();
+  return new nextTimeType();
 };
 
 DateTime.fromDoc = function(doc) {
@@ -54,7 +54,7 @@ Dawn = function(args) {
 
 Dawn.prototype = Object.create(DateTime.prototype);
 
-Dawn.prototype.getNextTimes = function() {
+Dawn.prototype.getNextTimeTypes = function() {
   return [
     { time: Dawn, probability: 0.3 },
     { time: Noon, probability: 0.7 },
@@ -76,7 +76,7 @@ Noon = function(args) {
 
 Noon.prototype = Object.create(DateTime.prototype);
 
-Noon.prototype.getNextTimes = function() {
+Noon.prototype.getNextTimeTypes = function() {
   return [
     { time: Noon, probability: 0.6 },
     { time: Dusk, probability: 0.4 },
@@ -98,7 +98,7 @@ Dusk = function(args) {
 
 Dusk.prototype = Object.create(DateTime.prototype);
 
-Dusk.prototype.getNextTimes = function() {
+Dusk.prototype.getNextTimeTypes = function() {
   return [
     { time: Dusk,  probability: 0.5 },
     { time: Evening, probability: 0.5 },
@@ -120,7 +120,7 @@ Evening = function(args) {
 
 Evening.prototype = Object.create(DateTime.prototype);
 
-Evening.prototype.getNextTimes = function() {
+Evening.prototype.getNextTimeTypes = function() {
   return [
     { time: Evening, probability: 0.5 },
     { time: Night,    probability: 0.5 },
@@ -142,7 +142,7 @@ Night = function(args) {
 
 Night.prototype = Object.create(DateTime.prototype);
 
-Night.prototype.getNextTimes = function() {
+Night.prototype.getNextTimeTypes = function() {
   return [
     { time: Night, probability: 0.5 },
     { time: Dawn,  probability: 0.5 },

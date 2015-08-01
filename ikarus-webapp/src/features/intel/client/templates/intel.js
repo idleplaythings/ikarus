@@ -1,21 +1,17 @@
 Template.intel_intel.helpers({
-  currentWeather: function() {
+  currentWeatherType: function() {
     return Intel.getCurrent().getCurrentWeather().type;
   },
-  forecastWeather: function() {
+  forecastWeatherType: function() {
     return Intel.getCurrent().getForecastWeather().type;
   },
   currentWindSpeed: function() {
-    var currentWeather = Intel.getCurrent().getCurrentWeather();
-
-    return currentWeather.wind.windSpeed + 'm/s';
+    return Intel.getCurrent().getCurrentWeather().wind.windSpeed + 'm/s';
   },
   noChangeInWeather: function() {
     return Intel.getCurrent().getCurrentWeather().type === Intel.getCurrent().getForecastWeather().type;
   },
-  currentDateTime: function() {
-    var dateTime = Intel.getCurrent().getCurrentDateTime();
-
-    return dateTime.type;
+  currentDateTimeType: function() {
+    return Intel.getCurrent().getCurrentDateTime().type;
   }
 });

@@ -58,7 +58,6 @@ LootController.prototype.receiveLootForCompany = function(server, company, loot,
   }, this);
 
   if (server) {
-    console.log("Add mission loot event");
     MissionLootGameEvent.create(
       server.getGameId(),
       companyInventory.companyId,

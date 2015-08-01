@@ -2,8 +2,8 @@ Intel = function Intel(args) {
   this._id = args._id || undefined;
 }
 
-Intel.prototype.getCurrentDateTime = function() {
-  return DateTime.fromDoc(get(this.getDoc(), 'dateTime'));
+Intel.prototype.getCurrentMissionDateTime = function() {
+  return MissionDateTime.fromDoc(get(this.getDoc(), 'dateTime'));
 };
 
 Intel.prototype.getCurrentWeather = function() {
@@ -34,7 +34,7 @@ Intel.prototype.setForecast = function(forecast) {
   collections.IntelCollection.update({ _id: this._id }, { $set: { forecast: forecast }});
 };
 
-Intel.prototype.setDateTime = function(dateTime) {
+Intel.prototype.setMissionDateTime = function(dateTime) {
   collections.IntelCollection.update({ _id: this._id }, { $set: { dateTime: dateTime }});
 };
 
@@ -50,10 +50,10 @@ Intel.prototype.changeWeather = function() {
 };
 
 Intel.prototype.advanceTime = function() {
-  var currentDateTime = this.getCurrentDateTime();
-  var newDateTime = currentDateTime.advance();
+  var currentMissionDateTime = this.getCurrentMissionDateTime();
+  var newMissionDateTime = currentMissionDateTime.advance();
 
-  this.setDateTime(newDateTime);
+  this.setMissionDateTime(newMissionDateTime);
 };
 
 Intel.getCurrent = function() {
@@ -67,8 +67,8 @@ Intel.getCurrent = function() {
     intel.setForecast(weather.forecast());
     intel.setNextWeather(weather.change());
 
-    var time = DateTime.getRandom();
-    intel.setDateTime(time);
+    var time = MissionDateTime.getRandom();
+    intel.setMissionDateTime(time);
 
     return intel;
   }

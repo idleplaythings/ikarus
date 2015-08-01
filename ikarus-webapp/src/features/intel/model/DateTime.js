@@ -1,4 +1,4 @@
-DateTime = function DateTime(args) {
+MissionDateTime = function MissionDateTime(args) {
   if (args) {
     this.year = args.year;
     this.month = args.month;
@@ -10,7 +10,7 @@ DateTime = function DateTime(args) {
   }
 };
 
-DateTime.prototype.advance = function() {
+MissionDateTime.prototype.advance = function() {
   var nextTimes = this.getNextTimeTypes();
 
   var randomValue = Math.random();
@@ -27,7 +27,7 @@ DateTime.prototype.advance = function() {
   return new nextTimeType();
 };
 
-DateTime.fromDoc = function(doc) {
+MissionDateTime.fromDoc = function(doc) {
   switch (doc.type) {
     case 'Dawn':
       return new Dawn(doc);
@@ -42,17 +42,17 @@ DateTime.fromDoc = function(doc) {
   }
 };
 
-DateTime.getRandom = function() {
+MissionDateTime.getRandom = function() {
   var times = [Dawn, Noon, Dusk, Evening, Night];
   return new times[Math.floor(Math.random() * times.length)]();
 };
 
 Dawn = function(args) {
   this.type = 'Dawn';
-  DateTime.call(this, args);
+  MissionDateTime.call(this, args);
 }
 
-Dawn.prototype = Object.create(DateTime.prototype);
+Dawn.prototype = Object.create(MissionDateTime.prototype);
 
 Dawn.prototype.getNextTimeTypes = function() {
   return [
@@ -71,10 +71,10 @@ Dawn.prototype.init = function() {
 
 Noon = function(args) {
   this.type = 'Noon';
-  DateTime.call(this, args);
+  MissionDateTime.call(this, args);
 };
 
-Noon.prototype = Object.create(DateTime.prototype);
+Noon.prototype = Object.create(MissionDateTime.prototype);
 
 Noon.prototype.getNextTimeTypes = function() {
   return [
@@ -93,10 +93,10 @@ Noon.prototype.init = function() {
 
 Dusk = function(args) {
   this.type = 'Dusk';
-  DateTime.call(this, args);
+  MissionDateTime.call(this, args);
 };
 
-Dusk.prototype = Object.create(DateTime.prototype);
+Dusk.prototype = Object.create(MissionDateTime.prototype);
 
 Dusk.prototype.getNextTimeTypes = function() {
   return [
@@ -115,10 +115,10 @@ Dusk.prototype.init = function() {
 
 Evening = function(args) {
   this.type = 'Evening';
-  DateTime.call(this, args);
+  MissionDateTime.call(this, args);
 };
 
-Evening.prototype = Object.create(DateTime.prototype);
+Evening.prototype = Object.create(MissionDateTime.prototype);
 
 Evening.prototype.getNextTimeTypes = function() {
   return [
@@ -137,10 +137,10 @@ Evening.prototype.init = function() {
 
 Night = function(args) {
   this.type = 'Night';
-  DateTime.call(this, args);
+  MissionDateTime.call(this, args);
 }
 
-Night.prototype = Object.create(DateTime.prototype);
+Night.prototype = Object.create(MissionDateTime.prototype);
 
 Night.prototype.getNextTimeTypes = function() {
   return [

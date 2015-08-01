@@ -11,7 +11,7 @@ Template.intel_intel.helpers({
   noChangeInWeather: function() {
     return Intel.getCurrent().getCurrentWeather().type === Intel.getCurrent().getForecastWeather().type;
   },
-  currentDateTimeType: function() {
-    return Intel.getCurrent().getCurrentDateTime().type;
+  currentMissionDateTimeType: function() {
+    return Intel.getCurrent().getCurrentMissionDateTime().type;
   }
 });

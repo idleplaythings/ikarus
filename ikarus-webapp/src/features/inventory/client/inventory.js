@@ -1,7 +1,3 @@
-Template.inventory.created = function() {
-  console.log(this);
-}
-
 Template.inventory.helpers({
   isWeapon: function() {
     var item = get(this, 'item');
@@ -71,7 +67,6 @@ Template.inventory.events({
     event.preventDefault();
     event.stopPropagation();
     var armaClass = jQuery(event.target).attr("data-armaclass");
-    console.log("remove", armaClass);
     Meteor.call(
       'removeFromInventory',
       armaClass,

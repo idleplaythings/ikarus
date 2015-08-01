@@ -36,6 +36,14 @@ body {
   color:#62A300;
 }
 
+.ikarus-nav.bottom {
+  bottom:-20px;
+  top:auto;
+  height:50px;
+  border-top:1px solid darkgray;
+  border-bottom:0px solid darkgray;
+}
+
 #login-buttons-image-steam {
   width:100px;
   height:30px;

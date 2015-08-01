@@ -46,7 +46,7 @@ lastConnectedPlayerUid = nil;
     [_squad, "onKilled", [_unit, _killer, true]] call objectiveController_callSquadObjective;
   };
   
-  ['playerKilled', [_unitUid]] call sock_rpc;
+  ['playerKilled', [_unitUid, _killerUid, '', getPos _unit]] call sock_rpc;
 };
 
 addMissionEventHandler ["HandleDisconnect", {

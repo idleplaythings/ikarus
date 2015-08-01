@@ -144,6 +144,10 @@ WebAppClient.prototype.reportPlayerConnected = function(uid) {
   this.call('playerConnected', [this._serverId, uid]);
 };
 
+WebAppClient.prototype.reportPlayerKilled = function (uid, killerUid, killerWeapon, position) {
+  this.call('playerKilled', [this._serverId, uid, killerUid, killerWeapon, position]);
+};
+
 WebAppClient.prototype.reportPlayerDisconnected = function(uid) {
   this.call('playerDisconnected', [this._serverId, uid]);
 };

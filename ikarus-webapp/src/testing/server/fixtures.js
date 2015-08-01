@@ -12,7 +12,8 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       collections.ServerCollection.find(),
       collections.SquadCollection.find(),
       collections.InventoryCollection.find(),
-      collections.ServerQueueCollection.find()
+      collections.ServerQueueCollection.find(),
+      collections.GameEventCollection.find()
     ];
   });
 
@@ -62,6 +63,11 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       if (!server) {
         Server.create(name, 'salakala');
       }
+    },
+
+    testingSetGameId: function (name) {
+      var server = Server.getByName(name);
+      server.setNewGameId();
     },
 
     testingSetMaxSquadMembers: function(max) {
@@ -187,6 +193,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       collections.SquadCollection.remove({});
       collections.InventoryCollection.remove({});
       collections.ServerCollection.remove({});
+      collections.GameEventCollection.remove({});
       collections.ServerQueueCollection.update({}, {$set: {queue: []}}, {multi: true});
       Server.MAX_PLAYERS = 60;
       Squad.MAX_MEMBERS = 12;

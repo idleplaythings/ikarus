@@ -83,6 +83,7 @@ App.prototype.findFrom = function(name, filter){
   var collections = this._ddpClient.collections;
 
   if (! collections[name]) {
+    console.log("did not find collection with name", name);
     return [];
   }
 
@@ -151,6 +152,12 @@ App.prototype.callTestingRegisterServer = function(serverName) {
   }.bind(this)
 };
 
+App.prototype.callTestingSetGameId = function(serverName) {
+  return function() {
+    return this.callMethod('testingSetGameId', [serverName]);
+  }.bind(this)
+};
+
 App.prototype.callPlayerConnected = function(serverName, steamId) {
   return function() {
     return this.callMethod('playerConnected', [serverName, steamId]);
@@ -160,6 +167,12 @@ App.prototype.callPlayerConnected = function(serverName, steamId) {
 App.prototype.callPlayerDisconnected = function(serverName, steamId) {
   return function() {
     return this.callMethod('playerDisconnected', [serverName, steamId]);
+  }.bind(this)
+};
+
+App.prototype.callPlayerKilled = function(serverName, victimUid, killerUid, killerWeapon, position) {
+  return function() {
+    return this.callMethod('playerKilled', [serverName, victimUid, killerUid, killerWeapon, position]);
   }.bind(this)
 };
 

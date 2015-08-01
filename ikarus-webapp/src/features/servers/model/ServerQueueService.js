@@ -78,6 +78,10 @@ ServerQueueService.prototype.changeServerStatus = function(server, status) {
       })
     }
 
+    if (server.getStatus() == Server.STATUS_PLAYING) {
+      GameEndGameEvent.create(server.getGameId());
+    }
+
     var players = Player.getAllByIds(server.playerIds);
 
     server.removePlayers();
@@ -96,7 +100,6 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
   Server.getAllWaiting().forEach(function(server){
     if (server.isWaiting() && server.getSquadsInGame().length <= server.getSquadsToAbort()) {
       server.updateStatus(Server.STATUS_DOWN);
-      console.log(server.getName(), 'aborting');
 
       var squads = server.getSquadsInGame();
       var queue = ServerQueue.getByRegion('EU');
@@ -148,7 +151,8 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
       });
 
       if (server.getStatus() == Server.STATUS_WAITING) {
-        server.updateStatus(Server.STATUS_PLAYING)
+        server.updateStatus(Server.STATUS_PLAYING);
+        GameStartedGameEvent.create(server.getGameId());
       }
     }
   }, this);
@@ -169,6 +173,8 @@ ServerQueueService.prototype._checkNeedsNewStatus = function(server) {
   var queue = ServerQueue.getByRegion('EU');
   if (server.isIdle() && queue.getLengthOfUniqueCompanies() >= server.getSquadsToStart()) {
     server.updateStatus(Server.STATUS_WAITING);
+    server.setNewGameId();
+    GameWaitingGameEvent.create(server.getGameId());
   }
 };
 

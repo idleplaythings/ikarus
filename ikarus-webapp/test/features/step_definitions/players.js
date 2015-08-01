@@ -50,6 +50,15 @@ var playersStepDefinitions = function () {
       .catch(this.handleError);
   });
 
+  this.When(/^player "([^"]*)" is killed by "([^"]*)" on server "([^"]*)"$/, function (victimName, killerName, serverName, callback) {
+    var victimUid = getSteamId(getUser(this.app, victimName));
+    var killerUid = getSteamId(getUser(this.app, killerName));
+
+    this.app.callPlayerKilled(serverName, victimUid, killerUid, 'hlc_rifle_ak74', {x: 1000, y: 4000})()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
   this.Then(/^player "([^"]*)" should have an inventory$/, function (username, callback) {
     assertHasInventory(this.app, username);
     callback();

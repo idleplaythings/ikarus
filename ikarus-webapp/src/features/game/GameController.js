@@ -3,7 +3,6 @@ GameController = function GameController(serverQueueService){
 }
 
 GameController.prototype.playerConnected = function(serverName, playerUid) {
-  console.log("connect playerUid", playerUid);
   var player = this._getPlayer(playerUid);
   var server = this._getServer(serverName);
 
@@ -11,11 +10,15 @@ GameController.prototype.playerConnected = function(serverName, playerUid) {
 };
 
 GameController.prototype.playerDisconnected = function(serverName, playerUid) {
-  console.log("disconnect playerUid", playerUid);
   var player = this._getPlayer(playerUid);
   var server = this._getServer(serverName);
 
   this._disconnectPlayerFromServer(player, server);
+
+  var company = this._getCompany(player);
+  if (company) {
+    PlayerLeftGameEvent.create(server.getGameId(), company._id, player.getSteamId());
+  }
 };
 
 GameController.prototype._connectPlayerToServer = function(player, server) {
@@ -26,6 +29,11 @@ GameController.prototype._connectPlayerToServer = function(player, server) {
   }
 
   server.addPlayer(player);
+
+  var company = this._getCompany(player);
+  if (company) {
+    PlayerJoinedGameEvent.create(server.getGameId(), company._id, player.getSteamId());
+  }
   return true;
 };
 

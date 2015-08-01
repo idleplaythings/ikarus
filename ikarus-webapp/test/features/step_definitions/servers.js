@@ -9,6 +9,12 @@ var serverStepDefinitions = function () {
       .catch(this.handleError);
   });
 
+  this.Given(/^server "([^"]*)" has gameId$/, function (serverName, callback) {
+    this.app.callTestingSetGameId(serverName)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
+
   this.Then(/^server "([^"]*)" should exist$/, function (serverName, callback) {
     assertServerExists(this.app, serverName);
     callback();

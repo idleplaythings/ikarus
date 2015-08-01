@@ -2,7 +2,6 @@ Template.ikarus_default.onCreated(function() {
   this.subscribe('UserData');
   this.subscribe('MyCompanyAndSquads');
   this.subscribe('Servers');
-  this.subscribe('MyCompanyGameEnds');
 });
 
 Template.ikarus_default.helpers({

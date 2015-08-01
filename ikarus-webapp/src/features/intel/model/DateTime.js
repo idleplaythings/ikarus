@@ -17,7 +17,7 @@ DateTime.prototype.advance = function() {
   var nextTime = null;
 
   nextTimes.reduce(function(prev, current) {
-    if (!nextTime && randomValue < prev + current.probability) {
+    if (!nextTime && randomValue <= prev + current.probability) {
       nextTime = current.time;
     }
 
@@ -40,8 +40,7 @@ DateTime.fromDoc = function(doc) {
     case 'Night':
       return new Night(doc);
   }
-}
-
+};
 
 DateTime.getRandom = function() {
   var times = [Dawn, Noon, Dusk, Evening, Night];
@@ -68,12 +67,12 @@ Dawn.prototype.init = function() {
   this.day = '3';
   this.hour = Math.round(5 + Math.random()).toString();
   this.minute = Math.round(Math.random() * 59).toString();
-}
+};
 
 Noon = function(args) {
   this.type = 'Noon';
   DateTime.call(this, args);
-}
+};
 
 Noon.prototype = Object.create(DateTime.prototype);
 
@@ -90,12 +89,12 @@ Noon.prototype.init = function() {
   this.day = '3';
   this.hour = Math.round(10 + Math.random() * 3).toString();
   this.minute = Math.round(Math.random() * 59).toString();
-}
+};
 
 Dusk = function(args) {
   this.type = 'Dusk';
   DateTime.call(this, args);
-}
+};
 
 Dusk.prototype = Object.create(DateTime.prototype);
 
@@ -112,12 +111,12 @@ Dusk.prototype.init = function() {
   this.day = '3';
   this.hour = Math.round(16 + Math.random() * 2).toString();
   this.minute = Math.round(Math.random() * 59).toString();
-}
+};
 
 Evening = function(args) {
   this.type = 'Evening';
   DateTime.call(this, args);
-}
+};
 
 Evening.prototype = Object.create(DateTime.prototype);
 
@@ -134,7 +133,7 @@ Evening.prototype.init = function() {
   this.day = '3';
   this.hour = Math.round(21 + Math.random() * 2).toString();
   this.minute = Math.round(Math.random() * 59).toString();
-}
+};
 
 Night = function(args) {
   this.type = 'Night';
@@ -156,4 +155,4 @@ Night.prototype.init = function() {
   this.day = '3';
   this.hour = Math.round(2 + Math.random() * 2).toString();
   this.minute = Math.round(Math.random() * 59).toString();
-}
+};

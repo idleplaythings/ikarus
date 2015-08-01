@@ -1,5 +1,5 @@
-Wind = function(strength, easterly, northerly) {
-  this.strength = strength;
+Wind = function(windSpeed, easterly, northerly) {
+  this.windSpeed = windSpeed;
   this.easterly = easterly;
   this.northerly = northerly;
 }
@@ -11,30 +11,30 @@ Wind.STRONG = 20;
 Wind.STORM = 25;
 
 Wind.prototype.getWaveIntensity = function() {
-  if (this.strength < 2) {
+  if (this.windSpeed < 2) {
     return 0.2;
   }
 
-  if (this.strength < 8) {
+  if (this.windSpeed < 8) {
     return 0.4;
   }
 
-  if (this.strength < 12) {
+  if (this.windSpeed < 12) {
     return 0.6;
   }
 
-  if (this.strength < 18) {
+  if (this.windSpeed < 18) {
     return 0.8;
   }
 
   return 1.0;
-}
+};
 
 Wind.random = function(min, max) {
-  var strength = (min + Math.random() * (max - min)).toPrecision(2);
+  var windSpeed = (min + Math.random() * (max - min)).toPrecision(2);
   var randomDirection = Math.random() * (Math.PI * 2);
-  var easterlyComponent = (strength * Math.sin(randomDirection)).toPrecision(2);
-  var northerlyComponent = (strength * Math.cos(randomDirection)).toPrecision(2);
+  var easterlyComponent = (windSpeed * Math.sin(randomDirection)).toPrecision(2);
+  var northerlyComponent = (windSpeed * Math.cos(randomDirection)).toPrecision(2);
 
-  return new Wind(strength, easterlyComponent, northerlyComponent);
+  return new Wind(windSpeed, easterlyComponent, northerlyComponent);
 };

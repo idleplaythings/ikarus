@@ -6,7 +6,7 @@ Weather = function Weather(args) {
     this.rain = args.rain;
     this.lightnings = args.lightnings;
     this.wind = {
-      strength: args.wind.strength,
+      windSpeed: args.wind.windSpeed,
       easterly: args.wind.easterly,
       northerly: args.wind.northerly
     };
@@ -27,7 +27,7 @@ Weather.prototype.forecast = function() {
   var nextWeather = null;
 
   forecast.reduce(function(prev, current) {
-    if (!nextWeather && randomValue < prev + current.probability) {
+    if (!nextWeather && randomValue <= prev + current.probability) {
       nextWeather = current.weather;
     }
 
@@ -35,7 +35,7 @@ Weather.prototype.forecast = function() {
   }, 0);
 
   return new nextWeather();
-}
+};
 
 Weather.fromDoc = function(doc) {
   switch (doc.type) {
@@ -50,7 +50,7 @@ Weather.fromDoc = function(doc) {
     case 'Foggy':
       return new FoggyWeather(doc);
   }
-}
+};
 
 Weather.getRandom = function() {
   var weathers = [ClearWeather, CloudyWeather, RainyWeather, StormyWeather, FoggyWeather];

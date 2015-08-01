@@ -20,3 +20,9 @@ GameStartedGameEvent.create = function (gameId) {
   );
   return new GameStartedGameEvent(event);
 };
+
+GameStartedGameEvent.getByGameId = function (gameId) {
+  return GameEvent.deserialize(collections.GameEventCollection.findOne(
+    {t: GameStartedGameEvent.TYPE, g: gameId}
+  ));
+};

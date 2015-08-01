@@ -1,7 +1,8 @@
 dic.register('ServerQueueService', function (dic) {
   return new ServerQueueService(
     dic.get('QueueSquadService'),
-    dic.get('ServerFinder')
+    dic.get('ServerFinder'),
+    dic.get('CombatLogFactory')
   );
 }, {shared: true});
 

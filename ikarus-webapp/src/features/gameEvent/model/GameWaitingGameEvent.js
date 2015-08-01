@@ -20,3 +20,9 @@ GameWaitingGameEvent.create = function (gameId) {
   );
   return new GameWaitingGameEvent(event);
 };
+
+GameWaitingGameEvent.getByGameId = function (gameId) {
+  return GameEvent.deserialize(collections.GameEventCollection.findOne(
+    {t: GameWaitingGameEvent.TYPE, g: gameId}
+  ));
+};

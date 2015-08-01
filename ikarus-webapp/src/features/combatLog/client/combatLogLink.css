@@ -1,0 +1,12 @@
+.combatLogLink {
+  margin-left:50px;
+}
+
+.combatLogLink.new {
+  color: orange;
+}
+
+.lost {
+  background-color: #d9534f;
+  color: white;
+}

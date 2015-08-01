@@ -4,10 +4,15 @@ Meteor.startup(function(){
   }
 });
 
-ServerQueueService = function ServerQueueService(queueSquadService, serverFinder){
+ServerQueueService = function ServerQueueService(
+    queueSquadService,
+    serverFinder,
+    combatLogFactory
+  ){
   this._started = false;
   this._loopDelay = 1000;
   this._serverFinder = serverFinder;
+  this._combatLogFactory = combatLogFactory;
 
   this._serverStatusUpdates = [];
 
@@ -64,7 +69,7 @@ ServerQueueService.prototype.processStatusUpdates = function() {
   }
 }
 
-ServerQueueService.prototype.changeServerStatus = function(server, status) {
+ServerQueueService.prototype.changeServerStatus = function (server, status) {
   if (status == Server.STATUS_IDLE || status == Server.STATUS_DOWN){
 
     if (server.getStatus() == Server.STATUS_WAITING) {
@@ -80,6 +85,11 @@ ServerQueueService.prototype.changeServerStatus = function(server, status) {
 
     if (server.getStatus() == Server.STATUS_PLAYING) {
       GameEndGameEvent.create(server.getGameId());
+      server.getSquadsInGame().forEach(function (squad) {
+        this._combatLogFactory.createForGameAndCompany(
+          server.getGameId(), squad.getCompanyId()
+        );
+      }, this);
     }
 
     var players = Player.getAllByIds(server.playerIds);
@@ -153,6 +163,13 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
       if (server.getStatus() == Server.STATUS_WAITING) {
         server.updateStatus(Server.STATUS_PLAYING);
         GameStartedGameEvent.create(server.getGameId());
+        server.getSquadsInGame().forEach(function (squad) {
+          MissionEquipmentGameEvent.create(
+            server.getGameId(),
+            squad.getCompany()._id,
+            squad.getInventory().serialize().items
+          );
+        });
       }
     }
   }, this);

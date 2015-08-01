@@ -2,7 +2,7 @@ PlayerDeathGameEvent = function PlayerDeathGameEvent (args) {
   GameEvent.call(this, args);
   this.victim = this.payload.v;
   this.killer = this.payload.k;
-  this.weaponArmaClass = this.payload.k;
+  this.weaponArmaClass = this.payload.w;
 };
 
 PlayerDeathGameEvent.prototype = Object.create(GameEvent.prototype);
@@ -28,4 +28,10 @@ PlayerDeathGameEvent.create = function (
     }
   );
   return new PlayerDeathGameEvent(event);
+};
+
+PlayerDeathGameEvent.getByGameIdAndCompanyId = function (gameId, companyId) {
+  return collections.GameEventCollection.find(
+    {t: PlayerDeathGameEvent.TYPE, g: gameId, c: companyId}
+  ).fetch().map(GameEvent.deserialize);
 };

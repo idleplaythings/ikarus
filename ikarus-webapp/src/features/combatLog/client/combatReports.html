@@ -1,0 +1,9 @@
+<template name="combat_reports">
+  <h1>COMBAT LOG</h1>
+  {{#each logs}}
+    <a class="btn btn-primary btn-block" href="{{pathFor route='combat report' _id=_id}}">{{getListHeader}}</a>
+  {{/each}}
+
+
+  <button style="margin-top:50px;" class="js-load-more btn btn-success btn-block">LOAD MORE</button>
+</template>

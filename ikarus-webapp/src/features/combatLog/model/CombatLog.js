@@ -42,7 +42,12 @@ CombatLog.prototype.getEndedString = function () {
 };
 
 CombatLog.prototype.getKDRatio = function () {
-  return this.kills/this.casualties;
+  var casualties = this.casualties;
+  if (casualties == 0) {
+    casualties = 1;
+  }
+
+  return this.kills/casualties;
 };
 
 CombatLog.prototype.getEvents = function () {
@@ -50,11 +55,15 @@ CombatLog.prototype.getEvents = function () {
 };
 
 CombatLog.prototype.getItems = function () {
-  return Object.keys(this.loot).map(function(armaClass) {
+  var lootArray = Object.keys(this.loot).map(function(armaClass) {
     var obj = this.loot[armaClass];
     obj.armaClass = armaClass;
     return obj;
   }, this);
+
+  return lootArray.filter(function(loot) {
+    return loot.amount !== 0;
+  })
 };
 
 CombatLog.prototype.serialize = function () {

@@ -50,6 +50,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Development <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#" class="js-reset">Regenerate Test Data</a></li>
+                <li><a href="#" class="js-login-test-user">Login with test user "Panthallas"</a></li>
+                <li><a href="#" class="js-generate-combat-log">Generate combat log for current company</a></li>
               </ul>
             </li>
           </ul>
@@ -69,6 +71,7 @@
       </div>
     {{/if}}
 
+
     <div class="row">
       <div class="col-md-12">
         {{> yield}}
@@ -80,5 +83,6 @@
     <h2 style="margin-left:50px;">NEXT GAME:</h2>{{> nextGameAvailable}}
     <h2>ACTIVE GAMES: {{gamesActive}}</h2>
 
+    {{> latestCombatLogLink}}
   </nav>
 </template>

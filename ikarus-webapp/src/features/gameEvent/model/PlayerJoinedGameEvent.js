@@ -25,3 +25,9 @@ PlayerJoinedGameEvent.create = function (
   );
   return new PlayerJoinedGameEvent(event);
 };
+
+PlayerJoinedGameEvent.getByGameIdAndCompanyId = function (gameId, companyId) {
+  return collections.GameEventCollection.find(
+    {t: PlayerJoinedGameEvent.TYPE, g: gameId, c: companyId}
+  ).fetch().map(GameEvent.deserialize);
+};

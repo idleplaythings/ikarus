@@ -13,7 +13,8 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       collections.SquadCollection.find(),
       collections.InventoryCollection.find(),
       collections.ServerQueueCollection.find(),
-      collections.GameEventCollection.find()
+      collections.GameEventCollection.find(),
+      collections.CombatLogCollection.find()
     ];
   });
 
@@ -193,6 +194,7 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       collections.SquadCollection.remove({});
       collections.InventoryCollection.remove({});
       collections.ServerCollection.remove({});
+      collections.CombatLogCollection.remove({});
       collections.GameEventCollection.remove({});
       collections.ServerQueueCollection.update({}, {$set: {queue: []}}, {multi: true});
       Server.MAX_PLAYERS = 60;
@@ -211,6 +213,53 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       var company = Company.getByName(companyName);
       company.invite(player);
     },
+
+    testing_createCombatLogForCurrentCompany: function() {
+      var currentCompany = Company.getCurrent();
+
+      if (! currentCompany) {
+        return;
+      }
+
+      var companyId = currentCompany._id;
+      var gameId = Random.id();
+      var player = Player.getCurrent();
+      var victim = Player.getByName("Innocent-Victim");
+      var lootItems = {
+        'Binocular':  4,
+        'ItemGPS': 2,
+        'SMG_02_F': 1,
+        'SMG_01_F': 2,
+        '30Rnd_9x21_Mag': 5,
+        '30Rnd_45ACP_Mag_SMG_01': 6,
+        'optic_Holosight_smg': 1,
+        'optic_Aco_smg': 1,
+        'optic_ACO_grn_smg': 1,
+        'muzzle_snds_acp': 1,
+        'muzzle_snds_L': 2
+      };
+
+      var equipment = {
+        'Binocular':  6,
+        'ItemGPS': 2,
+        'SMG_02_F': 2,
+        'SMG_01_F': 1,
+        'B_Heli_Light_01_F': 1
+      };
+
+      GameWaitingGameEvent.create(gameId);
+      PlayerJoinedGameEvent.create(gameId, companyId, player.getSteamId());
+      GameStartedGameEvent.create(gameId);
+      MissionEquipmentGameEvent.create(gameId, companyId, equipment);
+      PlayerDeathGameEvent.create(gameId, companyId, {x: 100, y:1}, victim.getSteamId(), player.getSteamId(), 'hlc_rifle_rpk74n');
+      PlayerDeathGameEvent.create(gameId, companyId, {x: 8900, y:900}, player.getSteamId(), null, null);
+      MissionLootGameEvent.create(gameId, companyId, 'IKRS_loot_smg_weapons', lootItems);
+      GameEndGameEvent.create(gameId);
+      dic.get('CombatLogFactory').createForGameAndCompany(gameId, companyId);
+
+
+    },
+
     testing_createDataSet: function() {
       var companies = companyNames.filter(function() {
         return Math.random() > 0.2;
@@ -244,23 +293,37 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
         Company.getByName(getRandom(companies)).addPlayer(player);
       });
 
-      var currentCompany = Company.getCurrent()
-      dic.get('LootController').addStartingLoot(currentCompany);
-      dic.get('LootController').receiveLootForCompany(
-        currentCompany,
-        [
-          'IKRS_loot_civilian_weapons',
-          'IKRS_loot_old_RU_weapons',
-          'IKRS_loot_old_nato_weapons',
-          'IKRS_loot_common_nato_weapons',
-          'IKRS_loot_common_RU_weapons',
-          'IKRS_loot_heavy_nato_weapons',
-          'IKRS_loot_heavy_RU_weapons',
-          'BAF_Offroad_D',
-          'C_Van_01_transport_F'
-        ],
-        new ObjectiveSupply()
-      );
+      var currentCompany = Company.getCurrent();
+
+      if (currentCompany) {
+        dic.get('LootController').addStartingLoot(currentCompany);
+        dic.get('LootController').receiveLootForCompany(
+          null,
+          currentCompany,
+          [
+            'IKRS_loot_smg_weapons',
+            'IKRS_loot_warsaw_old',
+            'IKRS_loot_warsaw_standard',
+            'IKRS_loot_warsaw_ammo',
+            'IKRS_loot_nato_standard',
+            'IKRS_loot_nato_ammo',
+            'IKRS_loot_nato_modern',
+            'BAF_Offroad_D',
+            'C_Van_01_transport_F'
+          ],
+          new ObjectiveSupply()
+        );
+      }
+
+
+      insertTestUser("Panthallas", 123, "123");
+      insertTestUser("Innocent-Victim", 000, "000");
+
+      var manateeWarriors = Company.create("Manatee-Warriors");
+      manateeWarriors.addPlayer(Player.getById(123));
+
+      var bystanders = Company.create("Bystanders");
+      bystanders.addPlayer(Player.getById(000));
     }
   });
 }
@@ -301,8 +364,9 @@ var lastNames = [
   'Clarkson'
 ];
 
-function insertTestUser(name, steamId) {
-  Meteor.users.insert({
+function insertTestUser(name, steamId, id) {
+
+  var user = {
     testing: true,
     services: {
       steam: {
@@ -310,7 +374,13 @@ function insertTestUser(name, steamId) {
         username: name
       }
     }
-  });
+  };
+
+  if (id) {
+    user._id = id;
+  }
+
+  Meteor.users.insert(user);
 }
 
 function getSteamId() {

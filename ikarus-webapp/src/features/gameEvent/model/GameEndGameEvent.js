@@ -21,6 +21,12 @@ GameEndGameEvent.create = function (gameId) {
   return new GameEndGameEvent(event);
 };
 
+GameEndGameEvent.getByGameId = function (gameId) {
+  return GameEvent.deserialize(collections.GameEventCollection.findOne(
+    {t: GameEndGameEvent.TYPE, g: gameId}
+  ));
+};
+
 GameEndGameEvent.getLatest = function (limit) {
   if (! limit) {
     limit = 5;

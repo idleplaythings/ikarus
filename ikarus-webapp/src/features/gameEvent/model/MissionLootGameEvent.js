@@ -27,3 +27,9 @@ MissionLootGameEvent.create = function (
   );
   return new MissionLootGameEvent(event);
 };
+
+MissionLootGameEvent.getByGameIdAndCompanyId = function (gameId, companyId) {
+  return collections.GameEventCollection.find(
+    {t: MissionLootGameEvent.TYPE, g: gameId, c: companyId}
+  ).fetch().map(GameEvent.deserialize);
+};

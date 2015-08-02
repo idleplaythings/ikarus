@@ -1,0 +1,60 @@
+<template name="combat_report">
+  {{#if hasCombatLog}}
+    <h1>{{getHeader}}</h1>
+    <h2>PARTICIPANTS: {{getParticipantsString}}</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <h2>STARTED</h2>{{getStartedString}}
+      </div>
+
+      <div class="col-md-8">
+        <h2>ENDED</h2>{{getEndedString}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h2>CASUALTIES</h2>{{casualties}}
+      </div>
+
+      <div class="col-md-4">
+        <h2>KILLS</h2>{{kills}}
+      </div>
+
+      <div class="col-md-4">
+        <h2>RATIO</h2>{{getKDRatio}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <h2>EVENTS</h2>
+        {{#each getEvents}}
+        <div class="row">
+          <div class="col-md-3">
+            <b>{{getEventHeader ..}}</b>
+          </div>
+          <div class="col-md-9">
+            {{parseXml text}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+
+      <div class="col-md-4">
+        <h2>EQUIPMENT GAINED/LOST</h2>
+        {{#each getItems}}
+          <div class="row">
+            <div class="col-md-8 {{gainedOrLostClass amount}}">
+              <b class="show-item-tooltip-small" data-armaClass="{{armaClass}}">{{name}}</b>
+            </div>
+            <div class="col-md-3 {{gainedOrLostClass amount}}">
+              {{amount}}
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  {{/if}}
+</template>

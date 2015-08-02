@@ -25,3 +25,9 @@ PlayerLeftGameEvent.create = function (
   );
   return new PlayerLeftGameEvent(event);
 };
+
+PlayerLeftGameEvent.getByGameIdAndCompanyId = function (gameId, companyId) {
+  return collections.GameEventCollection.find(
+    {t: PlayerLeftGameEvent.TYPE, g: gameId, c: companyId}
+  ).fetch().map(GameEvent.deserialize);
+};

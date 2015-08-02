@@ -47,6 +47,11 @@ GameEvent.prototype.serialize = function () {
 };
 
 GameEvent.deserialize = function (document) {
+
+  if (! document) {
+    return null;
+  }
+
   var gameEvent = new GameEvent({
     _id: document._id,
     gameId: document.g,
@@ -54,7 +59,7 @@ GameEvent.deserialize = function (document) {
     type: document.t,
     timeStamp: document.ts,
     position: document.p,
-    paylod: document.pl
+    payload: document.pl
   });
 
   var SpecificEventClass = GameEvent.events.filter(function(eventClass){

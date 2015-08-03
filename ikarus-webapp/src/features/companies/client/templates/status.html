@@ -11,6 +11,22 @@
         <a class="btn btn-primary" href="{{pathFor route='combat reports'}}">Combat reports</a>
       {{/if}}
 
+      <div class="row">
+        {{#with company}}
+          <div class="col-md-4">
+            <h2>KILLS</h2>{{getKills}}
+          </div>
+
+          <div class="col-md-4">
+            <h2>DEATHS</h2>{{getDeaths}}
+          </div>
+
+          <div class="col-md-4">
+            <h2>RATIO</h2>{{getKDRatio}}
+          </div>
+        {{/with}}
+      </div>
+
       {{#if ownCompany}}
         <div class="row">
           <div class="col-md-12">

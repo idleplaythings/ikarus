@@ -28,7 +28,33 @@ Company.prototype.setName = function(name) {
         name: name
       }
   });
-}
+};
+
+
+Company.prototype.addKill = function() {
+  collections.CompanyCollection.update({ _id: this._id }, { $inc: { kills: 1 }});
+};
+
+Company.prototype.addDeath = function() {
+  collections.CompanyCollection.update({ _id: this._id }, { $inc: { deaths: 1 }});
+};
+
+Company.prototype.getKills = function() {
+  return get(this.getDoc(), 'kills') || 0;
+};
+
+Company.prototype.getDeaths = function() {
+  return get(this.getDoc(), 'deaths') || 0;
+};
+
+Company.prototype.getKDRatio = function() {
+  var deaths = this.getDeaths();
+  if (deaths === 0) {
+    deaths = 1;
+  }
+
+  return this.getKills() / deaths;
+};
 
 Company.prototype.getBaseModules = function() {
   var modules = get(this.getDoc(), 'baseModules') || ['Primary1', 'Garage1', 'WeaponCache1', 'ReconStation1'];

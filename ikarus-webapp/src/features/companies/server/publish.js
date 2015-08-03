@@ -87,6 +87,8 @@ Meteor.publish('Company', function(companyId) {
           'services.steam.id': 1,
           'services.steam.avatar': 1,
           'services.steam.username': 1,
+          'kills': 1,
+          'deaths': 1
         }
       }
     )

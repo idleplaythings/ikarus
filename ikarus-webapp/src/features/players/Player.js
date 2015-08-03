@@ -34,6 +34,31 @@ Player.prototype.getGear = function() {
   };
 };
 
+Player.prototype.addKill = function() {
+  Meteor.users.update({ _id: this._id }, { $inc: { kills: 1 }});
+};
+
+Player.prototype.addDeath = function() {
+  Meteor.users.update({ _id: this._id }, { $inc: { deaths: 1 }});
+};
+
+Player.prototype.getKills = function() {
+  return get(this.getDoc(), 'kills') || 0;
+};
+
+Player.prototype.getDeaths = function() {
+  return get(this.getDoc(), 'deaths') || 0;
+};
+
+Player.prototype.getKDRatio = function() {
+  var deaths = this.getDeaths();
+  if (deaths === 0) {
+    deaths = 1;
+  }
+
+  return this.getKills() / deaths;
+};
+
 Player.prototype.isAdmin = function() {
   return get(this.getDoc(), 'admin');
 };

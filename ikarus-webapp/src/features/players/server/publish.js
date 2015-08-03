@@ -1,3 +1,16 @@
+Meteor.publish('Player', function (id) {
+  return Meteor.users.find({
+    _id:id
+  }, {
+    fields: {
+      'services.steam': 1,
+      'companyId': 1,
+      'kills': 1,
+      'deaths': 1
+    }
+  });
+});
+
 Meteor.publish('UserData', function () {
   if (this.userId) {
     return Meteor.users.find({
@@ -11,7 +24,9 @@ Meteor.publish('UserData', function () {
         'uniform': 1,
         'vest': 1,
         'headgear': 1,
-        'ready': 1
+        'ready': 1,
+        'kills': 1,
+        'deaths': 1
       }
     });
   } else {

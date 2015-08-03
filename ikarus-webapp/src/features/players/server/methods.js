@@ -24,16 +24,23 @@ Meteor.methods({
     var victim = Player.getById(victimUid);
     var victimCompany = Company.getByPlayer(victim);
     var killer = Player.getById(killerUid);
-    var killerCompany = Company.getByPlayer(killer);
 
     if (! gameId || ! victim || ! victimCompany) {
       return;
     }
 
     PlayerDeathGameEvent.create(gameId, victimCompany._id, position, victimUid, killerUid, killerWeapon);
+    victim.addDeath();
+    victimCompany.addDeath();
 
-    if (killer && killerCompany) {
-      PlayerDeathGameEvent.create(gameId, killerCompany._id, position, victimUid, killerUid, killerWeapon);
+    if (killer) {
+      killer.addKill();
+
+      var killerCompany = Company.getByPlayer(killer);
+      if (killerCompany) {
+        killerCompany.addKill();
+        PlayerDeathGameEvent.create(gameId, killerCompany._id, position, victimUid, killerUid, killerWeapon);
+      }
     }
   },
 

@@ -32,7 +32,7 @@ function parsePlayers (xmlObject) {
     var uid = element.attr('uid');
 
     var a = jQuery('<a href=""></a>');
-    a.attr('href', 'player/'+uid);
+    a.attr('href', '/players/'+uid);
     a.text(name);
 
     return a;

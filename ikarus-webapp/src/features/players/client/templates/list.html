@@ -21,7 +21,7 @@
       <tbody>
         {{#each getPlayers}}
           <tr>
-            <td>{{this.getName}}</td>
+            <td><a href="/players/{{this._id}}">{{this.getName}}</a></td>
             <td>
               {{this.getCompany.getName}}
               {{#if canInvite _id}}

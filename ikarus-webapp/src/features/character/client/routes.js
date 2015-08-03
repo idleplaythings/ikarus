@@ -14,6 +14,12 @@ Router.map(function () {
       }
     },
 
+    data: function () {
+      if (this.ready()) {
+        return Player.getCurrent();
+      }
+    },
+
     subscriptions: function(){
       return Meteor.subscribe('UserData');
     }

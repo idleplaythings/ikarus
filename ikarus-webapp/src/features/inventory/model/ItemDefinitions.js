@@ -426,6 +426,18 @@ ItemDefinitions = [
     'Objective renown reward (Loot box level 1)',
     'IKRS_box_opening_reward_lvl1',
     {
+
+      'Binocular': 'd5-2',
+      'ItemGPS': 'd5-3',
+      'SMG_02_F': 'd4-2',
+      'SMG_01_F': 'd4-2',
+      '30Rnd_9x21_Mag': 'd5+2',
+      '30Rnd_45ACP_Mag_SMG_01': 'd5+2',
+      'optic_Holosight_smg': 'd5-4',
+      'optic_Aco_smg': 'd5-4',
+      'optic_ACO_grn_smg': 'd5-4',
+      'muzzle_snds_acp': 'd8-7',
+      'muzzle_snds_L': 'd8-6',
       'IKRS_renown': '2d3+6'
     }
   ),

@@ -5,11 +5,7 @@ Objective = function Objective() {
 
   this.description = "";
 
-  this._lootTransform = {
-    'supply_objective_opening_reward1': [
-      'IKRS_loot_smg_weapons'
-    ]
-  };
+  this._lootTransform = {};
 };
 
 Objective.getObjectives = function() {

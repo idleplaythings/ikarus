@@ -10,6 +10,7 @@ ItemDefinitions = [
   createGeneric('Intelligence (Vehicle depot) (Weapon depot)ney', 'IKRS_intelligence_vehicle', ['resource', 'missionkey']),
   createGeneric('Intelligence (Helicopter depot)', 'IKRS_intelligence_helo', ['resource', 'missionkey']),
   createGeneric('Money', 'money', ['resource', 'non mission item']),
+  createGeneric('Renown', 'IKRS_renown', ['resource', 'non mission item']),
 
   //VEHICLES
   createGeneric('Pickup truck', 'C_Offroad_01_F', ['vehicle', 'unarmored', 'unarmed']),
@@ -394,6 +395,72 @@ ItemDefinitions = [
 
   createWeapon('Sting SMG 9mm', 'SMG_02_F', ['smg'], ['30Rnd_9x21_Mag']),
   createMagazine('30rnd 9x21 mm', '30Rnd_9x21_Mag', 30),
+
+  createLoot(
+    'Kill reward',
+    'IKRS_kill_reward',
+    {
+      'IKRS_renown': 'd3+2'
+    }
+  ),
+
+  createLoot(
+    'Guard kill reward',
+    'IKRS_guard_kill_reward',
+    {
+      'money': '5d5+50',
+      'IKRS_renown': 'd3+2'
+    }
+  ),
+
+  createLoot(
+    'Guard survive reward (per each kill)',
+    'IKRS_guard_survive_reward',
+    {
+      'money': '10d5+100',
+      'IKRS_renown': '2d3+6'
+    }
+  ),
+
+  createLoot(
+    'Objective renown reward (Loot box level 1)',
+    'IKRS_box_opening_reward_lvl1',
+    {
+      'IKRS_renown': '2d3+6'
+    }
+  ),
+
+  createLoot(
+    'Objective renown reward (Loot box level 2)',
+    'IKRS_box_opening_reward_lvl2',
+    {
+      'IKRS_renown': '4d3+12'
+    }
+  ),
+
+  createLoot(
+    'Objective renown reward (Loot box level 3)',
+    'IKRS_box_opening_reward_lvl4',
+    {
+      'IKRS_renown': '6d3+18'
+    }
+  ),
+
+  createLoot(
+    'Objective renown reward (Loot box level 4)',
+    'IKRS_box_opening_reward_lvl4',
+    {
+      'IKRS_renown': '8d3+24'
+    }
+  ),
+
+  createLoot(
+    'Objective renown reward (Depot held)',
+    'IKRS_hold_renown_reward',
+    {
+      'IKRS_renown': '8d3+24'
+    }
+  ),
 
   createLoot(
     'Valuables, money',

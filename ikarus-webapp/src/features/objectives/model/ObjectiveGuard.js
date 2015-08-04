@@ -8,17 +8,16 @@ ObjectiveGuard = function ObjectiveGuard() {
 
   this._lootTransform = {
     'guard_objective_reward1': [
-      'IKRS_loot_valuables',
+      'IKRS_guard_kill_reward',
     ],
     'guard_objective_reward2': [
-      'IKRS_loot_valuables',
-      'IKRS_loot_valuables'
+      'IKRS_guard_survive_reward'
     ],
   };
 
   this._lootTransformPenalty = {
     'guard_objective_reward1': [
-      'IKRS_loot_valuables'
+      'IKRS_guard_kill_reward'
     ]
   };
 

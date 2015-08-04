@@ -13,16 +13,20 @@
 
       <div class="row">
         {{#with company}}
-          <div class="col-md-4">
+          <div class="col-md-3">
             <h2>KILLS</h2>{{getKills}}
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-3">
             <h2>DEATHS</h2>{{getDeaths}}
           </div>
 
-          <div class="col-md-4">
-            <h2>RATIO</h2>{{getKDRatio}}
+          <div class="col-md-3">
+            <h2>K/D RATIO</h2>{{getKDRatio}}
+          </div>
+
+          <div class="col-md-3">
+            <h2>RENOWN</h2>{{getRenown}}
           </div>
         {{/with}}
       </div>

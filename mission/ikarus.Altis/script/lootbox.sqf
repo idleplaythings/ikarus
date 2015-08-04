@@ -141,7 +141,7 @@ lootbox_open = {
   lootbox_boxes pushBack _openBox;
 
   if (_level == 0) then {
-    [([_unit] call getSquadForUnit), ["supply_objective_opening_reward1"]] call addDisconnectedLoot;
+    [([_unit] call getSquadForUnit), ["IKRS_box_opening_reward_lvl" + (str (_level+1))]] call addDisconnectedLoot;
   };
   
   [_unit, _level] call lootBox_removeKey;

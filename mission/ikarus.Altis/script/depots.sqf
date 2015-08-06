@@ -129,8 +129,11 @@ depots_getAmountOfMilitaryDepotsToSpawn = {
 depots_getAmountOfNormalDepotsToSpawn = {
   private ["_amount"];
   _amount = call objective_supply_getAmountOfDepots;
+  _townAmount = call depots_getAmountOfTownDepotsToSpawn;
 
-  if (_amount == 0 && call objective_assasination_getAmountOfDepots > 0) exitWith {1;};
+  if (count squads == 3 && _townAmount > 0) exitWith {0;};
+
+  if (_amount == 0 && _townAmount == 0) exitWith {1;};
 
   _amount;
 };

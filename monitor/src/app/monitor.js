@@ -307,6 +307,11 @@ var playerKilled = function(uid, killerUid, killerWeapon, position) {
       y: position[1]
     };
   }
+
+  if (this._status == Monitor.STATUS_PLAYING && this._deadSteamIds.indexOf(uid) == -1) {
+    this._deadSteamIds.push(uid);
+  }
+
   this._webAppClient.reportPlayerKilled(uid, killerUid, killerWeapon, position);
 };
 
@@ -325,7 +330,7 @@ var playerDisconnected = function(uid) {
     return connectedUid != uid;
   });
 
-  if (this._status == Monitor.STATUS_PLAYING) {
+  if (this._status == Monitor.STATUS_PLAYING && this._deadSteamIds.indexOf(uid) == -1) {
     this._deadSteamIds.push(uid);
   }
 

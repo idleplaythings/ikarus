@@ -197,7 +197,17 @@ lootbox_checkBoxes = {
   _occupiedBoxes = [];
   
   {
-    private ["_box", "_closestUnit", "_closestDistance", "_canOpen", "_squad", "_level", "_hasKey"];
+    private [
+      "_box",
+      "_closestUnit",
+      "_closestDistance",
+      "_canOpen",
+      "_squad",
+      "_level",
+      "_hasKey",
+      "_isUnconscious"
+    ];
+
     _box = _x;
     
     if (typeOf _box in lootbox_types) then {
@@ -216,8 +226,10 @@ lootbox_checkBoxes = {
             _canOpen = false;
             ["You need a level " + str _level + " key to open this box.", "hintSilent", _x, false, true] call BIS_fnc_MP;
           };
+
+          _isUnconscious = _x getvariable ["ACE_isUnconscious", false];
           
-          if (_canOpen && !( _x in _openers) && (isNil {_closestUnit} || (_box distance _x) < _closestDistance)) then {
+          if (! _isUnconscious && _canOpen && !( _x in _openers) && (isNil {_closestUnit} || (_box distance _x) < _closestDistance)) then {
             _closestUnit = _x;
             _closestDistance = _box distance _x;
           };

@@ -117,9 +117,10 @@ objective_hold_constructDepots = {
 };
 
 objective_hold_cleanUp = {
-  private ["_objectiveData"];
+  private ["_objectiveData", "_building"];
   _objectiveData = _this select 0;
-
+  _building = _objectiveData select 0 select 0;
+  [_building, 20] call lootBox_deleteBoxesAround;
   objective_hold_objectData = objective_hold_objectData - [_objectiveData];
 };
 
@@ -278,7 +279,7 @@ objective_hold_getAmountOfDepots = {
 
 objective_hold_isInsideDepot = {
   {
-    private ["_objectiveData", "_building", "_player", "_depot", "_can", "_squadIds", "_squadId"];
+    private ["_objectiveData", "_building", "_player", "_depot", "_can", "_squadIds", "_squadId", "_isUnconscious"];
     _objectiveData = _x;
     _depot = _objectiveData select 0;
     _building = _depot select 0;
@@ -290,7 +291,9 @@ objective_hold_isInsideDepot = {
 
       _can = [_player, "canOpenLootBoxes", [_player]] call objectiveController_callUnitObjective;
 
-      if (_can && _building distance _player < 10 && ! (_squadId in _squadIds)) then {
+      _isUnconscious = _player getvariable ["ACE_isUnconscious", false];
+
+      if (! _isUnconscious && _can && _building distance _player < 10 && ! (_squadId in _squadIds)) then {
         _squadIds pushBack _squadId;
         [_player, _objectiveData] call objective_hold_insideDepot;
       };

@@ -409,7 +409,7 @@ ItemDefinitions = [
     'IKRS_guard_kill_reward',
     {
       'money': '5d5+50',
-      'IKRS_renown': 'd3+2'
+      'IKRS_renown': '4d3+10'
     }
   ),
 

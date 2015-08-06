@@ -31,7 +31,12 @@ Company.prototype.setName = function(name) {
 };
 
 Company.prototype.getRenown = function () {
-  return Inventory.getByCompany(this).getAmountOfItemsWithClass('IKRS_renown') || 0;
+  var armory = Inventory.getByCompany(this);
+   if (! armory) {
+    return 0;
+  }
+
+  return armory.getAmountOfItemsWithClass('IKRS_renown') || 0;
 };
 
 Company.prototype.addRenown = function (amount) {

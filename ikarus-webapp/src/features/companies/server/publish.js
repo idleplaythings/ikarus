@@ -91,6 +91,16 @@ Meteor.publish('Company', function(companyId) {
           'deaths': 1
         }
       }
+    ),
+    collections.InventoryCollection.find(
+      {companyId: companyId},
+      {
+        fields: {
+          'items.IKRS_renown': 1,
+          'companyId': 1,
+          'type': 1
+        }
+      }
     )
   ];
 });

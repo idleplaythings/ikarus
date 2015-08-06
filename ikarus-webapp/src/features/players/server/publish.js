@@ -1,6 +1,6 @@
 Meteor.publish('Player', function (id) {
   return Meteor.users.find({
-    _id:id
+    $or: [{_id:id}, {'services.steam.id': id}]
   }, {
     fields: {
       'services.steam': 1,

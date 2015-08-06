@@ -6,7 +6,12 @@ Router.map(function () {
 
     data: function() {
       if (this.ready()) {
-        return Player.getByMeteorId(this.params._id);
+        var player = Player.getByMeteorId(this.params._id);
+        if (! player) {
+          player = Player.getById(this.params._id);
+        }
+
+        return player;
       }
     },
 

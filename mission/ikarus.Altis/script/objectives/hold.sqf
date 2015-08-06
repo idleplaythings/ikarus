@@ -229,6 +229,7 @@ objective_hold_giveLocation = {
   _position = _this select 1;
   _squads = [];
   
+  [_squad, ["IKRS_hold_renown_reward"]] call addDisconnectedLoot;
   {
     [[_position], "markers_createSupplyDropMarker", _x, false, true] call BIS_fnc_MP;
   } forEach ([_squad] call getPlayersInSquad);

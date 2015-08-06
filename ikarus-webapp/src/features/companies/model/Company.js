@@ -30,6 +30,21 @@ Company.prototype.setName = function(name) {
   });
 };
 
+Company.prototype.getRenown = function () {
+  var armory = Inventory.getByCompany(this);
+   if (! armory) {
+    return 0;
+  }
+
+  return armory.getAmountOfItemsWithClass('IKRS_renown') || 0;
+};
+
+Company.prototype.addRenown = function (amount) {
+  var armory = Inventory.getByCompany(this);
+  var item = dic.get('ItemFactory').createItemByArmaClass('IKRS_renown');
+
+  Inventory.addToInventory(armory, item, amount);
+};
 
 Company.prototype.addKill = function() {
   collections.CompanyCollection.update({ _id: this._id }, { $inc: { kills: 1 }});

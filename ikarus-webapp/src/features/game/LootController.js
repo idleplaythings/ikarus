@@ -40,8 +40,10 @@ LootController.prototype.receiveLootForCompany = function(server, company, loot,
   var addedItems = {};
 
   items.forEach(function(item){
-    if (item.isLoot() && objective.allowLoot()){
-      this._handleLootBackpack(companyInventory, item, server);
+    if (item.isLoot()){
+      if (objective.allowLoot()) {
+        this._handleLootBackpack(companyInventory, item, server);
+      }
     } else {
       this._handleLoot(companyInventory, item);
       this._addToItemObject(addedItems, item);

@@ -6,3 +6,4 @@ respawn="INSTANT";
 respawnDelay = 60;
 respawnButton = 0;
 enableDebugConsole = 1;
+forceRotorLibSimulation = 1;

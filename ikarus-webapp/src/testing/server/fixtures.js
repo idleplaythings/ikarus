@@ -33,6 +33,10 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       if (ItemDefinitions[i].armaClass == 'IKRS_loot_valuables') {
         ItemDefinitions[i].loot = {'money': 50};
       }
+
+      if (ItemDefinitions[i].armaClass == 'IKRS_guard_survive_reward') {
+        ItemDefinitions[i].loot = {'money': 50};
+      }
     }
   });
 
@@ -236,7 +240,8 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
         'optic_Aco_smg': 1,
         'optic_ACO_grn_smg': 1,
         'muzzle_snds_acp': 1,
-        'muzzle_snds_L': 2
+        'muzzle_snds_L': 2,
+        'IKRS_renown': 34
       };
 
       var equipment = {

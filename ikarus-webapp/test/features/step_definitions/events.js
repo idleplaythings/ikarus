@@ -104,7 +104,7 @@ function getMissionLootEvent(app, gameId, companyId) {
     return event.t == TYPE_MISSION_LOOT
       && event.g == gameId
       && event.c == companyId
-      && event.pl.p == 'IKRS_loot_valuables'
+      && event.pl.p == 'IKRS_guard_survive_reward'
       && event.pl.i.money == 50;
   });
 };

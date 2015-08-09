@@ -521,8 +521,8 @@ ItemDefinitions = [
       'hlc_rifle_ak47':'d2+1',
       'hlc_rifle_akm': 'd5+2',
       'hlc_rifle_rpk': 'd2-1',
-      'hlc_30Rnd_762x39_b_ak': '10d3+20',
-      'hlc_45Rnd_762x39_m_rpk': 'd5+5'
+      'hlc_30Rnd_762x39_b_ak': '4d3+5',
+      'hlc_45Rnd_762x39_m_rpk': 'd5+2'
     }
   ),
 
@@ -536,7 +536,7 @@ ItemDefinitions = [
       'hlc_rifle_aks74': 'd2',
       'hlc_rifle_rpk74n': 'd2-1',
       'hlc_rifle_aks74_GL': 'd10-9',
-      'hlc_30Rnd_545x39_B_AK': '10d3+20',
+      'hlc_30Rnd_545x39_B_AK': '4d3+5',
       'hlc_45Rnd_545x39_t_rpk': 'd5+5'
     }
   ),
@@ -562,7 +562,7 @@ ItemDefinitions = [
       'hlc_rifle_Colt727': 'd2',
       'hlc_rifle_Colt727_GL': 'd10-9',
 
-      '30Rnd_556x45_Stanag': '5d3+10'
+      '30Rnd_556x45_Stanag': '2d3+5'
     }
   ),
 
@@ -589,7 +589,7 @@ ItemDefinitions = [
       'arifle_MX_GL_F': 'd10-9',
       'arifle_MXC_F': 'd2',
 
-      '30Rnd_65x39_caseless_mag': '5d3+10'
+      '30Rnd_65x39_caseless_mag': '5d3+5'
     }
   ),
 
@@ -616,7 +616,7 @@ ItemDefinitions = [
       'arifle_Katiba_F': 'd2',
       'arifle_Katiba_GL_F': 'd10-9',
 
-      '30Rnd_65x39_caseless_green': '5d3+10'
+      '30Rnd_65x39_caseless_green': '5d3+5'
     }
   ),
 

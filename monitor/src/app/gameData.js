@@ -28,7 +28,9 @@ module.exports = function(armaSerializer){
     outposts: [
       {x:9500.0, y:11200.0},
       {x:9500.0, y:17200.0}
-    ]
+    ],
+    renown: 1000,
+    companyName: "Manatee-Men"
   });
 
   var testSquad2 = new Squad({
@@ -50,7 +52,9 @@ module.exports = function(armaSerializer){
       "Primary1",
       "WeaponCache1",
       "MedicalStation1"
-    ]
+    ],
+    renown: 2000,
+    companyName: "Fifty shades of Gay"
   });
 
   var testInventories = [
@@ -152,7 +156,7 @@ module.exports = function(armaSerializer){
 
     if (demo){
       squads.push(testSquad);
-      //squads.push(testSquad2);
+      squads.push(testSquad2);
       inventories = inventories.concat(testInventories)
     }
 

@@ -7,7 +7,7 @@ objective_hold_construct = {
 
   call objective_hold_constructDepots;
   _depots = depots_town_depots;
-  _players = [['guard']] call objectiveController_getPlayersWithoutObjectives;
+  _players = [['guard', 'raid']] call objectiveController_getPlayersWithoutObjectives;
 
   if (count _depots > 0) then {
     [_depots, _players] call objective_hold_constructMarkers;
@@ -203,7 +203,7 @@ objective_hold_informPlayers = {
     if (_time < 1800) then {
       ["You can not hold this depot before 30 minutes has elapsed.", "hint", _x, false, true] call BIS_fnc_MP;
     } else {
-      ["Depot is " + str _held + "% held", "hint", _x, false, true] call BIS_fnc_MP;
+      ["Depot is " + str floor _held + "% held", "hintSilent", _x, false, true] call BIS_fnc_MP;
     };
 
   } forEach _players;

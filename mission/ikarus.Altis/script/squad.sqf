@@ -122,6 +122,14 @@ removeDisconnectedLoot = {
   _squad set [11, _currentLoot];
 };
 
+getRenown = {
+  _this select 0 select 12;
+};
+
+getCompanyName = {
+  _this select 0 select 13;
+};
+
 setPlayersAtHideout = {
   private ["_newList"];
   _newList = + _this select 1;

@@ -19,10 +19,12 @@ objectiveDialog_show = {
   objectiveDialog_time = _this select 2;
   objectiveDialog_canDestroy = false;
   createDialog "ikrs_ui_co_dialog";
+  
+  //systemChat str objectiveDialog_objectives;
 
   {
     lbAdd [1500, _x select 0];
-    if (_x select 1 == objectiveDialog_currentObjective) then {
+    if (_x select 1 == (objectiveDialog_currentObjective select 1)) then {
       lbSetCurSel [1500, _index];
     };
     _index = _index + 1;
@@ -31,6 +33,7 @@ objectiveDialog_show = {
   (findDisplay 10 displayCtrl 1001) ctrlSetStructuredText parseText call objectiveDialog_getDescription;
 
   [] spawn objectiveDialog_showTime;
+  
 };
 
 objectiveDialog_showTime = {
@@ -46,7 +49,7 @@ objectiveDialog_showTime = {
 objectiveDialog_chooseObjective = {
   private ["_index", "_objective"];
   _index = _this select 1;
-  objectiveDialog_currentObjective = objectiveDialog_objectives select _index select 1;
+  objectiveDialog_currentObjective = objectiveDialog_objectives select _index;
 
   chooseObjective = [player, objectiveDialog_currentObjective];
   publicVariableServer "chooseObjective";
@@ -70,7 +73,11 @@ objectiveDialog_ready = {
 };
 
 objectiveDialog_getDescription = {
-  if (objectiveDialog_currentObjective == "Supply") exitWith {
+  private ["_type"];
+
+  _type = objectiveDialog_currentObjective select 1;
+
+  if (_type == "Supply") exitWith {
     "SUPPLY RUN<br/><br/>Map will contain one or more supply depots."
    + " These supply depots will contain boxes, that will open when"
    + " 20 minutes of game time has elapsed and when a player has been"
@@ -78,28 +85,41 @@ objectiveDialog_getDescription = {
    + " that you must bring back to the hideout";
   };
 
-  if (objectiveDialog_currentObjective == "Guard") exitWith {
+  if (_type == "Guard") exitWith {
     "GUARD DUTY<br/><br/>You will be guarding the objective depots."
    + " You will be provided with default equipment. If there are not enough depots to guard"
    + " this objective defaults to SUPPLY RUN. You will get rewards for all enemies you kill in 1km"
    + " radius of the depot.";
   };
 
-  if (objectiveDialog_currentObjective == "Hold") exitWith {
+  if (_type == "Hold") exitWith {
     "HOLD<br/><br/>You must take and hold one of the depots."
    + " When you have held the depot for 10 minutes, you will get a location"
    + " of a supply drop. Secure that drop.";
   };
 
-  if (objectiveDialog_currentObjective == "Assasination") exitWith {
+  if (_type == "Assasination") exitWith {
     "ASSASINATION<br/><br/>You will get a target and will know aproximate location of that"
    + " target on the map. If you manage to kill the target, you will be rewarded.";
   };
 
-  if (objectiveDialog_currentObjective == "Military") exitWith {
+  if (_type == "Military") exitWith {
     "MILITARY BASE RAID<br/><br/>This mission will consume intellignece item. Map will contain"
     + " one military base that all squads will fight over. Military base will contain the best equipment"
     + " available.";
+  };
+
+  if (_type == "Raid") exitWith {
+    private ["_name", "_renownGain", "_renownLoss"];
+
+    _name = objectiveDialog_currentObjective select 0;
+    _renownGain = objectiveDialog_currentObjective select 2 select 2;
+    _renownLoss = objectiveDialog_currentObjective select 2 select 1;
+    
+    _name + "<br/><br/>You will need to enter the enemy base and hold their equipment container for 5 minutes."
+    + " If you win the raid, you will gain renown equal to 5% of enemy renown (total of "+(str _renownGain)+"). If you lose the raid, you will lose "+(str _renownLoss)+" of your own renown."
+    + " You will not be able to accomplish other missions.";
+
   };
 
   "";

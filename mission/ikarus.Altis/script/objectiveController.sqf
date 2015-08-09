@@ -21,8 +21,17 @@ objectiveController_startObjectiveChoosing = {
   } forEach squads;
 };
 
+objectiveController_getObjectiveDataSetFromType = {
+  private ["_type", "_displayName"];
+  _type = _this select 0;
+
+  _displayName = [_type, 'displayName', []] call objectiveController_callObjective;
+
+  [_displayName, _type, []];
+};
+
 objectiveController_sendChooseObjectiveMenu = {
-  private ["_leader", "_objectives", "_squad", "_valid", "_displayName"];
+  private ["_leader", "_objectives", "_squad", "_valid"];
   _squad = _this select 0;
   _objectives = [];
 
@@ -33,15 +42,16 @@ objectiveController_sendChooseObjectiveMenu = {
   {
     _valid = [_x, 'validate', [_squad]] call objectiveController_callObjective;
     if (_valid) then {
-      _displayName = [_x, 'displayName', []] call objectiveController_callObjective;
-      _objectives pushBack [_displayName, _x];
+      _objectives pushBack ([_x] call objectiveController_getObjectiveDataSetFromType);
     };
   } forEach objectiveController_types;
+
+  _objectives = _objectives + ([_squad] call objective_raid_getValidRaids);
 
   [
     [
       _objectives,
-      ([_squad] call getChosenObjective),
+      [([_squad] call getChosenObjective)] call objectiveController_getObjectiveDataSetFromType,
       missionControl_timeObjectivesGenerated
     ], 
     "objectiveDialog_show", 
@@ -58,16 +68,23 @@ objectiveController_hideChooseObjectiveMenu = {
 };
 
 objectiveController_changeSquadObjective = {
-  private ["_objective", "_squad", "_valid"];
+  private ["_objective", "_squad", "_valid", "_type", "_data"];
 
   if (missionControl_objectivesGenerated) exitWith {};
 
   _squad = _this select 0;
   _objective = _this select 1;
-  _valid = [_objective, 'validate', [_squad]] call objectiveController_callObjective;
+  _type = _objective select 1;
+  _data = _objective select 2;
+
+  _valid = [_type, 'validate', [_squad, _data]] call objectiveController_callObjective;
+
   if (! _valid) exitWith {};
 
-  [_squad, _objective] call setChosenObjective;
+  [([_squad] call getChosenObjective), 'removed', [_squad]] call objectiveController_callObjective;
+  [_type, 'added', [_squad, _data]] call objectiveController_callObjective;
+  [_squad, _type] call setChosenObjective;
+
 };
 
 objectiveController_createObjectives = {
@@ -136,7 +153,7 @@ objectiveController_callObjectives = {
   
   {
     [_x, _functionName, _arguments] call objectiveController_callObjective;
-  } forEach objectiveController_types;
+  } forEach (objectiveController_types + ['raid']);
 };
 
 objectiveController_callObjective = {

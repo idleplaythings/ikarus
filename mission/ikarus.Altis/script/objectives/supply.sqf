@@ -4,7 +4,7 @@ objective_supply_construct = {
 
   call objective_supply_constructDepots;
   _depots = depots_supply_depots; 
-  _players = [['guard']] call objectiveController_getPlayersWithoutObjectives;
+  _players = [['guard', 'raid']] call objectiveController_getPlayersWithoutObjectives;
   if (count _depots > 0) then {
     [_depots, _players] call objective_supply_constructMarkers;
   };

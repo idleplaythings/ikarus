@@ -111,7 +111,7 @@ lootbox_hint = {
   };
 
   {
-    ["Loot box is " + str _value + "% open", "hintSilent", _x, false, true] call BIS_fnc_MP;
+    ["Loot box is " + str floor _value + "% open", "hintSilent", _x, false, true] call BIS_fnc_MP;
   } forEach _units;
 };
 

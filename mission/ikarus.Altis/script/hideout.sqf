@@ -1,5 +1,5 @@
 
-hideout_hideouts = []; // [squad, position, direction, modules]
+hideout_hideouts = []; // [squad, position, direction, modules, cache]
 hideout_hideoutRadius = 20;
 
 hideout_getHideoutForSquad = {
@@ -14,6 +14,13 @@ hideout_getHideoutForSquad = {
   } forEach hideout_hideouts;
 
   _hideout;
+};
+
+hideout_getHideoutCacheForSquad = {
+  private ["_squad"];
+  _squad = _this select 0;
+
+  [_squad] call hideout_getHideoutForSquad select 4;
 };
 
 hideout_createHideoutForSquads = {
@@ -70,7 +77,7 @@ hideout_createHideoutForSquad = {
 };
 
 hideout_createHideout = {
-  private ["_squad", "_position", "_direction", "_modules", "_hideoutData", "_moduleData"];
+  private ["_squad", "_position", "_direction", "_modules", "_hideoutData", "_moduleData", "_cache"];
   _squad = _this select 0;
   _position = ATLToASL (_this select 1);
   _direction = 0;
@@ -78,7 +85,7 @@ hideout_createHideout = {
   _moduleData = [_modules, _position, _direction] call baseModule_createBaseModules;
 
   [_squad, _position] call hideout_createHidoutMarkerForPlayers;
-  [_squad, ([_position, _direction, _moduleData] call baseModule_getCacheLocation)] call hideout_createHideoutCache;
+  _cache = [_squad, ([_position, _direction, _moduleData] call baseModule_getCacheLocation)] call hideout_createHideoutCache;
   [_squad, ([_position, _direction, _moduleData] call baseModule_getVehicleLocations)] call hideout_createVehicles;
   [_squad, _position] call hideout_createHideoutTrigger;
 
@@ -86,7 +93,8 @@ hideout_createHideout = {
     _squad,
     _position,
     _direction,
-    _moduleData
+    _moduleData,
+    _cache
   ];
 
   hideout_hideouts pushBack _hideoutData;
@@ -167,6 +175,7 @@ hideout_createHideoutCache = {
   _box addItemCargoGlobal ['V_Rangemaster_belt', 8];
   _box addWeaponCargoGlobal ['hlc_rifle_aks74u', 4];
   _box addMagazineCargoGlobal ['hlc_30Rnd_545x39_B_AK', 20];
+  _box addBackpackCargoGlobal ['B_AssaultPack_khk', 3];
   //_box addWeaponCargoGlobal ['CUP_sgun_M1014', 4];
   //_box addMagazineCargoGlobal ['CUP_8Rnd_B_Beneli_74Slug', 20];
   

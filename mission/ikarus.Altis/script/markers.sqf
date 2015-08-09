@@ -54,6 +54,58 @@ markers_createOutpostBriefing = {
   player createDiaryRecord ["Diary", ["Outposts", _text]];
 };
 
+markers_createRaidDefenderBriefing = {
+  private ["_task"];
+
+  _task = player createSimpleTask ["CompanyRaid"];
+
+  _task setSimpleTaskDescription [
+   'Your company has been targeted for a raid!'
+    + '<br/><br/>You have to keep the enemies away from the box where our equipment is located.'
+    + ' If the enemy has not held the box for 5 minutes after 35 minutes of game time has elapsed, you win.'
+    + '<br/><br/>Additionally if enemy has no members in 1km area of the base after 25 minutes has elapsed, you win.'
+    + '<br/><br/>Winning the raid will reward you with renown. If you lose the raid, you will lose 25% of your company renown.',
+   "BASE DEFENCE",
+   "" 
+  ];
+
+  player setCurrentTask _task;
+  [] spawn markers_informRaidDefence;
+};
+
+markers_informRaidDefence = {
+  sleep 10;
+  ["YOU HAVE BEEN TARGETED FOR A RAID. CHECK BRIEFING FOR DETAILS!"] call BIS_fnc_dynamicText;
+};
+
+markers_createRaidBriefing = {
+  private ["_position", "_radius", "_companyName", "_marker", "_task", "_name"];
+  _position = _this select 0;
+  _radius = _this select 1;
+  _companyName = _this select 2;
+ 
+  _name = ("raid" + str _position);
+  _marker = createMarkerLocal [_name, _position];
+  _marker setMarkerBrushLocal "SOLID";
+  _marker setMarkerColorLocal "ColorOrange";
+  _marker setMarkerShapeLocal "ELLIPSE";
+  _marker setMarkerSizeLocal [_radius, _radius];
+  _marker setMarkerAlphaLocal 0.6;
+
+  _task = player createSimpleTask ["CompanyRaid"];
+
+  _task setSimpleTaskDescription [
+   'Enemy company base has been located somewhere inside this <marker name="'+_name+'">area</marker>'
+    + '<br/><br/>You have to find and enter the base. Inside the base, you need to locate the box that has the company starting equipment.'
+    + ' You need to hold that box for 5 minutes before 35 minutes of game time has elapsed'
+    + '<br/><br/>Additionally if you have no members of your squad in 1km area of the base after 25 minutes has elapsed, you will lose the raid.'
+    + '<br/><br/>Winning the raid will reward you with renown. If you lose the raid, you will lose 25% of your company renown.',
+   "Raid " + _companyName,
+   "" 
+  ];
+
+  player setCurrentTask _task;
+};
 
 markers_createMilitaryBriefing = {
   private ["_position", "_radius", "_marker", "_task", "_name"];

@@ -89,14 +89,14 @@ objective_raid_canRaid = {
   private ["_squad"];
   _squad = _this select 0;
 
-  count ([_squad] call getPlayersInSquad) > 0 && ([_squad] call getRenown) >= 1000;
+  count ([_squad] call getPlayersInSquad) > 0 && ([_squad] call getRenown) >= 10;
 };
 
 objective_raid_canBeRaided = {
   private ["_squad"];
   _squad = _this select 0;
 
-  count ([_squad] call getPlayersInSquad) > 0 && ([_squad] call getRenown) >= 1000;
+  count ([_squad] call getPlayersInSquad) > 0 && ([_squad] call getRenown) >= 10;
 };
 
 objective_raid_joinInProgress = {

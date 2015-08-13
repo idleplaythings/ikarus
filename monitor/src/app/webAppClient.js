@@ -160,7 +160,7 @@ WebAppClient.prototype.reportOutpostChanges = function(squad, changes) {
   this.call('outpostChanges', [this._serverId, squad._id, changes]);
 };
 
-WebAppClient.prototype.reportRaids = function(squad, raids) {
+WebAppClient.prototype.reportRaids = function(raids) {
   this.call('raids', [this._serverId, raids]);
 };
 

@@ -26,6 +26,7 @@ CombatLogFactory.prototype.createForGameAndCompany = function (gameId, companyId
   var casualties = killsAndDeaths.casualties;
   var kills = killsAndDeaths.kills;
   events = events.concat(killsAndDeaths.events);
+  events = events.concat(this.getRaidEvents(companyId, RaidGameEvent.getByGameIdAndCompanyId(gameId, companyId)));
 
   var loot = this.getLoot(
     MissionLootGameEvent.getByGameIdAndCompanyId(gameId, companyId),
@@ -90,6 +91,33 @@ CombatLogFactory.prototype.getTimestamp = function (event) {
 
   return event.timeStamp || 0;
 };
+
+
+CombatLogFactory.prototype.getRaidEvents = function (companyId, raidEvents) {
+  return raidEvents.map(function (raidEvent) {
+    var winner = Company.getById(raidEvent.winnerCompanyId);
+    var loser = Company.getById(raidEvent.loserCompanyId);
+
+    var header = "Raid victory";
+
+    var winnerName = winner ? '<company id="'+winner._id+'">' + winner.getName() + '</company>' : "Unknown company";
+    var loserName = loser ? '<company id="'+loser._id+'">' + loser.getName() + '</company>' : "Unknown company";
+
+    var text = "<text>Your company won a raid against "+loserName+" and gained " +raidEvent.renown+ " points of renown.</text>";
+
+    if (loser && loser._id == companyId) {
+      header = "Raid defeat";
+      text = "<text>Your company lost a raid against "+winnerName+" and lost " +raidEvent.renown+ " points of renown.</text>";
+    }
+
+    return {
+      time: raidEvent.timeStamp,
+      header: header,
+      text: text
+    }
+  });
+};
+
 
 CombatLogFactory.prototype.getKillsAndDeaths = function (gameStarted, companyId, deaths) {
 

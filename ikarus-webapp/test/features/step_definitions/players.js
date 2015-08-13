@@ -63,6 +63,15 @@ var playersStepDefinitions = function () {
     assertHasInventory(this.app, username);
     callback();
   });
+
+  this.When(/^"([^"]*)" wins "([^"]*)" in a raid on server "([^"]*)"$/, function (playerNameA, playerNameB, serverName, callback) {
+    var squadAId = getSquadByUsername(this.app, playerNameA)._id;
+    var squadBId = getSquadByUsername(this.app, playerNameB)._id;
+
+    this.app.callRaids(serverName, squadAId, squadBId, 100)()
+      .finally(callback)
+      .catch(this.handleError);
+  });
 };
 
 function assertHasInventory(app, username) {

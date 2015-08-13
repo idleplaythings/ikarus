@@ -13,6 +13,7 @@ Template.combat_report.helpers({
 
     parsePlayers(js);
     parseEquipment(js);
+    parseCompanies(js);
 
 
     var html = jQuery('text', js).html();
@@ -24,6 +25,19 @@ Template.combat_report.helpers({
   }
 });
 
+function parseCompanies (xmlObject) {
+  jQuery('company', xmlObject).replaceWith(function () {
+    var element = jQuery(this);
+    var name = element.html();
+    var id = element.attr('id');
+
+    var a = jQuery('<a href=""></a>');
+    a.attr('href', '/companies/'+id);
+    a.text(name);
+
+    return a;
+  });
+}
 
 function parsePlayers (xmlObject) {
   jQuery('player', xmlObject).replaceWith(function () {

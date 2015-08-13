@@ -14,3 +14,7 @@ dic.register('LootController', function (dic) {
 dic.register('OutpostController', function (dic) {
   return new OutpostController();
 }, {shared: true});
+
+dic.register('RaidController', function (dic) {
+  return new RaidController();
+}, {shared: true});

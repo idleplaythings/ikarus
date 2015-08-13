@@ -10,4 +10,10 @@ Meteor.methods({
     server.authenticateOrError();
    	dic.get('OutpostController').outpostChanges(squadId, changes);
   },
+
+  'raids': function(serverName, raids){
+    var server = Server.getByName(serverName);
+    server.authenticateOrError();
+    dic.get('RaidController').receiveRaidResults(server, raids);
+  },
 });

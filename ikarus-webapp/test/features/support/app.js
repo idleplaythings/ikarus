@@ -338,6 +338,18 @@ App.prototype.callTestingSetServerStatus = function (serverName, status) {
   }.bind(this)
 };
 
+App.prototype.callRaids = function (serverName, companyAId, companyBId, held) {
+  return function() {
+    return this.callMethod('raids', [serverName, [
+      {
+        defenderId: companyBId,
+        raiderId: companyAId,
+        amountHeld: held
+      }
+    ]]);
+  }.bind(this)
+};
+
 function handleMeteorMethodError(error) {
   if (error) {
     util.error('Error in Meteor method: ' + error.message);

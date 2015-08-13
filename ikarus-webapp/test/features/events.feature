@@ -139,3 +139,21 @@ Feature: GameEvent
     When mission loot "guard_objective_reward2" is sent from server "test-server" to squad containing "John Doe" from objective "Guard"
     Then server "test-server" and player "John Doe" should have mission loot event
 
+  Scenario: Raid event
+    Given player "John Doe" with Steam ID "123" exists
+    And player "Jane Doe" with Steam ID "321" exists
+    And company "Manatee-Men" exists
+    And company "Manatee-WOMEN" exists
+    And "John Doe" is a member of company "Manatee-Men"
+    And "Jane Doe" is a member of company "Manatee-WOMEN"
+    And I am logged in as "John Doe"
+    And I create a squad
+    And I am logged in as "Jane Doe"
+    And I create a squad
+    And server "test-server" is registered
+    And I am logged in as server "test-server"
+    And server "test-server" has status "playing"
+    And server "test-server" has gameId
+    When "John Doe" wins "Jane Doe" in a raid on server "test-server"
+    Then server "test-server" should have raid events for "Manatee-Men" and "Manatee-WOMEN"
+

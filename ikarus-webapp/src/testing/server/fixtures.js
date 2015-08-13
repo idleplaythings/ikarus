@@ -259,6 +259,13 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       PlayerDeathGameEvent.create(gameId, companyId, {x: 100, y:1}, victim.getSteamId(), player.getSteamId(), 'hlc_rifle_rpk74n');
       PlayerDeathGameEvent.create(gameId, companyId, {x: 8900, y:900}, player.getSteamId(), null, null);
       MissionLootGameEvent.create(gameId, companyId, 'IKRS_loot_smg_weapons', lootItems);
+      MissionLootGameEvent.create(
+        gameId,
+        companyId,
+        null,
+        {"IKRS_renown": 500 * -1}
+      );
+      RaidGameEvent.create(gameId, companyId, companyId, victim.getCompany()._id, 250);
       GameEndGameEvent.create(gameId);
       dic.get('CombatLogFactory').createForGameAndCompany(gameId, companyId);
 

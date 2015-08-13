@@ -36,6 +36,12 @@ var eventsStepDefinitions = function () {
     assertGameHasMissionLootEvent(this.app, serverName, playerName);
     callback();
   });
+
+  this.Then(/^server "([^"]*)" should have raid events for "([^"]*)" and "([^"]*)"$/, function (serverName, companyAName, companyBName, callback) {
+    assertGameHasRaidEvent(this.app, serverName, companyAName, companyBName);
+    callback();
+  });
+
 };
 
 var TYPE_GAME_STARTED = 1;
@@ -45,6 +51,16 @@ var TYPE_PLAYER_DEATH = 11;
 var TYPE_PLAYER_JOINED = 10;
 var TYPE_PLAYER_LEFT = 9;
 var TYPE_MISSION_LOOT = 100;
+var TYPE_RAID = 200;
+
+function assertGameHasRaidEvent(app, serverName, companyAName, companyBName) {
+  var gameId = getServersCurrentGameId(app, serverName);
+  var companyA = getCompanyByByName(app, companyAName);
+  var companyB = getCompanyByByName(app, companyBName);
+
+
+  assert(getRaidEvent(app, gameId, companyA._id, companyB._id));
+}
 
 function assertGameHasMissionLootEvent(app, serverName, playerName) {
   var gameId = getServersCurrentGameId(app, serverName);
@@ -98,6 +114,17 @@ function assertServerHasGameEndEvent(app, serverName) {
   var startEvent = getEventByTypeAndGameId(app, gameId, TYPE_GAME_END);
   assert(startEvent);
 }
+
+function getRaidEvent(app, gameId, companyAId, companyBId) {
+  return app.findOneFrom('gameEvents', function (event) {
+
+    return event.t == TYPE_RAID
+      && event.g == gameId
+      && event.c == companyAId
+      && event.pl.w == companyAId
+      && event.pl.l == companyBId;
+  });
+};
 
 function getMissionLootEvent(app, gameId, companyId) {
   return app.findOneFrom('gameEvents', function (event) {
@@ -156,6 +183,12 @@ function getServerByName(app, name) {
 function getCompanyByMemberSteamId(app, steamId) {
   return app.findOneFrom('companies', function(company){
     return company.playerIds && company.playerIds.indexOf(steamId) > -1;
+  });
+}
+
+function getCompanyByByName(app, name) {
+  return app.findOneFrom('companies', function(company){
+    return company.name == name;
   });
 }
 

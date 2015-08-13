@@ -68,6 +68,12 @@ Meteor.publish('CompanyArmory', function(companyId) {
 
 Meteor.publish('Company', function(companyId) {
   var company = Company.getById(companyId);
+
+  if (! company) {
+    this.ready();
+    return;
+  }
+
   var playerIds = company.getPlayerIds();
 
   return [

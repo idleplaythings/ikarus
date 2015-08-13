@@ -261,19 +261,32 @@ objective_raid_raidOver = {
 
   if (_amountHeld == 100) then {
     _message = "Raid is over. The attacker won!";
-    [_raider, ['IKRS_raid_win']] call addDisconnectedLoot;
-    [_defender, ['IKRS_raid_loss']] call addDisconnectedLoot;
     [_defender] call hideout_getHideoutCacheForSquad setVariable ['squadId', nil, true];
   } else {
     _message = "Raid is over. The defender won!";
-    [_defender, ['IKRS_raid_win']] call addDisconnectedLoot;
-    [_raider, ['IKRS_raid_loss']] call addDisconnectedLoot;
   };
 
   {
     [_message, _x] call broadcastMessageTo;
   } forEach (([_raider] call getPlayersInSquad) + ([_defender] call getPlayersInSquad));
 
+};
+
+objective_raid_getResults = {
+  private ["_results"];
+  _results = [];
+
+  { // raider squad, defender squad, amount held, raid over
+    if (_x select 3) then {
+      _results pushBack [
+        [_x select 0] call getSquadId,
+        [_x select 1] call getSquadId,
+        _x select 2
+      ];
+    };
+  } forEach objective_raid_raids;
+
+  _results;
 };
 
 objective_raid_checkHeld = {

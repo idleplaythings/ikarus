@@ -152,6 +152,11 @@ objective_guard_getGuardData = {
 };
 
 objective_guard_defaultIfNeccessary = {
+  call objective_guard_defaultRaided;
+  call objective_guard_default;
+};
+
+objective_guard_default = {
   private ["_squads", "_supplyDepots"];
   _squads = ["guard"] call objectiveController_getSquadsWithObjective;
   _depots = call depots_getTotalAmount;
@@ -160,6 +165,18 @@ objective_guard_defaultIfNeccessary = {
     [(_squads call BIS_fnc_selectRandom), 'supply'] call setChosenObjective;
     call objective_guard_defaultIfNeccessary;
   };
+};
+
+objective_guard_defaultRaided = {
+  private ["_squads"];
+  _squads = ["guard"] call objectiveController_getSquadsWithObjective;
+
+  {
+    if ([_x] call objective_raid_getRaidersAgainstDefender) exitWith {
+      [_x, 'supply'] call setChosenObjective;
+      call objective_guard_defaultRaided;
+    };
+  } forEach _squads;
 };
 
 objective_guard_moveSquadsToDepot = {

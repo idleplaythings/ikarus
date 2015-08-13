@@ -119,6 +119,7 @@ Monitor.prototype._registerRpcCallbacks = function() {
   this._registerRpcCallback('squadsRetrieve', squadsRetrieve);
   this._registerRpcCallback('squadSubmit', squadSubmit);
   this._registerRpcCallback('outpostsSubmit', outpostsSubmit);
+  this._registerRpcCallback('raidSubmit', raidSubmit);
   this._registerRpcCallback('gameEnd', gameEnd);
   this._registerRpcCallback('playerConnected', playerConnected);
   this._registerRpcCallback('playerKilled', playerKilled);
@@ -263,6 +264,20 @@ var outpostsSubmit = function(squadId, changes) {
   console.log("OUTPOST SUBMIT", squadId, objectChanges);
 
   this._webAppClient.reportOutpostChanges(squad, objectChanges);
+};
+
+var raidSubmit = function(raids) {
+  console.log(raids);
+  raids = raids.map(function (raid) {
+    return {
+      raiderId: raid[0],
+      defenderId: raid[1],
+      amountHeld: raid[2]
+    }
+  })
+  console.log('RAID SUBMIT:', raids);
+
+  this._webAppClient.reportRaids(raids);
 };
 
 var gameEnd = function() {

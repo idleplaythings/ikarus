@@ -125,6 +125,8 @@ missionControl_endGame = {
     ['squadSubmit', [_squadId, ([_squad] call getChosenObjective), str _loot]] call sock_rpc;
     ['outpostsSubmit', [_squadId, ([_squad] call outpost_getOutpostsChangesForSquad)]] call sock_rpc; 
   } forEach squads;
+
+  ['raidSubmit', [call objective_raid_getResults]] call sock_rpc;
   
   sleep 10;
   

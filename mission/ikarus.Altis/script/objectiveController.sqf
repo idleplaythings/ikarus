@@ -153,7 +153,7 @@ objectiveController_callObjectives = {
   
   {
     [_x, _functionName, _arguments] call objectiveController_callObjective;
-  } forEach (objectiveController_types + ['raid']);
+  } forEach (['raid'] + objectiveController_types);
 };
 
 objectiveController_callObjective = {

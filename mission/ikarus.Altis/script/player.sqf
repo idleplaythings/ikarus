@@ -95,7 +95,7 @@ getPlayersInSquad = {
   {
     _player = [_x] call getPlayerByUID;
     
-    if ( ! isNil {_player} && alive _player) then {
+    if ( ! isNil {_player}) then {
       _players set [count _players, _player];
     };
   } forEach _playerIds;

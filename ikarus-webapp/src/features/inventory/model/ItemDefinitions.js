@@ -422,11 +422,36 @@ ItemDefinitions = [
   ),
 
   createLoot(
+    'Guard loot secure reward',
+    'IKRS_guard_secure_reward',
+    {
+      'money': '10d5+50',
+      'IKRS_renown': '4d3+10'
+    }
+  ),
+
+  createLoot(
     'Guard survive reward (per each kill)',
     'IKRS_guard_survive_reward',
     {
-      'money': '10d5+100',
-      'IKRS_renown': '2d3+6'
+      'money': '10d5+50',
+      'IKRS_renown': '2d3+6',
+      'arifle_Mk20_F': 'd20-19',
+      'arifle_Mk20C_F': 'd20-19',
+      'arifle_Mk20_GL_F': 'd20-19',
+      'hlc_rifle_RU556': 'd20-19', 
+      'hlc_rifle_RU5562': 'd20-19', 
+      'hlc_rifle_CQBR': 'd20-19', 
+      'hlc_rifle_bcmjack'; 'd20-19',
+      'hlc_rifle_Bushmaster300': 'd20-19', 
+      'hlc_rifle_vendimus': 'd20-19', 
+      'hlc_rifle_samr2': 'd20-19',
+      'arifle_Katiba_C_F': 'd20-19',
+      'arifle_Katiba_F': 'd20-19',
+      'arifle_MX_F': 'd20-19',
+      'arifle_MX_GL_F': 'd20-19',
+      'arifle_MXC_F': 'd20-19',
+      'optic_MRCO': 'd20-19'
     }
   ),
 

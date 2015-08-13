@@ -1,4 +1,25 @@
 Meteor.methods({
+  'sellout': function () {
+
+    var company = Company.getCurrent();
+
+    if (! company) {
+      throw new Meteor.Error(404, 'Company not found');
+    }
+
+    var amount = company.getAmountOfMoneyFromSellout();
+
+    if (! amount) {
+      return;
+    }
+
+    company.resetRenown();
+
+    var armory = Inventory.getByCompany(company);
+    var item = dic.get('ItemFactory').createItemByArmaClass('money');
+    console.log(amount, item);
+    Inventory.addToInventory(armory, item, amount);
+  },
 
   'changeHideoutLocation': function(location) {
     var player = Player.getCurrent();

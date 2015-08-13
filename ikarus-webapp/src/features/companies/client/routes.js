@@ -1,4 +1,27 @@
 Router.map(function () {
+  this.route('/company/sellout', {
+    name: 'company sellout',
+    template: 'companies_sellout',
+    layoutTemplate: 'ikarus_default',
+
+    action: function() {
+      if (this.ready()) {
+        if (! Company.getCurrent()) {
+          Router.go('home');
+          return;
+        }
+
+        this.render();
+      }
+    },
+
+    subscriptions: function () {
+      return [
+        Meteor.subscribe('MyCompanyAndSquads')
+      ];
+    }
+  });
+
   this.route('/company', {
     name: 'my-company',
     template: 'companies_company',

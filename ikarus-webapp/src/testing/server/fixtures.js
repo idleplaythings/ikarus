@@ -305,13 +305,20 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
         Company.getByName(getRandom(companies)).addPlayer(player);
       });
 
-      var currentCompany = Company.getCurrent();
+      insertTestUser("Panthallas", 123, "123");
+      insertTestUser("Innocent-Victim", 000, "000");
 
-      if (currentCompany) {
-        dic.get('LootController').addStartingLoot(currentCompany);
+      var manateeWarriors = Company.create("Manatee-Warriors");
+      manateeWarriors.addPlayer(Player.getById(123));
+
+      var bystanders = Company.create("Bystanders");
+      bystanders.addPlayer(Player.getById(000));
+
+      Company.getAll().forEach(function (company){
+        dic.get('LootController').addStartingLoot(company);
         dic.get('LootController').receiveLootForCompany(
           null,
-          currentCompany,
+          company,
           [
             'IKRS_loot_smg_weapons',
             'IKRS_loot_warsaw_old',
@@ -321,21 +328,15 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
             'IKRS_loot_nato_ammo',
             'IKRS_loot_nato_modern',
             'BAF_Offroad_D',
-            'C_Van_01_transport_F'
+            'C_Van_01_transport_F',
+            'IKRS_test_renown'
           ],
           new ObjectiveSupply()
         );
-      }
+      });
 
 
-      insertTestUser("Panthallas", 123, "123");
-      insertTestUser("Innocent-Victim", 000, "000");
 
-      var manateeWarriors = Company.create("Manatee-Warriors");
-      manateeWarriors.addPlayer(Player.getById(123));
-
-      var bystanders = Company.create("Bystanders");
-      bystanders.addPlayer(Player.getById(000));
     }
   });
 }

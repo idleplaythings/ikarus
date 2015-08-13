@@ -53,6 +53,19 @@ Company.prototype.removeRenown = function (amount) {
   Inventory.removeFromInventory(armory, item, amount);
 };
 
+Company.prototype.resetRenown = function () {
+  var armory = Inventory.getByCompany(this);
+  var item = dic.get('ItemFactory').createItemByArmaClass('IKRS_renown');
+
+  Inventory.removeFromInventory(armory, item, this.getRenown());
+};
+
+Company.prototype.getAmountOfMoneyFromSellout = function () {
+  var renown = this.getRenown();
+
+  return Math.floor((renown / 500 + 0.5) * renown);
+};
+
 Company.prototype.addKill = function() {
   collections.CompanyCollection.update({ _id: this._id }, { $inc: { kills: 1 }});
 };

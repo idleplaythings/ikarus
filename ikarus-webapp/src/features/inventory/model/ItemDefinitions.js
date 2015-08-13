@@ -10,7 +10,7 @@ ItemDefinitions = [
   createGeneric('Intelligence (Vehicle depot) (Weapon depot)ney', 'IKRS_intelligence_vehicle', ['resource', 'missionkey']),
   createGeneric('Intelligence (Helicopter depot)', 'IKRS_intelligence_helo', ['resource', 'missionkey']),
   createGeneric('Money', 'money', ['resource', 'non mission item']),
-  createGeneric('Renown', 'IKRS_renown', ['resource', 'non mission item']),
+  createGeneric('Renown', 'IKRS_renown', ['non mission item']),
 
   //VEHICLES
   createGeneric('Pickup truck', 'C_Offroad_01_F', ['vehicle', 'unarmored', 'unarmed']),
@@ -395,6 +395,14 @@ ItemDefinitions = [
 
   createWeapon('Sting SMG 9mm', 'SMG_02_F', ['smg'], ['30Rnd_9x21_Mag']),
   createMagazine('30rnd 9x21 mm', '30Rnd_9x21_Mag', 30),
+
+  createLoot(
+    'Test renown',
+    'IKRS_test_renown',
+    {
+      'IKRS_renown': '50d10+400'
+    }
+  ),
 
   createLoot(
     'Kill reward',

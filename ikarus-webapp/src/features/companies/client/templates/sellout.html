@@ -1,0 +1,23 @@
+<template name="companies_sellout">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>SELL OUT</h1>
+
+      <div class="info-box bg-info">
+        <p>
+          Selling out allows you to convert your companys renown to money.
+          You will get money per following formula: money = (renown / 500 + 0.5 ) * renown
+        </p>
+      </div>
+
+      {{#if canSellOut}}
+
+        <h2>If you sell out now, you will convert your {{renown}} renown to {{money}} money</h2>
+
+        <button class="js-sell-out btn btn-primary btn-lng btn-block">SELL OUT</button>
+      {{else}}
+        <h2 style="color:#c9302c">You can't sell out when there are games in progress with squads from your company</h2>
+      {{/if}}
+    </div>
+  </div>
+</template>

@@ -116,7 +116,27 @@ Squad.prototype.setCompanyId = function(companyId) {
       companyId: companyId
     }
   });
-}
+};
+
+Squad.prototype.setCompanyName = function(companyName) {
+  collections.SquadCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      companyName: companyName
+    }
+  });
+};
+
+Squad.prototype.setRenown = function(renown) {
+  collections.SquadCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      renown: renown
+    }
+  });
+};
 
 Squad.prototype.getCompany = function() {
   return Company.getBySquad(this);

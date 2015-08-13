@@ -161,15 +161,18 @@ ServerQueueService.prototype.checkServerIsReadyToStart = function () {
       });
 
       if (server.getStatus() == Server.STATUS_WAITING) {
-        server.updateStatus(Server.STATUS_PLAYING);
-        GameStartedGameEvent.create(server.getGameId());
         server.getSquadsInGame().forEach(function (squad) {
           MissionEquipmentGameEvent.create(
             server.getGameId(),
             squad.getCompany()._id,
             squad.getInventory().serialize().items
           );
+
+          squad.setRenown(squad.getCompany().getRenown());
         });
+        server.updateStatus(Server.STATUS_PLAYING);
+        GameStartedGameEvent.create(server.getGameId());
+
       }
     }
   }, this);

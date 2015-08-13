@@ -57,6 +57,7 @@ SquadController.prototype.leaveSquadQueue = function(){
 SquadController.prototype._initSquad = function(company) {
   var squad = Squad.create();
   squad.setCompanyId(company._id);
+  squad.setCompanyName(company.getName());
   squad.setStartingLocation(company);
   squad.setBaseModules(company.getBaseModules());
   squad.setOutpostLocations(company.getOutpostLocations());

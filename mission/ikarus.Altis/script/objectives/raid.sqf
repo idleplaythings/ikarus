@@ -209,7 +209,7 @@ objective_raid_getRaidersAgainstDefender = {
 
   {
     if (([_defender] call getSquadId) == ([_x select 1] call getSquadId)) then {
-      _raiders pushBack _x select 0;
+      _raiders pushBack (_x select 0);
     }
   } forEach objective_raid_raids;
 

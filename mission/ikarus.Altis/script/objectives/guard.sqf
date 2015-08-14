@@ -25,7 +25,7 @@ objective_guard_joinInProgress = {
 objective_guard_setPlayerRating = {};
 
 objective_guard_onObjectivesCreated = {
-  call objective_guard_joinSquadsToGuardFaction;
+  call objective_guard_initSquads;
   if (count squads == 1) then {
     call objective_guard_createAIGuards;
   };
@@ -175,19 +175,20 @@ objective_guard_defaultRaided = {
   } forEach _squads;
 };
 
-objective_guard_joinSquadsToGuardFaction = {
+objective_guard_initSquads = {
   {
-    [_x] call objective_guard_joinGuardFaction;
+    [_x] call objective_guard_initUnit;
   } forEach (["guard"] call objectiveController_getSquadsWithObjective);
 };
 
-objective_guard_joinGuardFaction = {
+objective_guard_initUnit = {
   private ["_squad"];
   _squad = _this select 0;
   
   {
     [_x] joinSilent objective_guard_eastGroup;
     [_x] call objective_guard_onEnterHideout;
+    [_x] call objective_guard_createGuardMarkersForUnit;
   } forEach ([_squad] call getPlayersInSquad);
 };
 
@@ -395,7 +396,7 @@ objective_guard_doParadrop = {
 
   if (loadAbs _unit > 300) exitWith {};
   
-  if (vehicle _unit != player) exitWith {};
+  if (vehicle _unit != _unit) exitWith {};
 
   [_unit] spawn reinforcements_paradrop;
 };

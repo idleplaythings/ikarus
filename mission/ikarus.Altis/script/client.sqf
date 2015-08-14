@@ -22,7 +22,7 @@ client_setUpGuardParadropAction = {
       [
         [player],
         objective_guard_doParadrop,
-        "Paradroping in 5 seconds. Moving will cancel this",
+        "Paradropping in 5 seconds. Moving will cancel this",
         "Paradrop cancelled"
       ] spawn client_doWithCancelTimer;
     } else {
@@ -33,7 +33,7 @@ client_setUpGuardParadropAction = {
           guardParadrop = [player]; 
           publicVariableServer "guardParadrop";
         },
-        "Paradroping in 5 seconds. Moving will cancel this",
+        "Paradropping in 5 seconds. Moving will cancel this",
         "Paradrop cancelled"
       ] spawn client_doWithCancelTimer;
     };

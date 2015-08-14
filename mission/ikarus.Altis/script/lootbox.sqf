@@ -81,10 +81,10 @@ lootbox_getUnlockIncrement = {
   }; 
   
   if (_timeElapsed > 1800) exitWith {
-    1 / _level;
+    1;
   };
   
-  0.3 / _level;
+  0.3;
 };
 
 lootbox_listHasPlayers = {

@@ -18,11 +18,11 @@ missionControl_objectivesGenerated = false;
 
 
 missionControl_getElapsedTime = {
-  if (missionControl_timeGameStarted == -1) exitWith {
+  if (missionControl_timeObjectivesGenerated == -1) exitWith {
     0;
   };
   
-  time - missionControl_timeGameStarted;
+  time - missionControl_timeObjectivesGenerated;
 };
 
 

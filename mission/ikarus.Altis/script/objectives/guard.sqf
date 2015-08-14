@@ -17,28 +17,33 @@ objective_guard_joinInProgress = {
   
   _depot = call depots_getRandom;
   if (! isNil{_depot}) then {
-    [_unit] call objective_guard_equipGuard;
     [_unit] call objective_guard_createGuardMarkersForUnit;
+    [_unit] call objective_guard_equipGuard;
   };
 };
 
 objective_guard_setPlayerRating = {};
 
 objective_guard_onObjectivesCreated = {
-  call objective_guard_moveSquadsToDepot;
+  call objective_guard_joinSquadsToGuardFaction;
   if (count squads == 1) then {
     call objective_guard_createAIGuards;
+  };
+
+  [] spawn {
+    sleep (5 * 60);
+    call objective_guard_removePardropActionFromEveryone;
   };
 };
 
 objective_guard_validate = {
   private ["_squad"];
   _squad = _this select 0;
-  count ([_squad] call getPlayersInSquad) <= 3 && count squads > 1;
+  count squads > 1;
 };
 
 objective_guard_overridesAppearance = {
-  true;
+  false;
 };
 
 objective_guard_insideDepot = {};
@@ -65,15 +70,6 @@ objective_guard_onKilled = {
   if ((_killer distance _closestDepot) <= objective_guard_killRadius) exitWith {
     diag_log "guard " + str _killer + " killed a trespasser";
     player globalChat "guard " + str _killer + " killed a trespasser";
-
-    if (rating _unit > 0 && uniform _unit == "U_Marshal" && vest _unit == "V_TacVest_blk_POLICE" && ! isNil{([_unit] call objective_guard_getGuardData);}) exitWith {
-      ["You killed a friendly guard", _killer] call broadcastMessageTo;
-      [_guardData] call objective_guard_penalize;
-    };
-
-    if (uniform _killer != "U_Marshal" && vest _killer != "V_TacVest_blk_POLICE") exitWith {
-      ["You have to be wearing guard uniform and vest to be rewarded for kills", _killer] call broadcastMessageTo;
-    };
 
     [_guardData] call objective_guard_reward;
   };
@@ -172,13 +168,30 @@ objective_guard_defaultRaided = {
   _squads = ["guard"] call objectiveController_getSquadsWithObjective;
 
   {
-    if ([_x] call objective_raid_getRaidersAgainstDefender) exitWith {
+    if (count ([_x] call objective_raid_getRaidersAgainstDefender) > 0) exitWith {
       [_x, 'supply'] call setChosenObjective;
       call objective_guard_defaultRaided;
     };
   } forEach _squads;
 };
 
+objective_guard_joinSquadsToGuardFaction = {
+  {
+    [_x] call objective_guard_joinGuardFaction;
+  } forEach (["guard"] call objectiveController_getSquadsWithObjective);
+};
+
+objective_guard_joinGuardFaction = {
+  private ["_squad"];
+  _squad = _this select 0;
+  
+  {
+    [_x] joinSilent objective_guard_eastGroup;
+    [_x] call objective_guard_onEnterHideout;
+  } forEach ([_squad] call getPlayersInSquad);
+};
+
+/*
 objective_guard_moveSquadsToDepot = {
   {
     if (([_x] call getChosenObjective) == 'Guard') then {
@@ -204,6 +217,7 @@ objective_guard_moveToDepot = {
     
   true;
 };
+*/
 
 objective_guard_createGuardMarkersForUnit = {
   private ["_unit", "_allDepotPositions"];
@@ -326,4 +340,62 @@ objective_guard_equipAIGuard = {
   _unit linkItem "ItemMap";
   _unit linkItem "ItemCompass";
   _unit linkItem "ItemWatch";
+};
+
+objective_guard_onEnterHideout = {
+  private ["_unit"];
+  _unit = _this select 0;
+  if (call missionControl_getElapsedTime < (60 * 5)) then {
+    [_unit] call objective_guard_addPardropAction;
+  };
+};
+
+objective_guard_onLeaveHideout = {
+  private ["_unit"];
+  _unit = _this select 0;
+  if (call missionControl_getElapsedTime < (60 * 5)) then {
+    [_unit] call objective_guard_removePardropAction;
+  };
+};
+
+objective_guard_addPardropAction = {
+  private ["_unit"];
+  _unit = _this select  0;
+  [[], "client_setUpGuardParadropAction", _unit, false, false] call BIS_fnc_MP;
+};
+
+objective_guard_removePardropAction = {
+  private ["_unit"];
+  _unit = _this select  0;
+  [[], "client_removeGuardParadropAction", _unit, false, false] call BIS_fnc_MP;
+};
+
+objective_guard_removePardropActionFromEveryone = {
+  {
+    {
+      [_x] call objective_guard_removePardropAction;
+    } forEach ([_x] call getPlayersInSquad);
+  } forEach squads;
+};
+
+"guardParadrop" addPublicVariableEventHandler {
+  private ["_unit"];
+  _unit = _this select 1 select 0;
+
+  [_unit] call objective_guard_doParadrop;
+};
+
+objective_guard_doParadrop = {
+  private ["_unit"];
+  _unit = _this select  0;
+
+  if (call missionControl_getElapsedTime > (60 * 5)) exitWith {};
+
+  if (backpack _unit != "") exitWith {};
+
+  if (loadAbs _unit > 300) exitWith {};
+  
+  if (vehicle _unit != player) exitWith {};
+
+  [_unit] spawn reinforcements_paradrop;
 };

@@ -1,3 +1,55 @@
+client_guardParaDropAction = nil;
+
+client_setUpGuardParadropAction = {
+  
+  if ! (isNil {client_guardParaDropAction}) exitWith {};
+
+  _actionFunction = {
+
+    if (backpack player != "") exitWith {
+      ["You may not paradrop while carrying a backpack"] call BIS_fnc_dynamicText;
+    };
+
+    if (loadAbs player > 300) exitWith {
+      ["You are carrying too much weight to paradrop"] call BIS_fnc_dynamicText;
+    };
+    
+    if (vehicle player != player) exitWith {
+      ["You can't paradrop while in vehicle"] call BIS_fnc_dynamicText;
+    };
+
+    if (isServer) then { //for single player testing
+      [
+        [player],
+        objective_guard_doParadrop,
+        "Paradroping in 5 seconds. Moving will cancel this",
+        "Paradrop cancelled"
+      ] spawn client_doWithCancelTimer;
+    } else {
+    
+      [
+        [],
+        {
+          guardParadrop = [player]; 
+          publicVariableServer "guardParadrop";
+        },
+        "Paradroping in 5 seconds. Moving will cancel this",
+        "Paradrop cancelled"
+      ] spawn client_doWithCancelTimer;
+    };
+  };
+
+  client_guardParaDropAction = player addAction [
+    'Paradrop to objective area',
+    _actionFunction
+  ];
+};
+
+client_removeGuardParadropAction = {
+  player removeAction client_guardParaDropAction;
+  client_guardParaDropAction = nil;
+};
+
 client_setupOutpostAction = nil;
 
 client_setUpOutpostMapTeleportActions = {
@@ -144,36 +196,14 @@ client_removeBecomeMedic = {
 };
 
 client_equipGuard = {
-  removeAllWeapons player;
-  removeAllItems player;
-  removeAllAssignedItems player;
-  removeUniform player;
-  removeVest player;
+  for "_i" from 1 to 6 do {player addItemToVest "hlc_30Rnd_545x39_B_AK";};
+  for "_i" from 1 to 3 do {player addItemToVest "SmokeShell";};
+  for "_i" from 1 to 6 do {player addItemToUniform "ACE_quikclot";};
+  for "_i" from 1 to 2 do {player addItemToUniform "ACE_tourniquet";};  
+  for "_i" from 1 to 2 do {player addItemToUniform "ACE_morphine";};
 
-  if (backpack player != "B_Parachute") then {
-    removeBackpack player;
-  };
-  
-  removeHeadgear player;
-
-  player forceAddUniform "U_Marshal";
-  player addHeadgear "H_Cap_police";
-  player addVest "V_TacVest_blk_POLICE";
-  for "_i" from 1 to 6 do {player addItemToVest "30Rnd_556x45_Stanag";};
-  for "_i" from 1 to 3 do {player addItemToUniform "16Rnd_9x21_Mag";};
-  for "_i" from 1 to 3 do {player addItemToUniform "SmokeShell";};
-  player addItemToVest "FirstAidKit";
-
-  player addWeaponGlobal "arifle_TRG20_F";
-  player addPrimaryWeaponItem "acc_flashlight";
+  player addWeaponGlobal "hlc_rifle_ak74";
   player addWeaponGlobal "Binocular";
-  player addWeaponGlobal "hgun_P07_F";
-
-  player linkItem "ItemMap";
-  player linkItem "ItemCompass";
-  player linkItem "ItemWatch";
-
-  ["You are a guard. Your task is to protect depots marked on the map. Do not kill other guards!"] call BIS_fnc_dynamicText;
 };
 
 client_addParachute = {

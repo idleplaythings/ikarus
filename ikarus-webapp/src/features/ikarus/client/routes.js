@@ -18,4 +18,10 @@ Router.map(function () {
       return Meteor.subscribe('UserData');
     }
   });
+
+  this.route('credits', {
+    path: '/credits',
+    template: 'credits',
+    layoutTemplate: 'ikarus_default'
+  });
 });

@@ -1,7 +1,10 @@
 <template name="itemInfoSmall">
   <div class="row itemInfo small">
-    <h4>{{name}}</h4>
-    <div class="col-md-12">
+    <div class="col-md-7">
+      <h4>{{name}}</h4>
+      {{> itemDescription}}
+    </div>
+    <div class="col-md-5">
       {{> itemImage}}
     </div>
   </div>

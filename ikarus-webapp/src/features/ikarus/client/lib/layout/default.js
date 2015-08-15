@@ -33,7 +33,7 @@ Template.ikarus_default.events({
 
   'mouseenter .show-item-tooltip-small': showItem,
   'mouseleave .show-item-tooltip-small': hideItem,
-  'mouseenter .show-item-tooltip-small img': hideItem
+  'mouseenter .itemTooltip': hideItem
 });
 
 var itemTooltip = null;
@@ -50,7 +50,7 @@ function showItem(event, template) {
 
   itemTooltip = Blaze.renderWithData(
     Template.itemTooltipSmall,
-    {armaClass: armaClass},
+    {armaClass: armaClass, parent: $elem[0]},
     //$parent[0],
     $elem[0]
   );

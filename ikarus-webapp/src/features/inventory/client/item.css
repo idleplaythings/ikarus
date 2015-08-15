@@ -1,0 +1,90 @@
+.armory.inventory-entry {
+  position: relative;
+}
+.armory.inventory-entry > img {
+  height: 128px;
+  position: absolute;
+  top: -145px;
+  left: -10px;
+  border: 2px solid black;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.inventory .inventory-entry {
+  position: relative;
+  background-color: #ddd;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  font-size: 12px;
+}
+
+.inventory .inventory-entry .item {
+  padding: 5px 10px;
+  position: relative;
+}
+
+.inventory .inventory-entry .in-inventory {
+  background-color: #87BD73
+}
+
+.inventory .inventory-entry .extras {
+  background-color: #eee;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.inventory .inventory-entry .extras.in-inventory {
+  background-color: #C0E8B1;
+}
+
+.inventory .inventory-entry .title {
+}
+
+.inventory .inventory-entry .manage {
+  float: right;
+  margin-top: -2px;
+  margin-right: -8px;
+}
+
+.itemTooltip {
+  z-index:10;
+  width: 600px;
+  position: absolute;
+  border: 2px solid black;
+  background: white;
+  padding: 10px 0;
+  border-radius: 5px;
+  -webkit-box-shadow: 7px 7px 39px -4px rgba(0,0,0,0.44);
+  -moz-box-shadow: 7px 7px 39px -4px rgba(0,0,0,0.44);
+  box-shadow: 7px 7px 39px -4px rgba(0,0,0,0.44);
+}
+
+.itemInfo.small .item-image {
+  width:100%;
+}
+
+.itemInfo.large .item-image {
+  width:100%;
+}
+
+.itemInfo.small{
+  height: calc(100% + 20px);
+  padding:0 10px;
+}
+
+.itemInfo h3 {
+  text-align: center;
+}
+
+.itemInfo.small h4 {
+  padding:0;
+  margin:0;
+}
+
+.itemInfo.small p {
+  margin-top: 5px;
+  font-size: 14px;
+}
+

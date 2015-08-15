@@ -155,12 +155,3 @@ objective_military_canOpenLootBoxes = {true;};
 objective_military_defaultIfNeccessary = {};
 
 objective_military_overrideHideoutCache = {false;};
-
-objective_military_getAmountOfDepots = {
-  private ["_objectives", "_amount"];
-  _objectives = ["military"] call objectiveController_getSquadsWithObjective;
-  
-  if (count _objectives > 0) exitWith {1;};
-
-  0;
-};

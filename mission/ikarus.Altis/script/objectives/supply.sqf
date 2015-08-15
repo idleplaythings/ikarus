@@ -154,20 +154,3 @@ objective_supply_cleanUpBox = {
   _building = _this select 0;
   [_building, 20] call lootBox_deleteBoxesAround;
 };
-
-objective_supply_getAmountOfDepots = {
-  private ["_objectives", "_amount"];
-
-  if (count (["military"] call objectiveController_getSquadsWithObjective) > 0) exitWith {
-    0;
-  };
-
-  _objectives = ["supply"] call objectiveController_getSquadsWithObjective;
-  _amount = floor ((count _objectives) / 2);
-  
-  if (count _objectives == 1) exitWith {
-    1;
-  };
-
-  _amount;
-};

@@ -153,11 +153,11 @@ objective_guard_defaultIfNeccessary = {
 };
 
 objective_guard_default = {
-  private ["_squads", "_supplyDepots"];
+  private ["_squads", "_amount"];
   _squads = ["guard"] call objectiveController_getSquadsWithObjective;
-  _depots = call depots_getTotalAmount;
+  _amount = call depots_getAmountOfPossibleGuards;
   
-  if ((count _squads) > _depots ) exitWith {
+  if ((count _squads) > _amount ) exitWith {
     [(_squads call BIS_fnc_selectRandom), 'supply'] call setChosenObjective;
     call objective_guard_defaultIfNeccessary;
   };

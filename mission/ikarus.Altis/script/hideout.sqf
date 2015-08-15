@@ -283,5 +283,9 @@ hideout_bodyIsInHideout = {
     true;
   };
 
+  if (call hasOnlyOneSquadLeft) exitWith {
+    true;
+  };
+
   false;
 };

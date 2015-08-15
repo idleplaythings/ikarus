@@ -1,6 +1,3 @@
-
-objectiveController_types = ['supply', 'hold', 'guard', 'assasination', 'military'];
-
 "chooseObjective" addPublicVariableEventHandler {
   private ["_unit", "_objective", "_squad"];
   _unit = _this select 1 select 0;
@@ -44,7 +41,7 @@ objectiveController_sendChooseObjectiveMenu = {
     if (_valid) then {
       _objectives pushBack ([_x] call objectiveController_getObjectiveDataSetFromType);
     };
-  } forEach objectiveController_types;
+  } forEach ['supply', 'hold', 'guard', 'assasination', 'military'];
 
   _objectives = _objectives + ([_squad] call objective_raid_getValidRaids);
 
@@ -153,7 +150,7 @@ objectiveController_callObjectives = {
   
   {
     [_x, _functionName, _arguments] call objectiveController_callObjective;
-  } forEach (['raid'] + objectiveController_types);
+  } forEach ['raid', 'supply', 'hold', 'guard', 'assasination', 'military'];
 };
 
 objectiveController_callObjective = {

@@ -40,17 +40,7 @@ objective_hold_overridesAppearance = {
   false;
 };
 
-objective_hold_defaultIfNeccessary = {
-  private ["_squads", "_supplyDepots"];
-  _squads = ["hold"] call objectiveController_getSquadsWithObjective;
-  _depots = call depots_getAmountOfTownDepotsToSpawn;
-  
-  if (_depots == 0) then {
-    {
-      [_x, 'supply'] call setChosenObjective;
-    } forEach _squads;
-  };
-};
+objective_hold_defaultIfNeccessary = {};
 
 objective_hold_overrideMoveToHideout = {
   false;
@@ -254,27 +244,6 @@ objective_hold_setUpDrop = {
 
     [_position, lootItems_populateHoldAirdropBox] call airdrop_create;
   };
-};
-
-objective_hold_getAmountOfDepots = {
-  private ["_objectives", "_amount"];
-
-  if (count (["military"] call objectiveController_getSquadsWithObjective) > 0) exitWith {
-    0;
-  };
-
-  _objectives = [["hold"]] call objectiveController_getSquadsWithObjectives;
-  _amount = floor ((count _objectives) / 4);
-
-  if (count _objectives == 2) exitWith {
-    1;
-  };
-  
-  if (count _objectives > 0 && count _objectives < 4 && count squads >= 4) exitWith {
-    1;
-  };
-
-  _amount;
 };
 
 objective_hold_isInsideDepot = {

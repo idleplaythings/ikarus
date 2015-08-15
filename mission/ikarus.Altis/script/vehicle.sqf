@@ -16,6 +16,19 @@ vehicle_spawnVehicle = {
   _vehicle;
 };
 
+vehicle_getAmountOfAliveCrew = {
+  private ["_vehicle", "_aliveCrew"];
+  _vehicle = _this select 0;
+
+  _aliveCrew = [crew _vehicle, {
+    private ["_unit"];
+    _unit = _this;
+    alive _unit;
+  }] call AEX_filter;
+
+  count _aliveCrew;
+};
+
 vehicle_preventUseBeforeObjectives = {
   private ["_vehicle"];
   _vehicle = _this select 0;

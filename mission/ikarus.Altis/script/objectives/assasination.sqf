@@ -216,7 +216,3 @@ _this spawn {
     call objective_assasination_updateMarkers;
   }
 };
-
-objective_assasination_getAmountOfDepots = {
-  0;
-};

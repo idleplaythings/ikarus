@@ -133,3 +133,20 @@ broadcastMessageTo = {
   
   [[_message], "markers_textMessage", _recipient, false, false] call BIS_fnc_MP;
 };
+
+hasOnlyOneSquadLeft = {
+  private ["_squadIds"];
+  _squadIds = [];
+  {
+    private ["_squadId"];
+
+    _squadId = [[_x] call getSquadForUnit] call getSquadId;
+
+    if ! (_squadId in _squadIds) then {
+      _squadIds pushBack _squadId;
+    };
+
+  } forEach call getAllPlayers;
+
+  count _squadIds == 1;
+};

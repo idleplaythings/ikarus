@@ -121,19 +121,82 @@ depots_create_military = {
   };
 };
 
-depots_getAmountOfMilitaryDepotsToSpawn = {
-  private ["_amount"];
-  call objective_military_getAmountOfDepots;
+depots_getAmountOfDepotsToSpawn = {
+  private ["_normal", "_town", "_holds", "_supplies"];
+
+  if (count (["military"] call objectiveController_getSquadsWithObjective) > 0) exitWith {
+    [0,0,1];
+  };
+
+  _holds = count ([["hold"]] call objectiveController_getSquadsWithObjectives);
+  _town = floor (_holds / 4);
+
+  //two hold objectives are enough to spawn one depot
+  if (_holds >= 2 && _town == 0) then {
+    _town = 1;
+  };
+  
+  _supplies = count (["supply"] call objectiveController_getSquadsWithObjective);
+  _normal = floor (_supplies / 2);
+  
+  //if no depots, but one supply objective, spawn one supply depot
+  if (_town == 0 && _normal == 0 && _supplies >= 1) then {
+    _normal = 1;
+  };
+
+  //if thre are no depots at all, but atleast one assasination, spawn one normal depot.
+  if (_town == 0 && _normal == 0 && count (["assasination"] call objectiveController_getSquadsWithObjective) >= 1) then {
+    _normal = 1;
+  };
+
+  //if there are 4 or more squads, one hold objective is enough to spawn one hold depot
+  if (_town == 0 && _holds >= 1 && count squads >= 4) then {
+    _town = 1;
+    //if there are more than one supply depot, we will replace it with hold.
+    if (_normal > 1) then {
+      _normal = _normal - 1;
+    }
+  };
+
+  //manhunt will substract one depot. supply first, normal second.
+  if (count (["manhunt"] call objectiveController_getSquadsWithObjective) >= 1) then {
+    if (_normal > 0) then {
+      _normal = _normal - 1;
+    } else {
+      if (_town > 0) then {
+        _town = _town - 1;
+      };
+    };
+  };
+
+  [_normal, _town, 0];
 };
 
-depots_getAmountOfNormalDepotsToSpawn = {
-  private ["_amount", "_townAmount"];
-  _amount = call objective_supply_getAmountOfDepots;
-  _townAmount = call depots_getAmountOfTownDepotsToSpawn;
- 
-  if (count squads == 3 && _townAmount > 0) exitWith {0;};
+depots_getAmountOfPossibleGuards = {
+  private ["_amount"];
+
+  if (call depots_getAmountOfMilitaryDepotsToSpawn > 0) exitWith {0};
+
+  _amount = call depots_getAmountOfTownDepotsToSpawn + call depots_getAmountOfNormalDepotsToSpawn;
+
+  if (count (["manhunt"] call objectiveController_getSquadsWithObjective) > 0) then {
+    _amount = _amount + 2;
+  };
 
   _amount;
+};
+
+depots_getAmountOfMilitaryDepotsToSpawn = {
+  call depots_getAmountOfDepotsToSpawn select 2;
+};
+
+depots_getAmountOfTownDepotsToSpawn = {
+  call depots_getAmountOfDepotsToSpawn select 1;
+};
+
+
+depots_getAmountOfNormalDepotsToSpawn = {
+  call depots_getAmountOfDepotsToSpawn select 0;
 };
 
 depots_getRadiusOfSupplyAO = {
@@ -180,10 +243,6 @@ depots_constructTownDepot = {
   _objects = [_building, _objectData] call houseFurnisher_furnish;
 
   [_building, _objects];
-};
-
-depots_getAmountOfTownDepotsToSpawn = {
-  call objective_hold_getAmountOfDepots;
 };
 
 depots_getRadiusOfTownAO = {

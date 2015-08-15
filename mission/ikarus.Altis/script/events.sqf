@@ -73,15 +73,21 @@ addMissionEventHandler ["HandleDisconnect", {
   ['playerDisconnected', [_uid]] call sock_rpc;
 }];
 
- 
  events_playerDisconnectedInHideout = {
-  private ["_unit", "_uid", "_loot", "_squad"];
+  private ["_unit", "_uid", "_loot", "_squad", "_vehicle"];
   _unit = _this select 0;
   _uid = _this select 1;
   _loot = [_unit] call loot_checkUnit;
   _squad = [_uid] call getSquadForUid;
 
   if (! isNil{_squad}) then {
+    _vehicle = vehicle _unit;
+    if (_vehicle != _unit && count ([_vehicle] call vehicle_getAmountOfAliveCrew) == 0) then {
+      _loot = _loot + ([_vehicle] call loot_checkContainer);
+      _loot = _loot + [typeOf _vehicle];
+      deleteVehicle _vehicle;
+    };
+
     [_squad, _loot] call addDisconnectedLoot;
     [_squad, "onDisconnected", [_squad, _unit, true]] call objectiveController_callSquadObjective;
   };

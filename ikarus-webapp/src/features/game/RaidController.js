@@ -49,7 +49,7 @@ RaidController.prototype.rewardRaid = function (server, winnerSquad, loserSquad)
 
   MissionLootGameEvent.create(
     server.getGameId(),
-    winnerCompany._id,
+    loserCompany._id,
     null,
     {"IKRS_renown": winnerRenown * -1}
   );

@@ -202,5 +202,23 @@ module.exports = function(armaSerializer){
     return loot;
   };
 
+  GameData.prototype.getWeather = function(){
+    return this._serializeWeatherObject(this._intel.currentWeather);
+  };
+
+  GameData.prototype.getNextWeather = function(){
+    return this._serializeWeatherObject(this._intel.nextWeather);
+  };
+
+  GameData.prototype._serializeWeatherObject = function(weather) {
+    return weather.overcast + ',' +
+           weather.fog + ',' +
+           weather.rain + ',' +
+           weather.lightnings + ',' +
+           weather.wind.easterly + ',' +
+           weather.wind.northerly + ',' +
+           weather.waves;
+  };
+
   return new GameData(armaSerializer);
 };

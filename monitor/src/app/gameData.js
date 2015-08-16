@@ -210,6 +210,14 @@ module.exports = function(armaSerializer){
     return this._serializeWeatherObject(this._intel.nextWeather);
   };
 
+  GameData.prototype.getMissionDateTime = function(){
+    return this._intel.dateTime.year + ',' +
+           this._intel.dateTime.month + ',' +
+           this._intel.dateTime.day + ',' +
+           this._intel.dateTime.hour + ',' +
+           this._intel.dateTime.minute;
+  };
+
   GameData.prototype._serializeWeatherObject = function(weather) {
     return weather.overcast + ',' +
            weather.fog + ',' +

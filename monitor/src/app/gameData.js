@@ -81,6 +81,7 @@ module.exports = function(armaSerializer){
 
   function GameData(armaSerializer) {
     this._squads = [];
+    this._intel = {};
     this._inventories = [];
     this._locked = false;
     this._armaSerializer = armaSerializer;
@@ -114,6 +115,17 @@ module.exports = function(armaSerializer){
       }, this);
     } else {
       this._inventories = [];
+    }
+  };
+
+  GameData.prototype.setIntel = function(intel){
+    if (this._locked)
+      return;
+
+    if (intel){
+      this._intel = intel[Object.keys(intel)[0]];
+    } else {
+      this._intel = {};
     }
   };
 

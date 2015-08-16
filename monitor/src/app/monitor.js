@@ -171,6 +171,7 @@ Monitor.prototype._connectToWebApp = function() {
       }
 
       this._webAppClient.subscribe('SquadsOnServer', [serverId]);
+      this._webAppClient.subscribe('Intel');
     }.bind(this)
   );
 };
@@ -180,6 +181,11 @@ Monitor.prototype._initDdpObservers = function() {
   squadObserver.added = this._setSquads.bind(this);
   squadObserver.changed = this._setSquads.bind(this);
   squadObserver.removed = this._setSquads.bind(this);
+
+  var intelObserver = this._webAppClient.getObserver('intel');
+  intelObserver.added = this._setIntel.bind(this);
+  intelObserver.changed = this._setIntel.bind(this);
+  intelObserver.removed = this._setIntel.bind(this);
 
   var inventoryObserver = this._webAppClient.getObserver('inventories');
   inventoryObserver.added = this._setSquads.bind(this);
@@ -203,6 +209,10 @@ Monitor.prototype._setSquads = function(){
       this._battlEyeClient.kickPlayer(uid);
     }
   }, this);
+};
+
+Monitor.prototype._setIntel = function(){
+  this._gameData.setIntel(this._webAppClient.getCollection('intel'));
 };
 
 Monitor.prototype._checkServerStatus = function() {

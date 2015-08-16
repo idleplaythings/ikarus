@@ -81,6 +81,7 @@ module.exports = function(armaSerializer){
 
   function GameData(armaSerializer) {
     this._squads = [];
+    this._intel = {};
     this._inventories = [];
     this._locked = false;
     this._armaSerializer = armaSerializer;
@@ -114,6 +115,17 @@ module.exports = function(armaSerializer){
       }, this);
     } else {
       this._inventories = [];
+    }
+  };
+
+  GameData.prototype.setIntel = function(intel){
+    if (this._locked)
+      return;
+
+    if (intel){
+      this._intel = intel[Object.keys(intel)[0]];
+    } else {
+      this._intel = {};
     }
   };
 
@@ -188,6 +200,32 @@ module.exports = function(armaSerializer){
   GameData.prototype.receiveSquadData = function(id, serializedLoot){
     var loot = new SquadLoot(id).deserializeFromArma(serializedLoot);
     return loot;
+  };
+
+  GameData.prototype.getWeather = function(){
+    return this._serializeWeatherObject(this._intel.currentWeather);
+  };
+
+  GameData.prototype.getNextWeather = function(){
+    return this._serializeWeatherObject(this._intel.nextWeather);
+  };
+
+  GameData.prototype.getMissionDateTime = function(){
+    return this._intel.dateTime.year + ',' +
+           this._intel.dateTime.month + ',' +
+           this._intel.dateTime.day + ',' +
+           this._intel.dateTime.hour + ',' +
+           this._intel.dateTime.minute;
+  };
+
+  GameData.prototype._serializeWeatherObject = function(weather) {
+    return weather.overcast + ',' +
+           weather.fog + ',' +
+           weather.rain + ',' +
+           weather.lightnings + ',' +
+           weather.wind.easterly + ',' +
+           weather.wind.northerly + ',' +
+           weather.waves;
   };
 
   return new GameData(armaSerializer);

@@ -116,6 +116,9 @@ Monitor.prototype._startArma = function(){
 };
 
 Monitor.prototype._registerRpcCallbacks = function() {
+  this._registerRpcCallback('weatherRetrieve', weatherRetrieve);
+  this._registerRpcCallback('nextWeatherRetrieve', nextWeatherRetrieve);
+  this._registerRpcCallback('dateTimeRetrieve', dateTimeRetrieve);
   this._registerRpcCallback('squadsRetrieve', squadsRetrieve);
   this._registerRpcCallback('squadSubmit', squadSubmit);
   this._registerRpcCallback('outpostsSubmit', outpostsSubmit);
@@ -171,6 +174,7 @@ Monitor.prototype._connectToWebApp = function() {
       }
 
       this._webAppClient.subscribe('SquadsOnServer', [serverId]);
+      this._webAppClient.subscribe('Intel');
     }.bind(this)
   );
 };
@@ -180,6 +184,11 @@ Monitor.prototype._initDdpObservers = function() {
   squadObserver.added = this._setSquads.bind(this);
   squadObserver.changed = this._setSquads.bind(this);
   squadObserver.removed = this._setSquads.bind(this);
+
+  var intelObserver = this._webAppClient.getObserver('intel');
+  intelObserver.added = this._setIntel.bind(this);
+  intelObserver.changed = this._setIntel.bind(this);
+  intelObserver.removed = this._setIntel.bind(this);
 
   var inventoryObserver = this._webAppClient.getObserver('inventories');
   inventoryObserver.added = this._setSquads.bind(this);
@@ -203,6 +212,10 @@ Monitor.prototype._setSquads = function(){
       this._battlEyeClient.kickPlayer(uid);
     }
   }, this);
+};
+
+Monitor.prototype._setIntel = function(){
+  this._gameData.setIntel(this._webAppClient.getCollection('intel'));
 };
 
 Monitor.prototype._checkServerStatus = function() {
@@ -235,6 +248,18 @@ Monitor.prototype._changeStatus = function(status) {
     this.die();
   }
 
+};
+
+var weatherRetrieve = function(test) {
+  return this._gameData.getWeather();
+};
+
+var nextWeatherRetrieve = function(test) {
+  return this._gameData.getNextWeather();
+};
+
+var dateTimeRetrieve = function(test) {
+  return this._gameData.getMissionDateTime()
 };
 
 var squadsRetrieve = function(test) {

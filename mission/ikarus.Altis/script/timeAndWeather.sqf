@@ -1,84 +1,66 @@
-_dateTime = []; // year, month, day, hour, minute [int]
-_weather = []; // overcast, fog, rain, lightnings [float 0.0-1.0]
-_wind = []; // easterly, northerly, forced [m/s]
 
-_clearMorning = {
-  _dateTime = [2035, 4, 12, 5, 15];
-  _weather = [0.0, 0.0, 0.0, 0.0];
-  _wind = [random 3, random 3, false];
+timeAndWeather_setWeather = {
+  private ["_weather", "_overcast", "_fog", "_rain", "_lightnings", "_eastWind", "_northWind", "_waves"];
+
+  _weather = _this select 0;
+  _overcast = parseNumber (_weather select 0);
+  _fog = parseNumber (_weather select 1);
+  _rain = parseNumber (_weather select 2);
+  _lightnings = parseNumber (_weather select 3);
+  _eastWind = parseNumber (_weather select 4);
+  _northWind = parseNumber (_weather select 5);
+  _waves = parseNumber (_weather select 6);
+
+  skiptime -24;
+  86400 setOvercast _overcast;
+  86400 setFog _fog;
+  86400 setRain _rain;
+  86400 setLightnings _lightnings;
+  skipTime 24; 
+  0 = [] spawn {
+    sleep 0.1;
+
+    simulWeatherSync;
+  };
+
+  // Third parameter makes wind constant if set true.
+  setWind [_eastWind, _northWind, false];
+
+  0 setWaves _waves;
 };
 
-_foggyMorning = {
-  _dateTime = [2035, 4, 12, 5, 40];
-  _weather = [0.2, 0.4, 0.0, 0.0];
-  _wind = [random 3, random 3, false];
+timeAndWeather_setNextWeather = {
+  private ["_weather", "_overcast", "_fog", "_rain", "_lightnings", "_eastWind", "_northWind", "_waves"];
+
+  _weather = _this select 0;
+  _overcast = parseNumber (_weather select 0);
+  _fog = parseNumber (_weather select 1);
+  _rain = parseNumber (_weather select 2);
+  _lightnings = parseNumber (_weather select 3);
+  _eastWind = parseNumber (_weather select 4);
+  _northWind = parseNumber (_weather select 5);
+  _waves = parseNumber (_weather select 6);
+
+  600 setOvercast _overcast;
+  600 setFog _fog;
+  600 setRain _rain;
+  600 setLightnings _lightnings;
+
+  // Third parameter makes wind constant if set true.
+  setWind [_eastWind, _northWind, false];
+
+  3600 setWaves _waves;
 };
 
-_clearAfternoon = {
-  _dateTime = [2035, 4, 12, 14, 10];
-  _weather = [0.0, 0.0, 0.0, 0.0];
-  _wind = [random 5, random 5, false];
+timeAndWeather_setDateTime = {
+  private [ "_year", "_month", "_day", "_hour", "_minute" ];
+
+  _dateTime = _this select 0;
+  _year = parseNumber (_dateTime select 0);
+  _month = parseNumber (_dateTime select 1);
+  _day = parseNumber (_dateTime select 2);
+  _hour = parseNumber (_dateTime select 3);
+  _minute = parseNumber (_dateTime select 4);
+
+  setDate [_year, _month, _day, _hour, _minute];
 };
-
-_foggyAfternoon = {
-  _dateTime = [2035, 4, 12, 14, 10];
-  _weather = [0.7, 0.4, 0.0, 0.0];
-  _wind = [random 5, random 5, false];
-};
-
-_clearEvening = {
-  _dateTime = [2035, 4, 12, 17, 30];
-  _weather = [0.0, 0.0, 0.0, 0.0];
-  _wind = [random 5, random 5, false];
-};
-
-_foggyEvening = {
-  _dateTime = [2035, 4, 12, 17, 30];
-  _weather = [0.7, 0.4, 0.0, 0.0];
-  _wind = [random 5, random 5, false];
-};
-
-_night = {
-  _dateTime = [2035, 4, 12, 1, 15];
-  _weather = [0.0, 0.4, 0.0, 0.0];
-  _wind = [random 5, random 5, false];
-};
-
-_missionSetting = [
-  _clearMorning,
-  _clearMorning,
-  _foggyMorning,
-  _foggyMorning,
-  _foggyMorning,
-  _foggyMorning,
-  _clearAfternoon,
-  _clearAfternoon,
-  _clearAfternoon,
-  _clearAfternoon,
-  _clearAfternoon,
-  _foggyAfternoon,
-  _foggyAfternoon,
-  _foggyAfternoon,
-  _clearEvening,
-  _clearEvening,
-  _foggyEvening,
-  _night,
-  _night,
-  _night
-] call BIS_fnc_selectRandom;
-[] call _missionSetting;
-
-// Set the actual values. Due to volumetric cloud simulation in Arma 3, this
-// has to be done over a period of time, simulated here...
-setDate _dateTime;
-skiptime -24;
-86400 setOvercast (_weather select 0);
-86400 setFog (_weather select 1);
-86400 setRain (_weather select 2);
-86400 setLightnings (_weather select 3);
-skipTime 24; 
-0 = [] spawn {
-  sleep 0.1; simulWeatherSync;
-};
-
-setWind _wind;

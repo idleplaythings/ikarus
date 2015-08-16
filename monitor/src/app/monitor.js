@@ -116,6 +116,9 @@ Monitor.prototype._startArma = function(){
 };
 
 Monitor.prototype._registerRpcCallbacks = function() {
+  this._registerRpcCallback('weatherRetrieve', weatherRetrieve);
+  this._registerRpcCallback('nextWeatherRetrieve', nextWeatherRetrieve);
+  this._registerRpcCallback('dateTimeRetrieve', dateTimeRetrieve);
   this._registerRpcCallback('squadsRetrieve', squadsRetrieve);
   this._registerRpcCallback('squadSubmit', squadSubmit);
   this._registerRpcCallback('outpostsSubmit', outpostsSubmit);
@@ -245,6 +248,18 @@ Monitor.prototype._changeStatus = function(status) {
     this.die();
   }
 
+};
+
+var weatherRetrieve = function(test) {
+  return '1.0,1.0,1.0,1.0';
+};
+
+var nextWeatherRetrieve = function(test) {
+  return '1.0,1.0,1.0,1.0';
+};
+
+var dateTimeRetrieve = function(test) {
+  return '2035,4,12,2,0';
 };
 
 var squadsRetrieve = function(test) {

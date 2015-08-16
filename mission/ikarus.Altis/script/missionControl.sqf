@@ -79,6 +79,20 @@ missionControl_startGame = {
 
   missionControl_timeGameStarted = time;
 
+  _time = [['dateTimeRetrieve'] call sock_rpc, ","] call CBA_fnc_split;
+  [_time] call timeAndWeather_setDateTime;
+
+  // [["2035", "4", "12", "14", "0"]] call timeAndWeather_setDateTime;
+
+  _weather = [['weatherRetrieve'] call sock_rpc, ","] call CBA_fnc_split;
+  [_weather] call timeAndWeather_setWeather;
+
+  _nextWeather = [['nextWeatherRetrieve'] call sock_rpc, ","] call CBA_fnc_split;
+  [_nextWeather] call timeAndWeather_setNextWeather;
+
+  // [["1.0", "1.0", "1.0", "1.0", "5.0", "5.0", "1.0"]] call timeAndWeather_setWeather;
+  // [["0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "0.0"]] call timeAndWeather_setForecast;
+
   _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
   [_squads] call setSquadData;
   

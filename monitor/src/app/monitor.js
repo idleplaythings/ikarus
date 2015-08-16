@@ -81,7 +81,7 @@ Monitor.prototype._startArma = function(){
     "-sock_host=::1",
     "-sock_port="+sockPort,
     "-port="+armaPort,
-    "-mod=@ikrs;",
+    "-mod=@ikarus;",
     "-BEpath="+BEpath
     //"-noLogs"
   ];

@@ -205,7 +205,7 @@ Server.prototype.getJoinUrl = function() {
     '-world=empty',
     '-nolauncher',
     '-nosplash',
-    '-mod=@ikrs',
+    '-mod=@ikarus',
     '-connect=' + this.getHost(),
     '-port=' + this.getPort(),
     '-password=' + this.getPassword()

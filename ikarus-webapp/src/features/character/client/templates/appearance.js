@@ -27,7 +27,7 @@ Template.character_appearance.helpers({
     var params = [
       '-world=empty',
       '-nosplash',
-      '-mod=@ikrs'
+      '-mod=@ikarus'
     ];
 
     return 'steam://run/107410//' + params.join('%20');

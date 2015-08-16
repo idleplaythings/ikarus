@@ -109,7 +109,7 @@ Dusk.prototype.init = function() {
   this.year = '2035';
   this.month = '11';
   this.day = '3';
-  this.hour = Math.round(16 + Math.random() * 2).toString();
+  this.hour = Math.round(16).toString();
   this.minute = Math.round(Math.random() * 59).toString();
 };
 

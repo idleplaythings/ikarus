@@ -46,12 +46,10 @@ function showItem(event, template) {
 
   var $elem = jQuery(event.target);
   var armaClass = event.target.attributes.getNamedItem('data-armaclass').value;
-  var $parent = $elem.parent();
 
   itemTooltip = Blaze.renderWithData(
     Template.itemTooltipSmall,
     {armaClass: armaClass, parent: $elem[0]},
-    //$parent[0],
     $elem[0]
   );
 }

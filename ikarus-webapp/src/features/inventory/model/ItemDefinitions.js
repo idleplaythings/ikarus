@@ -7,7 +7,7 @@ ItemDefinitions = [
   createGeneric('Loot key level 1', 'IKRS_loot_key1', ['resource', 'missionkey']),
   createGeneric('Loot key level 2', 'IKRS_loot_key2', ['resource', 'missionkey']),
   createGeneric('Intelligence (Weapon depot)', 'IKRS_intelligence_weapon', ['resource', 'missionkey']),
-  createGeneric('Intelligence (Vehicle depot) (Weapon depot)ney', 'IKRS_intelligence_vehicle', ['resource', 'missionkey']),
+  createGeneric('Intelligence (Vehicle depot)', 'IKRS_intelligence_vehicle', ['resource', 'missionkey']),
   createGeneric('Intelligence (Helicopter depot)', 'IKRS_intelligence_helo', ['resource', 'missionkey']),
   createGeneric('Money', 'money', ['resource', 'non mission item']),
   createGeneric('Renown', 'IKRS_renown', ['non mission item']),

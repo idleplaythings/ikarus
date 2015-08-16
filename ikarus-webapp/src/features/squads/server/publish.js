@@ -1,6 +1,6 @@
 Meteor.publish('SquadsOnServer', function(serverName){
   var user = Meteor.users.findOne({_id: this.userId});
-  if (!get(usery, 'serverId')) {
+  if (!get(user, 'serverId')) {
     this.ready();
     return;
   }

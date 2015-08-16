@@ -346,6 +346,9 @@ objective_guard_equipAIGuard = {
 objective_guard_onEnterHideout = {
   private ["_unit"];
   _unit = _this select 0;
+
+  if (! missionControl_objectivesGenerated) exitWith {};
+
   if (call missionControl_getElapsedTime < (60 * 5)) then {
     [_unit] call objective_guard_addPardropAction;
   };
@@ -354,6 +357,9 @@ objective_guard_onEnterHideout = {
 objective_guard_onLeaveHideout = {
   private ["_unit"];
   _unit = _this select 0;
+
+  if (! missionControl_objectivesGenerated) exitWith {};
+
   if (call missionControl_getElapsedTime < (60 * 5)) then {
     [_unit] call objective_guard_removePardropAction;
   };
@@ -390,6 +396,10 @@ objective_guard_doParadrop = {
   private ["_unit"];
   _unit = _this select  0;
 
+  if ! ([_unit, "guard"] call objectiveController_unitHasObjective) exitWith {};
+
+  if ! ([_unit] call hideout_isInHideout) exitWith {};
+
   if (call missionControl_getElapsedTime > (60 * 5)) exitWith {};
 
   if (backpack _unit != "") exitWith {};
@@ -397,6 +407,8 @@ objective_guard_doParadrop = {
   if (loadAbs _unit > 300) exitWith {};
   
   if (vehicle _unit != _unit) exitWith {};
+
+  [_unit] call objective_guard_removePardropAction;
 
   [_unit] spawn reinforcements_paradrop;
 };

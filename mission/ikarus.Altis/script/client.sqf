@@ -46,6 +46,8 @@ client_setUpGuardParadropAction = {
 };
 
 client_removeGuardParadropAction = {
+  if (isNil{client_guardParaDropAction}) exitWith {};
+    
   player removeAction client_guardParaDropAction;
   client_guardParaDropAction = nil;
 };

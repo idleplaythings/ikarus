@@ -69,6 +69,10 @@ ItemDefinitions = [
 
   createMagazine('29rnd .300 cal blackout', '29rnd_300BLK_STANAG', 29),
 
+  createWeapon('Steyr AUG A1', 'hlc_rifle_auga1_b', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  createWeapon('Steyr AUG A2', 'hlc_rifle_auga2_b', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
+  
+
   //ASSAULT RIFLES (CUP)
 
   createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
@@ -451,7 +455,9 @@ ItemDefinitions = [
       'arifle_MX_F': 'd20-19',
       'arifle_MX_GL_F': 'd20-19',
       'arifle_MXC_F': 'd20-19',
-      'optic_MRCO': 'd20-19'
+      'optic_MRCO': 'd20-19',
+      'hlc_rifle_auga1_b': 'd20-19',
+      'hlc_rifle_auga2_b': 'd20-19',
     }
   ),
 

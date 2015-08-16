@@ -35,6 +35,9 @@ marketDefinitions = [
       'hlc_rifle_Colt727_GL':   {money: 420},
       'hlc_rifle_samr2':        {money: 120},
 
+      'hlc_rifle_auga1_b':      {money: 150}, 
+      'hlc_rifle_auga2_b':      {money: 165},
+
       'hlc_rifle_Bushmaster300':{money: 200},
       'hlc_rifle_vendimus':     {money: 200},
       'hlc_rifle_honeybadger':  {money: 200},

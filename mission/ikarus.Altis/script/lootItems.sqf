@@ -33,7 +33,9 @@ lootItems_definitions = [
       ['hlc_rifle_Bushmaster300', '29rnd_300BLK_STANAG', '29rnd_300BLK_STANAG'],
       ['hlc_rifle_vendimus', '29rnd_300BLK_STANAG', '29rnd_300BLK_STANAG'],
       ['hlc_rifle_honeybadger', '29rnd_300BLK_STANAG', '29rnd_300BLK_STANAG', 'muzzle_HBADGER'],
-      ['hlc_rifle_samr2', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag']
+      ['hlc_rifle_samr2', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag'],
+      ['hlc_rifle_auga1_b', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag'],
+      ['hlc_rifle_auga2_b', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag']
     ]
   ],
   ['norail_battleRifles', 

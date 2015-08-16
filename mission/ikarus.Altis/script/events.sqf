@@ -82,7 +82,7 @@ addMissionEventHandler ["HandleDisconnect", {
 
   if (! isNil{_squad}) then {
     _vehicle = vehicle _unit;
-    if (_vehicle != _unit && count ([_vehicle] call vehicle_getAmountOfAliveCrew) == 0) then {
+    if (_vehicle != _unit && ([_vehicle] call vehicle_getAmountOfAliveCrew) == 0) then {
       _loot = _loot + ([_vehicle] call loot_checkContainer);
       _loot = _loot + [typeOf _vehicle];
       deleteVehicle _vehicle;

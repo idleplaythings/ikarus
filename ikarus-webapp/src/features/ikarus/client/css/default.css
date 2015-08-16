@@ -111,6 +111,17 @@ section h2 {
   margin: 0;
 }
 
+.marketlist {
+  position:absolute;
+  top:0;bottom:0;
+  overflow-x:scroll;
+}
+
+.marketItemInfo {
+  margin-left:50%;
+  min-height:400px;
+}
+
 .marketBuyRow {
   text-align: center;
   font-size: 32px;

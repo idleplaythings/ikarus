@@ -1,7 +1,7 @@
 <template name="marketPlaceView">
 
-  <div class="row add-top">
-    <div class="col-md-6">
+  <div class="row add-top" style="position:relative;">
+    <div class="col-md-6 marketlist">
       {{#each getItems}}
         <div class="panel panel-default {{getStatusClass}} clickable">
           <div class="panel-heading marketEntry" data-armaClass="{{getArmaClass}}">
@@ -11,7 +11,7 @@
       {{/each}}
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 marketItemInfo">
       {{#with getSelectedItem}}
         {{#with getItem}}
           {{> itemInfoLarge}}

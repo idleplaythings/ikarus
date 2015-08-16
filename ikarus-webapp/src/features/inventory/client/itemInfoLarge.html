@@ -2,11 +2,7 @@
   <div class="row itemInfo large">
     <h3>{{name}}</h3>
     <div class="col-md-6">
-      <table>
-        {{#each getProperties}}
-          <tr><td>{{name}}</td><td>{{value}}</td></tr>
-        {{/each}}
-      </table>
+      {{> itemDescription}}
     </div>
     <div class="col-md-6">
       {{> itemImage}}

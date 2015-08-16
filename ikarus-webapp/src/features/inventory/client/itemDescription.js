@@ -1,6 +1,6 @@
 Template.itemDescription.helpers({
   description: function () {
-    var entry = ItemDescriptions[this.armaClass];
+    var entry = ItemDescriptions()[this.armaClass];
     if (! entry) {
       return "no description";
     }
@@ -22,13 +22,13 @@ Template.itemDescription.helpers({
 });
 
 function getPros(armaClass) {
-  return ItemDescriptions[armaClass] ? ItemDescriptions[armaClass].pros : null;
+  return ItemDescriptions()[armaClass] ? ItemDescriptions()[armaClass].pros : null;
 }
 
 function getCons(armaClass) {
-  return ItemDescriptions[armaClass] ? ItemDescriptions[armaClass].cons : null;
+  return ItemDescriptions()[armaClass] ? ItemDescriptions()[armaClass].cons : null;
 }
 
 function getMod(armaClass) {
-  return ItemDescriptions[armaClass] ? ItemDescriptions[armaClass].mod : null;
+  return ItemDescriptions()[armaClass] ? ItemDescriptions()[armaClass].mod : null;
 }

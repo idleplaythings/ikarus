@@ -251,15 +251,15 @@ Monitor.prototype._changeStatus = function(status) {
 };
 
 var weatherRetrieve = function(test) {
-  return this._gameData.getWeather();
+  return this._gameData.getWeather(test);
 };
 
 var nextWeatherRetrieve = function(test) {
-  return this._gameData.getNextWeather();
+  return this._gameData.getNextWeather(test);
 };
 
 var dateTimeRetrieve = function(test) {
-  return this._gameData.getMissionDateTime()
+  return this._gameData.getMissionDateTime(test)
 };
 
 var squadsRetrieve = function(test) {

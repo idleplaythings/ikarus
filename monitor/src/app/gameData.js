@@ -5,6 +5,48 @@ var SquadLoot = require('../domain/squadLoot.js');
 module.exports = function(armaSerializer){
   'use strict';
 
+  var testIntel = { 
+    _id: 'hmjCizy7vMyqqWeqz',
+    currentWeather: 
+    { 
+      type: 'Clear',
+      overcast: '0.1',
+      fog: '0.0',
+      rain: '0.0',
+      lightnings: '0.0',
+      wind: { windSpeed: '5.7', easterly: '4.7', northerly: '-3.3' },
+      waves: 0.4 
+    },
+    forecast: 
+    { 
+      type: 'Clear',
+      overcast: '0.1',
+      fog: '0.0',
+      rain: '0.0',
+      lightnings: '0.0',
+      wind: { windSpeed: '3.2', easterly: '2.9', northerly: '1.3' },
+      waves: 0.4 
+    },
+    nextWeather: 
+    { 
+      type: 'Clear',
+      overcast: '0.1',
+      fog: '0.0',
+      rain: '0.0',
+      lightnings: '0.0',
+      wind: { windSpeed: '8.5', easterly: '-1.1', northerly: '8.4' },
+      waves: 0.6 },
+    dateTime: 
+    { 
+      type: 'Dawn',
+      year: '2035',
+      month: '11',
+      day: '3',
+      hour: '6',
+      minute: '47' 
+    } 
+  };
+
   var testSquad = new Squad({
     _id: 'id',
     steamIds: ["_SP_PLAYER_"],
@@ -202,20 +244,23 @@ module.exports = function(armaSerializer){
     return loot;
   };
 
-  GameData.prototype.getWeather = function(){
-    return this._serializeWeatherObject(this._intel.currentWeather);
+  GameData.prototype.getWeather = function(demo){
+    var intel = demo ? testIntel : this._intel;
+    return this._serializeWeatherObject(intel.currentWeather);
   };
 
-  GameData.prototype.getNextWeather = function(){
-    return this._serializeWeatherObject(this._intel.nextWeather);
+  GameData.prototype.getNextWeather = function(demo){
+    var intel = demo ? testIntel : this._intel;
+    return this._serializeWeatherObject(intel.nextWeather);
   };
 
-  GameData.prototype.getMissionDateTime = function(){
-    return this._intel.dateTime.year + ',' +
-           this._intel.dateTime.month + ',' +
-           this._intel.dateTime.day + ',' +
-           this._intel.dateTime.hour + ',' +
-           this._intel.dateTime.minute;
+  GameData.prototype.getMissionDateTime = function(demo){
+    var intel = demo ? testIntel : this._intel;
+    return intel.dateTime.year + ',' +
+           intel.dateTime.month + ',' +
+           intel.dateTime.day + ',' +
+           intel.dateTime.hour + ',' +
+           intel.dateTime.minute;
   };
 
   GameData.prototype._serializeWeatherObject = function(weather) {

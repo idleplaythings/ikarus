@@ -24,7 +24,6 @@ private [
     "_hangarClasses",
     "_nearHangars",
     "_copters",
-    "_coptersSpawnedHangars",
     "_spawnCopters",
     "_despawnCopters",
 
@@ -256,7 +255,6 @@ _despawnBoats = {
 
 
 _copters = [];
-_coptersSpawnedHangars = [];
 
 _hangarClasses = [
     "Land_Hangar_F",
@@ -277,30 +275,40 @@ _nearHangars = {
 };
 
 _spawnCopters = {
-    private ["_positions", "_hangars", "_hangarPositions", "_spawnPositions"];
+    private ["_positions", "_hangars", "_hangarPositions", "_spawnPositions", "_spawnedCopterOriginalPositions"];
     _positions = _this;
 
     _hangars = [_positions, {
         (_this select 0) + ((_this select 1) call _nearHangars);
     }, []] call AEX_reduce;
 
-    _hangarPositions = [_hangars - _coptersSpawnedHangars, {_this modeltoworld [0, 0, 0]}] call AEX_map;
+    _spawnPositions = [_hangars, {_this modeltoworld [0, 0, 0]}] call AEX_map;
 
-    _coptersSpawnedHangars = _hangars;
+    // more spawn positions can be added here
+    // but need to be filtered to be within 1000 meters of one of the _positions first
 
-    _hangarPositions = [_hangarPositions, {
+    _spawnPositions = [_spawnPositions, {
         _seed = _gameSeed + floor ((_this select 0)*65537 + (_this select 1) mod 65537);
         (call _random) > 0.9;
     }] call AEX_filter;
 
-    _spawnPositions = [_hangarPositions, {_this findEmptyPosition [5, 10, "B_Heli_Light_01_F"]}] call AEX_map;
-    _spawnPositions = [_spawnPositions, {(count _this) > 0}] call AEX_filter;
+    _spawnedCopterOriginalPositions = [_copters, {
+        _this getVariable "ikarus_original_position";
+    }] call AEX_map;
+
+    _spawnPositions = _spawnPositions - _spawnedCopterOriginalPositions;
 
     {
-        private ["_class", "_vehicle"];
+        private ["_class", "_spawnPosition", "_vehicle"];
         _class = "B_Heli_Light_01_F";
-        _vehicle = _class createVehicle _x;
+
+        _spawnPosition = _x findEmptyPosition [5, 10, "B_Heli_Light_01_F"];
+
+        if ((count _spawnPosition) < 1) exitWith {};
+
+        _vehicle = _class createVehicle _spawnPosition;
         _vehicle setvariable ["zlt_civveh", true];
+        _vehicle setvariable ["ikarus_original_position", _x];
         _copters pushBack _vehicle;
     } forEach _spawnPositions;
 };

@@ -38,14 +38,19 @@ Intel.prototype.setMissionDateTime = function(dateTime) {
   collections.IntelCollection.update({ _id: this._id }, { $set: { dateTime: dateTime }});
 };
 
+Intel.prototype.advanceMissionIntel = function() {
+  this.advanceTime();
+  this.changeWeather();
+};
+
 Intel.prototype.changeWeather = function() {
   var currentWeather = this.getNextWeather();
   this.setCurrentWeather(currentWeather);
 
-  var nextWeather = currentWeather.change();
+  var nextWeather = currentWeather.change(this.getCurrentMissionDateTime());
   this.setNextWeather(nextWeather);
 
-  var forecast = currentWeather.forecast();
+  var forecast = currentWeather.forecast(this.getCurrentMissionDateTime());
   this.setForecast(forecast);
 };
 

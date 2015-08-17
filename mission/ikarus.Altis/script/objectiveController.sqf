@@ -41,7 +41,7 @@ objectiveController_sendChooseObjectiveMenu = {
     if (_valid) then {
       _objectives pushBack ([_x] call objectiveController_getObjectiveDataSetFromType);
     };
-  } forEach ['supply', 'hold', 'guard', 'assasination', 'military'];
+  } forEach ['supply', 'hold', 'guard', 'assasination', 'military', 'manhunt'];
 
   _objectives = _objectives + ([_squad] call objective_raid_getValidRaids);
 
@@ -150,7 +150,7 @@ objectiveController_callObjectives = {
   
   {
     [_x, _functionName, _arguments] call objectiveController_callObjective;
-  } forEach ['raid', 'supply', 'hold', 'guard', 'assasination', 'military'];
+  } forEach ['raid', 'supply', 'hold', 'guard', 'assasination', 'military', 'manhunt'];
 };
 
 objectiveController_callObjective = {

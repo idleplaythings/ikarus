@@ -86,10 +86,10 @@ objectiveDialog_getDescription = {
   };
 
   if (_type == "Guard") exitWith {
-    "GUARD DUTY<br/><br/>You will be guarding the objective depots."
-   + " You will be provided with default equipment. If there are not enough depots to guard"
+    "GUARD DUTY<br/><br/>You will be opposing other squads, trying to prevent them from succeeding in their objectives."
+   + " If there are too many guards "
    + " this objective defaults to SUPPLY RUN. You will get rewards for all enemies you kill in 1km"
-   + " radius of the depot.";
+   + " radius of the depot and from loot boxes you secure.";
   };
 
   if (_type == "Hold") exitWith {
@@ -107,6 +107,10 @@ objectiveDialog_getDescription = {
     "MILITARY BASE RAID<br/><br/>This mission will consume intellignece item. Map will contain"
     + " one military base that all squads will fight over. Military base will contain the best equipment"
     + " available.";
+  };
+
+  if (_type == "Manhunt") exitWith {
+    "MANHUNT<br/><br/>This mission requires the signal device item. You can use the signal device to triangulate the location of an equipment cache. However, the signal device will also reveal your position on map. Signal device is also required to open the equipment cache.";
   };
 
   if (_type == "Raid") exitWith {

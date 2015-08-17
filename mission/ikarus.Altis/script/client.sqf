@@ -171,6 +171,45 @@ client_doWithCancelTimer = {
   _arguments call _callback;
 };
 
+client_lastTriangulation = 0;
+client_triangulationAction = nil;
+
+client_setUpSignalDeviceAction = {
+
+  if ! (isNil{client_triangulationAction}) exitWith {};
+
+  _action = {
+
+    if (client_lastTriangulation != 0 && client_lastTriangulation + 60 < time) exitWith {
+      ["Triangulation has 60 second cooldown."] call BIS_fnc_dynamicText;
+    };
+
+    [
+      [],
+      {
+        triangulation = [player];
+        publicVariableServer "triangulation";
+        if (isServer) then {
+          [player] call objective_manhunt_triangulate;
+        };
+      },
+      "Traingulating in 5 seconds. Moving will cancel this",
+      "Paradrop cancelled"
+    ] spawn client_doWithCancelTimer;
+  };
+
+  client_triangulationAction = player addAction [
+    "Triangulate",
+    _action
+  ];
+};
+
+client_removeSignalDeviceAction = {
+  if (isNil{client_triangulationAction}) exitWith {};
+  player removeAction client_triangulationAction;
+  client_triangulationAction = nil;
+};
+
 client_setUpDeployOutpost = {
   deployOutpost = [player];
   client_setupOutpostAction = player addAction ["Deploy outpost", 'publicVariableServer "deployOutpost"'];

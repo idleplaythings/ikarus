@@ -163,9 +163,10 @@ Monitor.prototype._connectToWebApp = function() {
     this._config.webApp.port,
     function(err, reconnect) {
 
+      this._webAppClient.login();
+
       if (! reconnect){
         console.log("connected to webApp");
-        this._webAppClient.login();
         this._webAppClient.reportStatusIdle();
         this._webAppClient.updateDetails(
             _.pick(this._config.arma, 'host', 'port', 'password')

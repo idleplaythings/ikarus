@@ -45,10 +45,32 @@ lootBox_getBoxClass = {
   "Land_CargoBox_V1_F";
 };
 
+lootbox_secureBox = {
+  private ["_unit", "_box", "_lootSecure"];
+  _box = _this select 0;
+  _unit = _this select 1;
+
+  _lootSecure = _box getVariable ["lootSecure", 0];
+  
+  _lootSecure = _lootSecure + ([_box] call lootbox_getSecureIncrement);
+  
+  _box setVariable ["lootSecure", _lootSecure, false];
+  
+  [[_unit], _lootSecure] call lootbox_hintSecure;
+  
+  if (_lootSecure >= 100) then {
+    [_box, _unit] call lootbox_secure;
+  };
+};
+
 lootbox_tickOpen = {
   private ["_unit", "_box", "_lootLock"];
   _box = _this select 0;
   _unit = _this select 1;
+
+  if ([_unit, 'guard'] call objectiveController_unitHasObjective) exitWith {
+    [_box, _unit] call lootbox_secureBox;
+  };
   
   _lootLock = _box getVariable "lootLock";
   
@@ -63,6 +85,23 @@ lootbox_tickOpen = {
   if (_lootLock >= 100) then {
     [_box, _unit] call lootbox_open;
   };
+};
+
+lootbox_getSecureIncrement = {
+  private ["_timeElapsed", "_level", "_box"];
+  _box = _this select 0;
+
+  _timeElapsed = call missionControl_getElapsedTime;
+  
+  if (_timeElapsed < 1800) exitWith {
+    0;
+  }; 
+  
+  if (_timeElapsed > 2100) exitWith {
+    1;
+  };
+  
+  0.3;
 };
 
 lootbox_getUnlockIncrement = {
@@ -99,6 +138,22 @@ lootbox_listHasPlayers = {
   _result;
 };
 
+lootbox_hintSecure = {
+  private ["_units", "_value"];
+  _units = _this select 0;
+  _value = _this select 1;
+  
+  if (_value == 0) exitWith {
+    {
+      ["You can't secure this box yet", "hintSilent", _x, false, true] call BIS_fnc_MP;
+    } forEach _units;
+  };
+
+  {
+    ["Loot box is " + str floor _value + "% secured", "hintSilent", _x, false, true] call BIS_fnc_MP;
+  } forEach _units;
+};
+
 lootbox_hint = {
   private ["_units", "_value"];
   _units = _this select 0;
@@ -113,6 +168,16 @@ lootbox_hint = {
   {
     ["Loot box is " + str floor _value + "% open", "hintSilent", _x, false, true] call BIS_fnc_MP;
   } forEach _units;
+};
+
+lootbox_secure = {
+  private ["_box", "_unit", "_openBox", "_position", "_level", "_extraLoot"];
+  _box = _this select 0;
+  _unit = _this select 1;
+  
+  deleteVehicle _box;
+
+  [([_unit] call getSquadForUnit), ["IKRS_guard_secure_reward"]] call addDisconnectedLoot;
 };
 
 lootbox_open = {
@@ -216,13 +281,10 @@ lootbox_checkBoxes = {
       _level = _box getVariable ["level", 0];
       {
         if (_x distance _box < 2) then {
-          _canOpen = false;
+          _canOpen = true;
           _squad = [_x] call getSquadForUnit;
-          if (! isNil{_squad}) then {
-            _canOpen = [_squad, "canOpenLootBoxes", [_x]] call objectiveController_callSquadObjective;
-          };
-
-          if (_canOpen && ! ([_x, _level] call lootBox_hasKeyToOpen)) then {
+        
+          if (! ([_x, _level] call lootBox_hasKeyToOpen)) then {
             _canOpen = false;
             ["You need a level " + str _level + " key to open this box.", "hintSilent", _x, false, true] call BIS_fnc_MP;
           };

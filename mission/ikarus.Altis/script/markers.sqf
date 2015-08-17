@@ -160,11 +160,13 @@ markers_createGuardBriefing = {
   _task = player createSimpleTask ["GuardDuty"];
 
   _task setSimpleTaskDescription [
-   'You are tasked to guard any depot marked on the map.'
+   'You are tasked to prevent other squads from completing their objectives'
     + '<br/><br/>You will get rewards for each enemy player you kill on 1km radius of any depot.'
     + ' You will get extra rewards for each kill, if you get back to your base alive.'
-    + '<br/><br/>NOTE: You will not get any loot from loot backpacks you bring to your base!'
-    + '<br/><br/>NOTE: You will get penalties from killing other guards!',
+    + '<br/><br/>Guards can not open supply boxes or hold guard depot. However, you can participate in Manhunt.<br/><br/>'
+    + 'After 30 minutes of gametime has elapsed, you can secure loot boxes by standing next to them. After 35 you can secure them faster. Securing a lootbox will give you money and renown as a reward.'
+    + '<br/><br/>During the first 5 minutes you can choose to paradrop to the objective area from your base.'
+    + '<br/><br/>NOTE: You will not get any loot from loot backpacks you bring to your base!',
    "Guard duty",
    ""
   ];

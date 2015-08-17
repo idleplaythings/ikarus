@@ -328,3 +328,23 @@ markers_updateAssasinMarker = {
 markers_textMessage = {
   [_this select 0] call BIS_fnc_dynamicText;
 };
+
+markers_manhuntMarkers = [];
+
+markers_updateManhuntMarkers = {
+  private ["_positions"];
+  _positions = _this select 0;
+
+  {
+    deleteMarkerLocal _x;
+  } forEach markers_manhuntMarkers;
+  markers_manhuntMarkers = [];
+
+  {
+    private ["_marker"];
+    _marker = createMarkerLocal ["manhunt" + str _x, _x];
+    _marker setMarkerTypeLocal "mil_box";
+    _marker setMarkerColorLocal "ColorRed";
+    markers_manhuntMarkers pushBack _marker;
+  } forEach _positions;
+};

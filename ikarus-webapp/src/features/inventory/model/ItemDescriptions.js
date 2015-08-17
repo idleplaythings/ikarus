@@ -38,8 +38,12 @@ ItemDescriptions = function (){
       mod: "Ikarus mod"
     },
 
-    // AK
+    'IKRS_signal_device': {
+      description: "If you take this with you on a mission, you can choose the Manhunt mission. Notice that your signal device will be active even if someone else chooses the Manhunt.",
+      mod: "Ikarus mod"
+    },
 
+    // AK
 
     'hlc_rifle_ak74': {
       description: "The AK-74 is an adaptation of the AKM assault rifle chambered in 5.45×39mm.",

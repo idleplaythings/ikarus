@@ -23,6 +23,10 @@ player addEventHandler [ "take", {
   if (_item == "IKRS_outpost_backpack") then {
     call client_setUpDeployOutpost;
   };
+
+  if (_item == "IKRS_signal_device") then {
+    call client_setUpSignalDeviceAction;
+  };
 }];
 
 player addeventhandler ["Put",{
@@ -33,6 +37,10 @@ player addeventhandler ["Put",{
 
   if (_item == "IKRS_outpost_backpack") then {
     call client_removeDeployOutpost;
+  };
+
+  if (_item == "IKRS_signal_device") then {
+    call client_removeSignalDeviceAction;
   };
 }];
 

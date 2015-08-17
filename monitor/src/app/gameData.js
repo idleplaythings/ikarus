@@ -107,7 +107,8 @@ module.exports = function(armaSerializer){
         'B_AssaultPack_khk': 1,
         'B_Heli_Light_01_F': 1,
         'IKRS_intelligence_helo': 1,
-        'IKRS_outpost_backpack': 3
+        'IKRS_outpost_backpack': 3,
+        'IKRS_signal_device': 1,
       }
     },
     {

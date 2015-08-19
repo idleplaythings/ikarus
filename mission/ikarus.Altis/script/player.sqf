@@ -168,5 +168,5 @@ hasOnlyOneSquadLeft = {
 
   } forEach call getAllPlayers;
 
-  count _squadIds <= 1;
+  count _squadIds == 0;
 };

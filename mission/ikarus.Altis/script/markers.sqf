@@ -374,11 +374,12 @@ markers_updateManhuntMarkers = {
 markers_triangulations = [];
 
 markers_updateTriangulationMarkers = {
-  private ["_distance", "_marker"];
+  private ["_distance", "_position", "_marker"];
   _distance = _this select 0;
+  _position = _this select 1;
 
 
-  _marker = createMarkerLocal ["triangulation" + (str getPos player) + (str _distance), getPos player];
+  _marker = createMarkerLocal ["triangulation" + (str _position) + (str _distance), _position];
   _marker setMarkerBrushLocal "Border";
   _marker setMarkerColorLocal "ColorBlue";
   _marker setMarkerShapeLocal "ELLIPSE";

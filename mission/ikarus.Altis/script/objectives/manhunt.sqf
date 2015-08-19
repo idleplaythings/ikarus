@@ -186,7 +186,7 @@ objective_manhunt_triangulate = {
   [_unit] call objective_manhunt_setTriangulation;
 
   {
-    [[_result], "markers_updateTriangulationMarkers", _x, true, false] call BIS_fnc_MP;
+    [[_result, getPos _unit], "markers_updateTriangulationMarkers", _x, true, false] call BIS_fnc_MP;
   } forEach ([[_unit] call getSquadForUnit] call getPlayersInSquad);
 };
 

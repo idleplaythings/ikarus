@@ -341,6 +341,7 @@ objective_guard_onLeaveHideout = {
 
 objective_guard_addPardropAction = {
   private ["_unit"];
+  if (isNil{call depots_getRandom}) exitWith {};
   _unit = _this select  0;
   [[], "client_setUpGuardParadropAction", _unit, false, false] call BIS_fnc_MP;
 };
@@ -369,6 +370,8 @@ objective_guard_removePardropActionFromEveryone = {
 objective_guard_doParadrop = {
   private ["_unit"];
   _unit = _this select  0;
+
+  if (isNil{call depots_getRandom}) exitWith {};
 
   if ! ([_unit, "guard"] call objectiveController_unitHasObjective) exitWith {};
 

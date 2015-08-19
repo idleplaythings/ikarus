@@ -2,18 +2,159 @@ lootbox_boxes = [];
 
 lootbox_types = ["Land_CargoBox_V1_F", "IKRS_Land_CargoBox_1", "IKRS_Land_CargoBox_2", "IKRS_Land_CargoBox_3"];
 
+lootbox_createSupplyBox = {
+  private ["_position","_azimuth"];
+  _position = _this select 0;
+  _azimuth = [_this, 1, random 360] call BIS_fnc_param;
+
+  [
+    _position,
+    _azimuth,
+    "Land_CargoBox_V1_F", //closedObject
+    "I_CargoNet_01_ammo_F", //open container object
+    "", //key
+    "IKRS_box_opening_reward_lvl1",
+    "IKRS_guard_secure_reward",
+    1, 
+    1,
+    "lootItems_populateSupplyBoxLevel_0"
+  ] call lootbox_create;
+};
+
+lootbox_createAdvancedSupplyBox = {
+  private ["_position","_azimuth"];
+  _position = _this select 0;
+  _azimuth = [_this, 1, random 360] call BIS_fnc_param;
+
+  [
+    _position,
+    _azimuth,
+    "IKRS_Land_CargoBox_1", //closedObject
+    "B_CargoNet_01_ammo_F", //open container object
+    "IKRS_loot_key1", //key
+    "IKRS_box_opening_reward_lvl2",
+    "IKRS_guard_secure_reward",
+    1, 
+    1,
+    "lootItems_populateSupplyBoxLevel_1"
+  ] call lootbox_create;
+};
+
+lootbox_createAdvancedHoldBox = {
+  private ["_position","_azimuth"];
+  _position = _this select 0;
+  _azimuth = [_this, 1, random 360] call BIS_fnc_param;
+
+  [
+    _position,
+    _azimuth,
+    "IKRS_Land_CargoBox_1", //closedObject
+    "B_CargoNet_01_ammo_F", //open container object
+    "IKRS_loot_key2", //key
+    "IKRS_box_opening_reward_lvl3",
+    "IKRS_guard_secure_reward",
+    1, 
+    1,
+    "lootItems_populateSupplyBoxLevel_2"
+  ] call lootbox_create;
+};
+
+lootbox_createMilitaryWeaponBox = {
+  private ["_position","_azimuth"];
+  _position = _this select 0;
+  _azimuth = [_this, 1, random 360] call BIS_fnc_param;
+
+  [
+    _position,
+    _azimuth,
+    "Land_CargoBox_V1_F", //closedObject
+    "B_CargoNet_01_ammo_F", //open container object
+    "", //key
+    "IKRS_box_opening_reward_lvl4",
+    "",
+    0.75, 
+    0,
+    "lootItems_populateSupplyBoxLevel_3"
+  ] call lootbox_create;
+};
+
+lootbox_createMilitaryVehicleBox = {
+  private ["_position","_azimuth"];
+  _position = _this select 0;
+  _azimuth = [_this, 1, random 360] call BIS_fnc_param;
+
+  [
+    _position,
+    _azimuth,
+    "Land_CargoBox_V1_F", //closedObject
+    "B_CargoNet_01_ammo_F", //open container object
+    "", //key
+    "IKRS_box_opening_reward_lvl4",
+    "",
+    0.75, 
+    0,
+    "lootItems_populateSupplyBoxLevel_4"
+  ] call lootbox_create;
+};
+
+lootbox_createManhuntCache = {
+  private ["_position","_azimuth"];
+  _position = _this select 0;
+  _azimuth = [_this, 1, random 360] call BIS_fnc_param;
+
+  [
+    _position,
+    _azimuth,
+    "IKRS_Land_CargoBox_1", //closedObject
+    "B_CargoNet_01_ammo_F", //open container object
+    "IKRS_signal_device", //key
+    "IKRS_box_opening_reward_lvl4",
+    "",
+    1.5, 
+    0,
+    "lootItems_populateManhuntCache"
+  ] call lootbox_create;
+};
+
 lootbox_create = {
-  private ["_position", "_azimuth", "_boxId", "_level", "_boxClass"];
+  private [
+    "_position",
+    "_azimuth",
+    "_closedBobject",
+    "_openObject",
+    "_key",
+    "_openingReward",
+    "_secureReward",
+    "_openIncrement",
+    "_secureIncrement",
+    "_lootFunction",
+    "_key"
+  ];
   _position = _this select 0;
   _azimuth = _this select 1;
-  _level = [_this, 2, 0] call BIS_fnc_param;
-  _boxClass = [_level] call lootBox_getBoxClass;
+  _closedObject = [_this, 2, "Land_CargoBox_V1_F"] call BIS_fnc_param;
+  _openObject = [_this, 3, "I_CargoNet_01_ammo_F"] call BIS_fnc_param;
+  _key = [_this, 4, ""] call BIS_fnc_param;
+  _openingReward = [_this, 5, ""] call BIS_fnc_param;
+  _secureReward = [_this, 6, ""] call BIS_fnc_param;
+  _openIncrement = [_this, 7, 1] call BIS_fnc_param;
+  _secureIncrement = [_this, 8, 1] call BIS_fnc_param;
+  _lootFunction = [_this, 9, "lootItems_populateSupplyBoxLevel_0"] call BIS_fnc_param;
 
-  _object = createVehicle [_boxClass, [0,0,3000], [], 0, "FLYING"];
+  _object = createVehicle [_closedObject, [0,0,3000], [], 0, "FLYING"];
   _object setDir _azimuth;
   _object setPosASL _position;
+  _object enableSimulationGlobal false;
   _object setVariable ["lootLock", 0, false];
-  _object setVariable ["level", _level, false];
+  _object setVariable ["lootSecure", 0, false];
+  _object setVariable ["openObject", _openObject, false];
+  _object setVariable ["key", _key, false];
+  _object setVariable ["openingReward", _openingReward, false];
+  _object setVariable ["secureReward", _secureReward, false];
+  _object setVariable ["openIncrement", _openIncrement, false];
+  _object setVariable ["secureIncrement", _secureIncrement, false];
+  _object setVariable ["lootFunction", _lootFunction, false];
+  
   
   lootbox_boxes pushBack _object;
   _object;
@@ -28,21 +169,6 @@ lootBox_addExtraLoot = {
   _currentLoot = _currentLoot + _loot;
 
   _box setVariable ["extraLoot", _currentLoot, false];
-};
-
-lootBox_getBoxClass = {
-  private ["_level"];
-  _level = _this select 0;
-
-  if (_level == 0) exitWith {"Land_CargoBox_V1_F"};
-
-  if (_level == 1) exitWith {"IKRS_Land_CargoBox_1"};
-
-  if (_level == 2) exitWith {"IKRS_Land_CargoBox_2"};
-
-  if (_level == 3) exitWith {"Land_CargoBox_V1_F"};
-
-  "Land_CargoBox_V1_F";
 };
 
 lootbox_secureBox = {
@@ -63,12 +189,25 @@ lootbox_secureBox = {
   };
 };
 
+lootBox_canSecure = {
+  private ["_box", "_unit"];
+  _box = _this select 0;
+  _unit = _this select 1;
+
+  if ([_unit, 'guard'] call objectiveController_unitHasObjective 
+    && ((_box getVariable ["secureReward", ""]) != "")) exitWith {
+    true;
+  };
+
+  false;
+};
+
 lootbox_tickOpen = {
   private ["_unit", "_box", "_lootLock"];
   _box = _this select 0;
   _unit = _this select 1;
 
-  if ([_unit, 'guard'] call objectiveController_unitHasObjective) exitWith {
+  if ([_box, _unit] call lootBox_canSecure) exitWith {
     [_box, _unit] call lootbox_secureBox;
   };
   
@@ -88,8 +227,9 @@ lootbox_tickOpen = {
 };
 
 lootbox_getSecureIncrement = {
-  private ["_timeElapsed", "_level", "_box"];
+  private ["_timeElapsed", "_increment", "_box"];
   _box = _this select 0;
+  _increment = _box getVariable ["secureIncrement", 1];
 
   _timeElapsed = call missionControl_getElapsedTime;
   
@@ -98,20 +238,17 @@ lootbox_getSecureIncrement = {
   }; 
   
   if (_timeElapsed > 2100) exitWith {
-    1;
+    _increment;
   };
   
-  0.3;
+  _increment * 0.3;
 };
 
 lootbox_getUnlockIncrement = {
-  private ["_timeElapsed", "_level", "_box"];
+  private ["_timeElapsed", "_increment", "_box"];
   _box = _this select 0;
-  _level = _box getVariable ["level", 0];
+  _increment = _box getVariable ["openIncrement", 1];
 
-  if (_level == 0) then {
-    _level = 1;
-  };
 
   _timeElapsed = call missionControl_getElapsedTime;
   
@@ -123,7 +260,7 @@ lootbox_getUnlockIncrement = {
     1;
   };
   
-  0.3;
+  _increment * 0.3;
 };
 
 lootbox_listHasPlayers = {
@@ -145,12 +282,12 @@ lootbox_hintSecure = {
   
   if (_value == 0) exitWith {
     {
-      ["You can't secure this box yet", "hintSilent", _x, false, true] call BIS_fnc_MP;
+      [["You can't secure this box yet", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
     } forEach _units;
   };
 
   {
-    ["Loot box is " + str floor _value + "% secured", "hintSilent", _x, false, true] call BIS_fnc_MP;
+    [["Loot box is " + str floor _value + "% secured", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
   } forEach _units;
 };
 
@@ -161,37 +298,46 @@ lootbox_hint = {
   
   if (_value == 0) exitWith {
     {
-      ["You can't open this box yet", "hintSilent", _x, false, true] call BIS_fnc_MP;
+      [["You can't open this box yet", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
     } forEach _units;
   };
 
   {
-    ["Loot box is " + str floor _value + "% open", "hintSilent", _x, false, true] call BIS_fnc_MP;
+    [["Loot box is " + str floor _value + "% open", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
   } forEach _units;
 };
 
 lootbox_secure = {
-  private ["_box", "_unit", "_openBox", "_position", "_level", "_extraLoot"];
+  private ["_box", "_unit", "_secureReward"];
   _box = _this select 0;
   _unit = _this select 1;
+  _secureReward = _box getVariable ["secureReward", ""];
   
   deleteVehicle _box;
-
-  [([_unit] call getSquadForUnit), ["IKRS_guard_secure_reward"]] call addDisconnectedLoot;
+  
+  if (_secureReward != "") then {
+    [([_unit] call getSquadForUnit), [_secureReward]] call addDisconnectedLoot;
+    systemChat "Added secure reward";
+    systemChat str _secureReward;
+  };
 };
 
 lootbox_open = {
-  private ["_box", "_unit", "_openBox", "_position", "_level", "_extraLoot"];
+  private ["_box", "_unit", "_openObject", "_openBox", "_position", "_key", "_extraLoot", "_openingReward"];
   _box = _this select 0;
   _unit = _this select 1;
   _position = getPosASL _box;
   _direction = getDir _box;
-  _level = _box getVariable ["level", 0];
+  _key = _box getVariable ["key", ""];
+  _lootFunction = _box getVariable ["lootFunction", ""];
   _extraLoot = _box getVariable ["extraLoot", []];
+  _openingReward = _box getVariable ["openingReward", ""];
+  _openObject = _box getVariable ["openObject", "IG_supplyCrate_F"];
 
   deleteVehicle _box;
 
-  _openBox = createVehicle ["IG_supplyCrate_F", [0,0,3000], [], 0, "FLYING"];
+
+  _openBox = createVehicle [_openObject, [0,0,3000], [], 0, "FLYING"];
   _openBox setDir _direction;
   _openBox setPosASL _position;
   
@@ -201,13 +347,17 @@ lootbox_open = {
   clearBackpackCargoGlobal _openBox;
   
 
-  [_openBox, _level, _extraLoot] call lootItems_populateSupplyBox;
+  [_openBox, _lootFunction, _extraLoot] call lootItems_populateSupplyBox;
   
   lootbox_boxes pushBack _openBox;
 
-  [([_unit] call getSquadForUnit), ["IKRS_box_opening_reward_lvl" + (str (_level+1))]] call addDisconnectedLoot;
-  
-  [_unit, _level] call lootBox_removeKey;
+  if (_openingReward != "") then {
+    [([_unit] call getSquadForUnit), [_openingReward]] call addDisconnectedLoot;
+    systemChat "Added opening reward";
+    systemChat str _openingReward;
+  };
+
+  [_unit, _key] call lootBox_removeKey;
 };
 
 lootBox_deleteBoxesAround = {
@@ -237,22 +387,19 @@ lootBox_getBoxesOnRadius = {
 };
 
 lootBox_hasKeyToOpen = {
-  private ["_unit", "_level", "_key"];
+  private ["_unit", "_key"];
   _unit = _this select 0;
-  _level = _this select 1;
+  _key = _this select 1;
 
-  if (_level == 0 || _level > 2) exitWith {true;};
-
-  _key = "IKRS_loot_key" + str _level;
+  if (_key == "") exitWith {true;};
 
   [_unit, _key] call equipment_unitHasItem;
 };
 
 lootBox_removeKey = {
-  private ["_unit", "_level", "_key"];
+  private ["_unit", "_key"];
   _unit = _this select 0;
-  _level = _this select 1;
-  _key = "IKRS_loot_key" + str _level;
+  _key = _this select 1;
   [_unit, _key] call equipment_removeItemFromUnit;
 };
 
@@ -268,7 +415,7 @@ lootbox_checkBoxes = {
       "_closestDistance",
       "_canOpen",
       "_squad",
-      "_level",
+      "_key",
       "_hasKey",
       "_isUnconscious"
     ];
@@ -278,15 +425,15 @@ lootbox_checkBoxes = {
     if (typeOf _box in lootbox_types) then {
       _closestUnit = nil;
       _closestDistance = 1000;
-      _level = _box getVariable ["level", 0];
+      _key = _box getVariable ["key", ""];
       {
         if (_x distance _box < 2) then {
           _canOpen = true;
           _squad = [_x] call getSquadForUnit;
         
-          if (! ([_x, _level] call lootBox_hasKeyToOpen)) then {
+          if (! ([_box, _x] call lootBox_canSecure) && ! ([_x, _key] call lootBox_hasKeyToOpen)) then {
             _canOpen = false;
-            ["You need a level " + str _level + " key to open this box.", "hintSilent", _x, false, true] call BIS_fnc_MP;
+            [["You need a key to open this box.", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
           };
 
           _isUnconscious = _x getvariable ["ACE_isUnconscious", false];

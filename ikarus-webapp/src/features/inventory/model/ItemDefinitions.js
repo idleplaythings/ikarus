@@ -72,9 +72,10 @@ ItemDefinitions = [
 
   createMagazine('29rnd .300 cal blackout', '29rnd_300BLK_STANAG', 29),
 
-  createWeapon('Steyr AUG A1', 'hlc_rifle_auga1_b', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
-  createWeapon('Steyr AUG A2', 'hlc_rifle_auga2_b', ['assault-rifle'], ["30Rnd_556x45_Stanag"]),
-  
+  createWeapon('Steyr AUG A1', 'hlc_rifle_auga1_b', ['assault-rifle'], ["hlc_30Rnd_556x45_B_AUG"]),
+  createWeapon('Steyr AUG A2', 'hlc_rifle_auga2_b', ['assault-rifle'], ["hlc_30Rnd_556x45_B_AUG"]),
+  createMagazine('30rnd 5.56x45 AUG', 'hlc_30Rnd_556x45_B_AUG', 30),
+
 
   //ASSAULT RIFLES (CUP)
 

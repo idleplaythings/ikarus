@@ -116,13 +116,11 @@ missionControl_startGame = {
   call outpost_createOutposts;
   missionControl_reinforcementsWait = false;
 
-  ["OBJECTIVES GENERATED. GOOD LUCK AND HAVE FUN!"] call broadcastMessage;
   call missionControl_pollGameEnd;
 };
 
 missionControl_endGame = {
   missionControl_gameOver = true;
-  hint "end game";
   
   {
     private ["_squad", "_loot", "_outposts", "_squadId"];

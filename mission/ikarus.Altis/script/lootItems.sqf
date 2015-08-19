@@ -34,8 +34,8 @@ lootItems_definitions = [
       ['hlc_rifle_vendimus', '29rnd_300BLK_STANAG', '29rnd_300BLK_STANAG'],
       ['hlc_rifle_honeybadger', '29rnd_300BLK_STANAG', '29rnd_300BLK_STANAG', 'muzzle_HBADGER'],
       ['hlc_rifle_samr2', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag'],
-      ['hlc_rifle_auga1_b', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag'],
-      ['hlc_rifle_auga2_b', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag']
+      ['hlc_rifle_auga1_b', 'hlc_30Rnd_556x45_B_AUG', 'hlc_30Rnd_556x45_B_AUG'],
+      ['hlc_rifle_auga2_b', 'hlc_30Rnd_556x45_B_AUG', 'hlc_30Rnd_556x45_B_AUG']
     ]
   ],
   ['norail_battleRifles', 
@@ -132,14 +132,14 @@ lootItems_populateHoldAirdropBox = {
 };
 
 lootItems_populateSupplyBox = {
-  private ["_container", "_level", "_arguments", "_extraLoot"];
+  private ["_container", "_lootFunction", "_arguments", "_extraLoot"];
   _container = _this select 0;
-  _level = _this select 1;
+  _lootFunction = _this select 1;
   _extraLoot = _this select 2;
 
   _arguments = [_container];
 
-  call compile format ["_arguments call lootItems_populateSupplyBoxLevel_%1;", _level];
+  call compile format ["_arguments call %1;", _lootFunction];
 
   {
     [_x, _container] call lootItems_addItemToContainer;
@@ -183,6 +183,19 @@ lootItems_populateSupplyBoxLevel_1 = {
   ['IKRS_loot_key2', _container, 1, 0] call lootItems_addRandomAmount;
   ['high_scopes', _container, 5, -4] call lootItems_addRandomAmount;
   ['battleRifles', _container, 3, -2] call lootItems_addRandomAmount;
+  
+};
+
+lootItems_populateManhuntCache = {
+  private ["_container"];
+  _container = _this select 0;
+
+  [['modern_tacticool', 'nato_tacticool'], _container, 3, 1] call lootItems_addRandomAmount;
+  ['medium_optics', _container, 5, -4] call lootItems_addRandomAmount;
+  ['bibods', _container, 3, 1] call lootItems_addRandomAmount;
+  ['reflexsights', _container, 3, 2] call lootItems_addRandomAmount;
+  [['norail_battleRifles', 'nato_mg'], _container, 2, 1] call lootItems_addRandomAmount;
+  ['IKRS_loot_key1', _container, 1, 0] call lootItems_addRandomAmount;
   
 };
 

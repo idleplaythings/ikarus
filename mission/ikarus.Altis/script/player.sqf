@@ -122,7 +122,7 @@ broadcastMessage = {
   _message = _this select 0;
   
   {
-    [[_message], "markers_textMessage", _x, false, false] call BIS_fnc_MP;
+    [[_message], "client_textMessage", _x, false, false] call BIS_fnc_MP;
   } forEach call getAllPlayersBeforeSquads;
 };
 
@@ -130,8 +130,28 @@ broadcastMessageTo = {
   private ["_message", "_recipient"];
   _message = _this select 0;
   _recipient = _this select 1;
+  _type = [_this, 2, ""] call BIS_fnc_param;
   
-  [[_message], "markers_textMessage", _recipient, false, false] call BIS_fnc_MP;
+  [[_message, _type], "client_textMessage", _recipient, true, false] call BIS_fnc_MP;
+};
+
+broadcastFailureMessageTo = {
+  _this pushBack "TaskFailed";
+  _this call broadcastTaskMessageTo;
+};
+
+broadcastSuccessMessageTo = {
+  _this pushBack "TaskSucceeded";
+  _this call broadcastTaskMessageTo;
+};
+
+broadcastTaskMessageTo = {
+  private ["_message", "_recipient"];
+  _message = _this select 0;
+  _recipient = _this select 1;
+  _type = [_this, 2, ""] call BIS_fnc_param;
+  
+  [[_message, _type], "client_taskMessage", _recipient, false, false] call BIS_fnc_MP;
 };
 
 hasOnlyOneSquadLeft = {

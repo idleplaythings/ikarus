@@ -22,10 +22,12 @@ player addEventHandler [ "take", {
 
   if (_item == "IKRS_outpost_backpack") then {
     call client_setUpDeployOutpost;
+    call client_removeSignalDeviceAction;
   };
 
   if (_item == "IKRS_signal_device") then {
     call client_setUpSignalDeviceAction;
+    call client_removeDeployOutpost;
   };
 }];
 
@@ -56,15 +58,20 @@ player addEventHandler [ "hit", {
 }];
 
 player addEventHandler ["InventoryOpened", {
-  private ["_unit", "_container", "_squadId", "_playerSquadId", "_result"];
+  private ["_unit", "_container", "_squadId", "_playerSquadId", "_result", "_signalDevice"];
   
   _unit = _this select 0;
   _container = _this select 1;
   _squadId = _container getVariable ["squadId", ""];
   _playerSquadId = _unit getVariable ["playerSquadId", ""];
   _result = false;
+  _signalDevice = false;
 
-  if (_squadId != "" && _squadId != _playerSquadId) then {
+  if ("IKRS_signal_device" in backpackCargo _container) then {
+    _signalDevice = true;
+  };
+
+  if (! _signalDevice && _squadId != "" && _squadId != _playerSquadId) then {
     _result = true;
   };
 

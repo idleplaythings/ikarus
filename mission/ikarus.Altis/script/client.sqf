@@ -7,15 +7,15 @@ client_setUpGuardParadropAction = {
   _actionFunction = {
 
     if (backpack player != "") exitWith {
-      ["You may not paradrop while carrying a backpack"] call BIS_fnc_dynamicText;
+      ["You may not paradrop while carrying a backpack", "cancelTimer"] call client_textMessage;
     };
 
     if (loadAbs player > 300) exitWith {
-      ["You are carrying too much weight to paradrop"] call BIS_fnc_dynamicText;
+      ["You are carrying too much weight to paradrop", "cancelTimer"] call client_textMessage;
     };
     
     if (vehicle player != player) exitWith {
-      ["You can't paradrop while in vehicle"] call BIS_fnc_dynamicText;
+      ["You can't paradrop while in vehicle", "cancelTimer"] call client_textMessage;
     };
 
     if (isServer) then { //for single player testing
@@ -78,12 +78,12 @@ client_teleportToOutpost = {
   _position = _this select 0;
 
   if (loadAbs player > 300) exitWith {
-    ["You are carrying too much weight to teleport"] call BIS_fnc_dynamicText;
+    ["You are carrying too much weight to teleport", "cancelTimer"] call client_textMessage;
   };
 
   
   if (vehicle player != player) exitWith {
-    ["You can't teleport while in vehicle"] call BIS_fnc_dynamicText;
+    ["You can't teleport while in vehicle", "cancelTimer"] call client_textMessage;
   };
 
   if (isServer) then { //for single player testing
@@ -142,36 +142,6 @@ client_doDismantleOutpost = {
   publicVariableServer "dismantleOutpost"
 };
 
-client_doingSomething = false;
-
-client_doWithCancelTimer = {
-  private ["_position", "_readyTime", "_arguments", "_callback", "_startText", "_cancelText"];
-  _position = getPos player;
-  _readyTime = time + 5;
-  _arguments = _this select 0;
-  _callback = _this select 1;
-  _startText = _this select 2;
-  _cancelText = _this select 3;
-
-  if (client_doingSomething) exitWith {};
-  client_doingSomething = true;
-
-  [_startText] spawn BIS_fnc_dynamicText;
-
-  waitUntil {
-    getPos player distance _position > 0 || time > _readyTime;
-  };
-
-  client_doingSomething = false;
-
-  if (getPos player distance _position > 0) exitWith {
-    [_cancelText] call BIS_fnc_dynamicText;
-  };
-
-  _arguments call _callback;
-};
-
-client_lastTriangulation = 0;
 client_triangulationAction = nil;
 
 client_setUpSignalDeviceAction = {
@@ -179,11 +149,6 @@ client_setUpSignalDeviceAction = {
   if ! (isNil{client_triangulationAction}) exitWith {};
 
   _action = {
-
-    if (client_lastTriangulation != 0 && client_lastTriangulation + 60 < time) exitWith {
-      ["Triangulation has 60 second cooldown."] call BIS_fnc_dynamicText;
-    };
-
     [
       [],
       {
@@ -193,8 +158,8 @@ client_setUpSignalDeviceAction = {
           [player] call objective_manhunt_triangulate;
         };
       },
-      "Traingulating in 5 seconds. Moving will cancel this",
-      "Paradrop cancelled"
+      "Triangulating in 5 seconds. Moving will cancel this",
+      "Triangulation cancelled"
     ] spawn client_doWithCancelTimer;
   };
 
@@ -211,8 +176,16 @@ client_removeSignalDeviceAction = {
 };
 
 client_setUpDeployOutpost = {
-  deployOutpost = [player];
-  client_setupOutpostAction = player addAction ["Deploy outpost", 'publicVariableServer "deployOutpost"'];
+  private ["_action"];
+  
+  _action = {
+    deployOutpost = [player];
+    publicVariableServer "deployOutpost";
+    if (isServer) then {
+      [player] call outpost_deploy;
+    }
+  };
+  client_setupOutpostAction = player addAction ["Deploy outpost", _action];
 };
 
 client_removeDeployOutpost = {
@@ -255,4 +228,109 @@ client_addRating = {
   private ["_number"];
   _number = _this select 0;
   player addRating _number;
+};
+
+client_doingSomething = false;
+client_doingSomethingCancelled = false;
+
+client_doWithCancelTimer = {
+  private ["_position", "_readyTime", "_arguments", "_callback", "_startText", "_cancelText"];
+  _position = getPos player;
+  _readyTime = time + 5;
+  _arguments = _this select 0;
+  _callback = _this select 1;
+  _startText = _this select 2;
+  _cancelText = _this select 3;
+
+  if (client_doingSomething) exitWith {
+    client_doingSomethingCancelled = true;
+  };
+  client_doingSomethingCancelled = false;
+  client_doingSomething = true;
+
+  [_startText, "cancelTimer"] call client_textMessage;
+
+  waitUntil {
+    getPos player distance _position > 0 || time > _readyTime || client_doingSomethingCancelled;
+  };
+
+  client_doingSomething = false;
+
+  if (getPos player distance _position > 0 || client_doingSomethingCancelled) exitWith {
+    [_cancelText, "cancelTimer"] call client_textMessage;
+  };
+
+  ["", "cancelTimer"] call client_textMessage;
+  _arguments call _callback;
+};
+
+client_taskMessage = {
+  private ["_message"];
+  _message = _this select 0;
+  _type = [_this, 1, "TaskCreated"] call BIS_fnc_param;
+  [_type,["",_message]] call BIS_fnc_showNotification;
+};
+
+client_textMessage = {
+  private ["_message", "_type", "_found"];
+  _message = _this select 0;
+  _type = [_this, 1, ""] call BIS_fnc_param;
+  _found = false;
+
+
+  if (_type == "") exitWith {
+    client_messages pushBack [time, _type, _message];
+    call client_showMessage;
+  };
+
+  {
+    if (_x select 1 == _type) exitWith {
+      if (_message == "") then {
+        client_messages = client_messages - [_x];
+      } else {
+        _x set [0, time];
+        _x set [2, _message];
+      };
+
+      _found = true;
+    }
+  } forEach client_messages;
+
+  if (! _found) then {
+    client_messages pushBack [time, _type, _message];
+  };
+
+  call client_showMessage;
+};
+
+
+client_messages = [];
+
+client_showMessage = {
+  private ["_text", "_first"];
+
+  call client_deleteOldMessages;
+
+  if (count client_messages == 0) exitWith {};
+  _first = true;
+  _text = "";
+  {
+    if (! _first) then {
+      _text = _text + "<br/><br/>";
+    };
+    _first = false;
+    _text = _text + (_x select 2);
+    
+  } forEach client_messages;
+
+  hintSilent parseText _text;
+};
+
+client_deleteOldMessages = {
+  {
+    if ((_x select 0) + 10 < time) exitWith {
+      client_messages = client_messages - [_x];
+      call client_deleteOldMessages;
+    };
+  } forEach client_messages;
 };

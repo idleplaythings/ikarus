@@ -70,12 +70,13 @@ markers_createRaidDefenderBriefing = {
   ];
 
   player setCurrentTask _task;
+  ["Base defence"] call client_taskMessage;
   [] spawn markers_informRaidDefence;
 };
 
 markers_informRaidDefence = {
   sleep 10;
-  ["YOU HAVE BEEN TARGETED FOR A RAID. CHECK BRIEFING FOR DETAILS!"] call BIS_fnc_dynamicText;
+  ["YOU HAVE BEEN TARGETED FOR A RAID. CHECK BRIEFING FOR DETAILS!"] call client_textMessage;
 };
 
 markers_createRaidBriefing = {
@@ -105,6 +106,7 @@ markers_createRaidBriefing = {
   ];
 
   player setCurrentTask _task;
+  ["Raid"] call client_taskMessage;
 };
 
 markers_createMilitaryBriefing = {
@@ -131,6 +133,7 @@ markers_createMilitaryBriefing = {
   ];
 
   player setCurrentTask _task;
+  ["Military base raid"] call client_taskMessage;
 };
 
 markers_createHideoutMarker = {
@@ -172,6 +175,7 @@ markers_createGuardBriefing = {
   ];
 
   player setCurrentTask _task;
+  ["Guard duty"] call client_taskMessage;
 };
 
 markers_createSupplyDropMarker = {
@@ -193,6 +197,7 @@ markers_createSupplyDropMarker = {
   ];
 
   player setCurrentTask _task;
+  ["Supply drop"] call client_taskMessage;
 };
 
 markers_supplyMarkerNames = [];
@@ -257,6 +262,7 @@ markers_createSupplyBriefring = {
   ];
 
   player setCurrentTask _task;
+  ["Supply run"] call client_taskMessage;
 };
 
 markers_createHoldBriefing = {
@@ -285,6 +291,7 @@ markers_createHoldBriefing = {
   ];
 
   player setCurrentTask _task;
+  ["Hold"] call client_taskMessage;
 };
 
 markers_createAssasinBriefing = {
@@ -303,6 +310,7 @@ markers_createAssasinBriefing = {
   ];
 
   player setCurrentTask _task;
+  ["Assasination"] call client_taskMessage;
 };
 
 markers_assasinMarker = nil;
@@ -325,8 +333,22 @@ markers_updateAssasinMarker = {
   markers_assasinMarker setMarkerPosLocal _position;
 };
 
-markers_textMessage = {
-  [_this select 0] call BIS_fnc_dynamicText;
+markers_createManhuntBriefing = {
+  private ["_task"];
+  _task = player createSimpleTask ["Manhunt"];
+
+  _task setSimpleTaskDescription [
+   'This mission has squads with an active Signal device backpack. After 2 minutes of game time has elapsed'
+    + ' these signal devices will be marked on the map as red squares. Map also contains a cache that can be found using the Signal device for triangulation.'
+    + ' If you happen to get your hands to an signal device you can use triangulate context menu action. Triangulation will tell you your distance from the cache, with ~10% error margin.'
+    + '<br/><br/>You will also need the Signal device to open the cache. If you do not have a signal device of your own, you have to hunt down one of the red squares on the map.'
+    + '<br/><br/>NOTE: Enemies can access your base container if it has a Signal Device inside!',
+   "Manhunt",
+   ""
+  ];
+
+  player setCurrentTask _task;
+  ["Manhunt"] call client_taskMessage;
 };
 
 markers_manhuntMarkers = [];
@@ -347,4 +369,21 @@ markers_updateManhuntMarkers = {
     _marker setMarkerColorLocal "ColorRed";
     markers_manhuntMarkers pushBack _marker;
   } forEach _positions;
+};
+
+markers_triangulations = [];
+
+markers_updateTriangulationMarkers = {
+  private ["_distance", "_marker"];
+  _distance = _this select 0;
+
+
+  _marker = createMarkerLocal ["triangulation" + (str getPos player) + (str _distance), getPos player];
+  _marker setMarkerBrushLocal "Border";
+  _marker setMarkerColorLocal "ColorBlue";
+  _marker setMarkerShapeLocal "ELLIPSE";
+  _marker setMarkerSizeLocal [_distance, _distance];
+  _marker setMarkerAlphaLocal 0.6;
+
+  markers_triangulations pushBack _marker;
 };

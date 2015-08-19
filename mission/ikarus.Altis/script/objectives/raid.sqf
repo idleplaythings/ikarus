@@ -247,7 +247,7 @@ objective_raid_informHeld = {
   _message = "Enemy base is " + (str floor _amountHeld) + "% raided";
 
   {
-    [_message, "hintSilent", _x, false, true] call BIS_fnc_MP;
+    [[_message, 'raid'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
   } forEach ([_raider] call getPlayersInSquad);
 };
 

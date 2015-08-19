@@ -184,7 +184,10 @@ objective_manhunt_triangulate = {
 
   ["Signal distance is ~" + (str round _result) + "m.", _unit, 'triangulation'] call broadcastMessageTo;
   [_unit] call objective_manhunt_setTriangulation;
-  [[_result], "markers_updateTriangulationMarkers", _unit, true, false] call BIS_fnc_MP;
+
+  {
+    [[_result], "markers_updateTriangulationMarkers", _x, true, false] call BIS_fnc_MP;
+  } forEach ([[_unit] call getSquadForUnit] call getPlayersInSquad);
 };
 
 "triangulation" addPublicVariableEventHandler {
@@ -196,8 +199,7 @@ objective_manhunt_triangulate = {
 
 _this spawn {
   
-  waitUntil {call missionControl_getElapsedTime > 0};
-  //waitUntil {call missionControl_getElapsedTime > (60 * 2)};
+  waitUntil {call missionControl_getElapsedTime > (60 * 2)};
 
   if (count ([['manhunt']] call objectiveController_getSquadsWithObjectives) == 0) exitWith {};
 

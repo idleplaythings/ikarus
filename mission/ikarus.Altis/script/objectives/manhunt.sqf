@@ -62,7 +62,7 @@ objective_manhunt_validate = {
   private ["_squad"];
   _squad = _this select 0;
 
-  //if (count squads < 2) exitWith {false;};
+  if (count squads < 2) exitWith {false;};
 
   "IKRS_signal_device" in ([_squad] call loot_findSquadLoot);
 };

@@ -204,7 +204,7 @@ _this spawn {
   if (count ([['manhunt']] call objectiveController_getSquadsWithObjectives) == 0) exitWith {};
 
   while { true } do {
-    sleep 15;
+    sleep 30;
     call objective_manhunt_markSignalDevices;
   }
 };

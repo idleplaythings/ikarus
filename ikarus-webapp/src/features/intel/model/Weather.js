@@ -16,22 +16,29 @@ Weather = function Weather(args) {
   }
 }
 
-Weather.prototype.change = function() {
-  return this.forecast();
+Weather.prototype.change = function(missionDateTime) {
+  return this.forecast(missionDateTime);
 };
 
-Weather.prototype.forecast = function() {
-  var forecast = this.getForecast();
+Weather.prototype.forecast = function(missionDateTime) {
+  var forecast = this.getForecast(missionDateTime);
 
   var randomValue = Math.random();
   var nextWeather = null;
 
+  // Normalise next weather weights
+  var totalWeight = forecast.reduce(function(prev, current) {
+    return prev + current.weight;
+  }, 0);
+
   forecast.reduce(function(prev, current) {
-    if (!nextWeather && randomValue <= prev + current.probability) {
+    var probability = current.weight / totalWeight;
+
+    if (!nextWeather && randomValue <= prev + probability) {
       nextWeather = current.weather;
     }
 
-    return prev + current.probability;
+    return prev + probability;
   }, 0);
 
   return new nextWeather();
@@ -73,13 +80,19 @@ ClearWeather.prototype.init = function() {
   this.waves = this.wind.getWaveIntensity();
 };
 
-ClearWeather.prototype.getForecast = function() {
+ClearWeather.prototype.getForecast = function(missionDateTime) {
+  if (dark(missionDateTime)) {
+    return [
+      { weather: FoggyWeather,  weight: 10 }
+    ];
+  }
+
   return [
-    { weather: ClearWeather,  probability: 0.6 },
-    { weather: CloudyWeather, probability: 0.2 },
-    { weather: RainyWeather,  probability: 0.05 },
-    { weather: StormyWeather, probability: 0.05 },
-    { weather: FoggyWeather,  probability: 0.1 }
+    { weather: ClearWeather,  weight: 60 },
+    { weather: CloudyWeather, weight: 20 },
+    { weather: RainyWeather,  weight: 5 },
+    { weather: StormyWeather, weight: 5 },
+    { weather: FoggyWeather,  weight: 10 }
   ];
 };
 
@@ -99,13 +112,19 @@ CloudyWeather.prototype.init = function() {
   this.waves = this.wind.getWaveIntensity();
 };
 
-CloudyWeather.prototype.getForecast = function() {
+CloudyWeather.prototype.getForecast = function(missionDateTime) {
+  if (dark(missionDateTime)) {
+    return [
+      { weather: FoggyWeather,  weight: 10 }
+    ];
+  }
+
   return [
-    { weather: ClearWeather,  probability: 0.05 },
-    { weather: CloudyWeather, probability: 0.5 },
-    { weather: RainyWeather,  probability: 0.4 },
-    { weather: StormyWeather, probability: 0.05 },
-    { weather: FoggyWeather,  probability: 0.0 }
+    { weather: ClearWeather,  weight: 5 },
+    { weather: CloudyWeather, weight: 50 },
+    { weather: RainyWeather,  weight: 40 },
+    { weather: StormyWeather, weight: 5 },
+    { weather: FoggyWeather,  weight: 0 }
   ];
 };
 
@@ -125,13 +144,19 @@ RainyWeather.prototype.init = function() {
   this.waves = this.wind.getWaveIntensity();
 };
 
-RainyWeather.prototype.getForecast = function() {
+RainyWeather.prototype.getForecast = function(missionDateTime) {
+  if (dark(missionDateTime)) {
+    return [
+      { weather: FoggyWeather,  weight: 10 }
+    ];
+  }
+
   return [
-    { weather: ClearWeather,  probability: 0.4 },
-    { weather: CloudyWeather, probability: 0.1 },
-    { weather: RainyWeather,  probability: 0.3 },
-    { weather: StormyWeather, probability: 0.2 },
-    { weather: FoggyWeather,  probability: 0.0 }
+    { weather: ClearWeather,  weight: 40 },
+    { weather: CloudyWeather, weight: 10 },
+    { weather: RainyWeather,  weight: 30 },
+    { weather: StormyWeather, weight: 20 },
+    { weather: FoggyWeather,  weight: 0 }
   ];
 };
 
@@ -151,13 +176,19 @@ StormyWeather.prototype.init = function() {
   this.waves = this.wind.getWaveIntensity();
 };
 
-StormyWeather.prototype.getForecast = function() {
+StormyWeather.prototype.getForecast = function(missionDateTime) {
+  if (dark(missionDateTime)) {
+    return [
+      { weather: FoggyWeather,  weight: 10 }
+    ];
+  }
+
   return [
-    { weather: ClearWeather,  probability: 0.5 },
-    { weather: CloudyWeather, probability: 0.1 },
-    { weather: RainyWeather,  probability: 0.0 },
-    { weather: StormyWeather, probability: 0.4 },
-    { weather: FoggyWeather,  probability: 0.0 }
+    { weather: ClearWeather,  weight: 50 },
+    { weather: CloudyWeather, weight: 10 },
+    { weather: RainyWeather,  weight: 0 },
+    { weather: StormyWeather, weight: 40 },
+    { weather: FoggyWeather,  weight: 0 }
   ];
 };
 
@@ -173,16 +204,27 @@ FoggyWeather.prototype.init = function() {
   this.fog = (0.7 + Math.random() * 0.2).toPrecision(2);
   this.rain = '0.0';
   this.lightnings = '0.0';
-  this.wind = Wind.random(Wind.CALM, Wind.CALM);
+  this.wind = Wind.random(0, Wind.CALM);
   this.waves = this.wind.getWaveIntensity();
 };
 
-FoggyWeather.prototype.getForecast = function() {
+FoggyWeather.prototype.getForecast = function(missionDateTime) {
+  if (dark(missionDateTime)) {
+    return [
+      { weather: FoggyWeather,  weight: 10 }
+    ];
+  }
+
   return [
-    { weather: ClearWeather,  probability: 0.3 },
-    { weather: CloudyWeather, probability: 0.0 },
-    { weather: RainyWeather,  probability: 0.0 },
-    { weather: StormyWeather, probability: 0.0 },
-    { weather: FoggyWeather,  probability: 0.7 }
+    { weather: ClearWeather,  weight: 30 },
+    { weather: CloudyWeather, weight: 0 },
+    { weather: RainyWeather,  weight: 0 },
+    { weather: StormyWeather, weight: 0 },
+    { weather: FoggyWeather,  weight: 70 }
   ];
 };
+
+function dark(missionDateTime) {
+  return missionDateTime instanceof Evening ||
+         missionDateTime instanceof Night;
+}

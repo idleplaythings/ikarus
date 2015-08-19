@@ -56,7 +56,7 @@ objective_military_populateWeaponDepot = {
 
   {
     if (typeOf _x == "Land_CargoBox_V1_F") then {
-      [getPosAsl _x, direction _x, 3] call lootbox_create;
+      [getPosAsl _x, direction _x] call lootbox_createMilitaryWeaponBox;
     };
   } forEach (_depotData select 1);
 
@@ -71,7 +71,7 @@ objective_military_populateVehicleDepot = {
 
   {
     if (typeOf _x == "Land_CargoBox_V1_F") then {
-      _boxes pushBack ([getPosAsl _x, direction _x, 4] call lootbox_create);
+      _boxes pushBack ([getPosAsl _x, direction _x] call lootbox_createMilitaryVehicleBox);
     };
   } forEach (_depotData select 1);
 

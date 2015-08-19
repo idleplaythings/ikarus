@@ -1,5 +1,5 @@
 objective_hold_objectData = [];
-objective_hold_increment = 0.17;
+objective_hold_increment = 0.33;
 
 objective_hold_construct = {
   private ["_centerOfAO", "_depots", "_players"];
@@ -101,7 +101,7 @@ objective_hold_constructDepots = {
     _objectData = _objectDatas select 1;
     _position = getPosASL _objectData;
     _direction = direction _objectData;
-    [_position, _direction, 2] call lootbox_create;
+    [_position, _direction] call lootbox_createAdvancedHoldBox;
 
   } forEach depots_town_depots;
 };
@@ -191,9 +191,9 @@ objective_hold_informPlayers = {
     _can = [_x, "canOpenLootBoxes", [_x]] call objectiveController_callUnitObjective;
 
     if (_time < 1800) then {
-      ["You can not hold this depot before 30 minutes has elapsed.", "hint", _x, false, true] call BIS_fnc_MP;
+      [["You can not hold this depot before 30 minutes has elapsed.", 'hold'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
     } else {
-      ["Depot is " + str floor _held + "% held", "hintSilent", _x, false, true] call BIS_fnc_MP;
+      [["Depot is " + str floor _held + "% held", 'hold'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
     };
 
   } forEach _players;

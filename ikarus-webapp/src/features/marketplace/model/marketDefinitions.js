@@ -122,6 +122,7 @@ marketDefinitions = [
     _id: 'AMMO',
     name: 'Ammo',
     items: {
+      'hlc_30Rnd_556x45_B_AUG':        {money: 10},
       '30Rnd_556x45_Stanag':           {money: 5},
       '30Rnd_65x39_caseless_green':    {money: 10},
       '30Rnd_65x39_caseless_mag':      {money: 15},

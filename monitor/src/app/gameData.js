@@ -117,7 +117,8 @@ module.exports = function(armaSerializer){
         'SatchelCharge_Remote_Mag': 10,
         'B_AssaultPack_khk': 1,
         'UAZ_Unarmed': 1,
-        'IKRS_intelligence_helo': 1
+        'IKRS_intelligence_helo': 1,
+        'IKRS_signal_device': 1
       }
     }
   ];

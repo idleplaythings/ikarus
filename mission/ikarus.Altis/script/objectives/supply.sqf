@@ -126,9 +126,10 @@ objective_supply_destroyDepot = {
 };
 
 objective_supply_placeLootBoxes = {
-  private ["_building", "_objectData"];
+  private ["_building", "_objectData", "_boxes"];
   _building = _this select 0;
   _objectData = _this select 1;
+  _boxes = [];
   
   
   _objectData = [_objectData, 3] call depotPositions_getRandomPlaceholdersFromObjects;
@@ -140,13 +141,16 @@ objective_supply_placeLootBoxes = {
     _direction = direction _data; 
     
     if (_i < 2) then {
-      [_position, _direction] call lootbox_create;
+      _boxes pushBack ([_position, _direction] call lootbox_createSupplyBox);
     } else {
       if (count squads > 1) then {
-        [_position, _direction, 1] call lootbox_create;
+        [_position, _direction] call lootbox_createAdvancedSupplyBox;
       }
     };
   };
+
+  [(_boxes call BIS_fnc_selectRandom), ['IKRS_signal_device']] call lootBox_addExtraLoot;
+
 };
 
 objective_supply_cleanUpBox = {

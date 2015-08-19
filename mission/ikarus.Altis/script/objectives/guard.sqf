@@ -187,38 +187,12 @@ objective_guard_initUnit = {
   
   {
     [_x] joinSilent objective_guard_eastGroup;
-    [_x] call objective_guard_onEnterHideout;
+    if ([_x ] call hideout_isInHideout) then {
+      [_x] call objective_guard_onEnterHideout;
+    };
     [_x] call objective_guard_createGuardMarkersForUnit;
   } forEach ([_squad] call getPlayersInSquad);
 };
-
-/*
-objective_guard_moveSquadsToDepot = {
-  {
-    if (([_x] call getChosenObjective) == 'Guard') then {
-      [_x] call objective_guard_moveToDepot;
-    }
-  } forEach squads;
-};
-
-objective_guard_moveToDepot = {
-  private ["_depot", "_object", "_position"];
-  _squad = _this select 0;
-  
-  _depot = call depots_getRandom;
-  _object = [_depot select 1, 1] call depotPositions_getRandomPlaceholdersFromObjects select 0;
-  _position = getPosASL _object;
-  
-  {
-    _x setPosASL _position;
-    [_x] call objective_guard_equipGuard;
-    [_x] call objective_guard_createGuardMarkersForUnit;
-    [_x] joinSilent objective_guard_eastGroup;
-  } forEach ([_squad] call getPlayersInSquad);
-    
-  true;
-};
-*/
 
 objective_guard_createGuardMarkersForUnit = {
   private ["_unit", "_allDepotPositions"];

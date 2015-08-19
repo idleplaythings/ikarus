@@ -49,6 +49,7 @@ equipment_setPlayerGearFromSquad = {
   _unit linkItem "ItemMap";
   _unit linkItem "ItemCompass";
   _unit linkItem "ItemWatch";
+  _unit linkItem "NVGoggles_OPFOR";
 
   if (isNil {_gear}) then {
     _unit forceAddUniform "U_B_HeliPilotCoveralls";
@@ -170,6 +171,8 @@ equipment_unitHasItem = {
   _unit = _this select 0;
   _class = _this select 1;
 
+  if (backpack _unit == _class) exitWith {true;};
+
   _class in items _unit;
 };
 
@@ -177,6 +180,10 @@ equipment_removeItemFromUnit = {
   private ["_unit", "_item"];
   _unit = _this select 0;
   _item = _this select 1;
+
+  if (backpack _unit == _item) exitWith {
+    removeBackpackGlobal _unit;
+  };
 
   _unit removeItem _item;
 };

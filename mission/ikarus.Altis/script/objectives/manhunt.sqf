@@ -13,19 +13,48 @@ objective_manhunt_setPlayerRating = {
 };
 
 objective_manhunt_onObjectivesCreated = {
-  
+  if (count ([['manhunt']] call objectiveController_getSquadsWithObjectives) > 0) then {
+    call objective_manhunt_createCache;
+    call objective_manhunt_addBriefing;
+  }
 };
 
-objective_manhunt_addBriefingAndMarkers = {
-  private ["_position", "_type", "_radius", "_offset"];
-  _position = _this select 0;
-  _type = _this select 1;
-  _radius = 1000;
-  _offset = _radius / 2;
+objective_manhunt_cachePosition = nil;
 
-  _position = [_position, _offset] call SHK_pos;
+objective_manhunt_createCache = {
+  private ["_depot", "_position", "_startPosition", "_building", "_finalPosition"];
+  
+  _depot = call depots_getRandom;
+  _startPosition = nil;
+  _finalPosition = nil;
+
+  if (isNil{_depot}) then {
+    _startPosition = call AO_getRandomLandPosition;
+  } else {
+    _startPosition = getPos (_depot select 0);
+  };
+
+  _position = [_startPosition, 2000, 4000] call popoRandom_findLand;
+
+  _building = nearestBuilding _position;
+
+  if (_building distance _position < 100) then {
+    _finalPosition = ([_building] call BIS_fnc_buildingPositions) call BIS_fnc_selectRandom;
+  } else {
+    _finalPosition = _position findEmptyPosition [0,100,"C_Hatchback_01_F"];
+  };
+
+  if (isNil{_finalPosition}) then {
+    _finalPosition = _position findEmptyPosition [0,1000,"C_Hatchback_01_F"];
+  };
+
+  [ATLToASL _finalPosition] call lootbox_createManhuntCache;
+  objective_manhunt_cachePosition = _finalPosition;
+};
+
+objective_manhunt_addBriefing = {
   {
-    [[_position, _radius], "markers_createMilitaryBriefing", _x, false, true] call BIS_fnc_MP;
+    [[], "markers_createManhuntBriefing", _x, false, true] call BIS_fnc_MP;
   } forEach (call getAllPlayers);
 };
 
@@ -94,8 +123,68 @@ objective_manhunt_checkObject = {
   _lootList;
 };
 
+objective_manhunt_triangulations = [];
+
+objective_manhunt_getTriangulationTime = {
+  private ["_unit", "_squad", "_time"];
+  _unit = _this select 0;
+  _squad = [_unit] call getSquadForUnit;
+
+  _time = {
+    if (_x select 0 == ([_squad] call getSquadId)) exitWith {
+      _x select 1;
+    };
+  } forEach objective_manhunt_triangulations;
+
+  if (isNil{_time}) exitWith {
+    -999;
+  };
+
+  _time;
+};
+
+objective_manhunt_setTriangulation = {
+  private ["_unit", "_squad", "_set"];
+  _unit = _this select 0;
+  _squad = [_unit] call getSquadForUnit;
+  _set = false;
+
+  {
+    if (_x select 0 == ([_squad] call getSquadId)) then {
+      _set = true;
+      _x set [1, time];
+    };
+  } forEach objective_manhunt_triangulations;
+
+  if (! _set) then {
+    objective_manhunt_triangulations pushBack [([_squad] call getSquadId), time];
+  };
+};
+
 objective_manhunt_triangulate = {
-  systemChat "triangulate";
+  private ["_unit", "_time", "_distance", "_variance", "_result"];
+  _unit = _this select 0;
+
+  if (isNil{objective_manhunt_cachePosition}) exitWith {
+    ["No active signals found.", _unit, 'triangulation'] call broadcastMessageTo; 
+
+  };
+    
+  _time = [_unit] call objective_manhunt_getTriangulationTime;
+
+  if (_time + 60 > time) exitWith {
+    private ["_timeToWait"];
+    _timeToWait = _time + 60 - time;
+    ["You have to wait " + (str round _timeToWait) + " seconds to triangulate again", _unit, 'triangulation'] call broadcastMessageTo; 
+  };
+
+  _distance = _unit distance objective_manhunt_cachePosition;
+  _variance = random (_distance * 0.10) - _distance * 0.05;
+  _result = _distance + _variance;
+
+  ["Signal distance is ~" + (str round _result) + "m.", _unit, 'triangulation'] call broadcastMessageTo;
+  [_unit] call objective_manhunt_setTriangulation;
+  [[_result], "markers_updateTriangulationMarkers", _unit, true, false] call BIS_fnc_MP;
 };
 
 "triangulation" addPublicVariableEventHandler {
@@ -113,7 +202,7 @@ _this spawn {
   if (count ([['manhunt']] call objectiveController_getSquadsWithObjectives) == 0) exitWith {};
 
   while { true } do {
-    sleep 1;
+    sleep 15;
     call objective_manhunt_markSignalDevices;
   }
 };

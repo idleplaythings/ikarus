@@ -121,23 +121,23 @@ outpost_deploy = {
   };
 
   if (count ([([_unit] call getSquadForUnit)] call outpost_getOutpostsForSquad) >= 6) exitWith {
-    ["You are not allowed to have more than six outposts", _unit] call broadCastMessageTo; 
+    ["You are not allowed to have more than six outposts", _unit, "outpost"] call broadCastMessageTo; 
   };
 
   if (vehicle _unit != _unit) exitWith {
-    ["You can't deploy outpost from a vehicle", _unit] call broadCastMessageTo; 
+    ["You can't deploy outpost from a vehicle", _unit, "outpost"] call broadCastMessageTo; 
   };
 
   if (count _position == 0) exitWith {
-    ["There is no room to deploy an outpost in here", _unit] call broadCastMessageTo; 
+    ["There is no room to deploy an outpost in here", _unit, "outpost"] call broadCastMessageTo; 
   };
 
   if ([_position] call outpost_isTooClose) exitWith {
-    ["This position is too close to a depot, base or outpost", _unit] call broadCastMessageTo;
+    ["This position is too close to a depot, base or outpost", _unit, "outpost"] call broadCastMessageTo;
   };
 
   if ([_position] call depots_getDistanceToClosestDepot > 3000) exitWith {
-    ["You need to deploy outpost 3km or closer to a depot", _unit] call broadCastMessageTo;
+    ["You need to deploy outpost 3km or closer to a depot", _unit, "outpost"] call broadCastMessageTo;
   };
   
   [_position, ([_unit] call getSquadForUnit)] call outpost_createInactiveOutpost;
@@ -276,7 +276,7 @@ outpost_outpostTriggerActivate = {
         _text = "This is an ENEMY outpost. Feel free to dismantle it!";
       };
 
-      [_text, "hintSilent", _x, false, false] call BIS_fnc_MP;
+      [[_text, 'outpost'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
     };
   } forEach call getAllPlayers;
 };

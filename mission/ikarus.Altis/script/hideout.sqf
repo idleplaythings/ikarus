@@ -209,7 +209,7 @@ hideout_hideoutTriggerActivate = {
   {
     if (_x in _unitsPresent) then {
       if (! (_x in _playersAtHideout)) then {
-        ["You are in your base", "hint", _x, false, true] call BIS_fnc_MP;
+        [["You are in your base", "hideout"], "client_textMessage", _x, true, false] call BIS_fnc_MP;
         [_x, 'onEnterHideout', [_x]] call objectiveController_callUnitObjective;
       };
     };

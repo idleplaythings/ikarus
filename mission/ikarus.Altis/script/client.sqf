@@ -149,6 +149,11 @@ client_setUpSignalDeviceAction = {
   if ! (isNil{client_triangulationAction}) exitWith {};
 
   _action = {
+
+    if (vehicle player != player) exitWith {
+      ["You can not triangulate from a vehicle.", 'triangulation'] call client_textMessage; 
+    };
+  
     [
       [],
       {

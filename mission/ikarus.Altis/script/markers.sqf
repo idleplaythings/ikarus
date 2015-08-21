@@ -166,7 +166,7 @@ markers_createGuardBriefing = {
    'You are tasked to prevent other squads from completing their objectives'
     + '<br/><br/>You will get rewards for each enemy player you kill on 1km radius of any depot.'
     + ' You will get extra rewards for each kill, if you get back to your base alive.'
-    + '<br/><br/>Guards can not open supply boxes or hold guard depot. However, you can participate in Manhunt.<br/><br/>'
+    + '<br/><br/>Guards can not open supply boxes or hold guard depot. However, you can participate in Signal mission.<br/><br/>'
     + 'After 30 minutes of gametime has elapsed, you can secure loot boxes by standing next to them. After 35 you can secure them faster. Securing a lootbox will give you money and renown as a reward.'
     + '<br/><br/>During the first 5 minutes you can choose to paradrop to the objective area from your base.'
     + '<br/><br/>NOTE: You will not get any loot from loot backpacks you bring to your base!',
@@ -335,20 +335,21 @@ markers_updateAssasinMarker = {
 
 markers_createManhuntBriefing = {
   private ["_task"];
-  _task = player createSimpleTask ["Manhunt"];
+  _task = player createSimpleTask ["Signal"];
 
   _task setSimpleTaskDescription [
    'This mission has squads with an active Signal device backpack. After 2 minutes of game time has elapsed'
     + ' these signal devices will be marked on the map as red squares. Map also contains a cache that can be found using the Signal device for triangulation.'
-    + ' If you happen to get your hands to an signal device you can use triangulate context menu action. Triangulation will tell you your distance from the cache, with ~10% error margin.'
+    + ' If you happen to get your hands to an signal device you can use triangulate context menu action. Triangulation will tell you your distance from the cache, with +/- 5% error margin.'
     + '<br/><br/>You will also need the Signal device to open the cache. If you do not have a signal device of your own, you have to hunt down one of the red squares on the map.'
+    + '<br/><br/>During the mission you will get intel displaying approximate loaction of the cache. These will be blue solid circles on the map. Blue borders will be distance from triangulation.'
     + '<br/><br/>NOTE: Enemies can access your base container if it has a Signal Device inside!',
-   "Manhunt",
+   "Signal",
    ""
   ];
 
   player setCurrentTask _task;
-  ["Manhunt"] call client_taskMessage;
+  ["Signal"] call client_taskMessage;
 };
 
 markers_manhuntMarkers = [];
@@ -373,11 +374,19 @@ markers_updateManhuntMarkers = {
 
 markers_triangulations = [];
 
+markers_removeOldTriangulationMarkers = {
+  if (count markers_triangulations < 5) exitWith {};
+
+  markers_triangulations = markers_triangulations - [(markers_triangulations select 0)];
+  call markers_removeOldTriangulationMarkers;
+};
+
 markers_updateTriangulationMarkers = {
   private ["_distance", "_position", "_marker"];
   _distance = _this select 0;
   _position = _this select 1;
 
+  call markers_removeOldTriangulationMarkers;
 
   _marker = createMarkerLocal ["triangulation" + (str _position) + (str _distance), _position];
   _marker setMarkerBrushLocal "Border";
@@ -387,4 +396,25 @@ markers_updateTriangulationMarkers = {
   _marker setMarkerAlphaLocal 0.6;
 
   markers_triangulations pushBack _marker;
+};
+
+markers_manhuntCacheMarker = nil;
+
+markers_updateManhuntCacheMarker  = {
+  private ["_distance", "_position", "_marker"];
+  _position = _this select 0;
+  _distance = _this select 1;
+
+  if ! (isNil {markers_manhuntMarker}) then {
+    deleteMarkerLocal markers_manhuntMarker;
+  };
+
+  _marker = createMarkerLocal ["manhuntCache" + (str _position), _position];
+  _marker setMarkerBrushLocal "Solid";
+  _marker setMarkerColorLocal "ColorBlue";
+  _marker setMarkerShapeLocal "ELLIPSE";
+  _marker setMarkerSizeLocal [_distance, _distance];
+  _marker setMarkerAlphaLocal 0.3;
+
+  markers_manhuntMarker = _marker;
 };

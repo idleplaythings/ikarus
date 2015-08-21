@@ -110,7 +110,7 @@ objectiveDialog_getDescription = {
   };
 
   if (_type == "Manhunt") exitWith {
-    "MANHUNT<br/><br/>This mission requires the signal device item. You can use the signal device to triangulate the location of an equipment cache. However, the signal device will also reveal your position on map. Signal device is also required to open the equipment cache.";
+    "Signal<br/><br/>This mission requires the signal device item. You can use the signal device to triangulate the location of an equipment cache. However, the signal device will also reveal your position on map. Signal device is also required to open the equipment cache.";
   };
 
   if (_type == "Raid") exitWith {

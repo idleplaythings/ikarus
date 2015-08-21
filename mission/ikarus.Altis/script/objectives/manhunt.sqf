@@ -1,7 +1,10 @@
+objective_manhunt_cachePosition = nil;
+objective_manhunt_cacheMarkerPosition = nil;
+
 objective_manhunt_construct = {};
 
 objective_manhunt_displayName = {
-  "Manhunt"
+  "Signal"
 };
 
 objective_manhunt_joinInProgress = {
@@ -16,10 +19,33 @@ objective_manhunt_onObjectivesCreated = {
   if (count ([['manhunt']] call objectiveController_getSquadsWithObjectives) > 0) then {
     call objective_manhunt_createCache;
     call objective_manhunt_addBriefing;
-  }
+
+    [] spawn {
+
+      sleep 600;
+        [5000] call objective_manhunt_updateGeneralMarker;
+      sleep 300;
+        [1000] call objective_manhunt_updateGeneralMarker;
+      sleep 300;
+        [500] call objective_manhunt_updateGeneralMarker;
+    };
+  };
 };
 
-objective_manhunt_cachePosition = nil;
+objective_manhunt_updateGeneralMarker = {
+  private ["_radius", "_offset"];
+  _radius = _this select 0;
+  _offset = _radius / 2;
+
+  objective_manhunt_cacheMarkerPosition = [objective_manhunt_cachePosition, _offset] call SHK_pos;
+
+  {
+    [[objective_manhunt_cacheMarkerPosition, _radius], "markers_updateManhuntCacheMarker", _x, true, false] call BIS_fnc_MP;
+    ["New intel on cache location received", _x, 'manhuntCacheLocation'] call broadcastMessageTo; 
+  } forEach (call getAllPlayers);
+  
+};
+
 
 objective_manhunt_createCache = {
   private ["_depot", "_position", "_startPosition", "_building", "_finalPosition"];
@@ -164,6 +190,12 @@ objective_manhunt_setTriangulation = {
 objective_manhunt_triangulate = {
   private ["_unit", "_time", "_distance", "_variance", "_result"];
   _unit = _this select 0;
+
+  if  (backpack _unit != "IKRS_signal_device") exitWith {};
+
+  if (vehicle _unit != _unit) exitWith {
+    ["You can not triangulate from a vehicle", _unit, 'triangulation'] call broadcastMessageTo; 
+  };
 
   if (isNil{objective_manhunt_cachePosition}) exitWith {
     ["No active signals found.", _unit, 'triangulation'] call broadcastMessageTo; 

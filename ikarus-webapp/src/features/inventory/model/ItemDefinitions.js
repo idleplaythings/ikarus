@@ -21,8 +21,8 @@ ItemDefinitions = [
   createGeneric('Hatchback sport', 'C_Hatchback_01_sport_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Flatbed', 'C_Van_01_transport_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('UAZ', 'UAZ_Unarmed', ['vehicle', 'unarmored', 'unarmed']),
-  createGeneric('Landrower (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
-  createGeneric('Landrower (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('Landrover (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('Landrover (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
 
 
   createGeneric('Jackal L2A1 (Desert)', 'BAF_Jackal2_L2A1_D', ['vehicle', 'armored', 'armed']),
@@ -30,7 +30,7 @@ ItemDefinitions = [
   createGeneric('Fennek', 'I_MRAP_03_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('M-ATV', 'B_MRAP_01_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('Punisher', 'O_MRAP_02_F', ['vehicle', 'armored', 'unarmed']),
-  createGeneric('UAZ (AGS)', 'UAZ_AGS30', ['vehicle', 'armored', 'unarmed']),
+  createGeneric('UAZ (AGS-30)', 'UAZ_AGS30', ['vehicle', 'armored', 'unarmed']),
 
   createGeneric('Littlebird', 'B_Heli_Light_01_F', ['vehicle', 'helicopter', 'unarmed']),
 

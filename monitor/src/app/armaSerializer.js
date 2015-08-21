@@ -50,7 +50,9 @@ function serializeInventory(inventory){
     return [];
   }
 
-  return Object.keys(inventory.items).map(function(key){
+  return Object.keys(inventory.items).filter(function (key) {
+    return inventory.items[key] > 0;
+  }).map(function(key){
     return [key, inventory.items[key]];
   });
 };

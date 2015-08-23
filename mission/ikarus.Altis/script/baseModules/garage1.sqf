@@ -2,6 +2,10 @@ baseModule_garage1_isPrimary = {false;};
 
 baseModule_garage1_onCreated = {};
 
+baseModule_garage1_onHideoutCreated = {};
+
+baseModule_garage1_numberOfSlots = {1;};
+
 baseModule_garage1_data = {
   [
     //["CamoNet_INDP_Curator_F",55.9614,7.69231,180.842,-5.34058e-005,true],

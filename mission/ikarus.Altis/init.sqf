@@ -46,11 +46,14 @@ if (! isServer) exitwith {};
 
 [] execVM "script\baseModules\baseModule.sqf";
 [] execVM "script\baseModules\primary1.sqf";
+[] execVM "script\baseModules\primary2.sqf";
 [] execVM "script\baseModules\garage1.sqf";
 [] execVM "script\baseModules\weaponCache1.sqf";
 [] execVM "script\baseModules\reconStation1.sqf";
 [] execVM "script\baseModules\medicalStation1.sqf";
 [] execVM "script\baseModules\outpostmap1.sqf";
+[] execVM "script\baseModules\heloLandingPad1.sqf";
+[] execVM "script\baseModules\vehicleAmmo.sqf";
 
 [] execVM "helpers\itemProperties.sqf";
 

@@ -8,12 +8,44 @@ baseModule_createBaseModules = {
   _data = [];
 
   {
+    private ["_slots"];
+    _slots = [_x] call baseModule_getNumberSlots;
+    _index = [_modules, _x] call baseModule_getModuleIndex;
+    _direction = [_modules, _x] call baseModule_getModuleRotation;
     _data pushBack ([_position, _direction, _index, _x] call baseModule_create);
-    _index = _index + 1;
-    _direction = [_direction, 90] call addToDirection;
   } forEach _modules;
 
   _data;
+};
+
+baseModule_getModuleIndex = {
+  private ["_modules", "_index", "_slots", "_index"];
+  _modules = _this select 0;
+  _moduleName = _this select 1;
+  _index = 0;
+
+  {
+    if (_x == _moduleName) exitWith {};
+    _slots = [_x] call baseModule_getNumberSlots;
+    _index = _index + _slots;
+  } forEach _modules;
+
+  _index;
+};
+
+baseModule_getModuleRotation = {
+  private ["_modules", "_moduleName", "_slots", "_direction"];
+  _modules = _this select 0;
+  _moduleName = _this select 1;
+  _direction = 0;
+
+  {
+    if (_x == _moduleName) exitWith {};
+    _slots = [_x] call baseModule_getNumberSlots;
+    _direction = [_direction, 90 * _slots] call addToDirection;
+  } forEach _modules;
+
+  _direction;
 };
 
 baseModule_create = {
@@ -26,35 +58,55 @@ baseModule_create = {
 
   _objects = [_position, _direction, _data] call houseFurnisher_furnish_location;
   [_name, 'onCreated', [_objects]] call baseModule_callModule;
-  [_name, _data];
+  [_name, _data, _objects];
 };
 
 baseModule_getCacheLocation = {
-  private ["_moduleData", "_primaryModuleData", "_position", "_direction", "_primaryModuleIndex"];
-  _position = _this select 0;
-  _direction = _this select 1;
-  _moduleData = _this select 2;
-  _primaryModuleData = [_moduleData] call baseModule_getPrimaryModule;
-  _primaryModuleIndex = [_moduleData] call baseModule_getPrimaryModuleIndex;
+  private ["_placeholders", "_result"];
+  _this pushBack "Land_CargoBox_V1_F";
+  _placeholders = _this call baseModule_getPlaceholders;
+  _result = nil;
 
-  _objectData = [(_primaryModuleData select 1), 1] call depotPositions_getRandomPlaceholdersFromObjectData;
-  [_position, ([_direction, (_primaryModuleIndex * 90)] call addToDirection), _objectData select 0] call houseFurnisher_getPosASLAndDirection; 
+  {
+    if (isNil{_result}) then {
+      _result = _x;
+    } else {
+      private ["_z1", "_z2"];
+      _z1 = _result select 0 select 2;
+      _z2 = _x select 0 select 2;
+      if (_z1 < _z2) then {
+        _result = _x;
+      };
+    };
+  } forEach _placeholders;
+
+  _result;
 };
 
 baseModule_getVehicleLocations = {
-  private ["_moduleData", "_result", "_position", "_direction", "_index"];
+  _this pushBack "C_Offroad_01_F";
+  _this call baseModule_getPlaceholders;
+};
+
+baseModule_getHeloLocations = {
+  _this pushBack "O_Heli_Light_02_v2_F";
+  _this call baseModule_getPlaceholders;
+};
+
+baseModule_getPlaceholders = {
+  private ["_moduleData", "_result", "_position", "_direction", "_className"];
   _position = _this select 0;
   _direction = _this select 1;
   _moduleData = _this select 2;
+  _className = _this select 3;
   _result = [];
-  _index = 0;
 
   {
-    _objectData = [(_x select 1), 100, "C_Offroad_01_F"] call depotPositions_getRandomPlaceholdersFromObjectData;
     {
-      _result pushBack ([_position, ([_direction, _index * 90] call addToDirection), _x] call houseFurnisher_getPosASLAndDirection); 
-    } forEach _objectData;
-    _index = _index + 1;
+      if (typeOf _x == _className) then {
+        _result pushBack [getPosAsl _x, direction _x];
+      };
+    } forEach (_x select 2);
   } forEach _moduleData;
   _result; 
 };
@@ -74,14 +126,21 @@ baseModule_getPrimaryModule = {
 };
 
 baseModule_getPrimaryModuleIndex = {
-  private ["_moduleData", "_index"];
+  private ["_moduleData", "_index", "_moduleNames"];
   _moduleData = _this select 0;
   _index = 0;
+  _moduleNames = [
+    _moduleData,
+    { 
+      _this select 0;
+    }
+  ] call AEX_map;
 
   {
-    if ([_x select 0, 'isPrimary', []] call baseModule_callModule) exitWith {};
-    _index = _index +1;
-  } forEach _moduleData;
+    if ([_x, 'isPrimary', []] call baseModule_callModule) exitWith {
+      _index = [_moduleNames, _x] call baseModule_getModuleIndex;
+    };
+  } forEach _moduleNames;
 
   _index;
 };
@@ -93,4 +152,17 @@ baseModule_callModule = {
   _arguments = _this select 2;
   
   call compile format ["_arguments call baseModule_%1_%2;", _moduleName, _functionName];
+};
+
+baseModule_getNumberSlots = {
+  private ["_moduleName", "_slots"];
+  _moduleName = _this select 0;
+
+  _slots = [_moduleName, 'numberOfSlots', []] call baseModule_callModule;
+
+  if (isNil{_slots}) exitWith {
+    1;
+  };
+
+  _slots;
 };

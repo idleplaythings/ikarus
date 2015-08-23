@@ -1,10 +1,11 @@
 baseModule_weaponCache1_isPrimary = {false;};
 
+baseModule_weaponCache1_numberOfSlots = {1;};
+
 baseModule_weaponCache1_onCreated = {
   private ["_objects", "_box", "_weapons", "_weaponIndex"];
   _objects = _this select 0;
   _weaponIndex = 0;
-
 
 
   _weapons = [
@@ -31,12 +32,13 @@ baseModule_weaponCache1_onCreated = {
 
     if (typeOf _x == "Sign_Arrow_Yellow_F") then {
       private ["_holder"];
-      _holder = "groundWeaponHolder" createVehicle getPos _x;
+      
       if (_weaponIndex < count _weapons) then {
+        _holder = createVehicle ["groundWeaponHolder", getPos _x, [], 0, "CAN_COLLIDE"];
         _holder addWeaponCargoGlobal [_weapons select _weaponIndex, 1];
         _weaponIndex = _weaponIndex + 1;
-        _holder setPosASL getPosASL _x;
         _holder setDir getDir _x;
+        _holder setPosASL getPosASL _x;
       };
       deleteVehicle _x;
     };
@@ -44,6 +46,8 @@ baseModule_weaponCache1_onCreated = {
   } forEach _objects;
 
 };
+
+baseModule_weaponCache1_onHideoutCreated = {};
 
 baseModule_weaponCache1_data = {
   [

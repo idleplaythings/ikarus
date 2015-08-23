@@ -8,9 +8,13 @@ baseModule_outpostmap1_isPrimary = {false;};
   [_unit, _position] call baseModule_outpostmap1_teleport;
 };
 
+baseModule_outpostmap1_numberOfSlots = {1;};
+
 baseModule_outpostmap1_onCreated = {
   _this spawn baseModule_outpostmap1_spawnActionController;
 };
+
+baseModule_outpostmap1_onHideoutCreated = {};
 
 baseModule_outpostmap1_teleport = {
   private ["_unit", "_position", "_outpost", "_squad"];

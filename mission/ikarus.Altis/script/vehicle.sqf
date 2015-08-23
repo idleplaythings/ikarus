@@ -13,6 +13,8 @@ vehicle_spawnVehicle = {
   clearItemCargoGlobal _vehicle;
   clearBackpackCargoGlobal _vehicle;
 
+  _vehicle setVehicleAmmo 0;
+
   _vehicle;
 };
 

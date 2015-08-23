@@ -113,7 +113,7 @@ houseFurnisher_placeObject = {
   _position = _directionAndPosition select 0;
   _direction = _directionAndPosition select 1; 
  
-  _object = createVehicle [_objectClass, [0,0,3000], [], 0, "FLYING"];
+  _object = createVehicle [_objectClass, [0,0,3000], [], 0, "CAN_COLLIDE"];
   _object setDir _direction;
   _object setPosASL _position;
 

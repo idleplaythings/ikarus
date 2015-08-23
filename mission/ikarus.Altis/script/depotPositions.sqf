@@ -161,13 +161,56 @@ depotPositions_list = [
     ],
     [],
     []
+  ],
+
+  [
+    ["supply", "hideout", "slumtop"],
+    ["Land_i_Stone_HouseBig_V1_F", "Land_i_Stone_HouseBig_V1_dam_F", "Land_i_Stone_HouseBig_V2_F", "Land_i_Stone_HouseBig_V2_dam_F", "Land_i_Stone_HouseBig_V3_F", "Land_i_Stone_HouseBig_V3_dam_F"],
+    [
+      ["Land_Slum_House02_F",44.2119,2.07186,89.457,7.48223,false,true],
+      ["Land_Cargo20_yellow_F",62.8532,7.57683,268.258,0,true,true],
+      ["Land_PierLadder_F",302.023,3.68619,89.457,3.22923,false,true],
+      ["Land_HBarrier_5_F",60.2769,2.91281,179.457,5.916,false,true],
+      ["Land_HBarrier_5_F",115.026,2.77534,179.457,5.87447,false,true],
+      ["Land_HBarrier_5_F",83.4336,2.53751,179.457,5.916,false,true],
+      ["Land_Shoot_House_Wall_Long_F",305.831,5.54971,89.457,0,false,true],
+      ["Land_Shoot_House_Corner_F",41.995,6.95047,179.394,5.84947,false,true],
+      ["Land_Shoot_House_Corner_F",240.626,2.24536,359.394,5.84947,false,true],
+      ["Land_Shoot_House_Wall_F",57.3358,6.09948,89.457,5.83902,false,true],
+      ["Land_Shoot_House_Wall_F",222.367,2.04126,179.457,5.83902,false,true],
+      ["Land_Shoot_House_Wall_F",262.573,2.28807,269.457,5.83902,false,true],
+      ["Land_Shoot_House_Wall_F",288.202,3.73956,179.394,0,true,true],
+      ["Land_Shoot_House_Wall_F",54.5355,6.23124,89.457,5.83902,false,true],
+      ["Land_CratesWooden_F",81.1912,8.81337,268.258,0,true,true],
+      ["Land_CargoBox_V1_F",95.6622,7.12505,268.258,0.0328274,false,true],
+      ["Land_CargoBox_V1_F",29.181,0.401856,269.457,0.30517,false,true],
+      ["Land_CargoBox_V1_F",356.776,1.92464,275.833,3.05169,false,true],
+      ["Land_BagFence_Long_F",31.5134,6.88323,359.457,6.50996,false,true],
+      ["Land_BagFence_Long_F",329.364,4.83763,269.457,6.50996,false,true],
+      ["Land_BagFence_Long_F",264.3,2.39881,269.457,5.77644,false,true],
+      ["Land_BagFence_Long_F",6.1618,5.9229,359.457,6.50996,false,true],
+      ["Land_BagFence_Long_F",212.553,2.08525,359.457,6.41827,false,true],
+      ["Land_BagFence_Long_F",212.325,2.05208,359.457,5.77644,false,true],
+      ["Land_BagFence_Long_F",6.36017,5.95028,359.457,5.77644,false,true],
+      ["Land_BagFence_Long_F",31.6905,6.87962,359.457,5.77644,false,true],
+      ["Land_BagFence_Long_F",49.0759,7.01531,269.457,6.50996,false,true],
+      ["Land_BagFence_Long_F",49.3931,6.98299,269.457,5.77644,false,true],
+      ["Land_BagFence_Long_F",329.61,4.80435,269.457,5.77644,false,true],
+      ["Land_BagFence_Long_F",264.302,2.4496,269.457,6.50996,false,true],
+      ["Land_HBarrier_1_F",275.744,3.26582,179.394,0,true,true],
+      ["Land_BagFence_Short_F",344.175,6.09327,359.457,6.52924,false,true],
+      ["Land_BagFence_Short_F",344.647,6.11112,359.457,5.80377,false,true]
+    ],
+    [],
+    []
   ]
 
 ];
 
 depotPositions_placeHolderObjects = [
   "Land_CargoBox_V1_F",
-  "C_Offroad_01_F"
+  "C_Offroad_01_F",
+  "O_Heli_Light_02_v2_F"
 ];
 
 depotPositions_isPlaceHolder = {

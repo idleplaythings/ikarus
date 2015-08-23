@@ -86,7 +86,11 @@ hideout_createHideout = {
 
   [_squad, _position] call hideout_createHidoutMarkerForPlayers;
   _cache = [_squad, ([_position, _direction, _moduleData] call baseModule_getCacheLocation)] call hideout_createHideoutCache;
-  [_squad, ([_position, _direction, _moduleData] call baseModule_getVehicleLocations)] call hideout_createVehicles;
+  [
+    _squad,
+    ([_position, _direction, _moduleData] call baseModule_getVehicleLocations),
+    ([_position, _direction, _moduleData] call baseModule_getHeloLocations)
+  ] call hideout_createVehicles;
   [_squad, _position] call hideout_createHideoutTrigger;
 
   _hideoutData = [
@@ -97,31 +101,59 @@ hideout_createHideout = {
     _cache
   ];
 
+  {
+    [_x select 0, "onHideoutCreated", [_hideoutData]] call baseModule_callModule;
+  } forEach _moduleData;
+
   hideout_hideouts pushBack _hideoutData;
 };
 
 hideout_createVehicles = {
-  private ["_squad", "_positions", "_vehicle"];
+  private ["_squad", "_helicopters", "_vehicles", "_vehiclePositions", "_heloPositions", "_vehicle", "_vehicleClasses"];
   _squad = _this select 0;
-  _positions = _this select 1;
-  
-  _vehicleClass = [_squad] call equipment_getVehicle;
+  _vehiclePositions = _this select 1;
+  _heloPositions = _this select 2;
+  _helicopters = 0;
+  _vehicles = 0;
+  _vehicleClasses = [_squad] call equipment_getVehicles;
 
-  if (count _positions == 0) exitWith {
-    [_squad, [_vehicleClass]] call addDisconnectedLoot;
+
+  if (count _vehicleClasses == 0) then {
+    _vehicleClasses pushBack "C_Hatchback_01_F";
   };
 
-  if (_vehicleClass == "") then {
-    _vehicleClass = "C_Hatchback_01_F";
-  };
+  {
+    private ["_position", "_vehicleClass", "_direction"];
+    _position = nil;
+    _direction = 0;
+    _vehicleClass = _x;
 
-  _vehicle = [
-    _vehicleClass,
-    ASLToATL (_positions select 0 select 0),
-    (_positions select 0 select 1)
-  ] call vehicle_spawnVehicle;
+    if (_vehicleClass isKindOf "Helicopter") then {
+      if (count _heloPositions >= (_helicopters + 1)) then {
+        _position = ASLToATL (_heloPositions select _helicopters select 0);
+        _direction = _heloPositions select _helicopters select 1;
+        _helicopters = _helicopters + 1;
+      };
+    } else {
+      if (count _vehiclePositions >= (_vehicles + 1)) then {
+        _position = ASLToATL (_vehiclePositions select _vehicles select 0);
+        _direction = _vehiclePositions select _vehicles select 1;
+        _vehicles = _vehicles + 1;
+      };
+    };
 
-  [_vehicle] call vehicle_preventUseBeforeObjectives;
+    if (! isNil{_position}) then {
+      _vehicle = [
+        _vehicleClass,
+        _position,
+        _direction
+      ] call vehicle_spawnVehicle;
+    } else {
+      [_squad, [_vehicleClass]] call addDisconnectedLoot;
+    };
+    
+  } forEach _vehicleClasses;
+
 };
 
 hideout_createHidoutMarkerForPlayers = {
@@ -181,6 +213,7 @@ hideout_createHideoutCache = {
   
   _box setVariable ['squadId', ([_squad] call getSquadId), true];
   _box;
+
 };
 
 hideout_createHideoutTrigger = {

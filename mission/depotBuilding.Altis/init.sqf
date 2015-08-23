@@ -52,7 +52,7 @@ saveObjectsFromMarker = {
     };
     
    
-    _objectData set [count _objectData, [typeOf _x, ([_object, _x] call getNormalizedDirectionFromBuilding), [getPosASL _object, getPosASL _x] call BIS_fnc_distance2D, _azimuth, _height, _aboveTerrain]];
+    _objectData set [count _objectData, [typeOf _x, ([_object, _x] call getNormalizedDirectionFromBuilding), [getPosASL _object, getPosASL _x] call BIS_fnc_distance2D, _azimuth, _height, _aboveTerrain, true]];
 
   } forEach ([_object] call findObjects);
   
@@ -86,13 +86,20 @@ findObjects = {
   
   {
     _distance = [_object, _x] call BIS_fnc_distance2D;
-    if (side _x == civilian and ! isAgent teamMember _x and _distance < 20) then {
-      _allMObjects set [count _allMObjects, _x];
+    if (_distance < 20) then {
+      if ((typeOf _x) in exceptionClasses || (side _x == civilian && ! isAgent teamMember _x)) then {
+        _allMObjects set [count _allMObjects, _x];
+      };
     };
+    
   } forEach allMissionObjects "";
 
   _allMObjects;
 };
+
+exceptionClasses = [
+  "Land_PierLadder_F"
+];
 
 findArrow = {
   private ["_arrow", "_position", "_distance"];
@@ -101,7 +108,7 @@ findArrow = {
 
   {
     _distance = [_position, _x] call BIS_fnc_distance2D;
-    if (side _x == civilian and ! isAgent teamMember _x and _distance < 20 and typeOf _x == "Sign_Arrow_Yellow_F") exitWith {
+    if (_distance < 20 && typeOf _x == "Sign_Arrow_Yellow_F") exitWith {
       _arrow = _x;
     };
   } forEach allMissionObjects "";

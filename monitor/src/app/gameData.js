@@ -50,7 +50,7 @@ module.exports = function(armaSerializer){
   var testSquad = new Squad({
     _id: 'id',
     steamIds: ["_SP_PLAYER_"],
-    startingLocation: {x:8500.0, y:11200.0},
+    startingLocation: {x:13594.2, y:18174.7},
     companyId: 'company',
     objective: 'Supply',
     gear: [
@@ -62,10 +62,10 @@ module.exports = function(armaSerializer){
       }
     ],
     baseModules: [
+      "Primary2",
+      "VehicleAmmo",
       "Garage1",
-      "Primary1",
-      "OutpostMap1",
-      "MedicalStation1"
+      "weaponCache1"
     ],
     outposts: [
       {x:9500.0, y:11200.0},
@@ -109,6 +109,7 @@ module.exports = function(armaSerializer){
         'IKRS_intelligence_helo': 1,
         'IKRS_outpost_backpack': 3,
         'IKRS_signal_device': 1,
+        'BAF_Jackal2_L2A1_D': 1
       }
     },
     {

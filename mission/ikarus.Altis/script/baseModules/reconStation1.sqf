@@ -2,6 +2,10 @@ baseModule_reconStation1_isPrimary = {false;};
 
 baseModule_reconStation1_onCreated = {};
 
+baseModule_reconStation1_onHideoutCreated = {};
+
+baseModule_reconStation1_numberOfSlots = {1;};
+
 baseModule_reconStation1_data = {
   [
     ["Item_ItemGPS",58.5055,3.19218,47.9999,0.813148,true],

@@ -191,6 +191,7 @@ ItemDefinitions = [
   //SNIPER RIFLES (CUP)
 
   createWeapon('Lee Einfield rifle', 'CUP_srifle_LeeEnfield', ['rifle'], ['CUP_10x_303_M']),
+  createWeapon('Lee Einfield rifle (rail)', 'CUP_srifle_LeeEnfield_rail', ['rifle'], ['CUP_10x_303_M']),
   createMagazine('10rnd .303', 'CUP_10x_303_M', 10),
 
   createWeapon('CZ 550 hunting rifle', 'CUP_srifle_CZ550', ['rifle'], ['CUP_5x_22_LR_17_HMR_M']),
@@ -247,7 +248,7 @@ ItemDefinitions = [
   createWeapon('RPG-7V launcher', 'CUP_launch_RPG7V', ['rpg'], ['CUP_PG7V_M']),
   createMagazine('RPG-7 AT rocket', 'CUP_PG7V_M', 1),
 
-  createWeapon('M79 Grenadelauncher', 'CUP_glaunch_M79', ['grenade-launcher'], ['CUP_1Rnd_HE_M203', 'CUP_1Rnd_Smoke_M203', 'CUP_1Rnd_SmokeRed_M203']),
+  createWeapon('M79 Grenadelauncher', 'CUP_glaunch_M79', ['grenade-launcher'], ['1Rnd_HE_Grenade_shell']),
   createMagazine('HE M203 grenade', 'CUP_1Rnd_HE_M203', 1),
   createMagazine('Smoke M203 grenade', 'CUP_1Rnd_Smoke_M203', 1),
   createMagazine('Red smoke M203 grenade', 'CUP_1Rnd_SmokeRed_M203', 1),
@@ -589,7 +590,8 @@ ItemDefinitions = [
     'IKRS_loot_warsaw_ammo',
     {
       'hlc_VOG25_AK': '2d3+2',
-      'RPG32_F': 'd2+2',
+      'CUP_PG7V_M': 'd2',
+      'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd2',
       'HandGrenade': '4d3+15',
       'SmokeShell': '4d3+15'
     }
@@ -601,6 +603,8 @@ ItemDefinitions = [
     {
       'Binocular': 'd5-2',
       'ItemGPS': 'd5-3',
+      'CUP_arifle_M16A2': 'd2-1',
+      'CUP_arifle_M16A4_Base': 'd2-1',
       'hlc_rifle_M4': 'd2-1',
       'hlc_rifle_Colt727': 'd2',
       'hlc_rifle_Colt727_GL': 'd10-9',
@@ -614,7 +618,7 @@ ItemDefinitions = [
     'IKRS_loot_nato_ammo',
     {
       '1Rnd_HE_Grenade_shell': '2d3+2',
-      'NLAW_F': 'd2+2',
+      'NLAW_F': 'd2',
       '20Rnd_762x51_Mag': 'd5+3',
       'hlc_200rnd_556x45_T_SAW': 'd3+2',
       'HandGrenade': '4d3+15',

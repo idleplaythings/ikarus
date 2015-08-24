@@ -1,13 +1,32 @@
 lootItems_definitions = [
-  ['warsaw_tacticool', ['hlc_rifle_ak12','hlc_rifle_ak12GL','hlc_rifle_RPK12']],
+  ['warsaw_tacticool', 
+    [
+      ['hlc_rifle_ak12'],
+      ['hlc_rifle_ak12GL'],
+      ['hlc_rifle_RPK12'],
+      ['CUP_srifle_LeeEnfield_rail', 'CUP_10x_303_M','CUP_10x_303_M','CUP_10x_303_M','CUP_10x_303_M','CUP_10x_303_M']
+    ]
+  ],
+
+  ['warsaw_misc',
+    [
+      ['CUP_srifle_LeeEnfield', 'CUP_10x_303_M','CUP_10x_303_M','CUP_10x_303_M','CUP_10x_303_M','CUP_10x_303_M']
+    ]
+  ],
   ['opfor_light_sniper', [['srifle_DMR_01_F', '10Rnd_762x54_Mag', '10Rnd_762x54_Mag']]],
-  ['warsaw_heavy', [['launch_RPG32_F', 'RPG32_F', 'RPG32_F']]],
+  ['warsaw_heavy', 
+    [
+      ['CUP_launch_RPG7V', 'CUP_PG7V_M', 'CUP_PG7V_M', 'B_AssaultPack_khk'],
+      ['CUP_lmg_PKM', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M'],
+      ['CUP_glaunch_M79', '1Rnd_HE_Grenade_shell', '1Rnd_HE_Grenade_shell', '1Rnd_HE_Grenade_shell']
+    ]
+  ],
   ['medium_optics', ['optic_Arco', 'optic_Hamr', 'optic_MRCO']],
   ['bibods', ['bipod_01_F_blk', 'bipod_01_F_mtp', 'bipod_01_F_snd', 'bipod_02_F_blk', 'bipod_03_F_oli']],
   ['reflexsights', 
     [
       'optic_Holosight_smg', 'optic_Aco_smg', 'optic_ACO_grn_smg',
-      'optic_Holosight', 'optic_Aco', 'optic_ACO_grn'
+      'optic_Holosight', 'optic_Aco', 'optic_ACO_grn', 'CUP_optic_CompM4'
     ]
   ],
   ['modern_tacticool', 
@@ -73,7 +92,7 @@ lootItems_definitions = [
     [
       ['hlc_lmg_M249E2', 'hlc_200rnd_556x45_T_SAW'],
       ['hlc_m249_pip1', 'hlc_200rnd_556x45_T_SAW'],
-      ['launch_NLAW_F', 'NLAW_F']
+      ['launch_NLAW_F', 'NLAW_F', 'B_AssaultPack_khk']
     ]
   ],
   ['high_scopes', ['optic_DMS']],
@@ -158,7 +177,8 @@ lootItems_populateSupplyBoxLevel_0 = {
 
   ['warsaw_tacticool', _container, 10, -8] call lootItems_addRandomAmount;
   ['opfor_light_sniper', _container, 20, -19] call lootItems_addRandomAmount;
-  ['warsaw_heavy', _container, 6, -5] call lootItems_addRandomAmount;
+  ['warsaw_heavy', _container, 3, -2] call lootItems_addRandomAmount;
+  ['warsaw_misc', _container, 2, -1] call lootItems_addRandomAmount;
 
   ['HLC_Optic_PSO1', _container, 5, -4] call lootItems_addRandomAmount;
   ['hlc_optic_kobra', _container, 4, 3] call lootItems_addRandomAmount;

@@ -4,15 +4,15 @@ marketDefinitions = [
     name: 'Assault rifles',
     items: {
       'arifle_MX_F':            {money: 200},
-      'arifle_MX_Black_F':      {money: 300},
-      'arifle_MX_GL_F':         {money: 500},
-      'arifle_MX_GL_Black_F':   {money: 600},
+      'arifle_MX_Black_F':      {money: 200},
+      'arifle_MX_GL_F':         {money: 300},
+      'arifle_MX_GL_Black_F':   {money: 300},
       'arifle_MXC_F':           {money: 180},
-      'arifle_MXC_Black_F':     {money: 280},
+      'arifle_MXC_Black_F':     {money: 180},
 
       'arifle_Katiba_C_F':      {money: 150},
       'arifle_Katiba_F':        {money: 170},
-      'arifle_Katiba_GL_F':     {money: 450},
+      'arifle_Katiba_GL_F':     {money: 250},
 
       'hlc_rifle_ak74':         {money: 20},
       'hlc_rifle_aks74':        {money: 20},
@@ -32,7 +32,7 @@ marketDefinitions = [
       //'hlc_rifle_m4m203':       {money: 420}, Sounds not working
       'hlc_rifle_bcmjack':      {money: 120},
       'hlc_rifle_Colt727':      {money: 120},
-      'hlc_rifle_Colt727_GL':   {money: 420},
+      'hlc_rifle_Colt727_GL':   {money: 220},
       'hlc_rifle_samr2':        {money: 120},
 
       'hlc_rifle_auga1_b':      {money: 150}, 
@@ -49,8 +49,8 @@ marketDefinitions = [
     _id: 'SMG',
     name: 'SMGs',
     items: {
-      'SMG_01_F':           {money: 150},
-      'SMG_02_F':           {money: 120},
+      'SMG_01_F':           {money: 100},
+      'SMG_02_F':           {money: 90},
     }
   },
 
@@ -58,10 +58,10 @@ marketDefinitions = [
     _id: 'BR',
     name: 'Battle rifles',
     items: {
-      'srifle_DMR_06_camo_F':   {money: 600},
-      'srifle_DMR_06_olive_F':  {money: 600},
-      'srifle_EBR_F':           {money: 1200},
-      'hlc_rifle_M14':          {money: 450},
+      'srifle_DMR_06_camo_F':   {money: 400},
+      'srifle_DMR_06_olive_F':  {money: 400},
+      'srifle_EBR_F':           {money: 600},
+      'hlc_rifle_M14':          {money: 350},
     }
   },
 
@@ -72,15 +72,15 @@ marketDefinitions = [
       'arifle_MX_SW_F':         {money: 400},
       'arifle_MX_SW_Black_F':   {money: 500},
       'LMG_Mk200_F':            {money: 800},
-      'LMG_Zafir_F':            {money: 1500},
-      'MMG_01_hex_F':           {money: 2500},
-      'MMG_01_tan_F':           {money: 2500},
-      'MMG_02_camo_F':          {money: 2200},
-      'MMG_02_black_F':         {money: 2200},
-      'MMG_02_sand_F':          {money: 2200},
-      'hlc_rifle_rpk':          {money: 300},
-      'hlc_rifle_rpk74n':       {money: 350},
-      'hlc_rifle_RPK12':        {money: 400},
+      'LMG_Zafir_F':            {money: 500},
+      'MMG_01_hex_F':           {money: 500},
+      'MMG_01_tan_F':           {money: 500},
+      'MMG_02_camo_F':          {money: 200},
+      'MMG_02_black_F':         {money: 200},
+      'MMG_02_sand_F':          {money: 200},
+      'hlc_rifle_rpk':          {money: 50},
+      'hlc_rifle_rpk74n':       {money: 50},
+      'hlc_rifle_RPK12':        {money: 100},
 
     }
   },
@@ -89,32 +89,33 @@ marketDefinitions = [
     _id: 'SR',
     name: 'Sniper rifles',
     items: {
+      'CUP_srifle_LeeEnfield':    {money: 100},
       //MAR
-      'srifle_DMR_02_F':          {money: 3000},
-      'srifle_DMR_02_camo_F':     {money: 3000},
-      'srifle_DMR_02_sniper_F':   {money: 3000},
+      'srifle_DMR_02_F':          {money: 1500},
+      'srifle_DMR_02_camo_F':     {money: 1500},
+      'srifle_DMR_02_sniper_F':   {money: 1500},
 
       //EMR
-      'srifle_DMR_03_F':          {money: 1500},
-      'srifle_DMR_03_khaki_F':    {money: 1500},
-      'srifle_DMR_03_tan_F':      {money: 1500},
-      'srifle_DMR_03_multicam_F': {money: 1500},
-      'srifle_DMR_03_woodland_F': {money: 1500},
+      'srifle_DMR_03_F':          {money: 1000},
+      'srifle_DMR_03_khaki_F':    {money: 1000},
+      'srifle_DMR_03_tan_F':      {money: 1000},
+      'srifle_DMR_03_multicam_F': {money: 1000},
+      'srifle_DMR_03_woodland_F': {money: 1000},
 
       //kir
-      'srifle_DMR_04_F':          {money: 2000},
-      'srifle_DMR_04_Tan_F':      {money: 2000},
+      'srifle_DMR_04_F':          {money: 1000},
+      'srifle_DMR_04_Tan_F':      {money: 1000},
 
       //Cyrus
-      'srifle_DMR_05_blk_F':      {money: 2500},
-      'srifle_DMR_05_hex_F':      {money: 2500},
-      'srifle_DMR_05_tan_F':      {money: 2500},
+      'srifle_DMR_05_blk_F':      {money: 1000},
+      'srifle_DMR_05_hex_F':      {money: 1000},
+      'srifle_DMR_05_tan_F':      {money: 1000},
 
       //Rahim
-      'srifle_DMR_01_F':          {money: 700},
+      'srifle_DMR_01_F':          {money: 400},
 
-      'arifle_MXM_F':             {money: 800},
-      'arifle_MXM_Black_F':       {money: 900},
+      'arifle_MXM_F':             {money: 500},
+      'arifle_MXM_Black_F':       {money: 500},
     }
   },
 
@@ -126,18 +127,20 @@ marketDefinitions = [
       '30Rnd_556x45_Stanag':           {money: 5},
       '30Rnd_65x39_caseless_green':    {money: 10},
       '30Rnd_65x39_caseless_mag':      {money: 15},
-      '1Rnd_HE_Grenade_shell':         {money: 100},
-      '20Rnd_762x51_Mag':              {money: 100},
+      '1Rnd_HE_Grenade_shell':         {money: 15},
+      '20Rnd_762x51_Mag':              {money: 30},
       '100Rnd_65x39_caseless_mag':     {money: 80},
-      '200Rnd_65x39_cased_Box':        {money: 100},
-      '150Rnd_762x54_Box':             {money: 200},
-      '150Rnd_93x64_Mag':              {money: 400},
-      '130Rnd_338_Mag':                {money: 350},
+      '200Rnd_65x39_cased_Box':        {money: 50},
+      '150Rnd_762x54_Box':             {money: 70},
+      '150Rnd_93x64_Mag':              {money: 80},
+      '130Rnd_338_Mag':                {money: 80},
+      'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': {money: 50},
+      'CUP_10x_303_M':                 {money: 10},
 
-      '10Rnd_338_Mag':                 {money: 400},
-      '10Rnd_127x54_Mag':              {money: 200},
-      '10Rnd_93x64_DMR_05_Mag':        {money: 350},
-      '10Rnd_762x54_Mag':              {money: 100},
+      '10Rnd_338_Mag':                 {money: 50},
+      '10Rnd_127x54_Mag':              {money: 50},
+      '10Rnd_93x64_DMR_05_Mag':        {money: 50},
+      '10Rnd_762x54_Mag':              {money: 30},
       '30Rnd_45ACP_Mag_SMG_01':        {money: 5},
       '30Rnd_9x21_Mag':                {money: 5},
 
@@ -194,12 +197,12 @@ marketDefinitions = [
       'optic_Aco':                {money: 100},
       'optic_ACO_grn':            {money: 100},
 
-      'optic_Arco':               {money: 1000},
-      'optic_Hamr':               {money: 1000},
-      'optic_MRCO':               {money: 700},
-      'optic_DMS':                {money: 2000},
+      'optic_Arco':               {money: 500},
+      'optic_Hamr':               {money: 500},
+      'optic_MRCO':               {money: 300},
+      'optic_DMS':                {money: 700},
       'hlc_optic_kobra':          {money: 20},
-      'HLC_Optic_PSO1':           {money: 400},
+      'HLC_Optic_PSO1':           {money: 200},
 
 
       'bipod_01_F_blk':   {money: 50},

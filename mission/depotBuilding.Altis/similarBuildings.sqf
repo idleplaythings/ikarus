@@ -35,6 +35,13 @@ similarBuildings_list = [
     "Land_i_Shop_01_V2_dam_F",
     "Land_i_Shop_01_V3_F",
     "Land_i_Shop_01_V3_dam_F"
+  ],
+
+  //stone shed
+  [
+    "Land_i_Stone_Shed_V1_F",
+    "Land_i_Stone_Shed_V2_F",
+    "Land_i_Stone_Shed_V3_F"
   ]
 ];
 

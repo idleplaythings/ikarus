@@ -62,7 +62,7 @@ module.exports = function(armaSerializer){
       }
     ],
     baseModules: [
-      "Primary2",
+      "Primary7",
       "VehicleAmmo",
       "Garage1",
       "weaponCache1"

@@ -29,6 +29,7 @@ buildingChecker_Key = {
     call buildingChecker_copyToClipboard;
   };
   
+  //ö
   if (_key == 39) exitWith {
     call buildingChecker_back;
   };
@@ -37,11 +38,13 @@ buildingChecker_Key = {
     call buildingChecker_next;
   };
   
+  //,
   if (_key == 51) exitWith {
     call buildingChecker_approve;
     call buildingChecker_next;
   };
   
+  //-
   if (_key == 53) exitWith {
     call buildingChecker_reject;
     call buildingChecker_next;

@@ -21,16 +21,13 @@ objective_supply_joinInProgress = {
   private ["_unit"];
   _unit = _this select 0;
   [_unit] call objective_supply_setPlayerRating;
+  [[objective_supply_markerPositions], "markers_createSupplyBriefring", _unit, false, true] call BIS_fnc_MP;
 };
 
 objective_supply_setPlayerRating = {};
 
 objective_supply_validate = {
-  if (count squads == 1) exitWith {
-    true;
-  };
-  
-  count ([_squad] call getPlayersInSquad) > 1;
+  true;
 };
 
 objective_supply_insideDepot = {};
@@ -57,26 +54,28 @@ objective_supply_canOpenLootBoxes = {
   true;
 };
 
+objective_supply_markerPositions = [];
+
 objective_supply_constructMarkers = {
-  private ["_depots", "_players", "_radius", "_offset"];
+  private ["_depots", "_players", "_radius", "_offset", "_positions"];
   _depots = _this select 0;
   _players = _this select 1;
   _radius = 500;
   _offset = _radius / 2;
+  _positions = [];
   
   {
     private ["_building"];
     _building = _x select 0;
     _position = [_building, _offset] call SHK_pos;
-    {
-      [[_position, _radius], "markers_createSupplyMarker", _x, false, true] call BIS_fnc_MP;
-    } forEach _players;  
+    _positions pushBack _position;
   } forEach _depots;
-  
-  
+
   {
-    [[], "markers_createSupplyBriefring", _x, false, true] call BIS_fnc_MP;
+    [[_positions], "markers_createSupplyBriefring", _x, false, true] call BIS_fnc_MP;
   } forEach _players;
+
+  objective_supply_markerPositions = _positions;
 };
 
 objective_supply_constructDepots = {

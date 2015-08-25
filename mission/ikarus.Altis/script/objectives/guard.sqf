@@ -199,10 +199,7 @@ objective_guard_createGuardMarkersForUnit = {
   _unit = _this select 0;
   _allDepotPositions = call depots_getAllDepotPositions;
 
-  [[], "markers_createGuardBriefing", _unit, false, true] call BIS_fnc_MP;
-  {
-    [[_x], "markers_createGuardMarker", _unit, false, true] call BIS_fnc_MP;
-  } forEach _allDepotPositions;
+  [[_allDepotPositions], "markers_createGuardBriefing", _unit, false, true] call BIS_fnc_MP;
 };
 
 objective_guard_overrideHideoutCache = {
@@ -380,8 +377,6 @@ objective_guard_doParadrop = {
   if (call missionControl_getElapsedTime > (60 * 5)) exitWith {};
 
   if (backpack _unit != "") exitWith {};
-
-  if (loadAbs _unit > 300) exitWith {};
   
   if (vehicle _unit != _unit) exitWith {};
 

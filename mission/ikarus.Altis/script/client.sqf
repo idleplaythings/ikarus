@@ -9,10 +9,6 @@ client_setUpGuardParadropAction = {
     if (backpack player != "") exitWith {
       ["You may not paradrop while carrying a backpack", "cancelTimer"] call client_textMessage;
     };
-
-    if (loadAbs player > 300) exitWith {
-      ["You are carrying too much weight to paradrop", "cancelTimer"] call client_textMessage;
-    };
     
     if (vehicle player != player) exitWith {
       ["You can't paradrop while in vehicle", "cancelTimer"] call client_textMessage;

@@ -18,6 +18,7 @@ objective_hold_joinInProgress = {
   private ["_unit"];
   _unit = _this select 0;
   [_unit] call objective_hold_setPlayerRating;
+  [[objective_hold_markerPositions], "markers_createHoldBriefing", _unit, false, true] call BIS_fnc_MP;
 };
 
 objective_hold_setPlayerRating = {
@@ -58,27 +59,28 @@ objective_hold_canOpenLootBoxes = {
   true;
 };
 
+objective_hold_markerPositions = [];
+
 objective_hold_constructMarkers  = {
-  private ["_depots", "_players", "_radius", "_offset"];
+  private ["_depots", "_players", "_radius", "_offset", "_positions"];
   _depots = _this select 0;
   _players = _this select 1;
   _radius = 100;
   _offset = _radius / 2;
-  
+  _positions = [];
+
   {
-    private ["_building"];
+    private ["_building", "_position"];
     _building = _x select 0;
     _position = [_building, _offset] call SHK_pos;
-    {
-      [[_position, _radius], "markers_createHoldMarker", _x, false, true] call BIS_fnc_MP;
-    } forEach _players;  
+    _positions pushBack _position;
   } forEach _depots;
   
   
   {
-    [[], "markers_createHoldBriefing", _x, false, true] call BIS_fnc_MP;
+    [[_positions], "markers_createHoldBriefing", _x, false, true] call BIS_fnc_MP;
   } forEach _players;
-  
+  objective_hold_markerPositions = _positions;
 };
 
 objective_hold_constructDepots = {

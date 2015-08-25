@@ -316,6 +316,11 @@ _spawnCopters = {
         (call _random) > 0.95;
     }] call AEX_filter;
 
+    _spawnPositions = [_spawnPositions, {
+        ([_this] call hideout_distanceFromClosestHideout > 100 
+            and [_this] call depots_getDistanceToClosestDepot > 30);
+    }] call AEX_filter;
+
     _spawnedCopterOriginalPositions = [_copters, {
         _this getVariable "ikarus_original_position";
     }] call AEX_map;

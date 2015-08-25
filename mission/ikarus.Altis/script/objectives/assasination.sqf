@@ -43,6 +43,7 @@ objective_assasination_validate = {
   private ["_squad"];
   _squad = _this select 0;
   count ([_squad] call getPlayersInSquad) == 1 && count squads > 1;
+  false; //Disable assasination for now;
 };
 
 objective_assasination_overridesAppearance = {

@@ -159,14 +159,20 @@ markers_createGuardMarker = {
 };
 
 markers_createGuardBriefing = {
-  private ["_task"];
+  private ["_task", "_positions"];
+  _positions = _this select 0;
+
+  {
+    [_x] call markers_createGuardMarker;
+  } forEach _positions;
+  
   _task = player createSimpleTask ["GuardDuty"];
 
   _task setSimpleTaskDescription [
    'You are tasked to prevent other squads from completing their objectives'
     + '<br/><br/>You will get rewards for each enemy player you kill on 1km radius of any depot.'
     + ' You will get extra rewards for each kill, if you get back to your base alive.'
-    + '<br/><br/>Guards can not open supply boxes or hold guard depot. However, you can participate in Signal mission.<br/><br/>'
+    + '<br/><br/>Guards can not open supply boxes or hold guard depot. However, you can participate in Signal mission and open the Signal mission cache.<br/><br/>'
     + 'After 30 minutes of gametime has elapsed, you can secure loot boxes by standing next to them. After 35 you can secure them faster. Securing a lootbox will give you money and renown as a reward.'
     + '<br/><br/>During the first 5 minutes you can choose to paradrop to the objective area from your base.'
     + '<br/><br/>NOTE: You will not get any loot from loot backpacks you bring to your base!',
@@ -205,7 +211,7 @@ markers_supplyMarkerNames = [];
 markers_createSupplyMarker = {
   private ["_position", "_radius", "_name"];
   _position = _this select 0;
-  _radius = _this select 1;
+  _radius = 500;
  
   _name = "depot" + str _position;
   _marker = createMarkerLocal [_name, _position];
@@ -223,7 +229,7 @@ markers_holdMarkerNames = [];
 markers_createHoldMarker = {
   private ["_position", "_radius", "_name"];
   _position = _this select 0;
-  _radius = _this select 1;
+  _radius = 100;
  
   _name = "hold" + str _position;
   _marker = createMarkerLocal [_name, _position];
@@ -238,9 +244,15 @@ markers_createHoldMarker = {
 
 
 markers_createSupplyBriefring = {
-  private ["_markersText", "_number", "_task"];
-  
+  private ["_positions", "_markersText", "_number", "_task"];
+  _positions = _this select 0;
+
+  {
+    [_x] call markers_createSupplyMarker;
+  } forEach _positions;
+
   if (count markers_supplyMarkerNames == 0) exitWith {};
+
   _markersText = "";
   _number = 0;
   {
@@ -266,7 +278,12 @@ markers_createSupplyBriefring = {
 };
 
 markers_createHoldBriefing = {
-  private ["_markersText", "_number", "_task"];
+  private ["_markersText", "_number", "_task", "_positions"];
+  _positions = _this select 0;
+
+  {
+    [_x] call markers_createHoldMarker;
+  } forEach _positions;
   
   if (count markers_holdMarkerNames == 0) exitWith {};
 

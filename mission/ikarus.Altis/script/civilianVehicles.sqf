@@ -13,12 +13,20 @@ private [
     "_vehicleDirection",
     "_spawnVehicles",
     "_despawnVehicles",
+
     "_pierClasses",
     "_nearPiers",
     "_boats",
     "_boatsSpawnedPiers",
     "_spawnBoats",
     "_despawnBoats",
+
+    "_hangarClasses",
+    "_nearHangars",
+    "_copters",
+    "_spawnCopters",
+    "_despawnCopters",
+
     "_loop"
 ];
 
@@ -245,6 +253,84 @@ _despawnBoats = {
     { deletevehicle _x; } forEach _boatsToDespawn;
 };
 
+
+_copters = [];
+
+_hangarClasses = [
+    "Land_Hangar_F",
+    "Land_TentHangar_V1_F",
+    "Land_HelipadCircle_F",
+    "Land_HelipadCivil_F",
+    "Land_HelipadEmpty_F",
+    "Land_HelipadRescue_F",
+    "Land_HelipadSquare_F"
+];
+
+_nearHangars = {
+    private ["_position"];
+    _position = _this;
+    [_hangarClasses, {
+        (_this select 0) + (_position nearObjects [(_this select 1), 1000]);
+    }, []] call AEX_reduce;
+};
+
+_spawnCopters = {
+    private ["_positions", "_hangars", "_hangarPositions", "_spawnPositions", "_spawnedCopterOriginalPositions"];
+    _positions = _this;
+
+    _hangars = [_positions, {
+        (_this select 0) + ((_this select 1) call _nearHangars);
+    }, []] call AEX_reduce;
+
+    _spawnPositions = [_hangars, {_this modeltoworld [0, 0, 0]}] call AEX_map;
+
+    // more spawn positions can be added here
+    // but need to be filtered to be within 1000 meters of one of the _positions first
+
+    _spawnPositions = [_spawnPositions, {
+        _seed = _gameSeed + floor ((_this select 0)*65537 + (_this select 1) mod 65537);
+        (call _random) > 0.9;
+    }] call AEX_filter;
+
+    _spawnedCopterOriginalPositions = [_copters, {
+        _this getVariable "ikarus_original_position";
+    }] call AEX_map;
+
+    _spawnPositions = _spawnPositions - _spawnedCopterOriginalPositions;
+
+    {
+        private ["_class", "_spawnPosition", "_vehicle"];
+        _class = "B_Heli_Light_01_F";
+
+        _spawnPosition = _x findEmptyPosition [5, 10, "B_Heli_Light_01_F"];
+
+        if ((count _spawnPosition) < 1) exitWith {};
+
+        _vehicle = _class createVehicle _spawnPosition;
+        _vehicle setvariable ["zlt_civveh", true];
+        _vehicle setvariable ["ikarus_original_position", _x];
+        _copters pushBack _vehicle;
+    } forEach _spawnPositions;
+};
+
+_despawnCopters = {
+    private ["_positions", "_coptersToDespawn"];
+    _positions = _this;
+
+    _coptersToDespawn = [_copters, {
+        private ["_copter", "_nearPositions"];
+        _copter = _this;
+
+        [_positions, { (_copter distance _this) > 1000 }] call AEX_all;
+    }] call AEX_filter;
+
+    _coptersToDespawn = [_coptersToDespawn, {
+        ((count (crew _x)) == 0) && ((fuel _x) == 1);
+    }] call AEX_filter;
+
+    { deletevehicle _x; } forEach _coptersToDespawn;
+};
+
 _loop = {
     private [
         "_players",
@@ -258,6 +344,9 @@ _loop = {
 
     _positions call _spawnBoats;
     _positions call _despawnBoats;
+
+    _positions call _spawnCopters;
+    _positions call _despawnCopters;
 
     _positions call _spawnVehicles;
     _positions call _despawnVehicles;

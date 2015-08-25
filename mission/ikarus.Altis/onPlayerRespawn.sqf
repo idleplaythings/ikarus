@@ -12,6 +12,8 @@ removeVest player;
 removeBackpack player;
 removeHeadgear player;
 
+enableEngineArtillery false;
+
 player addEventHandler[ "HandleRating", {}];
 
 player addEventHandler [ "take", {

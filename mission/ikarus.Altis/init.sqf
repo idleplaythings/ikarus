@@ -59,6 +59,10 @@ if (! isServer) exitwith {};
 [] execVM "script\baseModules\outpostmap1.sqf";
 [] execVM "script\baseModules\heloLandingPad1.sqf";
 [] execVM "script\baseModules\vehicleAmmo.sqf";
+[] execVM "script\baseModules\irishpub.sqf";
+[] execVM "script\baseModules\bodyarmor1.sqf";
+[] execVM "script\baseModules\shootingrange1.sqf";
+[] execVM "script\baseModules\mortarpit.sqf";
 
 [] execVM "helpers\itemProperties.sqf";
 

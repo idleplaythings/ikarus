@@ -63,9 +63,8 @@ module.exports = function(armaSerializer){
     ],
     baseModules: [
       "Primary7",
-      "VehicleAmmo",
-      "Garage1",
-      "weaponCache1"
+      "irishpub",
+      "shootingrange1"
     ],
     outposts: [
       {x:9500.0, y:11200.0},

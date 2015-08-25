@@ -6,7 +6,6 @@ class Mission
 		"a3_map_altis",
 		"A3_Characters_F_Civil",
 		"a3_characters_f",
-		"ikrs_loot",
 		"cba_xeh",
 		"extended_eventhandlers",
 		"cba_extended_eventhandlers",
@@ -36,8 +35,7 @@ class Mission
 		"cba_xeh_a3",
 		"ace_medical",
 		"ace_common",
-		"A3_Characters_F_BLUFOR",
-		"CUP_Weapons_AmmoBoxes"
+		"A3_Characters_F_BLUFOR"
 	};
 	addOnsAuto[]=
 	{

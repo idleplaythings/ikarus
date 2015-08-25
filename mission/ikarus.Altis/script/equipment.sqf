@@ -186,3 +186,16 @@ equipment_removeItemFromUnit = {
 
   _unit removeItem _item;
 };
+
+equipment_replaceObjectWithItem = {
+  private ["_object", "_class", "_holder"];
+  _object = _this select 0;
+  _class = _this select 1;
+
+  _holder = createVehicle ["groundWeaponHolder", getPos _object, [], 0, "CAN_COLLIDE"];
+  [_class, _holder] call equipment_addEquipment;
+  _holder setDir getDir _object;
+  _holder setPosASL getPosASL _object;
+  
+  deleteVehicle _object;
+};

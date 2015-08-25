@@ -53,14 +53,14 @@ loot_checkObject = {
   _object = _this select 0;
   _lootList = [];
 
+  if ! (simulationEnabled _object) exitWith {[];};
+
   if (isAgent teamMember _object) exitWith {
     [];
   };
 
   if ( _object isKindOf "car" or _object isKindOf "Helicopter" ) then {
-    if (simulationEnabled _object) then {
-      _lootList = _lootList + [typeOf _object];
-    };
+    _lootList = _lootList + [typeOf _object];
   };
   
   if (_object isKindOf "man") then {

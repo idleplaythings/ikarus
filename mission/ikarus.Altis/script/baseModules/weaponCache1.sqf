@@ -31,16 +31,10 @@ baseModule_weaponCache1_onCreated = {
     };
 
     if (typeOf _x == "Sign_Arrow_Yellow_F") then {
-      private ["_holder"];
-      
       if (_weaponIndex < count _weapons) then {
-        _holder = createVehicle ["groundWeaponHolder", getPos _x, [], 0, "CAN_COLLIDE"];
-        _holder addWeaponCargoGlobal [_weapons select _weaponIndex, 1];
+        [_x, _weapons select _weaponIndex] call equipment_replaceObjectWithItem;
         _weaponIndex = _weaponIndex + 1;
-        _holder setDir getDir _x;
-        _holder setPosASL getPosASL _x;
       };
-      deleteVehicle _x;
     };
 
   } forEach _objects;

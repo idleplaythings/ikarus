@@ -26,6 +26,7 @@ private [
     "_copters",
     "_spawnCopters",
     "_despawnCopters",
+    "_helicopterClasses",
 
     "_loop"
 ];
@@ -266,6 +267,29 @@ _hangarClasses = [
     "Land_HelipadSquare_F"
 ];
 
+_helicopterClasses = [
+    "C_Heli_Light_01_civil_F",
+    "C_Heli_light_01_blue_F",
+    "C_Heli_light_01_red_F",
+    "C_Heli_light_01_ion_F",
+    "C_Heli_light_01_blueLine_F",
+    "C_Heli_light_01_digital_F",
+    "C_Heli_light_01_elliptical_F",
+    "C_Heli_light_01_furious_F",
+    "C_Heli_light_01_graywatcher_F",
+    "C_Heli_light_01_jeans_F",
+    "C_Heli_light_01_light_F",
+    "C_Heli_light_01_shadow_F",
+    "C_Heli_light_01_sheriff_F",
+    "C_Heli_light_01_speedy_F",
+    "C_Heli_light_01_sunset_F",
+    "C_Heli_light_01_vrana_F",
+    "C_Heli_light_01_wasp_F",
+    "C_Heli_light_01_wave_F",
+    "C_Heli_light_01_stripped_F",
+    "C_Heli_light_01_luxe_F"
+];
+
 _nearHangars = {
     private ["_position"];
     _position = _this;
@@ -289,7 +313,7 @@ _spawnCopters = {
 
     _spawnPositions = [_spawnPositions, {
         _seed = _gameSeed + floor ((_this select 0)*65537 + (_this select 1) mod 65537);
-        (call _random) > 0.9;
+        (call _random) > 0.95;
     }] call AEX_filter;
 
     _spawnedCopterOriginalPositions = [_copters, {
@@ -300,13 +324,14 @@ _spawnCopters = {
 
     {
         private ["_class", "_spawnPosition", "_vehicle"];
-        _class = "B_Heli_Light_01_F";
+        _class = _helicopterClasses call BIS_fnc_selectRandom;
 
-        _spawnPosition = _x findEmptyPosition [5, 10, "B_Heli_Light_01_F"];
+        _spawnPosition = _x findEmptyPosition [5, 10, _class];
 
         if ((count _spawnPosition) < 1) exitWith {};
 
-        _vehicle = _class createVehicle _spawnPosition;
+        _spawnPosition set [2, (_spawnPosition select 2 + 0.5)];
+        _vehicle = [_class, _spawnPosition, random 360] call vehicle_spawnVehicle;
         _vehicle setvariable ["zlt_civveh", true];
         _vehicle setvariable ["ikarus_original_position", _x];
         _copters pushBack _vehicle;

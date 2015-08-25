@@ -34,6 +34,27 @@ ItemDefinitions = [
 
   createGeneric('Littlebird', 'B_Heli_Light_01_F', ['vehicle', 'helicopter', 'unarmed']),
 
+  createGeneric('Civilian helicopter', 'C_Heli_Light_01_civil_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_blue_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_red_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_ion_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_blueLine_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_digital_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_elliptical_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_furious_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_graywatcher_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_jeans_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_light_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_shadow_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_sheriff_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_speedy_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_sunset_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_vrana_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_wasp_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_wave_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_stripped_F', ['vehicle', 'helicopter', 'unarmed']),
+  createGeneric('Civilian helicopter', 'C_Heli_light_01_luxe_F', ['vehicle', 'helicopter', 'unarmed']),
+
   //ASSAULT RIFLES (HLC)
 
   createWeapon('Izhmash AK74', 'hlc_rifle_ak74', ['assault-rifle'], ["hlc_30Rnd_545x39_B_AK","hlc_45Rnd_545x39_t_rpk"]),

@@ -27,6 +27,7 @@ Template.players_company.events({
         if (error) {
             alert(error);
         }
+        Meteor.subscribe('MyCompanyAndSquads');
       }
     );
   },
@@ -42,6 +43,7 @@ Template.players_company.events({
         if (error) {
           alert(error);
         }
+        Meteor.subscribe('MyCompanyAndSquads');
       }
     );
   }

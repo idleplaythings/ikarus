@@ -62,9 +62,10 @@ module.exports = function(armaSerializer){
       }
     ],
     baseModules: [
-      "Primary7",
+      "Primary3",
       "irishpub",
-      "shootingrange1"
+      "garage1",
+      "MedicalStation1"
     ],
     outposts: [
       {x:9500.0, y:11200.0},

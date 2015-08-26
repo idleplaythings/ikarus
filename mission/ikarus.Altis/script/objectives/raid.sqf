@@ -58,6 +58,9 @@ objective_raid_squadCanRaidOtherSquad = {
 objective_raid_getValidRaids = {
   private ["_squad", "_raidable", "_renownLoss"];
   _squad = _this select 0;
+
+  if (count squads == 3) exitWith {[]};
+
   _renownLoss = ([_squad] call getRenown) * 0.05;
 
   if ! ([_squad] call objective_raid_canRaid) exitWith {[];};
@@ -89,14 +92,14 @@ objective_raid_canRaid = {
   private ["_squad"];
   _squad = _this select 0;
 
-  count ([_squad] call getPlayersInSquad) > 0 && ([_squad] call getRenown) >= 10;
+  count ([_squad] call getPlayersInSquad) > 0 && ([_squad] call getRenown) >= 500;
 };
 
 objective_raid_canBeRaided = {
   private ["_squad"];
   _squad = _this select 0;
 
-  count ([_squad] call getPlayersInSquad) > 0 && ([_squad] call getRenown) >= 10;
+  count ([_squad] call getPlayersInSquad) > 0 && ([_squad] call getRenown) >= 500;
 };
 
 objective_raid_joinInProgress = {

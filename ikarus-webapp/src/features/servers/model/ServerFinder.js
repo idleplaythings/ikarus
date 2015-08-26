@@ -9,32 +9,48 @@ ServerFinder.prototype.findServer = function (squad) {
 };
 
 ServerFinder.prototype.canHaveSquad = function (squad, server) {
+  if (! squad) {
+    return ! server.isFull() &&
+      server.stillTimeToJoin();
+  }
+
   return server.canFit(squad) &&
     server.stillTimeToJoin() &&
     ! server.hasSquadsFromSameCompany(squad);
 };
 
+ServerFinder.prototype.getReinforceableServers = function (squad) {
+  return Server.getAllPlaying().filter(function(server) {
+    return squad ? server.canReinforce(squad) : server.canReinforceWithoutSquad();
+  });
+};
+
 ServerFinder.prototype.getNextServer = function (squad) {
+
+  if (squad) {
+    var server = Server.getByInGameSquad(squad);
+
+    if (server) {
+      return server;
+    }
+
+    var serverThatCanBeJoinedNow = this.findServer(squad);
+    if (serverThatCanBeJoinedNow) {
+      return serverThatCanBeJoinedNow;
+    }
+  }
+
+  var reinforceable = this.getReinforceableServers(squad);
+
+  if (reinforceable.length > 0) {
+    return reinforceable.pop();
+  };
 
   var servers = Server.getAll().filter(function(server){
     return ! server.isDown();
   });
 
   return servers.sort(function(serverA, serverB) {
-    var serverAStart = serverA.getStartTimeLeft();
-    var serverBStart = serverB.getStartTimeLeft();
-    var serverACanFitSquad = squad ? serverA.canFit(squad) : true;
-    var serverBCanFitSquad = squad ? serverB.canFit(squad) : true;
-
-    //Server waiting
-    if (serverACanFitSquad && serverAStart && serverAStart > 0 && (! serverBStart || serverAStart < serverBStart)) {
-      return 1;
-    }
-
-    if (serverBCanFitSquad && serverBStart && serverBStart > 0 && (! serverAStart || serverBStart < serverAStart)) {
-      return -1;
-    }
-
     var serverASquadsNeeded = serverA.getSquadsRemainingToStart();
     var serverBSquadsNeeded = serverB.getSquadsRemainingToStart();
 

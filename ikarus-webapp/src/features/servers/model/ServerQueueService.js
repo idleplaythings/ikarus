@@ -129,7 +129,7 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
 ServerQueueService.prototype.checkServerIsReadyToStart = function () {
   Server.getAllWaiting().forEach(function(server){
 
-    if (server.getStartTime().isAfter(moment())) {
+    if (server.stillTimeToJoin()) {
       return;
     }
 

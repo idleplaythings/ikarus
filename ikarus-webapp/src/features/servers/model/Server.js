@@ -45,6 +45,10 @@ Server.prototype.canReinforce = function (squad) {
   return this.isPlaying() && this.canFit(squad) && this.getPlayTimeElapsed() < (35*60);
 },
 
+Server.prototype.canReinforceWithoutSquad = function () {
+  return this.isPlaying() && ! this.isFull() && this.getPlayTimeElapsed() < (35*60);
+},
+
 Server.prototype.getTimeRemainingToApproximateGameEnd = function () {
   if (! this.isPlaying()) {
     return undefined;
@@ -116,19 +120,38 @@ Server.prototype.updateSettings = function(settings) {
   });
 };
 
-
 Server.prototype.stillTimeToJoin = function() {
-  return this.getStatusChanged().add(this.getWaitingTime(), 'minutes').isAfter(moment());
+  var startingTime = this.getStartTime();
+  if (! startingTime) {
+    return false;
+  }
+
+  return startingTime.isAfter(moment());
+};
+
+Server.prototype.getAmountOfPlayers = function () {
+  if (this.isWaiting()) {
+    var players = 0;
+    this.getSquadsInGame().forEach(function(inGameSquad) {
+      if (inGameSquad) {
+        players += inGameSquad.getSteamIds().length;
+      }
+    });
+    return players;
+  } else {
+    return this.getSteamIds().length();
+  }
 };
 
 Server.prototype.canFit = function(squad) {
-  var players = 0;
-  this.getSquadsInGame().forEach(function(inGameSquad) {
-    players += inGameSquad.getSteamIds().length;
-  });
+  var players = this.getAmountOfPlayers();
 
   return players + squad.getSteamIds().length <= this.getMaxPlayers();
-}
+};
+
+Server.prototype.isFull = function() {
+  return this.getAmountOfPlayers() >= this.getMaxPlayers();
+};
 
 Server.prototype.hasSquadsFromSameCompany = function (squad) {
   var companyId = squad.getCompanyId();

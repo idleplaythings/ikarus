@@ -1,3 +1,9 @@
 <template name="nextGameAvailable">
-  <h2 class="{{nextGameClass}} nextGame">{{text}}</h2>
+  {{#if canJoin}}
+    <a class="btn btn-primary" href="{{inGameServer.getJoinUrl}}">
+      Click to join server {{inGameServer.name}}
+    </a>
+  {{else}}
+    <h2 class="{{nextGameClass}} nextGame">{{text}}</h2>
+  {{/if}}
 </template>

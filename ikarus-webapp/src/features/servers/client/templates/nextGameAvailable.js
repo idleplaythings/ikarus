@@ -4,7 +4,41 @@ Template.nextGameAvailable.onCreated(function () {
   this.subscribe('serverStatus');
 });
 
+function canJoin() {
+  var squad = Squad.getCurrent();
+  if (! squad) {
+    return false;
+  }
+
+  var server = Server.getByInGameSquad(squad);
+  var player = Player.getCurrent();
+
+  if (! player || ! server || server.isDead(player)) {
+    return false;
+  }
+  return server.isWaiting() || server.isPlaying();
+}
+
+function canReinforce (server) {
+  var squad = Squad.getCurrent();
+
+  return squad ? server.canReinforce(squad) : server.canReinforceWithoutSquad();
+}
+
 Template.nextGameAvailable.helpers({
+
+  canJoin: canJoin,
+
+  inGameServer: function () {
+    var squad = Squad.getCurrent();
+
+    if (! squad) {
+      return false;
+    }
+
+    return Server.getByInGameSquad(squad);
+  },
+
   nextGameClass: function () {
     var server = getNextServer();
     dependency.depend();
@@ -25,12 +59,17 @@ Template.nextGameAvailable.helpers({
       return "success";
     }
 
+    if (canReinforce(server)) {
+      return "success";
+    }
+
     return "";
   },
 
   text: function () {
-    var server = getNextServer();
     dependency.depend();
+
+    var server = getNextServer();
 
     if (! server || server.isDown() || ! server.getStatus()) {
       return 'No servers available';
@@ -50,13 +89,17 @@ Template.nextGameAvailable.helpers({
       return server.getStartTimeLeft() + " seconds.";
     }
 
+    if (canReinforce(server)) {
+      return "Reinforce now!";
+    }
+
     return "";
   }
 });
 
 function getNextServer() {
   var squad = Squad.getCurrent();
-  return dic.get('ServerFinder').getNextServer();
+  return dic.get('ServerFinder').getNextServer(squad);
 };
 
 function changeDependency(dependency) {

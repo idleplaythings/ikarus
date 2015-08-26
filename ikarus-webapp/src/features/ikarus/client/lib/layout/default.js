@@ -30,6 +30,8 @@ Template.ikarus_default.events({
     Meteor.call('testing_createCombatLogForCurrentCompany');
   },
 
+  'click .imageset-small': showImage,
+  'click .imageset': showImage,
 
   'mouseenter .show-item-tooltip-small': showItem,
   'mouseleave .show-item-tooltip-small': hideItem,
@@ -37,6 +39,12 @@ Template.ikarus_default.events({
 });
 
 var itemTooltip = null;
+
+function showImage (event, template) {
+  var $elem = jQuery(event.target);
+  var src = jQuery($elem).attr("src");
+  window.location = src;
+}
 
 function showItem(event, template) {
 

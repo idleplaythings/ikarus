@@ -24,4 +24,16 @@ Router.map(function () {
     template: 'credits',
     layoutTemplate: 'ikarus_default'
   });
+
+  this.route('concepts', {
+    path: '/concepts',
+    template: 'concepts',
+    layoutTemplate: 'ikarus_default'
+  });
+
+  this.route('objectives', {
+    path: '/objectives',
+    template: 'objectives',
+    layoutTemplate: 'ikarus_default'
+  });
 });

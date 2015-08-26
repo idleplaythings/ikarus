@@ -37,10 +37,13 @@
             </ul>
           </li>
 
-
-
-          <li>
-            <a href="{{pathFor route='howtoplay'}}">How to play</a>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Help <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="{{pathFor route='howtoplay'}}">How to play</a></li>
+              <li><a href="{{pathFor route='concepts'}}">Game concepts</a></li>
+              <li><a href="{{pathFor route='objectives'}}">Objectives</a></li>
+            </ul>
           </li>
 
           <li>

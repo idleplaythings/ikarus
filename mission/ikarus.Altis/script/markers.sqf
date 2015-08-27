@@ -369,6 +369,30 @@ markers_createManhuntBriefing = {
   ["Signal"] call client_taskMessage;
 };
 
+markers_lastManStandingTask = nil;
+
+markers_addLastManStanding = {
+
+  if (! isNil{markers_lastManStandingTask}) exitWith {};
+
+  markers_lastManStandingTask = player createSimpleTask ["Last man standing"];
+  markers_lastManStandingTask setSimpleTaskDescription [
+   'You are last player on the server. This means you can disconnect anywhere just like you would be in your base. All loot on your person will be saved. If you disconnect inside a vehicle, all loot inside the vehicle will also be saved.',
+   "Last man standing",
+   ""
+  ];
+
+  ["Last man standing"] call client_taskMessage;
+};
+
+markers_removeLastManStanding = {
+  if (isNil{markers_lastManStandingTask}) exitWith {};
+
+  player removeSimpleTask markers_lastManStandingTask;
+  markers_lastManStandingTask = nil;
+  ["Last man standing", "TaskCanceled"] call client_taskMessage;
+};
+
 markers_manhuntMarkers = [];
 
 markers_updateManhuntMarkers = {
@@ -394,6 +418,7 @@ markers_triangulations = [];
 markers_removeOldTriangulationMarkers = {
   if (count markers_triangulations < 5) exitWith {};
 
+  deleteMarkerLocal (markers_triangulations select 0);
   markers_triangulations = markers_triangulations - [(markers_triangulations select 0)];
   call markers_removeOldTriangulationMarkers;
 };

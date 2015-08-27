@@ -43,6 +43,7 @@ if (! isServer) exitwith {};
 [] execVM "script\timeAndWeather.sqf";
 [] execVM "script\reinforcements.sqf";
 [] execVM "script\outpost.sqf";
+[] execVM "script\lastManStanding.sqf";
 
 [] execVM "script\baseModules\baseModule.sqf";
 [] execVM "script\baseModules\primary1.sqf";

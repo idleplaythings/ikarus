@@ -131,13 +131,7 @@ Server.prototype.stillTimeToJoin = function() {
 
 Server.prototype.getAmountOfPlayers = function () {
   if (this.isWaiting()) {
-    var players = 0;
-    this.getSquadsInGame().forEach(function(inGameSquad) {
-      if (inGameSquad) {
-        players += inGameSquad.getSteamIds().length;
-      }
-    });
-    return players;
+    return this.getAmountOfSignedUpPlayers();
   } else {
     return this.getSteamIds().length();
   }
@@ -264,6 +258,8 @@ Server.prototype.markStatusChange = function() {
 
 Server.prototype.getStatusChanged = function() {
   var time = get(this.getDoc(), 'statusChanged') || null;
+  //console.log(time);
+  //console.log("should construct a moment from that reliably");
   return time ? moment(time) : null;
 }
 
@@ -304,6 +300,35 @@ Server.prototype.getSquadsInGame = function() {
   return ids.map(Squad.getById);
 }
 
+Server.prototype.updateAmountOfSignedUpPlayers = function() {
+  if (! this.isWaiting()) {
+    this.setAmountOfSignedUpPlayers(0);
+  } else {
+    var players = 0;
+    this.getSquadsInGame().forEach(function(inGameSquad) {
+      if (inGameSquad) {
+        players += inGameSquad.getSteamIds().length;
+      }
+    });
+
+    this.setAmountOfSignedUpPlayers(players);
+  }
+};
+
+Server.prototype.getAmountOfSignedUpPlayers = function() {
+  return get(this.getDoc(), 'signedUpPlayers') || 0;
+};
+
+Server.prototype.setAmountOfSignedUpPlayers = function(amount) {
+  collections.ServerCollection.update({
+    _id: this._id
+  }, {
+    $set: {
+      signedUpPlayers: amount
+    }
+  });
+};
+
 Server.prototype.addSquadToGame = function(squad) {
   collections.ServerCollection.update({
     _id: this._id
@@ -312,6 +337,8 @@ Server.prototype.addSquadToGame = function(squad) {
       inGame: squad._id
     }
   });
+
+  this.updateAmountOfSignedUpPlayers();
 };
 
 Server.prototype.removeSquadFromGame = function(squad) {
@@ -322,6 +349,8 @@ Server.prototype.removeSquadFromGame = function(squad) {
       inGame: squad._id
     }
   });
+
+  this.updateAmountOfSignedUpPlayers();
 };
 
 Server.prototype.removeAllSquadsFromGame = function() {

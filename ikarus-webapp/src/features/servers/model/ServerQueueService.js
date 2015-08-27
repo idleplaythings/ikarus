@@ -97,11 +97,11 @@ ServerQueueService.prototype.changeServerStatus = function (server, status) {
     server.removePlayers();
     Squad.getAllByServer(server).forEach(function(squad) {
       squad.remove();
-    })
+    });
 
     Inventory.removeByServer(server);
     server.removeAllSquadsFromGame();
-
+    server.setAmountOfSignedUpPlayers(0);
     server.updateStatus(status);
   }
 };

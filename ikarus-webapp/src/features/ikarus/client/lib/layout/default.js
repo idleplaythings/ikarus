@@ -5,6 +5,16 @@ Template.ikarus_default.onCreated(function() {
   this.subscribe('latestCombatLog');
 });
 
+Template.ikarus_default.onRendered(function() {
+  if (! Notification) {
+    return;
+  }
+
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  }
+});
+
 Template.ikarus_default.helpers({
   noSteamConfigured: function() {
     return Accounts.loginServiceConfiguration.find({ service: 'steam' }).count() === 0;

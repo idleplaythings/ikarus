@@ -8,12 +8,15 @@ ServerFinder.prototype.findServer = function (squad) {
   }.bind(this)).pop();
 };
 
-ServerFinder.prototype.canHaveSquad = function (squad, server) {
-  if (! squad) {
-    return ! server.isFull() &&
-      server.stillTimeToJoin();
-  }
+ServerFinder.prototype.findNonFullWaitingServer = function (squad) {
+  var servers = Server.getAllWaiting();
 
+  return servers.filter(function(server){
+    return ! server.isFull() && server.stillTimeToJoin();
+  }.bind(this)).pop();
+};
+
+ServerFinder.prototype.canHaveSquad = function (squad, server) {
   return server.canFit(squad) &&
     server.stillTimeToJoin() &&
     ! server.hasSquadsFromSameCompany(squad);
@@ -37,6 +40,11 @@ ServerFinder.prototype.getNextServer = function (squad) {
     var serverThatCanBeJoinedNow = this.findServer(squad);
     if (serverThatCanBeJoinedNow) {
       return serverThatCanBeJoinedNow;
+    }
+  } else {
+    var nonFullServer = this.findNonFullWaitingServer();
+    if (nonFullServer) {
+      return nonFullServer;
     }
   }
 

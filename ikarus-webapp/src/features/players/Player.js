@@ -84,6 +84,20 @@ Player.prototype.getSteamId = function() {
   return get(this.getDoc(), 'services.steam.id');
 }
 
+Player.prototype.getLastNotificationTime = function() {
+  var time = get(this.getDoc(), 'lastNotification');
+  return time ? moment(time) : null;
+}
+
+Player.prototype.updateLastNotificationTime = function(oldTime) {
+  var time = moment().valueOf();
+  if (! oldTime) {
+    return Meteor.users.update({ _id: this._id }, { $set: { lastNotification: time }});
+  }
+
+  return Meteor.users.update({ _id: this._id, lastNotification: oldTime.valueOf() }, { $set: { lastNotification: time }});
+}
+
 Player.prototype.getInvites = function() {
   return get(this.getDoc(), 'invites') || [];
 }

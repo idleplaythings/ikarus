@@ -10,5 +10,5 @@ accounts-ui
 jquery
 momentjs:moment
 accounts-password
-nemo64:bootstrap
 less
+twbs:bootstrap

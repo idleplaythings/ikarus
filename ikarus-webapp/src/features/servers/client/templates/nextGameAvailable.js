@@ -1,8 +1,76 @@
+var autorunHandle = null;
+
 Template.nextGameAvailable.onCreated(function () {
   this.subscribe('Servers');
   this.subscribe('MyCompanyAndSquads');
   this.subscribe('serverStatus');
+
+  Tracker.autorun(function () {
+    var player = Player.getCurrent();
+    var waitingServers = Server.getAllWaiting().length;
+    var numberOfWaiting = getAmountOfWaitingServersOnLastCheck();
+
+    Tracker.afterFlush(function () {
+      setAmountOfWaitingServersOnLastCheck(waitingServers);
+
+      if (numberOfWaiting === null || waitingServers <= numberOfWaiting) {
+        return;
+      }
+
+      Meteor.call('shouldNotify', function (error, result) {
+        if (result) {
+          notify();
+        }
+      });
+    });
+  });
 });
+
+Template.nextGameAvailable.onDestroyed(function () {
+  if (autorunHandle !== null) {
+    autorunHandle.stop();
+    autorunHandle = null;
+  }
+});
+
+function getAmountOfWaitingServersOnLastCheck () {
+  var amount = Session.get('amountOfWaitingServers');
+  if (amount === undefined) {
+    return null;
+  }
+
+  return amount;
+};
+
+function setAmountOfWaitingServersOnLastCheck (amount) {
+  Session.set('amountOfWaitingServers', amount);
+};
+
+function notify () {
+  if (! Notification) {
+    return;
+  }
+
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+  else {
+
+    var time = moment().format("H:mm:ss");
+    var notification = new Notification(
+      'Ikarus game ' + time,
+      {
+        icon: 'https://ikarus.idleplaythings.com/logo-small-round_blue2.png',
+        body: "Ikarus game is waiting for players or reinforcements."
+      }
+    );
+
+    notification.onclick = function () {
+      window.open("https://ikarus.idleplaythings.com");
+    };
+
+    Meteor.setTimeout(notification.close.bind(notification), 1000*60*30);
+  }
+}
 
 function canJoin() {
   var squad = Squad.getCurrent();

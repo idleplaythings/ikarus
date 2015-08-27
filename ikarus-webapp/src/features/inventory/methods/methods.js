@@ -17,9 +17,13 @@ Meteor.methods({
 
     var modules = squad.getBaseModules();
     var vehicleSlots = BaseModule.calculateVehicleSlots(modules);
-
+    var heloSlots = BaseModule.calculateHeloSlots(modules);
 
     if (item.hasTags('vehicle') && squadInventory.getAmountOfItemsWithTag('vehicle') > (vehicleSlots - 1)) {
+      return;
+    }
+
+    if (item.hasTags('helicopter') && squadInventory.getAmountOfItemsWithTag('helicopter') > (heloSlots - 1)) {
       return;
     }
 

@@ -236,7 +236,7 @@ objective_raid_checkDefenderVictory = {
     _this call objective_raid_raidOver;
   };
 
-  if (_time > 2100) exitWith {
+  if (_time > 2700) exitWith {
     _this set [3, true];
     _this call objective_raid_raidOver;
   };

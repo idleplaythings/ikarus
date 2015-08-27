@@ -63,7 +63,7 @@ module.exports = function(armaSerializer){
     ],
     baseModules: [
       "Primary3",
-      "irishpub",
+      "mortarpit",
       "garage1",
       "MedicalStation1"
     ],

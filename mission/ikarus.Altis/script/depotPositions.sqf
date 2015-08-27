@@ -492,7 +492,7 @@ depotPositions_checkNothingInDistance = {
   _result = true;
    
   {
-    if ([_position, _x] call BIS_fnc_distance2D < _distance) exitWith {
+    if (_position distance2D _x < _distance) exitWith {
       _result = false;
     };
   } forEach depotPositions_active;

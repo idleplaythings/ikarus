@@ -295,7 +295,7 @@ hideout_isInHideout = {
 
   _hideout = [_squad] call hideout_getHideoutForSquad;
   
-  if (([(_hideout select 1), _unit] call BIS_fnc_distance2D) > hideout_hideoutRadius) exitWith {false;};
+  if ((_hideout select 1) distance2D _unit > hideout_hideoutRadius) exitWith {false;};
   
   true;
 };
@@ -310,7 +310,7 @@ hideout_bodyIsInHideout = {
   
   _hideout = [_squad] call hideout_getHideoutForSquad;
   
-  if (([(_hideout select 1), _body] call BIS_fnc_distance2D) <= hideout_hideoutRadius) exitWith {true;};
+  if ((_hideout select 1) distance2D _body <= hideout_hideoutRadius) exitWith {true;};
   
   if (([_body] call outpost_getDistanceToClosestActiveOutpost) <= hideout_hideoutRadius) exitWith {
     true;

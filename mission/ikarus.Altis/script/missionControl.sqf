@@ -37,7 +37,7 @@ missionControl_pollReadyToStartFromMonitor = {
     while { ! missionControl_gameStarted } do {
 
       sleep 1;
-
+  
       _start = ['shouldStartGame', [missionControl_test]] call sock_rpc;
      
       if (isNil {_start}) then {
@@ -47,7 +47,6 @@ missionControl_pollReadyToStartFromMonitor = {
       if (_start) exitWith {
         call missionControl_startGame;
       };
-      
     }
   }
 };
@@ -90,7 +89,7 @@ missionControl_startGame = {
 
   _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
   [_squads] call setSquadData;
-  
+
   call hideout_createHideoutForSquads;
   call hideout_movePlayersToHideout;
   call equipment_setPlayersGear;

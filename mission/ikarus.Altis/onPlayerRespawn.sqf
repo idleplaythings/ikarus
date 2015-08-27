@@ -11,6 +11,7 @@ removeUniform player;
 removeVest player;
 removeBackpack player;
 removeHeadgear player;
+player forceAddUniform "U_B_HeliPilotCoveralls";
 
 enableEngineArtillery false;
 

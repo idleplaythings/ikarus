@@ -50,18 +50,6 @@ getPositionInDirection = {
   [_x, _y, 0];
 };
 
-distance2d = {
-  private ["_x1", "_x1", "_y1", "_y1", "_result"];
-  _x1 = (getPosASL (_this select 0)) select 0;
-  _x2 = (getPosASL (_this select 1)) select 0;
-  _y1 = (getPosASL (_this select 0)) select 1;
-  _y2 = (getPosASL (_this select 1)) select 1;
-  
-  _result = sqrt ((_x2 - x1)^2 + (_y2 - y1)^2);
-  player globalChat str _result;
-  _result;
-};
-
 getPositionInNearestTown = {
   private ["_startPos", "_towns", "_position"];
   _startPos = _this select 0;

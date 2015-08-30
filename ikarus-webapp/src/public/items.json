@@ -32,5 +32,7 @@
   {"armaClass": "hlc_rifle_vendimus", "img": "ar15/gear_vendimus_x_ca.png"},
   {"armaClass": "hlc_rifle_honeybadger", "img": "ar15/gear_badger_x_ca.png"},
   {"armaClass": "hlc_rifle_SAMR", "img": "ar15/gear_rra_x_ca.png"},
-  {"armaClass": "hlc_rifle_samr2", "img": "ar15/gear_samr2_x_ca.png"}
+  {"armaClass": "hlc_rifle_samr2", "img": "ar15/gear_samr2_x_ca.png"},
+
+  {"armaClass": "arifle_MX_F", "img": "mx/MX.png"}
 ]

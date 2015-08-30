@@ -25,17 +25,19 @@ marketDefinitions = [
       'hlc_rifle_ak47':         {money: 50},
       'hlc_rifle_akm':          {money: 30},
 
-      'hlc_rifle_RU556':        {money: 120},
-      'hlc_rifle_RU5562':       {money: 120},
+      'CUP_arifle_M16A2':       {money: 90},
+      'CUP_arifle_M16A4_Base':  {money: 120},
+      'hlc_rifle_RU556':        {money: 160},
+      'hlc_rifle_RU5562':       {money: 160},
       'hlc_rifle_CQBR':         {money: 120},
-      'hlc_rifle_M4':           {money: 120},
+      'hlc_rifle_M4':           {money: 150},
       //'hlc_rifle_m4m203':       {money: 420}, Sounds not working
-      'hlc_rifle_bcmjack':      {money: 120},
+      'hlc_rifle_bcmjack':      {money: 160},
       'hlc_rifle_Colt727':      {money: 120},
-      'hlc_rifle_Colt727_GL':   {money: 220},
-      'hlc_rifle_samr2':        {money: 120},
+      'hlc_rifle_Colt727_GL':   {money: 180},
+      'hlc_rifle_samr2':        {money: 250},
 
-      'hlc_rifle_auga1_b':      {money: 150}, 
+      'hlc_rifle_auga1_b':      {money: 150},
       'hlc_rifle_auga2_b':      {money: 165},
 
       'hlc_rifle_Bushmaster300':{money: 200},
@@ -189,13 +191,14 @@ marketDefinitions = [
     _id: 'MISC',
     name: 'Misc',
     items: {
-      'optic_Holosight_smg':      {money: 50},
-      'optic_Aco_smg':            {money: 50},
-      'optic_ACO_grn_smg':        {money: 50},
+      'optic_Holosight_smg':      {money: 20},
+      'optic_Aco_smg':            {money: 20},
+      'optic_ACO_grn_smg':        {money: 20},
 
-      'optic_Holosight':          {money: 100},
-      'optic_Aco':                {money: 100},
-      'optic_ACO_grn':            {money: 100},
+      'optic_Holosight':          {money: 50},
+      'optic_Aco':                {money: 50},
+      'optic_ACO_grn':            {money: 50},
+      'CUP_optic_CompM4':         {money: 30},
 
       'optic_Arco':               {money: 500},
       'optic_Hamr':               {money: 500},
@@ -214,12 +217,13 @@ marketDefinitions = [
       'bipod_02_F_hex':   {money: 50},
       'bipod_03_F_oli':   {money: 50},
 
-      'ItemGPS':          {money: 300},
-      'Binocular':        {money: 50},
+      'ItemGPS':          {money: 30},
+      'Binocular':        {money: 20},
 
       'HandGrenade':      {money: 10},
       'SmokeShell':       {money: 5},
-      'IKRS_outpost_backpack': {money: 100}
+      'IKRS_outpost_backpack': {money: 100},
+      'muzzle_HBADGER': {money: 10}
     }
   },
 ];

@@ -135,7 +135,10 @@ client_setUpDismantleOutpost = {
 
 client_doDismantleOutpost = {
   dismantleOutpost = [player];
-  publicVariableServer "dismantleOutpost"
+  publicVariableServer "dismantleOutpost";
+  if (isServer) then {
+    [player] call outpost_dismantle;
+  };
 };
 
 client_triangulationAction = nil;
@@ -211,6 +214,15 @@ client_removeBecomeMedic = {
 };
 
 client_equipGuard = {
+
+  if (vest player == "") then {
+    player addVest "V_Chestrig_oli";
+  };
+
+  if (uniform player == "") then {
+    player forceAddUniform "U_B_HeliPilotCoveralls";
+  };
+
   for "_i" from 1 to 6 do {player addItemToVest "hlc_30Rnd_545x39_B_AK";};
   for "_i" from 1 to 3 do {player addItemToVest "SmokeShell";};
   for "_i" from 1 to 6 do {player addItemToUniform "ACE_quikclot";};

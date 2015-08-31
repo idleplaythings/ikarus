@@ -1,5 +1,6 @@
 outpost_outposts = [];
 outpost_outpostsCreated = false;
+outpost_spawnedOutposts = [];
 
 "deployOutpost" addPublicVariableEventHandler {
   private ["_unit"];
@@ -15,33 +16,48 @@ outpost_outpostsCreated = false;
 
 outpost_createOutposts = {
   { 
-    private ["_active", "_inactive", "_squad"];
-    _squad = _x;
-    _active = [];
-    _inactive = [];
-
-    {
-      private ["_position"];
-      _position = _x;
-
-      if ([_position] call outpost_isTooCloseToActivate) then {
-        _inactive pushBack _position;
-      } else {
-        _active pushBack _position;
-
-        [
-          [_position select 0, _position select 1, 0],
-          _squad
-        ] call outpost_createActiveOutpost;
-      };
-    } forEach ([_x] call getOutpostLocations);
-
-    {
-      [[_active, _inactive], "markers_createOutpostBriefing", _x, false, false] call BIS_fnc_MP;
-    } forEach ([_squad] call getPlayersInSquad);
+    [_x] call outpost_createOutpostsForSquad;
   } forEach squads;
 
   outpost_outpostsCreated = true;
+};
+
+outpost_createOutpostsForSquad = {
+  private ["_squad", "_outposts"];
+  _squad = _this select 0;
+  _outposts = [];
+
+  {
+    private ["_position"];
+    _position = _x;
+    _position = [_position select 0, _position select 1, 0];
+
+    if ([_position] call outpost_isTooCloseToActivate) then {
+
+    } else {
+      [
+        _position,
+        _squad
+      ] call outpost_createActiveOutpost;
+
+      _outposts pushBack _position;
+    };
+  } forEach ([_squad] call getOutpostLocations);
+
+  outpost_spawnedOutposts pushBack [_squad, _outposts];
+
+  {
+    [_x] call outpost_createBriefingForUnit;
+  } forEach ([_squad] call getPlayersInSquad);
+};
+
+outpost_createBriefingForUnit = {
+  private ["_unit", "_squad", "_active", "_inactive"];
+  _unit = _this select 0;
+  _squad = [_unit] call getSquadForUnit;
+  _active = [_squad] call outpost_getSpawnedOutpostsForSquad;
+  _inactive = [_squad] call outpost_getUnSpawnedOutpostsForSquad;
+  [[_active, _inactive], "markers_createOutpostBriefing", _unit, false, false] call BIS_fnc_MP;
 };
 
 outpost_dismantle = {
@@ -145,6 +161,18 @@ outpost_deploy = {
   [[], "client_removeDeployOutpost", _unit, false, false] call BIS_fnc_MP;
 };
 
+outpost_getActiveOutpostsForSquad = {
+  private ["_squad", "_outposts"];
+  _squad = _this select 0;
+  _outposts = [_squad] call outpost_getOutpostsForSquad;
+
+  _outposts = [_outposts, {
+    _this select 4;
+  }] call AEX_filter;
+
+  _outposts;
+};
+
 outpost_getOutpostsForSquad = {
   private ["_squad", "_outposts"];
   _squad = _this select 0;
@@ -159,17 +187,45 @@ outpost_getOutpostsForSquad = {
   _outposts;
 };
 
+outpost_getUnSpawnedOutpostsForSquad = {
+  private ["_squad", "_spawned"];
+  _squad = _this select 0;
+  _spawned = [_squad] call outpost_getSpawnedOutpostsForSquad;
+  
+  [([_squad] call getOutpostLocations), {
+    private ["_position"];
+    _position = _this;
+    _position set [2, 0];
+
+    ! (_position in _spawned);
+  }] call AEX_filter;
+};
+
+outpost_getSpawnedOutpostsForSquad = {
+  private ["_squad", "_result"];
+  _squad = _this select 0;
+  _result = [];
+
+  {
+    if (([_squad] call getSquadId) == ([_x select 0] call getSquadId)) exitWith {
+      _result = (_x select 1);
+    };
+  } forEach outpost_spawnedOutposts;
+
+  _result;
+};
+
 outpost_getOutpostsChangesForSquad = {
   private ["_squad", "_outposts", "_locations", "_new", "_removed"];
   _squad = _this select 0;
   _outposts = [_squad] call outpost_getOutpostsForSquad;
-  _locations = [_squad] call getOutpostLocations;
+  _locations = [_squad] call outpost_getSpawnedOutpostsForSquad;
   _new = [];
   _removed = [];
 
   {
     private ["_location2d"];
-    _location2d = [_x select 1 select 0, _x select 1 select 1];
+    _location2d = _x select 1;
     if (! (_location2d in _locations)) then {
       _new pushBack _location2d;
     }
@@ -250,6 +306,7 @@ outpost_createOutpost = {
   ]; 
 
   outpost_outposts pushBack _outpost;
+  _outpost;
 };
 
 outpost_outpostTriggerActivate = {
@@ -367,7 +424,6 @@ outpost_objects = [
   ["Land_TentDome_F",311.524,3.04777,3.79001,0,true,true],
   ["Headgear_H_Booniehat_khk",345.59,0.805463,48,0.70,false],
   ["Land_CampingTable_F",353.272,1.37319,102.223,3.8147e-006,false,true],
-  ["Item_Binocular",2.03931,1.68859,48,0.8,false],
   ["Land_CanisterPlastic_F",346.242,2.5219,48.3085,0,true],
   ["Land_Ammobox_rounds_F",354.358,2.01297,17.5618,0.8,false,true],
   ["Land_Ammobox_rounds_F",341.786,1.22516,9.34409,0.8,false,true],

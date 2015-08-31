@@ -26,6 +26,7 @@ reinforcements_createGuardSquad = {
 
   squads = squads + [_squad];
   [_squad] call hideout_createHideoutForSquad;
+  [_squad] call outpost_createOutpostsForSquad;
   [_squad, "guard"] call setChosenObjective;
   [_unit] call reinforcements_moveToStart;
 };
@@ -41,6 +42,7 @@ reinforcements_joinSquad = {
     [_unit] joinSilent group _leader;
   };
 
+  [_unit] call outpost_createBriefingForUnit;
   [_unit] call reinforcements_moveToStart;
 };
 

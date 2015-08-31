@@ -329,7 +329,8 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
             'IKRS_loot_nato_modern',
             'BAF_Offroad_D',
             'C_Van_01_transport_F',
-            'IKRS_test_renown'
+            'IKRS_test_renown',
+            'C_Heli_light_01_ion_F'
           ],
           new ObjectiveSupply()
         );

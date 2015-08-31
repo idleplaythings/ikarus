@@ -75,7 +75,8 @@ dic.register('ResourcesAndSpecialEquipmentInventoryColumn', function(dic) {
     policy: function(itemWrapper) {
       return itemWrapper.item.hasSomeTags([
         'resource',
-        'vehicle'
+        'vehicle',
+        'helicopter'
       ]);
     },
     sort: dic.get('AlphabeticalInventoryColumnSort')
@@ -88,7 +89,8 @@ dic.register('VehiclesInventoryColumn', function(dic) {
     policy: function(itemWrapper) {
       return itemWrapper.item.hasSomeTags([
         'vehicle',
-        'missionkey'
+        'missionkey',
+        'helicopter'
       ]);
     },
     sort: dic.get('AlphabeticalInventoryColumnSort')

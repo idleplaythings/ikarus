@@ -2,18 +2,17 @@
   <div class="inventory">
     {{#if targetInventory}}
       <div class="row add-top">
-        <div class="col-md-3">
+        <div class="col-md-6">
           <h3><strong>Items {{targetInventoryItemCount}} / {{targetInventoryMaxItemCount}}
           </strong></h3>
         </div>
+
         <div class="col-md-3">
-          <h3><strong>Vehicles: {{vehicleSlots}}/{{getUsedVehicleSlots}}</strong></h3>
+          <h3><strong>Vehicles: {{getUsedVehicleSlots}}/{{vehicleSlots}}</strong></h3>
         </div>
+
         <div class="col-md-3">
-          <h3><strong>Armoured vehicles: {{armorSlots}}/{{getUsedArmorSlots}}</strong></h3>
-        </div>
-        <div class="col-md-3">
-          <h3><strong>Helicopters: {{heloSlots}}/{{getUsedHeloSlots}}</strong></h3>
+          <h3><strong>Helicopters: {{getUsedHeloSlots}}/{{heloSlots}}</strong></h3>
         </div>
       </div>
     {{else}}

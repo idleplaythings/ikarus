@@ -1,21 +1,15 @@
 Router.map(function () {
-  this.route('/company/:_id/base', {
-    name: 'company base',
-    template: 'base_status',
+  this.route('/company/base', {
+    name: 'company base modules',
+    template: 'base_modules',
     layoutTemplate: 'ikarus_default',
 
     action: function() {
       if (this.ready()) {
-        var company = Company.getById(this.params._id);
-        var player = Player.getCurrent();
+        var company = Company.getCurrent();
 
         if (! company) {
           Router.go('home');
-          return;
-        }
-
-        if (! player.isMemberOf(company)) {
-          Router.go('company', {_id: this.params._id});
           return;
         }
 
@@ -25,7 +19,39 @@ Router.map(function () {
 
     data: function() {
       if (this.ready()){
-        return Company.getById(this.params._id)
+        return Company.getCurrent();
+      }
+    },
+
+    subscriptions: function () {
+      return [
+        Meteor.subscribe('MyCompanyAndSquads'),
+        Meteor.subscribe('UserData')
+      ];
+    }
+  });
+
+  this.route('/company/baseLocation', {
+    name: 'company base location',
+    template: 'base_location',
+    layoutTemplate: 'ikarus_default',
+
+    action: function() {
+      if (this.ready()) {
+        var company = Company.getCurrent();
+
+        if (! company) {
+          Router.go('home');
+          return;
+        }
+
+        this.render();
+      }
+    },
+
+    data: function() {
+      if (this.ready()){
+        return Company.getCurrent();
       }
     },
 

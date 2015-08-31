@@ -233,6 +233,13 @@ Company.getAll = function() {
 Company.create = function(name) {
   var company = Company.fromDoc({ _id: collections.CompanyCollection.insert({ name: name}) });
   Inventory.createForCompany(company);
+
+  var baseLocation = {
+    x: 12000 + Math.floor(Math.random() * 5000),
+    y: 16000 + Math.floor(Math.random() * 4000),
+  };
+
+  company.setHideout(baseLocation);
   return company;
 }
 

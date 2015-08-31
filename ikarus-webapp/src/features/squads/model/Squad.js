@@ -317,6 +317,10 @@ Squad.prototype.isReinforceable = function(player) {
     return false;
   }
 
+  if (this.getSteamIds().length === 0) {
+    return false;
+  }
+
   var server = this.getServer();
 
   if (! server || (server.isPlaying() && server.getPlayTimeElapsed() > 35 * 60)) {

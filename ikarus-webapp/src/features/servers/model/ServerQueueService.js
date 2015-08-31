@@ -85,16 +85,25 @@ ServerQueueService.prototype.changeServerStatus = function (server, status) {
         }
 
         var company = Company.getBySquad(squad);
-        Inventory.returnItems(company, squad);
+
+        if (company) {
+          Inventory.returnItems(company, squad);
+        }
       })
     }
 
     if (server.getStatus() == Server.STATUS_PLAYING) {
       GameEndGameEvent.create(server.getGameId());
       server.getSquadsInGame().forEach(function (squad) {
-        this._combatLogFactory.createForGameAndCompany(
-          server.getGameId(), squad.getCompanyId()
-        );
+        try{
+          this._combatLogFactory.createForGameAndCompany(
+            server.getGameId(), squad.getCompanyId()
+          );
+        } catch (e) {
+          console.log("Error in combat log factory");
+          console.log(e, e.stack);
+        }
+
       }, this);
     }
 
@@ -121,6 +130,12 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
       var queue = ServerQueue.getByRegion('EU');
 
       squads.reverse().forEach(function(squad) {
+        var company = Company.getBySquad(squad);
+
+        if (! company) {
+          return;
+        }
+
         squad.setConnectionDeadline(null);
         squad.setServerId(null);
         queue.addToQueue(squad);

@@ -114,30 +114,44 @@ QueueSquadService.prototype.removeSquadFromQueue = function(squad) {
 };
 
 QueueSquadService.prototype.evaluateSquad = function(squad) {
-  var server = squad.getServer();
-  var queue = ServerQueue.getByRegion('EU');
+  try {
 
-  checkSquadDeadline(squad, server);
-
-  if (! server || ! server.isPlaying()) {
-    squad.evaluateObjective();
-  }
-
-  //Empty squad, not locked = free to do anything and get inventory back
-  if (squad.isEmpty() && ! squad.isLocked()){
+    var server = squad.getServer();
+    var queue = ServerQueue.getByRegion('EU');
     var company = Company.getBySquad(squad);
-    Inventory.returnItems(company, squad);
-    Inventory.removeBySquad(squad);
-    queue.removeSquadFromQueue(squad);
-    squad.remove();
-  }
 
-  //Empty squad, in server, but server not playing yet. Free to leave, but lose inventory
-  if (squad.isEmpty() && server && ! server.isPlaying()) {
-    Inventory.removeBySquad(squad);
-    queue.removeSquadFromQueue(squad);
-    server.removeSquadFromGame(squad);
-    squad.remove();
+    if (! company && (! server || ! server.isPlaying())) {
+      Inventory.removeBySquad(squad);
+      queue.removeSquadFromQueue(squad);
+
+      if (server) {
+        server.removeSquadFromGame(squad);
+      }
+
+      squad.remove();
+      return;
+    }
+
+    checkSquadDeadline(squad, server);
+
+    //Empty squad, not locked = free to do anything and get inventory back
+    if (squad.isEmpty() && ! squad.isLocked()){
+      Inventory.returnItems(company, squad);
+      Inventory.removeBySquad(squad);
+      queue.removeSquadFromQueue(squad);
+      squad.remove();
+    }
+
+    //Empty squad, in server, but server not playing yet. Free to leave, but lose inventory
+    if (squad.isEmpty() && server && ! server.isPlaying()) {
+      Inventory.removeBySquad(squad);
+      queue.removeSquadFromQueue(squad);
+      server.removeSquadFromGame(squad);
+      squad.remove();
+    }
+
+  } catch (e) {
+    console.log(e, e.stack);
   }
 }
 

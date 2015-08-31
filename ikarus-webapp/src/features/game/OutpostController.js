@@ -17,15 +17,15 @@ OutpostController.prototype.outpostChanges = function(squadId, changes) {
 
 
 OutpostController.prototype._getSquad = function(squadId) {
-  return Squad.getById(squadId) || this._notFound('Squad');
+  return Squad.getById(squadId) || this._notFound('Squad', squadId);
 };
 
 OutpostController.prototype._getCompany = function(squad) {
-  return squad.getCompany() || this._notFound('Company');
+  return squad.getCompany() || this._notFound('Company', squad);
 };
 
-OutpostController.prototype._notFound = function(what) {
-  console.log(what + "not found (OutpostController)");
+OutpostController.prototype._notFound = function(what, needle) {
+  console.log(what + "not found (OutpostController)", needle);
   console.trace();
   throw new Meteor.Error(404, what + ' not found');
 };

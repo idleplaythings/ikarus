@@ -133,7 +133,7 @@ Server.prototype.getAmountOfPlayers = function () {
   if (this.isWaiting()) {
     return this.getAmountOfSignedUpPlayers();
   } else {
-    return this.getSteamIds().length();
+    return this.getPlayerIds().length;
   }
 };
 
@@ -441,10 +441,17 @@ Server.create = function(name, password) {
     {name:name})
   });
 
-  var userId = Accounts.createUser({
-    username: name,
-    password: password
-  });
+  var user = Meteor.users.findOne({'username': name});
+  var userId = null;
+
+  if (! user) {
+    userId = Accounts.createUser({
+      username: name,
+      password: password
+    });
+  } else {
+    userId = user._id;
+  }
 
   Meteor.users.update({_id: userId}, {$set: {serverId: server._id}});
 

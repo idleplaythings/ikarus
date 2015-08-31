@@ -48,11 +48,13 @@ ServerFinder.prototype.getNextServer = function (squad) {
     }
   }
 
+  /*
   var reinforceable = this.getReinforceableServers(squad);
 
   if (reinforceable.length > 0) {
     return reinforceable.pop();
   };
+  */
 
   var servers = Server.getAll().filter(function(server){
     return ! server.isDown();

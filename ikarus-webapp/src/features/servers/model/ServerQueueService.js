@@ -24,6 +24,12 @@ ServerQueueService.prototype.reinforceServer = function(squad, server) {
     return;
   }
 
+  MissionEquipmentGameEvent.create(
+    server.getGameId(),
+    squad.getCompany()._id,
+    squad.getInventory().serialize().items
+  );
+
   this._addSquadToGame(squad, server);
 };
 

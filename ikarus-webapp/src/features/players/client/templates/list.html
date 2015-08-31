@@ -23,9 +23,12 @@
           <tr>
             <td><a href="/players/{{this._id}}">{{this.getName}}</a></td>
             <td>
-              {{this.getCompany.getName}}
-              {{#if canInvite _id}}
-                <button id="invite-to-company" data-playerId="{{_id}}" class="btn btn-primary">Invite</button>
+              {{#if this.getCompany}}
+                {{this.getCompany.getName}} ({{this.getCompanyRank}})
+              {{else}}
+                {{#if canInvite _id}}
+                  <button id="invite-to-company" data-playerId="{{_id}}" class="btn btn-primary">Invite</button>
+                {{/if}}
               {{/if}}
             </td>
           </tr>

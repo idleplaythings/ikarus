@@ -21,20 +21,7 @@ Template.players_list.events({
 });
 
 Template.players_list.helpers({
-  getPlayers: function () {
-    if (this.getPlayers) {
-      return this.getPlayers();
-    }
-
-    searchDependency.depend();
-    var search = jQuery('#search-players').val();
-
-    if (! search) {
-      return [];
-    }
-
-    return Player.getByPartialName(search);
-  },
+  getPlayers: getPlayers,
 
   canInvite: function (id) {
     if (! Player.getCurrent()) {
@@ -42,6 +29,10 @@ Template.players_list.helpers({
     }
 
     if (! Company.getCurrent()) {
+      return false;
+    }
+
+    if (! Company.getCurrent().canManage(Player.getCurrent())) {
       return false;
     }
 
@@ -59,6 +50,21 @@ Template.players_list.helpers({
   }
 });
 
+function getPlayers () {
+  if (this.getPlayers) {
+    return this.getPlayers();
+  }
+
+  searchDependency.depend();
+  var search = jQuery('#search-players').val();
+
+  if (! search) {
+    return [];
+  }
+
+  return Player.getByPartialName(search);
+}
+
 function searchPlayers() {
   var search = jQuery('#search-players').val();
 
@@ -67,5 +73,12 @@ function searchPlayers() {
     return;
   }
 
-  Meteor.subscribe('SearchPlayers', search);
+  Meteor.subscribe('SearchPlayers', search, function () {
+    var companyIds = getPlayers().map(function (player){
+      return player.getCompanyId();
+    });
+
+    Meteor.subscribe('CompaniesById', companyIds);
+  });
 }
+

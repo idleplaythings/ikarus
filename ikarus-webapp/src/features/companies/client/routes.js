@@ -52,4 +52,34 @@ Router.map(function () {
       ];
     }
   });
+
+  this.route('/company/players', {
+    name: 'company players',
+    template: 'company_manage_players',
+    layoutTemplate: 'ikarus_default',
+
+    action: function() {
+      if (this.ready()) {
+        var company = Company.getCurrent();
+        if (! company || ! company.isOwner(Player.getCurrent())) {
+          Router.go('my-company');
+          return;
+        }
+
+        this.render();
+      }
+    },
+
+    data: function () {
+      if (this.ready()) {
+        return Company.getCurrent();
+      }
+    },
+
+    subscriptions: function () {
+      return [
+        Meteor.subscribe('MyCompanyAndSquads')
+      ];
+    }
+  });
 });

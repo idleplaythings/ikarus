@@ -6,6 +6,11 @@ Meteor.methods({
       throw new Meteor.Error('Not found', 'Company not found');
     }
 
+    var player = Player.getCurrent();
+    if (! player || ! company.canManage(player)) {
+      return;
+    }
+
     var module = BaseModule.create(moduleId);
     var modules = company.getBaseModules();
 

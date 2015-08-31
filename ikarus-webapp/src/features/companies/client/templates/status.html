@@ -4,13 +4,20 @@
       <h1>Company: {{ company.getName }}</h1>
 
       {{#if ownCompany}}
-        <button class="js-rename-company btn btn-primary">Rename</button>
         <button class="js-leave-company btn btn-primary">Leave</button>
-        <a class="btn btn-primary" href="{{pathFor route='players'}}">Invite</a>
-        <a class="btn btn-primary" href="{{pathFor route='company base modules'}}">Base modules</a>
-        <a class="btn btn-primary" href="{{pathFor route='company base location'}}">Base location</a>
         <a class="btn btn-primary" href="{{pathFor route='combat reports'}}">Combat reports</a>
-        <a class="btn btn-primary" href="{{pathFor route='company sellout'}}">Sell out</a>
+
+        {{#if canManageCompany}}
+          <button class="js-rename-company btn btn-primary">Rename</button>
+          <a class="btn btn-primary" href="{{pathFor route='players'}}">Invite</a>
+          <a class="btn btn-primary" href="{{pathFor route='company base modules'}}">Base modules</a>
+          <a class="btn btn-primary" href="{{pathFor route='company base location'}}">Base location</a>
+          <a class="btn btn-primary" href="{{pathFor route='company sellout'}}">Sell out</a>
+        {{/if}}
+
+        {{#if companyOwner}}
+          <a class="btn btn-primary" href="{{pathFor route='company players'}}">Permissions</a>
+        {{/if}}
       {{/if}}
 
       <div class="row">

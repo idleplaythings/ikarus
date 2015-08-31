@@ -28,11 +28,11 @@ body {
   padding-left:10px;
 }
 
-.ikarus-nav h2.danger {
+.danger {
   color:#C23A00;
 }
 
-.ikarus-nav h2.success {
+.success {
   color:#62A300;
 }
 

@@ -11,6 +11,83 @@ Company.prototype.serialize = function() {
   };
 };
 
+Company.prototype.getOwner = function() {
+  var steamId = get(this.getDoc(), 'owner');
+  if (! steamId) {
+    return null;
+  }
+
+  return Player.getById(steamId);
+};
+
+Company.prototype.setOwner = function(player) {
+  collections.CompanyCollection.update(
+    {
+      _id: this._id
+    }, {
+      $set: {
+        owner: player.getSteamId()
+      }
+  });
+};
+
+Company.prototype.findNewOwner = function() {
+  var officers = this.getOfficers();
+
+  if (officers.length > 0) {
+    this.setOwner(officers.shift());
+    return;
+  }
+
+  var players = this.getPlayers();
+
+  if (players.length > 0) {
+    this.setOwner(players.shift());
+    return;
+  }
+};
+
+Company.prototype.isOwner = function (player) {
+  var owner = this.getOwner();
+  return owner && owner._id === player._id;
+};
+
+Company.prototype.isOfficer = function (player) {
+  return Boolean(this.getOfficers().filter(function(officer) {
+    return officer._id === player._id;
+  }).pop());
+};
+
+Company.prototype.canManage = function (player) {
+  return this.isOwner(player) || this.isOfficer(player);
+};
+
+Company.prototype.getOfficers = function(steamId) {
+  var ids = get(this.getDoc(), 'officers') || [];
+  return Player.getByIds(ids);
+};
+
+Company.prototype.addOfficer = function(player) {
+  collections.CompanyCollection.update({
+      _id: this._id
+    }, {
+      $addToSet: {
+        officers: player.getSteamId()
+      }
+  });
+};
+
+Company.prototype.removeOfficer = function(player) {
+  collections.CompanyCollection.update(
+    {
+      _id: this._id
+    }, {
+      $pull: {
+        officers: player.getSteamId()
+      }
+  });
+};
+
 Company.prototype.getName = function() {
   return get(this.getDoc(), 'name');
 };
@@ -117,9 +194,16 @@ Company.prototype.addPlayer = function(player) {
       }
   });
   player.setCompanyId(this._id);
+
+  if (this.getPlayers().length === 1) {
+    this.setOwner(player);
+  }
 };
 
 Company.prototype.removePlayer = function(player) {
+
+  var wasOwner = this.isOwner(player);
+
   collections.CompanyCollection.update(
     {
       _id: this._id
@@ -128,7 +212,14 @@ Company.prototype.removePlayer = function(player) {
         playerIds: player.getSteamId()
       }
   });
+
   player.setCompanyId(null);
+
+  if (wasOwner) {
+    this.findNewOwner();
+  };
+
+  this.removeOfficer(player);
 };
 
 Company.prototype.remove = function() {
@@ -147,6 +238,12 @@ Company.prototype.playerCount = function() {
 
 Company.prototype.getPlayers = function() {
   return Player.getByIds(this.getPlayerIds());
+}
+
+Company.prototype.getNonOwnerPlayers = function() {
+  return this.getPlayers().filter(function (player) {
+    return ! this.isOwner(player);
+  }, this);
 }
 
 Company.prototype.invite = function(player) {

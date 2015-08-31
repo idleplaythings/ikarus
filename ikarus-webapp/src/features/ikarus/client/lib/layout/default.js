@@ -36,6 +36,11 @@ Template.ikarus_default.events({
     Meteor.connection.setUserId('123');
   },
 
+  'click .js-login-test-user2': function() {
+    Meteor.call('testing_login', 'Innocent-Victim');
+    Meteor.connection.setUserId('000');
+  },
+
   'click .js-generate-combat-log': function() {
     Meteor.call('testing_createCombatLogForCurrentCompany');
   },

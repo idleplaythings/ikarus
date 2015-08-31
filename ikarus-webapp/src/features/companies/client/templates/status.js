@@ -17,6 +17,18 @@ Template.companies_status.helpers({
 
     return false;
   },
+
+  companyOwner: function () {
+    var player = Player.getCurrent();
+    var company = Company.getCurrent();
+
+    if (! player || ! company) {
+      return false;
+    }
+
+    return company.isOwner(player);
+  },
+
   companyInventoryView: function() {
     var companyInventoryView = dic.get('CompanyInventoryView');
     companyInventoryView.refresh();

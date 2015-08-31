@@ -1,0 +1,35 @@
+<template name="company_manage_players">
+  <h1>Company permissions</h1>
+
+  {{#each getNonOwnerPlayers}}
+    <div class="row">
+      <div class="col-md-5">
+        <h2>
+          {{> players_avatar this}}{{> players_name this}}
+        </h2>
+      </div>
+
+      <div class="col-md-1">
+        <h2>
+          {{getCompanyRank}}
+        </h2>
+      </div>
+
+      <div class="col-md-2">
+        <button class="js-make-owner btn btn-primary btn-primary btn-lg btn-block" data-playerId="{{_id}}" >Make owner</button>
+      </div>
+
+      <div class="col-md-2">
+        {{#if ../isOfficer this}}
+          <button class="js-demote btn btn-warning btn-primary btn-lg btn-block" data-playerId="{{_id}}" >Demote</button>
+        {{else}}
+          <button class="js-promote btn btn-success btn-lg btn-block" data-playerId="{{_id}}" >Promote</button>
+        {{/if}}
+      </div>
+
+      <div class="col-md-2">
+        <button class="js-remove btn btn-danger btn-primary btn-lg btn-block" data-playerId="{{_id}}" >Remove</button>
+      </div>
+    </div>
+  {{/each}}
+</template>

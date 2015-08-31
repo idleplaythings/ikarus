@@ -81,7 +81,9 @@ Meteor.publish('Company', function(companyId) {
       { _id: companyId },
       {fields: {
         name: 1,
-        playerIds: 1
+        playerIds: 1,
+        owner: 1,
+        officers: 1
       }}
     ),
     Meteor.users.find(
@@ -118,6 +120,20 @@ Meteor.publish('Companies', function() {
       fields: {
         name: 1,
         playerIds: 1
+      }
+    }
+  );
+});
+
+Meteor.publish('CompaniesById', function(ids) {
+  return collections.CompanyCollection.find(
+    {_id: {$in: ids}},
+    {
+      fields: {
+        name: 1,
+        playerIds: 1,
+        owner: 1,
+        officers: 1
       }
     }
   );

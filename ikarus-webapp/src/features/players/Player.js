@@ -106,8 +106,29 @@ Player.prototype.getName = function() {
   return get(this.getDoc(), 'services.steam.username');
 }
 
+Player.prototype.getCompanyId = function() {
+  return get(this.getDoc(), 'companyId');
+}
+
 Player.prototype.getCompany = function() {
-  return Company.getById(get(this.getDoc(), 'companyId'));
+  return Company.getById(this.getCompanyId());
+}
+
+Player.prototype.getCompanyRank = function() {
+  var company = this.getCompany();
+  if (! company) {
+    return null;
+  }
+
+  if (company.isOwner(this)) {
+    return "Owner";
+  }
+
+  if (company.isOfficer(this)) {
+    return "Officer";
+  }
+
+  return "Soldier";
 }
 
 Player.prototype.getSquad = function() {
@@ -152,6 +173,9 @@ Player.getByMeteorId = function(id) {
 }
 
 Player.getById = function(playerId) {
+  if (! playerId) {
+    return null;
+  }
   return Player.fromDoc(Meteor.users.findOne({ 'services.steam.id': playerId }));
 }
 

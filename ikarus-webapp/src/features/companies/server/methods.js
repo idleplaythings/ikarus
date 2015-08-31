@@ -1,10 +1,124 @@
 Meteor.methods({
+
+  'ensureAllCompaniesHaveOwner': function () {
+
+    var player = Player.getCurrent();
+
+    if (! player || ! player.isAdmin()) {
+      return;
+    }
+
+    Company.getAll().filter(function (company) {
+      return ! company.getOwner();
+    }).forEach(function (company) {
+      company.findNewOwner();
+    })
+  },
+
+  'promoteMember': function (targetId) {
+
+    var player = Player.getCurrent();
+    var company = Company.getCurrent();
+    var target = Player.getByMeteorId(targetId);
+
+    if (! company || ! player || ! target) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    if (! company.isOwner(player)) {
+      throw new Meteor.Error(403, 'Only owner can manage members');
+    }
+
+    if (! target.getCompany() || target.getCompany()._id !== company._id) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    if (company.isOfficer(target)) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    company.addOfficer(target);
+  },
+
+  'demoteMember': function (targetId) {
+
+    var player = Player.getCurrent();
+    var company = Company.getCurrent();
+    var target = Player.getByMeteorId(targetId);
+
+    if (! company || ! player || ! target) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    if (! company.isOwner(player)) {
+      throw new Meteor.Error(403, 'Only owner can manage members');
+    }
+
+    if (! target.getCompany() || target.getCompany()._id !== company._id) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    if (! company.isOfficer(target)) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    company.removeOfficer(target);
+  },
+
+  'removeMember': function (targetId) {
+
+    var player = Player.getCurrent();
+    var company = Company.getCurrent();
+    var target = Player.getByMeteorId(targetId);
+
+    if (! company || ! player || ! target) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    if (! company.isOwner(player)) {
+      throw new Meteor.Error(403, 'Only owner can manage members');
+    }
+
+    if (! target.getCompany() || target.getCompany()._id !== company._id) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    company.removePlayer(target);
+  },
+
+  'makeOwner': function (targetId) {
+
+    var player = Player.getCurrent();
+    var company = Company.getCurrent();
+    var target = Player.getByMeteorId(targetId);
+
+    if (! company || ! player || ! target) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    if (! company.isOwner(player)) {
+      throw new Meteor.Error(403, 'Only owner can manage members');
+    }
+
+    if (! target.getCompany() || target.getCompany()._id !== company._id) {
+      throw new Meteor.Error(404, 'Company or player not found');
+    }
+
+    company.setOwner(target);
+  },
+
   'sellout': function () {
 
     var company = Company.getCurrent();
 
     if (! company) {
       throw new Meteor.Error(404, 'Company not found');
+    }
+
+    var player = Player.getCurrent();
+
+    if (! player || ! company.canManage(player)) {
+      return;
     }
 
     var amount = company.getAmountOfMoneyFromSellout();
@@ -27,6 +141,10 @@ Meteor.methods({
 
     if (! company) {
       throw new Meteor.Error(404, 'Company not found');
+    }
+
+    if (! player || ! company.canManage(player)) {
+      return;
     }
 
     if (location.x < 0 || location.x > 30000 || location.y < 0 || location.y > 28000) {
@@ -64,6 +182,10 @@ Meteor.methods({
 
     if (company === null) {
       throw new Meteor.Error(403, 'You have to belong to a company to invite members.');
+    }
+
+    if (! company.canManage(player)) {
+      return;
     }
 
     var invitee = Player.getByMeteorId(playerId);

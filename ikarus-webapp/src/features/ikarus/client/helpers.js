@@ -14,6 +14,13 @@ Template.registerHelper('currentCompany', function() {
   return Company.getCurrent();
 });
 
+Template.registerHelper('canManageCompany', function() {
+  var company = Company.getCurrent();
+  var player = Player.getCurrent();
+
+  return company && player && company.canManage(player);
+});
+
 Template.registerHelper('currentSquad', function() {
   return Squad.getCurrent();
 });

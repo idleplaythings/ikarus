@@ -31,23 +31,31 @@
             </div>
           </div>
 
-          <div class="row add-top marketBuyRow">
-            <div class="col-md-4">
-               <button class="buyless btn btn-primary" style="width:100%;"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+          {{#if canManageCompany}}
+            <div class="row add-top marketBuyRow">
+              <div class="col-md-4">
+                 <button class="buyless btn btn-primary" style="width:100%;"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+              </div>
+              <div class="col-md-4">
+                {{amountToBuy}}
+              </div>
+              <div class="col-md-4">
+                 <button class="buymore btn btn-primary" style="width:100%;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+              </div>
             </div>
-            <div class="col-md-4">
-              {{amountToBuy}}
-            </div>
-            <div class="col-md-4">
-               <button class="buymore btn btn-primary" style="width:100%;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-            </div>
-          </div>
 
-          <div class="row add-top">
-            <div class="col-md-12">
-              <button id="buy-button" class="btn {{affordClass}}" style="width:100%;">{{buyText}}</button>
+            <div class="row add-top">
+              <div class="col-md-12">
+                <button id="buy-button" class="btn {{affordClass}}" style="width:100%;">{{buyText}}</button>
+              </div>
             </div>
-          </div>
+          {{else}}
+            <div class="row add-top">
+              <div class="col-md-12">
+                <h2 style="danger">Only company officers can buy equipment</h2>
+              </div>
+            </div>
+          {{/if}}
         {{/if}}
       {{/with}}
     </div>

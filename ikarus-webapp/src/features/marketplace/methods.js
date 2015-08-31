@@ -7,6 +7,11 @@ Meteor.methods({
       return;
     }
 
+    var player = Player.getCurrent();
+    if (! player || ! company.canManage(player)) {
+      return;
+    }
+
     var armory = Inventory.getByCompany(company);
     var marketContext = new MarketContext(category, dic.get('ItemFactory'), amount, armaClass);
 

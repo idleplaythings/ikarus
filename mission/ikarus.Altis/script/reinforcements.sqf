@@ -64,7 +64,7 @@ reinforcements_paradrop = {
   _unit = _this select 0;
 
   _depot = call depots_getRandom;
-  if (isNil{_depot}) exitWith {
+  if (isNil{_depot} || [_unit, 'guard'] call objectiveController_unitHasObjective) exitWith {
     _squad = [_unit] call getSquadForUnit;
     [_unit, _squad] call hideout_movePlayerToHideout;
   };

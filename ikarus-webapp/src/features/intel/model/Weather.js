@@ -105,7 +105,7 @@ CloudyWeather.prototype = Object.create(Weather.prototype);
 
 CloudyWeather.prototype.init = function() {
   this.overcast = (0.3 + Math.random() * 0.3).toPrecision(2);
-  this.fog = (0.3 + Math.random() * 0.3).toPrecision(2);
+  this.fog = (Math.random() * 0.6).toPrecision(2);
   this.rain = '0.0';
   this.lightnings = '0.0';
   this.wind = Wind.random(Wind.CALM, Wind.STRONG);
@@ -137,7 +137,7 @@ RainyWeather.prototype = Object.create(Weather.prototype);
 
 RainyWeather.prototype.init = function() {
   this.overcast = (0.8 + Math.random() * 0.2).toPrecision(2);
-  this.fog = (0.5 + Math.random() * 0.2).toPrecision(2);
+  this.fog = (0.2 + Math.random() * 0.5).toPrecision(2);
   this.rain = (0.7 + Math.random() * 0.2).toPrecision(2);
   this.lightnings = '0.0';
   this.wind = Wind.random(Wind.BREEZE, Wind.STRONG);
@@ -216,11 +216,11 @@ FoggyWeather.prototype.getForecast = function(missionDateTime) {
   }
 
   return [
-    { weather: ClearWeather,  weight: 30 },
+    { weather: ClearWeather,  weight: 70 },
     { weather: CloudyWeather, weight: 0 },
     { weather: RainyWeather,  weight: 0 },
     { weather: StormyWeather, weight: 0 },
-    { weather: FoggyWeather,  weight: 70 }
+    { weather: FoggyWeather,  weight: 30 }
   ];
 };
 

@@ -29,28 +29,28 @@ objective_guard_onObjectivesCreated = {
   call objective_guard_initSquads;
   if (count squads == 1) then {
     call objective_guard_createAIGuards;
+
+    [] spawn {
+      waitUntil {
+        private ["_squadsWithTwoOrMore"];
+        _squadsWithTwoOrMore = 0;
+
+        {
+          if (count ([_x] call getPlayersInSquad) > 1) then {
+            _squadsWithTwoOrMore = _squadsWithTwoOrMore + 1;
+          };
+        } forEach squads;
+
+        _squadsWithTwoOrMore > 1;
+      };
+
+      call objective_guard_killAllAiGuards;
+    };
   };
 
   [] spawn {
     sleep (30 * 60);
     call objective_guard_removePardropActionFromEveryone;
-  };
-
-  [] spawn {
-    waitUntil {
-      private ["_squadsWithTwoOrMore"];
-      _squadsWithTwoOrMore = 0;
-
-      {
-        if (count ([_x] call getPlayersInSquad) > 1) then {
-          _squadsWithTwoOrMore = _squadsWithTwoOrMore + 1;
-        };
-      } forEach squads;
-
-      _squadsWithTwoOrMore > 1;
-    };
-
-    call objective_guard_killAllAiGuards;
   };
 };
 

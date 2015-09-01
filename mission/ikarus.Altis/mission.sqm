@@ -168,19 +168,19 @@ class Mission
 						items=13;
 						class Item0
 						{
-							value="2";
+							value="1";
 							parentCls="ACE_moduleMedicalSettings";
 							typeName="level";
 						};
 						class Item1
 						{
-							value="2";
+							value="1";
 							parentCls="ACE_moduleMedicalSettings";
 							typeName="medicSetting";
 						};
 						class Item2
 						{
-							value="1";
+							value="0";
 							parentCls="ACE_moduleMedicalSettings";
 							typeName="allowLitterCreation";
 						};

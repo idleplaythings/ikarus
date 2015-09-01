@@ -57,14 +57,54 @@ airdrop_create = {
   
 };
 
+airdrop_getStartPosition = {
+  private ["_targetPosition", "_maxX", "_maxY"];
+  _targetPosition = _this select 0;
+  _yDistance = [_targetPosition] call airdrop_getDistanceToYMapEdge;
+  _xDistance = [_targetPosition] call airdrop_getDistanceToXMapEdge;
+
+  if (_yDistance select 0 < _xDistance select 0) then {
+    if (_yDistance select 1 == "up") then {
+      [_targetPosition select 0, 30000, 200];
+    } else {
+      [_targetPosition select 0, 0, 200];
+    }
+  } else {
+    if (_xDistance select 1 == "right") then {
+      [30000, _targetPosition select 1, 200];
+    } else {
+      [0, _targetPosition select 1, 200];
+    }
+  }
+};
+
+airdrop_getDistanceToYMapEdge = {
+  private ["_targetPosition", "_y"];
+  _targetPosition = _this select 0;
+  _y = _targetPosition select 1;
+
+  if (30000 - _y < _y ) exitWith {[30000 - _y, "up"]};
+
+  [_y, "down"];
+};
+
+airdrop_getDistanceToXMapEdge = {
+  private ["_targetPosition", "_x1"];
+  _targetPosition = _this select 0;
+  _x1 = _targetPosition select 0;
+
+  if (30000 - _x1 < _x1 ) exitWith {[30000 - _x1, 'right']};
+
+  [_x1, 'left'];
+};
+
 airDrop_createHelo = {
   private ["_pilot", "_helo", "_targetPosition", "_start", "_offset"];
- 
-  _start = [30700, 11600, 200];
+  _targetPosition = _this select 0;
+  
+  _start = [_targetPosition] call airdrop_getStartPosition;
   _offset = (_start select 0) + airdrop_heloCount * 100;
   _start set [0, _offset];
-  
-  _targetPosition = _this select 0;
   
   _helo = createVehicle ["O_Heli_Transport_04_F", _start, [], 0, "FLY"];
   createVehicleCrew _helo;

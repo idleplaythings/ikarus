@@ -1,4 +1,5 @@
 objective_guard_guards = []; //array containing unit, depot and rewards
+objective_guard_AIguards = [];
 objective_guard_killRadius = 1000;
 objective_guard_eastGroup = nil;
 
@@ -31,8 +32,25 @@ objective_guard_onObjectivesCreated = {
   };
 
   [] spawn {
-    sleep (5 * 60);
+    sleep (30 * 60);
     call objective_guard_removePardropActionFromEveryone;
+  };
+
+  [] spawn {
+    waitUntil {
+      private ["_squadsWithTwoOrMore"];
+      _squadsWithTwoOrMore = 0;
+
+      {
+        if (count ([_x] call getPlayersInSquad) > 1) then {
+          _squadsWithTwoOrMore = _squadsWithTwoOrMore + 1;
+        };
+      } forEach squads;
+
+      _squadsWithTwoOrMore > 1;
+    };
+
+    call objective_guard_killAllAiGuards;
   };
 };
 
@@ -275,12 +293,19 @@ objective_guard_createAIGuards = {
  
 };
 
+objective_guard_killAllAiGuards = {
+  {
+    _x setDamage 1;
+  } forEach objective_guard_AIguards;
+};
+
 objective_guard_createAIGuard = {
   private ["_position", "_guard", "_group"];
   _position = _this select 0;
   _group = _this select 1;
   _guard = _group createUnit ["O_G_Soldier_F", _position, [], 0, "FORM"];
   [_guard] call objective_guard_equipAIGuard;
+  objective_guard_AIguards pushBack _guard;
   _guard;
 };
 
@@ -320,7 +345,7 @@ objective_guard_onEnterHideout = {
 
   if (! missionControl_objectivesGenerated) exitWith {};
 
-  if (call missionControl_getElapsedTime < (60 * 5)) then {
+  if (call missionControl_getElapsedTime < (60 * 30)) then {
     [_unit] call objective_guard_addPardropAction;
   };
 };
@@ -331,9 +356,7 @@ objective_guard_onLeaveHideout = {
 
   if (! missionControl_objectivesGenerated) exitWith {};
 
-  if (call missionControl_getElapsedTime < (60 * 5)) then {
-    [_unit] call objective_guard_removePardropAction;
-  };
+  [_unit] call objective_guard_removePardropAction;
 };
 
 objective_guard_addPardropAction = {
@@ -374,7 +397,7 @@ objective_guard_doParadrop = {
 
   if ! ([_unit] call hideout_isInHideout) exitWith {};
 
-  if (call missionControl_getElapsedTime > (60 * 5)) exitWith {};
+  if (call missionControl_getElapsedTime > (60 * 30)) exitWith {};
 
   if (backpack _unit != "") exitWith {};
   

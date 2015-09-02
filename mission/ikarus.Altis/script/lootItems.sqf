@@ -249,7 +249,7 @@ lootItems_populateSupplyBoxLevel_4 = {
   private ["_container"];
   _container = _this select 0;
 
-  [['battleRifles', 'modern_tacticool', 'nato_tacticool'], _container, 2, -1] call lootItems_addRandomAmount;
+  [['battleRifles', 'modern_tacticool', 'nato_tacticool'], _container, 2, 0] call lootItems_addRandomAmount;
 };
 
 lootItems_getRandomAmount = {

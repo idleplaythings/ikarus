@@ -33,6 +33,9 @@ ItemDefinitions = [
   createGeneric('UAZ (AGS-30)', 'UAZ_AGS30', ['vehicle', 'armored', 'unarmed']),
 
   createGeneric('Littlebird', 'B_Heli_Light_01_F', ['helicopter', 'unarmed']),
+  createGeneric('AW159 Wildcat', 'I_Heli_light_03_unarmed_F', ['helicopter', 'unarmed']),
+  createGeneric('Ka-60 Kasatka', 'O_Heli_Light_02_unarmed_F', ['helicopter', 'unarmed']),
+
 
   createGeneric('Civilian helicopter', 'C_Heli_Light_01_civil_F', ['helicopter', 'unarmed']),
   createGeneric('Civilian helicopter', 'C_Heli_light_01_blue_F', ['helicopter', 'unarmed']),

@@ -52,7 +52,7 @@ saveObjectsFromMarker = {
     };
     
    
-    _objectData set [count _objectData, [typeOf _x, ([_object, _x] call getNormalizedDirectionFromBuilding), [getPosASL _object, getPosASL _x] call BIS_fnc_distance2D, _azimuth, _height, _aboveTerrain, true]];
+    _objectData set [count _objectData, [typeOf _x, ([_object, _x] call getNormalizedDirectionFromBuilding), _object distance2d _x, _azimuth, _height, _aboveTerrain, true]];
 
   } forEach ([_object] call findObjects);
   
@@ -85,7 +85,7 @@ findObjects = {
   //_building = nearestBuilding curatorCamera;
   
   {
-    _distance = [_object, _x] call BIS_fnc_distance2D;
+    _distance = _object distance2d _x;
     if (_distance < 20) then {
       if ((typeOf _x) in exceptionClasses || (side _x == civilian && ! isAgent teamMember _x)) then {
         _allMObjects set [count _allMObjects, _x];
@@ -107,7 +107,7 @@ findArrow = {
   _position = getPos curatorCamera;
 
   {
-    _distance = [_position, _x] call BIS_fnc_distance2D;
+    _distance = _position distance2d _x;
     if (_distance < 20 && typeOf _x == "Sign_Arrow_Yellow_F") exitWith {
       _arrow = _x;
     };

@@ -49,7 +49,10 @@ baseModule_outpostmap1_spawnActionController = {
     }
   } forEach _objects;
 
-  waitUntil {outpost_outpostsCreated};
+  waitUntil {
+    sleep 1;
+    outpost_outpostsCreated
+  };
 
   _squad = [_map] call hideout_getClosestHideout select 0;
 
@@ -71,7 +74,10 @@ baseModule_outpostmap1_spawnActionController = {
     [[_map, _actions], "client_setUpOutpostMapTeleportActions", _x, false, false] call BIS_fnc_MP;
   } forEach ([_squad] call getPlayersInSquad);
 
-  waitUntil {missionControl_timeObjectivesGenerated + 5*60 < time};
+  waitUntil {
+    sleep 1;
+    missionControl_timeObjectivesGenerated + 5*60 < time
+  };
 
   {
     [[_map], "client_rempoveOutpostMapTeleportActions", _x, false, false] call BIS_fnc_MP;

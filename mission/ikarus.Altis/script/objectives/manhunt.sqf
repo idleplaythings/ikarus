@@ -231,7 +231,10 @@ objective_manhunt_triangulate = {
 
 _this spawn {
   
-  waitUntil {call missionControl_getElapsedTime > (60 * 2)};
+  waitUntil {
+    sleep 1;
+    call missionControl_getElapsedTime > (60 * 2)
+  };
 
   if (count ([['manhunt']] call objectiveController_getSquadsWithObjectives) == 0) exitWith {};
 

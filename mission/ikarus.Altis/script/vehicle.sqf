@@ -4,7 +4,12 @@ vehicle_spawnVehicle = {
   _position = _this select 1;
   _direction = _this select 2;
 
+  if (_position select 2 < 0) then {
+    _position set [2, 0];
+  };
+  
   _vehicle = createVehicle [_vehicleClass, [0,0,3000], [], 0, "CAN_COLLIDE"];
+  _vehicle allowDamage false;
   _vehicle setPos _position;
   _vehicle setDir _direction;
 
@@ -14,6 +19,11 @@ vehicle_spawnVehicle = {
   clearBackpackCargoGlobal _vehicle;
 
   _vehicle setVehicleAmmo 0;
+
+  [_vehicle] spawn {
+    sleep 10;
+    _this select 0 allowDamage true;
+  };
 
   _vehicle;
 };
@@ -84,7 +94,8 @@ vehicle_needsKey = {
 
       if (_needsKey && ! _hasKey) exitWith {
         ["This vehicle needs a key to operate", _unit] call broadcastMessageTo;
-        _unit action ["Eject", vehicle _unit]; 
+        _unit action ["Eject", vehicle _unit];
+        _unit action ["GetOut", vehicle _unit]; 
       };
 
       if (_needsKey && _hasKey) exitWith {

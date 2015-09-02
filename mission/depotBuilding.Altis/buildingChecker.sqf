@@ -177,7 +177,7 @@ buildingChecker_deleteObjects = {
   _building = _this select 0;
   
   {
-    _distance = [_building, _x] call BIS_fnc_distance2D;
+    _distance = _building distance2d _x;
     if (side _x == civilian and ! isAgent teamMember _x and _distance < 20) then {
       deleteVehicle _x;
     };

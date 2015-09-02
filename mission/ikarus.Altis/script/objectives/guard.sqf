@@ -33,6 +33,9 @@ objective_guard_onObjectivesCreated = {
     [] spawn {
       waitUntil {
         private ["_squadsWithTwoOrMore"];
+
+        sleep 10;
+
         _squadsWithTwoOrMore = 0;
 
         {

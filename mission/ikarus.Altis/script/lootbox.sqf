@@ -427,7 +427,7 @@ lootbox_checkBoxes = {
       _closestDistance = 1000;
       _key = _box getVariable ["key", ""];
       {
-        if (_x distance _box < 2) then {
+        if (_x distance _box < 2 && [_x, _box] call lootBox_getVerticalDistance < 0.5) then {
           _canOpen = true;
           _squad = [_x] call getSquadForUnit;
         
@@ -453,6 +453,14 @@ lootbox_checkBoxes = {
       };
     }
   } forEach lootbox_boxes;
+};
+
+lootBox_getVerticalDistance = {
+  private ["_a", "_b"];
+  _a = _this select 0;
+  _b = _this select 1;
+
+  abs ((getPosASL _a select 2) - (getPosASL _b select 2));
 };
 
 _this spawn {

@@ -62,17 +62,11 @@ hideout_distanceFromClosestHideout = {
 };
 
 hideout_createHideoutForSquad = {
-  private ["_startPosition", "_squad", "_validation"];
+  private ["_startPosition", "_squad"];
   _squad = _this select 0;
   _startPosition = [_squad] call getSquadStartingPosition;
-  _validation = {
-    private ["_position"];
-    _position = _this select 0;
 
-    [_position] call hideout_distanceFromClosestHideout > 100;
-  };
-
-  _hideoutPosition = [_startPosition, 1000, _validation] call emptyPositionFinder_findClosest;
+  _hideoutPosition = [_startPosition] call emptyPositionFinder_findHideoutPosition;
   [_squad, _hideoutPosition] call hideout_createHideout;
 };
 
@@ -200,8 +194,9 @@ hideout_createHideoutCache = {
   
   
   _box addItemCargoGlobal ['ACE_EarPlugs', 12];
-  _box addItemCargoGlobal ['ACE_quikclot', 40];
-  _box addItemCargoGlobal ['ACE_tourniquet', 10];
+  //_box addItemCargoGlobal ['ACE_quikclot', 40];
+  _box addItemCargoGlobal ['ACE_fieldDressing', 40];
+  //_box addItemCargoGlobal ['ACE_tourniquet', 10];
   _box addItemCargoGlobal ['ACE_morphine', 10];
 
   _box addItemCargoGlobal ['V_Rangemaster_belt', 8];

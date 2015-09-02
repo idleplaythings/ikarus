@@ -209,7 +209,7 @@ depots_constructMilitaryDepot = {
   _centerOfAO = _this select 0;
   _radius = _this select 1;
   _position = [_centerOfAO, 0, _radius] call popoRandom_findLand;
-  _position = [_position, 1000, {true;}] call emptyPositionFinder_findClosest;
+  _position = [_position] call emptyPositionFinder_findMilitaryBasePosition;
 
   _data = [] call depotPositions_getPremiumDepotObjects;
   _objectData = [_position, random 360, _data] call houseFurnisher_furnish_location;

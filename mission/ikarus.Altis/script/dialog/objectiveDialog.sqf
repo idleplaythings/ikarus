@@ -104,7 +104,7 @@ objectiveDialog_getDescription = {
   };
 
   if (_type == "Military") exitWith {
-    "MILITARY BASE RAID<br/><br/>This mission will consume intellignece item. Map will contain"
+    "MILITARY BASE RAID<br/><br/>This mission will consume intelligence item. Map will contain"
     + " one military base that all squads will fight over. Military base will contain the best equipment"
     + " available.";
   };

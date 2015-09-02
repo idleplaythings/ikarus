@@ -21,16 +21,16 @@ baseModule_medicalStation1_onCreated = {
       clearItemCargoGlobal _box;
       clearBackpackCargoGlobal _box;
 
-      _box addItemCargoGlobal ['ACE_plasmaIV_500', 4];
+      //_box addItemCargoGlobal ['ACE_plasmaIV_500', 4];
       _box addItemCargoGlobal ['ACE_bloodIV_500', 4];
-      _box addItemCargoGlobal ['ACE_salineIV_500', 4];
-      _box addItemCargoGlobal ['ACE_packingBandage', 10];
-      _box addItemCargoGlobal ['ACE_elasticBandage', 10];
+      //_box addItemCargoGlobal ['ACE_salineIV_500', 4];
+      //_box addItemCargoGlobal ['ACE_packingBandage', 10];
+      //_box addItemCargoGlobal ['ACE_elasticBandage', 10];
       _box addItemCargoGlobal ['ACE_fieldDressing', 20];
-      _box addItemCargoGlobal ['ACE_tourniquet', 4];
-      _box addItemCargoGlobal ['ACE_quikclot', 10];
+      //_box addItemCargoGlobal ['ACE_tourniquet', 4];
+      //_box addItemCargoGlobal ['ACE_quikclot', 10];
       _box addItemCargoGlobal ['ACE_morphine', 6];
-      _box addItemCargoGlobal ['ACE_atropine', 6];
+      //_box addItemCargoGlobal ['ACE_atropine', 6];
       _box addItemCargoGlobal ['ACE_epinephrine', 6];
 
       {

@@ -8,7 +8,9 @@ objective_military_vehicles = [
 ];
 
 objective_military_helicopters = [
-  'B_Heli_Light_01_F'
+  'B_Heli_Light_01_F',
+  'I_Heli_light_03_unarmed_F',
+  'O_Heli_Light_02_unarmed_F'
 ];
 
 objective_military_construct = {};
@@ -64,7 +66,7 @@ objective_military_populateWeaponDepot = {
 };
 
 objective_military_populateVehicleDepot = {
-  private ["_depotData", "_boxes", "_vehicleClass"];
+  private ["_depotData", "_boxes", "_vehicleClass", "_type"];
   _depotData = _this select 0;
   _vehicleClass = _this select 1;
   _boxes = [];
@@ -77,15 +79,30 @@ objective_military_populateVehicleDepot = {
 
   {
     if (typeOf _x == "C_Offroad_01_F") then {
-      private ["_vehicle"];
+      private ["_vehicle", "_position"];
+
+      _position = getPos _x findEmptyPosition [0,50,_vehicleClass];
+
+      if (count _position == 0) then {
+        systemChat str _position;
+        systemChat "position is nön";
+        _position = getPos _x;
+      };
+
       _vehicle = [
         _vehicleClass,
-        getpos _x,
+        _position,
         direction _x
       ] call vehicle_spawnVehicle;
 
       [_vehicle] call vehicle_needsKey;
     };
+
+    _type = typeOf _x;
+    if (_type in ["Land_HBarrierBig_F" , "Land_Cargo10_light_green_F", "Land_Cargo10_yellow_F"] ) then {
+      deleteVehicle _x;
+    };
+
   } forEach (_depotData select 1);
 
   [(_boxes call BIS_fnc_selectRandom), ['IKRS_vehicle_key']] call lootBox_addExtraLoot;

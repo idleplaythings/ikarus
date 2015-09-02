@@ -214,7 +214,7 @@ client_removeBecomeMedic = {
 };
 
 client_equipGuard = {
-
+  /*
   if (vest player == "") then {
     player addVest "V_Chestrig_oli";
   };
@@ -231,6 +231,7 @@ client_equipGuard = {
 
   player addWeaponGlobal "hlc_rifle_ak74";
   player addWeaponGlobal "Binocular";
+  */
 };
 
 client_addParachute = {

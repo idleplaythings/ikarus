@@ -133,7 +133,7 @@ outpost_deploy = {
   _position = getPos _unit findEmptyPosition [0,5,"C_Hatchback_01_F"];
 
   if (! missionControl_objectivesGenerated) exitWith {
-    ["You have to wait until mission objectives are generated before deployin an outpost", _unit] call broadCastMessageTo; 
+    ["You have to wait until mission objectives are generated before deploying an outpost", _unit] call broadCastMessageTo; 
   };
 
   if (count ([([_unit] call getSquadForUnit)] call outpost_getOutpostsForSquad) >= 6) exitWith {

@@ -408,5 +408,22 @@ objective_guard_doParadrop = {
 
   [_unit] call objective_guard_removePardropAction;
 
-  [_unit] spawn reinforcements_paradrop;
+  [_unit] spawn objective_guard_paradrop;
+};
+
+objective_guard_paradrop = {
+  private ["_unit", "_depot", "_squad", "_position"];
+  _unit = _this select 0;
+
+  _depot = call depots_getRandom;
+  if (isNil{_depot}) exitWith {
+     ["There seem to be no depots to para drop to.", _unit] call broadCastMessageTo; 
+  };
+
+  _position = getPos (_depot select 0);
+  _position = [_position, 0, 1000] call popoRandom_findLand;
+
+  _position set [2, 5000];
+  _unit setPos _position;
+  [[], "client_addParachute", _unit, false, false] call BIS_fnc_MP;
 };

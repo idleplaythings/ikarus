@@ -62,6 +62,11 @@ CombatLog.prototype.getItems = function () {
   }, this);
 
   return lootArray.filter(function(loot) {
+    var item = dic.get('ItemFactory').createItemByArmaClass(loot.armaClass);
+
+    if (! item || item.unlimited) {
+      return false;
+    }
     return loot.amount !== 0 && loot.armaClass != 'IKRS_renown';
   })
 };

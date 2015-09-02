@@ -205,9 +205,16 @@ ServerQueueService.prototype.serverStatusChanged = function(server) {
 };
 
 ServerQueueService.prototype.queueStatusChanged = function(server) {
-  Server.getAll().forEach(function (server) {
-    this.serverStatusChanged(server);
-  }, this);
+
+  var servers = Server.getAll();
+
+  servers.filter(function (server) {
+    return server.isWaiting();
+  }).forEach(this.serverStatusChanged.bind(this));
+
+  servers.filter(function (server) {
+    return ! server.isWaiting();
+  }).forEach(this.serverStatusChanged.bind(this));
 };
 
 ServerQueueService.prototype._checkNeedsNewStatus = function(server) {

@@ -139,7 +139,7 @@ CombatLogFactory.prototype.getKillsAndDeaths = function (gameStarted, companyId,
       weaponText = " with <item armaClass='"+weapon.armaClass+"'>"+weapon.name+"</item>";
     }
 
-    if (victim.getCompany()._id == companyId) {
+    if (victim && victim.getCompany() && victim.getCompany()._id == companyId) {
       header = "Casualty";
       casualties++;
       if (killer && killer.getName()) {
@@ -152,10 +152,12 @@ CombatLogFactory.prototype.getKillsAndDeaths = function (gameStarted, companyId,
       kills++;
 
 
-
-      text = "<text><player uid='"+killer.getSteamId()+"'>"+killer.getName()+"</player> killed <player uid='"+victim.getSteamId()+"'>"+victim.getName()+"</player>"+weaponText+"</text>";
+      if (victim) {
+        text = "<text><player uid='"+killer.getSteamId()+"'>"+killer.getName()+"</player> killed <player uid='"+victim.getSteamId()+"'>"+victim.getName()+"</player>"+weaponText+"</text>";
+      } else {
+        text = "<text><player uid='"+killer.getSteamId()+"'>"+killer.getName()+"</player> killed an unknown player.</text>";
+      }
     }
-
 
     return {
       time: time,

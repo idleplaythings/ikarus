@@ -201,7 +201,7 @@ FoggyWeather.prototype = Object.create(Weather.prototype);
 
 FoggyWeather.prototype.init = function() {
   this.overcast = (0.3 + Math.random() * 0.3).toPrecision(2);
-  this.fog = (0.7 + Math.random() * 0.2).toPrecision(2);
+  this.fog = (0.7 + Math.random() * 0.3).toPrecision(2);
   this.rain = '0.0';
   this.lightnings = '0.0';
   this.wind = Wind.random(0, Wind.CALM);

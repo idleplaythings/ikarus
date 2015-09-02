@@ -241,7 +241,8 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
         'optic_ACO_grn_smg': 1,
         'muzzle_snds_acp': 1,
         'muzzle_snds_L': 2,
-        'IKRS_renown': 34
+        'IKRS_renown': 34,
+        'B_AssaultPack_khk': 3
       };
 
       var equipment = {

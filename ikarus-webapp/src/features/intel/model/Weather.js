@@ -81,11 +81,6 @@ ClearWeather.prototype.init = function() {
 };
 
 ClearWeather.prototype.getForecast = function(missionDateTime) {
-  if (dark(missionDateTime)) {
-    return [
-      { weather: FoggyWeather,  weight: 10 }
-    ];
-  }
 
   return [
     { weather: ClearWeather,  weight: 60 },
@@ -105,7 +100,7 @@ CloudyWeather.prototype = Object.create(Weather.prototype);
 
 CloudyWeather.prototype.init = function() {
   this.overcast = (0.3 + Math.random() * 0.3).toPrecision(2);
-  this.fog = (Math.random() * 0.6).toPrecision(2);
+  this.fog = (Math.random() * 0.3).toPrecision(2);
   this.rain = '0.0';
   this.lightnings = '0.0';
   this.wind = Wind.random(Wind.CALM, Wind.STRONG);
@@ -113,11 +108,6 @@ CloudyWeather.prototype.init = function() {
 };
 
 CloudyWeather.prototype.getForecast = function(missionDateTime) {
-  if (dark(missionDateTime)) {
-    return [
-      { weather: FoggyWeather,  weight: 10 }
-    ];
-  }
 
   return [
     { weather: ClearWeather,  weight: 5 },
@@ -137,7 +127,7 @@ RainyWeather.prototype = Object.create(Weather.prototype);
 
 RainyWeather.prototype.init = function() {
   this.overcast = (0.8 + Math.random() * 0.2).toPrecision(2);
-  this.fog = (0.2 + Math.random() * 0.5).toPrecision(2);
+  this.fog = (0.2 + Math.random() * 0.2).toPrecision(2);
   this.rain = (0.7 + Math.random() * 0.2).toPrecision(2);
   this.lightnings = '0.0';
   this.wind = Wind.random(Wind.BREEZE, Wind.STRONG);
@@ -145,11 +135,6 @@ RainyWeather.prototype.init = function() {
 };
 
 RainyWeather.prototype.getForecast = function(missionDateTime) {
-  if (dark(missionDateTime)) {
-    return [
-      { weather: FoggyWeather,  weight: 10 }
-    ];
-  }
 
   return [
     { weather: ClearWeather,  weight: 40 },
@@ -177,12 +162,6 @@ StormyWeather.prototype.init = function() {
 };
 
 StormyWeather.prototype.getForecast = function(missionDateTime) {
-  if (dark(missionDateTime)) {
-    return [
-      { weather: FoggyWeather,  weight: 10 }
-    ];
-  }
-
   return [
     { weather: ClearWeather,  weight: 50 },
     { weather: CloudyWeather, weight: 10 },
@@ -209,18 +188,12 @@ FoggyWeather.prototype.init = function() {
 };
 
 FoggyWeather.prototype.getForecast = function(missionDateTime) {
-  if (dark(missionDateTime)) {
-    return [
-      { weather: FoggyWeather,  weight: 10 }
-    ];
-  }
-
   return [
     { weather: ClearWeather,  weight: 70 },
     { weather: CloudyWeather, weight: 0 },
     { weather: RainyWeather,  weight: 0 },
     { weather: StormyWeather, weight: 0 },
-    { weather: FoggyWeather,  weight: 30 }
+    { weather: FoggyWeather,  weight: 5 }
   ];
 };
 

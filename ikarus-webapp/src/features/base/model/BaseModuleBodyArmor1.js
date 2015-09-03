@@ -1,6 +1,6 @@
 BaseModuleBodyArmor1 = function BaseModuleBodyArmor1 () {
   BaseModule.call(this);
-  this._id = "BodyArmor1 ";
+  this._id = "BodyArmor1";
   this.name = "Body armor container";
   this.description = "Provides armor for 4 persons.";
   this._removeLoot = {

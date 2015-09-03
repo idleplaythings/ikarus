@@ -42,7 +42,7 @@ Server.prototype.getGameId = function () {
 };
 
 Server.prototype.canReinforce = function (squad) {
-  return this.isPlaying() && this.canFit(squad) && this.getPlayTimeElapsed() < (35*60);
+  return this.isPlaying() && this.canFit(squad) && this.getPlayTimeElapsed() < (25*60);
 },
 
 Server.prototype.canReinforceWithoutSquad = function () {

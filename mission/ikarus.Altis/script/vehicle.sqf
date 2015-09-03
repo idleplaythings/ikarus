@@ -59,6 +59,7 @@ vehicle_preventUseBeforeObjectives = {
 };
 
 vehicle_preventGuardUse = {
+  /* disabled for now
   private ["_vehicle"];
   _vehicle = _this select 0;
   _vehicle setVariable ['noGuards', true];
@@ -76,7 +77,8 @@ vehicle_preventGuardUse = {
         ["Guards are not allowed to operate this vehicle", _unit] call broadcastMessageTo;
         _unit action ["Eject", vehicle _unit]; 
       }; 
-  }]; 
+  }];
+  */
 };
 
 vehicle_needsKey = {

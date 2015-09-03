@@ -1,5 +1,7 @@
 baseModule_vehicleAmmo_isPrimary = {false;};
 
+baseModule_vehicleAmmo_joinInProgress = {};
+
 baseModule_vehicleAmmo_onCreated = {};
 
 baseModule_vehicleAmmo_onHideoutCreated = {

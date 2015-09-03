@@ -1,5 +1,7 @@
 baseModule_irishpub_isPrimary = {false;};
 
+baseModule_irishpub_joinInProgress = {};
+
 baseModule_irishpub_onCreated = {
   private ["_objects", "_box"];
   _objects = _this select 0;

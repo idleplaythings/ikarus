@@ -3,6 +3,8 @@ baseModule_primary3_isPrimary = {true;};
 
 baseModule_primary3_onCreated = {};
 
+baseModule_primary3_joinInProgress = {};
+
 baseModule_primary3_onHideoutCreated = {};
 
 baseModule_primary3_numberOfSlots = {1;};

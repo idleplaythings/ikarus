@@ -34,7 +34,8 @@ class Mission
 		"cba_xeh_a3",
 		"ace_medical",
 		"ace_common",
-		"A3_Data_F_Curator_Characters"
+		"A3_Data_F_Curator_Characters",
+		"cup_basedata"
 	};
 	addOnsAuto[]=
 	{

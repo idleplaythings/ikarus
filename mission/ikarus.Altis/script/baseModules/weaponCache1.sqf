@@ -1,5 +1,7 @@
 baseModule_weaponCache1_isPrimary = {false;};
 
+baseModule_weaponCache1_joinInProgress = {};
+
 baseModule_weaponCache1_numberOfSlots = {1;};
 
 baseModule_weaponCache1_onCreated = {

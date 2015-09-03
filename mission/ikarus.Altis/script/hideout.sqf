@@ -16,6 +16,16 @@ hideout_getHideoutForSquad = {
   _hideout;
 };
 
+hideout_joinInProgress = {
+  private ["_unit"];
+  _unit = _this select 0;
+
+  {
+    [_x select 0, "joinInProgress", [_unit, _x select 2]] call baseModule_callModule;
+  } foreach ([([_unit] call getSquadForUnit)] call hideout_getHideoutForSquad select 3);
+
+};
+
 hideout_getHideoutCacheForSquad = {
   private ["_squad"];
   _squad = _this select 0;

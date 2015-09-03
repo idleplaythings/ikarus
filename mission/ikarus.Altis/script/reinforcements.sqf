@@ -42,6 +42,7 @@ reinforcements_joinSquad = {
     [_unit] joinSilent group _leader;
   };
 
+  [_unit] call hideout_joinInProgress;
   [_unit] call outpost_createBriefingForUnit;
   [_unit] call reinforcements_moveToStart;
 };

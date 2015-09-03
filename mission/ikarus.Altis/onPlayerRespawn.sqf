@@ -15,7 +15,9 @@ player forceAddUniform "U_B_HeliPilotCoveralls";
 
 enableEngineArtillery false;
 
-player addEventHandler[ "HandleRating", {}];
+player addEventHandler[ "HandleRating", {
+  0;
+}];
 
 player addEventHandler [ "take", {
   private ["_unit", "_container", "_item"];

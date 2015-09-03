@@ -8,6 +8,18 @@ baseModule_outpostmap1_isPrimary = {false;};
   [_unit, _position] call baseModule_outpostmap1_teleport;
 };
 
+baseModule_outpostmap1_joinInProgress = {
+  private ["_unit", "_objects", "_box"];
+  _unit = _this select 0;
+  _objects = _this select 1;
+
+  {
+    if (typeOf _x == "MapBoard_altis_F") then {
+      [_unit, _x] call baseModule_outpostmap1_addTeleportActionToUnit;
+    }
+  } forEach _objects;
+};
+
 baseModule_outpostmap1_numberOfSlots = {1;};
 
 baseModule_outpostmap1_onCreated = {
@@ -28,8 +40,6 @@ baseModule_outpostmap1_teleport = {
   if ([_position] call outpost_getDistanceToClosestOutpost > 10) exitWith {};
 
   if (isNil {_squad} || ([_squad] call getSquadId) != ([_outpost select 0] call getSquadId)) exitWith {};
-
-  if (missionControl_timeObjectivesGenerated + 5*60 < time) exitWith {};
 
   if (loadAbs _unit > 300) exitWith {};
 
@@ -57,31 +67,30 @@ baseModule_outpostmap1_spawnActionController = {
   _squad = [_map] call hideout_getClosestHideout select 0;
 
   {
-    private ["_actions"];
-    _actions = [];
-    {
-      private ["_outpost"];
-      _outpost = _x;
-      if (_outpost select 4) then {
-        _actions pushBack [
-          "Teleport to outpost #" + (str (count _actions + 1)) + " at " + (str (_outpost select 1)),
-          _outpost select 1
-        ];
-      };
-
-    } forEach ([_squad] call outpost_getOutpostsForSquad);
-
-    [[_map, _actions], "client_setUpOutpostMapTeleportActions", _x, false, false] call BIS_fnc_MP;
+    [_x, _map] call baseModule_outpostmap1_addTeleportActionToUnit;
   } forEach ([_squad] call getPlayersInSquad);
+};
 
-  waitUntil {
-    sleep 1;
-    missionControl_timeObjectivesGenerated + 5*60 < time
-  };
-
+baseModule_outpostmap1_addTeleportActionToUnit = {
+  private ["_unit", "_squad", "_map", "_actions"];
+  _unit = _this select 0;
+  _map = _this select 1;
+  _squad = [_unit] call getSquadForUnit;
+  
+  _actions = [];
   {
-    [[_map], "client_rempoveOutpostMapTeleportActions", _x, false, false] call BIS_fnc_MP;
-  } forEach call getAllPlayers;
+    private ["_outpost"];
+    _outpost = _x;
+    if (_outpost select 4) then {
+      _actions pushBack [
+        "Teleport to outpost #" + (str (count _actions + 1)) + " at " + (str (_outpost select 1)),
+        _outpost select 1
+      ];
+    };
+
+  } forEach ([_squad] call outpost_getOutpostsForSquad);
+
+  [[_map, _actions], "client_setUpOutpostMapTeleportActions", _unit, false, false] call BIS_fnc_MP;
 };
 
 baseModule_outpostmap1_data = {

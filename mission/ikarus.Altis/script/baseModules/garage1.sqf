@@ -4,6 +4,8 @@ baseModule_garage1_onCreated = {};
 
 baseModule_garage1_onHideoutCreated = {};
 
+baseModule_garage1_joinInProgress = {};
+
 baseModule_garage1_numberOfSlots = {1;};
 
 baseModule_garage1_data = {

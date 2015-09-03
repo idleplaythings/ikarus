@@ -7,6 +7,19 @@ baseModule_medicalStation1_isPrimary = {false;};
   [_box, _unit] call baseModule_medicalStation1_becomeMedic;
 };
 
+baseModule_medicalStation1_joinInProgress = {
+  private ["_unit", "_objects", "_box"];
+  _unit = _this select 0;
+  _objects = _this select 1;
+
+  {
+    if (typeOf _x == "Box_IND_Ammo_F") then {
+      _box = _x;
+      [[_box], "client_setUpBecomeMedic", _unit, true, false] call BIS_fnc_MP;
+    };
+  } forEach _objects;
+};
+
 baseModule_medicalStation1_numberOfSlots = {1;};
 
 baseModule_medicalStation1_onCreated = {

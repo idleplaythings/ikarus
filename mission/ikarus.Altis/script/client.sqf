@@ -77,7 +77,6 @@ client_teleportToOutpost = {
     ["You are carrying too much weight to teleport", "cancelTimer"] call client_textMessage;
   };
 
-  
   if (vehicle player != player) exitWith {
     ["You can't teleport while in vehicle", "cancelTimer"] call client_textMessage;
   };

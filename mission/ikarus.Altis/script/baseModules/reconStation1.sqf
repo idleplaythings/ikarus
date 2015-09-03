@@ -2,6 +2,8 @@ baseModule_reconStation1_isPrimary = {false;};
 
 baseModule_reconStation1_onCreated = {};
 
+baseModule_reconStation1_joinInProgress = {};
+
 baseModule_reconStation1_onHideoutCreated = {};
 
 baseModule_reconStation1_numberOfSlots = {1;};

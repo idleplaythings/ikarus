@@ -1,5 +1,7 @@
 baseModule_mortarpit_isPrimary = {false;};
 
+baseModule_mortarpit_joinInProgress = {};
+
 baseModule_mortarpit_onCreated = {
   private ["_objects", "_box"];
   _objects = _this select 0;

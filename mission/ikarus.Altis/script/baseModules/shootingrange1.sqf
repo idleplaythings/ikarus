@@ -1,5 +1,7 @@
 baseModule_shootingrange1_isPrimary = {false;};
 
+baseModule_shootingrange1_joinInProgress = {};
+
 baseModule_shootingrange1_onCreated = {
   private ["_objects", "_box"];
   _objects = _this select 0;

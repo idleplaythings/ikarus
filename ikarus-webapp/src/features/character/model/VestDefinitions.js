@@ -8,7 +8,6 @@ appearance.vests = [
 	{ classes: ["V_Chestrig_rgr"], name: "Chest Rig (Green)"},
 	{ classes: ["V_Chestrig_blk"], name: "Fighter Chestrig (Black)"},
 	{ classes: ["V_Chestrig_oli"], name: "Fighter Chestrig (Olive)"},
-	{ classes: ["V_I_G_resistanceLeader_F"], name: "Tactical Vest (Stavrou)"},
 	{ classes: ["V_Press_F"], name: "Vest (Press)"},
 	{ classes: ["V_Rangemaster_belt"], name: "Rangemaster Belt"},
 	{ classes: ["V_HarnessO_brn"], name: "LBV Harness"},

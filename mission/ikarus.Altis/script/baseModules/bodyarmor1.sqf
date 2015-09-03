@@ -1,5 +1,7 @@
 baseModule_bodyarmor1_isPrimary = {false;};
 
+baseModule_bodyarmor1_joinInProgress = {};
+
 baseModule_bodyarmor1_onCreated = {
   private ["_objects", "_box"];
   _objects = _this select 0;

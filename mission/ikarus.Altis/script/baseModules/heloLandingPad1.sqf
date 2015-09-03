@@ -4,6 +4,8 @@ baseModule_heloLandingPad1_onCreated = {};
 
 baseModule_heloLandingPad1_onHideoutCreated = {};
 
+baseModule_heloLandingPad1_joinInProgress = {};
+
 baseModule_heloLandingPad1_numberOfSlots = {2;};
 
 baseModule_heloLandingPad1_data = {

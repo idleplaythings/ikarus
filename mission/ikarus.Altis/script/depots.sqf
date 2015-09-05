@@ -150,6 +150,7 @@ depots_getAmountOfDepotsToSpawn = {
   };
 
   //if there are 4 or more squads, one hold objective is enough to spawn one hold depot
+  /*
   if (_town == 0 && _holds >= 1 && count squads >= 4) then {
     _town = 1;
     //if there are more than one supply depot, we will replace it with hold.
@@ -157,6 +158,7 @@ depots_getAmountOfDepotsToSpawn = {
       _normal = _normal - 1;
     }
   };
+  */
 
   //manhunt will substract one depot. supply first, normal second.
   if (count (["manhunt"] call objectiveController_getSquadsWithObjective) >= 1) then {

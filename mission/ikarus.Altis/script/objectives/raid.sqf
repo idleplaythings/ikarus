@@ -86,6 +86,8 @@ objective_raid_getValidRaids = {
   }] call AEX_map;
 
   _raidable;
+  //disable raids for now!
+  [];
 };
 
 objective_raid_canRaid = {

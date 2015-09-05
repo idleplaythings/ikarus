@@ -3,6 +3,10 @@ timeAndWeather_setWeather = {
   private ["_weather", "_overcast", "_fog", "_rain", "_lightnings", "_eastWind", "_northWind", "_waves"];
 
   _weather = _this select 0;
+
+  diag_log ("WEATHER " + (str _weather));
+  systemChat ("WEATHER " + (str _weather));
+  
   _overcast = parseNumber (_weather select 0);
   _fog = parseNumber (_weather select 1);
   _rain = parseNumber (_weather select 2);

@@ -12,6 +12,7 @@ timeAndWeather_setWeather = {
   _waves = parseNumber (_weather select 6);
 
   diag_log "FOG IS " + (str _fog);
+  systemChat (str _fog);
   skiptime -24;
   86400 setOvercast _overcast;
   //86400 setFog _fog;
@@ -35,6 +36,8 @@ timeAndWeather_setNextWeather = {
   private ["_weather", "_overcast", "_fog", "_rain", "_lightnings", "_eastWind", "_northWind", "_waves"];
 
   _weather = _this select 0;
+  diag_log ("WEATHER " + (str _weather));
+  systemChat ("WEATHER " + (str _weather));
   _overcast = parseNumber (_weather select 0);
   _fog = parseNumber (_weather select 1);
   _rain = parseNumber (_weather select 2);
@@ -45,7 +48,8 @@ timeAndWeather_setNextWeather = {
 
   600 setOvercast _overcast;
   //600 setFog _fog;
-  diag_log "FORECAST FOG IS " + (str _fog);
+  diag_log ("FORECAST FOG IS " + (str _fog));
+  systemChat ("FORECAST FOG IS " + (str _fog));
   600 setFog 0;
   600 setRain _rain;
   600 setLightnings _lightnings;

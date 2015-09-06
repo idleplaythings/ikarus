@@ -169,8 +169,21 @@ objective_guard_getGuardData = {
 };
 
 objective_guard_defaultIfNeccessary = {
+  call objective_guard_defaultIfMilitary;
   call objective_guard_defaultRaided;
   call objective_guard_default;
+};
+
+objective_guard_defaultIfMilitary = {
+  private ["_squads", "_amount"];
+
+  if (call depots_getAmountOfMilitaryDepotsToSpawn == 0) exitWith {};
+
+  _squads = ["guard"] call objectiveController_getSquadsWithObjective;
+  
+  {
+    [_x, 'supply'] call setChosenObjective;
+  } forEach _squads;
 };
 
 objective_guard_default = {

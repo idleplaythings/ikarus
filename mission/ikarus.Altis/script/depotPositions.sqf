@@ -509,24 +509,33 @@ depotPositions_checkNothingInDistance = {
 depotPositions_findDepotInTown = {
   private ["_startPosition", "_position", "_maxDistance", "_building"];
   _startPosition = _this select 0;
-  _maxDistance = _this select 1;
-  _position = [_startPosition] call getPositionInNearestTown;
+  _minDistance = _this select 1;
+  _maxDistance = _this select 2;
+  _position = [_startPosition, _minDistance, _maxDistance] call popoRandom_findLand;
+  _position = [_position] call getPositionInNearestTown;
 
   if (_startPosition distance _position > _maxDistance) exitWith {
-    [_startPosition, _maxDistance] call depotPositions_findRandomHouseForDepot;
+    [_startPosition, _minDistance, _maxDistance] call depotPositions_findRandomHouseForDepot;
   };
 
   [_position] call depotPositions_findHouseForDepot;
 };
 
 depotPositions_findRandomHouseForDepot = {
-  private ["_startPosition", "_maxDistance", "_position"];
+  private ["_startPosition", "_maxDistance", "_position", "_building"];
   _startPosition = _this select 0;
-  _maxDistance = _this select 1;
-  
-  _position = [_startPosition, 0, _maxDistance] call popoRandom_findLand;
+  _minDistance = _this select 1;
+  _maxDistance = _this select 2;
 
-  [_position] call depotPositions_findHouseForDepot;
+  _position = [_startPosition, _minDistance, _maxDistance] call popoRandom_findLand;
+
+  _building = [_position] call depotPositions_findHouseForDepot;
+
+  if (count _building == 0) exitWith {
+    _this call depotPositions_findRandomHouseForDepot;
+  };
+
+  _building;
 };
 
 depotPositions_checkIsSuitableForDepot = {
@@ -538,11 +547,10 @@ depotPositions_checkIsSuitableForDepot = {
 };
 
 depotPositions_findHouseForDepot = {
-  private ["_position", "_buildings", "_building", "_found", "_objects"];
+  private ["_position", "_buildings", "_building", "_found", "_objects", "_result"];
   _position = _this select 0;
-  _building = nil;
-  _objects = nil;
   _found = false;
+  _result = [];
   
   _buildings = nearestObjects [_position, ["house"], 5000];
   
@@ -551,10 +559,9 @@ depotPositions_findHouseForDepot = {
     _objects = [_building] call depotPositions_getSupplyDepotObjects;
     
     if ( ! isNil {_objects} and [getPos _building] call depotPositions_checkIsSuitableForDepot) exitWith {
-      _building;
+      _result = [_building, _objects];
     };
   } forEach _buildings;
 
-  
-  [_building, _objects];
+  _result;
 };

@@ -45,6 +45,7 @@ lastConnectedPlayerUid = nil;
   if (! isNil {_killer} && ! isNil {_squad}) then {
     [_squad, "onKilled", [_unit, _killer, true]] call objectiveController_callSquadObjective;
     [_squad, ['IKRS_kill_reward']] call addDisconnectedLoot;
+    [_killer, _unit] call underdog_checkKillReward;
   };
   
   ['playerKilled', [_unitUid, _killerUid, '', getPos _unit]] call sock_rpc;

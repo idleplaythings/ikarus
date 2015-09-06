@@ -16,6 +16,7 @@ if (! isServer) exitwith {};
 [] execVM "script\missionControl.sqf";
 [] execVM "script\waiting.sqf";
 [] execVM "script\squad.sqf";
+[] execVM "script\underdog.sqf";
 [] execVM "script\hideout.sqf";
 [] execVM "script\depotPositions.sqf";
 [] execVM "script\houseFurnisher.sqf";

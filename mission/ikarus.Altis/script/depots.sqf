@@ -121,6 +121,27 @@ depots_create_military = {
   };
 };
 
+depots_getWeighedInitilaAmountOfNormalDepots = {
+  private ["_supplies", "_normal", "_weighed"];
+  _supplies = (["supply"] call objectiveController_getSquadsWithObjective);
+  _normal = floor ((count _supplies) / 2);
+  _weighed = 0;
+
+  {
+    private ["_squad"];
+    _squad = _x;
+    _weighed = _weighed + (count ([_squad] call getPlayersInSquad) * 0.17);
+  } forEach _supplies;
+
+  _weighed = floor _weighed;
+
+  if (_weighed < _normal) exitWith {
+    _weighed;
+  };
+
+  _normal;
+};
+
 depots_getAmountOfDepotsToSpawn = {
   private ["_normal", "_town", "_holds", "_supplies"];
 
@@ -137,7 +158,7 @@ depots_getAmountOfDepotsToSpawn = {
   };
   
   _supplies = count (["supply"] call objectiveController_getSquadsWithObjective);
-  _normal = floor (_supplies / 2);
+  _normal = call depots_getWeighedInitilaAmountOfNormalDepots;
   
   //if no depots, but one supply objective, spawn one supply depot
   if (_town == 0 && _normal == 0 && _supplies >= 1) then {
@@ -202,7 +223,7 @@ depots_getAmountOfNormalDepotsToSpawn = {
 };
 
 depots_getRadiusOfSupplyAO = {
-  (call depots_getAmountOfNormalDepotsToSpawn) * 0.5 * 1000;
+  (call depots_getAmountOfNormalDepotsToSpawn) * 1.0 * 1000;
 };
 
 depots_constructMilitaryDepot = {
@@ -220,11 +241,18 @@ depots_constructMilitaryDepot = {
 };
 
 depots_constructSupplyDepot = {
-  private ["_centerOfAO", "_radius", "_buildingData", "_building", "_objectData", "_objects"];
+  private ["_position", "_centerOfAO", "_radius", "_buildingData", "_building", "_objectData", "_objects"];
   _centerOfAO = _this select 0;
   _radius = _this select 1;
+  _position = [] call depots_getRandom;
 
-  _buildingData = [_centerOfAO, _radius] call depotPositions_findRandomHouseForDepot;
+  if (isNil{_position}) then {
+    _position = _centerOfAO;
+  } else {
+    _position = getPos (_position select 0);
+  };
+
+  _buildingData = [_position, _radius, _radius * 2] call depotPositions_findRandomHouseForDepot;
   _building = _buildingData select 0;
   _objectData = _buildingData select 1;
 
@@ -238,7 +266,7 @@ depots_constructTownDepot = {
   _centerOfAO = _this select 0;
   _radius = _this select 1;
 
-  _buildingData = [_centerOfAO, _radius] call depotPositions_findDepotInTown;
+  _buildingData = [_centerOfAO, _radius, _radius * 2] call depotPositions_findDepotInTown;
   _building = _buildingData select 0;
   _objectData = _buildingData select 1;
 

@@ -1,5 +1,6 @@
 objective_manhunt_cachePosition = nil;
 objective_manhunt_cacheMarkerPosition = nil;
+objective_manhunt_cacheMarkerRadius = 0;
 
 objective_manhunt_construct = {};
 
@@ -8,7 +9,27 @@ objective_manhunt_displayName = {
 };
 
 objective_manhunt_joinInProgress = {
+  private ["_unit"];
+  _unit = _this select 0;
+
   _this call objective_manhunt_setPlayerRating;
+
+  if (isNil{objective_manhunt_cacheMarkerPosition}) exitWith {};
+
+  [[], "markers_createManhuntBriefing", _unit, false, true] call BIS_fnc_MP;
+
+  if (isNil{objective_manhunt_cacheMarkerPosition}) exitWith {};
+
+  [
+    [
+      objective_manhunt_cacheMarkerPosition,
+      objective_manhunt_cacheMarkerRadius
+    ], 
+    "markers_updateManhuntCacheMarker",
+    _unit,
+    true,
+    false
+  ] call BIS_fnc_MP;
 };
 
 objective_manhunt_setPlayerRating = {
@@ -38,7 +59,7 @@ objective_manhunt_updateGeneralMarker = {
   _offset = _radius / 2;
 
   objective_manhunt_cacheMarkerPosition = [objective_manhunt_cachePosition, _offset] call SHK_pos;
-
+  objective_manhunt_cacheMarkerRadius = _radius;
   {
     [[objective_manhunt_cacheMarkerPosition, _radius], "markers_updateManhuntCacheMarker", _x, true, false] call BIS_fnc_MP;
     ["New intel on cache location received", _x, 'manhuntCacheLocation'] call broadcastMessageTo; 

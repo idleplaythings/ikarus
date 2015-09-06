@@ -71,9 +71,9 @@ lootbox_createMilitaryWeaponBox = {
     "B_CargoNet_01_ammo_F", //open container object
     "", //key
     "IKRS_box_opening_reward_lvl4",
-    "",
+    "IKRS_guard_secure_reward",
     0.75, 
-    0,
+    0.75,
     "lootItems_populateSupplyBoxLevel_3"
   ] call lootbox_create;
 };
@@ -90,9 +90,9 @@ lootbox_createMilitaryVehicleBox = {
     "B_CargoNet_01_ammo_F", //open container object
     "", //key
     "IKRS_box_opening_reward_lvl4",
-    "",
+    "IKRS_guard_secure_reward",
     0.75, 
-    0,
+    0.75,
     "lootItems_populateSupplyBoxLevel_4"
   ] call lootbox_create;
 };

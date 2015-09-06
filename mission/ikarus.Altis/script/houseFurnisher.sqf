@@ -35,9 +35,13 @@ houseFurnisher_clearBuilding = {
   
   {
     private ["_position"];
+    
     _position = getPosATL _x;
-    _position set [2, 0];
-    _x setPosATL _position;
+    if (_position select 2 > 0) then {
+      _position set [2, 0];
+      _x setPosATL _position;  
+    }
+
   } forEach _objects;
 };
 

@@ -1,3 +1,49 @@
+
+var battleRifles = [
+  'hlc_rifle_M14',
+  'hlc_rifle_c1A1',
+  'hlc_rifle_g3a3ris',
+  'srifle_DMR_06_camo_F',
+  'srifle_DMR_06_olive_F',
+  'srifle_EBR_F',
+  'srifle_DMR_03_F'
+];
+
+var tactiCools = [
+  'arifle_Mk20_F',
+  'arifle_Mk20C_F',
+  'arifle_Mk20_GL_F',
+  'hlc_rifle_RU556',
+  'hlc_rifle_RU5562',
+  'hlc_rifle_CQBR',
+  'hlc_rifle_bcmjack',
+  'hlc_rifle_Bushmaster300',
+  'hlc_rifle_vendimus',
+  'hlc_rifle_samr2',
+  'arifle_Katiba_C_F',
+  'arifle_Katiba_F',
+  'arifle_MX_F',
+  'arifle_MX_GL_F',
+  'arifle_MXC_F',
+  'optic_MRCO',
+  'hlc_rifle_auga1_b',
+  'hlc_rifle_auga2_b'
+];
+
+
+var mediumOptics = [
+  'optic_Arco',
+  'optic_Hamr',
+  'optic_MRCO'
+];
+
+var ghillie = [
+  'U_B_FullGhillie_lsh',
+  'U_B_FullGhillie_sard',
+  'U_B_FullGhillie_ard'
+];
+
+
 ItemDefinitions = [
 
   //RESOURCES
@@ -287,6 +333,12 @@ ItemDefinitions = [
 
   //WEARABLES
 
+
+  createGeneric('Full Ghillie (Lush)', 'U_B_FullGhillie_lsh', ['tactical-vest']),
+  createGeneric('Full Ghillie (Semi-Arid)', 'U_B_FullGhillie_sard', ['tactical-vest']),
+  createGeneric('Full Ghillie (Arid)', 'U_B_FullGhillie_ard', ['tactical-vest']),
+
+
   createBackpack('Assault Pack (Khaki)', 'B_AssaultPack_khk', ['backpack'], true),
 
   createGeneric('Tactical vest (camo)', 'V_TacVest_camo', ['tactical-vest']),
@@ -446,6 +498,57 @@ ItemDefinitions = [
   ),
 
   createLoot(
+    'Underdog kill reward level 1',
+    'IKRS_underdog_reward_lvl1',
+    {
+      'money': '5d5+25',
+      'IKRS_renown': '2d3+6',
+      'rifle reward': {
+        selectFrom: tactiCools,
+        change: 1
+      }
+    }
+  ),
+
+  createLoot(
+    'Underdog kill reward level 2',
+    'IKRS_underdog_reward_lvl2',
+    {
+      'money': '10d5+50',
+      'IKRS_renown': '4d3+12',
+      'battle rifle reward': {
+        selectFrom: battleRifles,
+        change: 'd3-1'
+      },
+      'rifle reward': {
+        selectFrom: tactiCools,
+        change: 1
+      }
+    }
+  ),
+
+  createLoot(
+    'Underdog kill reward level 3',
+    'IKRS_underdog_reward_lvl3',
+    {
+      'money': '10d10+100',
+      'IKRS_renown': '4d3+12',
+      'battle rifle reward': {
+        selectFrom: battleRifles,
+        change: 'd2'
+      },
+      'optic reward': {
+        selectFrom: mediumOptics,
+        change: 'd2-1'
+      },
+      'ghillie reward': {
+        selectFrom: ghillie,
+        change: 'd5-4'
+      }
+    }
+  ),
+
+  createLoot(
     'Guard kill reward',
     'IKRS_guard_kill_reward',
     {
@@ -469,24 +572,10 @@ ItemDefinitions = [
     {
       'money': '10d5+50',
       'IKRS_renown': '2d3+6',
-      'arifle_Mk20_F': 'd20-19',
-      'arifle_Mk20C_F': 'd20-19',
-      'arifle_Mk20_GL_F': 'd20-19',
-      'hlc_rifle_RU556': 'd20-19',
-      'hlc_rifle_RU5562': 'd20-19',
-      'hlc_rifle_CQBR': 'd20-19',
-      'hlc_rifle_bcmjack': 'd20-19',
-      'hlc_rifle_Bushmaster300': 'd20-19',
-      'hlc_rifle_vendimus': 'd20-19',
-      'hlc_rifle_samr2': 'd20-19',
-      'arifle_Katiba_C_F': 'd20-19',
-      'arifle_Katiba_F': 'd20-19',
-      'arifle_MX_F': 'd20-19',
-      'arifle_MX_GL_F': 'd20-19',
-      'arifle_MXC_F': 'd20-19',
-      'optic_MRCO': 'd20-19',
-      'hlc_rifle_auga1_b': 'd20-19',
-      'hlc_rifle_auga2_b': 'd20-19',
+      'rifle reward': {
+        selectFrom: tactiCools,
+        change: 1
+      }
     }
   ),
 

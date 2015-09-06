@@ -20,7 +20,12 @@ objective_military_displayName = {
 };
 
 objective_military_joinInProgress = {
+  private ["_unit"];
   _this call objective_military_setPlayerRating;
+  
+  {
+    [_unit, _x] call objective_military_addBriefingAndMarkersForUnit;
+  } forEach objective_military_markerPositions;
 };
 
 objective_military_setPlayerRating = {
@@ -110,6 +115,8 @@ objective_military_populateVehicleDepot = {
   [(_depotData select 0), 'vehicle'] call objective_military_addBriefingAndMarkers;
 };
 
+objective_military_markerPositions = [];
+
 objective_military_addBriefingAndMarkers = {
   private ["_position", "_type", "_radius", "_offset"];
   _position = _this select 0;
@@ -118,9 +125,20 @@ objective_military_addBriefingAndMarkers = {
   _offset = _radius / 2;
 
   _position = [_position, _offset] call SHK_pos;
+  objective_military_markerPositions pushBack _position;
+
   {
-    [[_position, _radius], "markers_createMilitaryBriefing", _x, false, true] call BIS_fnc_MP;
+    [_x, _position] call objective_military_addBriefingAndMarkersForUnit
   } forEach (call getAllPlayers);
+};
+
+objective_military_addBriefingAndMarkersForUnit = {
+  private ["_unit", "_position", "_radius"];
+  _unit = _this select 0;
+  _position = _this select 1;
+  _radius = 1000;
+
+  [[_position, _radius], "markers_createMilitaryBriefing", _unit, false, true] call BIS_fnc_MP;
 };
 
 objective_military_consumeIntelligence = {

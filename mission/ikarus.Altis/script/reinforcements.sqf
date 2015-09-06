@@ -53,6 +53,7 @@ reinforcements_moveToStart = {
   _squad = [_unit] call getSquadForUnit;
 
   [_unit, 'joinInProgress', [_unit]] call objectiveController_callUnitObjective;
+  ['signal', 'joinInProgress', [_unit]] call objectiveController_callObjective;
 
   [_unit, _squad] call player_setSquadVariableForUnit;
   [_unit] call hideout_createHidoutMarkerForPlayer;
@@ -61,16 +62,17 @@ reinforcements_moveToStart = {
 };
 
 reinforcements_paradrop = {
-  private ["_unit", "_depot", "_squad", "_position"];
+  private ["_unit", "_players", "_squadLeader", "_squad", "_position"];
   _unit = _this select 0;
+  _squad = [_unit] call getSquadForUnit;
+  _players = [_squad] call getPlayersInSquad;
+  _squadLeader = if (count _players > 0) then {_players select 0} else {nil;};
 
-  _depot = call depots_getRandom;
-  if (isNil{_depot} || [_unit, 'guard'] call objectiveController_unitHasObjective) exitWith {
-    _squad = [_unit] call getSquadForUnit;
+  if (isNil{_squadLeader}|| _unit == _squadLeader || [_unit, 'guard'] call objectiveController_unitHasObjective) exitWith {
     [_unit, _squad] call hideout_movePlayerToHideout;
   };
 
-  _position = getPos (_depot select 0);
+  _position = getPos _squadLeader;
   _position = [_position, 0, 1000] call popoRandom_findLand;
 
   _position set [2, 5000];

@@ -26,18 +26,18 @@ Feature: Inventories
     Then "Manatee-Men" should have "4" "CUP_arifle_AK74" in armory
     Then "John Doe" should have "1" "CUP_arifle_AK74" in his inventory
 
-  Scenario: Squad inventory should only fit 20 items per player
+  Scenario: Squad inventory should only fit 30 items per player
     Given player "John Doe" with Steam ID "123" exists
     And company "Manatee-Men" exists
     And "John Doe" is a member of company "Manatee-Men"
     And I am logged in as "John Doe"
     And I create a squad
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
-    And "John Doe" has "20" "CUP_arifle_AK74" in his inventory
+    And "John Doe" has "30" "CUP_arifle_AK74" in his inventory
     And I am logged in as "John Doe"
     When I add "CUP_arifle_AK74" to my inventory
     Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
-    Then "John Doe" should have "20" "CUP_arifle_AK74" in his inventory
+    Then "John Doe" should have "30" "CUP_arifle_AK74" in his inventory
 
   Scenario: Returning item from player inventory to company armory
     Given player "John Doe" with Steam ID "123" exists

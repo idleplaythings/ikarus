@@ -226,4 +226,30 @@ marketDefinitions = [
       'muzzle_HBADGER': {money: 10}
     }
   },
+
+  {
+    _id: 'VEHICLES',
+    name: 'Vehicles',
+    items: {
+      'UAZ_Unarmed':        {money: 150},
+      'BAF_Offroad_D':      {money: 250},
+      'BAF_Offroad_W':      {money: 250},
+
+      'B_UGV_01_F':         {money: 250},
+
+      'B_MRAP_01_F':        {money: 450},
+      'O_MRAP_02_F':        {money: 450},
+
+
+      'B_Mortar_01_support_F':  {money: 50},
+      'B_Mortar_01_weapon_F':   {money: 350},
+
+      'RDS_M2_MiniTripod_Bag': {money: 50},
+      'RDS_M2_Gun_Bag':        {money: 200},
+
+      'RDS_DShkM_TripodLow_Bag':  {money: 50},
+      'RDS_DShkM_Gun_Bag':        {money: 200},
+
+    }
+  },
 ];

@@ -45,7 +45,8 @@ dic.register('SecondaryWeaponInventoryColumn', function(dic) {
         'rpg',
         'grenade-launcher',
         'grenade',
-        'handgun'
+        'handgun',
+        'static weapon'
       ]);
     },
     sort: dic.get('AlphabeticalInventoryColumnSort')
@@ -108,6 +109,7 @@ dic.register('SquadInventoryView', function(dic) {
   squadInventoryView.vehicleSlots = BaseModule.calculateVehicleSlots(modules);
   squadInventoryView.armorSlots = BaseModule.calculateArmorSlots(modules);
   squadInventoryView.heloSlots = BaseModule.calculateHeloSlots(modules);
+  squadInventoryView.staticWeaponSlots = BaseModule.calculateStaticSlots(modules);
 
   squadInventoryView.addGroup(dic.get('PrimaryWeaponInventoryColumn'));
   squadInventoryView.addGroup(dic.get('SecondaryWeaponInventoryColumn'));

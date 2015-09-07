@@ -7,7 +7,12 @@ InventoryView = function InventoryView(args) {
   this.vehicleSlots = 0;
   this.armorSlots = 0;
   this.heloSlots = 0;
+  this.staticWeaponSlots = 0;
 }
+
+InventoryView.prototype.getUsedStaticWeaponSlots = function() {
+  return this.targetInventory.getAmountOfItemsWithTag(['static weapon']);
+};
 
 InventoryView.prototype.getUsedVehicleSlots = function() {
   return this.targetInventory.getAmountOfItemsWithTag(['vehicle', 'unarmored']);

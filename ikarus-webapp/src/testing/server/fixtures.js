@@ -332,7 +332,9 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
             'C_Van_01_transport_F',
             'IKRS_test_renown',
             'C_Heli_light_01_ion_F',
-            'IKRS_underdog_reward_lvl3'
+            'IKRS_underdog_reward_lvl3',
+            'B_Mortar_01_support_F',
+            'B_Mortar_01_weapon_F'
           ],
           new ObjectiveSupply()
         );

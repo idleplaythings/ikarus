@@ -7,6 +7,7 @@ BaseModule = function BaseModule() {
   this.carSlots = 0;
   this.armorSlots = 0;
   this.heloSlots = 0;
+  this.staticSlots = 0;
   this.size = 1;
   this._removeLoot = {};
 };
@@ -33,6 +34,14 @@ BaseModule.prototype.isNormal = function () {
 
 BaseModule.prototype.serialize = function () {
   return this._id;
+};
+
+BaseModule.calculateStaticSlots = function(modules) {
+  var slots = 0;
+  modules.forEach(function(module){
+    slots += module.staticSlots;
+  });
+  return slots;
 };
 
 BaseModule.calculateVehicleSlots = function(modules) {

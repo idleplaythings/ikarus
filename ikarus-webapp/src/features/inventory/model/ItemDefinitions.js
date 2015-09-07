@@ -517,7 +517,7 @@ ItemDefinitions = [
       'IKRS_renown': '2d3+6',
       'rifle reward': {
         selectFrom: tactiCools,
-        change: 1
+        change: 'd2-1'
       }
     }
   ),
@@ -530,11 +530,11 @@ ItemDefinitions = [
       'IKRS_renown': '4d3+12',
       'battle rifle reward': {
         selectFrom: battleRifles,
-        change: 'd3-1'
+        change: 'd3-2'
       },
       'rifle reward': {
         selectFrom: tactiCools,
-        change: 1
+        change: 'd2-1'
       }
     }
   ),
@@ -547,15 +547,15 @@ ItemDefinitions = [
       'IKRS_renown': '4d3+12',
       'battle rifle reward': {
         selectFrom: battleRifles,
-        change: 'd2'
+        change: 'd2-1'
       },
       'optic reward': {
         selectFrom: mediumOptics,
-        change: 'd2-1'
+        change: 'd5-4'
       },
       'ghillie reward': {
         selectFrom: ghillie,
-        change: 'd5-4'
+        change: 'd10-9'
       }
     }
   ),

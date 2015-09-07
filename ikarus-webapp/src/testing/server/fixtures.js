@@ -307,13 +307,13 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       });
 
       insertTestUser("Panthallas", 123, "123");
-      insertTestUser("Innocent-Victim", 000, "000");
+      insertTestUser("Innocent-Victim", 321, "000");
 
       var manateeWarriors = Company.create("Manatee-Warriors");
       manateeWarriors.addPlayer(Player.getById(123));
 
       var bystanders = Company.create("Bystanders");
-      bystanders.addPlayer(Player.getById(000));
+      bystanders.addPlayer(Player.getById(321));
 
       Company.getAll().forEach(function (company){
         dic.get('LootController').addStartingLoot(company);
@@ -331,7 +331,8 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
             'BAF_Offroad_D',
             'C_Van_01_transport_F',
             'IKRS_test_renown',
-            'C_Heli_light_01_ion_F'
+            'C_Heli_light_01_ion_F',
+            'IKRS_underdog_reward_lvl3'
           ],
           new ObjectiveSupply()
         );

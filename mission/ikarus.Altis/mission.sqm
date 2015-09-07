@@ -133,7 +133,7 @@ class Mission
 						};
 						class Item9
 						{
-							value="0";
+							value="1";
 							parentCls="ACE_moduleMedicalSettings";
 							typeName="preventInstaDeath";
 						};

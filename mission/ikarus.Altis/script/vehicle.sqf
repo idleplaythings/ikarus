@@ -19,6 +19,11 @@ vehicle_spawnVehicle = {
   clearBackpackCargoGlobal _vehicle;
 
   _vehicle setVehicleAmmo 0;
+  _vehicle disableTIEquipment true;
+
+  if (_vehicleClass == "B_UGV_01_F") then {
+    createVehicleCrew _vehicle;
+  };
 
   [_vehicle] spawn {
     sleep 10;

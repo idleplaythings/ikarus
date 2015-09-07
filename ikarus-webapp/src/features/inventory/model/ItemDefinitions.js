@@ -69,7 +69,7 @@ ItemDefinitions = [
   createGeneric('UAZ', 'UAZ_Unarmed', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrover (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrover (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
-
+  createGeneric('Stomper UGV', 'B_UGV_01_F', ['vehicle', 'armored', 'unarmed', 'uav']),
 
   createGeneric('Jackal L2A1 (Desert)', 'BAF_Jackal2_L2A1_D', ['vehicle', 'armored', 'armed']),
   createGeneric('Jackal L2A1 (Woodland)', 'BAF_Jackal2_L2A1_W', ['vehicle', 'armored', 'armed']),
@@ -301,6 +301,16 @@ ItemDefinitions = [
   createWeapon('MXM Marksman rifle', 'arifle_MXM_F', ['sniper-rifle'], ['30Rnd_65x39_caseless_mag']),
   createWeapon('MXM Marksman rifle (black)', 'arifle_MXM_Black_F', ['sniper-rifle'], ['30Rnd_65x39_caseless_mag']),
 
+  //STATIC WEAPONS
+
+  createGeneric('Mk6 Mortar base', 'B_Mortar_01_support_F', ['static weapon']),
+  createGeneric('Mk6 Mortar tube', 'B_Mortar_01_weapon_F', ['static weapon']),
+
+  createGeneric('M2 .50 cal HMG tripod', 'RDS_M2_MiniTripod_Bag', ['static weapon']),
+  createGeneric('M2 .50 cal HMG gun', 'RDS_M2_Gun_Bag', ['static weapon']),
+
+  createGeneric('DShkM HMG tripod', 'RDS_DShkM_TripodLow_Bag', ['static weapon']),
+  createGeneric('DShkM HMG gun', 'RDS_DShkM_Gun_Bag', ['static weapon']),
 
   //LAUNCHERS
 
@@ -425,6 +435,8 @@ ItemDefinitions = [
 
 
   //GENERIC
+
+  createGeneric('AR-2 Darter UAV (backpack)', 'B_UAV_01_backpack_F', ['binoculars']),
 
   createGeneric('GPS', 'ItemGPS', ['binoculars']),
   createGeneric('Binoculars', 'Binocular', ['binoculars']),

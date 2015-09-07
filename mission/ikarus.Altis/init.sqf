@@ -45,6 +45,7 @@ if (! isServer) exitwith {};
 [] execVM "script\reinforcements.sqf";
 [] execVM "script\outpost.sqf";
 [] execVM "script\lastManStanding.sqf";
+[] execVM "script\unmannedVehicle.sqf";
 
 [] execVM "script\baseModules\baseModule.sqf";
 [] execVM "script\baseModules\primary1.sqf";
@@ -65,6 +66,9 @@ if (! isServer) exitwith {};
 [] execVM "script\baseModules\bodyarmor1.sqf";
 [] execVM "script\baseModules\shootingrange1.sqf";
 [] execVM "script\baseModules\mortarpit.sqf";
+[] execVM "script\baseModules\uavModule1.sqf";
+[] execVM "script\baseModules\staticWeaponModule1.sqf";
+[] execVM "script\baseModules\mobileBase.sqf";
 
 [] execVM "helpers\itemProperties.sqf";
 

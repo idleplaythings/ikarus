@@ -83,6 +83,20 @@ player addEventHandler ["InventoryOpened", {
   _result;
 }];
 
+waitAndCloseUAVTerminal = {
+  waitUntil {
+    //sleep 0.1;
+    ! isNull findDisplay 160;
+  };
+
+  ["UAV Terminal is disabled. Use action menu to connect to UAV while close to one.", "uavterminal"] call client_textMessage;
+   
+  findDisplay 160 closeDisplay 1;
+  call waitAndCloseUAVTerminal;
+};
+
+[] spawn waitAndCloseUAVTerminal;
+
 lastConnectedPlayerUid = [getPlayerUID _unit, _unit];
 
 publicVariableServer "lastConnectedPlayerUid";

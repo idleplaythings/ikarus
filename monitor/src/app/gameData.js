@@ -63,7 +63,7 @@ module.exports = function(armaSerializer){
     ],
     baseModules: [
       "Primary3",
-      "mortarpit",
+      "uavModule1",
       "garage1",
       "MedicalStation1"
     ],
@@ -109,7 +109,9 @@ module.exports = function(armaSerializer){
         'IKRS_intelligence_helo': 1,
         'IKRS_outpost_backpack': 3,
         'IKRS_signal_device': 1,
-        'BAF_Jackal2_L2A1_D': 1
+        //'BAF_Jackal2_L2A1_D': 1,
+        'B_UGV_01_F': 1,
+        'B_UAV_01_backpack_F': 1
       }
     },
     {
@@ -117,9 +119,10 @@ module.exports = function(armaSerializer){
       items: {
         'SatchelCharge_Remote_Mag': 10,
         'B_AssaultPack_khk': 1,
-        'UAZ_Unarmed': 1,
+        //'UAZ_Unarmed': 1,
         'IKRS_intelligence_helo': 1,
-        'IKRS_signal_device': 1
+        'IKRS_signal_device': 1,
+        'B_UGV_01_F': 1
       }
     }
   ];

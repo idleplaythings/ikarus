@@ -129,6 +129,22 @@ lootItems_definitions = [
       'IKRS_intelligence_vehicle',
       'IKRS_intelligence_helo'   
     ]
+  ],
+
+  [
+    'static weapons',
+    [
+      ['B_Mortar_01_support_F', 'B_Mortar_01_weapon_F'],
+      ['RDS_M2_MiniTripod_Bag', 'RDS_M2_Gun_Bag'],
+      ['RDS_DShkM_TripodLow_Bag', 'RDS_DShkM_Gun_Bag']
+    ]
+  ],
+
+  [
+    'uav',
+    [
+      'B_UAV_01_backpack_F'
+    ]
   ]
 ];
 
@@ -147,6 +163,7 @@ lootItems_populateHoldAirdropBox = {
   ['reflexsights', _container, 5, 2] call lootItems_addRandomAmount;
   [['norail_battleRifles', 'nato_mg'], _container, 3, -2] call lootItems_addRandomAmount;
   ['IKRS_loot_key1', _container, 1, 0] call lootItems_addRandomAmount;
+  ['uav', _container, 2, -1] call lootItems_addRandomAmount;
   
 };
 
@@ -182,6 +199,8 @@ lootItems_populateSupplyBoxLevel_0 = {
 
   ['HLC_Optic_PSO1', _container, 5, -4] call lootItems_addRandomAmount;
   ['hlc_optic_kobra', _container, 4, 3] call lootItems_addRandomAmount;
+
+  ['static weapons', _container, 5, -4] call lootItems_addRandomAmount;
 };
 
 lootItems_populateSupplyBoxLevel_1 = {
@@ -217,7 +236,7 @@ lootItems_populateManhuntCache = {
   [['norail_battleRifles', 'nato_mg'], _container, 2, 1] call lootItems_addRandomAmount;
   ['IKRS_loot_key1', _container, 1, 0] call lootItems_addRandomAmount;
   ['battleRifles', _container, 3, -2] call lootItems_addRandomAmount;
-  
+  ['uav', _container, 3, -2] call lootItems_addRandomAmount;
 };
 
 lootItems_populateSupplyBoxLevel_2 = {

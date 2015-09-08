@@ -1,7 +1,11 @@
 
 # Introduction
 
-...
+Ikarus is a team vs team mod for Arma 3 with player progression tracked in a web app.
+
+# License
+
+Ikarus is licences under [Arma Public License Share Alike (APL-SA)](http://www.bistudio.com/community/licenses/arma-public-license-share-alike) 
 
 # Running
 
@@ -22,14 +26,9 @@
 
 ## Arma3 & Monitor
 
-### Enable test mode in missionControl.sqf
-```
-# missionControl.sqf:
-missionControl_test = true;
-```
 
 ### Launch Arma 3 with following paramters:
--showscripterrors -sock_host=::1 -sock_port=1337 -mod=@ikrs;
+-showscripterrors -sock_host=::1 -sock_port=1337 -mod=@ikarus;
 
 ### Set ENV environment variable to dev for monitor
 $env:ENV="dev"

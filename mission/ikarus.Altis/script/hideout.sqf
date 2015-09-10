@@ -215,6 +215,8 @@ hideout_createHideoutCache = {
   _box addBackpackCargoGlobal ['B_AssaultPack_khk', 3];
   //_box addWeaponCargoGlobal ['CUP_sgun_M1014', 4];
   //_box addMagazineCargoGlobal ['CUP_8Rnd_B_Beneli_74Slug', 20];
+
+  _box addItemCargoGlobal ['ACE_RangeTable_82mm', 1];
   
   _box setVariable ['squadId', ([_squad] call getSquadId), true];
   _box;

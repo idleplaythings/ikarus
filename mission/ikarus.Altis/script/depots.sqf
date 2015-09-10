@@ -160,6 +160,12 @@ depots_getAmountOfDepotsToSpawn = {
   _supplies = count (["supply"] call objectiveController_getSquadsWithObjective);
   _normal = call depots_getWeighedInitilaAmountOfNormalDepots;
   
+  //if no depots, but one hold objective, spawn one town depot
+
+  if (_town == 0 && _normal == 0 && _holds >= 1) then {
+    _town = 1;
+  };
+
   //if no depots, but one supply objective, spawn one supply depot
   if (_town == 0 && _normal == 0 && _supplies >= 1) then {
     _normal = 1;
@@ -170,14 +176,11 @@ depots_getAmountOfDepotsToSpawn = {
     _normal = 1;
   };
 
-  //if there are 4 or more squads, one hold objective is enough to spawn one hold depot
+  //if there are 4 or more squads, change one normal depot to town
   /*
-  if (_town == 0 && _holds >= 1 && count squads >= 4) then {
+  if (_town == 0 && _normal > 1 && _holds >= 1 && count squads >= 4) then {
     _town = 1;
-    //if there are more than one supply depot, we will replace it with hold.
-    if (_normal > 1) then {
-      _normal = _normal - 1;
-    }
+    _normal = _normal - 1;
   };
   */
 

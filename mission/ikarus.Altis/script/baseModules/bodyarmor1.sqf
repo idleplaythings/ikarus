@@ -25,9 +25,11 @@ baseModule_bodyarmor1_onCreated = {
       deleteVehicle _x;
     };
 
+    /*
     if (typeOf _x == "Sign_Arrow_Green_F") then {
       [_x, "H_HelmetIA"] call equipment_replaceObjectWithItem;
     };
+    */
 
   } forEach _objects;
 };
@@ -45,11 +47,11 @@ baseModule_bodyarmor1_data = {
     ["Land_Bench_F",44.7573,7.45823,356.056,0,true,true],
     ["Land_Bench_F",53.3641,8.62861,3,0,true,true],
     ["Land_Metal_rack_Tall_F",31.7262,7.39492,1.99,0,true,true],
-    ["Sign_Arrow_Green_F",33.1359,7.49191,1.99,1.20557,true,true],
-    ["Sign_Arrow_Green_F",30.2664,7.3164,1.99,0.828831,true,true],
-    ["Sign_Arrow_Green_F",33.0261,7.46844,1.99,0.828831,true,true],
+    //["Sign_Arrow_Green_F",33.1359,7.49191,1.99,1.20557,true,true],
+    //["Sign_Arrow_Green_F",30.2664,7.3164,1.99,0.828831,true,true],
+    //["Sign_Arrow_Green_F",33.0261,7.46844,1.99,0.828831,true,true],
     ["Sign_Arrow_Pink_F",28.8747,6.07455,1.99,0.828827,true,true],
-    ["Sign_Arrow_Green_F",30.3907,7.30828,1.99,1.20557,true,true],
+    //["Sign_Arrow_Green_F",30.3907,7.30828,1.99,1.20557,true,true],
     ["Land_Suitcase_F",33.9139,5.44095,357.066,0.842129,true,true],
     ["Land_CanisterFuel_F",53.202,6.72104,345.702,0,true,true]
   ];

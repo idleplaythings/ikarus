@@ -21,14 +21,9 @@
         <h2>KILLS</h2>{{kills}}
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-8">
         <h2>K/D RATIO</h2>{{getKDRatio}}
       </div>
-
-      <div class="col-md-4">
-        <h2>RENOWN GAINED/LOST</h2>{{getRenownGained}}
-      </div>
-
     </div>
 
     <div class="row">
@@ -46,20 +41,47 @@
         {{/each}}
       </div>
 
-      <div class="col-md-4">
-        <h2>EQUIPMENT GAINED/LOST</h2>
-        {{#each getItems}}
-          <div class="row">
-            <div class="col-md-8 {{gainedOrLostClass amount}}">
-              <b class="show-item-tooltip-small" data-armaClass="{{armaClass}}">{{name}}</b>
-            </div>
-            <div class="col-md-3 {{gainedOrLostClass amount}}">
-              {{amount}}
-            </div>
-            <div class="col-md-1"></div>
+      <div class="col-md-4" style="padding-right:30px;">
+        <h2>EQUIPMENT</h2>
+        <div class="row">
+          <div class="col-md-8">
+            <b>Name</b>
           </div>
+          <div class="col-md-2">
+            <b>Amount</b>
+          </div>
+          <div class="col-md-2">
+            <b>Total</b>
+          </div>
+        </div>
+        {{#each getItems}}
+          {{> combatLog_LootEntry}}
         {{/each}}
       </div>
     </div>
   {{/if}}
+</template>
+
+<template name="combatLog_LootEntry">
+  {{#if parentItem}}
+    <div class="row" style="margin-top:10px;">
+      <div class="col-md-12">
+        <b>{{parentItem.name}}</b>
+      </div>
+    </div>
+  {{/if}}
+  {{#each items}}
+    <div class="row combatLog-itemEntry {{gainedOrLostClass total}}">
+
+      <div class="col-md-8 {{collectionClass ../parentItem}}">
+        {{item.name}}
+      </div>
+      <div class="col-md-2">
+        {{amount}}
+      </div>
+      <div class="col-md-2">
+        {{total}}
+      </div>
+    </div>
+  {{/each}}
 </template>

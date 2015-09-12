@@ -230,12 +230,6 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       var player = Player.getCurrent();
       var victim = Player.getByName("Innocent-Victim");
       var lootItems = {
-        'Binocular':  4,
-        'ItemGPS': 2,
-        'SMG_02_F': 1,
-        'SMG_01_F': 2,
-        '30Rnd_9x21_Mag': 5,
-        '30Rnd_45ACP_Mag_SMG_01': 6,
         'optic_Holosight_smg': 1,
         'optic_Aco_smg': 1,
         'optic_ACO_grn_smg': 1,
@@ -243,6 +237,15 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
         'muzzle_snds_L': 2,
         'IKRS_renown': 34,
         'B_AssaultPack_khk': 3
+      };
+
+      var smgItems = {
+        'Binocular':  4,
+        'ItemGPS': 2,
+        'SMG_02_F': 1,
+        'SMG_01_F': 2,
+        '30Rnd_9x21_Mag': 5,
+        '30Rnd_45ACP_Mag_SMG_01': 6,
       };
 
       var equipment = {
@@ -259,12 +262,20 @@ if (get(Meteor, 'settings.public.mode') === 'dev' && Meteor.isServer) {
       MissionEquipmentGameEvent.create(gameId, companyId, equipment);
       PlayerDeathGameEvent.create(gameId, companyId, {x: 100, y:1}, victim.getSteamId(), player.getSteamId(), 'hlc_rifle_rpk74n');
       PlayerDeathGameEvent.create(gameId, companyId, {x: 8900, y:900}, player.getSteamId(), null, null);
-      MissionLootGameEvent.create(gameId, companyId, 'IKRS_loot_smg_weapons', lootItems);
+
+      for (var i=0;i<5;i++) {
+        MissionLootGameEvent.create(gameId, companyId, 'IKRS_loot_smg_weapons', smgItems);
+      }
+
+      MissionLootGameEvent.create(gameId, companyId, 'IKRS_guard_kill_reward', {"IKRS_renown": 50});
+
+
+      MissionLootGameEvent.create(gameId, companyId, null, lootItems);
       MissionLootGameEvent.create(
         gameId,
         companyId,
         null,
-        {"IKRS_renown": 500 * -1}
+        {"IKRS_renown": -500}
       );
       RaidGameEvent.create(gameId, companyId, companyId, victim.getCompany()._id, 250);
       GameEndGameEvent.create(gameId);

@@ -47,7 +47,7 @@ ObjectiveGuard.prototype.getLootTransform = function(loot) {
 };
 
 ObjectiveGuard.prototype.allowLoot = function() {
-  return false;
+  return true;
 };
 
 ObjectiveGuard.prototype.validate = function(squad) {

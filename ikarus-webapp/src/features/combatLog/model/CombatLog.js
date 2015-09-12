@@ -13,6 +13,7 @@ CombatLog = function CombatLog (args) {
   this.kills = args.kills;
   this.events = args.events;
   this.loot = args.loot;
+  this.equipment = args.equipment;
 };
 
 CombatLog.prototype.getHeader = function () {
@@ -54,32 +55,6 @@ CombatLog.prototype.getEvents = function () {
   return this.events;
 };
 
-CombatLog.prototype.getItems = function () {
-  var lootArray = Object.keys(this.loot).map(function(armaClass) {
-    var obj = this.loot[armaClass];
-    obj.armaClass = armaClass;
-    return obj;
-  }, this);
-
-  return lootArray.filter(function(loot) {
-    var item = dic.get('ItemFactory').createItemByArmaClass(loot.armaClass);
-
-    if (! item || item.unlimited) {
-      return false;
-    }
-    return loot.amount !== 0 && loot.armaClass != 'IKRS_renown';
-  })
-};
-
-CombatLog.prototype.getRenownGained = function () {
-
-  if ( ! this.loot.IKRS_renown ) {
-    return 0;
-  }
-
-  return this.loot.IKRS_renown.amount;
-};
-
 CombatLog.prototype.serialize = function () {
   return {
     companyId: this.companyId,
@@ -89,7 +64,8 @@ CombatLog.prototype.serialize = function () {
     casualties: this.casualties,
     kills: this.kills,
     events: this.events,
-    loot: this.loot
+    loot: this.loot,
+    equipment: this.equipment
   };
 };
 

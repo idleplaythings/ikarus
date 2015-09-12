@@ -29,8 +29,11 @@ CombatLogFactory.prototype.createForGameAndCompany = function (gameId, companyId
   events = events.concat(this.getRaidEvents(companyId, RaidGameEvent.getByGameIdAndCompanyId(gameId, companyId)));
 
   var loot = this.getLoot(
-    MissionLootGameEvent.getByGameIdAndCompanyId(gameId, companyId),
-    MissionEquipmentGameEvent.getByGameIdAndCompanyId(gameId, companyId)
+    MissionLootGameEvent.getByGameIdAndCompanyId(gameId, companyId)
+  );
+
+  var equipment = this.getEquipment(
+     MissionEquipmentGameEvent.getByGameIdAndCompanyId(gameId, companyId)
   );
 
   var log = new CombatLog({
@@ -41,7 +44,8 @@ CombatLogFactory.prototype.createForGameAndCompany = function (gameId, companyId
     casualties: casualties,
     kills: kills,
     events: events,
-    loot: loot
+    loot: loot,
+    equipment: equipment
   });
 
   var id = collections.CombatLogCollection.insert(log.serialize());
@@ -51,35 +55,59 @@ CombatLogFactory.prototype.createForGameAndCompany = function (gameId, companyId
   return log;
 };
 
-CombatLogFactory.prototype.getLoot = function (missionLootEvents, missionEquipmentEvents) {
+CombatLogFactory.prototype.getEquipment = function (missionEquipmentEvents) {
 
-  var totalLoot = {};
-
-  missionLootEvents.forEach(function(loot){
-    Object.keys(loot.itemClasses).forEach(function(armaClass){
-      var amount = loot.itemClasses[armaClass];
-      var item = this._itemFactory.createItemByArmaClass(armaClass);
-
-      if (totalLoot[armaClass]) {
-        totalLoot[armaClass].amount += amount;
-      } else {
-        totalLoot[armaClass] = {name: item.name, amount: amount};
-      }
-    }, this);
-  }, this);
+  var equipment = {};
 
   missionEquipmentEvents.forEach(function(loot){
     Object.keys(loot.itemClasses).forEach(function(armaClass){
       var amount = loot.itemClasses[armaClass];
       var item = this._itemFactory.createItemByArmaClass(armaClass);
 
-      if (totalLoot[armaClass]) {
-        totalLoot[armaClass].amount -= amount;
+      if (equipment[armaClass]) {
+        equipment[armaClass] += amount;
       } else {
-        totalLoot[armaClass] = {name: item.name, amount: - amount};
+        equipment[armaClass] = amount;
       }
     }, this);
   }, this);
+
+  return equipment;
+};
+
+CombatLogFactory.prototype.getLoot = function (missionLootEvents) {
+
+  var totalLoot = {
+    items: {},
+    collections: []
+  };
+
+  missionLootEvents.forEach(function(loot){
+
+    var lootObject = totalLoot.items;
+
+    if (loot.parentItem) {
+      lootObject = {
+        parentItem: loot.parentItem,
+        items: {}
+      };
+      totalLoot.collections.push(lootObject);
+      lootObject = lootObject.items;
+    }
+
+
+    Object.keys(loot.itemClasses).forEach(function(armaClass){
+      var amount = loot.itemClasses[armaClass];
+      var item = this._itemFactory.createItemByArmaClass(armaClass);
+
+      if (lootObject[armaClass]) {
+        lootObject[armaClass] += amount;
+      } else {
+        lootObject[armaClass] = amount;
+      }
+    }, this);
+  }, this);
+
 
   return totalLoot;
 };

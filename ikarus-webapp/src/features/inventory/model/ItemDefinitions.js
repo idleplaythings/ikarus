@@ -411,8 +411,8 @@ ItemDefinitions = [
 
 
   createGeneric('Honeybadger supressor', 'muzzle_HBADGER', ['scope']),
-  createGeneric('Sound Suppressor (.45 ACP)', 'muzzle_snds_acp', ['scope']),
-  createGeneric('Sound Suppressor (9 mm)', 'muzzle_snds_L', ['scope']),
+  createGeneric('Suppressor (.45 ACP)', 'muzzle_snds_acp', ['scope']),
+  createGeneric('Suppressor (9 mm)', 'muzzle_snds_L', ['scope']),
 
   createGeneric('Mk17 Holosight','optic_Holosight', ['scope']),
   createGeneric('ACO (Red)','optic_Aco', ['scope']),

@@ -420,6 +420,11 @@ ItemDefinitions = [
 
   createGeneric('ARCO','optic_Arco', ['scope']),
   createGeneric('DMS','optic_DMS', ['scope']),
+  createGeneric('Long-Range Precision Scope','optic_LRPS', ['scope']),
+  createGeneric('Nightstalker','optic_Nightstalker', ['scope']),
+  createGeneric('Night Vision Scope','optic_NVS', ['scope']),
+  createGeneric('Marksman Optical Sights','optic_SOS', ['scope']),
+
   createGeneric('RCO', 'optic_Hamr', ['scope']),
   createGeneric('MRCO', 'optic_MRCO', ['scope']),
 

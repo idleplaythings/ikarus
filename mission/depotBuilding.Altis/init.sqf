@@ -86,7 +86,7 @@ findObjects = {
   
   {
     _distance = _object distance2d _x;
-    if (_distance < 20) then {
+    if (_distance < 30) then {
       if ((typeOf _x) in exceptionClasses || (side _x == civilian && ! isAgent teamMember _x)) then {
         _allMObjects set [count _allMObjects, _x];
       };

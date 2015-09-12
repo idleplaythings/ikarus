@@ -141,7 +141,7 @@ emptyPositionFinder_findClosest = {
 };
 
 emptyPositionFinder_findMilitaryBasePosition = {
-  [_this select 0, 1000, {true;}, 25, 0.4] call emptyPositionFinder_findClosest
+  [_this select 0, 1000, {true;}, 25, 0.2] call emptyPositionFinder_findClosest
 };
 
 emptyPositionFinder_findHideoutPosition = {

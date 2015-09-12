@@ -95,7 +95,8 @@ lootItems_definitions = [
       ['launch_NLAW_F', 'NLAW_F', 'B_AssaultPack_khk']
     ]
   ],
-  ['high_scopes', ['optic_DMS']],
+
+  ['high_scopes', ['optic_DMS', 'optic_LRPS', 'optic_NVS', 'optic_SOS']],
   ['highend_weapon', 
     [
       ['MMG_01_hex_F', '150Rnd_93x64_Mag', '150Rnd_93x64_Mag', '150Rnd_93x64_Mag'],
@@ -262,6 +263,7 @@ lootItems_populateSupplyBoxLevel_3 = {
   _container = _this select 0;
   
   ['highend_weapon', _container, 1, 0] call lootItems_addRandomAmount;
+  ['high_scopes', _container, 1, 0] call lootItems_addRandomAmount;
 };
 
 lootItems_populateSupplyBoxLevel_4 = {

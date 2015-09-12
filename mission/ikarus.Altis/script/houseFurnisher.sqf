@@ -81,6 +81,10 @@ houseFurnisher_getPosASLAndDirection = {
   [_position, _direction];
 };
 
+houseFurnisher_alignToTerrain = [
+  "Land_HBarrierBig_F"
+];
+
 houseFurnisher_placeObject = {
   private [
     "_objects",
@@ -129,6 +133,10 @@ houseFurnisher_placeObject = {
   if (_disableSimulation) then {
     _object enableSimulationGlobal false;
     _object allowDamage false;
+  };
+
+  if (typeOf _object in houseFurnisher_alignToTerrain && _aboveTerrain) then {
+    _object setVectorUp surfaceNormal position _object;
   };
 
   _objects pushBack _object;

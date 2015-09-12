@@ -48,10 +48,10 @@ objective_military_populateDepot = {
       [_depotData] call objective_military_populateWeaponDepot;
     };
     case "IKRS_intelligence_vehicle": {
-      [_depotData, (objective_military_vehicles call BIS_fnc_selectRandom)] call objective_military_populateVehicleDepot;
+      [_depotData, objective_military_vehicles] call objective_military_populateVehicleDepot;
     };
     case "IKRS_intelligence_helo": {
-      [_depotData, (objective_military_helicopters call BIS_fnc_selectRandom)] call objective_military_populateVehicleDepot;
+      [_depotData, (objective_military_helicopters call BIS_fnc_selectRandom)] call objective_military_populateHelicopterDepot;
     };
     default {[_depotData] call objective_military_populateWeaponDepot};
   };
@@ -67,11 +67,47 @@ objective_military_populateWeaponDepot = {
     };
   } forEach (_depotData select 1);
 
-  [(_depotData select 1), 'weapon'] call objective_military_addBriefingAndMarkers;
+  [(_depotData select 0), 'weapon'] call objective_military_addBriefingAndMarkers;
 };
 
 objective_military_populateVehicleDepot = {
-  private ["_depotData", "_boxes", "_vehicleClass", "_type"];
+  private ["_depotData", "_boxes", "_vehicleClasses", "_type"];
+  _depotData = _this select 0;
+  _vehicleClasses = _this select 1;
+  _boxes = [];
+
+  {
+    if (typeOf _x == "Land_CargoBox_V1_F") then {
+      _boxes pushBack ([getPosAsl _x, direction _x] call lootbox_createMilitaryVehicleBox);
+    };
+  } forEach (_depotData select 1);
+
+  {
+    if (typeOf _x in ["C_Offroad_01_F"]) then {
+      private ["_vehicleClass", "_vehicle"];
+      _vehicleClass = _vehicleClasses call BIS_fnc_selectRandom;
+
+      _vehicle = [
+        _vehicleClass,
+        getPos _x,
+        direction _x
+      ] call vehicle_spawnVehicle;
+
+      [_vehicle] call vehicle_needsKey;
+      deleteVehicle _x;
+    };
+
+  } forEach (_depotData select 1);
+ 
+  {
+    [_x, ['IKRS_vehicle_key']] call lootBox_addExtraLoot;
+  } forEach _boxes;
+
+  [(_depotData select 0), 'vehicle'] call objective_military_addBriefingAndMarkers;
+};
+
+objective_military_populateHelicopterDepot = {
+  private ["_depotData", "_boxes", "_vehicleClass"];
   _depotData = _this select 0;
   _vehicleClass = _this select 1;
   _boxes = [];
@@ -83,29 +119,16 @@ objective_military_populateVehicleDepot = {
   } forEach (_depotData select 1);
 
   {
-    if (typeOf _x == "C_Offroad_01_F") then {
-      private ["_vehicle", "_position"];
-
-      _position = getPos _x findEmptyPosition [0,50,_vehicleClass];
-
-      if (count _position == 0) then {
-        systemChat str _position;
-        systemChat "position is nön";
-        _position = getPos _x;
-      };
+    if (typeOf _x == "O_Heli_Light_02_v2_F") then {
+      private ["_vehicle"];
 
       _vehicle = [
         _vehicleClass,
-        _position,
+        getPos _x,
         direction _x
       ] call vehicle_spawnVehicle;
 
       [_vehicle] call vehicle_needsKey;
-    };
-
-    _type = typeOf _x;
-    if (_type in ["Land_HBarrierBig_F" , "Land_Cargo10_light_green_F", "Land_Cargo10_yellow_F"] ) then {
-      deleteVehicle _x;
     };
 
   } forEach (_depotData select 1);

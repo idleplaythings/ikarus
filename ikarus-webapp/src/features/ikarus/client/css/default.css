@@ -88,6 +88,10 @@ header {
   margin-top: 30px;
 }
 
+.add-left {
+  padding-left: 30px;
+}
+
 .add-bottom {
   margin-bottom: 30px;
 }

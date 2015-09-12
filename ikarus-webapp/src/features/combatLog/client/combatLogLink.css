@@ -10,3 +10,7 @@
   background-color: #d9534f;
   color: white;
 }
+
+.combatLog-itemEntry .col-md-2{
+  text-align: center;
+}

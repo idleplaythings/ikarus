@@ -193,6 +193,8 @@ objective_military_validate = {
 
   if (count squads < 2) exitWith {false;};
 
+  if (count ([_squad] call getPlayersInSquad) < 2) exitWith {false;};
+
   ([_squad, "IKRS_intelligence_weapon"] call hasDisconnectedLoot)
   or ([_squad, "IKRS_intelligence_vehicle"] call hasDisconnectedLoot)
   or ([_squad, "IKRS_intelligence_helo"] call hasDisconnectedLoot);

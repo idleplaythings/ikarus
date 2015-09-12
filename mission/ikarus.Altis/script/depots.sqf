@@ -150,13 +150,15 @@ depots_getAmountOfDepotsToSpawn = {
   };
 
   _holds = count ([["hold"]] call objectiveController_getSquadsWithObjectives);
-  _town = floor (_holds / 4);
+  _town = floor (_holds / 2);
 
   //two hold objectives are enough to spawn one depot
+  /*
   if (_holds >= 2 && _town == 0) then {
     _town = 1;
   };
-  
+  */
+
   _supplies = count (["supply"] call objectiveController_getSquadsWithObjective);
   _normal = call depots_getWeighedInitilaAmountOfNormalDepots;
   
@@ -174,6 +176,11 @@ depots_getAmountOfDepotsToSpawn = {
   //if thre are no depots at all, but atleast one assasination, spawn one normal depot.
   if (_town == 0 && _normal == 0 && count (["assasination"] call objectiveController_getSquadsWithObjective) >= 1) then {
     _normal = 1;
+  };
+
+  // If there are for example 3 holds and 1 supply (which would spawn only one town depot), spawn one more normal depot.
+  if (floor ((_holds + _supplies) / 2) > (_town + _normal)) then {
+    _normal = _normal + 1;
   };
 
   //if there are 4 or more squads, change one normal depot to town

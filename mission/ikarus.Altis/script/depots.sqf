@@ -2,6 +2,8 @@ depots_supply_depots = [];
 depots_town_depots = [];
 depots_military_depots = [];
 
+depots_holdPriority = if (random 1 > 0.5) then {true;} else {false;};
+
 depots_create_depots = {
   private ["_centerOfAO"];
   _centerOfAO = _this select 0;
@@ -162,16 +164,30 @@ depots_getAmountOfDepotsToSpawn = {
   _supplies = count (["supply"] call objectiveController_getSquadsWithObjective);
   _normal = call depots_getWeighedInitilaAmountOfNormalDepots;
   
-  //if no depots, but one hold objective, spawn one town depot
+  if (depots_holdPriority) then {
+    //if no depots, but one hold objective, spawn one town depot
+    if (_town == 0 && _normal == 0 && _holds >= 1) then {
+      _town = 1;
+    };
 
-  if (_town == 0 && _normal == 0 && _holds >= 1) then {
-    _town = 1;
-  };
+    //if no depots, but one supply objective, spawn one supply depot
+    if (_town == 0 && _normal == 0 && _supplies >= 1) then {
+      _normal = 1;
+    };
+  } else {
+    //if no depots, but one supply objective, spawn one supply depot
+    if (_town == 0 && _normal == 0 && _supplies >= 1) then {
+      _normal = 1;
+    };
 
-  //if no depots, but one supply objective, spawn one supply depot
-  if (_town == 0 && _normal == 0 && _supplies >= 1) then {
-    _normal = 1;
+    //if no depots, but one hold objective, spawn one town depot
+    if (_town == 0 && _normal == 0 && _holds >= 1) then {
+      _town = 1;
+    };
   };
+    
+
+  
 
   //if thre are no depots at all, but atleast one assasination, spawn one normal depot.
   if (_town == 0 && _normal == 0 && count (["assasination"] call objectiveController_getSquadsWithObjective) >= 1) then {

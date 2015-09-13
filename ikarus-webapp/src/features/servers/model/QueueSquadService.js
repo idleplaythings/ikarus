@@ -142,8 +142,9 @@ QueueSquadService.prototype.evaluateSquad = function(squad) {
       squad.remove();
     }
 
-    //Empty squad, in server, but server not playing yet. Free to leave, but lose inventory
+    //Empty squad, in server, but server not playing yet. Free to leave, DO NOT LOSE INVENTORY
     if (squad.isEmpty() && server && ! server.isPlaying()) {
+      Inventory.returnItems(company, squad);
       Inventory.removeBySquad(squad);
       queue.removeSquadFromQueue(squad);
       server.removeSquadFromGame(squad);

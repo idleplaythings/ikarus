@@ -213,7 +213,7 @@ CombatLogFactory.prototype.getPlayerNamesAndUidsInGame = function (companyId, st
       return left.timeStamp < started;
     }).pop());
 
-    if (player.getCompany()._id == companyId && ! leftBeforeStart && inGame.indexOf(playerEntry) == -1) {
+    if (player.getCompany() && player.getCompany()._id == companyId && ! leftBeforeStart && inGame.indexOf(playerEntry) == -1) {
       inGame.push(playerEntry);
     }
   });

@@ -40,7 +40,14 @@ function getItems () {
   lootEntries.unshift(createLootEntry(this.loot));
   calculateTotals(lootEntries, this.equipment);
 
-  return lootEntries;
+  return lootEntries.filter(function (entry) {
+    entry.items = entry.items.filter(function (item) {
+      console.log(item);
+      return ! item.item.unlimited && item.total !== 0;
+    });
+
+    return entry.items.length > 0;
+  });
 };
 
 function setLootBalance (lootEntries, armaClass, taken) {

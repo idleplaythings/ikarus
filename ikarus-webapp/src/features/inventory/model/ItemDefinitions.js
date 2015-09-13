@@ -337,7 +337,7 @@ ItemDefinitions = [
   createMagazine('HE M203 grenade', 'CUP_6Rnd_HE_M203', 6),
   createMagazine('Smoke M203 grenade', 'CUP_6Rnd_Smoke_M203', 6),
 
-  createWeapon('NLAW launcher', 'CUP_launch_NLAW', ['law'], ['CUP_NLAW_M']),
+  createWeapon('NLAW launcher', 'CUP_launch_NLAW', ['law'], []),
   createMagazine('NLAW AT rocket', 'CUP_NLAW_M', 1),
 
 
@@ -719,6 +719,7 @@ ItemDefinitions = [
     'Warsaw pact, explosives and ammo',
     'IKRS_loot_warsaw_ammo',
     {
+      'CUP_launch_RPG7V': 'd2-1',
       'hlc_VOG25_AK': '2d3+2',
       'CUP_PG7V_M': 'd2',
       'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd2',
@@ -748,7 +749,7 @@ ItemDefinitions = [
     'IKRS_loot_nato_ammo',
     {
       '1Rnd_HE_Grenade_shell': '2d3+2',
-      'NLAW_F': 'd2',
+      'CUP_launch_NLAW': 'd2+1',
       '20Rnd_762x51_Mag': 'd5+3',
       'hlc_200rnd_556x45_T_SAW': 'd3+2',
       'HandGrenade': '4d3+15',
@@ -775,7 +776,7 @@ ItemDefinitions = [
     'IKRS_loot_nato_modern_ammo',
     {
       '1Rnd_HE_Grenade_shell': '2d3+2',
-      'NLAW_F': 'd2+2',
+      'CUP_launch_NLAW': 'd2+2',
       '20Rnd_762x51_Mag': 'd5+3',
       '200Rnd_65x39_cased_Box': 'd3+2',
       'HandGrenade': '4d3+15',

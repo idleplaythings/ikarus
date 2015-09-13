@@ -138,7 +138,7 @@ ServerQueueService.prototype.checkServerIsReadyToAbort = function () {
 
         squad.setConnectionDeadline(null);
         squad.setServerId(null);
-        queue.addToQueue(squad);
+        //queue.addToQueue(squad);
         squad.getInventory().setServerId(null);
       });
 

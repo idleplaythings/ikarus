@@ -749,7 +749,7 @@ ItemDefinitions = [
     'IKRS_loot_nato_ammo',
     {
       '1Rnd_HE_Grenade_shell': '2d3+2',
-      'CUP_launch_NLAW': 'd2+1',
+      'launch_NLAW_F': 'd2+1',
       '20Rnd_762x51_Mag': 'd5+3',
       'hlc_200rnd_556x45_T_SAW': 'd3+2',
       'HandGrenade': '4d3+15',
@@ -776,7 +776,7 @@ ItemDefinitions = [
     'IKRS_loot_nato_modern_ammo',
     {
       '1Rnd_HE_Grenade_shell': '2d3+2',
-      'CUP_launch_NLAW': 'd2+2',
+      'launch_NLAW_F': 'd2+2',
       '20Rnd_762x51_Mag': 'd5+3',
       '200Rnd_65x39_cased_Box': 'd3+2',
       'HandGrenade': '4d3+15',

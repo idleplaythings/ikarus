@@ -65,7 +65,7 @@ module.exports = function(armaSerializer){
       "Primary3",
       "uavModule1",
       "garage1",
-      "MedicalStation1"
+      "shootingrange1"
     ],
     outposts: [
       {x:9500.0, y:11200.0},

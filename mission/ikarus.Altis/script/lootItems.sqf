@@ -92,7 +92,7 @@ lootItems_definitions = [
     [
       ['hlc_lmg_M249E2', 'hlc_200rnd_556x45_T_SAW'],
       ['hlc_m249_pip1', 'hlc_200rnd_556x45_T_SAW'],
-      ['launch_NLAW_F', 'NLAW_F', 'B_AssaultPack_khk']
+      ['launch_NLAW_F', 'B_AssaultPack_khk']
     ]
   ],
 

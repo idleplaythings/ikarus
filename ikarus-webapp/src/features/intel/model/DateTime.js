@@ -56,8 +56,7 @@ Dawn.prototype = Object.create(MissionDateTime.prototype);
 
 Dawn.prototype.getNextTimeTypes = function() {
   return [
-    { time: Dawn, probability: 0.3 },
-    { time: Noon, probability: 0.7 },
+    { time: Noon, probability: 1.0 },
   ];
 };
 
@@ -78,8 +77,8 @@ Noon.prototype = Object.create(MissionDateTime.prototype);
 
 Noon.prototype.getNextTimeTypes = function() {
   return [
-    { time: Noon, probability: 0.6 },
-    { time: Dusk, probability: 0.4 },
+    { time: Noon, probability: 0.7 },
+    { time: Dusk, probability: 0.3 },
   ];
 };
 
@@ -100,8 +99,8 @@ Dusk.prototype = Object.create(MissionDateTime.prototype);
 
 Dusk.prototype.getNextTimeTypes = function() {
   return [
-    { time: Dusk,  probability: 0.5 },
-    { time: Evening, probability: 0.5 },
+    { time: Night, probability: 0.7 },
+    { time: Noon, probability: 0.3 },
   ];
 };
 
@@ -144,8 +143,8 @@ Night.prototype = Object.create(MissionDateTime.prototype);
 
 Night.prototype.getNextTimeTypes = function() {
   return [
-    { time: Night, probability: 0.5 },
-    { time: Dawn,  probability: 0.5 },
+    { time: Night, probability: 0.1 },
+    { time: Dawn,  probability: 0.9 },
   ];
 };
 

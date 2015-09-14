@@ -175,7 +175,7 @@ CombatLogFactory.prototype.getKillsAndDeaths = function (gameStarted, companyId,
       } else {
         text = "<text><player uid='"+victim.getSteamId()+"'>"+victim.getName()+"</player> died of unknown cause</text>";
       }
-    } else {
+    } else if (victim && killer && ( ! victim.getCompany() || victim.getCompany()._id !== companyId)) {
       header = "Kill";
       kills++;
 

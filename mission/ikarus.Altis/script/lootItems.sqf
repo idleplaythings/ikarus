@@ -146,6 +146,10 @@ lootItems_definitions = [
     [
       'B_UAV_01_backpack_F'
     ]
+  ],
+
+  [
+    'backpack', ['B_Carryall_khk']
   ]
 ];
 
@@ -154,10 +158,10 @@ lootItems_populateHoldAirdropBox = {
   _container = _this select 0;
 
 
-  ['IKRS_loot_nato_standard', _container, 2, 2] call lootItems_addRandomAmount;
-  ['IKRS_loot_nato_ammo', _container, 2, 0] call lootItems_addRandomAmount;
-  ['IKRS_loot_armor_medium', _container, 2, 0] call lootItems_addRandomAmount;
-  ['IKRS_loot_valuables', _container, 3, -1] call lootItems_addRandomAmount;
+  //['IKRS_loot_nato_standard', _container, 2, 2] call lootItems_addRandomAmount;
+  //['IKRS_loot_nato_ammo', _container, 2, 0] call lootItems_addRandomAmount;
+  //['IKRS_loot_armor_medium', _container, 2, 0] call lootItems_addRandomAmount;
+  //['IKRS_loot_valuables', _container, 3, -1] call lootItems_addRandomAmount;
   [['modern_tacticool', 'nato_tacticool'], _container, 3, 0] call lootItems_addRandomAmount;
   ['medium_optics', _container, 5, -4] call lootItems_addRandomAmount;
   ['bibods', _container, 3, 1] call lootItems_addRandomAmount;
@@ -165,7 +169,7 @@ lootItems_populateHoldAirdropBox = {
   [['norail_battleRifles', 'nato_mg'], _container, 3, -2] call lootItems_addRandomAmount;
   ['IKRS_loot_key1', _container, 1, 0] call lootItems_addRandomAmount;
   ['uav', _container, 2, -1] call lootItems_addRandomAmount;
-  
+  ['backpack', _container, 1, 0] call lootItems_addRandomAmount;
 };
 
 lootItems_populateSupplyBox = {
@@ -187,11 +191,11 @@ lootItems_populateSupplyBoxLevel_0 = {
   private ["_container"];
   _container = _this select 0;
   
-  ['IKRS_loot_warsaw_old', _container, 2, 1] call lootItems_addRandomAmount;
-  ['IKRS_loot_warsaw_standard', _container, 3, 3] call lootItems_addRandomAmount;
-  ['IKRS_loot_warsaw_ammo', _container, 0, 1] call lootItems_addRandomAmount;
-  ['IKRS_loot_armor_light', _container, 2, 1] call lootItems_addRandomAmount;
-  ['IKRS_loot_armor_medium', _container, 3, -2] call lootItems_addRandomAmount;
+  //['IKRS_loot_warsaw_old', _container, 2, 1] call lootItems_addRandomAmount;
+  //['IKRS_loot_warsaw_standard', _container, 3, 3] call lootItems_addRandomAmount;
+  //['IKRS_loot_warsaw_ammo', _container, 0, 1] call lootItems_addRandomAmount;
+  //['IKRS_loot_armor_light', _container, 2, 1] call lootItems_addRandomAmount;
+  //['IKRS_loot_armor_medium', _container, 3, -2] call lootItems_addRandomAmount;
 
   ['warsaw_tacticool', _container, 10, -8] call lootItems_addRandomAmount;
   ['opfor_light_sniper', _container, 20, -19] call lootItems_addRandomAmount;
@@ -202,27 +206,29 @@ lootItems_populateSupplyBoxLevel_0 = {
   ['hlc_optic_kobra', _container, 4, 3] call lootItems_addRandomAmount;
 
   ['static weapons', _container, 5, -4] call lootItems_addRandomAmount;
+  ['backpack', _container, 1, 0] call lootItems_addRandomAmount;
 };
 
 lootItems_populateSupplyBoxLevel_1 = {
   private ["_container"];
   _container = _this select 0;
 
-  ['IKRS_loot_warsaw_ammo', _container, 2, 1] call lootItems_addRandomAmount;
-  [['warsaw_tacticool', 'modern_tacticool', 'nato_tacticool'], _container, 10, -8] call lootItems_addRandomAmount;
-  [['opfor_light_sniper', 'warsaw_heavy'], _container, 20, -19] call lootItems_addRandomAmount;
+  //['IKRS_loot_warsaw_ammo', _container, 2, 1] call lootItems_addRandomAmount;
+  [['warsaw_tacticool', 'modern_tacticool', 'nato_tacticool'], _container, 3, -1] call lootItems_addRandomAmount;
+  [['opfor_light_sniper', 'warsaw_heavy'], _container, 4, -3] call lootItems_addRandomAmount;
   ['HLC_Optic_PSO1', _container, 3, 0] call lootItems_addRandomAmount;
   ['hlc_optic_kobra', _container, 4, 3] call lootItems_addRandomAmount;
-  ['IKRS_loot_nato_ammo', _container, 2, 0] call lootItems_addRandomAmount;
-  ['IKRS_loot_armor_medium', _container, 2, 2] call lootItems_addRandomAmount;
-  ['IKRS_loot_valuables', _container, 3, 1] call lootItems_addRandomAmount;
-  ['medium_optics', _container, 3, -1] call lootItems_addRandomAmount;
+  //['IKRS_loot_nato_ammo', _container, 2, 0] call lootItems_addRandomAmount;
+  //['IKRS_loot_armor_medium', _container, 2, 2] call lootItems_addRandomAmount;
+  //['IKRS_loot_valuables', _container, 3, 1] call lootItems_addRandomAmount;
+  ['medium_optics', _container, 2, 0] call lootItems_addRandomAmount;
   ['bibods', _container, 3, 1] call lootItems_addRandomAmount;
   ['reflexsights', _container, 5, 2] call lootItems_addRandomAmount;
   [['norail_battleRifles', 'nato_mg'], _container, 3, -1] call lootItems_addRandomAmount;
   ['IKRS_loot_key2', _container, 1, 0] call lootItems_addRandomAmount;
   ['high_scopes', _container, 5, -4] call lootItems_addRandomAmount;
   ['battleRifles', _container, 3, -2] call lootItems_addRandomAmount;
+  ['backpack', _container, 1, 0] call lootItems_addRandomAmount;
   
 };
 
@@ -238,6 +244,7 @@ lootItems_populateManhuntCache = {
   ['IKRS_loot_key1', _container, 1, 0] call lootItems_addRandomAmount;
   ['battleRifles', _container, 3, -2] call lootItems_addRandomAmount;
   ['uav', _container, 3, -2] call lootItems_addRandomAmount;
+  ['backpack', _container, 1, 0] call lootItems_addRandomAmount;
 };
 
 lootItems_populateSupplyBoxLevel_2 = {
@@ -245,16 +252,17 @@ lootItems_populateSupplyBoxLevel_2 = {
   _container = _this select 0;
   
 
-  [['IKRS_loot_nato_modern', 'IKRS_loot_csat_modern'], _container, 2, 1] call lootItems_addRandomAmount;
-  [['IKRS_loot_nato_modern_ammo', 'IKRS_loot_csat_modern_ammo'], _container, 2, 0] call lootItems_addRandomAmount;
-  ['IKRS_loot_armor_heavy', _container, 2, 1] call lootItems_addRandomAmount;
-  ['IKRS_loot_valuables', _container, 3, 2] call lootItems_addRandomAmount;
+  //[['IKRS_loot_nato_modern', 'IKRS_loot_csat_modern'], _container, 2, 1] call lootItems_addRandomAmount;
+  //[['IKRS_loot_nato_modern_ammo', 'IKRS_loot_csat_modern_ammo'], _container, 2, 0] call lootItems_addRandomAmount;
+  //['IKRS_loot_armor_heavy', _container, 2, 1] call lootItems_addRandomAmount;
+  //['IKRS_loot_valuables', _container, 3, 2] call lootItems_addRandomAmount;
   ['medium_optics', _container, 3, 1] call lootItems_addRandomAmount;
   ['bibods', _container, 3, 1] call lootItems_addRandomAmount;
   ['intelligence', _container, 1, 0] call lootItems_addRandomAmount;
-  ['high_scopes', _container, 5, -4] call lootItems_addRandomAmount;
+  ['high_scopes', _container, 3, -2] call lootItems_addRandomAmount;
   ['battleRifles', _container, 2, 0] call lootItems_addRandomAmount;
   [['machineguns', 'mx_special'], _container, 2, 0] call lootItems_addRandomAmount;
+  ['backpack', _container, 1, 0] call lootItems_addRandomAmount;
   
 };
 
@@ -264,6 +272,7 @@ lootItems_populateSupplyBoxLevel_3 = {
   
   ['highend_weapon', _container, 1, 0] call lootItems_addRandomAmount;
   ['high_scopes', _container, 1, 0] call lootItems_addRandomAmount;
+  ['backpack', _container, 1, 0] call lootItems_addRandomAmount;
 };
 
 lootItems_populateSupplyBoxLevel_4 = {
@@ -288,7 +297,6 @@ lootItems_addRandomAmount = {
   _add = _this select 3;
 
   
-
   _amount = [_random, _add] call lootItems_getRandomAmount;
 
   if (_amount <= 0) exitWith {};

@@ -596,13 +596,53 @@ ItemDefinitions = [
     }
   ),
 
+
   createLoot(
-    'Objective renown reward (Loot box level 1)',
+    'Objective reward (Hold para drop)',
+    'IKRS_hold_box_opening_reward',
+    {
+      'Binocular': '3d3+3',
+      'ItemGPS': '3d2+2',
+      'CUP_arifle_M16A2': '2d2-1',
+      'CUP_arifle_M16A4_Base': '4d2-4',
+      'hlc_rifle_M4': '4d2-4',
+      'hlc_rifle_Colt727': '4d2',
+      'hlc_rifle_Colt727_GL': 'd4-2',
+
+      '30Rnd_556x45_Stanag': '8d3+20'
+
+      '1Rnd_HE_Grenade_shell': '4d3+4',
+      'launch_NLAW_F': '2d2+2',
+      '20Rnd_762x51_Mag': 'd5+3',
+      'hlc_200rnd_556x45_T_SAW': 'd3',
+      'HandGrenade': '4d3+15',
+      'SmokeShell': '4d3+15',
+
+      'V_PlateCarrierIA1_dgtl': '4d2',
+      'V_PlateCarrierIA2_dgtl': '4d2',
+      'V_PlateCarrier1_blk': '4d2-4',
+      'V_PlateCarrier1_rgr': '4d2-4',
+      'V_PlateCarrier2_rgr': '4d2-4',
+    
+      'V_PlateCarrierGL_rgr': 'd3-2',
+      'V_PlateCarrierGL_blk': 'd3-2',
+      'V_PlateCarrierGL_mtp': 'd3-2',
+      
+
+      'H_HelmetB': '4d2',
+      'H_HelmetIA': '4d2',
+      'IKRS_renown': '2d3+6',
+      'money': '15d5+150'
+    }
+  ),
+
+  createLoot(
+    'Objective reward (Loot box level 1)',
     'IKRS_box_opening_reward_lvl1',
     {
 
-      'Binocular': 'd5-2',
-      'ItemGPS': 'd5-3',
+      'Binocular': '3d3+4',
+      'ItemGPS': '3d2+2',
       'SMG_02_F': 'd4-2',
       'SMG_01_F': 'd4-2',
       '30Rnd_9x21_Mag': 'd5+2',
@@ -612,28 +652,110 @@ ItemDefinitions = [
       'optic_ACO_grn_smg': 'd5-4',
       'muzzle_snds_acp': 'd8-7',
       'muzzle_snds_L': 'd8-6',
-      'IKRS_renown': '2d3+6'
+      'IKRS_renown': '2d3+6',
+
+
+      'hlc_rifle_ak47':'2d2+2',
+      'hlc_rifle_akm': '2d5+2',
+      'hlc_rifle_rpk': '2d2-2',
+      'hlc_30Rnd_762x39_b_ak': '10d3+20',
+      'hlc_45Rnd_762x39_m_rpk': '3d5+10',
+
+
+      'hlc_rifle_ak74': '3d5+2',
+      'hlc_rifle_aks74': '3d2',
+      'hlc_rifle_rpk74n': '2d2-2',
+      'hlc_rifle_aks74_GL': 'd3-2',
+      'hlc_30Rnd_545x39_B_AK': '10d3+20',
+      'hlc_45Rnd_545x39_t_rpk': '3d5+50',
+ 
+      'CUP_launch_RPG7V': 'd3-1',
+      'hlc_VOG25_AK': '2d3+2',
+      'CUP_PG7V_M': 'd2+1',
+      'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd2',
+      'HandGrenade': '4d3+15',
+      'SmokeShell': '4d3+15',
+
+      'V_TacVest_camo': '2d2+2',
+      'V_TacVest_blk': '2d2+2',
+      'V_TacVest_oli': '2d2+2',
     }
   ),
 
   createLoot(
-    'Objective renown reward (Loot box level 2)',
+    'Objective reward (Loot box level 2)',
     'IKRS_box_opening_reward_lvl2',
     {
-      'IKRS_renown': '4d3+12'
+      'IKRS_renown': '4d3+12',
+      'money': '15d5+150',
+      'CUP_launch_RPG7V': 'd2',
+      'hlc_VOG25_AK': '2d3+2',
+      'CUP_PG7V_M': '3d2+2',
+      'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd4+2',
+      'HandGrenade': '4d3+15',
+      'SmokeShell': '4d3+15',
+      'CUP_lmg_PKM': 'd2-1',
+
+      'V_PlateCarrierIA1_dgtl': '4d2',
+      'V_PlateCarrierIA2_dgtl': '4d2',
+      'V_PlateCarrier1_blk': '4d2-4',
+      'V_PlateCarrier1_rgr': '4d2-4',
+      'V_PlateCarrier2_rgr': '4d2-4',
+    
+      'V_PlateCarrierGL_rgr': 'd3-1',
+      'V_PlateCarrierGL_blk': 'd3-1',
+      'V_PlateCarrierGL_mtp': 'd3-1',
+      
+
+      'H_HelmetB': '4d2',
+      'H_HelmetIA': '4d2',
     }
   ),
 
   createLoot(
-    'Objective renown reward (Loot box level 3)',
-    'IKRS_box_opening_reward_lvl4',
+    'Objective reward (Loot box level 3)',
+    'IKRS_box_opening_reward_lvl3',
     {
-      'IKRS_renown': '6d3+18'
+      'IKRS_renown': '6d3+18',
+    
+      'V_PlateCarrierGL_rgr': '2d3',
+      'V_PlateCarrierGL_blk': '2d3',
+      'V_PlateCarrierGL_mtp': '2d3',
+      
+
+      'H_HelmetB': '4d2',
+      'H_HelmetIA': '4d2',
+      'money': '30d5+300',
+
+      'Binocular': '4d5',
+      'ItemGPS': '4d5',
+      'arifle_MX_F': '2d2',
+      'arifle_MX_GL_F': 'd3-2',
+      'arifle_MXC_F': 'd2',
+
+      '30Rnd_65x39_caseless_mag': '10d3+15'
+
+      '1Rnd_HE_Grenade_shell': '2d3+2',
+      'launch_NLAW_F': 'd2+2',
+      '20Rnd_762x51_Mag': '4d5+3',
+      '200Rnd_65x39_cased_Box': '3d3+2',
+      'HandGrenade': '4d3+15',
+      'SmokeShell': '4d3+15'
+
+      'arifle_Katiba_C_F': 'd2',
+      'arifle_Katiba_F': '2d2',
+      'arifle_Katiba_GL_F': 'd2-1',
+
+      '30Rnd_65x39_caseless_green': '15d3+15'
+ 
+      '1Rnd_HE_Grenade_shell': '2d3+2',
+      'RPG32_F': 'd2+2',
+      '150Rnd_762x54_Box': 'd3+2',
     }
   ),
 
   createLoot(
-    'Objective renown reward (Loot box level 4)',
+    'Objective reward (Loot box level 4)',
     'IKRS_box_opening_reward_lvl4',
     {
       'IKRS_renown': '8d3+24'
@@ -641,7 +763,7 @@ ItemDefinitions = [
   ),
 
   createLoot(
-    'Objective renown reward (Depot held)',
+    'Objective reward (Depot held)',
     'IKRS_hold_renown_reward',
     {
       'IKRS_renown': '8d3+24'

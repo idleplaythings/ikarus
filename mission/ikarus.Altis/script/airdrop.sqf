@@ -44,17 +44,10 @@ airdrop_create = {
     _newDistance < 1000 && _newDistance > _oldDistance;
   }; 
 
-  _box = createVehicle ["IG_supplyCrate_F", getPos _plane, [], 0, "FLYING"];
-
-  clearWeaponCargoGlobal _box;
-  clearMagazineCargoGlobal _box;
-  clearItemCargoGlobal _box;
-  clearBackpackCargoGlobal _box;
-
-  call compile format ["[_box] call %1;", _lootFunction];
+  _box = [getPosASL _plane] call _lootFunction;
+  _box enableSimulation true;
 
   _box call airdrop_drop;
-  
 };
 
 airdrop_getStartPosition = {

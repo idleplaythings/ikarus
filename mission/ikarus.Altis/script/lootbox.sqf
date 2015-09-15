@@ -2,6 +2,25 @@ lootbox_boxes = [];
 
 lootbox_types = ["Land_CargoBox_V1_F", "IKRS_Land_CargoBox_1", "IKRS_Land_CargoBox_2", "IKRS_Land_CargoBox_3"];
 
+lootbox_createHoldBox = {
+  private ["_position","_azimuth"];
+  _position = _this select 0;
+  _azimuth = [_this, 1, random 360] call BIS_fnc_param;
+
+  [
+    _position,
+    _azimuth,
+    "Land_CargoBox_V1_F", //closedObject
+    "I_CargoNet_01_ammo_F", //open container object
+    "", //key
+    "IKRS_hold_box_opening_reward",
+    "",
+    10, 
+    0,
+    "lootItems_populateHoldAirdropBox"
+  ] call lootbox_create;
+};
+
 lootbox_createSupplyBox = {
   private ["_position","_azimuth"];
   _position = _this select 0;
@@ -257,7 +276,7 @@ lootbox_getUnlockIncrement = {
   }; 
   
   if (_timeElapsed > 1800) exitWith {
-    1;
+    _increment;
   };
   
   _increment * 0.3;

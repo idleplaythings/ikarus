@@ -174,8 +174,7 @@ markers_createGuardBriefing = {
     + ' You will get extra rewards for each kill, if you get back to your base alive.'
     + '<br/><br/>Guards can not open supply boxes or hold guard depot. However, you can participate in Signal mission and open the Signal mission cache.<br/><br/>'
     + 'After 30 minutes of gametime has elapsed, you can secure loot boxes by standing next to them. After 35 you can secure them faster. Securing a lootbox will give you money and renown as a reward.'
-    + '<br/><br/>During the first 5 minutes you can choose to paradrop to the objective area from your base.'
-    + '<br/><br/>NOTE: You will not get any loot from loot backpacks you bring to your base!',
+    + '<br/><br/>During the first 5 minutes you can choose to paradrop to the objective area from your base.',
    "Guard duty",
    ""
   ];
@@ -264,7 +263,7 @@ markers_createSupplyBriefring = {
 
   _task setSimpleTaskDescription [
    'There are one or more supply depots on the map. These depots will contain boxes, that can be opened by waiting next to them.'
-    + ' Opened boxes contain loot backpacks that will be converted to usable loot when brought back to the base or outpost.'
+    + ' You will mainly be rewarded for opening the boxes with loot you will get directly to your company armory. Opened boxes do contain some loot that you need to bring back to the base or outpost.'
     + '<br/><br/>NOTE: Boxes in the supply depot can not be opened before 20 minutes of game has elapsed. When 30 minutes has elapsed, the boxes will open faster.'
     + ' When 50 to 55 minutes has elapsed the depot will be destroyed by an airstrike. First plane will by a fly over, next one a bombing run.'
     + '<br/><br/>Following areas contain a supply depot somewhere inside:<br/>'
@@ -299,7 +298,7 @@ markers_createHoldBriefing = {
   _task setSimpleTaskDescription [
    'There are one or more depots on the map, marked with a red circle. '
     + 'If you hold a depot for 10 minutes, you will get location for a supply drop.'
-    + '<br/><br/>NOTE: You cannot hold depot before 25 minutes has elapsed.'
+    + '<br/><br/>NOTE: You cannot hold depot before 30 minutes has elapsed.'
     + ' When 45 to 50 minutes has elapsed the depot will self destruct.'
     + '<br/><br/>Following areas contain a depot somewhere inside:<br/>'
     + _markersText,

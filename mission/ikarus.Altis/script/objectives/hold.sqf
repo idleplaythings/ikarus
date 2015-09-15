@@ -34,7 +34,7 @@ objective_hold_displayName = {
 objective_hold_validate = {
   private ["_squad"];
   _squad = _this select 0;
-  count ([_squad] call getPlayersInSquad) > 0 && count squads > 1;
+  count ([_squad] call getPlayersInSquad) > 2 && count squads > 1;
 };
 
 objective_hold_overridesAppearance = {
@@ -244,7 +244,7 @@ objective_hold_setUpDrop = {
 
     sleep (120 + random 60);
 
-    [_position, lootItems_populateHoldAirdropBox] call airdrop_create;
+    [_position, lootbox_createHoldBox] call airdrop_create;
   };
 };
 

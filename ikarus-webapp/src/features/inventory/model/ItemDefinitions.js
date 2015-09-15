@@ -609,7 +609,7 @@ ItemDefinitions = [
       'hlc_rifle_Colt727': '4d2',
       'hlc_rifle_Colt727_GL': 'd4-2',
 
-      '30Rnd_556x45_Stanag': '8d3+20'
+      '30Rnd_556x45_Stanag': '8d3+20',
 
       '1Rnd_HE_Grenade_shell': '4d3+4',
       'launch_NLAW_F': '2d2+2',
@@ -623,11 +623,11 @@ ItemDefinitions = [
       'V_PlateCarrier1_blk': '4d2-4',
       'V_PlateCarrier1_rgr': '4d2-4',
       'V_PlateCarrier2_rgr': '4d2-4',
-    
+
       'V_PlateCarrierGL_rgr': 'd3-2',
       'V_PlateCarrierGL_blk': 'd3-2',
       'V_PlateCarrierGL_mtp': 'd3-2',
-      
+
 
       'H_HelmetB': '4d2',
       'H_HelmetIA': '4d2',
@@ -668,7 +668,7 @@ ItemDefinitions = [
       'hlc_rifle_aks74_GL': 'd3-2',
       'hlc_30Rnd_545x39_B_AK': '10d3+20',
       'hlc_45Rnd_545x39_t_rpk': '3d5+50',
- 
+
       'CUP_launch_RPG7V': 'd3-1',
       'hlc_VOG25_AK': '2d3+2',
       'CUP_PG7V_M': 'd2+1',
@@ -701,11 +701,11 @@ ItemDefinitions = [
       'V_PlateCarrier1_blk': '4d2-4',
       'V_PlateCarrier1_rgr': '4d2-4',
       'V_PlateCarrier2_rgr': '4d2-4',
-    
+
       'V_PlateCarrierGL_rgr': 'd3-1',
       'V_PlateCarrierGL_blk': 'd3-1',
       'V_PlateCarrierGL_mtp': 'd3-1',
-      
+
 
       'H_HelmetB': '4d2',
       'H_HelmetIA': '4d2',
@@ -717,11 +717,11 @@ ItemDefinitions = [
     'IKRS_box_opening_reward_lvl3',
     {
       'IKRS_renown': '6d3+18',
-    
+
       'V_PlateCarrierGL_rgr': '2d3',
       'V_PlateCarrierGL_blk': '2d3',
       'V_PlateCarrierGL_mtp': '2d3',
-      
+
 
       'H_HelmetB': '4d2',
       'H_HelmetIA': '4d2',
@@ -733,21 +733,21 @@ ItemDefinitions = [
       'arifle_MX_GL_F': 'd3-2',
       'arifle_MXC_F': 'd2',
 
-      '30Rnd_65x39_caseless_mag': '10d3+15'
+      '30Rnd_65x39_caseless_mag': '10d3+15',
 
       '1Rnd_HE_Grenade_shell': '2d3+2',
       'launch_NLAW_F': 'd2+2',
       '20Rnd_762x51_Mag': '4d5+3',
       '200Rnd_65x39_cased_Box': '3d3+2',
       'HandGrenade': '4d3+15',
-      'SmokeShell': '4d3+15'
+      'SmokeShell': '4d3+15',
 
       'arifle_Katiba_C_F': 'd2',
       'arifle_Katiba_F': '2d2',
       'arifle_Katiba_GL_F': 'd2-1',
 
-      '30Rnd_65x39_caseless_green': '15d3+15'
- 
+      '30Rnd_65x39_caseless_green': '15d3+15',
+
       '1Rnd_HE_Grenade_shell': '2d3+2',
       'RPG32_F': 'd2+2',
       '150Rnd_762x54_Box': 'd3+2',
@@ -959,11 +959,11 @@ ItemDefinitions = [
       'V_PlateCarrier1_blk': 'd2-1',
       'V_PlateCarrier1_rgr': 'd2-1',
       'V_PlateCarrier2_rgr': 'd2-1',
-    
+
       'V_PlateCarrierGL_rgr': 'd3-1',
       'V_PlateCarrierGL_blk': 'd3-1',
       'V_PlateCarrierGL_mtp': 'd3-1',
-      
+
 
       'H_HelmetB': 'd2',
       'H_HelmetIA': 'd2',

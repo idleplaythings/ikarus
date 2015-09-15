@@ -89,6 +89,11 @@
     mass = 200;
   };
 
+  class IKRS_merchandise_backpack : IKRS_loot_Backpack
+  {
+    displayName = "Merchandise";
+  };
+
   class IKRS_signal_device : IKRS_loot_Backpack
   {
     displayName = "Signal device";

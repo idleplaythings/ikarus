@@ -4,7 +4,7 @@ var execSync = require('child_process').execSync;
 
 var key = process.argv[2];
 var sign = process.argv[3] || "C:/Steam/SteamApps/common/Arma 3 Tools/DSSignFile/DSSignFile.exe";
-var folder = process.argv[4]|| "C:/Steam/SteamApps/common/Arma 3/@ikarus/addons";
+var folder = process.argv[4]|| "C:/Users/Aatu/Desktop/@Ikarus/addons";
 
 if (! folder || ! sign || ! key) {
   console.log("Usage node signer.js (path to private key) (path to DSSignFile.exe) (path to pbo folder)");

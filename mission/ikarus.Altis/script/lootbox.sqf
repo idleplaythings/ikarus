@@ -53,7 +53,7 @@ lootbox_createAdvancedSupplyBox = {
     "IKRS_loot_key1", //key
     "IKRS_box_opening_reward_lvl2",
     "IKRS_guard_secure_reward",
-    1, 
+    0.75, 
     1,
     "lootItems_populateSupplyBoxLevel_1"
   ] call lootbox_create;
@@ -72,7 +72,7 @@ lootbox_createAdvancedHoldBox = {
     "IKRS_loot_key2", //key
     "IKRS_box_opening_reward_lvl3",
     "IKRS_guard_secure_reward",
-    1, 
+    0.75, 
     1,
     "lootItems_populateSupplyBoxLevel_2"
   ] call lootbox_create;

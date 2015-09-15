@@ -837,9 +837,11 @@ ItemDefinitions = [
       'V_PlateCarrier1_blk': 'd2-1',
       'V_PlateCarrier1_rgr': 'd2-1',
       'V_PlateCarrier2_rgr': 'd2-1',
-      'V_PlateCarrierSpec_rgr': 'd3-2',
-      'V_PlateCarrierSpec_blk': 'd3-2',
-      'V_PlateCarrierSpec_mtp': 'd3-2',
+    
+      'V_PlateCarrierGL_rgr': 'd3-1',
+      'V_PlateCarrierGL_blk': 'd3-1',
+      'V_PlateCarrierGL_mtp': 'd3-1',
+      
 
       'H_HelmetB': 'd2',
       'H_HelmetIA': 'd2',
@@ -852,12 +854,12 @@ ItemDefinitions = [
     {
       'V_PlateCarrierIAGL_dgtl': 'd2',
       'V_PlateCarrierIAGL_oli': 'd2',
-      'V_PlateCarrierGL_rgr': 'd2-1',
-      'V_PlateCarrierGL_blk': 'd2-1',
-      'V_PlateCarrierGL_mtp': 'd2-1',
+      'V_PlateCarrierGL_rgr': 'd2',
+      'V_PlateCarrierGL_blk': 'd2',
+      'V_PlateCarrierGL_mtp': 'd2',
 
-      'H_HelmetB': 'd2',
-      'H_HelmetIA': 'd2',
+      'H_HelmetB': '2d2',
+      'H_HelmetIA': '2d2',
     }
   ),
 

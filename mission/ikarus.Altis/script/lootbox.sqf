@@ -129,7 +129,7 @@ lootbox_createManhuntCache = {
     "IKRS_signal_device", //key
     "IKRS_box_opening_reward_lvl4",
     "",
-    1.5, 
+    1.0, 
     0,
     "lootItems_populateManhuntCache"
   ] call lootbox_create;

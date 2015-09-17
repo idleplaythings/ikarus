@@ -178,10 +178,11 @@ marketDefinitions = [
       'V_PlateCarrierGL_blk':     {money: 500},
       'V_PlateCarrierGL_mtp':     {money: 500},
 
+      /*
       'V_PlateCarrierSpec_rgr':   {money: 400},
       'V_PlateCarrierSpec_blk':   {money: 400},
       'V_PlateCarrierSpec_mtp':   {money: 400},
-
+      */
       'H_HelmetB':                {money: 50},
       'H_HelmetIA':               {money: 50},
     }

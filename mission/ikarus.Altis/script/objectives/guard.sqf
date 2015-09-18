@@ -119,20 +119,6 @@ objective_guard_canOpenLootBoxes = {
   false;
 };
 
-objective_guard_penalize = {
-  private ["_guardData", "_squad", "_penalty"];
-
-  _guardData = _this select 0;
-  _penalty = ["guard_objective_penalty"];
-  _squad = [(_guardData select 0)] call getSquadForUnit;
-
-  if (isNil{_squad}) exitWith {false;};
-    
-  [_squad, _penalty] call addDisconnectedLoot;
-  
-  _guardData set [1, (_guardData select 1) + _penalty ];
-};
-
 objective_guard_reward = {
   private ["_guardData", "_squad", "_reward"];
 

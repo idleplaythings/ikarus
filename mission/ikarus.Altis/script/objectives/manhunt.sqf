@@ -21,6 +21,9 @@ objective_manhunt_joinInProgress = {
   if (isNil{objective_manhunt_transmitterPosition}) exitWith {};
 
   [[], "markers_createManhuntBriefing", _unit, false, true] call BIS_fnc_MP;
+
+  if (objective_manhunt_transmitterDestroyed) exitWith {};
+
   [[objective_manhunt_transmitter], "client_createActivateTransmitterAction", _unit, false, true] call BIS_fnc_MP;
 
   if (isNil{objective_manhunt_transmitterMarkerPosition}) exitWith {};
@@ -50,12 +53,25 @@ objective_manhunt_onObjectivesCreated = {
     [] spawn {
 
       sleep 600;
+
+      if (! objective_manhunt_transmitterActive) then {
         [5000] call objective_manhunt_updateGeneralMarker;
+      };
+
       sleep 300;
+
+      if (! objective_manhunt_transmitterActive) then {
         [1000] call objective_manhunt_updateGeneralMarker;
+      };
+
       sleep 300;
+
+      if (! objective_manhunt_transmitterActive) then {
         [500] call objective_manhunt_updateGeneralMarker;
+      };
+
       sleep 600;
+
       if (! objective_manhunt_transmitterActive) then {
         call objective_manhunt_createExtraSignalDevice;
       };
@@ -331,17 +347,22 @@ objective_manhunt_activateTransmitter = {
   objective_manhunt_transmitterActive = true;
   [_unit, "IKRS_signal_device"] call equipment_removeItemFromUnit;
 
+  [[], "client_removeSignalDeviceAction", _unit, true, false] call BIS_fnc_MP;
+
+  objective_manhunt_transmitterMarkerPosition = objective_manhunt_transmitterPosition;
+  objective_manhunt_transmitterMarkerRadius = 500;
+
   [([_unit] call getSquadForUnit), ["IKRS_signal_transmitter_activation_reward"]] call addDisconnectedLoot;
 
   {
     [
       [
-        objective_manhunt_transmitterPosition,
-        500,
+        objective_manhunt_transmitterMarkerPosition,
+        objective_manhunt_transmitterMarkerRadius,
         objective_manhunt_transmitterActive
       ], 
       "markers_updateManhuntTransmitterMarker",
-      _unit,
+      _x,
       true,
       false
     ] call BIS_fnc_MP;

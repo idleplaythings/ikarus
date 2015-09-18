@@ -8,7 +8,7 @@ unmannedVehicle_checkControllability = {
   private ["_vehicle"];
   _vehicle = _this select 0;
   _vehicle disableTIEquipment true;
-  /*
+
   {
     if ([_vehicle, _x] call unmannedVehicle_canConnectTo) then {
       [_vehicle, _x] call unmannedVehicle_enableConnection;
@@ -16,7 +16,6 @@ unmannedVehicle_checkControllability = {
       [_vehicle, _x] call unmannedVehicle_disableConnection;
     };
   } forEach (call getAllPlayers);
-  */
 };
 
 unmannedVehicle_canConnectTo = {
@@ -25,12 +24,10 @@ unmannedVehicle_canConnectTo = {
   _unit = _this select 1;
 
   if (_unit in UAVControl _vehicle) exitWith {
-    systemChat "controlling";
     true;
   };
 
   if (_unit distance _vehicle < 5 && ! isUAVConnected _vehicle) exitWith {
-    systemChat "close and free";
     true;
   };
 

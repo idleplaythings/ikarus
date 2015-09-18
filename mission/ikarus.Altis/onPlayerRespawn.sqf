@@ -83,6 +83,7 @@ player addEventHandler ["InventoryOpened", {
   _result;
 }];
 
+/*
 waitAndCloseUAVTerminal = {
   waitUntil {
     //sleep 0.1;
@@ -95,7 +96,9 @@ waitAndCloseUAVTerminal = {
   call waitAndCloseUAVTerminal;
 };
 
+
 [] spawn waitAndCloseUAVTerminal;
+*/
 
 lastConnectedPlayerUid = [getPlayerUID _unit, _unit];
 

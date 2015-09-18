@@ -8,6 +8,7 @@ objectiveDialog_showing = false;
 objectiveDialog_show = {
   private ["_index"];
   disableSerialization;
+  call newsDialog_close;
 
   if (objectiveDialog_showing) exitWith {};
 

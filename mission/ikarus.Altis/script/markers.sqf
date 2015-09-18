@@ -364,6 +364,7 @@ markers_createManhuntBriefing = {
     + '<br/><br/>During the mission you will get intel displaying approximate loaction of the transmitter. These will be blue solid circles on the map. Blue borders will be distance from triangulation.'
     + '<br/><br/>If the transmitter has not been activated in 30 minutes an extra signal device will activate on the map.'
     + '<br/><br/>If the transmitter has not been activated before 45 minutes, it will self destruct and and signal mission will fail'
+    + '<br/><br/>You will get rewards if you manage to activate the transmitter or open the dropped box. If you manage both, you will get some extra rewards.'
     + '<br/><br/>NOTE: Enemies can access your base container if it has a Signal Device inside!',
    "Signal",
    ""

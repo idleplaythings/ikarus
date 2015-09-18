@@ -2,6 +2,7 @@
 [] execVM "script\markers.sqf";
 [] execVM "script\client.sqf";
 [] execVM "script\dialog\objectiveDialog.sqf";
+[] execVM "script\dialog\newsDialog.sqf";
   
 if (! isServer) exitwith {};
 

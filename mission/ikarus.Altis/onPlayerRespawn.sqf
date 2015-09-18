@@ -100,6 +100,8 @@ waitAndCloseUAVTerminal = {
 [] spawn waitAndCloseUAVTerminal;
 */
 
+call newsDialog_create;
+
 lastConnectedPlayerUid = [getPlayerUID _unit, _unit];
 
 publicVariableServer "lastConnectedPlayerUid";

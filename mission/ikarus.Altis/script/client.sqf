@@ -1,3 +1,35 @@
+client_signalTransmitterAction = nil;
+client_signalTransmitter = nil;
+
+client_createActivateTransmitterAction = {
+
+  if (! isNil {client_signalTransmitterAction}) exitWith {};
+
+  client_signalTransmitter = _this select 0;
+
+  client_signalTransmitterAction = client_signalTransmitter addAction [
+    'Activate signal transmitter',
+    {
+      
+      if (client_signalTransmitter distance player > 2.5) exitWith {
+        ["You need to be closer to the transmitter.", "signalTransmitter"] call client_textMessage;
+      };
+
+      if (backpack player != "IKRS_signal_device") exitWith {
+        ["You need a signal device to activate the transmitter.", "signalTransmitter"] call client_textMessage;
+      };
+
+      activateSignalTransmitter = [player];
+      publicVariableServer "activateSignalTransmitter";
+
+      //for single player testing
+      if (isServer) then {
+        [player] call objective_manhunt_activateTransmitter;
+      };
+    }
+  ];
+};
+
 client_guardParaDropAction = nil;
 
 client_setUpGuardParadropAction = {

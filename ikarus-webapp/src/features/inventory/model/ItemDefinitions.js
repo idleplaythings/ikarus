@@ -608,6 +608,7 @@ ItemDefinitions = [
       'hlc_rifle_M4': '4d2-4',
       'hlc_rifle_Colt727': '4d2',
       'hlc_rifle_Colt727_GL': 'd4-2',
+      'CUP_optic_CompM4': 'd2+1',
 
       '30Rnd_556x45_Stanag': '8d3+20',
 

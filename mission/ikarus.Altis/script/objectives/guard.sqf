@@ -109,7 +109,7 @@ objective_guard_onDisconnected = {
     
     while {_amount > 0} do {
       _amount = _amount -1;
-      [_squad, ["guard_objective_reward2"]] call addDisconnectedLoot;
+      [_squad, ["IKRS_guard_survive_reward"]] call addDisconnectedLoot;
     };
    
   };
@@ -137,7 +137,7 @@ objective_guard_reward = {
   private ["_guardData", "_squad", "_reward"];
 
   _guardData = _this select 0;
-  _reward = ["guard_objective_reward1"];
+  _reward = ["IKRS_guard_kill_reward"];
   _squad = [(_guardData select 0)] call getSquadForUnit;
 
   if (isNil{_squad}) exitWith {false;};

@@ -58,24 +58,5 @@ reinforcements_moveToStart = {
   [_unit, _squad] call player_setSquadVariableForUnit;
   [_unit] call hideout_createHidoutMarkerForPlayer;
 
-  [_unit] call reinforcements_paradrop;
-};
-
-reinforcements_paradrop = {
-  private ["_unit", "_players", "_squadLeader", "_squad", "_position"];
-  _unit = _this select 0;
-  _squad = [_unit] call getSquadForUnit;
-  _players = [_squad] call getPlayersInSquad;
-  _squadLeader = if (count _players > 0) then {_players select 0} else {nil;};
-
-  if (isNil{_squadLeader}|| _unit == _squadLeader || [_unit, 'guard'] call objectiveController_unitHasObjective) exitWith {
-    [_unit, _squad] call hideout_movePlayerToHideout;
-  };
-
-  _position = getPos _squadLeader;
-  _position = [_position, 0, 1000] call popoRandom_findLand;
-
-  _position set [2, 5000];
-  _unit setPos _position;
-  [[], "client_addParachute", _unit, false, false] call BIS_fnc_MP;
+  [_unit, _squad] call hideout_movePlayerToHideout;
 };

@@ -163,7 +163,7 @@ lootItems_populateHoldAirdropBox = {
   //['IKRS_loot_armor_medium', _container, 2, 0] call lootItems_addRandomAmount;
   //['IKRS_loot_valuables', _container, 3, -1] call lootItems_addRandomAmount;
   [['modern_tacticool', 'nato_tacticool'], _container, 3, 0] call lootItems_addRandomAmount;
-  ['medium_optics', _container, 5, -4] call lootItems_addRandomAmount;
+  ['medium_optics', _container, 2, -1] call lootItems_addRandomAmount;
   ['bibods', _container, 3, 1] call lootItems_addRandomAmount;
   ['reflexsights', _container, 5, 2] call lootItems_addRandomAmount;
   [['norail_battleRifles', 'nato_mg'], _container, 3, -2] call lootItems_addRandomAmount;
@@ -237,7 +237,7 @@ lootItems_populateManhuntCache = {
   _container = _this select 0;
 
   [['modern_tacticool', 'nato_tacticool'], _container, 3, 1] call lootItems_addRandomAmount;
-  ['medium_optics', _container, 3, -2] call lootItems_addRandomAmount;
+  ['medium_optics', _container, 1, 0] call lootItems_addRandomAmount;
   ['bibods', _container, 3, 1] call lootItems_addRandomAmount;
   ['reflexsights', _container, 3, 2] call lootItems_addRandomAmount;
   [['norail_battleRifles', 'nato_mg'], _container, 2, 1] call lootItems_addRandomAmount;

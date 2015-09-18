@@ -184,19 +184,21 @@ markers_createGuardBriefing = {
 };
 
 markers_createSupplyDropMarker = {
-  private ["_position", "_task"];
+  private ["_position", "_markerName", "_task"];
   _position = _this select 0;
+  _markerName = _this select 1;
  
-  _name = "drop" + str _position;
-  _marker = createMarkerLocal [_name, _position];
-  _marker setMarkerTypeLocal "hd_objective";
+  if (isNil{_markerName}) then {
+    _markerName = "drop" + str _position;
+    _marker = createMarkerLocal [_name, _position];
+    _marker setMarkerTypeLocal "hd_objective";
+  };
 
   _task = player createSimpleTask ["SupplyDrop"];
 
   _task setSimpleTaskDescription [
-   'A supply drop is happening in next 10 minutes at this <marker name="'+_name+'">location.</marker>'
-    + '<br/><br/>A helicopter will drop a weapon cache you are free to loot.'
-    + ' Remember to bring loot back you your base.',
+   'Supply drop is happening soon at this <marker name="'+_markerName+'">location.</marker>'
+    + ' Helicopter will drop a weapon cache you are free to loot.',
    "Supply drop",
    ""
   ];
@@ -355,10 +357,13 @@ markers_createManhuntBriefing = {
 
   _task setSimpleTaskDescription [
    'This mission has squads with an active Signal device backpack. After 2 minutes of game time has elapsed'
-    + ' these signal devices will be marked on the map as red squares. Map also contains a cache that can be found using the Signal device for triangulation.'
-    + ' If you happen to get your hands to an signal device you can use triangulate context menu action. Triangulation will tell you your distance from the cache, with +/- 5% error margin.'
-    + '<br/><br/>You will also need the Signal device to open the cache. If you do not have a signal device of your own, you have to hunt down one of the red squares on the map.'
-    + '<br/><br/>During the mission you will get intel displaying approximate loaction of the cache. These will be blue solid circles on the map. Blue borders will be distance from triangulation.'
+    + ' these signal devices will be marked on the map as red squares. Map also contains a transmitter that can be found using the Signal device for triangulation.'
+    + ' If you happen to get your hands to an signal device you can use triangulate context menu action. Triangulation will tell you your distance from the transmitter, with +/- 5% error margin.'
+    + '<br/><br/>When you find the transmitter, you must activate it consuming your signal device. If you do not have a signal device of your own, you have to hunt down one of the red squares on the map.'
+    + ' Some time after the transmitter is activated an supply cache will be air dropped somewhere on 500m radius of the transmitter.'
+    + '<br/><br/>During the mission you will get intel displaying approximate loaction of the transmitter. These will be blue solid circles on the map. Blue borders will be distance from triangulation.'
+    + '<br/><br/>If the transmitter has not been activated in 30 minutes an extra signal device will activate on the map.'
+    + '<br/><br/>If the transmitter has not been activated before 45 minutes, it will self destruct and and signal mission will fail'
     + '<br/><br/>NOTE: Enemies can access your base container if it has a Signal Device inside!',
    "Signal",
    ""
@@ -441,21 +446,28 @@ markers_updateTriangulationMarkers = {
 
 markers_manhuntCacheMarker = nil;
 
-markers_updateManhuntCacheMarker  = {
-  private ["_distance", "_position", "_marker"];
+markers_updateManhuntTransmitterMarker  = {
+  private ["_distance", "_position", "_marker", "_color", "_name"];
   _position = _this select 0;
   _distance = _this select 1;
+  _active = _this select 2;
+  _color = if (_active) then {"ColorGreen"} else {"ColorBlue"};
 
   if ! (isNil {markers_manhuntMarker}) then {
     deleteMarkerLocal markers_manhuntMarker;
   };
 
-  _marker = createMarkerLocal ["manhuntCache" + (str _position), _position];
+  _name = ("manhuntCache" + (str _position));
+  _marker = createMarkerLocal [_name, _position];
   _marker setMarkerBrushLocal "Solid";
-  _marker setMarkerColorLocal "ColorBlue";
+  _marker setMarkerColorLocal _color;
   _marker setMarkerShapeLocal "ELLIPSE";
   _marker setMarkerSizeLocal [_distance, _distance];
   _marker setMarkerAlphaLocal 0.3;
+
+  if (_active) then {
+    [_position, _name] call markers_createSupplyDropMarker;
+  };
 
   markers_manhuntMarker = _marker;
 };

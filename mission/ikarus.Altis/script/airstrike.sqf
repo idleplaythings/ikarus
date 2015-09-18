@@ -36,7 +36,7 @@ airStrike_createBomb = {
   _target = _this select 0;
   _offset = _this select 1;
   _direction = random 360;
-  _position = getPos _target;
+  _position = if (typeName _target == "ARRAY") then {_target;} else {getPos _target;};
   _position set [2, ((_position select 2) + 10)];
   "Bomb_03_F" createVehicle ([_direction, _offset, _position] call getPositionInDirection);
 };

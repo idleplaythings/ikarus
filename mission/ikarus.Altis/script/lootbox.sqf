@@ -126,10 +126,10 @@ lootbox_createManhuntCache = {
     _azimuth,
     "IKRS_Land_CargoBox_1", //closedObject
     "B_CargoNet_01_ammo_F", //open container object
-    "IKRS_signal_device", //key
-    "IKRS_box_opening_reward_lvl4",
+    "", //key
+    "IKRS_signal_box_opening_reward",
     "",
-    1.5, 
+    10, 
     0,
     "lootItems_populateManhuntCache"
   ] call lootbox_create;
@@ -436,7 +436,8 @@ lootbox_checkBoxes = {
       "_squad",
       "_key",
       "_hasKey",
-      "_isUnconscious"
+      "_isUnconscious",
+      "_vectorUp"
     ];
 
     _box = _x;
@@ -446,7 +447,7 @@ lootbox_checkBoxes = {
       _closestDistance = 1000;
       _key = _box getVariable ["key", ""];
       {
-        if (_x distance _box < 2 && [_x, _box] call lootBox_getVerticalDistance < 0.5) then {
+        if (_x distance _box < 2 && [_x, _box] call lootBox_getVerticalDistance < 1) then {
           _canOpen = true;
           _squad = [_x] call getSquadForUnit;
         

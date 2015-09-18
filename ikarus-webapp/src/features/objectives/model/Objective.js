@@ -51,6 +51,11 @@ Objective.prototype.getAdditionalLoot = function(loot) {
       result = result.concat(lootEntry);
     });
 
+  if (loot.indexOf('IKRS_signal_transmitter_activation_reward') !== -1
+    && loot.indexOf('IKRS_signal_box_opening_reward') !== -1) {
+    result.push('IKRS_signal_total_completion');
+  }
+
   return result;
 };
 

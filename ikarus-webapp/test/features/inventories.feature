@@ -104,7 +104,7 @@ Feature: Inventories
     Then no squad inventories should exists
     Then no squads should exist
 
-  Scenario: Players disconnecting after squad is locked will NOT get the loot back
+  Scenario: Players disconnecting after squad is locked will get the loot back
     Given player "John Doe" with Steam ID "123" exists
     And server "test-server" is registered
     And I am logged in as server "test-server"
@@ -119,11 +119,11 @@ Feature: Inventories
     And Squad that has player "John Doe" should be playing on server "test-server"
     And "Manatee-Men" has "5" "CUP_arifle_AK74" in armory
     And I leave my squad
-    And "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
+    And "Manatee-Men" should have "6" "CUP_arifle_AK74" in armory
     And player "John Doe" should not have a squad
     And I am logged in as server "test-server"
     When server "test-server" has status "idle"
-    Then "Manatee-Men" should have "5" "CUP_arifle_AK74" in armory
+    Then "Manatee-Men" should have "6" "CUP_arifle_AK74" in armory
     Then no squad inventories should exists
     Then no squads should exist
 

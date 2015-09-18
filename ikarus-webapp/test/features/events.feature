@@ -136,7 +136,7 @@ Feature: GameEvent
     And servers have been checked for game start
     And Squad that has player "John Doe" should be playing on server "test-server"
     And status for server "test-server" should be "playing"
-    When mission loot "guard_objective_reward2" is sent from server "test-server" to squad containing "John Doe" from objective "Guard"
+    When mission loot "IKRS_guard_survive_reward" is sent from server "test-server" to squad containing "John Doe" from objective "Guard"
     Then server "test-server" and player "John Doe" should have mission loot event
 
   Scenario: Raid event

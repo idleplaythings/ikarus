@@ -507,6 +507,33 @@ ItemDefinitions = [
   ),
 
   createLoot(
+    'Objective reward (Signal total completion)',
+    'IKRS_signal_total_completion',
+    {
+      'IKRS_renown': '4d3+12',
+      'money': '15d5+100'
+    }
+  ),
+
+  createLoot(
+    'Objective reward (Signal transmitter activated)',
+    'IKRS_signal_transmitter_activation_reward',
+    {
+      'IKRS_renown': '4d3+12',
+      'money': '10d5+50'
+    }
+  ),
+
+  createLoot(
+    'Objective reward (Signal para drop)',
+    'IKRS_signal_box_opening_reward',
+    {
+      'IKRS_renown': '4d3+12',
+      'money': '20d5+100'
+    }
+  ),
+
+  createLoot(
     'Kill reward',
     'IKRS_kill_reward',
     {

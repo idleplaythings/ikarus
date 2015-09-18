@@ -3,6 +3,8 @@ objective_manhunt_transmitterMarkerPosition = nil;
 objective_manhunt_transmitterMarkerRadius = 0;
 objective_manhunt_transmitter = nil;
 objective_manhunt_transmitterActive = false;
+objective_manhunt_transmitterObjects = nil;
+objective_manhunt_transmitterDestroyed = false;
 
 objective_manhunt_construct = {};
 
@@ -56,7 +58,26 @@ objective_manhunt_onObjectivesCreated = {
       sleep 600;
       if (! objective_manhunt_transmitterActive) then {
         call objective_manhunt_createExtraSignalDevice;
-      }
+      };
+
+      sleep 1200;
+
+      if (! objective_manhunt_transmitterActive) then {
+        playSound3D ["A3\Sounds_F\sfx\alarm_independent.wss", nil, false, objective_manhunt_transmitterPosition]; //alarm
+        sleep 10;
+        playSound3D ["A3\Sounds_F\sfx\alarm_independent.wss", nil, false, objective_manhunt_transmitterPosition]; //alarm
+        sleep 10;
+        playSound3D ["A3\Sounds_F\sfx\alarm_independent.wss", nil, false, objective_manhunt_transmitterPosition]; //alarm
+
+        sleep 10;
+
+        {
+          deleteVehicle _x;
+        } forEach objective_manhunt_transmitterObjects;
+
+        [objective_manhunt_transmitterPosition, 0] call airStrike_createBomb;
+        objective_manhunt_transmitterDestroyed = true;
+      };
     };
   };
 };
@@ -108,7 +129,7 @@ objective_manhunt_createTransmitter = {
 
   _building = nearestBuilding _position;
 
-  if (_building distance _position < 100) then {
+  if (_building distance _position < 500) then {
     _finalPosition = ([_building] call BIS_fnc_buildingPositions) call BIS_fnc_selectRandom;
     _direction = getDir _building;
   } else {
@@ -127,7 +148,7 @@ objective_manhunt_createTransmitter = {
     call objective_manhunt_transmitterData
   ] call houseFurnisher_furnish_location;
 
-  player setPos _finalPosition;
+  objective_manhunt_transmitterObjects = _objects;
 
   {
     if (typeOf _x == "Land_SatellitePhone_F") then {
@@ -298,6 +319,8 @@ objective_manhunt_activateTransmitter = {
   if (objective_manhunt_transmitterActive) exitWith {
     ["Transmitter is already active!", _unit, 'signalTransmitter'] call broadcastMessageTo; 
   };
+
+  if (objective_manhunt_transmitterDestroyed) exitWith {};
 
   if  (backpack _unit != "IKRS_signal_device") exitWith {};
 

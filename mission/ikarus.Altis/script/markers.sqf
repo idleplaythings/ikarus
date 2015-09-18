@@ -357,10 +357,13 @@ markers_createManhuntBriefing = {
 
   _task setSimpleTaskDescription [
    'This mission has squads with an active Signal device backpack. After 2 minutes of game time has elapsed'
-    + ' these signal devices will be marked on the map as red squares. Map also contains a cache that can be found using the Signal device for triangulation.'
-    + ' If you happen to get your hands to an signal device you can use triangulate context menu action. Triangulation will tell you your distance from the cache, with +/- 5% error margin.'
-    + '<br/><br/>You will also need the Signal device to open the cache. If you do not have a signal device of your own, you have to hunt down one of the red squares on the map.'
-    + '<br/><br/>During the mission you will get intel displaying approximate loaction of the cache. These will be blue solid circles on the map. Blue borders will be distance from triangulation.'
+    + ' these signal devices will be marked on the map as red squares. Map also contains a transmitter that can be found using the Signal device for triangulation.'
+    + ' If you happen to get your hands to an signal device you can use triangulate context menu action. Triangulation will tell you your distance from the transmitter, with +/- 5% error margin.'
+    + '<br/><br/>When you find the transmitter, you must activate it consuming your signal device. If you do not have a signal device of your own, you have to hunt down one of the red squares on the map.'
+    + ' Some time after the transmitter is activated an supply cache will be air dropped somewhere on 500m radius of the transmitter.'
+    + '<br/><br/>During the mission you will get intel displaying approximate loaction of the transmitter. These will be blue solid circles on the map. Blue borders will be distance from triangulation.'
+    + '<br/><br/>If the transmitter has not been activated in 30 minutes an extra signal device will activate on the map.'
+    + '<br/><br/>If the transmitter has not been activated before 45 minutes, it will self destruct and and signal mission will fail'
     + '<br/><br/>NOTE: Enemies can access your base container if it has a Signal Device inside!',
    "Signal",
    ""

@@ -20,6 +20,10 @@ Meteor.methods({
     var heloSlots = BaseModule.calculateHeloSlots(modules);
     var staticSlots = BaseModule.calculateStaticSlots(modules);
 
+    if (item.hasTags('signal') && squadInventory.getAmountOfItemsWithTag('signal') > 0) {
+      return;
+    }
+
     if (item.hasTags('vehicle') && squadInventory.getAmountOfItemsWithTag('vehicle') > (vehicleSlots - 1)) {
       return;
     }

@@ -55,7 +55,7 @@ ItemDefinitions = [
   createGeneric('Intelligence (Weapon depot)', 'IKRS_intelligence_weapon', ['resource', 'missionkey']),
   createGeneric('Intelligence (Vehicle depot)', 'IKRS_intelligence_vehicle', ['resource', 'missionkey']),
   createGeneric('Intelligence (Helicopter depot)', 'IKRS_intelligence_helo', ['resource', 'missionkey']),
-  createGeneric('Signal device', 'IKRS_signal_device', ['resource', 'missionkey']),
+  createGeneric('Signal device', 'IKRS_signal_device', ['resource', 'missionkey', 'signal']),
 
 
   createGeneric('Money', 'money', ['resource', 'non mission item']),

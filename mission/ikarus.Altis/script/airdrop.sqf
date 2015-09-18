@@ -96,6 +96,7 @@ airDrop_createHelo = {
   _targetPosition = _this select 0;
   
   _start = [_targetPosition] call airdrop_getStartPosition;
+  systemChat str _start;
   _offset = (_start select 0) + airdrop_heloCount * 100;
   _start set [0, _offset];
   

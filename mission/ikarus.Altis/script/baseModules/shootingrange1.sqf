@@ -51,5 +51,5 @@ baseModule_shootingrange1_data = {
     ["Land_SurvivalRadio_F",61.0701,4.88836,261.801,0.782829,true,true],
     ["Land_Magazine_rifle_F",67.4183,4.57053,318.872,0.81064,true,true],
     ["Land_Magazine_rifle_F",65.9666,4.57156,256.498,0.81064,true,true]
-  ]
+  ];
 };

@@ -79,6 +79,7 @@ objective_manhunt_onObjectivesCreated = {
       sleep 1200;
 
       if (! objective_manhunt_transmitterActive) then {
+        objective_manhunt_transmitterDestroyed = true;
         playSound3D ["A3\Sounds_F\sfx\alarm_independent.wss", nil, false, objective_manhunt_transmitterPosition]; //alarm
         sleep 10;
         playSound3D ["A3\Sounds_F\sfx\alarm_independent.wss", nil, false, objective_manhunt_transmitterPosition]; //alarm
@@ -92,7 +93,6 @@ objective_manhunt_onObjectivesCreated = {
         } forEach objective_manhunt_transmitterObjects;
 
         [objective_manhunt_transmitterPosition, 0] call airStrike_createBomb;
-        objective_manhunt_transmitterDestroyed = true;
       };
     };
   };

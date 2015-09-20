@@ -153,97 +153,88 @@ lootTable_setDefinitions = [
   ]
 ];
 
-lootTable_supplyBox = {
-  [
-    ['warsaw_tacticool', 10, -8],
-    ['opfor_light_sniper', 20, -19],
-    ['warsaw_heavy', 3, -2],
-    ['warsaw_misc', 2, -1],
-    ['HLC_Optic_PSO1', 5, -4],
-    ['hlc_optic_kobra', 4, 3],
-    ['static weapons', 5, -4],
-    ['backpack', 1, 0]
-  ];
-};
+lootTable_supplyBox = [
+  ['warsaw_tacticool', 10, -8],
+  ['opfor_light_sniper', 20, -19],
+  ['warsaw_heavy', 3, -2],
+  ['warsaw_misc', 2, -1],
+  ['HLC_Optic_PSO1', 5, -4],
+  ['hlc_optic_kobra', 4, 3],
+  ['static weapons', 5, -4],
+  ['backpack', 1, 0]
+];
 
-lootTable_advancedSupplyBox = {
-  [
-    //['IKRS_loot_warsaw_ammo', _container, 2, 1] call lootItems_addRandomAmount;
-    //['IKRS_loot_nato_ammo', _container, 2, 0] call lootItems_addRandomAmount;
-    //['IKRS_loot_armor_medium', _container, 2, 2] call lootItems_addRandomAmount;
-    //['IKRS_loot_valuables', _container, 3, 1] call lootItems_addRandomAmount;
-    [['warsaw_tacticool', 'modern_tacticool', 'nato_tacticool'], 3, -1],
-    [['opfor_light_sniper', 'warsaw_heavy'], 4, -3],
-    ['HLC_Optic_PSO1', 3, 0],
-    ['hlc_optic_kobra', 4, 3],
-    ['medium_optics', 2, 0],
-    ['bibods', 3, 1],
-    ['reflexsights', 5, 2],
-    [['norail_battleRifles', 'nato_mg'], 3, -1],
-    ['IKRS_loot_key2', 1, 0],
-    ['high_scopes', 5, -4],
-    ['battleRifles', 3, -2],
-    ['backpack', 1, 0]       
-  ];
-};
 
-lootTable_holdAirdrop = {
-  [
-    //['IKRS_loot_nato_standard', _container, 2, 2] call lootItems_addRandomAmount;
-    //['IKRS_loot_nato_ammo', _container, 2, 0] call lootItems_addRandomAmount;
-    //['IKRS_loot_armor_medium', _container, 2, 0] call lootItems_addRandomAmount;
-    //['IKRS_loot_valuables', _container, 3, -1] call lootItems_addRandomAmount;
-    [['modern_tacticool', 'nato_tacticool'], 3, 0],
-    ['medium_optics', 2, -1],
-    ['bibods', 3, 1],
-    ['reflexsights', 5, 2],
-    [['norail_battleRifles', 'nato_mg'], 3, -2],
-    ['IKRS_loot_key1', 1, 0],
-    ['uav', 2, -1],
-    ['backpack', 1, 0]
-  ];
-};
+lootTable_advancedSupplyBox = [
+  //['IKRS_loot_warsaw_ammo', _container, 2, 1] call lootItems_addRandomAmount;
+  //['IKRS_loot_nato_ammo', _container, 2, 0] call lootItems_addRandomAmount;
+  //['IKRS_loot_armor_medium', _container, 2, 2] call lootItems_addRandomAmount;
+  //['IKRS_loot_valuables', _container, 3, 1] call lootItems_addRandomAmount;
+  [['warsaw_tacticool', 'modern_tacticool', 'nato_tacticool'], 3, -1],
+  [['opfor_light_sniper', 'warsaw_heavy'], 4, -3],
+  ['HLC_Optic_PSO1', 3, 0],
+  ['hlc_optic_kobra', 4, 3],
+  ['medium_optics', 2, 0],
+  ['bibods', 3, 1],
+  ['reflexsights', 5, 2],
+  [['norail_battleRifles', 'nato_mg'], 3, -1],
+  ['IKRS_loot_key2', 1, 0],
+  ['high_scopes', 5, -4],
+  ['battleRifles', 3, -2],
+  ['backpack', 1, 0]       
+];
 
-lootTable_advancedHoldBox = {
-  [
-    //[['IKRS_loot_nato_modern', 'IKRS_loot_csat_modern'], _container, 2, 1] call lootItems_addRandomAmount;
-    //[['IKRS_loot_nato_modern_ammo', 'IKRS_loot_csat_modern_ammo'], _container, 2, 0] call lootItems_addRandomAmount;
-    //['IKRS_loot_armor_heavy', _container, 2, 1] call lootItems_addRandomAmount;
-    //['IKRS_loot_valuables', _container, 3, 2] call lootItems_addRandomAmount;
-    ['medium_optics', 3, 1],
-    ['bibods', 3, 1],
-    ['intelligence', 1, 0],
-    ['high_scopes', 3, -2],
-    ['battleRifles', 2, 0],
-    [['machineguns', 'mx_special'], 2, 0],
-    ['backpack', 1, 0]
-  ];
-};
 
-lootTable_signalCache = {
-  [
-    [['modern_tacticool', 'nato_tacticool'], 3, 1],
-    ['medium_optics', 1, 0],
-    ['bibods', 3, 1],
-    ['reflexsights', 3, 2],
-    [['norail_battleRifles', 'nato_mg'], 2, 1],
-    ['IKRS_loot_key1', 1, 0],
-    ['battleRifles', 3, -2],
-    ['uav', 3, -2],
-    ['backpack', 1, 0]
-  ];
-};
+lootTable_holdAirdrop = [
+  //['IKRS_loot_nato_standard', _container, 2, 2] call lootItems_addRandomAmount;
+  //['IKRS_loot_nato_ammo', _container, 2, 0] call lootItems_addRandomAmount;
+  //['IKRS_loot_armor_medium', _container, 2, 0] call lootItems_addRandomAmount;
+  //['IKRS_loot_valuables', _container, 3, -1] call lootItems_addRandomAmount;
+  [['modern_tacticool', 'nato_tacticool'], 3, 0],
+  ['medium_optics', 2, -1],
+  ['bibods', 3, 1],
+  ['reflexsights', 5, 2],
+  [['norail_battleRifles', 'nato_mg'], 3, -2],
+  ['IKRS_loot_key1', 1, 0],
+  ['uav', 2, -1],
+  ['backpack', 1, 0]
+];
 
-lootTable_highEndWeapons = {
-  [
-    ['highend_weapon', 1, 0],
-    ['high_scopes', 1, 0],
-    ['backpack', 1, 0]
-  ];
-};
 
-lootTable_vehicleDepotBox = {
-  [
-    [['battleRifles', 'modern_tacticool', 'nato_tacticool'], 2, 0]
-  ];
-};
+lootTable_advancedHoldBox = [
+  //[['IKRS_loot_nato_modern', 'IKRS_loot_csat_modern'], _container, 2, 1] call lootItems_addRandomAmount;
+  //[['IKRS_loot_nato_modern_ammo', 'IKRS_loot_csat_modern_ammo'], _container, 2, 0] call lootItems_addRandomAmount;
+  //['IKRS_loot_armor_heavy', _container, 2, 1] call lootItems_addRandomAmount;
+  //['IKRS_loot_valuables', _container, 3, 2] call lootItems_addRandomAmount;
+  ['medium_optics', 3, 1],
+  ['bibods', 3, 1],
+  ['intelligence', 1, 0],
+  ['high_scopes', 3, -2],
+  ['battleRifles', 2, 0],
+  [['machineguns', 'mx_special'], 2, 0],
+  ['backpack', 1, 0]
+];
+
+
+lootTable_signalCache = [
+  [['modern_tacticool', 'nato_tacticool'], 3, 1],
+  ['medium_optics', 1, 0],
+  ['bibods', 3, 1],
+  ['reflexsights', 3, 2],
+  [['norail_battleRifles', 'nato_mg'], 2, 1],
+  ['IKRS_loot_key1', 1, 0],
+  ['battleRifles', 3, -2],
+  ['uav', 3, -2],
+  ['backpack', 1, 0]
+];
+
+lootTable_highEndWeapons = [
+  ['highend_weapon', 1, 0],
+  ['high_scopes', 1, 0],
+  ['backpack', 1, 0]
+];
+
+
+lootTable_vehicleDepotBox = [
+  [['battleRifles', 'modern_tacticool', 'nato_tacticool'], 2, 0]
+];

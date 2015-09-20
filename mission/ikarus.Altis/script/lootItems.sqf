@@ -27,42 +27,42 @@ lootItems_populateHoldAirdropBox = {
   private ["_container"];
   _container = _this select 0;
 
-  [_container, call lootTable_holdAirdrop] call lootItems_addLootFromTable;
+  [_container, lootTable_holdAirdrop] call lootItems_addLootFromTable;
 };
 
 lootItems_populateSupplyBoxLevel_0 = {
   private ["_container"];
   _container = _this select 0;
   
-  [_container, call lootTable_supplyBox] call lootItems_addLootFromTable;
+  [_container, lootTable_supplyBox] call lootItems_addLootFromTable;
 };
 
 lootItems_populateSupplyBoxLevel_1 = {
   private ["_container"];
   _container = _this select 0;
 
-  [_container, call lootTable_advancedSupplyBox] call lootItems_addLootFromTable;
+  [_container, lootTable_advancedSupplyBox] call lootItems_addLootFromTable;
 };
 
 lootItems_populateSupplyBoxLevel_2 = {
   private ["_container"];
   _container = _this select 0;
 
-  [_container, call lootTable_advancedHoldBox] call lootItems_addLootFromTable;
+  [_container, lootTable_advancedHoldBox] call lootItems_addLootFromTable;
 };
 
 lootItems_populateSupplyBoxLevel_3 = {
   private ["_container"];
   _container = _this select 0;
 
-  [_container, call lootTable_highEndWeapons] call lootItems_addLootFromTable;
+  [_container, lootTable_highEndWeapons] call lootItems_addLootFromTable;
 };
 
 lootItems_populateSupplyBoxLevel_4 = {
   private ["_container"];
   _container = _this select 0;
 
-  [_container, call lootTable_vehicleDepotBox] call lootItems_addLootFromTable;
+  [_container, lootTable_vehicleDepotBox] call lootItems_addLootFromTable;
 };
 
 lootItems_populateManhuntCache = {

@@ -69,7 +69,7 @@ lootItems_populateManhuntCache = {
   private ["_container"];
   _container = _this select 0;
 
-  [_container, call lootTable_signalCache] call lootItems_addLootFromTable;
+  [_container, lootTable_signalCache] call lootItems_addLootFromTable;
 };
 
 lootItems_getRandomAmount = {

@@ -64,12 +64,6 @@ objective_manhunt_onObjectivesCreated = {
         [2000] call objective_manhunt_updateGeneralMarker;
       };
 
-      sleep 300;
-
-      if (! objective_manhunt_transmitterActive) then {
-        [1000] call objective_manhunt_updateGeneralMarker;
-      };
-
       sleep 600;
 
       if (! objective_manhunt_transmitterActive) then {

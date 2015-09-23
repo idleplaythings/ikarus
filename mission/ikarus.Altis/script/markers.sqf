@@ -190,7 +190,7 @@ markers_createSupplyDropMarker = {
  
   if (isNil{_markerName}) then {
     _markerName = "drop" + str _position;
-    _marker = createMarkerLocal [_name, _position];
+    _marker = createMarkerLocal [_markerName, _position];
     _marker setMarkerTypeLocal "hd_objective";
   };
 

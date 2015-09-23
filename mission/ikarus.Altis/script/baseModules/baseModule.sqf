@@ -74,7 +74,7 @@ baseModule_getCacheLocation = {
       private ["_z1", "_z2"];
       _z1 = _result select 0 select 2;
       _z2 = _x select 0 select 2;
-      if (_z1 < _z2) then {
+      if (_z1 > _z2) then {
         _result = _x;
       };
     };

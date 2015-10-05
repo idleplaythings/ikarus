@@ -96,7 +96,7 @@ objective_supply_constructMarkers = {
   } forEach objective_supply_data;
   
   {
-    [[_intelBoxes], "markers_createSupplyBriefring", _x, true, true] call BIS_fnc_MP;
+    [[_positions], "markers_createSupplyBriefing", _x, false, true] call BIS_fnc_MP;
   } forEach _players;
 };
 

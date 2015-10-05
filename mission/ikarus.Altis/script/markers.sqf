@@ -286,7 +286,7 @@ markers_createSupplyDepotMarkers = {
   markers_supplyMarkerData pushBack [_building, _markerName];
 };
 
-markers_createSupplyBriefring = {
+markers_createSupplyBriefing = {
   private ["_task", "_positions"];
   _positions = _this select 0;
 

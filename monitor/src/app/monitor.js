@@ -381,6 +381,7 @@ var playerDisconnected = function(uid) {
 };
 
 var shouldStartGame = function(test) {
+  console.log(arguments);
   if (test) {
     return true;
   }

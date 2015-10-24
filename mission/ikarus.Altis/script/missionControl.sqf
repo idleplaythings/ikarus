@@ -38,7 +38,7 @@ missionControl_pollReadyToStartFromMonitor = {
 
       sleep 1;
   
-      _start = ['shouldStartGame', [missionControl_test]] call sock_rpc;
+      _start = ['shouldStartGame', [str missionControl_test]] call sock_rpc;
      
       if (isNil {_start}) then {
         _start = false;
@@ -78,16 +78,16 @@ missionControl_startGame = {
 
   missionControl_timeGameStarted = time;
 
-  _time = [['dateTimeRetrieve', [missionControl_test]] call sock_rpc, ","] call CBA_fnc_split;
+  _time = [['dateTimeRetrieve', [str missionControl_test]] call sock_rpc, ","] call CBA_fnc_split;
   [_time] call timeAndWeather_setDateTime;
 
-  _weather = [['weatherRetrieve', [missionControl_test]] call sock_rpc, ","] call CBA_fnc_split;
+  _weather = [['weatherRetrieve', [str missionControl_test]] call sock_rpc, ","] call CBA_fnc_split;
   [_weather] call timeAndWeather_setWeather;
 
-  _nextWeather = [['nextWeatherRetrieve', [missionControl_test]] call sock_rpc, ","] call CBA_fnc_split;
+  _nextWeather = [['nextWeatherRetrieve', [str missionControl_test]] call sock_rpc, ","] call CBA_fnc_split;
   [_nextWeather] call timeAndWeather_setNextWeather;
 
-  _squads = ['squadsRetrieve', [missionControl_test]] call sock_rpc;
+  _squads = ['squadsRetrieve', [str missionControl_test]] call sock_rpc;
   [_squads] call setSquadData;
 
   call hideout_createHideoutForSquads;

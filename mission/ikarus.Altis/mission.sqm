@@ -119,13 +119,13 @@ class Mission
 						};
 						class Item5
 						{
-							value="1";
+							value="1.5";
 							parentCls="ACE_moduleMedicalSettings";
 							typeName="playerDamageThreshold";
 						};
 						class Item6
 						{
-							value="1";
+							value="1.5";
 							parentCls="ACE_moduleMedicalSettings";
 							typeName="AIDamageThreshold";
 						};

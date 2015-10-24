@@ -81,10 +81,12 @@ Monitor.prototype._startArma = function(){
     "-sock_host=::1",
     "-sock_port="+sockPort,
     "-port="+armaPort,
-    "-mod=@ikarus;curator;kart;heli;mark;dlcbundle",
+    "-mod=curator;kart;heli;mark;dlcbundle;@ikarus;",
     "-BEpath="+BEpath
     //"-noLogs"
   ];
+
+  console.log(args);
 
   var options = {
     cwd: location,

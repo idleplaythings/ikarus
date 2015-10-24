@@ -361,6 +361,7 @@ var playerUnknown = function(uid) {
     return connectedUid != uid;
   });
 
+  console.log("player unknown, kicking");
   this._battlEyeClient.kickPlayer(uid);
   this._webAppClient.reportPlayerDisconnected(uid);
 };

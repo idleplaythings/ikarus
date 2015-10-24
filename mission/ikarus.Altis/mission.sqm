@@ -51,6 +51,7 @@ class Mission
 		"ace_nametags",
 		"ace_repair",
 		"A3_Data_F_Curator_Characters",
+		"ace_common",
 		"a3_map_altis"
 	};
 	randomSeed=12950687;
@@ -74,7 +75,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=51;
+		items=52;
 		class Item0
 		{
 			side="LOGIC";
@@ -1416,6 +1417,46 @@ class Mission
 					leader=1;
 					skill=0.60000002;
 					text="gm_3_9";
+				};
+			};
+		};
+		class Item51
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5280.2764,19.405912,14829.894};
+					class args
+					{
+						items=3;
+						class Item0
+						{
+							value="0";
+							parentCls="ACE_ModuleCheckPBOs";
+							typeName="Action";
+						};
+						class Item1
+						{
+							value="0";
+							parentCls="ACE_ModuleCheckPBOs";
+							typeName="CheckAll";
+						};
+						class Item2
+						{
+							value="[]";
+							parentCls="ACE_ModuleCheckPBOs";
+							typeName="Whitelist";
+						};
+					};
+					id=57;
+					side="LOGIC";
+					vehicle="ACE_ModuleCheckPBOs";
+					leader=1;
+					lock="UNLOCKED";
+					skill=0.60000002;
 				};
 			};
 		};

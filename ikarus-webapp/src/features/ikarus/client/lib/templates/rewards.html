@@ -1,0 +1,252 @@
+<template name="rewards">
+  <h1>Rewards</h1>
+
+  <div class="row add-top">
+    <div class="col-md-6">
+      <h2>In misssion and to armory</h2>
+      <p>
+        You can get rewards in two different ways in ikarus. Either you get items in Ikarus mission and bring them back to your base or outpost, or you accomplish an objective during mission after which rewards will be directly deposited to your companys armory.
+      </p>
+
+      <p>
+        No matter where you get items in Arma mission, you will get to keep them as long as you bring them back to your base. You can for example kill another player and bring back his equipment. Even if another player dies in your base, you will get to keep his equipment.
+      </p>
+
+      <p>
+        Rewards that give items directly to armory include opening the loot boxes, killing other players as a guard or as an underdog reward. After you complete these tasks, you don't need to worry about losing these rewards.
+      </p>
+
+
+      <div class="info-box bg-info">
+        <p>
+          Usually the bulk of the loot goes directly to armory, but the best loot are actual items in Arma mission.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-6 imageset">
+      <img src="./redbox.jpg">
+    </div>
+  </div>
+
+  <div class="row add-top">
+    <div class="col-md-6">
+      <h2>Kill and underdog rewards</h2>
+      <p>
+        Every time you kill someone in ikarus, you gain a small kill renown reward: <a href="{{pathFor route='loot' _name='IKRS_kill_reward'}}">kill reward</a>.
+      </p>
+
+      <p>
+        However, if you kill someone from a squad that is twice the size of your squad size, you will gain underdog rewards. The squad sizes are counted as from highest amount of players in squad during that mission. So if your squad had 4 members, but all but you are dead, your squad is still considered to be 4 strong for underdog rewards.
+      </p>
+
+      <p>
+        Underdog reward level 3 is the only way to get a ghillie suit.
+      </p>
+
+      <p>
+        The reward leves goes as follows:
+      </p>
+
+      <ul>
+        <li><a href="{{pathFor route='loot' _name='IKRS_underdog_reward_lvl1'}}">Enemy twice the size of your squad</a></li>
+
+        <li><a href="{{pathFor route='loot' _name='IKRS_underdog_reward_lvl2'}}">Enemy three times the size of your squad</a></li>
+
+        <li><a href="{{pathFor route='loot' _name='IKRS_underdog_reward_lvl3'}}">Enemy four times the size of your squad</a></li>
+      </ul>
+
+      <div class="info-box bg-info">
+        <p>
+          Remember that underdog rewards make fighting large squads quite profitable.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-6 imageset">
+    </div>
+  </div>
+
+  <div class="row add-top">
+    <div class="col-md-6">
+      <h2>Guard rewards</h2>
+      <p>
+        As a guard, you will get additional rewards if you kill enemies 1000m radius from any depot.
+      </p>
+
+      <p>
+        For each kill you will get the <a href="{{pathFor route='loot' _name='IKRS_guard_kill_reward'}}">guard kill reward</a>.
+      </p>
+
+      <p>
+        For each kill, you will get additional <a href="{{pathFor route='loot' _name='IKRS_guard_survive_reward'}}">guard survive reward</a>, if you survive the mission (Log out in outpost, base or last mand standing).
+      </p>
+
+      <p>
+        And finally, securing loot boxes as guard nets you <a href="{{pathFor route='loot' _name='IKRS_guard_secure_reward'}}">the guard secure reward</a>.
+      </p>
+
+      <div class="info-box bg-info">
+        <p>
+          Do note, that guard rewards stack with possible underdog rewards. This makes playing a solo guard very viable tactic to get some interesting loot.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-6 imageset">
+    </div>
+  </div>
+
+  <div class="row add-top">
+    <div class="col-md-6">
+      <h2>Supply rewards</h2>
+      <p>
+        Supply depot has two red supply boxes and one green supply box if the mission starts with atleast two squads. In addition to loot listed below, one red box always has one signal device.
+      </p>
+
+      <p>
+        For opening a red box, you will gain <a href="{{pathFor route='loot' _name='IKRS_box_opening_reward_lvl1'}}">objective reward</a> and the box itself will contain following <a href="{{pathFor route='loot' _name='lootTable_supplyBox'}}">items</a>.
+      </p>
+
+      <p>
+        For opening the green box (with level one key), you will gain <a href="{{pathFor route='loot' _name='IKRS_box_opening_reward_lvl2'}}">objective reward</a> and the box itself will contain following <a href="{{pathFor route='loot' _name='lootTable_advancedSupplyBox'}}">items</a>.
+      </p>
+
+      <div class="info-box bg-info">
+        <p>
+          Loot boxes always contain an addtional carryall backpack, that helps you lugging the equipment home.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-6 imageset">
+      <img src="./openbox.jpg">
+    </div>
+  </div>
+
+  <div class="row add-top">
+    <div class="col-md-6">
+      <h2>Hold rewards</h2>
+      <p>
+        A hold depot only has one green box that requires level two loot key. After holding the depot for 5 minutes, you will get a location of para dropped equipment cache.
+      </p>
+
+      <p>
+        For holdin the depot you will be rewarded with <a href="{{pathFor route='loot' _name='IKRS_hold_renown_reward'}}">objective reward</a>.
+      </p>
+
+      <p>
+        For opening the green box (with level two key), you will gain <a href="{{pathFor route='loot' _name='IKRS_box_opening_reward_lvl3'}}">objective reward</a> and the box itself will contain following <a href="{{pathFor route='loot' _name='lootTable_advancedHoldBox'}}">items</a>.
+      </p>
+
+      <p>
+        For opening the paradropped cache you will get <a href="{{pathFor route='loot' _name='IKRS_hold_box_opening_reward'}}">objective reward</a> and the box itself will contain following <a href="{{pathFor route='loot' _name='lootTable_holdAirdrop'}}">items</a>.
+      </p>
+
+      <div class="info-box bg-info">
+        <p>
+          If you manage to complete hold objective with level 2 key, you will take home some serious loot.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-6 imageset">
+      <img src="./holdparadrop.jpg">
+    </div>
+  </div>
+
+  <div class="row add-top">
+    <div class="col-md-6">
+      <h2>Signal rewards</h2>
+      <p>
+        In signal mission, you will get rewarded for activating the transmitter, opening the paradropped box, and of course the loot in the box.
+      </p>
+
+      <p>
+        For activating the transmitter you get <a href="{{pathFor route='loot' _name='IKRS_signal_transmitter_activation_reward'}}">an objective reward</a>.
+      </p>
+
+
+      <p>
+        For opening the paradropped box, you will gain <a href="{{pathFor route='loot' _name='IKRS_signal_box_opening_reward'}}">objective reward</a> and the box itself will contain following <a href="{{pathFor route='loot' _name='lootTable_signalCache'}}">items</a>.
+      </p>
+
+       <p>
+        If you manage to activate the transmitter AND open the box, you will get an additional <a href="{{pathFor route='loot' _name='IKRS_signal_total_completion'}}">objective reward</a>.
+      </p>
+
+      <div class="info-box bg-info">
+        <p>
+          In signal mission most of the loot comes as items, instead of directly to your armory.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-6 imageset">
+      <img src="./signalloot.jpg">
+    </div>
+  </div>
+
+  <div class="row add-top">
+    <div class="col-md-6">
+      <h2>Military base raid rewards (vehicle/helicopter)</h2>
+      <p>
+        In helo or vehicle military base there will be three loot boxes. These lootboxes contain keys that you need to use the vehicles.
+      </p>
+
+      <p>
+        Helicopter depot will contain one helicopter from following list:
+      </p>
+
+      <ul>
+        <li class="show-item-tooltip-small" data-armaclass="B_Heli_Light_01_F">Littlebird</li>
+        <li class="show-item-tooltip-small" data-armaclass="I_Heli_light_03_unarmed_F">AW159 Wildcat</li>
+        <li class="show-item-tooltip-small" data-armaclass="O_Heli_Light_02_unarmed_F">Ka-60 Kasatka</li>
+      </ul>
+
+      <p>
+        Vehicle depot will contain three vehicles from following list:
+      </p>
+
+      <ul>
+        <li class="show-item-tooltip-small" data-armaclass="BAF_Jackal2_L2A1_D">Jackal L2A1 (Desert)</li>
+        <li class="show-item-tooltip-small" data-armaclass="BAF_Jackal2_L2A1_W">Jackal L2A1 (Woodland)</li>
+        <li class="show-item-tooltip-small" data-armaclass="I_MRAP_03_F">Fennek</li>
+        <li class="show-item-tooltip-small" data-armaclass="B_MRAP_01_F">M-ATV</li>
+        <li class="show-item-tooltip-small" data-armaclass="O_MRAP_02_F">Punisher</li>
+        <li class="show-item-tooltip-small" data-armaclass="UAZ_AGS30">UAZ (AGS-30)</li>
+      </ul>
+
+      <p>
+        For opening one of the boxes you will gain <a href="{{pathFor route='loot' _name='IKRS_box_opening_reward_lvl4'}}">objective reward</a> and the box itself will contain following <a href="{{pathFor route='loot' _name='lootTable_vehicleDepotBox'}}">items</a>.
+      </p>
+
+      <div class="info-box bg-info">
+        <p>
+          Military base raid helicopter or vehicle gets you the best transportation in game.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-6 imageset">
+      <img src="./military.jpg">
+    </div>
+  </div>
+
+
+  <div class="row add-top add-bottom">
+    <div class="col-md-6">
+      <h2>Military base raid rewards (weapon)</h2>
+      <p>
+        Weapon military base won't have any vehicles, but will contain small amount of extremely high end loot. This depot will have three loot boxes.
+      </p>
+
+      <p>
+        For opening a loot box you will get <a href="{{pathFor route='loot' _name='IKRS_box_opening_reward_lvl4'}}">objective reward</a> and the box itself will contain following <a href="{{pathFor route='loot' _name='lootTable_highEndWeapons'}}">items</a>.
+      </p>
+    </div>
+
+    <div class="col-md-6 imageset">
+    </div>
+  </div>
+</template>

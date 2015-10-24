@@ -19,6 +19,12 @@ Router.map(function () {
     }
   });
 
+  this.route('rewards', {
+    path: '/rewards',
+    template: 'rewards',
+    layoutTemplate: 'ikarus_default',
+  });
+
   this.route('credits', {
     path: '/credits',
     template: 'credits',

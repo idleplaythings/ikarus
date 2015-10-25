@@ -254,19 +254,19 @@ Monitor.prototype._changeStatus = function(status) {
 };
 
 var weatherRetrieve = function(test) {
-  return this._gameData.getWeather(test);
+  return this._gameData.getWeather(test == "true");
 };
 
 var nextWeatherRetrieve = function(test) {
-  return this._gameData.getNextWeather(test);
+  return this._gameData.getNextWeather(test == "true");
 };
 
 var dateTimeRetrieve = function(test) {
-  return this._gameData.getMissionDateTime(test)
+  return this._gameData.getMissionDateTime(test == "true")
 };
 
 var squadsRetrieve = function(test) {
-  var squads = this._gameData.getSquadData(this._connectedSteamIds, test);
+  var squads = this._gameData.getSquadData(this._connectedSteamIds, test == "true");
   console.log("MONITOR RETURING", squads.length, " SQUADS");
   return squads;
 };
@@ -385,7 +385,7 @@ var playerDisconnected = function(uid) {
 
 var shouldStartGame = function(test) {
   console.log(arguments);
-  if (test) {
+  if (test == "true") {
     return true;
   }
 

@@ -21,8 +21,7 @@ lootTable_setDefinitions = [
     [
       ['CUP_launch_RPG7V', 'CUP_PG7V_M', 'CUP_PG7V_M', 'B_AssaultPack_khk'],
       ['CUP_lmg_PKM', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M'],
-      ['CUP_glaunch_M79', '1Rnd_HE_Grenade_shell', '1Rnd_HE_Grenade_shell', '1Rnd_HE_Grenade_shell'],
-      ['CUP_Pecheneg', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M']
+      ['CUP_glaunch_M79', '1Rnd_HE_Grenade_shell', '1Rnd_HE_Grenade_shell', '1Rnd_HE_Grenade_shell']
     ]
   ],
 
@@ -59,11 +58,14 @@ lootTable_setDefinitions = [
   ['nato_tacticool', 
     [
       ['CUP_srifle_Mk12SPR', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag'],
+      ['CUP_arifle_M16A4_Base', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag', 'CUP_optic_CompM4'],
+      ['CUP_arifle_M16A4_GL', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag', '1Rnd_HE_Grenade_shell', '1Rnd_HE_Grenade_shell'],
+      ['CUP_arifle_M4A1_black', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag', '30Rnd_556x45_Stanag', 'CUP_optic_CompM4']
     ]
   ],
   ['norail_battleRifles', 
     [
-      ['CUP_arifle_FNFAL', 'CUP_20Rnd_762x51_FNFAL_M', 'CUP_20Rnd_762x51_FNFAL_M'],
+      ['CUP_arifle_FNFAL', 'CUP_20Rnd_762x51_FNFAL_M', 'CUP_20Rnd_762x51_FNFAL_M']
     ]
   ],
   ['battleRifles', 
@@ -97,6 +99,12 @@ lootTable_setDefinitions = [
       ['CUP_lmg_M60A4', 'CUP_100Rnd_TE4_LRT4_Red_Tracer_762x51_Belt_M'],
       ['CUP_lmg_M240', 'CUP_100Rnd_TE4_LRT4_Red_Tracer_762x51_Belt_M'],
       ['CUP_launch_M136', 'CUP_M136_M', 'B_AssaultPack_khk']
+    ]
+  ],
+
+  ['nato_snipers',
+    [
+      ['CUP_srifle_AWM_wdl_SBPMII', 'CUP_5Rnd_86x70_L115A1', 'CUP_5Rnd_86x70_L115A1', 'CUP_5Rnd_86x70_L115A1']
     ]
   ],
 
@@ -215,6 +223,7 @@ lootTable_advancedHoldBox = [
   ['intelligence', 1, 0],
   ['high_scopes', 3, -2],
   ['battleRifles', 2, 0],
+  ['nato_snipers', 3, -2],
   [['machineguns', 'mx_special'], 2, 0],
   ['backpack', 1, 0]
 ];

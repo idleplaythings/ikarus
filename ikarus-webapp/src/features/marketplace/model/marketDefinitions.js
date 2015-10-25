@@ -119,6 +119,7 @@ marketDefinitions = [
       'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': {money: 50},
       'CUP_10x_303_M':                 {money: 10},
 
+      'CUP_5Rnd_86x70_L115A1':         {money: 25},
       '10Rnd_338_Mag':                 {money: 50},
       '10Rnd_127x54_Mag':              {money: 50},
       '10Rnd_93x64_DMR_05_Mag':        {money: 50},

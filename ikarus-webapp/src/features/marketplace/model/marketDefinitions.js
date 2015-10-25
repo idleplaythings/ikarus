@@ -15,17 +15,17 @@ marketDefinitions = [
       'arifle_Katiba_GL_F':     {money: 250},
 
       'CUP_arifle_AK74M':       {money: 20},
-      'CUP_arifle_AK74;_GL':    {money: 100},
+      'CUP_arifle_AK74_GL':    {money: 100},
 
 
       'CUP_arifle_M16A2':       {money: 90},
       'CUP_arifle_M16A4_Base':  {money: 120},
-      
+
       'CUP_arifle_M4A1_black':  {money: 150},
-      
+
       'CUP_srifle_Mk12SPR':     {money: 250},
 
-     
+
 
     }
   },
@@ -181,7 +181,7 @@ marketDefinitions = [
       'optic_Aco':                {money: 50},
       'optic_ACO_grn':            {money: 50},
       'CUP_optic_CompM4':         {money: 30},
-      'CUP_optic_RCO'             {money: 350},
+      'CUP_optic_RCO':            {money: 350},
 
       'optic_Arco':               {money: 500},
       'optic_Hamr':               {money: 500},

@@ -727,8 +727,8 @@ ItemDefinitions = [
       'CUP_64Rnd_9x19_Bizon_M': 'd5+2',
       'CUP_muzzle_Bizon': 'd6-4',
 
-      'CUP_arifle_AKM':'2d2+2',
-      'CUP_30Rnd_762x39_AK47_M': '10d3+20',
+      'CUP_arifle_AKM':'d3+1',
+      'CUP_30Rnd_762x39_AK47_M': '5d3+10',
 
 
       'CUP_arifle_AK74': '3d5+2',

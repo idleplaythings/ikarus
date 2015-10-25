@@ -4,11 +4,11 @@ BaseModuleWeaponCache1 = function BaseModuleWeaponCache1 () {
   this.name = "Insurgent weapon cache";
   this.description = "Provides you with 5 AKs, 1 RPK and plenty of ammo.";
   this._removeLoot = {
-    'hlc_rifle_rpk74n': 1,
-    'hlc_rifle_aks74': 2,
-    'hlc_rifle_ak74': 3,
-    'hlc_30Rnd_545x39_B_AK': 30,
-    'hlc_45Rnd_545x39_t_rpk': 5
+    'CUP_arifle_RPK74': 1,
+    'CUP_arifle_AKS74': 2,
+    'CUP_arifle_AK74': 3,
+    'CUP_30Rnd_545x39_AK_M': 30,
+    'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': 5
   };
 };
 

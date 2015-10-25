@@ -6,8 +6,8 @@ BaseModulePrimary1 = function BaseModulePrimary1(){
    " Most basic of possible primary modules for a base.";
   this._primary = true;
   this._removeLoot = {
-    'hlc_rifle_aks74u': 4,
-    'hlc_30Rnd_545x39_B_AK': 20
+    'CUP_arifle_AKS74U': 4,
+    'CUP_30Rnd_545x39_AK_M': 20
   };
 };
 

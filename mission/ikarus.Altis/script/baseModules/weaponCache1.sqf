@@ -11,12 +11,12 @@ baseModule_weaponCache1_onCreated = {
 
 
   _weapons = [
-    "hlc_rifle_rpk74n",
-    "hlc_rifle_aks74",
-    "hlc_rifle_ak74",
-    "hlc_rifle_ak74",
-    "hlc_rifle_ak74",
-    "hlc_rifle_aks74"
+    "CUP_arifle_RPK74",
+    "CUP_arifle_AKS74",
+    "CUP_arifle_AK74",
+    "CUP_arifle_AK74",
+    "CUP_arifle_AK74",
+    "CUP_arifle_AKS74"
   ];
 
   {
@@ -27,8 +27,8 @@ baseModule_weaponCache1_onCreated = {
       clearItemCargoGlobal _box;
       clearBackpackCargoGlobal _box;
 
-      _box addMagazineCargoGlobal ['hlc_30Rnd_545x39_B_AK', 30];
-      _box addMagazineCargoGlobal ['hlc_45Rnd_545x39_t_rpk', 5];
+      _box addMagazineCargoGlobal ['CUP_30Rnd_545x39_AK_M', 30];
+      _box addMagazineCargoGlobal ['CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 5];
 
     };
 

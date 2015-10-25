@@ -14,35 +14,18 @@ marketDefinitions = [
       'arifle_Katiba_F':        {money: 170},
       'arifle_Katiba_GL_F':     {money: 250},
 
-      'hlc_rifle_ak74':         {money: 20},
-      'hlc_rifle_aks74':        {money: 20},
-      'hlc_rifle_ak12':         {money: 100},
-      'hlc_rifle_ak12GL':       {money: 300},
-      'hlc_rifle_aks74u':       {money: 10},
-      'hlc_rifle_aks74_GL':     {money: 100},
-      'hlc_rifle_aek971':       {money: 30},
+      'CUP_arifle_AK74M':       {money: 20},
+      'CUP_arifle_AK74;_GL':    {money: 100},
 
-      'hlc_rifle_ak47':         {money: 50},
-      'hlc_rifle_akm':          {money: 30},
 
       'CUP_arifle_M16A2':       {money: 90},
       'CUP_arifle_M16A4_Base':  {money: 120},
-      'hlc_rifle_RU556':        {money: 160},
-      'hlc_rifle_RU5562':       {money: 160},
-      'hlc_rifle_CQBR':         {money: 120},
-      'hlc_rifle_M4':           {money: 150},
-      //'hlc_rifle_m4m203':       {money: 420}, Sounds not working
-      'hlc_rifle_bcmjack':      {money: 160},
-      'hlc_rifle_Colt727':      {money: 120},
-      'hlc_rifle_Colt727_GL':   {money: 180},
-      'hlc_rifle_samr2':        {money: 250},
+      
+      'CUP_arifle_M4A1_black':  {money: 150},
+      
+      'CUP_srifle_Mk12SPR':     {money: 250},
 
-      'hlc_rifle_auga1_b':      {money: 150},
-      'hlc_rifle_auga2_b':      {money: 165},
-
-      'hlc_rifle_Bushmaster300':{money: 200},
-      'hlc_rifle_vendimus':     {money: 200},
-      'hlc_rifle_honeybadger':  {money: 200},
+     
 
     }
   },
@@ -63,7 +46,6 @@ marketDefinitions = [
       'srifle_DMR_06_camo_F':   {money: 400},
       'srifle_DMR_06_olive_F':  {money: 400},
       'srifle_EBR_F':           {money: 600},
-      'hlc_rifle_M14':          {money: 350},
     }
   },
 
@@ -80,9 +62,7 @@ marketDefinitions = [
       'MMG_02_camo_F':          {money: 200},
       'MMG_02_black_F':         {money: 200},
       'MMG_02_sand_F':          {money: 200},
-      'hlc_rifle_rpk':          {money: 50},
-      'hlc_rifle_rpk74n':       {money: 50},
-      'hlc_rifle_RPK12':        {money: 100},
+      'CUP_arifle_RPK74M':      {money: 50},
 
     }
   },
@@ -125,12 +105,12 @@ marketDefinitions = [
     _id: 'AMMO',
     name: 'Ammo',
     items: {
-      'hlc_30Rnd_556x45_B_AUG':        {money: 10},
       '30Rnd_556x45_Stanag':           {money: 5},
       '30Rnd_65x39_caseless_green':    {money: 10},
       '30Rnd_65x39_caseless_mag':      {money: 15},
       '1Rnd_HE_Grenade_shell':         {money: 15},
       '20Rnd_762x51_Mag':              {money: 30},
+      'CUP_20Rnd_762x51_FNFAL_M':      {money: 30},
       '100Rnd_65x39_caseless_mag':     {money: 80},
       '200Rnd_65x39_cased_Box':        {money: 50},
       '150Rnd_762x54_Box':             {money: 70},
@@ -145,12 +125,12 @@ marketDefinitions = [
       '10Rnd_762x54_Mag':              {money: 30},
       '30Rnd_45ACP_Mag_SMG_01':        {money: 5},
       '30Rnd_9x21_Mag':                {money: 5},
+      'CUP_10Rnd_762x54_SVD_M':        {money: 20},
 
-      'hlc_30Rnd_545x39_B_AK':         {money: 5},
-      'hlc_45Rnd_545x39_t_rpk':        {money: 20},
+      'CUP_30Rnd_545x39_AK_M':         {money: 5},
+      'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': {money: 20},
 
-      'hlc_30Rnd_762x39_b_ak':         {money: 10},
-      'hlc_45Rnd_762x39_m_rpk':        {money: 30},
+      'CUP_30Rnd_762x39_AK47_M':       {money: 10},
       '29rnd_300BLK_STANAG':           {money: 30},
     }
   },
@@ -200,13 +180,15 @@ marketDefinitions = [
       'optic_Aco':                {money: 50},
       'optic_ACO_grn':            {money: 50},
       'CUP_optic_CompM4':         {money: 30},
+      'CUP_optic_RCO'             {money: 350},
 
       'optic_Arco':               {money: 500},
       'optic_Hamr':               {money: 500},
       'optic_MRCO':               {money: 300},
       'optic_DMS':                {money: 700},
-      'hlc_optic_kobra':          {money: 20},
-      'HLC_Optic_PSO1':           {money: 200},
+      'CUP_optic_Kobra':          {money: 20},
+      'CUP_optic_PSO_1':          {money: 200},
+      'CUP_optic_PSO_3':          {money: 400},
 
 
       'bipod_01_F_blk':   {money: 50},
@@ -224,7 +206,6 @@ marketDefinitions = [
       'HandGrenade':      {money: 10},
       'SmokeShell':       {money: 5},
       'IKRS_outpost_backpack': {money: 100},
-      'muzzle_HBADGER': {money: 10}
     }
   },
 

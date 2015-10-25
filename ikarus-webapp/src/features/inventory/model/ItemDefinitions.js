@@ -1,8 +1,6 @@
 
 var battleRifles = [
-  'hlc_rifle_M14',
-  'hlc_rifle_c1A1',
-  'hlc_rifle_g3a3ris',
+  'CUP_arifle_FNFAL',
   'srifle_DMR_06_camo_F',
   'srifle_DMR_06_olive_F',
   'srifle_EBR_F',
@@ -13,6 +11,8 @@ var tactiCools = [
   'arifle_Mk20_F',
   'arifle_Mk20C_F',
   'arifle_Mk20_GL_F',
+  'CUP_srifle_Mk12SPR',
+  /*
   'hlc_rifle_RU556',
   'hlc_rifle_RU5562',
   'hlc_rifle_CQBR',
@@ -20,21 +20,22 @@ var tactiCools = [
   'hlc_rifle_Bushmaster300',
   'hlc_rifle_vendimus',
   'hlc_rifle_samr2',
+  */
   'arifle_Katiba_C_F',
   'arifle_Katiba_F',
   'arifle_MX_F',
   'arifle_MX_GL_F',
   'arifle_MXC_F',
-  'optic_MRCO',
-  'hlc_rifle_auga1_b',
-  'hlc_rifle_auga2_b'
+  'optic_MRCO'
 ];
 
 
 var mediumOptics = [
   'optic_Arco',
   'optic_Hamr',
-  'optic_MRCO'
+  'optic_MRCO',
+  'CUP_optic_PSO_3',
+  'CUP_optic_PSO_1'
 ];
 
 var ghillie = [
@@ -149,20 +150,37 @@ ItemDefinitions = [
 
   //ASSAULT RIFLES (CUP)
 
-  createWeapon('AK-74 assault rifle', 'CUP_arifle_AK74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
+  createWeapon('AK-74', 'CUP_arifle_AK74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
   createMagazine('30rnd 5.45x39mm', 'CUP_30Rnd_545x39_AK_M', 30),
 
-  createWeapon('M16A2 assault rifle (no rail)', 'CUP_arifle_M16A2', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createWeapon('AKS-74', 'CUP_arifle_AKS74', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
+
+  createWeapon('AK-74 (GL)', 'CUP_arifle_AK74_GL', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M', 'CUP_1Rnd_HE_GP25_M']),
+  
+  createWeapon('M16A2 (no rail)', 'CUP_arifle_M16A2', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
   createMagazine('30rnd 5.56x45mm', '30Rnd_556x45_Stanag', 30),
   createMagazine('30rnd 5.56x45mm', 'CUP_30Rnd_556x45_Stanag', 30),
 
-  createWeapon('AKM assault rifle', 'CUP_arifle_AKM', ['assault-rifle'], ['CUP_30Rnd_762x39_AK47_M']),
+  createWeapon('M16A2 (no rail) (GL)', 'CUP_arifle_M16A2_GL', ['assault-rifle'], ['30Rnd_556x45_Stanag', "1Rnd_HE_Grenade_shell"]),
+  
+
+  createWeapon('AKM', 'CUP_arifle_AKM', ['assault-rifle'], ['CUP_30Rnd_762x39_AK47_M']),
   createMagazine('30rnd 7.62x39mm', 'CUP_30Rnd_762x39_AK47_M', 30),
 
-  createWeapon('M4A1 assault rifle', 'CUP_arifle_M4A1_black', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
-  createWeapon('M16A4 assault rifle', 'CUP_arifle_M16A4_Base', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
 
-  createWeapon('AK-107 assault rifle', 'CUP_arifle_AK107', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
+  createWeapon('M4A1', 'CUP_arifle_M4A1_black', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+  createWeapon('M16A4', 'CUP_arifle_M16A4_Base', ['assault-rifle'], ['30Rnd_556x45_Stanag']),
+
+  createWeapon('M16A4 (GL)', 'CUP_arifle_M16A4_GL', ['assault-rifle'], ['30Rnd_556x45_Stanag', "1Rnd_HE_Grenade_shell"]),
+
+  
+  createWeapon('AK-74M', 'CUP_arifle_AK74M', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
+  createWeapon('AK-74M (GL)', 'CUP_arifle_AK74M_GL', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M', 'CUP_1Rnd_HE_GP25_M']),
+
+  createWeapon('AK-107', 'CUP_arifle_AK107', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M']),
+  createWeapon('AK-107 (GL)', 'CUP_arifle_AK107_GL', ['assault-rifle'], ['CUP_30Rnd_545x39_AK_M', 'CUP_1Rnd_HE_GP25_M']),
+
+  createWeapon('MK 12 SPR', 'CUP_srifle_Mk12SPR', ['assault-rifle'], ['30Rnd_556x45_Stanag']);
 
   //ASSAULT RIFLES (Vanilla)
 
@@ -229,11 +247,19 @@ ItemDefinitions = [
   //MACHINE GUNS (CUP)
 
   createWeapon('M249 lmg', 'CUP_lmg_M249', ['lmg'], ['CUP_200Rnd_TE4_Red_Tracer_556x45_M249', '30Rnd_556x45_Stanag']),
-  createMagazine('200rnd box 5.56x45mm', 'CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 30),
+  createMagazine('200rnd box 5.56x45mm', 'CUP_200Rnd_TE4_Red_Tracer_556x45_M249', 200),
 
+  createWeapon('M60A4 mmg', 'CUP_lmg_M60A4', ['lmg'], ['CUP_100Rnd_TE4_LRT4_Red_Tracer_762x51_Belt_M', '30Rnd_556x45_Stanag']),
+  
+  createWeapon('M240 mmg', 'CUP_lmg_M240', ['lmg'], ['CUP_100Rnd_TE4_LRT4_Red_Tracer_762x51_Belt_M', '30Rnd_556x45_Stanag']),
+  createMagazine('100rnd box 7.62x51mm', 'CUP_100Rnd_TE4_LRT4_Red_Tracer_762x51_Belt_M', 100),
+
+  createWeapon('RPK-74M lmg', 'CUP_arifle_RPK74M', ['lmg'], ['CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 'CUP_30Rnd_545x39_AK_M']),
   createWeapon('RPK-74 lmg', 'CUP_arifle_RPK74', ['lmg'], ['CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 'CUP_30Rnd_545x39_AK_M']),
   createMagazine('75rnd 5.45x39mm', 'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 75),
 
+
+  createWeapon('PKP mmg', 'CUP_Pecheneg', ['mmg'], ['CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M']),
   createWeapon('PKM mmg', 'CUP_lmg_PKM', ['mmg'], ['CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M']),
   createMagazine('100rnd 7.62x54mm', 'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M', 100),
 
@@ -263,6 +289,9 @@ ItemDefinitions = [
   createWeapon('Lee Einfield rifle', 'CUP_srifle_LeeEnfield', ['rifle'], ['CUP_10x_303_M']),
   createWeapon('Lee Einfield rifle (rail)', 'CUP_srifle_LeeEnfield_rail', ['rifle'], ['CUP_10x_303_M']),
   createMagazine('10rnd .303', 'CUP_10x_303_M', 10),
+
+  createWeapon('L115A1 (Woodland)', 'CUP_srifle_AWM_wdl_SBPMII', ['rifle'], ['CUP_5Rnd_86x70_L115A1']),
+  createMagazine('5rnd 8.6x70mm L115A1', 'CUP_5Rnd_86x70_L115A1', 5),
 
   createWeapon('CZ 550 hunting rifle', 'CUP_srifle_CZ550', ['rifle'], ['CUP_5x_22_LR_17_HMR_M']),
   createMagazine('5rnd 22Lr', 'CUP_5x_22_LR_17_HMR_M', 5),
@@ -340,6 +369,8 @@ ItemDefinitions = [
   createWeapon('NLAW launcher', 'CUP_launch_NLAW', ['law'], []),
   createMagazine('NLAW AT rocket', 'CUP_NLAW_M', 1),
 
+  createWeapon('M136 AT-4 launcher', 'CUP_launch_M136', ['law'], []),
+  createMagazine('M136 AT-4 rocket', 'CUP_M136_M', 1),
 
   //WEARABLES
 
@@ -397,12 +428,16 @@ ItemDefinitions = [
 
   createGeneric('Kobra Reflex Sight', 'CUP_optic_Kobra', ['sight']),
   createGeneric('PSO-1 Scope', 'CUP_optic_PSO_1', ['scope']),
+  createGeneric('PSO-3 Scope', 'CUP_optic_PSO_3', ['scope']),
   createGeneric('M68 CCO red dot optic', 'CUP_optic_CompM2_Black', ['sight']),
   createGeneric('Leupold Mark 4 10x40mm LR/T', 'CUP_optic_LeupoldMk4_10x40_LRT_Woodland', ['scope']),
 
   createGeneric('Trijicon ACOG optic', 'CUP_optic_RCO', ['scope']),
   createGeneric('Aimpoint CompM4 optic', 'CUP_optic_CompM4', ['scope']),
 
+  createGeneric('PKP mmg scope', 'CUP_optic_PechenegScope', ['scope']),
+
+  
   //WEAPON ATTACHMENTS (Vanilla)
 
   createGeneric('Mk17 Holosight SMG','optic_Holosight_smg', ['scope']),
@@ -413,6 +448,8 @@ ItemDefinitions = [
   createGeneric('Honeybadger supressor', 'muzzle_HBADGER', ['scope']),
   createGeneric('Suppressor (.45 ACP)', 'muzzle_snds_acp', ['scope']),
   createGeneric('Suppressor (9 mm)', 'muzzle_snds_L', ['scope']),
+  createGeneric('Bizon suppressor', 'CUP_muzzle_Bizon', ['scope']),
+
 
   createGeneric('Mk17 Holosight','optic_Holosight', ['scope']),
   createGeneric('ACO (Red)','optic_Aco', ['scope']),
@@ -450,6 +487,7 @@ ItemDefinitions = [
 
   createMagazine('40mm HE grenade', '1Rnd_HE_Grenade_shell', 1),
   createMagazine('40mm VOG25 HE grenade', 'hlc_VOG25_AK', 1),
+  createMagazine('40mm GP-25 HE grenade', 'CUP_1Rnd_HE_GP25_M', 1),
 
 
 
@@ -488,8 +526,12 @@ ItemDefinitions = [
   //SMGS (CUP)
 
   createWeapon('MP5 SD6', 'CUP_smg_MP5SD6', ['smg'], ['CUP_30Rnd_9x19_MP5']),
-  createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30, true),
+  createMagazine('30rnd 9x19mm', 'CUP_30Rnd_9x19_MP5', 30),
 
+  createWeapon('PP-19 Bizon', 'CUP_smg_bizon', ['smg'], ['CUP_64Rnd_9x19_Bizon_M']),
+  createMagazine('64rnd 9x19mm Bizon', 'CUP_64Rnd_9x19_Bizon_M', 64),
+
+  
   //SMGS (Vanilla)
 
   createWeapon('Vermin SMG .45 ACP', 'SMG_01_F', ['smg'], ['30Rnd_45ACP_Mag_SMG_01']),
@@ -623,7 +665,6 @@ ItemDefinitions = [
     }
   ),
 
-
   createLoot(
     'Objective reward (Hold para drop)',
     'IKRS_hold_box_opening_reward',
@@ -632,17 +673,17 @@ ItemDefinitions = [
       'ItemGPS': '3d2+2',
       'CUP_arifle_M16A2': '2d2-1',
       'CUP_arifle_M16A4_Base': '4d2-4',
-      'hlc_rifle_M4': '4d2-4',
-      'hlc_rifle_Colt727': '4d2',
-      'hlc_rifle_Colt727_GL': 'd4-2',
+      'CUP_arifle_M4A1_black': '4d2+1',
       'CUP_optic_CompM4': 'd2+1',
 
       '30Rnd_556x45_Stanag': '8d3+20',
 
       '1Rnd_HE_Grenade_shell': '4d3+4',
-      'launch_NLAW_F': '2d2+2',
+      'CUP_launch_M136': 'd2', 
+      'CUP_M136_M': 'd3+2',
+
       '20Rnd_762x51_Mag': 'd5+3',
-      'hlc_200rnd_556x45_T_SAW': 'd3',
+      'CUP_200Rnd_TE4_Red_Tracer_556x45_M249': 'd3',
       'HandGrenade': '4d3+15',
       'SmokeShell': '4d3+15',
 
@@ -668,7 +709,6 @@ ItemDefinitions = [
     'Objective reward (Loot box level 1)',
     'IKRS_box_opening_reward_lvl1',
     {
-
       'Binocular': '3d3+4',
       'ItemGPS': '3d2+2',
       'SMG_02_F': 'd4-2',
@@ -681,24 +721,28 @@ ItemDefinitions = [
       'muzzle_snds_acp': 'd8-7',
       'muzzle_snds_L': 'd8-6',
       'IKRS_renown': '2d3+6',
+      'CUP_smg_MP5SD6': 'd3-1',
+      'CUP_30Rnd_9x19_MP5': 'd5+2',
+      'CUP_smg_bizon': 'd4-3',
+      'CUP_64Rnd_9x19_Bizon_M': 'd5+2',
+      'CUP_muzzle_Bizon': 'd6-4',
+
+      'CUP_arifle_AKM':'2d2+2',
+      'CUP_30Rnd_762x39_AK47_M': '10d3+20',
 
 
-      'hlc_rifle_ak47':'2d2+2',
-      'hlc_rifle_akm': '2d5+2',
-      'hlc_rifle_rpk': '2d2-2',
-      'hlc_30Rnd_762x39_b_ak': '10d3+20',
-      'hlc_45Rnd_762x39_m_rpk': '3d5+10',
-
-
-      'hlc_rifle_ak74': '3d5+2',
-      'hlc_rifle_aks74': '3d2',
-      'hlc_rifle_rpk74n': '2d2-2',
-      'hlc_rifle_aks74_GL': 'd3-2',
-      'hlc_30Rnd_545x39_B_AK': '10d3+20',
-      'hlc_45Rnd_545x39_t_rpk': '3d5+50',
+      'CUP_arifle_AK74': '3d5+2',
+      'CUP_arifle_AK74M': 'd3+2',
+      'CUP_arifle_AKS74': '3d2',
+      'CUP_arifle_RPK74': '2d2-2',
+      'CUP_arifle_RPK74M': 'd3-1',
+      'CUP_arifle_AK74_GL': 'd3-2',
+      'CUP_arifle_AK74M_GL': 'd5-4',
+      'CUP_30Rnd_545x39_AK_M': '10d3+20',
+      'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '3d5+5',
 
       'CUP_launch_RPG7V': 'd3-1',
-      'hlc_VOG25_AK': '2d3+2',
+      'CUP_1Rnd_HE_GP25_M': '2d3+2',
       'CUP_PG7V_M': 'd2+1',
       'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd2',
       'HandGrenade': '4d3+15',
@@ -710,6 +754,7 @@ ItemDefinitions = [
     }
   ),
 
+
   createLoot(
     'Objective reward (Loot box level 2)',
     'IKRS_box_opening_reward_lvl2',
@@ -717,12 +762,17 @@ ItemDefinitions = [
       'IKRS_renown': '4d3+12',
       'money': '15d5+150',
       'CUP_launch_RPG7V': 'd2',
-      'hlc_VOG25_AK': '2d3+2',
+      'CUP_1Rnd_HE_GP25_M': '2d3+2',
       'CUP_PG7V_M': '3d2+2',
       'CUP_100Rnd_TE4_LRT4_762x54_PK_Tracer_Green_M': 'd4+2',
       'HandGrenade': '4d3+15',
       'SmokeShell': '4d3+15',
-      'CUP_lmg_PKM': 'd2-1',
+      'CUP_arifle_AK107': '3d2',
+      'CUP_arifle_AK107_GL': 'd3-1',
+      'CUP_arifle_RPK74M': 'd3',
+      'CUP_30Rnd_545x39_AK_M': '10d3+20',
+      'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M': '3d5+5',
+      'CUP_10Rnd_762x54_SVD_M': '2d3+4',
 
       'V_PlateCarrierIA1_dgtl': '4d2',
       'V_PlateCarrierIA2_dgtl': '4d2',
@@ -764,7 +814,8 @@ ItemDefinitions = [
       '30Rnd_65x39_caseless_mag': '10d3+15',
 
       '1Rnd_HE_Grenade_shell': '2d3+2',
-      'launch_NLAW_F': 'd2+2',
+      'CUP_launch_M136': 'd2', 
+      'CUP_M136_M': 'd3+2',
       '20Rnd_762x51_Mag': '4d5+3',
       '200Rnd_65x39_cased_Box': '3d3+2',
       'HandGrenade': '4d3+15',
@@ -812,8 +863,8 @@ ItemDefinitions = [
     {
       'money': 500,
       'Binocular': 10,
-      'hlc_rifle_ak74': 10,
-      'hlc_30Rnd_545x39_B_AK': 50,
+      'CUP_arifle_AK74': 10,
+      'CUP_30Rnd_545x39_AK_M': 50,
       'IKRS_outpost_backpack': 3
     }
   ),

@@ -18,13 +18,13 @@ baseModule_irishpub_onCreated = {
       clearItemCargoGlobal _box;
       clearBackpackCargoGlobal _box;
 
-      _box addMagazineCargoGlobal ['hlc_30Rnd_556x45_B_AUG', 30];
+      _box addMagazineCargoGlobal ['CUP_30Rnd_545x39_AK_M', 30];
 
       deleteVehicle _x;
     };
 
     if (typeOf _x == "Sign_Arrow_Pink_F") then {
-      [_x, "hlc_rifle_auga1_b"] call equipment_replaceObjectWithItem;
+      [_x, "CUP_arifle_AK74"] call equipment_replaceObjectWithItem;
     };
 
   } forEach _objects;

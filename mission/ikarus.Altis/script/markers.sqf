@@ -1,6 +1,5 @@
 player createDiaryRecord ["Diary", ["Credits", 
   'Ikarus made possible by these third party mods and scripts:<br/>'
-  + '<br/>HLC weapon packs'
   + '<br/>Unlocked Uniforms by Pepe Hal'
   + '<br/>US Uniforms by Niko'
   + '<br/>ACE 3'

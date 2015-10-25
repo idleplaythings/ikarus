@@ -49,7 +49,7 @@ ItemDefinitions = [
 
   //RESOURCES
 
-
+  createGeneric('Merchandise', 'IKRS_merchandise_backpack', ['resource', 'missionkey']),
   createGeneric('Outpost backpack', 'IKRS_outpost_backpack', ['resource', 'missionkey']),
   createGeneric('Loot key level 1', 'IKRS_loot_key1', ['resource', 'missionkey']),
   createGeneric('Loot key level 2', 'IKRS_loot_key2', ['resource', 'missionkey']),

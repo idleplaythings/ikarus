@@ -2,6 +2,7 @@ clientUnmannedVehicles_controllableUvs = [];
 
 clientUnmannedVehicles_checkUVs = {
   private ["_playerSquadId"];
+
   _playerSquadId = player getVariable ["playerSquadId", ""];
   if (_playerSquadId == "") exitWith {};
 

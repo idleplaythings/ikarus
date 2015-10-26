@@ -3,6 +3,11 @@ ItemDescriptions = function (){
 
     // Ikarus mission items
 
+    'IKRS_merchandise_backpack': {
+      description: "Backpack containing loot ready for delivery. You need nine of these to choose the Delivery objective in Arma mission.",
+      mod: "Ikarus mod"
+    },
+
     'IKRS_outpost_backpack': {
       description: "Outpost backpack allows you to deploy one outpost on the map during mission. Please read how to use outposts in the mission briefing in game.",
       mod: "Ikarus mod"

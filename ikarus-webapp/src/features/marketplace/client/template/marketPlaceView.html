@@ -4,7 +4,7 @@
     <div class="col-md-6 marketlist">
       {{#each getItems}}
         <div class="panel panel-default {{getStatusClass}} clickable">
-          <div class="panel-heading marketEntry" data-armaClass="{{getArmaClass}}">
+          <div class="panel-heading marketEntry" data-marketid="{{getMarketId}}">
             {{getName}}
           </div>
         </div>
@@ -26,7 +26,7 @@
             <div class="col-md-4">
               <h4>COST</h4>
               {{#each getTotalCosts}}
-                {{item.name}}: {{amount}} ({{amountInArmory item.armaClass}})
+                <div>{{item.name}}: {{amount}} ({{amountInArmory item.armaClass}})</div>
               {{/each}}
             </div>
           </div>

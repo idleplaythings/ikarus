@@ -5,8 +5,8 @@ Template.marketPlaceView.onCreated(function () {
 Template.marketPlaceView.events({
   'click .marketEntry': function (event, template) {
     var $elem = jQuery(event.target);
-    var armaClass = event.target.attributes.getNamedItem('data-armaclass').value;
-    template.data.setSelectedItem(armaClass);
+    var marketId = event.target.attributes.getNamedItem('data-marketid').value;
+    template.data.setSelectedItem(marketId);
   },
 
   'click .buymore': function (event, template) {

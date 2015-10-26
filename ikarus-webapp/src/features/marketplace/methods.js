@@ -1,5 +1,5 @@
 Meteor.methods({
-  buyFromMarket: function(category, armaClass, amount)  {
+  buyFromMarket: function(category, marketId, amount)  {
 
     var company = Company.getCurrent();
 
@@ -13,7 +13,7 @@ Meteor.methods({
     }
 
     var armory = Inventory.getByCompany(company);
-    var marketContext = new MarketContext(category, dic.get('ItemFactory'), amount, armaClass);
+    var marketContext = new MarketContext(category, dic.get('ItemFactory'), amount, marketId);
 
     var costs = marketContext.getTotalCosts();
     var paid = [];

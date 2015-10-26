@@ -1,17 +1,17 @@
-MarketContext = function MarketContext (category, itemFactory, amount, armaClass) {
+MarketContext = function MarketContext (category, itemFactory, amount, marketId) {
   this._category = category;
   this._itemFactory = itemFactory;
   this._items = this.createItems();
-  this._selectedItem = this.getItemByClass(armaClass) || null;
+  this._selectedItem = this.getItemByClass(marketId) || null;
   this._amountToBuy = amount || 1;
 
   this._itemDependency = new Tracker.Dependency();
   this._quantityDependency = new Tracker.Dependency();
 }
 
-MarketContext.prototype.getItemByClass = function (armaClass) {
+MarketContext.prototype.getItemByClass = function (marketId) {
   return this._items.filter(function (marketItem) {
-    return marketItem.getItem().armaClass == armaClass;
+    return marketItem.getMarketId() == marketId;
   }).pop();
 };
 
@@ -20,18 +20,26 @@ MarketContext.prototype.createItems = function () {
     return def._id == this._category;
   }.bind(this)).pop().items;
 
-  return Object.keys(items).map(function (armaClass) {
+  return Object.keys(items).map(function (marketId) {
 
-    var costs = Object.keys(items[armaClass]).map(function (resource) {
+    var marketDefintion = items[marketId];
+    var armaClass = marketDefintion.armaClass || marketId;
+
+    var costs = Object.keys(marketDefintion.cost).map(function (resource) {
       return {
         item: this._itemFactory.createItemByArmaClass(resource),
-        amount: items[armaClass][resource]
+        amount: marketDefintion.cost[resource]
       };
     }.bind(this));
 
+    var item = this._itemFactory.createItemByArmaClass(armaClass);
+    var name = marketDefintion.name ?  marketDefintion.name : item.name;
+
     return new MarketItem(
-      this._itemFactory.createItemByArmaClass(armaClass),
-      costs
+      marketId,
+      item,
+      costs,
+      name
     );
   }.bind(this));
 };
@@ -50,9 +58,9 @@ MarketContext.prototype.getSelectedItem = function () {
   return this._selectedItem;
 };
 
-MarketContext.prototype.setSelectedItem = function (armaClass) {
+MarketContext.prototype.setSelectedItem = function (marketId) {
   this._selectedItem = this._items.filter(function (item) {
-    return item.getArmaClass() == armaClass;
+    return item.getMarketId() == marketId;
   }).pop();
 
   this._amountToBuy = 1;
@@ -110,7 +118,7 @@ MarketContext.prototype.buy = function () {
   Meteor.call(
     'buyFromMarket',
     this._category,
-    this.getSelectedItem().getItem().armaClass,
+    this.getSelectedItem().getMarketId(),
     this.getAmountToBuy()
   );
 

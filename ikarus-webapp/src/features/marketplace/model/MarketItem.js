@@ -1,6 +1,8 @@
-MarketItem = function MarketItem (item, costs) {
+MarketItem = function MarketItem (id, item, costs, name) {
+  this._id = id;
   this._item = item;
   this._costs = costs;
+  this._name = name;
 };
 
 MarketItem.prototype.getCosts = function () {
@@ -8,11 +10,15 @@ MarketItem.prototype.getCosts = function () {
 };
 
 MarketItem.prototype.getName = function () {
-  return this._item.name;
+  return this._name;
 };
 
 MarketItem.prototype.getArmaClass = function () {
   return this._item.armaClass;
+};
+
+MarketItem.prototype.getMarketId = function () {
+  return this._id;
 };
 
 MarketItem.prototype.getItem = function () {

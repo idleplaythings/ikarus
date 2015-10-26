@@ -4,7 +4,7 @@ vehicle_setOwner = {
   private ["_vehicle", "_squad"];
   _vehicle = _this select 0;
   _squad = _this select 1;
-  _vehicle setVariable ["squadId", [_squad] call getSquadId];
+  _vehicle setVariable ["squadId", [_squad] call getSquadId, true];
 };
 
 vehicle_spawnVehicle = {

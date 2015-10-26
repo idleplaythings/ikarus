@@ -32,7 +32,8 @@ satelliteUplink_createUAV = {
 	_uav disableAI "MOVE";
 	_uav hideObjectGlobal true;
 	_uav addeventhandler ["fuel", {(_this select 0) setfuel 1}];
-
+	_uav disableTIEquipment true;
+	
 	_uav;
 };
 

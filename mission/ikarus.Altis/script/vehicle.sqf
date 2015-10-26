@@ -1,3 +1,12 @@
+vehicle_uav = nil;
+
+vehicle_setOwner = {
+  private ["_vehicle", "_squad"];
+  _vehicle = _this select 0;
+  _squad = _this select 1;
+  _vehicle setVariable ["squadId", [_squad] call getSquadId];
+};
+
 vehicle_spawnVehicle = {
   private ["_vehicleClass", "_position", "_direction", "_vehicle"];
   _vehicleClass = _this select 0;
@@ -23,6 +32,7 @@ vehicle_spawnVehicle = {
 
   if (_vehicleClass == "B_UGV_01_F") then {
     createVehicleCrew _vehicle;
+    vehicle_uav = _vehicle;
   };
 
   [_vehicle] spawn {

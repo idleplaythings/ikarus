@@ -12,7 +12,7 @@ baseModule_uavModule1_onCreated = {
       clearItemCargoGlobal _box;
       clearBackpackCargoGlobal _box;
 
-      _box addItemCargoGlobal ['B_UavTerminal', 1];
+      //_box addItemCargoGlobal ['B_UavTerminal', 1];
 
     };
   } forEach _objects;

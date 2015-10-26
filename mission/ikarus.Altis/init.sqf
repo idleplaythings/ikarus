@@ -3,6 +3,7 @@
 [] execVM "script\client.sqf";
 [] execVM "script\dialog\objectiveDialog.sqf";
 [] execVM "script\dialog\newsDialog.sqf";
+[] execVM "script\clientUnmannedVehicles.sqf";
   
 if (! isServer) exitwith {};
 
@@ -43,11 +44,11 @@ if (! isServer) exitwith {};
 [] execVM "script\buildingDestroyer.sqf";
 [] execVM "script\airstrike.sqf";
 [] execVM "script\airdrop.sqf";
+[] execVM "script\satelliteUplink.sqf";
 [] execVM "script\timeAndWeather.sqf";
 [] execVM "script\reinforcements.sqf";
 [] execVM "script\outpost.sqf";
 [] execVM "script\lastManStanding.sqf";
-[] execVM "script\unmannedVehicle.sqf";
 
 [] execVM "script\baseModules\baseModule.sqf";
 [] execVM "script\baseModules\primary1.sqf";

@@ -1,3 +1,39 @@
+client_depotDronesActivated = false;
+
+client_addDroneUplinkAction = {
+  private ["_console", "_uav"];
+  _console = _this select 0;
+  _uav = _this select 1;
+
+  _console addAction [
+    "Activate drone uplink",
+    {
+      [_this select 0, _this select 3] call client_activateDroneUplink;
+    },
+    _uav
+  ];
+};
+
+client_enableDepotDrones = {
+  client_depotDronesActivated = true;
+};
+
+client_activateDroneUplink = {
+  private ["_console", "_uav"];
+  _console = _this select 0;
+  _uav = _this select 1;
+
+  if (_console distance player > 2) exitWith {
+    ["You must be closer to the drone console.", "depotDrones"] call client_textMessage;
+  };
+
+  if (! client_depotDronesActivated) exitWith {
+    ["Drone is not available until 40 minutes has elapsed.", "depotDrones"] call client_textMessage;
+  };
+
+  player action ["SwitchToUAVGunner", _uav];
+};
+
 client_signalTransmitterAction = nil;
 client_signalTransmitter = nil;
 

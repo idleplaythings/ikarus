@@ -152,6 +152,8 @@ hideout_createVehicles = {
         _position,
         _direction
       ] call vehicle_spawnVehicle;
+
+      [_vehicle, _squad] call vehicle_setOwner;
     } else {
       [_squad, [_vehicleClass]] call addDisconnectedLoot;
     };
@@ -202,6 +204,7 @@ hideout_createHideoutCache = {
 
   [_equipment, _box, _squad] call equipment_equipHideoutCache;
   
+  _box allowDamage false;
   
   _box addItemCargoGlobal ['ACE_EarPlugs', 12];
   _box addItemCargoGlobal ['ACE_quikclot', 40];

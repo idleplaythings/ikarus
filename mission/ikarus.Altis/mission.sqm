@@ -28,9 +28,6 @@ class Mission
 		"unlocked_uniforms",
 		"cba_main",
 		"cba_main_a3",
-		"hafm_uaz",
-		"hafm_uk_wheeled",
-		"hafm_hmmwv",
 		"cba_xeh_a3",
 		"ace_medical",
 		"ace_common",
@@ -1428,7 +1425,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={5280.2764,19.405912,14829.894};
+					position[]={5261.5298,18.61751,14816.038};
 					class args
 					{
 						items=3;

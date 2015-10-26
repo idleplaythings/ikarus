@@ -1,6 +1,20 @@
 onPlayerKilled = nil;
 lastConnectedPlayerUid = nil;
 
+events_setWeaponDeployedEventHandler = {
+  private ["_unit"];
+  _unit = _this select 0;
+
+  player addEventHandler [ "WeaponAssembled", {
+    private ["_unit", "_weapon", "_squad"];
+    _unit = _this select 0;
+    _weapon = _this select 1;
+    _squad = [_unit] call getSquadForUnit;
+
+    [_weapon, _squad] call vehicle_setOwner;
+  }];
+};
+
 "lastConnectedPlayerUid" addPublicVariableEventHandler {
   private ["_uid", "_unit", "_approved"];
   _uid = _this select 1 select 0;
@@ -14,6 +28,8 @@ lastConnectedPlayerUid = nil;
     _unit setDamage 1;
     deleteVehicle _unit;
   };
+
+  [_unit] call events_setWeaponDeployedEventHandler;
 
   if (missionControl_objectivesGenerated || missionControl_gameStarted) exitWith {
     [_unit, _uid] call reinforcements_playerConnected;

@@ -125,11 +125,11 @@ objective_supply_destroyDepot = {
 };
 
 objective_supply_placeLootBoxes = {
-  private ["_building", "_objectData", "_boxes"];
+  private ["_building", "_objectData", "_boxes", "_droneUplinkPosition"];
   _building = _this select 0;
   _objectData = _this select 1;
   _boxes = [];
-  
+  _droneUplinkPosition = nil;
   
   _objectData = [_objectData, 3] call depotPositions_getRandomPlaceholdersFromObjects;
   
@@ -150,6 +150,8 @@ objective_supply_placeLootBoxes = {
 
   [(_boxes call BIS_fnc_selectRandom), ['IKRS_signal_device']] call lootBox_addExtraLoot;
 
+  _droneUplinkPosition = ([_building] call BIS_fnc_buildingPositions) call BIS_fnc_selectRandom;
+  [_droneUplinkPosition, direction _building] call satelliteUplink_create;
 };
 
 objective_supply_cleanUpBox = {

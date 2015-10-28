@@ -7,6 +7,7 @@ clientUnmannedVehicles_checkUVs = {
   if (_playerSquadId == "") exitWith {};
 
   {
+    _x disableTIEquipment true;
     if (_playerSquadId == _x getVariable "squadId") then {
       if ! (_x in clientUnmannedVehicles_controllableUvs) then {
         [_x] call clientUnmannedVehicles_addControllableUv;

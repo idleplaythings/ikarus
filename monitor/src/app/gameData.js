@@ -63,7 +63,7 @@ module.exports = function(armaSerializer){
     ],
     baseModules: [
       "Primary3",
-      "uavModule1",
+      "reconStation1",
       "garage1",
       "shootingrange1"
     ],

@@ -1,3 +1,28 @@
+client_addSupplyIntelAction = {
+  private ["_object"];
+  _object = _this select 0;
+
+  _object addAction [
+    "Gather intel",
+    {
+      private ["_position"];
+      _position = getPos (_this select 3);
+
+      if (player distance2D _position > 2) exitWith {
+        ["You must be closer to the intel.", "supplyIntel"] call client_textMessage;
+      };
+
+      gatherSupplyIntel = [player, _position];
+      publicVariableServer "gatherSupplyIntel";
+
+      if (isServer) then {
+        [player, _position] call objective_supply_gatherIntel;
+      };
+    },
+    _object
+  ];
+};
+
 client_depotDronesActivated = false;
 
 client_addDroneUplinkAction = {

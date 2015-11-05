@@ -56,6 +56,12 @@ depots_getClosestDepot = {
   _closest;
 };
 
+depots_isDepot = {
+  private ["_building"];
+  _building = _this select 0;
+  [_building] call depots_getDistanceToClosestDepot < 2;
+};
+
 depots_getDistanceToClosestDepot = {
   private ["_unit", "_closest"];
   _unit = _this select 0;
@@ -246,6 +252,7 @@ depots_getAmountOfTownDepotsToSpawn = {
 
 depots_getAmountOfNormalDepotsToSpawn = {
   call depots_getAmountOfDepotsToSpawn select 0;
+  2;
 };
 
 depots_getRadiusOfSupplyAO = {
@@ -278,13 +285,9 @@ depots_constructSupplyDepot = {
     _position = getPos (_position select 0);
   };
 
-  _buildingData = [_position, _radius, _radius * 2] call depotPositions_findRandomHouseForDepot;
-  _building = _buildingData select 0;
-  _objectData = _buildingData select 1;
-
-  _objects = [_building, _objectData] call houseFurnisher_furnish;
-
-  [_building, _objects];
+  _building = [_position, _radius, _radius * 2] call depotPositions_findRandomHouse;
+  
+  [_building, []];
 };
 
 depots_constructTownDepot = {

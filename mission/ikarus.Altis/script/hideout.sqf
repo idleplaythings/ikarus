@@ -190,6 +190,7 @@ hideout_createHideoutCache = {
   _box = createVehicle ["IG_supplyCrate_F", [0,0,3000], [], 0, "FLYING"];
   _box setDir _direction;
   _box setPosASL _position;
+  _box allowDamage false;
   
   clearWeaponCargoGlobal _box;
   clearMagazineCargoGlobal _box;
@@ -204,7 +205,7 @@ hideout_createHideoutCache = {
 
   [_equipment, _box, _squad] call equipment_equipHideoutCache;
   
-  _box allowDamage false;
+  
   
   _box addItemCargoGlobal ['ACE_EarPlugs', 12];
   _box addItemCargoGlobal ['ACE_quikclot', 40];

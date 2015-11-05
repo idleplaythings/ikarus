@@ -58,10 +58,52 @@
     descriptionUse = "Unlocks vehicle at military depot";
   };
 
+
+  class IKRS_supply_key: IKRS_loot_key {
+    displayName = "Supply key";
+    descriptionShort = "Unlocks supply boxes at supply depot. Will not persist after mission.";
+    descriptionUse = "Unlocks supply boxes at supply depot. Will not persist after mission.";
+  };
+
  };
 
- class CfgVehicles
- {
+class CfgVehicles
+{
+  class Land_File1_F;
+  class Land_File2_F;
+  class Land_Photos_V3_F;
+  class IKRS_File1_F: Land_File1_F
+  {
+    scope=2;
+    vehicleClass="Intel";
+    displayName="Intel";
+    simulation="House";
+    faction="Interactive_F";
+    hiddenSelections[]={};
+    hiddenSelectionsTextures[]={};
+  };
+  class IKRS_File2_F: Land_File2_F
+  {
+    scope=2;
+    vehicleClass="Intel";
+    displayName="Intel";
+    simulation="House";
+    faction="Interactive_F";
+    hiddenSelections[]={};
+    hiddenSelectionsTextures[]={};
+  };
+
+  class IKRS_Photos_F: Land_Photos_V3_F
+  {
+    scope=2;
+    vehicleClass="Intel";
+    displayName="Intel";
+    simulation="House";
+    faction="Interactive_F";
+    hiddenSelections[]={};
+    hiddenSelectionsTextures[]={};
+  };
+
   class Land_CargoBox_V1_F;
   class IKRS_Land_CargoBox_1: Land_CargoBox_V1_F {
     model = "A3\Weapons_F\Ammoboxes\AmmoVeh_F";

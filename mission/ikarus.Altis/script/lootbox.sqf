@@ -1,6 +1,6 @@
 lootbox_boxes = [];
 
-lootbox_types = ["Land_CargoBox_V1_F", "IKRS_Land_CargoBox_1", "IKRS_Land_CargoBox_2", "IKRS_Land_CargoBox_3"];
+lootbox_types = ["Land_WoodenBox_F", "Land_CargoBox_V1_F", "IKRS_Land_CargoBox_1", "IKRS_Land_CargoBox_2", "IKRS_Land_CargoBox_3"];
 
 lootbox_createHoldBox = {
   private ["_position","_azimuth"];
@@ -29,9 +29,9 @@ lootbox_createSupplyBox = {
   [
     _position,
     _azimuth,
-    "Land_CargoBox_V1_F", //closedObject
-    "I_CargoNet_01_ammo_F", //open container object
-    "", //key
+    "Land_WoodenBox_F", //closedObject
+    "Box_NATO_WpsSpecial_F", //open container object
+    "IKRS_supply_key", //key
     "IKRS_box_opening_reward_lvl1",
     "IKRS_guard_secure_reward",
     1, 
@@ -336,8 +336,6 @@ lootbox_secure = {
   
   if (_secureReward != "") then {
     [([_unit] call getSquadForUnit), [_secureReward]] call addDisconnectedLoot;
-    systemChat "Added secure reward";
-    systemChat str _secureReward;
   };
 };
 
@@ -372,8 +370,6 @@ lootbox_open = {
 
   if (_openingReward != "") then {
     [([_unit] call getSquadForUnit), [_openingReward]] call addDisconnectedLoot;
-    systemChat "Added opening reward";
-    systemChat str _openingReward;
   };
 
   [_unit, _key] call lootBox_removeKey;

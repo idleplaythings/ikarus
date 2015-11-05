@@ -529,6 +529,37 @@ depotPositions_findDepotInTown = {
   [_position] call depotPositions_findHouseForDepot;
 };
 
+depotPositions_findRandomHouse = {
+  private [
+    "_startPosition", 
+    "_maxDistance",
+    "_position",
+    "_building",
+    "_buildings"
+  ];
+
+  _startPosition = _this select 0;
+  _minDistance = _this select 1;
+  _maxDistance = _this select 2;
+  _building = nil;
+
+  while {isNil{_building}} do {
+    _position = [_startPosition, _minDistance, _maxDistance] call popoRandom_findLand;
+
+    _buildings = nearestObjects [_position, ["house"], 100];
+
+    _buildings = [_buildings, {
+      count ([_this] call BIS_fnc_buildingPositions) > 3;
+    }] call AEX_filter;
+
+    if (count _buildings > 0) then {
+      _building = _buildings call BIS_fnc_selectRandom;
+    }
+  };
+
+  _building;
+};
+
 depotPositions_findRandomHouseForDepot = {
   private ["_startPosition", "_maxDistance", "_position", "_building"];
   _startPosition = _this select 0;

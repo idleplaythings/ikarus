@@ -206,22 +206,45 @@ markers_createSupplyDropMarker = {
   ["Supply drop"] call client_taskMessage;
 };
 
-markers_supplyMarkerNames = [];
-
 markers_createSupplyMarker = {
   private ["_position", "_radius", "_name"];
   _position = _this select 0;
-  _radius = 500;
+  _radius = param [1, 1000];
  
-  _name = "depot" + str _position;
+  _name = "depot" + str _position + str _radius;
   _marker = createMarkerLocal [_name, _position];
-  _marker setMarkerBrushLocal "SOLID";
   _marker setMarkerColorLocal "ColorBlack";
+  if (_radius == 0) exitWith {
+    _marker setMarkerTypeLocal "hd_objective";
+    _name;
+  };
+  _marker setMarkerBrushLocal "SOLID";
   _marker setMarkerShapeLocal "ELLIPSE";
-  _marker setMarkerSizeLocal [_radius, _radius];
+  _marker setMarkerSizeLocal [_radius*2, _radius*2];
   _marker setMarkerAlphaLocal 0.8;
   
-  markers_supplyMarkerNames pushBack _name;
+  _name;
+};
+
+markers_createSupplyIntelMarker = {
+  private ["_position"];
+  _position = _this select 0;
+ 
+  _name = "supplyIntel" + str _position;
+  _marker = createMarkerLocal [_name, _position];
+  _marker setMarkerColorLocal "ColorBlue";
+
+  if (isServer) then {
+    if (_position in objective_supply_crates) then {
+      _marker setMarkerColorLocal "ColorRed";
+    };
+
+    if (_position in objective_supply_intels) then {
+      _marker setMarkerColorLocal "ColorGreen";
+    };
+  };
+
+  _marker setMarkerTypeLocal "mil_dot";  
 };
 
 markers_holdMarkerNames = [];
@@ -242,23 +265,42 @@ markers_createHoldMarker = {
   markers_holdMarkerNames pushBack _name;
 };
 
+markers_supplyMarkerData = []; //building, markerName
+
+markers_createSupplyDepotMarkers = {
+  private ["_building", "_markerPosition", "_markerRadius", "_markerName"];
+  _building = _this select 0;
+  _markerPosition = _this select 1;
+  _markerRadius = _this select 2;
+
+  {
+    if (_x select 0 == _building) then {
+      deleteMarkerLocal (_x select 1);
+    };
+  } forEach markers_supplyMarkerData;
+
+  if (count _markerPosition != 3) exitWith {};
+
+  _markerName = [_markerPosition, _markerRadius] call markers_createSupplyMarker;
+
+  markers_supplyMarkerData pushBack [_building, _markerName];
+};
 
 markers_createSupplyBriefring = {
-  private ["_positions", "_markersText", "_number", "_task"];
+  private ["_task", "_positions"];
   _positions = _this select 0;
 
+  /*
   {
     [_x] call markers_createSupplyMarker;
   } forEach _positions;
+  */
 
-  if (count markers_supplyMarkerNames == 0) exitWith {};
-
-  _markersText = "";
-  _number = 0;
+  
   {
-    _number = _number + 1;
-    _markersText = _markersText + '<br/><marker name="' + _x + '">Depot ' + str _number +'</marker>';
-  } forEach markers_supplyMarkerNames;
+    [_x] call markers_createSupplyIntelMarker;
+  } forEach _positions;
+  
 
   _task = player createSimpleTask ["SupplyRun"];
 
@@ -266,9 +308,7 @@ markers_createSupplyBriefring = {
    'There are one or more supply depots on the map. These depots will contain boxes, that can be opened by waiting next to them.'
     + ' You will mainly be rewarded for opening the boxes with loot you will get directly to your company armory. Opened boxes do contain some loot that you need to bring back to the base or outpost.'
     + '<br/><br/>NOTE: Boxes in the supply depot can not be opened before 20 minutes of game has elapsed. When 30 minutes has elapsed, the boxes will open faster.'
-    + ' When 50 to 55 minutes has elapsed the depot will be destroyed by an airstrike. First plane will by a fly over, next one a bombing run.'
-    + '<br/><br/>Following areas contain a supply depot somewhere inside:<br/>'
-    + _markersText,
+    + ' When 50 to 55 minutes has elapsed the depot will be destroyed by an airstrike. First plane will by a fly over, next one a bombing run.',
    "Supply run",
    ""
   ];

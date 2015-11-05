@@ -23,6 +23,13 @@ lootItems_addLootFromTable = {
   } forEach _table;
 };
 
+lootItems_populateSupplyIntelBox = {
+  private ["_container"];
+  _container = _this select 0;
+
+  [_container, lootTable_supplyIntelBox] call lootItems_addLootFromTable;
+};
+
 lootItems_populateHoldAirdropBox = {
   private ["_container"];
   _container = _this select 0;

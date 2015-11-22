@@ -7,8 +7,9 @@
 //  4: percentage held
 //  5: number of backpacks delivered
 objective_delivery_objectives = [];
-//objective_delivery_increment = 0.33;
-objective_delivery_increment = 0;
+// objective_delivery_increment = 0.33;
+objective_delivery_increment = 2;
+objective_delivery_maxDeliveryDistance = 5;
 
 "deliverBackpack" addPublicVariableEventHandler {
   private ["_unit"];
@@ -329,12 +330,12 @@ objective_delivery_rewardLoot = {
 
   _squad = [_squadId] call getSquadById;  
 
-  if ([_squad] call getChosenObjective == "delivery") then {
+  if (([_squad] call getChosenObjective) == "delivery") then {
     if (_backpacksDelivered >= 3) then {
-      [_squad, "IKRS_delivery_delivery"] call addDisconnectedLoot;
+      [_squad, ["IKRS_delivery_delivery"]] call addDisconnectedLoot;
     };
   } else {
-    [_squad, "IKRS_delivery_deny"] call addDisconnectedLoot;
+    [_squad, ["IKRS_delivery_deny"]] call addDisconnectedLoot;
   };
 };
 
@@ -410,12 +411,12 @@ private ["_currentlyActiveObjective", "_depot", "_building", "_unit", "_unitBack
   _unit = _this select 0;
   _unitBackpack = unitBackpack _unit;
 
-  if (backpack _unit != "IKRS_delivery_backpack") exitWith {
-    hint "You need to have a delivery backpack equipped!"
+  if (backpack _unit != "IKRS_merchandise_backpack") exitWith {
+    hint "You need to have a merchandise backpack equipped!";
   };
 
-  if (_unit distance _building > 5) exitWith {
-    hint "You need to be within 5 meters of delivery site to deliver backpack!"
+  if (_unit distance _building > objective_delivery_maxDeliveryDistance) exitWith {
+    hint format ["You need to be within %1 meters of delivery site to deliver a backpack!", objective_delivery_maxDeliveryDistance];
   };
 
   removeBackpack _unit;
@@ -435,7 +436,7 @@ _this spawn {
 _this spawn {
   sleep 15;
   [0] call objective_delivery_activateObjectiveByIndex;
-  sleep 1200;
+  sleep 120;
   call objective_delivery_deactiveAllObjectives;
 
   sleep 15;

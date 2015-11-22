@@ -16,8 +16,6 @@ objective_manhunt_joinInProgress = {
   private ["_unit"];
   _unit = _this select 0;
 
-  _this call objective_manhunt_setPlayerRating;
-
   if (isNil{objective_manhunt_transmitterPosition}) exitWith {};
 
   [[], "markers_createManhuntBriefing", _unit, false, true] call BIS_fnc_MP;
@@ -39,10 +37,6 @@ objective_manhunt_joinInProgress = {
     true,
     false
   ] call BIS_fnc_MP;
-};
-
-objective_manhunt_setPlayerRating = {
-  _this call objective_supply_setPlayerRating;
 };
 
 objective_manhunt_onObjectivesCreated = {

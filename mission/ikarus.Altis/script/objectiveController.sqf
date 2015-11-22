@@ -6,12 +6,6 @@
   [_squad, _objective] call objectiveController_changeSquadObjective;
 };
 
-objectiveController_setPlayerRatings = {
-  {
-    [_x, 'setPlayerRating', [_x]] call objectiveController_callUnitObjective;
-  } forEach (call getAllPlayers);
-};
-
 objectiveController_startObjectiveChoosing = {
   {
     [_x] call objectiveController_sendChooseObjectiveMenu;
@@ -41,7 +35,7 @@ objectiveController_sendChooseObjectiveMenu = {
     if (_valid) then {
       _objectives pushBack ([_x] call objectiveController_getObjectiveDataSetFromType);
     };
-  } forEach ['supply', 'hold', 'guard', 'assasination', 'military', 'manhunt'];
+  } forEach ['supply', 'hold', 'guard', 'assasination', 'military', 'manhunt', 'delivery'];
 
   _objectives = _objectives + ([_squad] call objective_raid_getValidRaids);
 
@@ -92,7 +86,6 @@ objectiveController_createObjectives = {
   [_AO_center] call depots_create_depots;
   ["construct", []] call objectiveController_callObjectives;
   ["onObjectivesCreated", []] call objectiveController_callObjectives;
-  call objectiveController_setPlayerRatings;
 };
 
 objectiveController_getSquadsWithObjectives = {
@@ -150,7 +143,7 @@ objectiveController_callObjectives = {
   
   {
     [_x, _functionName, _arguments] call objectiveController_callObjective;
-  } forEach ['raid', 'supply', 'hold', 'guard', 'assasination', 'military', 'manhunt'];
+  } forEach ['raid', 'supply', 'hold', 'guard', 'assasination', 'military', 'manhunt', 'delivery'];
 };
 
 objectiveController_callObjective = {

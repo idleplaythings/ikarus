@@ -105,11 +105,6 @@ objective_raid_canBeRaided = {
 };
 
 objective_raid_joinInProgress = {
-  _this call objective_military_setPlayerRating;
-};
-
-objective_raid_setPlayerRating = {
-  _this call objective_supply_setPlayerRating;
 };
 
 objective_raid_onObjectivesCreated = {

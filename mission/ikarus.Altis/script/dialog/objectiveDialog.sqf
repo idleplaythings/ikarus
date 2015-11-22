@@ -127,5 +127,10 @@ objectiveDialog_getDescription = {
 
   };
 
+  if (_type == "Delivery") exitWith {
+    "Delivery<br/><br/>Deliver stuff to places.";
+  };
+
+
   "";
 };

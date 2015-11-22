@@ -1,6 +1,7 @@
 depots_supply_depots = [];
 depots_town_depots = [];
 depots_military_depots = [];
+depots_delivery_depots = [];
 
 depots_holdPriority = if (random 1 > 0.5) then {true;} else {false;};
 
@@ -11,6 +12,7 @@ depots_create_depots = {
   [_centerOfAO] call depots_create_supply;
   [_centerOfAO] call depots_create_town;
   [_centerOfAO] call depots_create_military;
+  [_centerOfAO] call depots_create_delivery;
 };
 
 depots_getTotalAmount = {
@@ -125,6 +127,21 @@ depots_create_military = {
   while {_numberOfDepots > 0} do {
     _depot = [_centerOfAO, _radius] call depots_constructMilitaryDepot;
     depots_military_depots pushBack _depot;
+    _numberOfDepots = _numberOfDepots - 1;
+  };
+};
+
+depots_create_delivery = {
+  private ["_centerOfAO"];
+  _centerOfAO = _this select 0;
+  // _radius = call depots_getRadiusOfDeliveryAO;
+  // _numberOfDepots = call depots_getAmountOfDeliveryDepotsToSpawn;
+  _radius = 1000;
+  _numberOfDepots = 3;
+
+  while {_numberOfDepots > 0} do {
+    _depot = [_centerOfAO, _radius] call depots_constructDeliveryDepot;
+    depots_delivery_depots pushBack _depot;
     _numberOfDepots = _numberOfDepots - 1;
   };
 };
@@ -302,6 +319,21 @@ depots_constructTownDepot = {
 
   [_building, _objects];
 };
+
+depots_constructDeliveryDepot = {
+  private ["_centerOfAO", "_radius", "_buildingData", "_building", "_objectData", "_objects"];
+  _centerOfAO = _this select 0;
+  _radius = _this select 1;
+
+  _buildingData = [_centerOfAO, _radius / 2, _radius] call depotPositions_findRandomHouseForDepot;
+  _building = _buildingData select 0;
+  _objectData = _buildingData select 1;
+
+  // _objects = [_building, _objectData] call houseFurnisher_furnish;
+  // [_building, _objects];
+  [_building, []];
+};
+
 
 depots_getRadiusOfTownAO = {
   4000;

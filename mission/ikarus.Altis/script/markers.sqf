@@ -503,3 +503,58 @@ markers_updateManhuntTransmitterMarker  = {
 
   markers_manhuntMarker = _marker;
 };
+
+markers_createDeliveryBriefing = {
+  private ["_depots", "_markersText", "_number", "_task"];
+  _positions = _this select 0;
+
+  _task = player createSimpleTask ["Delivery"];
+
+  _task setSimpleTaskDescription [
+   'Useful text goes here',
+   "Delivery",
+   ""
+  ];
+
+  player setCurrentTask _task;
+  ["Delivery"] call client_taskMessage;
+
+  {
+    [_x, _forEachIndex] call markers_createDeliveryTargetMarker;
+  } forEach _positions;
+};
+
+markers_createDeliveryOpforBriefing = {
+  private ["_positions", "_markersText", "_number", "_task"];
+  _positions = _this select 0;
+
+  {
+    [_x, _forEachIndex] call markers_createDeliveryAreaMarker;
+  } forEach _positions;
+};
+
+markers_createDeliveryTargetMarker = {
+  private ["_position", "_radius", "_name"];
+  _position = _this select 0;
+  _number = _this select 1;
+
+  _name = "delivery_depot_icon" + str _position;
+  _marker = createMarkerLocal [_name, _position];
+  _marker setMarkerTypeLocal "hd_pickup";
+  _marker setMarkerTextLocal format ["D%1", _number + 1]
+};
+
+markers_createDeliveryAreaMarker = {
+  private ["_position", "_radius", "_name"];
+  _position = _this select 0;
+  _number = _this select 1;
+  _radius = 500;
+
+  _name = "delivery_depot_shape" + str _position;
+  _marker = createMarkerLocal [_name, _position];
+  _marker setMarkerBrushLocal "SOLID";
+  _marker setMarkerColorLocal "ColorPink";
+  _marker setMarkerShapeLocal "ELLIPSE";
+  _marker setMarkerSizeLocal [_radius, _radius];
+  _marker setMarkerAlphaLocal 0.6;
+};

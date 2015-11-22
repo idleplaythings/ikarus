@@ -21,15 +21,10 @@ objective_military_displayName = {
 
 objective_military_joinInProgress = {
   private ["_unit"];
-  _this call objective_military_setPlayerRating;
   
   {
     [_unit, _x] call objective_military_addBriefingAndMarkersForUnit;
   } forEach objective_military_markerPositions;
-};
-
-objective_military_setPlayerRating = {
-  _this call objective_supply_setPlayerRating;
 };
 
 objective_military_onObjectivesCreated = {

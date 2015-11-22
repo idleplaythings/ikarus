@@ -25,8 +25,6 @@ objective_supply_joinInProgress = {
   //TODO: JIP supply markers  
 };
 
-objective_supply_setPlayerRating = {};
-
 objective_supply_validate = {
   true;
 };

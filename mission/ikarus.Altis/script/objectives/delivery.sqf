@@ -170,12 +170,13 @@ objective_delivery_addSubmitBackpackAction = {
 };
 
 objective_delivery_hintDeliverySiteInfo = {
-  private ["_player", "_distance", "_objective"];
+  private ["_player", "_distance", "_objective", "_percentageSign"];
   _player = _this select 0;
   _distance = _this select 1;
   _objective = _this select 2;
+  _percentageSign = "%";
 
-  [[parseText format ["Distance to delivery site %1%<br/>Site %2% &#37; held", _distance, _objective select 4], 'deliveryDistance'], "client_textMessage", _player, true, false] call BIS_fnc_MP;
+  [[format ["Distance to delivery site %1% meters<br/>Site %2%%3% held", [_distance] call CBA_fnc_formatNumber, _objective select 4, _percentageSign], 'deliveryDistance'], "client_textMessage", _player, true, false] call BIS_fnc_MP;
 };
 
 objective_delivery_deactivateCurrentDeliverySite = {

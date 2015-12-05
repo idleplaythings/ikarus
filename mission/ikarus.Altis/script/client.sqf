@@ -181,6 +181,13 @@ client_addSubmitBackpackAction = {
   ];
 };
 
+client_removeAllActions = {
+  private ["_object"];
+  _object = _this select 0;
+
+  removeAllActions _object;
+};
+
 client_teleportToOutpost = {
   private ["_position"];
   _position = _this select 0;

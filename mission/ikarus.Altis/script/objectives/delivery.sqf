@@ -6,9 +6,15 @@
 //  3: squad id of the squad holding the depot
 //  4: percentage held
 //  5: number of backpacks delivered
-objective_delivery_objectives = [];
+objective_delivery_sites = [];
+objective_delivery_lastSiteIndex = -1;
+objective_delivery_siteDectivationScript = nil;
+objective_delivery_firstSiteActivationDelay = 20;
+objective_delivery_nextSiteActivationDelay = 30;
+objective_delivery_currentSiteDeactivationDelay = 30;
+
 // objective_delivery_increment = 0.33;
-objective_delivery_increment = 2;
+objective_delivery_increment = 20;
 objective_delivery_maxDeliveryDistance = 5;
 
 "deliverBackpack" addPublicVariableEventHandler {
@@ -26,17 +32,40 @@ objective_delivery_construct = {
     _deliveryPlayers = [['delivery']] call objectiveController_getPlayersWithObjectives;
     [_depots, _deliveryPlayers] call objective_delivery_constructMarkers;
 
-    _otherPlayers = [['delivery']] call objectiveController_getPlayersWithoutObjectives;
+    _otherPlayers = [['delivery', 'raid']] call objectiveController_getPlayersWithoutObjectives;
     [_depots, _otherPlayers] call objective_delivery_constructMarkersForOpfor;
 
     {      
-      objective_delivery_objectives pushBack [false, _foreachindex + 1, _x, nil, 0.0, 0];
+      objective_delivery_sites pushBack [false, _foreachindex + 1, _x, nil, 0.0, 0];
     } forEach _depots;
   };
 };
 
 objective_delivery_onObjectivesCreated = {
+  call objective_delivery_activateNextSiteAfterDelay;
+};
 
+objective_delivery_activateNextSiteAfterDelay = {
+  private ["_delay"];
+
+  _this spawn {
+    sleep objective_delivery_nextSiteActivationDelay;
+    [objective_delivery_lastSiteIndex + 1] call objective_delivery_activateSiteByIndex;
+  };
+};
+
+objective_delivery_deactivateSiteAfter = {
+  private ["_delay", "_activeSite", "_players"];
+
+  objective_delivery_siteDectivationScript = _this spawn {
+    sleep objective_delivery_currentSiteDeactivationDelay;
+    _activeSite = call objective_delivery_getActiveSite;
+    _players = [['raid']] call objectiveController_getPlayersWithoutObjectives;
+    {
+      [[format ["Delivery site #%1 no longer active.", _activeSite select 1], 'deliverySiteInfo'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
+    } forEach _players;
+    call objective_delivery_deactivateCurrentAndStartNextDeliverySiteActivationDelay;
+  };
 };
 
 objective_delivery_displayName = {
@@ -48,7 +77,17 @@ objective_delivery_joinInProgress = {
 };
 
 objective_delivery_validate = {
-  true;
+  private ["_squad", "_backpackCount"];
+  _squad = _this select 0;
+  _backpackCount = 0;
+
+  {
+    if (_x == "IKRS_merchandise_backpack") then {
+      _backpackCount = _backpackCount + 1;
+    }
+  } forEach ([_squad] call loot_findSquadLoot);
+
+  _backpackCount >= 9;
 };
 
 objective_delivery_defaultIfNeccessary = {};
@@ -115,7 +154,7 @@ objective_delivery_getActiveSite = {
     if (_x select 0) exitWith {
       _objective = _x;
     };
-  } forEach objective_delivery_objectives;
+  } forEach objective_delivery_sites;
 
   _objective;
 };
@@ -135,7 +174,7 @@ objective_delivery_resolveDepotHold = {
   _activeSite = call objective_delivery_getActiveSite;
   _depot = _activeSite select 2;
   _building = _depot select 0;
-  _players = [['delivery']] call objectiveController_getPlayersWithObjectives;
+  _players = [['raid']] call objectiveController_getPlayersWithoutObjectives;
   _playersAndDistances = [_players, { [_x, _x distance _building] }] call AEX_map;
   _playersAndDistancesOrdered = [_playersAndDistances, AEX_order_asc, { _x select 1; }] call AEX_sort;
 
@@ -156,7 +195,7 @@ objective_delivery_resolveDepotHold = {
     if (call objective_delivery_isCurrentSiteHeld) then {
       call objective_delivery_rewardLoot;
       call objective_delivery_announceDeliverySiteHeld;
-      call objective_delivery_deactivateCurrentDeliverySite;
+      call objective_delivery_deactivateCurrentAndStartNextDeliverySiteActivationDelay;
     };
   } forEach _playersAndDistancesOrdered;
 };
@@ -169,6 +208,14 @@ objective_delivery_addSubmitBackpackAction = {
   [[_building], "client_addSubmitBackpackAction", _player, true, false] call BIS_fnc_MP;
 };
 
+objective_delivery_removeAllActions = {
+  private ["_player", "_building"];
+  _player = _this select 0;
+  _building = _this select 1;
+
+  [[_building], "client_removeAllActions", _player, true, false] call BIS_fnc_MP;
+};
+
 objective_delivery_hintDeliverySiteInfo = {
   private ["_player", "_distance", "_objective", "_percentageSign"];
   _player = _this select 0;
@@ -176,26 +223,7 @@ objective_delivery_hintDeliverySiteInfo = {
   _objective = _this select 2;
   _percentageSign = "%";
 
-  [[format ["Distance to delivery site %1% meters<br/>Site %2%%3% held", [_distance] call CBA_fnc_formatNumber, _objective select 4, _percentageSign], 'deliveryDistance'], "client_textMessage", _player, true, false] call BIS_fnc_MP;
-};
-
-objective_delivery_deactivateCurrentDeliverySite = {
-  private ["_activeSite"];
-  _activeSite = call objective_delivery_getActiveSite;
-  _activeSite set [0, false];
-};
-
-objective_delivery_deactiveAllObjectives = {
-  private ["_activeSite", "_players"];
-  _activeSite = call objective_delivery_getActiveSite;
-
-  if (count _activeSite != 0) then {
-    [format ["Delivery site #%1 deactivated", _activeSite select 1]] call client_taskMessage;
-  };
-
-  {
-    _x set [0, false];
-  } forEach objective_delivery_objectives;
+  [[format ["Distance to delivery site %1% meters<br/>Site %2%%3% held", [_distance] call CBA_fnc_formatNumber, _objective select 4, _percentageSign], 'deliverySiteInfo'], "client_textMessage", _player, true, false] call BIS_fnc_MP;
 };
 
 objective_delivery_rewardLoot = {
@@ -220,10 +248,10 @@ objective_delivery_rewardLoot = {
 objective_delivery_announceDeliverySiteHeld = {
   private ["_activeSite", "_players"];
   _activeSite = call objective_delivery_getActiveSite;
-  _players = [['delivery']] call objectiveController_getPlayersWithObjectives;
+  _players = [['raid']] call objectiveController_getPlayersWithoutObjectives;
 
   {
-    [[format ["Delivery site #%1 held!", _activeSite select 1], 'deliveryDistance'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
+    [[format ["Delivery site #%1 held!", _activeSite select 1], 'deliverySiteInfo'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
   } forEach _players;
 };
 
@@ -247,25 +275,52 @@ objective_delivery_isCurrentSiteHeld = {
 };
 
 objective_delivery_activateSiteByIndex = {
-  private ["_objectiveIndex", "_objective", "_depot", "_building"];
-  _objectiveIndex = _this select 0;
-  _objective = objective_delivery_objectives select _objectiveIndex;
-  _depot = _objective select 2;
+  private ["_siteIndex", "_site", "_depot", "_building"];
+  _siteIndex = _this select 0;
+
+  if (_siteIndex + 1 > count objective_delivery_sites) exitWith {};
+
+  _site = objective_delivery_sites select _siteIndex;
+  _depot = _site select 2;
   _building = _depot select 0;
 
-  _objective set [0, true];
+  _site set [0, true];
 
+  _players = [['raid']] call objectiveController_getPlayersWithoutObjectives;
   {
     [_x, _building] call objective_delivery_addSubmitBackpackAction;
-  } forEach call getAllPlayers;  
+    [[format ["Delivery site #%1 active", _site select 1], 'deliverySiteInfo'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
+  } forEach _players;
 
-  [format ["Delivery site #%1 active", _objective select 1]] call client_taskMessage;
+  [15] call objective_delivery_deactivateSiteAfter;
+};
+
+objective_delivery_deactivateCurrentAndStartNextDeliverySiteActivationDelay = {
+  private ["_activeSite", "_depot", "_building", "_players"];
+  _activeSite = call objective_delivery_getActiveSite;
+  _depot = _activeSite select 2;
+  _building = _depot select 0;
+
+  terminate objective_delivery_siteDectivationScript;
+
+  if (count _activeSite > 0) then {
+    _activeSite set [0, false];
+  };
+
+  objective_delivery_lastSiteIndex = objective_delivery_lastSiteIndex + 1;
+
+  if (count objective_delivery_sites >= objective_delivery_lastSiteIndex) then {
+    call objective_delivery_activateNextSiteAfterDelay;
+  }
 };
 
 objective_delivery_deliverBackpack = {
-private ["_unit", "_activeSite", "_depot", "_building"];
+  private ["_unit", "_activeSite", "_depot", "_building"];
   _unit = _this select 0;
   _activeSite = call objective_delivery_getActiveSite;
+
+  if (count _activeSite == 0) exitWith {};
+
   _depot = _activeSite select 2;
   _building = _depot select 0;
 
@@ -289,21 +344,4 @@ _this spawn {
     sleep 1;
     call objective_delivery_resolveDepotHold;
   }
-};
-
-_this spawn {
-  sleep 15;
-  [0] call objective_delivery_activateSiteByIndex;
-  sleep 120;
-  call objective_delivery_deactiveAllObjectives;
-
-  sleep 15;
-  [1] call objective_delivery_activateSiteByIndex;
-  sleep 120;
-  call objective_delivery_deactiveAllObjectives;
-
-  sleep 15;
-  [2] call objective_delivery_activateSiteByIndex;
-  sleep 120;
-  call objective_delivery_deactiveAllObjectives;
 };

@@ -111,7 +111,8 @@ module.exports = function(armaSerializer){
         'IKRS_signal_device': 1,
         //'BAF_Jackal2_L2A1_D': 1,
         'B_UGV_01_F': 1,
-        'B_UAV_01_backpack_F': 1
+        'B_UAV_01_backpack_F': 1,
+        'IKRS_merchandise_backpack': 9
       }
     },
     {

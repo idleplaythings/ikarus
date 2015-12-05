@@ -134,8 +134,6 @@ depots_create_military = {
 depots_create_delivery = {
   private ["_centerOfAO"];
   _centerOfAO = _this select 0;
-  // _radius = call depots_getRadiusOfDeliveryAO;
-  // _numberOfDepots = call depots_getAmountOfDeliveryDepotsToSpawn;
   _radius = 1000;
   _numberOfDepots = 3;
 

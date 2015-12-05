@@ -1,6 +1,6 @@
 lootbox_boxes = [];
 
-lootbox_types = ["Land_WoodenBox_F", "Land_CargoBox_V1_F", "IKRS_Land_CargoBox_1", "IKRS_Land_CargoBox_2", "IKRS_Land_CargoBox_3"];
+lootbox_types = ["Land_Laptop_F", "Land_WoodenBox_F", "Land_CargoBox_V1_F", "IKRS_Land_CargoBox_1", "IKRS_Land_CargoBox_2", "IKRS_Land_CargoBox_3"];
 
 lootbox_createHoldBox = {
   private ["_position","_azimuth"];
@@ -29,13 +29,13 @@ lootbox_createSupplyBox = {
   [
     _position,
     _azimuth,
-    "Land_WoodenBox_F", //closedObject
-    "Box_NATO_WpsSpecial_F", //open container object
+    "Land_Laptop_F", //closedObject
+    "Land_Laptop_unfolded_F", //open container object
     "IKRS_supply_key", //key
     "IKRS_box_opening_reward_lvl1",
     "IKRS_guard_secure_reward",
     1, 
-    1,
+    0.50,
     "lootItems_populateSupplyBoxLevel_0"
   ] call lootbox_create;
 };
@@ -48,13 +48,13 @@ lootbox_createAdvancedSupplyBox = {
   [
     _position,
     _azimuth,
-    "IKRS_Land_CargoBox_1", //closedObject
-    "B_CargoNet_01_ammo_F", //open container object
+    "Land_WoodenBox_F", //closedObject
+    "Box_NATO_WpsSpecial_F", //open container object
     "IKRS_loot_key1", //key
     "IKRS_box_opening_reward_lvl2",
     "IKRS_guard_secure_reward",
     0.75, 
-    1,
+    0.25,
     "lootItems_populateSupplyBoxLevel_1"
   ] call lootbox_create;
 };
@@ -159,6 +159,10 @@ lootbox_create = {
   _openIncrement = [_this, 7, 1] call BIS_fnc_param;
   _secureIncrement = [_this, 8, 1] call BIS_fnc_param;
   _lootFunction = [_this, 9, "lootItems_populateSupplyBoxLevel_0"] call BIS_fnc_param;
+
+  _position set [2, (_position select 2) + 0.5];
+  _position = [_position] call findFloor;
+  _position set [2, (_position select 2) + 0.10];
 
   _object = createVehicle [_closedObject, [0,0,3000], [], 0, "FLYING"];
   _object setDir _azimuth;
@@ -317,12 +321,12 @@ lootbox_hint = {
   
   if (_value == 0) exitWith {
     {
-      [["You can't open this box yet", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
+      [["You can't open this yet", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
     } forEach _units;
   };
 
   {
-    [["Loot box is " + str floor _value + "% open", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
+    [["Target is " + str floor _value + "% open", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
   } forEach _units;
 };
 
@@ -449,7 +453,7 @@ lootbox_checkBoxes = {
         
           if (! ([_box, _x] call lootBox_canSecure) && ! ([_x, _key] call lootBox_hasKeyToOpen)) then {
             _canOpen = false;
-            [["You need a key to open this box.", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
+            [["You need a key to open this.", 'lootbox'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
           };
 
           _isUnconscious = _x getvariable ["ACE_isUnconscious", false];

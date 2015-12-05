@@ -1,10 +1,10 @@
 objective_military_vehicles = [
-  'BAF_Jackal2_L2A1_D',
-  'BAF_Jackal2_L2A1_W',
+  'CUP_BAF_Jackal2_L2A1_D',
+  'CUP_BAF_Jackal2_L2A1_W',
   'I_MRAP_03_F',
   'B_MRAP_01_F',
   'O_MRAP_02_F',
-  'UAZ_AGS30'
+  'CUP_B_UAZ_AGS30_CDF'
 ];
 
 objective_military_helicopters = [

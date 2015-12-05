@@ -38,10 +38,7 @@ lootItems_populateHoldAirdropBox = {
 };
 
 lootItems_populateSupplyBoxLevel_0 = {
-  private ["_container"];
-  _container = _this select 0;
-  
-  [_container, lootTable_supplyBox] call lootItems_addLootFromTable;
+  //disabled for now
 };
 
 lootItems_populateSupplyBoxLevel_1 = {

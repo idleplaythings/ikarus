@@ -127,6 +127,7 @@ houseFurnisher_placeObject = {
 
   if ([_objectClass] call depotPositions_isPlaceHolder) then {
     _object hideObjectGlobal true;
+    hideObject _object;
     _object enableSimulationGlobal false;
   };
 

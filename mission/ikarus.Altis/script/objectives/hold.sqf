@@ -93,10 +93,6 @@ objective_hold_constructDepots = {
     _objectData = _objectDatas select 0;
     _position = getPosASL _objectData;
     _direction = direction _objectData;
-    _object = createVehicle ["Land_SatellitePhone_F", [0,0,3000], [], 0, "FLYING"];
-    _object setDir _direction;
-    _object setPosASL _position;
-    _object enableSimulationGlobal false;
 
     [_x select 0, objective_hold_cleanUp, [_objectiveData]] call buildingDestroyer_init;
     [_x select 0] spawn objective_hold_destroyDepot;

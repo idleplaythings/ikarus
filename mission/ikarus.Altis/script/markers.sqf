@@ -290,17 +290,9 @@ markers_createSupplyBriefring = {
   private ["_task", "_positions"];
   _positions = _this select 0;
 
-  /*
-  {
-    [_x] call markers_createSupplyMarker;
-  } forEach _positions;
-  */
-
-  
   {
     [_x] call markers_createSupplyIntelMarker;
   } forEach _positions;
-  
 
   _task = player createSimpleTask ["SupplyRun"];
 

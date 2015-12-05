@@ -230,9 +230,7 @@ marketDefinitions = [
     _id: 'VEHICLES',
     name: 'Vehicles',
     items: {
-      'UAZ_Unarmed':        { cost: {money: 150}},
-      'BAF_Offroad_D':      { cost: {money: 250}},
-      'BAF_Offroad_W':      { cost: {money: 250}},
+      'CUP_B_UAZ_Unarmed_CDF':        { cost: {money: 150}},
 
       'B_UGV_01_F':         { cost: {money: 250}},
 

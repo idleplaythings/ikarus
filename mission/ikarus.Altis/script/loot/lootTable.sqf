@@ -6,11 +6,17 @@ lootTable_setDefinitions = [
       ['CUP_arifle_RPK74M', 'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M', 'CUP_75Rnd_TE4_LRT4_Green_Tracer_545x39_RPK_M'],
       ['CUP_sgun_Saiga12K', 'CUP_8Rnd_B_Saiga12_74Slug_M', 'CUP_8Rnd_B_Saiga12_74Slug_M', 'CUP_8Rnd_B_Saiga12_74Slug_M', 'CUP_8Rnd_B_Saiga12_74Slug_M'],
       ['CUP_srifle_LeeEnfield', 'CUP_10x_303_M','CUP_10x_303_M','CUP_10x_303_M','CUP_10x_303_M','CUP_10x_303_M'],
-      ['CUP_smg_bizon', 'CUP_64Rnd_9x19_Bizon_M','CUP_64Rnd_9x19_Bizon_M','CUP_muzzle_Bizon'],
       ['CUP_smg_bizon', 'CUP_64Rnd_9x19_Bizon_M','CUP_64Rnd_9x19_Bizon_M'],
       ['CUP_arifle_AKM', 'CUP_30Rnd_762x39_AK47_M','CUP_30Rnd_762x39_AK47_M', 'CUP_30Rnd_762x39_AK47_M'],
       ['CUP_arifle_AK74M', 'CUP_30Rnd_545x39_AK_M', 'CUP_30Rnd_545x39_AK_M', 'CUP_30Rnd_545x39_AK_M'],
       ['CUP_arifle_AK74M_GL', 'CUP_1Rnd_HE_GP25_M', 'CUP_1Rnd_HE_GP25_M', 'CUP_30Rnd_545x39_AK_M', 'CUP_30Rnd_545x39_AK_M', 'CUP_30Rnd_545x39_AK_M']
+    ]
+  ],
+  
+  ['warsaw_suprsessors',
+    [
+      'CUP_muzzle_Bizon',
+      'CUP_muzzle_PBS4'
     ]
   ],
 
@@ -263,7 +269,9 @@ lootTable_vehicleDepotBox = [
 lootTable_supplyIntelBox = [
   ['warsaw_tacticool', 2, -1],
   [['opfor_light_sniper', 'warsaw_heavy', 'warsaw_medium_optics'], 8, -7],
-  ['IKRS_supply_key', 3, -2],
   ['CUP_optic_Kobra', 2, -1],
+  ['IKRS_signal_device', 10, -9],
+  ['static weapons', 10, -9],
+  ['warsaw_suprsessors', 8, -7],
   ['backpack', 1, 0]
 ];

@@ -252,7 +252,6 @@ depots_getAmountOfTownDepotsToSpawn = {
 
 depots_getAmountOfNormalDepotsToSpawn = {
   call depots_getAmountOfDepotsToSpawn select 0;
-  2;
 };
 
 depots_getRadiusOfSupplyAO = {

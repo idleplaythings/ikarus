@@ -88,12 +88,11 @@ objective_guard_onKilled = {
   
   _closestDepot = [_killer] call depots_getClosestDepot select 0;
 
-  if ((_killer distance _closestDepot) <= objective_guard_killRadius) exitWith {
-    diag_log "guard " + str _killer + " killed a trespasser";
-    player globalChat "guard " + str _killer + " killed a trespasser";
+  diag_log "guard " + str _killer + " killed a trespasser";
+  player globalChat "guard " + str _killer + " killed a trespasser";
 
-    [_guardData] call objective_guard_reward;
-  };
+  [_guardData] call objective_guard_reward;
+  
 };
 
 objective_guard_onDisconnected = {

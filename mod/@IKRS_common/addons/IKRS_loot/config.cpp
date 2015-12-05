@@ -19,6 +19,8 @@
       picture = "\A3\Drones_F\Weapons_F_Gamma\Items\data\UI\gear_UAV_controller_oli_CA.paa";
       hiddenSelectionsTextures[] = {"\A3\Drones_F\Weapons_F_Gamma\Items\data\UAV_controller_oli_co.paa"};
       displayName = "";
+      mapSize = 0.034;
+      icon = "iconObject_circle";
       descriptionShort = "Opens loot boxes";
       descriptionUse = "Opens loot boxes";
       class ItemInfo: InventoryItem_Base_F {

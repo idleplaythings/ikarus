@@ -93,7 +93,6 @@ objective_supply_constructMarkers = {
   {
     _positions pushBack (_x select 1);
     _intelBoxes = _intelBoxes + (_x select 2);
-    systemChat str count (_x select 2);
   } forEach objective_supply_data;
   
   {
@@ -133,38 +132,26 @@ objective_supply_getSquadData = { // squadId, intelAmount, collectedIntelPositio
 objective_supply_constructDepots = {
 
   {
-    private ["_building", "_objectData", "_intelBoxes", "_areaCenter", "_advancedBoxPosition"];
+    private ["_building", "_objectData", "_intelBoxes", "_areaCenter"];
     _building = _x select 0;
-    _advancedBoxPosition = [];
 
     _areaCenter = [_building, 1000] call SHK_pos;
 
-    //[_building] call objective_supply_createVehicle;
     [_building] call objective_supply_placeLootBoxes;
     [_building, objective_supply_cleanUpBox, [_building]] call buildingDestroyer_init;
     _intelBoxes = [_building, _areaCenter] call objective_supply_createIntelBoxes;
     [_building] spawn objective_supply_destroyDepot;
-
-
-    if (count squads > 1) then {
-      //_advancedBoxPosition = [] call objective_supply_createIntelBox;
-    };
     
-
-    objective_supply_data pushBack [_building, _areaCenter, _intelBoxes, [], _advancedBoxPosition];
+    objective_supply_data pushBack [_building, _areaCenter, _intelBoxes, []];
 
   } forEach depots_supply_depots;
 };
 
 objective_supply_createIntelBox = {
-  //private [];
-  //[pos, dir] call lootbox_createAdvancedSupplyBox
-};
-
-objective_supply_createIntelBox = {
-  private ["_position", "_direction"];
+  private ["_position", "_direction", "_addKey"];
   _position = _this select 0;
   _direction = _this select 1;
+  _addKey = _this select 2;
 
   _object = createVehicle ["Box_NATO_Wps_F", [0,0,3000], [], 0, "FLYING"];
   _object setDir _direction;
@@ -176,6 +163,9 @@ objective_supply_createIntelBox = {
   clearBackpackCargoGlobal _object;
 
   [_object, "lootItems_populateSupplyIntelBox", []] call lootItems_populateSupplyBox;
+  if (_addKey) then {
+    _object addItemCargoGlobal ["IKRS_supply_key", 1];
+  }
 };
 
 "gatherSupplyIntel" addPublicVariableEventHandler {
@@ -289,13 +279,24 @@ objective_supply_updateIntelIfneeded = {
   };
 };
 
+/*
+
+    _object = createVehicle ["Land_SatellitePhone_F", [0,0,3000], [], 0, "FLYING"];
+    _object setDir _direction;
+    _object setPosASL _position;
+    _object enableSimulationGlobal false;
+*/
+
 objective_supply_createIntelMap = {
   private ["_position", "_direction"];
   _position = _this select 0;
   _direction = _this select 1;
   _objectClass = ["IKRS_File1_F", "IKRS_File2_F", "IKRS_Photos_F"] call BIS_fnc_selectRandom;
   _position set [2, (_position select 2) + 0.5];
-  _object = createVehicle [_objectClass, _position, [], 0, "CAN_COLLIDE"];
+  _position = [ATLToASL _position] call findFloor;
+  _object = createVehicle [_objectClass, [0,0,0], [], 0, "CAN_COLLIDE"];
+  _position set [2, (_position select 2) + 0.10];
+  _object setPosASL _position;
   _object setDir _direction;
   _object enableSimulation false;
   _object allowDamage false;
@@ -317,7 +318,8 @@ objective_supply_createIntelBoxes = {
     "_searchRadius",
     "_intels",
     "_crates",
-    "_empties"
+    "_empties",
+    "_keys"
   ];
   _building = _this select 0;
   _center = _this select 1;
@@ -327,6 +329,7 @@ objective_supply_createIntelBoxes = {
   _intels = 0;
   _crates = 0;
   _empties = 0;
+  _keys = 0;
   
   while {count _buildings < 100} do {
     _buildings = nearestObjects [_center, ["house"], _searchRadius];
@@ -354,8 +357,16 @@ objective_supply_createIntelBoxes = {
     };
 
     if (_crates < 20 && ! _added) then {
+      private ["_addKey"];
+      _addKey = false;
+
+      if (_keys < 10) then {
+        _keys = _keys + 1;
+        _addKey = true;
+      };
+
       _crates = _crates + 1;
-      [_position, _direction] call objective_supply_createIntelBox;
+      [_position, _direction, _addKey] call objective_supply_createIntelBox;
       _added = true;
       objective_supply_crates pushBack _position;
     };
@@ -372,35 +383,6 @@ objective_supply_createIntelBoxes = {
   };
 
   _intelBoxes;
-};
-
-objective_supply_createVehicle = {
-  private ["_depot", "_vehiclePos", "_vehicleClass", "_vehicle"];
-  _depot = _this select 0;
-  _vehicleClass = call objective_supply_getDepotCarClass;
-  _vehiclePos = getPos _depot findEmptyPosition [10,30,_vehicleClass];
-
-  /*
-  if (count _vehiclePos > 0) then {
-    _vehicle = createVehicle [_vehicleClass, _vehiclePos, [], 0, "none"];
-    [_vehicle] call vehicle_preventGuardUse;
-  };  
-  */
-};
-
-
-objective_supply_getDepotCarClass = {
-  private ["_cars"];
-  _cars = [
-    //"C_SUV_01_F", "C_SUV_01_F", "C_SUV_01_F",
-    "C_Offroad_01_F", "C_Offroad_01_F",
-    "C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_box_F","C_Van_01_transport_F","C_Van_01_box_F",
-    "UAZ_Unarmed",
-    "BAF_Offroad_D",
-    "BAF_Offroad_W"
-  ];
-  
-  _cars call BIS_fnc_selectRandom;
 };
 
 objective_supply_destroyDepot = {
@@ -427,15 +409,11 @@ objective_supply_placeLootBoxes = {
     };
 
     
-    
-    /*
-    if (_i == 3) then {
-      [_position, _direction] call satelliteUplink_create;
+    if (_i == 2 && count squads > 1) then {
+      [_position, _direction] call lootbox_createAdvancedSupplyBox;
     };
-    */
   };
 
-  [(_boxes call BIS_fnc_selectRandom), ['IKRS_signal_device']] call lootBox_addExtraLoot;
 };
 
 

@@ -14,6 +14,28 @@ getDirectionBetween = {
   _dir;
 };
 
+floorArrow = "IKRS_File1_F" createVehicle [0,0,0];
+
+findFloor = {
+  private ["_position", "_positionEnd", "_ins"];
+  _position = _this select 0;
+  _positionEnd = [_position select 0, _position select 1, 0];
+
+
+  _ins = lineIntersectsSurfaces [
+    _position, 
+    _positionEnd,
+    player
+  ];
+
+  if (count _ins > 0) then {
+    _position = _ins select 0 select 0;
+  };
+
+  _position;
+};
+
+
 addToDirection = {
   private ["_current", "_add", "_result"];
   _current = _this select 0;

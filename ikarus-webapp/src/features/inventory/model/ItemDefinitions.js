@@ -68,16 +68,22 @@ ItemDefinitions = [
   createGeneric('Hatchback sport', 'C_Hatchback_01_sport_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Flatbed', 'C_Van_01_transport_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('UAZ', 'UAZ_Unarmed', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('UAZ', 'CUP_B_UAZ_Unarmed_CDF', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrover (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrover (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Stomper UGV', 'B_UGV_01_F', ['vehicle', 'armored', 'unarmed', 'uav']),
 
   createGeneric('Jackal L2A1 (Desert)', 'BAF_Jackal2_L2A1_D', ['vehicle', 'armored', 'armed']),
   createGeneric('Jackal L2A1 (Woodland)', 'BAF_Jackal2_L2A1_W', ['vehicle', 'armored', 'armed']),
+  createGeneric('Jackal L2A1 (Desert)', 'CUP_BAF_Jackal2_L2A1_D', ['vehicle', 'armored', 'armed']),
+  createGeneric('Jackal L2A1 (Woodland)', 'CUP_BAF_Jackal2_L2A1_W', ['vehicle', 'armored', 'armed']),
+  
   createGeneric('Fennek', 'I_MRAP_03_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('M-ATV', 'B_MRAP_01_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('Punisher', 'O_MRAP_02_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('UAZ (AGS-30)', 'UAZ_AGS30', ['vehicle', 'armored', 'unarmed']),
+  createGeneric('UAZ (AGS-30)', 'CUP_B_UAZ_AGS30_CDF', ['vehicle', 'armored', 'unarmed']),
+
 
   createGeneric('Littlebird', 'B_Heli_Light_01_F', ['helicopter', 'unarmed']),
   createGeneric('AW159 Wildcat', 'I_Heli_light_03_unarmed_F', ['helicopter', 'unarmed']),
@@ -448,7 +454,9 @@ ItemDefinitions = [
   createGeneric('Honeybadger supressor', 'muzzle_HBADGER', ['scope']),
   createGeneric('Suppressor (.45 ACP)', 'muzzle_snds_acp', ['scope']),
   createGeneric('Suppressor (9 mm)', 'muzzle_snds_L', ['scope']),
-  createGeneric('Bizon suppressor', 'CUP_muzzle_Bizon', ['scope']),
+  createGeneric('PBS-1 supressor', 'CUP_muzzle_Bizon', ['scope']),
+  createGeneric('PBS-4 supressor', 'CUP_muzzle_PBS4', ['scope']),
+
 
 
   createGeneric('Mk17 Holosight','optic_Holosight', ['scope']),

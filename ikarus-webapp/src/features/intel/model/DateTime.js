@@ -77,8 +77,8 @@ Noon.prototype = Object.create(MissionDateTime.prototype);
 
 Noon.prototype.getNextTimeTypes = function() {
   return [
-    { time: Noon, probability: 0.7 },
-    { time: Dusk, probability: 0.3 },
+    { time: Noon, probability: 1.0 }, //Lock time to noon for now
+    { time: Dusk, probability: 0.0 },
   ];
 };
 

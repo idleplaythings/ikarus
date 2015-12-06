@@ -22,6 +22,10 @@ objective_supply_joinInProgress = {
   private ["_unit"];
   _unit = _this select 0;
   [_unit] call objective_supply_constructMarkersForPlayer;
+
+  {
+    [[_x], "client_addSupplyIntelAction", _unit, true, true] call BIS_fnc_MP;
+  } forEach objective_supply_intelObjects;
 };
 
 objective_supply_setPlayerRating = {};
@@ -296,6 +300,7 @@ objective_supply_createIntelMap = {
   _object setDir _direction;
   _object enableSimulation false;
   _object allowDamage false;
+  objective_supply_intelObjects pushBack _object;
 
   [[_object], "client_addSupplyIntelAction", true, true, true] call BIS_fnc_MP;
 };
@@ -303,6 +308,7 @@ objective_supply_createIntelMap = {
 objective_supply_empties = [];
 objective_supply_crates = [];
 objective_supply_intels = [];
+objective_supply_intelObjects = [];
 
 
 objective_supply_createIntelBoxes = {
@@ -338,7 +344,7 @@ objective_supply_createIntelBoxes = {
   
   _buildings = _buildings call objective_supply_arrayShuffle;
 
-  while {_intels < 20 || _crates < 20 || _empties < 20} do {
+  while {_intels < 20 || _crates < 20 || _empties < 10} do {
     private ["_building", "_position", "_direction", "_object", "_added"];
     _building = _buildings deleteAt 0;
     _position = ([_building] call BIS_fnc_buildingPositions) call BIS_fnc_selectRandom;
@@ -367,7 +373,7 @@ objective_supply_createIntelBoxes = {
       objective_supply_crates pushBack _position;
     };
 
-    if (_empties < 20 && ! _added) then {
+    if (_empties < 10 && ! _added) then {
       _empties = _empties + 1;
 
       objective_supply_empties pushBack _position;

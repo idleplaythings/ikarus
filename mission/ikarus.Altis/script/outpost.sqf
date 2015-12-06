@@ -152,10 +152,6 @@ outpost_deploy = {
     ["This position is too close to a depot, base or outpost", _unit, "outpost"] call broadCastMessageTo;
   };
 
-  if (! isNil{call depots_getRandom} && [_position] call depots_getDistanceToClosestDepot > 3000) exitWith {
-    ["You need to deploy outpost 3km or closer to a depot", _unit, "outpost"] call broadCastMessageTo;
-  };
-  
   [_position, ([_unit] call getSquadForUnit)] call outpost_createInactiveOutpost;
   removeBackpackGlobal _unit;
   [[], "client_removeDeployOutpost", _unit, false, false] call BIS_fnc_MP;

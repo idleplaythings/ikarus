@@ -21,8 +21,7 @@ objective_supply_displayName = {
 objective_supply_joinInProgress = {
   private ["_unit"];
   _unit = _this select 0;
-  [_unit] call objective_supply_setPlayerRating;
-  //TODO: JIP supply markers  
+  [_unit] call objective_supply_constructMarkersForPlayer;
 };
 
 objective_supply_setPlayerRating = {};
@@ -84,20 +83,27 @@ objective_supply_constructSquadMarkers = {
 };
 
 objective_supply_constructMarkers = {
-  private ["_positions", "_intelBoxes", "_players"];
-  _positions = [];
-  _intelBoxes = [];
-  _players = [['guard', 'raid']] call objectiveController_getPlayersWithoutObjectives;
-  
+  private ["_players"];
+
+  _players = [['guard','raid']] call objectiveController_getPlayersWithoutObjectives;
 
   {
-    _positions pushBack (_x select 1);
+    [_x] call objective_supply_constructMarkersForPlayer;
+  } forEach _players;
+};
+
+objective_supply_constructMarkersForPlayer = {
+  private ["_player", "_intelBoxes"];
+  _player = _this select 0;
+  _intelBoxes = [];
+
+  {
     _intelBoxes = _intelBoxes + (_x select 2);
   } forEach objective_supply_data;
-  
-  {
-    [[_intelBoxes], "markers_createSupplyBriefring", _x, true, true] call BIS_fnc_MP;
-  } forEach _players;
+
+  if (count _intelBoxes > 0) then {
+    [[_intelBoxes], "markers_createSupplyBriefring", _player, true, true] call BIS_fnc_MP;
+  }
 };
 
 objective_supply_data = []; //building, areaCenter, intelBoxes, squadData
@@ -234,8 +240,6 @@ objective_supply_updateIntelIfneeded = {
   _currentAmount = _squadData select 1;
   _players = [_squad] call getPlayersInSquad;
 
-
-  systemChat str _currentAmount;
   if (_oldAmount < 100 && _currentAmount >= 100) exitWith {
     _squadData set [3, getPos _building];
     _squadData set [4, 0];
@@ -278,14 +282,6 @@ objective_supply_updateIntelIfneeded = {
     } forEach _players;
   };
 };
-
-/*
-
-    _object = createVehicle ["Land_SatellitePhone_F", [0,0,3000], [], 0, "FLYING"];
-    _object setDir _direction;
-    _object setPosASL _position;
-    _object enableSimulationGlobal false;
-*/
 
 objective_supply_createIntelMap = {
   private ["_position", "_direction"];

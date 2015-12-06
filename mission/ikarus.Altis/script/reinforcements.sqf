@@ -51,9 +51,16 @@ reinforcements_moveToStart = {
   private ["_unit", "_squad"];
   _unit = _this select 0;
   _squad = [_unit] call getSquadForUnit;
+  _objective = [_squad] call getChosenObjective;
 
-  [_unit, 'joinInProgress', [_unit]] call objectiveController_callUnitObjective;
-  ['signal', 'joinInProgress', [_unit]] call objectiveController_callObjective;
+  if (_objective == "guard" || _objective == "raid") then {
+    [_unit, 'joinInProgress', [_unit]] call objectiveController_callUnitObjective;
+  } else {
+    ['signal', 'joinInProgress', [_unit]] call objectiveController_callObjective;
+    ['supply', 'joinInProgress', [_unit]] call objectiveController_callObjective;
+    ['hold', 'joinInProgress', [_unit]] call objectiveController_callObjective;
+    ['military', 'joinInProgress', [_unit]] call objectiveController_callObjective;
+  };
 
   [_unit, _squad] call player_setSquadVariableForUnit;
   [_unit] call hideout_createHidoutMarkerForPlayer;

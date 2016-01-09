@@ -1,4 +1,4 @@
-player createDiaryRecord ["Diary", ["Credits", 
+player createDiaryRecord ["Diary", ["Credits",
   'Ikarus made possible by these third party mods and scripts:<br/>'
   + '<br/>Unlocked Uniforms by Pepe Hal'
   + '<br/>US Uniforms by Niko'
@@ -65,7 +65,7 @@ markers_createRaidDefenderBriefing = {
     + '<br/><br/>Additionally if enemy has no members in 1km area of the base after 25 minutes has elapsed, you win.'
     + '<br/><br/>Winning the raid will reward you with renown. If you lose the raid, you will lose 25% of your company renown.',
    "BASE DEFENCE",
-   "" 
+   ""
   ];
 
   player setCurrentTask _task;
@@ -83,7 +83,7 @@ markers_createRaidBriefing = {
   _position = _this select 0;
   _radius = _this select 1;
   _companyName = _this select 2;
- 
+
   _name = ("raid" + str _position);
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerBrushLocal "SOLID";
@@ -101,7 +101,7 @@ markers_createRaidBriefing = {
     + '<br/><br/>Additionally if you have no members of your squad in 1km area of the base after 25 minutes has elapsed, you will lose the raid.'
     + '<br/><br/>Winning the raid will reward you with renown. If you lose the raid, you will lose 25% of your company renown.',
    "Raid " + _companyName,
-   "" 
+   ""
   ];
 
   player setCurrentTask _task;
@@ -112,7 +112,7 @@ markers_createMilitaryBriefing = {
   private ["_position", "_radius", "_marker", "_task", "_name"];
   _position = _this select 0;
   _radius = _this select 1;
- 
+
   _name = ("military" + str _position);
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerBrushLocal "SOLID";
@@ -138,11 +138,11 @@ markers_createMilitaryBriefing = {
 markers_createHideoutMarker = {
   private ["_position", "_marker"];
   _position = _this select 0;
- 
+
   _marker = createMarkerLocal ["hideout", _position];
   _marker setMarkerTypeLocal "hd_start";
-  
-  player createDiaryRecord ["Diary", ["Company base", 
+
+  player createDiaryRecord ["Diary", ["Company base",
     'Your base is <marker name="hideout">here</marker>'
     + '<br/><br/>Company base is both the starting and ending position for the mission.'
     + ' All loot gathered during the mission will be preserved if you bring them back to the base.'
@@ -151,7 +151,7 @@ markers_createHideoutMarker = {
 markers_createGuardMarker = {
   private ["_position"];
   _position = _this select 0;
- 
+
   _name = "guard" + str _position;
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerTypeLocal "hd_objective";
@@ -164,7 +164,7 @@ markers_createGuardBriefing = {
   {
     [_x] call markers_createGuardMarker;
   } forEach _positions;
-  
+
   _task = player createSimpleTask ["GuardDuty"];
 
   _task setSimpleTaskDescription [
@@ -186,7 +186,7 @@ markers_createSupplyDropMarker = {
   private ["_position", "_markerName", "_task"];
   _position = _this select 0;
   _markerName = _this select 1;
- 
+
   if (isNil{_markerName}) then {
     _markerName = "drop" + str _position;
     _marker = createMarkerLocal [_markerName, _position];
@@ -210,7 +210,7 @@ markers_createSupplyMarker = {
   private ["_position", "_radius", "_name"];
   _position = _this select 0;
   _radius = param [1, 1000];
- 
+
   _name = "depot" + str _position + str _radius;
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerColorLocal "ColorBlack";
@@ -222,14 +222,14 @@ markers_createSupplyMarker = {
   _marker setMarkerShapeLocal "ELLIPSE";
   _marker setMarkerSizeLocal [_radius*2, _radius*2];
   _marker setMarkerAlphaLocal 0.8;
-  
+
   _name;
 };
 
 markers_createSupplyIntelMarker = {
   private ["_position"];
   _position = _this select 0;
- 
+
   _name = "supplyIntel" + str _position;
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerColorLocal "ColorBlue";
@@ -244,7 +244,7 @@ markers_createSupplyIntelMarker = {
     };
   };
 
-  _marker setMarkerTypeLocal "mil_dot";  
+  _marker setMarkerTypeLocal "mil_dot";
 };
 
 markers_holdMarkerNames = [];
@@ -253,7 +253,7 @@ markers_createHoldMarker = {
   private ["_position", "_radius", "_name"];
   _position = _this select 0;
   _radius = 100;
- 
+
   _name = "hold" + str _position;
   _marker = createMarkerLocal [_name, _position];
   _marker setMarkerBrushLocal "SOLID";
@@ -261,7 +261,7 @@ markers_createHoldMarker = {
   _marker setMarkerShapeLocal "ELLIPSE";
   _marker setMarkerSizeLocal [_radius, _radius];
   _marker setMarkerAlphaLocal 0.8;
-  
+
   markers_holdMarkerNames pushBack _name;
 };
 
@@ -316,7 +316,7 @@ markers_createHoldBriefing = {
   {
     [_x] call markers_createHoldMarker;
   } forEach _positions;
-  
+
   if (count markers_holdMarkerNames == 0) exitWith {};
 
   _markersText = "";
@@ -368,7 +368,7 @@ markers_updateAssasinMarker = {
   private ["_position", "_radius", "_marker"];
   _position = _this select 0;
   _radius = _this select 1;
- 
+
   if (isNil {markers_assasinMarker}) then {
     _marker = createMarkerLocal ["assasination", _position];
     _marker setMarkerBrushLocal "SOLID";

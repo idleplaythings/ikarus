@@ -159,8 +159,24 @@ objective_delivery_activateSiteByIndex = {
     [_x, _building] call objective_delivery_addSubmitBackpackAction;
   } forEach _players;
 
+  _players = [['raid', 'delivery']] call objectiveController_getPlayersWithoutObjectives;
+  {
+    [_x, _building, _siteIndex] call objective_delivery_revealExactSiteLocation;
+  } forEach _players;
+
   call objective_delivery_announceDeliverySiteActivated;
   call objective_delivery_deactivateSiteAfter;
+};
+
+objective_delivery_revealExactSiteLocation = {
+  private ["_player", "_building", "_siteIndex", "_position"];
+  _player = _this select 0;
+  _building = _this select 1;
+  _siteIndex = _this select 2;
+  _position = getPos _building;
+
+  [[_position, _siteIndex + 1], "markers_createDeliveryTargetMarker", player, false, true] call BIS_fnc_MP;
+  [[_siteIndex], "markers_removeDeliveryAreaMarker", player, false, true] call BIS_fnc_MP;
 };
 
 objective_delivery_deactivateSiteAfter = {

@@ -511,7 +511,18 @@ markers_createDeliveryBriefing = {
   _task = player createSimpleTask ["Delivery"];
 
   _task setSimpleTaskDescription [
-   'Useful text goes here',
+    'You have chosen a delivery mission. Three delivery sites have been chosen and are marked on your map. '
+    + 'Your mission is to deliver three Merchandise Backpacks to and hold each of the delivery sites. A delivery site is '
+    + 'considered held when any squad (or combination of squads) has occupied it for a total of five minutes.<br/><br/>'
+
+    + 'The squad that had it in the end is considered to have held it. Your deliveries will only count if you also '
+    + 'held the delivery site. Rewards are awarded separately for each of the delivery sites, so the mission is not over '
+    + 'even if you miss one or two of the deliveries.<br/><br/>'
+
+    + 'Delivery sites are activated in order, one every 15 minutes or five minutes after the previous one was held. Only '
+    + 'one delivery site is active at any given time. Your squad knows the exact location of every delivery site from the beginning. '
+    + 'Opposing squads will only see rough areas of the delivery sites until they are activated, after which the exact '
+    + 'location will be broadcast to everyone.',
    "Delivery",
    ""
   ];
@@ -544,6 +555,7 @@ markers_createDeliveryTargetMarker = {
   _marker setMarkerTextLocal format ["D%1", _number + 1]
 };
 
+markers_deliveryAreaMarkers = [];
 markers_createDeliveryAreaMarker = {
   private ["_position", "_radius", "_name"];
   _position = _this select 0;
@@ -557,4 +569,19 @@ markers_createDeliveryAreaMarker = {
   _marker setMarkerShapeLocal "ELLIPSE";
   _marker setMarkerSizeLocal [_radius, _radius];
   _marker setMarkerAlphaLocal 0.6;
+
+  _name2 = "delivery_depot_shape_label" + str _position;
+  _marker2 = createMarkerLocal [_name2, _position];
+  _marker2 setMarkerTypeLocal "hd_unknown";
+  _marker2 setMarkerTextLocal format ["Area %1", _number + 1];
+
+  markers_deliveryAreaMarkers pushBack [_name, _name2];
+};
+
+markers_removeDeliveryAreaMarker = {
+  private ["_index"];
+  _index = _this select 0;
+  {
+    deleteMarkerLocal _x;
+  } forEach (markers_deliveryAreaMarkers select _index);
 };

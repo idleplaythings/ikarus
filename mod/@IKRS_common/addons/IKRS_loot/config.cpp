@@ -12,8 +12,8 @@
  class CfgWeapons 
  {
   class InventoryItem_Base_F;
-  class ACE_ItemCore;
-  class IKRS_loot_key: ACE_ItemCore {
+  class ItemCore;
+  class IKRS_loot_key: ItemCore {
       scope = 2;
       model = "\A3\Weapons_F\Items\gps";
       picture = "\A3\Drones_F\Weapons_F_Gamma\Items\data\UI\gear_UAV_controller_oli_CA.paa";
@@ -26,6 +26,9 @@
       class ItemInfo: InventoryItem_Base_F {
           mass = 20;
       };
+      type = 4096;//4;
+      detectRange = -1;
+      simulation = "ItemMineDetector";
   };
 
   class IKRS_loot_key1: IKRS_loot_key {

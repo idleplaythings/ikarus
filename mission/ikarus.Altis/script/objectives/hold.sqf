@@ -15,8 +15,11 @@ objective_hold_construct = {
 };
 
 objective_hold_joinInProgress = {
-  private ["_unit"];
+  private ["_unit", "_objective"];
   _unit = _this select 0;
+  _objective = [_unit] call objectiveController_getUnitsObjective;
+  if ( _objective == "guard" || _objective == "raid") exitWith {};
+
   [[objective_hold_markerPositions], "markers_createHoldBriefing", _unit, false, true] call BIS_fnc_MP;
 };
 
@@ -250,9 +253,14 @@ objective_hold_isInsideDepot = {
 
     {
       _player = _x;
+
       _squadId = [([_player] call getSquadForUnit)] call getSquadId;
 
       _can = [_player, "canOpenLootBoxes", [_player]] call objectiveController_callUnitObjective;
+
+      if (! ([_player, _building] call depots_isUnitInsideBuilding)) then {
+        _can = false;
+      };
 
       _isUnconscious = _player getvariable ["ACE_isUnconscious", false];
 

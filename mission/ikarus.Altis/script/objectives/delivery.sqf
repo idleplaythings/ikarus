@@ -51,7 +51,16 @@ objective_delivery_displayName = {
 };
 
 objective_delivery_joinInProgress = {
+  private ["_unit", "_objective"];
+  _unit = _this select 0;
+  _objective = [_unit] call objectiveController_getUnitsObjective;
 
+  if (_objective == "raid") exitWith {};
+
+  //TODO: When unit joins, he must get the delivery briefing, and current up to date markers.
+  //Suggest refactoring marker/briefing code so, that you can call it at any time for any unit 
+  //(calling it multiple times should not cause problems) and it will evaluate units objective
+  //and current state of depots so that said unit gets the markers in correct state
 };
 
 
@@ -73,7 +82,19 @@ objective_delivery_validate = {
   _backpackCount >= 9;
 };
 
-objective_delivery_defaultIfNeccessary = {};
+objective_delivery_defaultIfNeccessary = {
+  if (call depots_getAmountOfDeliveryDepotsToSpawn > 0) exitWith {};
+  call objective_delivery_defaultAll;
+};
+
+objective_delivery_defaultAll = {
+  private ["_squads"];
+  _squads = ["delivery"] call objectiveController_getSquadsWithObjective;
+
+  {
+    [_x, 'supply'] call setChosenObjective;
+  } forEach _squads;
+};
 
 objective_delivery_onKilled = {};
 
@@ -239,11 +260,18 @@ objective_delivery_resolveDepotHold = {
   _playersAndDistances = [_players, { [_x, _x distance _building] }] call AEX_map;
   _playersAndDistancesOrdered = [_playersAndDistances, AEX_order_asc, { _x select 1; }] call AEX_sort;
 
+  //Filter players from list that are not inside the building.
+  _playersAndDistancesOrdered =  [_playersAndDistancesOrdered, {
+    _player = _x select 0;
+    [_player, _building] call depots_isUnitInsideBuilding;
+  }] call AEX_filter;
+
   {
     private ["_player", "_distance"];
     _player = _x select 0;
     _distance = _x select 1;
 
+    //TODO: Calling exitWith here will break the loop, not continue. But this might actually be intentional and appropriate?
     if (_distance > 15) exitWith {};
 
     if (_foreachindex == 0) then {
@@ -389,7 +417,7 @@ objective_delivery_deliverBackpack = {
     [[format ["You need to have a merchandise backpack equipped!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
   };
 
-  if (! ([_unit, _building] call objective_delivery_isUnitInsideBuilding)) exitWith {
+  if (! ([_unit, _building] call depots_isUnitInsideBuilding)) exitWith {
     [[format ["You need to be inside the delivery site building to deliver a backpack!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
   };
 
@@ -397,23 +425,6 @@ objective_delivery_deliverBackpack = {
   _activeSite set [5, (_activeSite select 5) + 1];
 
   [[format ["Backpack delivered"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
-};
-
-objective_delivery_isUnitInsideBuilding = {
-  private ["_unit", "_building", "_unitPos", "_buildingMatched"];
-  _unit = _this select 0;
-  _building = _this select 1;
-  _unitPos = eyepos _unit;
-  _buildingMatched = false;
-
-  // Check objects (15 meters) above the unit. If the building is in this list, consider the unit inside it.
-  {
-    if (_x == _building) exitWith {
-      _buildingMatched = true;
-    }
-  } forEach lineintersectsobjs [_unitPos, [_unitPos select 0, _unitPos select 1, 15], objNull, objNull, false, 2];
-
-  _buildingMatched;
 };
 
 _this spawn {

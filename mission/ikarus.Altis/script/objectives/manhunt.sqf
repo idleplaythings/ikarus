@@ -13,8 +13,12 @@ objective_manhunt_displayName = {
 };
 
 objective_manhunt_joinInProgress = {
-  private ["_unit"];
+  private ["_unit", "_objective"];
   _unit = _this select 0;
+  _objective = [_unit] call objectiveController_getUnitsObjective;
+  
+  if (_objective == "raid") exitWith {};
+
 
   if (isNil{objective_manhunt_transmitterPosition}) exitWith {};
 
@@ -200,7 +204,19 @@ objective_manhunt_onDisconnected = {};
 
 objective_manhunt_canOpenLootBoxes = {true;};
 
-objective_manhunt_defaultIfNeccessary = {};
+objective_manhunt_defaultIfNeccessary = {
+  if (call depots_getAmountOfManhuntDepotsToSpawn > 0) exitWith {};
+  call objective_manhunt_defaultAll;
+};
+
+objective_manhunt_defaultAll = {
+  private ["_squads"];
+  _squads = ["manhunt"] call objectiveController_getSquadsWithObjective;
+
+  {
+    [_x, 'supply'] call setChosenObjective;
+  } forEach _squads;
+};
 
 objective_manhunt_overrideHideoutCache = {false;};
 

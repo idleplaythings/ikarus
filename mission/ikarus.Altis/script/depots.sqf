@@ -4,6 +4,7 @@ depots_military_depots = [];
 depots_delivery_depots = [];
 
 depots_holdPriority = if (random 1 > 0.5) then {true;} else {false;};
+depots_deliveryPriority = if (random 1 > 0.5) then {true;} else {false;};
 
 depots_create_depots = {
   private ["_centerOfAO"];
@@ -135,7 +136,7 @@ depots_create_delivery = {
   private ["_centerOfAO"];
   _centerOfAO = _this select 0;
   _radius = 1000;
-  _numberOfDepots = 3;
+  _numberOfDepots = call depots_getAmountOfDeliveryDepotsToSpawn;
 
   while {_numberOfDepots > 0} do {
     _depot = [_centerOfAO, _radius] call depots_constructDeliveryDepot;
@@ -166,10 +167,10 @@ depots_getWeighedInitilaAmountOfNormalDepots = {
 };
 
 depots_getAmountOfDepotsToSpawn = {
-  private ["_normal", "_town", "_holds", "_supplies"];
+  private ["_normal", "_town", "_holds", "_supplies", "_delivery", "_manhunt"];
 
   if (count (["military"] call objectiveController_getSquadsWithObjective) > 0) exitWith {
-    [0,0,1];
+    [0,0,1,0,0];
   };
 
   _holds = count ([["hold"]] call objectiveController_getSquadsWithObjectives);
@@ -228,8 +229,32 @@ depots_getAmountOfDepotsToSpawn = {
   };
   */
 
-  //manhunt will substract one depot. supply first, normal second.
+  _delivery = 0;
+  _manhunt = 0;
+
+  if (count (["delivery"] call objectiveController_getSquadsWithObjective) >= 1) then {
+    _delivery = 3;
+  };
+
   if (count (["manhunt"] call objectiveController_getSquadsWithObjective) >= 1) then {
+    _manhunt = 1;
+  };
+
+  // if we have BOTH delivery and manhunt(signal), we have to default the other one.
+  if (count (["manhunt"] call objectiveController_getSquadsWithObjective) >= 1 
+    && count (["delivery"] call objectiveController_getSquadsWithObjective) >= 1
+    && count squads < 6) then {
+
+    if (depots_deliveryPriority) then {
+      _manhunt = 0;
+    } else {
+      _delivery = 0;
+    };
+  };
+
+
+  //manhunt will substract one depot. supply first, hold second.
+  if (_manhunt >= 1) then {
     if (_normal > 0) then {
       _normal = _normal - 1;
     } else {
@@ -239,7 +264,18 @@ depots_getAmountOfDepotsToSpawn = {
     };
   };
 
-  [_normal, _town, 0];
+  //delivery will substract one depot. supply first, hold second.
+  if (_delivery >= 1) then {
+    if (_normal > 0) then {
+      _normal = _normal - 1;
+    } else {
+      if (_town > 0) then {
+        _town = _town - 1;
+      };
+    };
+  };
+  
+  [_normal, _town, 0, _delivery, _manhunt];
 };
 
 depots_getAmountOfPossibleGuards = {
@@ -256,6 +292,14 @@ depots_getAmountOfPossibleGuards = {
   _amount;
 };
 
+depots_getAmountOfManhuntDepotsToSpawn = {
+  call depots_getAmountOfDepotsToSpawn select 4;
+};
+
+depots_getAmountOfDeliveryDepotsToSpawn = {
+  call depots_getAmountOfDepotsToSpawn select 3;
+};
+
 depots_getAmountOfMilitaryDepotsToSpawn = {
   call depots_getAmountOfDepotsToSpawn select 2;
 };
@@ -263,7 +307,6 @@ depots_getAmountOfMilitaryDepotsToSpawn = {
 depots_getAmountOfTownDepotsToSpawn = {
   call depots_getAmountOfDepotsToSpawn select 1;
 };
-
 
 depots_getAmountOfNormalDepotsToSpawn = {
   call depots_getAmountOfDepotsToSpawn select 0;
@@ -300,6 +343,7 @@ depots_constructSupplyDepot = {
   };
 
   _building = [_position, _radius, _radius * 2] call depotPositions_findRandomHouse;
+  [getPos _building] call depotPositions_registerPosition;
   
   [_building, []];
 };
@@ -314,6 +358,7 @@ depots_constructTownDepot = {
   _objectData = _buildingData select 1;
 
   _objects = [_building, _objectData] call houseFurnisher_furnish;
+  [getPos _building] call depotPositions_registerPosition;
 
   [_building, _objects];
 };
@@ -327,12 +372,28 @@ depots_constructDeliveryDepot = {
   _building = _buildingData select 0;
   _objectData = _buildingData select 1;
 
-  // _objects = [_building, _objectData] call houseFurnisher_furnish;
-  // [_building, _objects];
+  [getPos _building] call depotPositions_registerPosition;
   [_building, []];
 };
 
 
 depots_getRadiusOfTownAO = {
   4000;
+};
+
+depots_isUnitInsideBuilding = {
+  private ["_unit", "_building", "_unitPos", "_buildingMatched"];
+  _unit = _this select 0;
+  _building = _this select 1;
+  _unitPos = eyepos _unit;
+  _buildingMatched = false;
+
+  // Check objects (15 meters) above the unit. If the building is in this list, consider the unit inside it.
+  {
+    if (_x == _building) exitWith {
+      _buildingMatched = true;
+    }
+  } forEach lineintersectsobjs [_unitPos, [_unitPos select 0, _unitPos select 1, 15], objNull, objNull, false, 2];
+
+  _buildingMatched;
 };

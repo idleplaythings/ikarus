@@ -15,6 +15,8 @@ objective_guard_displayName = {
 objective_guard_joinInProgress = {
   private ["_unit", "_depot"];
   _unit = _this select 0;
+
+  if ([_unit] call objectiveController_getUnitsObjective != "guard") exitWith {};
   
   _depot = call depots_getRandom;
   if (! isNil{_depot}) then {

@@ -19,8 +19,11 @@ objective_supply_displayName = {
 };
 
 objective_supply_joinInProgress = {
-  private ["_unit"];
+  private ["_unit", "_objective"];
   _unit = _this select 0;
+  _objective = [_unit] call objectiveController_getUnitsObjective;
+  if ( _objective == "guard" || _objective == "raid") exitWith {};
+
   [_unit] call objective_supply_constructMarkersForPlayer;
 
   {

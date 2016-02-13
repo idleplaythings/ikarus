@@ -14,6 +14,57 @@ outpost_spawnedOutposts = [];
   [_unit] call outpost_dismantle;
 };
 
+"teleportToOutpost" addPublicVariableEventHandler {
+  private ["_unit", "_position"];
+  _unit = _this select 1 select 0;
+  _position = _this select 1 select 1;
+
+  [_unit, _position] call outpost_teleport;
+};
+
+outpost_addTeleportActionToUnit = {
+  private ["_unit", "_squad", "_map", "_actions"];
+  _unit = _this select 0;
+  _map = _this select 1;
+  _squad = [_unit] call getSquadForUnit;
+  
+  _actions = [];
+  {
+    private ["_outpost"];
+    _outpost = _x;
+    if (_outpost select 4) then {
+      _actions pushBack [
+        "Teleport to outpost #" + (str (count _actions + 1)) + " at " + (str (_outpost select 1)),
+        _outpost select 1
+      ];
+    };
+
+  } forEach ([_squad] call outpost_getOutpostsForSquad);
+
+  [[_map, _actions], "client_setUpOutpostMapTeleportActions", _unit, false, false] call BIS_fnc_MP;
+};
+
+
+outpost_teleport = {
+  private ["_unit", "_position", "_outpost", "_squad"];
+  _unit = _this select 0;
+  _position = _this select 1;
+  _outpost = [_position] call outpost_getClosestOutpost;
+  _squad = [_unit] call getSquadForUnit;
+
+  if (isNil{_outpost} || !(_outpost select 4)) exitWith {};
+
+  if ([_position] call outpost_getDistanceToClosestOutpost > 10) exitWith {};
+
+  if (isNil {_squad} || ([_squad] call getSquadId) != ([_outpost select 0] call getSquadId)) exitWith {};
+
+  if (loadAbs _unit > 300) exitWith {};
+
+  if (vehicle _unit != _unit) exitWith {};
+
+  _unit setPos (_outpost select 1);
+};
+
 outpost_createOutposts = {
   { 
     [_x] call outpost_createOutpostsForSquad;

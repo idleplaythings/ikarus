@@ -50,7 +50,7 @@ module.exports = function(armaSerializer){
   var testSquad = new Squad({
     _id: 'id',
     steamIds: ["_SP_PLAYER_"],
-    startingLocation: {x:13594.2, y:18174.7},
+    startingLocation: {x:3594.2, y:13474.7},
     companyId: 'company',
     objective: 'Supply',
     gear: [

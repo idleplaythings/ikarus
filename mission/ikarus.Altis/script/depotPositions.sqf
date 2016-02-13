@@ -499,7 +499,7 @@ depotPositions_registerPosition = {
 };
 
 depotPositions_checkNothingInDistance = {
-  private ["_position", "_distance"];
+  private ["_position", "_distance", "_result"];
   _position = _this select 0;
   _distance = _this select 1;
   
@@ -586,12 +586,13 @@ depotPositions_checkIsSuitableForDepot = {
 };
 
 depotPositions_findHouseForDepot = {
-  private ["_position", "_buildings", "_building", "_found", "_objects", "_result"];
+  private ["_position", "_buildings", "_building", "_found", "_objects", "_result", "_searchRadius"];
   _position = _this select 0;
+  _searchRadius = [_this, 1, 500] call BIS_fnc_param;
   _found = false;
   _result = [];
   
-  _buildings = nearestObjects [_position, ["house"], 5000];
+  _buildings = nearestObjects [_position, ["house"], _searchRadius];
   
   {
     _building = _x;
@@ -601,6 +602,10 @@ depotPositions_findHouseForDepot = {
       _result = [_building, _objects];
     };
   } forEach _buildings;
+
+  if (count _result == 0) exitWith {
+    [_position, _searchRadius + 500] call depotPositions_findHouseForDepot;
+  };
 
   _result;
 };

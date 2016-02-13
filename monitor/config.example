@@ -16,7 +16,7 @@ module.exports = {
   },
 
   webApp: {
-    host: 'ikarus.meteor.com',
+    host: 'localhost',
     port: 80,
     serverPassword: 'password server uses to auth with webapp'
   },

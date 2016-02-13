@@ -28,8 +28,6 @@ objective_supply_joinInProgress = {
   } forEach objective_supply_intelObjects;
 };
 
-objective_supply_setPlayerRating = {};
-
 objective_supply_validate = {
   true;
 };

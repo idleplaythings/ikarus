@@ -162,6 +162,32 @@ client_setUpOutpostMapTeleportActions = {
 
 };
 
+client_addSubmitBackpackAction = {
+  private ["_building"];
+  _building = _this select 0;
+
+  _action = {
+    deployOutpost = [player];
+    publicVariableServer "deliverBackpack";
+    if (isServer) then {
+      [player] call objective_delivery_deliverBackpack;
+    }
+  };
+
+  _building addAction [
+    "Deliver backpack",
+    _action,
+    []
+  ];
+};
+
+client_removeAllActions = {
+  private ["_object"];
+  _object = _this select 0;
+
+  removeAllActions _object;
+};
+
 client_teleportToOutpost = {
   private ["_position"];
   _position = _this select 0;

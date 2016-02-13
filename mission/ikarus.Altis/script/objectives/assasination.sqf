@@ -28,11 +28,6 @@ objective_assasination_getAssasinData = {
 };
 
 objective_assasination_joinInProgress = {
-  _this call objective_assasination_setPlayerRating;
-};
-
-objective_assasination_setPlayerRating = {
-  _this call objective_supply_setPlayerRating;
 };
 
 objective_assasination_onObjectivesCreated = {

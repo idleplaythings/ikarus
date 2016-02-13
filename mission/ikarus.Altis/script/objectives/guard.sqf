@@ -23,8 +23,6 @@ objective_guard_joinInProgress = {
   };
 };
 
-objective_guard_setPlayerRating = {};
-
 objective_guard_onObjectivesCreated = {
   call objective_guard_initSquads;
   if (count squads == 1) then {

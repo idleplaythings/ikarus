@@ -51,7 +51,7 @@ var unarmedVehicles = [
 ];
 
 var mediumVehicles = [
-  'CUP_B_HMMWV_Transport_USA'
+  'CUP_B_HMMWV_Transport_USA',
   'CUP_B_HMMWV_Unarmed_USA',
   'CUP_B_M113_Med_USA',
   'CUP_B_BRDM2_HQ_CDF'
@@ -87,7 +87,7 @@ ItemDefinitions = [
   createGeneric('SUV', 'C_SUV_01_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Hatchback sport', 'C_Hatchback_01_sport_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Flatbed', 'C_Van_01_transport_F', ['vehicle', 'unarmored', 'unarmed']),
-  
+
   createGeneric('UAZ', 'CUP_B_UAZ_Unarmed_CDF', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrover (Desert)', 'CUP_B_LR_Transport_GB_D', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Landrover (Woodland)', 'CUP_B_LR_Transport_GB_W', ['vehicle', 'unarmored', 'unarmed']),
@@ -97,7 +97,7 @@ ItemDefinitions = [
   createGeneric('Jackal L2A1 (Woodland)', 'BAF_Jackal2_L2A1_W', ['vehicle', 'armored', 'armed']),
   createGeneric('Jackal L2A1 (Desert)', 'CUP_BAF_Jackal2_L2A1_D', ['vehicle', 'armored', 'armed']),
   createGeneric('Jackal L2A1 (Woodland)', 'CUP_BAF_Jackal2_L2A1_W', ['vehicle', 'armored', 'armed']),
-  
+
   createGeneric('Fennek', 'I_MRAP_03_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('M-ATV', 'B_MRAP_01_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('Punisher', 'O_MRAP_02_F', ['vehicle', 'armored', 'unarmed']),
@@ -700,7 +700,7 @@ ItemDefinitions = [
   ),
 
   createLoot(
-    'Objective reward (One successfull delivery)'
+    'Objective reward (One successfull delivery)',
     'IKRS_delivery_reward_1',
     {
       'money': '10d10+100',
@@ -718,15 +718,15 @@ ItemDefinitions = [
     }
   ),
 
-  
+
 
   createLoot(
-    'Objective reward (Two successfull deliveries)'
+    'Objective reward (Two successfull deliveries)',
     'IKRS_delivery_reward_2',
     {
       'money': '20d10+200',
       'IKRS_renown': '8d3+24',
-      
+
       'CUP_arifle_M16A2': '2d2-1',
       'CUP_arifle_M16A4_Base': '4d2-4',
       'CUP_arifle_M4A1_black': '4d2+1',
@@ -740,10 +740,10 @@ ItemDefinitions = [
       'V_PlateCarrier1_rgr': 'd3-2',
       'V_PlateCarrier2_rgr': 'd3-2',
 
-      'CUP_srifle_M14': 'd2+1', 
+      'CUP_srifle_M14': 'd2+1',
       '20Rnd_762x51_Mag': 'd5+10',
 
-      'CUP_arifle_FNFAL': 'd3-1', 
+      'CUP_arifle_FNFAL': 'd3-1',
       'CUP_20Rnd_762x51_FNFAL_M': 'd5+10',
 
       'optic reward': {
@@ -762,7 +762,7 @@ ItemDefinitions = [
   ),
 
   createLoot(
-    'Objective reward (Three successfull deliveries)'
+    'Objective reward (Three successfull deliveries)',
     'IKRS_delivery_reward_3',
     {
       'money': '30d10+300',
@@ -784,8 +784,8 @@ ItemDefinitions = [
       'CUP_srifle_CZ550': 'd5-4',
       'CUP_5x_22_LR_17_HMR_M': 'd5+10',
 
-      'CUP_srifle_SVD': 'd3-2'
-      'CUP_10Rnd_762x54_SVD_M': 'd4+10', 
+      'CUP_srifle_SVD': 'd3-2',
+      'CUP_10Rnd_762x54_SVD_M': 'd4+10',
 
       'CUP_srifle_M24_wdl': 'd10-9',
       'CUP_5Rnd_762x51_M24': 'd2+2',
@@ -813,7 +813,7 @@ ItemDefinitions = [
   ),
 
   createLoot(
-    'Objective reward (One successfull delivery deny)'
+    'Objective reward (One successfull delivery deny)',
     'IKRS_delivery_reward_deny_1',
     {
       'money': '3d10+30',
@@ -847,7 +847,7 @@ ItemDefinitions = [
   ),
 
   createLoot(
-    'Objective reward (Two successfull delivery denies)'
+    'Objective reward (Two successfull delivery denies)',
     'IKRS_delivery_reward_deny_2',
     {
       'money': '5d10+50',
@@ -884,7 +884,7 @@ ItemDefinitions = [
   ),
 
   createLoot(
-    'Objective reward (Three successfull delivery denies)'
+    'Objective reward (Three successfull delivery denies)',
     'IKRS_delivery_reward_deny_3',
     {
       'money': '10d10+100',
@@ -906,7 +906,7 @@ ItemDefinitions = [
       'CUP_smg_bizon': 'd4-3',
       'CUP_64Rnd_9x19_Bizon_M': 'd5+2',
       'CUP_muzzle_Bizon': 'd6-4',
-      
+
       'CUP_arifle_M16A2': '2d2-1',
       'CUP_arifle_M16A4_Base': '4d2-4',
       'CUP_arifle_M4A1_black': '4d2+1',
@@ -920,15 +920,15 @@ ItemDefinitions = [
       'V_PlateCarrier1_rgr': 'd3-2',
       'V_PlateCarrier2_rgr': 'd3-2',
 
-      'CUP_srifle_M14': 'd2', 
+      'CUP_srifle_M14': 'd2',
       '20Rnd_762x51_Mag': 'd5+5',
 
-      'CUP_arifle_FNFAL': 'd2-1', 
+      'CUP_arifle_FNFAL': 'd2-1',
       'CUP_20Rnd_762x51_FNFAL_M': 'd5+5',
 
       'H_HelmetB': '4d2',
       'H_HelmetIA': '4d2',
-      
+
       'optic reward': {
         selectFrom: mediumOptics,
         change: 'd2'

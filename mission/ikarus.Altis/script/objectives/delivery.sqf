@@ -9,11 +9,11 @@
 objective_delivery_sites = [];
 objective_delivery_lastSiteIndex = -1;
 objective_delivery_siteDectivationScript = nil;
-objective_delivery_firstSiteActivationDelay = 15 * 60;
-objective_delivery_siteActivationDelay = 5 * 60;
+objective_delivery_firstSiteActivationDelay = 1 * 60;
+objective_delivery_siteActivationDelay = 1 * 60;
 objective_delivery_siteActiveDuration = 15 * 60;
 
-objective_delivery_increment = 0.33;
+objective_delivery_increment = 2.33;
 
 "deliverBackpack" addPublicVariableEventHandler {
   private ["_unit"];
@@ -414,6 +414,10 @@ objective_delivery_deliverBackpack = {
   _depot = _activeSite select 2;
   _building = _depot select 0;
 
+  if ((_activeSite select 5) > 2) exitWith {
+    [[format ["This delivery is already fulfilled!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
+  };
+
   if (backpack _unit != "IKRS_merchandise_backpack") exitWith {
     [[format ["You need to have a merchandise backpack equipped!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
   };
@@ -422,7 +426,7 @@ objective_delivery_deliverBackpack = {
     [[format ["You need to be inside the delivery site building to deliver a backpack!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
   };
 
-  removeBackpack _unit;
+  [_unit, "IKRS_merchandise_backpack"] call equipment_removeItemFromUnit;
   _activeSite set [5, (_activeSite select 5) + 1];
 
   [[format ["Backpack delivered"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;

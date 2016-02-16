@@ -13,15 +13,14 @@ LootController.prototype.addStartingLoot = function(company) {
     'IKRS_STARTING_LOOT'
   ];
 
-  this.receiveLootForCompany(null, company, loot, new ObjectiveSupply());
+  this.receiveLootForCompany(null, company, loot, new Objective());
 };
 
 LootController.prototype.receiveLoot = function(squadId, loot, objectiveName) {
   var squad = this._getSquad(squadId);
   var server = squad ? Server.getByInGameSquad(squad) : null;
   var company = this._getCompany(squad);
-  objectiveName = objectiveName.charAt(0).toUpperCase() + objectiveName.slice(1).toLowerCase();
-  var objective = new namespace["Objective" + objectiveName];
+  var objective = new Objective();
   var modules = squad.getBaseModules();
 
   this.receiveLootForCompany(server, company, loot, objective, modules);

@@ -273,5 +273,7 @@ lootTable_supplyIntelBox = [
   ['IKRS_signal_device', 10, -9],
   ['static weapons', 10, -9],
   ['warsaw_suprsessors', 8, -7],
+  ['Binocular', 3, -1],
+  ['ItemGPS', 3, -2],
   ['backpack', 1, 0]
 ];

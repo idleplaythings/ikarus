@@ -271,29 +271,30 @@ objective_delivery_resolveDepotHold = {
     _player = _x select 0;
     _distance = _x select 1;
 
-    //TODO: Calling exitWith here will break the loop, not continue. But this might actually be intentional and appropriate?
-    if (_distance > 15) exitWith {};
+    if (_distance < 15) then {
 
-    if (_foreachindex == 0) then {
-      call objective_delivery_incrementCurrentDeliverySiteHoldCounter;
+      if (_foreachindex == 0) then {
+        call objective_delivery_incrementCurrentDeliverySiteHoldCounter;
+      };
+
+      if (call objective_delivery_isCurrentSiteHeld) then {
+        [_x] call objective_delivery_clearDeliverySiteInfo;
+      } else {
+        [_x, _distance, _activeSite] call objective_delivery_hintDeliverySiteInfo;
+      };
+
+      if (_foreachindex == 0) then {
+        [_player] call objective_delivery_markCurrentDeliverySiteHeldByPlayer;
+
+        if (call objective_delivery_isCurrentSiteHeld) then {
+          call objective_delivery_rewardLoot;
+          call objective_delivery_announceDeliverySiteHeld;
+          call objective_delivery_deactivateCurrentSite;
+          call objective_delivery_activateNextSiteAfterDelay;
+        };
+      };
     };
 
-    if (call objective_delivery_isCurrentSiteHeld) then {
-      [_x] call objective_delivery_clearDeliverySiteInfo;
-    } else {
-      [_x, _distance, _activeSite] call objective_delivery_hintDeliverySiteInfo;
-    };
-
-    if (_foreachindex > 0) exitWith {};
-
-    [_player] call objective_delivery_markCurrentDeliverySiteHeldByPlayer;
-
-    if (call objective_delivery_isCurrentSiteHeld) then {
-      call objective_delivery_rewardLoot;
-      call objective_delivery_announceDeliverySiteHeld;
-      call objective_delivery_deactivateCurrentSite;
-      call objective_delivery_activateNextSiteAfterDelay;
-    };
   } forEach _playersAndDistancesOrdered;
 };
 

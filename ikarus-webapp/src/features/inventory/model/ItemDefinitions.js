@@ -44,6 +44,20 @@ var ghillie = [
   'U_B_FullGhillie_ard'
 ];
 
+var unarmedVehicles = [
+  'CUP_B_UAZ_Unarmed_CDF',
+  'CUP_B_LR_Transport_GB_W',
+  'CUP_B_LR_Transport_GB_D'
+];
+
+var mediumVehicles = [
+  'CUP_B_HMMWV_Transport_USA'
+  'CUP_B_HMMWV_Unarmed_USA',
+  'CUP_B_M113_Med_USA',
+  'CUP_B_BRDM2_HQ_CDF'
+];
+
+
 
 ItemDefinitions = [
 
@@ -63,14 +77,20 @@ ItemDefinitions = [
   createGeneric('Renown', 'IKRS_renown', ['non mission item']),
 
   //VEHICLES
+
+  //OLD
+  createGeneric('Landrover (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('Landrover (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('UAZ', 'UAZ_Unarmed', ['vehicle', 'unarmored', 'unarmed']),
+
   createGeneric('Pickup truck', 'C_Offroad_01_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('SUV', 'C_SUV_01_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Hatchback sport', 'C_Hatchback_01_sport_F', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Flatbed', 'C_Van_01_transport_F', ['vehicle', 'unarmored', 'unarmed']),
-  createGeneric('UAZ', 'UAZ_Unarmed', ['vehicle', 'unarmored', 'unarmed']),
+  
   createGeneric('UAZ', 'CUP_B_UAZ_Unarmed_CDF', ['vehicle', 'unarmored', 'unarmed']),
-  createGeneric('Landrover (Desert)', 'BAF_Offroad_D', ['vehicle', 'unarmored', 'unarmed']),
-  createGeneric('Landrover (Woodland)', 'BAF_Offroad_W', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('Landrover (Desert)', 'CUP_B_LR_Transport_GB_D', ['vehicle', 'unarmored', 'unarmed']),
+  createGeneric('Landrover (Woodland)', 'CUP_B_LR_Transport_GB_W', ['vehicle', 'unarmored', 'unarmed']),
   createGeneric('Stomper UGV', 'B_UGV_01_F', ['vehicle', 'armored', 'unarmed', 'uav']),
 
   createGeneric('Jackal L2A1 (Desert)', 'BAF_Jackal2_L2A1_D', ['vehicle', 'armored', 'armed']),
@@ -82,12 +102,18 @@ ItemDefinitions = [
   createGeneric('M-ATV', 'B_MRAP_01_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('Punisher', 'O_MRAP_02_F', ['vehicle', 'armored', 'unarmed']),
   createGeneric('UAZ (AGS-30)', 'UAZ_AGS30', ['vehicle', 'armored', 'unarmed']),
-  createGeneric('UAZ (AGS-30)', 'CUP_B_UAZ_AGS30_CDF', ['vehicle', 'armored', 'unarmed']),
-
+  createGeneric('UAZ (AGS-30)', 'CUP_B_UAZ_AGS30_CDF', ['vehicle', 'armored', 'armed']),
+  createGeneric('UAZ DShkM', 'CUP_B_UAZ_MG_CDF', ['vehicle', 'armored', 'armed']),
 
   createGeneric('Littlebird', 'B_Heli_Light_01_F', ['helicopter', 'unarmed']),
   createGeneric('AW159 Wildcat', 'I_Heli_light_03_unarmed_F', ['helicopter', 'unarmed']),
   createGeneric('Ka-60 Kasatka', 'O_Heli_Light_02_unarmed_F', ['helicopter', 'unarmed']),
+
+  createGeneric('BRDM-2 HQ', 'CUP_B_BRDM2_HQ_CDF', ['vehicle', 'armored', 'armed']),
+  createGeneric('HMMWV transport', 'CUP_B_HMMWV_Transport_USA', ['vehicle', 'armored']),
+  createGeneric('HMMWV', 'CUP_B_HMMWV_Unarmed_USA', ['vehicle', 'armored']),
+  createGeneric('M113 Ambulance', 'CUP_B_M113_Med_USA', ['vehicle', 'armored']),
+
 
 
   createGeneric('Civilian helicopter', 'C_Heli_Light_01_civil_F', ['helicopter', 'unarmed']),
@@ -670,6 +696,248 @@ ItemDefinitions = [
         selectFrom: tactiCools,
         change: 1
       }
+    }
+  ),
+
+  createLoot(
+    'Objective reward (One successfull delivery)'
+    'IKRS_delivery_reward_1',
+    {
+      'money': '10d10+100',
+      'IKRS_renown': '4d3+12',
+      'CUP_arifle_M16A2': '2d2-1',
+      'CUP_arifle_M16A4_Base': '4d2-4',
+      'CUP_arifle_M4A1_black': '4d2+1',
+      'CUP_optic_CompM4': 'd2+1',
+
+      '30Rnd_556x45_Stanag': '8d3+20',
+
+      '1Rnd_HE_Grenade_shell': '4d3+4',
+      'CUP_launch_M136': 'd2',
+      'CUP_M136_M': 'd3+2'
+    }
+  ),
+
+  
+
+  createLoot(
+    'Objective reward (Two successfull deliveries)'
+    'IKRS_delivery_reward_2',
+    {
+      'money': '20d10+200',
+      'IKRS_renown': '8d3+24',
+      
+      'CUP_arifle_M16A2': '2d2-1',
+      'CUP_arifle_M16A4_Base': '4d2-4',
+      'CUP_arifle_M4A1_black': '4d2+1',
+      'CUP_optic_CompM4': 'd2+1',
+
+      '30Rnd_556x45_Stanag': '8d3+20',
+
+      'V_PlateCarrierIA1_dgtl': '2d2',
+      'V_PlateCarrierIA2_dgtl': '2d2',
+      'V_PlateCarrier1_blk': 'd3-2',
+      'V_PlateCarrier1_rgr': 'd3-2',
+      'V_PlateCarrier2_rgr': 'd3-2',
+
+      'CUP_srifle_M14': 'd2+1', 
+      '20Rnd_762x51_Mag': 'd5+10',
+
+      'CUP_arifle_FNFAL': 'd3-1', 
+      'CUP_20Rnd_762x51_FNFAL_M': 'd5+10',
+
+      'optic reward': {
+        selectFrom: mediumOptics,
+        change: 'd2'
+      },
+
+      'H_HelmetB': '4d2',
+      'H_HelmetIA': '4d2',
+
+      'Unarmed vehicle reward': {
+        selectFrom: unarmedVehicles,
+        change: 'd2'
+      },
+    }
+  ),
+
+  createLoot(
+    'Objective reward (Three successfull deliveries)'
+    'IKRS_delivery_reward_3',
+    {
+      'money': '30d10+300',
+      'IKRS_renown': '12d3+36',
+
+      'V_PlateCarrierIA1_dgtl': '4d2',
+      'V_PlateCarrierIA2_dgtl': '4d2',
+      'V_PlateCarrier1_blk': '4d2-4',
+      'V_PlateCarrier1_rgr': '4d2-4',
+      'V_PlateCarrier2_rgr': '4d2-4',
+
+      'V_PlateCarrierGL_rgr': 'd3-2',
+      'V_PlateCarrierGL_blk': 'd3-2',
+      'V_PlateCarrierGL_mtp': 'd3-2',
+
+      'CUP_srifle_LeeEnfield_rail': 'd2',
+      'CUP_10x_303_M': 'd4+20',
+
+      'CUP_srifle_CZ550': 'd5-4',
+      'CUP_5x_22_LR_17_HMR_M': 'd5+10',
+
+      'CUP_srifle_SVD': 'd3-2'
+      'CUP_10Rnd_762x54_SVD_M': 'd4+10', 
+
+      'CUP_srifle_M24_wdl': 'd10-9',
+      'CUP_5Rnd_762x51_M24': 'd2+2',
+      'CUP_srifle_AWM_wdl_SBPMII': 'd10-9',
+      'CUP_5Rnd_86x70_L115A1': 'd2+2',
+
+      'optic reward': {
+        selectFrom: mediumOptics,
+        change: 'd2+2'
+      },
+
+
+      'H_HelmetB': '4d2',
+      'H_HelmetIA': '4d2',
+
+      'Unarmed vehicle reward': {
+        selectFrom: unarmedVehicles,
+        change: 'd2'
+      },
+      'Medium vehicle reward': {
+        selectFrom: mediumVehicles,
+        change: '1'
+      },
+    }
+  ),
+
+  createLoot(
+    'Objective reward (One successfull delivery deny)'
+    'IKRS_delivery_reward_deny_1',
+    {
+      'money': '3d10+30',
+      'IKRS_renown': '1d3+6',
+      'Binocular': '3d3+4',
+      'ItemGPS': '3d2+2',
+      'SMG_02_F': 'd4-2',
+      'SMG_01_F': 'd4-2',
+      '30Rnd_9x21_Mag': 'd5+2',
+      '30Rnd_45ACP_Mag_SMG_01': 'd5+2',
+      'optic_Holosight_smg': 'd5-4',
+      'optic_Aco_smg': 'd5-4',
+      'optic_ACO_grn_smg': 'd5-4',
+      'muzzle_snds_acp': 'd8-7',
+      'muzzle_snds_L': 'd8-6',
+      'IKRS_renown': '2d3+6',
+      'CUP_smg_MP5SD6': 'd3-1',
+      'CUP_30Rnd_9x19_MP5': 'd5+2',
+      'CUP_smg_bizon': 'd4-3',
+      'CUP_64Rnd_9x19_Bizon_M': 'd5+2',
+      'CUP_muzzle_Bizon': 'd6-4',
+
+      'CUP_arifle_RPK74M': 'd2+3',
+      'CUP_arifle_AK74M_GL': 'd2',
+      'CUP_30Rnd_545x39_AK_M': '10d3+20',
+
+      'CUP_launch_RPG7V': '1',
+      'CUP_1Rnd_HE_GP25_M': '2d3+2',
+      'CUP_PG7V_M': 'd2+1',
+    }
+  ),
+
+  createLoot(
+    'Objective reward (Two successfull delivery denies)'
+    'IKRS_delivery_reward_deny_2',
+    {
+      'money': '5d10+50',
+      'IKRS_renown': '2d3+6',
+      'Binocular': '3d3+4',
+      'ItemGPS': '3d2+2',
+      'SMG_02_F': 'd4-2',
+      'SMG_01_F': 'd4-2',
+      '30Rnd_9x21_Mag': 'd5+2',
+      '30Rnd_45ACP_Mag_SMG_01': 'd5+2',
+      'optic_Holosight_smg': 'd5-4',
+      'optic_Aco_smg': 'd5-4',
+      'optic_ACO_grn_smg': 'd5-4',
+      'muzzle_snds_acp': 'd8-7',
+      'muzzle_snds_L': 'd8-6',
+      'IKRS_renown': '2d3+6',
+      'CUP_smg_MP5SD6': 'd3-1',
+      'CUP_30Rnd_9x19_MP5': 'd5+2',
+      'CUP_smg_bizon': 'd4-3',
+      'CUP_64Rnd_9x19_Bizon_M': 'd5+2',
+      'CUP_muzzle_Bizon': 'd6-4',
+
+      'CUP_arifle_M16A2': '2d2-1',
+      'CUP_arifle_M16A4_Base': '4d2-4',
+      'CUP_arifle_M4A1_black': '4d2+1',
+      'CUP_optic_CompM4': 'd2+1',
+
+      '30Rnd_556x45_Stanag': '8d3+20',
+
+      '1Rnd_HE_Grenade_shell': '4d3+4',
+      'CUP_launch_M136': 'd2',
+      'CUP_M136_M': 'd3+2'
+    }
+  ),
+
+  createLoot(
+    'Objective reward (Three successfull delivery denies)'
+    'IKRS_delivery_reward_deny_3',
+    {
+      'money': '10d10+100',
+      'IKRS_renown': '6d3+14',
+      'Binocular': '3d3+4',
+      'ItemGPS': '3d2+2',
+      'SMG_02_F': 'd4-2',
+      'SMG_01_F': 'd4-2',
+      '30Rnd_9x21_Mag': 'd5+2',
+      '30Rnd_45ACP_Mag_SMG_01': 'd5+2',
+      'optic_Holosight_smg': 'd5-4',
+      'optic_Aco_smg': 'd5-4',
+      'optic_ACO_grn_smg': 'd5-4',
+      'muzzle_snds_acp': 'd8-7',
+      'muzzle_snds_L': 'd8-6',
+      'IKRS_renown': '2d3+6',
+      'CUP_smg_MP5SD6': 'd3-1',
+      'CUP_30Rnd_9x19_MP5': 'd5+2',
+      'CUP_smg_bizon': 'd4-3',
+      'CUP_64Rnd_9x19_Bizon_M': 'd5+2',
+      'CUP_muzzle_Bizon': 'd6-4',
+      
+      'CUP_arifle_M16A2': '2d2-1',
+      'CUP_arifle_M16A4_Base': '4d2-4',
+      'CUP_arifle_M4A1_black': '4d2+1',
+      'CUP_optic_CompM4': 'd2+1',
+
+      '30Rnd_556x45_Stanag': '8d3+20',
+
+      'V_PlateCarrierIA1_dgtl': '2d2',
+      'V_PlateCarrierIA2_dgtl': '2d2',
+      'V_PlateCarrier1_blk': 'd3-2',
+      'V_PlateCarrier1_rgr': 'd3-2',
+      'V_PlateCarrier2_rgr': 'd3-2',
+
+      'CUP_srifle_M14': 'd2', 
+      '20Rnd_762x51_Mag': 'd5+5',
+
+      'CUP_arifle_FNFAL': 'd2-1', 
+      'CUP_20Rnd_762x51_FNFAL_M': 'd5+5',
+
+      'H_HelmetB': '4d2',
+      'H_HelmetIA': '4d2',
+      
+      'optic reward': {
+        selectFrom: mediumOptics,
+        change: 'd2'
+      },
+
+      'Unarmed vehicle reward': {
+        selectFrom: unarmedVehicles,
+        change: 'd2'
+      },
     }
   ),
 

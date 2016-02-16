@@ -56,6 +56,22 @@ Objective.prototype.getAdditionalLoot = function(loot) {
     result.push('IKRS_signal_total_completion');
   }
 
+  var deliverySuccesses = loot.filter(function (entry) {
+    return entry == 'IKRS_delivery_delivery_success';
+  });
+
+  var deliveryDenys = loot.filter(function (entry) {
+    return entry == 'IKRS_delivery_deny';
+  });
+
+  if (deliverySuccesses.length > 0) {
+    result.push('IKRS_delivery_reward_' + deliverySuccesses.length);
+  }
+
+  if (deliveryDenys.length > 0) {
+    result.push('IKRS_delivery_reward_deny_' + deliverySuccesses.length);
+  }
+
   return result;
 };
 

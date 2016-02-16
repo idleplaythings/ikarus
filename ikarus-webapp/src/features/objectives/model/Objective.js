@@ -69,7 +69,7 @@ Objective.prototype.getAdditionalLoot = function(loot) {
   }
 
   if (deliveryDenys.length > 0) {
-    result.push('IKRS_delivery_reward_deny_' + deliverySuccesses.length);
+    result.push('IKRS_delivery_reward_deny_' + deliveryDenys.length);
   }
 
   return result;

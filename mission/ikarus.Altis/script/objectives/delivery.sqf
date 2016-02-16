@@ -58,7 +58,7 @@ objective_delivery_joinInProgress = {
   if (_objective == "raid") exitWith {};
 
   //TODO: When unit joins, he must get the delivery briefing, and current up to date markers.
-  //Suggest refactoring marker/briefing code so, that you can call it at any time for any unit 
+  //Suggest refactoring marker/briefing code so, that you can call it at any time for any unit
   //(calling it multiple times should not cause problems) and it will evaluate units objective
   //and current state of depots so that said unit gets the markers in correct state
 };
@@ -179,7 +179,7 @@ objective_delivery_activateSiteByIndex = {
 
   _site set [0, true];
 
-  _players = [['raid']] call objectiveController_getPlayersWithoutObjectives;
+  _players = [['delivery']] call objectiveController_getPlayersWithObjectives;
   {
     [_x, _building] call objective_delivery_addSubmitBackpackAction;
   } forEach _players;
@@ -195,13 +195,13 @@ objective_delivery_activateSiteByIndex = {
 
 objective_delivery_revealExactSiteLocation = {
   private ["_player", "_building", "_siteIndex", "_position"];
-  _player = _this select 0;
+  _unit = _this select 0;
   _building = _this select 1;
   _siteIndex = _this select 2;
   _position = getPos _building;
 
-  [[_position, _siteIndex + 1], "markers_createDeliveryTargetMarker", player, false, true] call BIS_fnc_MP;
-  [[_siteIndex], "markers_removeDeliveryAreaMarker", player, false, true] call BIS_fnc_MP;
+  [[_position, _siteIndex + 1], "markers_createDeliveryTargetMarker", _unit, false, true] call BIS_fnc_MP;
+  [[_siteIndex], "markers_removeDeliveryAreaMarker", _unit, false, true] call BIS_fnc_MP;
 };
 
 objective_delivery_deactivateSiteAfter = {

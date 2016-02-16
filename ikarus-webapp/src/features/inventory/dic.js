@@ -106,10 +106,10 @@ dic.register('SquadInventoryView', function(dic) {
   });
 
   var modules = squad.getBaseModules();
-  squadInventoryView.vehicleSlots = BaseModule.calculateVehicleSlots(modules);
-  squadInventoryView.armorSlots = BaseModule.calculateArmorSlots(modules);
-  squadInventoryView.heloSlots = BaseModule.calculateHeloSlots(modules);
-  squadInventoryView.staticWeaponSlots = BaseModule.calculateStaticSlots(modules);
+  squadInventoryView.vehicleSlots = 1;
+  squadInventoryView.armorSlots = 1;
+  squadInventoryView.heloSlots = 1;
+  squadInventoryView.staticWeaponSlots = 1;
 
   squadInventoryView.addGroup(dic.get('PrimaryWeaponInventoryColumn'));
   squadInventoryView.addGroup(dic.get('SecondaryWeaponInventoryColumn'));

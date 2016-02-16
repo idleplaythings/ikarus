@@ -100,7 +100,7 @@ CloudyWeather.prototype = Object.create(Weather.prototype);
 
 CloudyWeather.prototype.init = function() {
   this.overcast = (0.3 + Math.random() * 0.3).toPrecision(2);
-  this.fog = (Math.random() * 0.3).toPrecision(2);
+  this.fog = '0.0';//(Math.random() * 0.3).toPrecision(2);
   this.rain = '0.0';
   this.lightnings = '0.0';
   this.wind = Wind.random(Wind.CALM, Wind.STRONG);
@@ -127,7 +127,7 @@ RainyWeather.prototype = Object.create(Weather.prototype);
 
 RainyWeather.prototype.init = function() {
   this.overcast = (0.8 + Math.random() * 0.2).toPrecision(2);
-  this.fog = (0.2 + Math.random() * 0.2).toPrecision(2);
+  this.fog = '0.0';//(0.2 + Math.random() * 0.2).toPrecision(2);
   this.rain = (0.7 + Math.random() * 0.2).toPrecision(2);
   this.lightnings = '0.0';
   this.wind = Wind.random(Wind.BREEZE, Wind.STRONG);
@@ -154,7 +154,7 @@ StormyWeather.prototype = Object.create(Weather.prototype);
 
 StormyWeather.prototype.init = function() {
   this.overcast = '1.0';
-  this.fog = '0.5';
+  this.fog =  '0.0';//'0.5';
   this.rain = '1.0';
   this.lightnings = '1.0';
   this.wind = Wind.random(Wind.STRONG, Wind.STORM);
@@ -180,7 +180,7 @@ FoggyWeather.prototype = Object.create(Weather.prototype);
 
 FoggyWeather.prototype.init = function() {
   this.overcast = (0.3 + Math.random() * 0.3).toPrecision(2);
-  this.fog = (0.7 + Math.random() * 0.3).toPrecision(2);
+  this.fog =  '0.0';//(0.7 + Math.random() * 0.3).toPrecision(2);
   this.rain = '0.0';
   this.lightnings = '0.0';
   this.wind = Wind.random(0, Wind.CALM);

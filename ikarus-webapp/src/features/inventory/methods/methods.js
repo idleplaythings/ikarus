@@ -15,10 +15,9 @@ Meteor.methods({
       return;
     }
 
-    var modules = squad.getBaseModules();
-    var vehicleSlots = BaseModule.calculateVehicleSlots(modules);
-    var heloSlots = BaseModule.calculateHeloSlots(modules);
-    var staticSlots = BaseModule.calculateStaticSlots(modules);
+    var vehicleSlots = 1;
+    var heloSlots = 1;
+    var staticSlots = 1;
 
     if (item.hasTags('signal') && squadInventory.getAmountOfItemsWithTag('signal') > 0) {
       return;

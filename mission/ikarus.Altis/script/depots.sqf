@@ -23,7 +23,7 @@ depots_getTotalAmount = {
 };
 
 depots_getAll = {
-  depots_town_depots + depots_supply_depots + depots_military_depots;
+  depots_town_depots + depots_supply_depots + depots_military_depots + depots_delivery_depots;
 };
 
 depots_getRandom = {
@@ -381,19 +381,28 @@ depots_getRadiusOfTownAO = {
   4000;
 };
 
+KK_fnc_inHouse = {
+  
+  false
+};
+
 depots_isUnitInsideBuilding = {
-  private ["_unit", "_building", "_unitPos", "_buildingMatched"];
+  private ["_unit", "_building", "_buildingMatched"];
   _unit = _this select 0;
   _building = _this select 1;
-  _unitPos = eyepos _unit;
   _buildingMatched = false;
 
-  // Check objects (15 meters) above the unit. If the building is in this list, consider the unit inside it.
+  _intersections = lineIntersectsSurfaces [
+    getPosWorld _unit vectorAdd [0, 0, 10], 
+    getPosWorld _unit vectorAdd [0, 0, -20], 
+    objNull, objNull, true, 1, "GEOM", "NONE"
+  ];
+
   {
-    if (_x == _building) exitWith {
+    if (_x select 2 == _building || _x select 3 == _building) exitWith {
       _buildingMatched = true;
     }
-  } forEach lineintersectsobjs [_unitPos, [_unitPos select 0, _unitPos select 1, 15], objNull, objNull, false, 2];
+  } forEach _intersections;
 
-  _buildingMatched;
+  _buildingMatched
 };

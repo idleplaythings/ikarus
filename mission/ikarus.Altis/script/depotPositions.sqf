@@ -581,8 +581,11 @@ depotPositions_checkIsSuitableForDepot = {
   private ["_position"];
   _position = _this select 0;
   
-  [_position, 100] call depotPositions_checkNothingInDistance;
-  
+
+  _building = nearestBuilding _position;
+
+  ([_building, _building] call depots_isUnitInsideBuilding) 
+  && ([_position, 100] call depotPositions_checkNothingInDistance);
 };
 
 depotPositions_findHouseForDepot = {

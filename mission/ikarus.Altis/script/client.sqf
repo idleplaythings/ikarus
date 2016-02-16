@@ -178,7 +178,7 @@ client_addSubmitBackpackAction = {
   _building = _this select 0;
 
   _action = {
-    deployOutpost = [player];
+    deliverBackpack = [player];
     publicVariableServer "deliverBackpack";
     if (isServer) then {
       [player] call objective_delivery_deliverBackpack;

@@ -22,10 +22,26 @@ outpost_spawnedOutposts = [];
   [_unit, _position] call outpost_teleport;
 };
 
-outpost_addTeleportActionToUnit = {
-  private ["_unit", "_squad", "_map", "_actions"];
+outpost_onEnterHideout = {
+  private ["_unit"];
   _unit = _this select 0;
-  _map = _this select 1;
+
+  if (! outpost_outpostsCreated) exitWith {};
+
+  [_unit] call outpost_addTeleportActionToUnit;
+};
+
+outpost_onLeaveHideout = {
+  private ["_unit"];
+  _unit = _this select 0;
+
+  [[], "client_removeOutpostTeleportActions", _unit, false, false] call BIS_fnc_MP;
+};
+
+
+outpost_addTeleportActionToUnit = {
+  private ["_unit", "_squad", "_actions"];
+  _unit = _this select 0;
   _squad = [_unit] call getSquadForUnit;
   
   _actions = [];
@@ -41,7 +57,7 @@ outpost_addTeleportActionToUnit = {
 
   } forEach ([_squad] call outpost_getOutpostsForSquad);
 
-  [[_map, _actions], "client_setUpOutpostMapTeleportActions", _unit, false, false] call BIS_fnc_MP;
+  [[_actions], "client_setUpOutpostTeleportActions", _unit, false, false] call BIS_fnc_MP;
 };
 
 
@@ -477,3 +493,17 @@ outpost_objects = [
   ["Land_Ammobox_rounds_F",348.97,1.54098,338.524,0.8,false,true],
   ["I_Quadbike_01_F",262.116,1.82124,96.6113,0.00426865,true]
 ];
+
+outpost_delayedAddTeleportActions = {
+  waitUntil {
+    sleep 1;
+    outpost_outpostsCreated
+  };
+
+  {
+    [_x] call outpost_addTeleportActionToUnit;
+  } forEach call getAllPlayers;
+};
+
+
+call outpost_delayedAddTeleportActions;

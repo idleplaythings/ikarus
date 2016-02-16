@@ -69,9 +69,9 @@ objective_delivery_validate = {
   _squad = _this select 0;
   _backpackCount = 0;
 
-  if (count squads < 2) exitWith { false; };
+  if (count squads < 1) exitWith { false; };
 
-  if (count ([_squad] call getPlayersInSquad) < 3) exitWith { false; };
+  if (count ([_squad] call getPlayersInSquad) < 1) exitWith { false; };
 
   {
     if (_x == "IKRS_merchandise_backpack") then {

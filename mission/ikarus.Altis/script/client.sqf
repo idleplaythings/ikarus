@@ -142,24 +142,35 @@ client_removeGuardParadropAction = {
 };
 
 client_setupOutpostAction = nil;
+client_teleportToOutpostActions = [];
 
-client_setUpOutpostMapTeleportActions = {
+client_setUpOutpostTeleportActions = {
   private ["_object", "_actions"];
-  _object = _this select 0;
-  _actions = _this select 1;
+  _actions = _this select 0;
+
+  if (count client_teleportToOutpostActions > 0 ) exitWith {};
 
   { 
     private ["_text", "_position"];
     _text = _x select 0;
     _position = _x select 1;
 
-    _object addAction [
+    client_teleportToOutpostActions pushBack (player addAction [
       _text, 
       '['+(str _position)+'] call client_teleportToOutpost;'
-    ];
+    ]);
     
   } forEach _actions;
 
+};
+
+client_removeOutpostTeleportActions = {
+  { 
+    player removeAction _x;
+    
+  } forEach client_teleportToOutpostActions;
+
+  client_teleportToOutpostActions = [];
 };
 
 client_addSubmitBackpackAction = {

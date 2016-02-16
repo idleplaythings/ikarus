@@ -275,6 +275,7 @@ hideout_hideoutTriggerActivate = {
       if (! (_x in _playersAtHideout)) then {
         [["You are in your base", "hideout"], "client_textMessage", _x, true, false] call BIS_fnc_MP;
         [_x, 'onEnterHideout', [_x]] call objectiveController_callUnitObjective;
+        [_x] call outpost_onEnterHideout;
       };
     };
     
@@ -284,6 +285,7 @@ hideout_hideoutTriggerActivate = {
 
     if (_x in _playersAtHideout &&  ! (_x in _unitsPresent)) then {
       [_x, 'onLeaveHideout', [_x]] call objectiveController_callUnitObjective;
+        [_x] call outpost_onLeaveHideout;
     };
    
   } forEach _playersInSquad;

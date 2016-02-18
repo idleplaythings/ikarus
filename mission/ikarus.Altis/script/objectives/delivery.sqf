@@ -9,8 +9,8 @@
 objective_delivery_sites = [];
 objective_delivery_lastSiteIndex = -1;
 objective_delivery_siteDectivationScript = nil;
-objective_delivery_firstSiteActivationDelay = 1 * 60;
-objective_delivery_siteActivationDelay = 1 * 60;
+objective_delivery_firstSiteActivationDelay = 15 * 60;
+objective_delivery_siteActivationDelay = 5 * 60;
 objective_delivery_siteActiveDuration = 15 * 60;
 
 objective_delivery_increment = 2.33;
@@ -71,7 +71,7 @@ objective_delivery_validate = {
 
   if (count squads < 1) exitWith { false; };
 
-  if (count ([_squad] call getPlayersInSquad) < 1) exitWith { false; };
+  if (count ([_squad] call getPlayersInSquad) < 2) exitWith { false; };
 
   {
     if (_x == "IKRS_merchandise_backpack") then {

@@ -573,7 +573,7 @@ markers_createDeliveryAreaMarker = {
   _name2 = "delivery_depot_shape_label" + str _position;
   _marker2 = createMarkerLocal [_name2, _position];
   _marker2 setMarkerTypeLocal "hd_unknown";
-  _marker2 setMarkerTextLocal format ["Area %1", _number + 1];
+  _marker2 setMarkerTextLocal format ["Delivery %1", _number + 1];
 
   markers_deliveryAreaMarkers pushBack [_name, _name2];
 };

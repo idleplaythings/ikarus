@@ -13,7 +13,7 @@ objective_delivery_firstSiteActivationDelay = 15 * 60;
 objective_delivery_siteActivationDelay = 5 * 60;
 objective_delivery_siteActiveDuration = 15 * 60;
 
-objective_delivery_increment = 2.33;
+objective_delivery_increment = 0.33;
 
 "deliverBackpack" addPublicVariableEventHandler {
   private ["_unit"];

@@ -107,7 +107,7 @@ objective_supply_constructMarkersForPlayer = {
   } forEach objective_supply_data;
 
   if (count _intelBoxes > 0) then {
-    [[_intelBoxes], "markers_createSupplyBriefring", _player, true, true] call BIS_fnc_MP;
+    [[_intelBoxes], "markers_createSupplyBriefing", _player, true, true] call BIS_fnc_MP;
   }
 };
 

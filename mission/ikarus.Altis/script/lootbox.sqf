@@ -35,7 +35,7 @@ lootbox_createSupplyBox = {
     "IKRS_box_opening_reward_lvl1",
     "IKRS_guard_secure_reward",
     1, 
-    0.50,
+    0,
     "lootItems_populateSupplyBoxLevel_0"
   ] call lootbox_create;
 };
@@ -54,7 +54,7 @@ lootbox_createAdvancedSupplyBox = {
     "IKRS_box_opening_reward_lvl2",
     "IKRS_guard_secure_reward",
     0.75, 
-    0.25,
+    0,
     "lootItems_populateSupplyBoxLevel_1"
   ] call lootbox_create;
 };

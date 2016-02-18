@@ -69,7 +69,7 @@ objective_delivery_validate = {
   _squad = _this select 0;
   _backpackCount = 0;
 
-  if (count squads < 1) exitWith { false; };
+  if (count squads < 2) exitWith { false; };
 
   if (count ([_squad] call getPlayersInSquad) < 2) exitWith { false; };
 

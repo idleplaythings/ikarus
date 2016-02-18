@@ -308,7 +308,7 @@ hideout_movePlayerToHideout = {
   _building = nearestBuilding _position;
 
   if (_building distance _position < 30) exitWith {
-    _unt setPos ([_building] call BIS_fnc_buildingPositions) call BIS_fnc_selectRandom;
+    _unit setPos (([_building] call BIS_fnc_buildingPositions) call BIS_fnc_selectRandom);
   };
 
   _unit setPos _position;

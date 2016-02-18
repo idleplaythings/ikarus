@@ -68,7 +68,6 @@ equipment_setPlayerGearFromSquad = {
 
   for "_i" from 1 to 3 do {_unit addItemToUniform "9Rnd_45ACP_Mag";};
   _unit addWeaponGlobal "hgun_ACPC2_F";
-  _unit addItemToUniform "ACE_MapTools";
 };
 
 equipment_equipHideoutCache = {

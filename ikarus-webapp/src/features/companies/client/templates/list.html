@@ -7,6 +7,7 @@
         <tr>
           <th>Name</th>
           <th>Players</th>
+          <th>Renown</th>
           {{#if debug}}
             <th>Debug</th>
           {{/if}}
@@ -17,6 +18,7 @@
           <tr>
             <td><a href="{{pathFor route='company'}}">{{name}}</a></td>
             <td>{{playerCount}}</td>
+            <td>{{getRenown}}</td>
             {{#if debug}}
               <td><button class="js-request-invite" data-company-id="{{_id}}">Request Invite</button></td>
             {{/if}}

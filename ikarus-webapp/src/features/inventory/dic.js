@@ -105,7 +105,6 @@ dic.register('SquadInventoryView', function(dic) {
     targetInventory: Inventory.getBySquad(squad)
   });
 
-  var modules = squad.getBaseModules();
   squadInventoryView.vehicleSlots = 1;
   squadInventoryView.armorSlots = 1;
   squadInventoryView.heloSlots = 1;

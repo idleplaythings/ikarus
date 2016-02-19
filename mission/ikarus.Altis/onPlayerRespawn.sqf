@@ -64,7 +64,7 @@ player addEventHandler [ "hit", {
 }];
 
 player addEventHandler ["InventoryOpened", {
-  private ["_unit", "_container", "_squadId", "_playerSquadId", "_result", "_signalDevice"];
+  private ["_unit", "_container", "_squadId", "_playerSquadId", "_result", "_signalDevice", "_isGuard", "_noGuards"];
   
   _unit = _this select 0;
   _container = _this select 1;
@@ -72,12 +72,18 @@ player addEventHandler ["InventoryOpened", {
   _playerSquadId = _unit getVariable ["playerSquadId", ""];
   _result = false;
   _signalDevice = false;
+  _isGuard = _unit getVariable ["isGuard", false];
+  _noGuards = _container getVariable ["noGuards", false];
 
   if ("IKRS_signal_device" in backpackCargo _container) then {
     _signalDevice = true;
   };
 
-  if (! _signalDevice && _squadId != "" && _squadId != _playerSquadId) then {
+  if (_isGuard && _noGuards) then {
+    ['Guards are not allowed to access this container', "noGuards"] call client_textMessage;
+  };
+
+  if ((! _signalDevice && _squadId != "" && _squadId != _playerSquadId) || (_noGuards && _isGuard)) then {
     _result = true;
   };
 

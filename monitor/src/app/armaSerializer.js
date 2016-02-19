@@ -36,7 +36,7 @@ function serializeSquad(squad, inventory){
     null,
     [],
     squad.objective,
-    squad.baseModules,
+    [], //used to be base modules
     serializeGear(squad.gear),
     squad.outposts.map(function(location) { return [location.x, location.y]}),
     [],

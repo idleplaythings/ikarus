@@ -71,7 +71,7 @@ objective_delivery_validate = {
 
   if (count squads < 2) exitWith { false; };
 
-  if (count ([_squad] call getPlayersInSquad) < 2) exitWith { false; };
+  if (count ([_squad] call getPlayersInSquad) < 1) exitWith { false; };
 
   {
     if (_x == "IKRS_merchandise_backpack") then {
@@ -189,6 +189,8 @@ objective_delivery_activateSiteByIndex = {
     [_x, _building, _siteIndex] call objective_delivery_revealExactSiteLocation;
   } forEach _players;
 
+  [getPos _building, 0, _building] call satelliteUplink_create;
+
   call objective_delivery_announceDeliverySiteActivated;
   call objective_delivery_deactivateSiteAfter;
 };
@@ -226,6 +228,8 @@ objective_delivery_deactivateCurrentSite = {
   };
 
   objective_delivery_lastSiteIndex = objective_delivery_lastSiteIndex + 1;
+
+  [_building] call satelliteUplink_destroy;
 };
 
 objective_delivery_getActiveSite = {
@@ -263,7 +267,7 @@ objective_delivery_resolveDepotHold = {
   //Filter players from list that are not inside the building.
   _playersAndDistancesOrdered =  [_playersAndDistancesOrdered, {
     _player = _x select 0;
-    [_player, _building] call depots_isUnitInsideBuilding;
+    [_player, _building] call depots_isUnitInsideBuilding && [_player] call objectiveController_getUnitsObjective != 'guard';
   }] call AEX_filter;
 
   {
@@ -278,9 +282,9 @@ objective_delivery_resolveDepotHold = {
       };
 
       if (call objective_delivery_isCurrentSiteHeld) then {
-        [_x] call objective_delivery_clearDeliverySiteInfo;
+        [_player] call objective_delivery_clearDeliverySiteInfo;
       } else {
-        [_x, _distance, _activeSite] call objective_delivery_hintDeliverySiteInfo;
+        [_player, _distance, _activeSite] call objective_delivery_hintDeliverySiteInfo;
       };
 
       if (_foreachindex == 0) then {
@@ -362,7 +366,7 @@ objective_delivery_announce = {
   _players = [['raid']] call objectiveController_getPlayersWithoutObjectives;
 
   {
-    [[_announcement, 'deliveryAnnouncement'], "client_textMessage", _x, true, false] call BIS_fnc_MP;
+    [[_announcement, 'deliveryAnnouncement'], "client_textMessage", _x, false, false] call BIS_fnc_MP;
   } forEach _players;
 };
 
@@ -375,7 +379,7 @@ objective_delivery_hintDeliverySiteInfo = {
   _objective = _this select 2;
   _percentageSign = "%";
 
-  [[format ["Distance to delivery site %1% meters<br/>Site %2%%3% held", [_distance] call CBA_fnc_formatNumber, _objective select 4, _percentageSign], 'deliverySiteInfo'], "client_textMessage", _player, true, false] call BIS_fnc_MP;
+  [[format ["Distance to delivery site %1% meters<br/>Site %2%%3% held", [_distance] call CBA_fnc_formatNumber, _objective select 4, _percentageSign], 'deliverySiteInfo'], "client_textMessage", _player, false, false] call BIS_fnc_MP;
 };
 
 objective_delivery_clearDeliverySiteInfo = {
@@ -418,18 +422,18 @@ objective_delivery_deliverBackpack = {
     [[format ["This delivery is already fulfilled!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
   };
 
-  if (backpack _unit != "IKRS_merchandise_backpack") exitWith {
-    [[format ["You need to have a merchandise backpack equipped!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
+  if (!([_unit, "IKRS_merchandise_backpack"] call equipment_unitHasItem)) exitWith {
+    [[format ["You need to have a merchandise with you!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
   };
 
   if (! ([_unit, _building] call depots_isUnitInsideBuilding)) exitWith {
-    [[format ["You need to be inside the delivery site building to deliver a backpack!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
+    [[format ["You need to be inside the delivery site building to deliver the merchandise!"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
   };
 
   [_unit, "IKRS_merchandise_backpack"] call equipment_removeItemFromUnit;
   _activeSite set [5, (_activeSite select 5) + 1];
 
-  [[format ["Backpack delivered"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
+  [[format ["Merchandise delivered"], 'deliveryBackpackMessage'], "client_textMessage", _unit, true, false] call BIS_fnc_MP;
 };
 
 _this spawn {

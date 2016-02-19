@@ -61,12 +61,6 @@ module.exports = function(armaSerializer){
         uniform: ["Niko_USA_M81OD"]
       }
     ],
-    baseModules: [
-      "Primary3",
-      "reconStation1",
-      "garage1",
-      "shootingrange1"
-    ],
     outposts: [
       {x:9500.0, y:11200.0},
       {x:9500.0, y:17200.0}
@@ -88,12 +82,6 @@ module.exports = function(armaSerializer){
         vest: ["V_Chestrig_oli"],
         uniform: ["Niko_USA_M81OD"]
       }
-    ],
-    baseModules: [
-      "Garage1",
-      "Primary1",
-      "WeaponCache1",
-      "MedicalStation1"
     ],
     renown: 2000,
     companyName: "Fifty shades of Gay"

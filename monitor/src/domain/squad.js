@@ -9,7 +9,6 @@ function Squad(args) {
   this.objective = 'Supply';
   this.locked = args.locked;
   this.gear = args.gear;
-  this.baseModules = args.baseModules;
   this.outposts = args.outposts || [];
   this.renown = args.renown || 0;
   this.companyName = args.companyName;

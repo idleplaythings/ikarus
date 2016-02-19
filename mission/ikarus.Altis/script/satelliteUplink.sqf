@@ -5,9 +5,9 @@ satelliteUplink_create = {
   private ["_position", "_direction", "_console", "_uav", "_uavId"];
   _position = _this select 0;
   _direction = [_this, 1, 0] call BIS_fnc_param;
+  _console =  [_this, 2, [_position, _direction] call satelliteUplink_createUplink] call BIS_fnc_param;
 
   _uav = [_position] call satelliteUplink_createUAV;
-  _console = [_position, _direction] call satelliteUplink_createUplink;
 
   uav = _uav;
 
@@ -16,6 +16,22 @@ satelliteUplink_create = {
 
   [[_console, _uav], "client_addDroneUplinkAction", true, true, true] call BIS_fnc_MP;
 
+  [_console, _uav];
+};
+
+satelliteUplink_destroy = {
+  private ["_console", "_uav"];
+  _console = _this select 0;
+
+  {
+    if (_x select 0 == _console) exitWith {
+      _uav = _x select 1;
+
+      satelliteUplink_consolesAndUavs = satelliteUplink_consolesAndUavs - [_console, _uav];
+      deleteVehicle _uav;
+      [[_console], "client_removeDroneUplinkAction", true, true, true] call BIS_fnc_MP;
+    }
+  } forEach satelliteUplink_consolesAndUavs;
 };
 
 satelliteUplink_createUAV = {
@@ -61,14 +77,4 @@ satelliteUplink_objectData = {
     ["Land_CampingChair_V1_F",0,0.3,0.018,0,false,true],
     ["Land_SatellitePhone_F",0,0,190,0.81064,false,true]
   ];
-};
-
-[] spawn {
-  waitUntil {
-    sleep 10;
-    call missionControl_getElapsedTime > (60 * 40);
-  };
-
-  [[], "client_enableDepotDrones", true, true, true] call BIS_fnc_MP;
-
 };

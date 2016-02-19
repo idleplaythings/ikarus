@@ -361,6 +361,7 @@ lootbox_open = {
   _openBox = createVehicle [_openObject, [0,0,3000], [], 0, "FLYING"];
   _openBox setDir _direction;
   _openBox setPosASL _position;
+  _openBox setVariable ['noGuards', true, true];
   
   clearWeaponCargoGlobal _openBox;
   clearMagazineCargoGlobal _openBox;

@@ -173,6 +173,8 @@ objective_supply_createIntelBox = {
   clearItemCargoGlobal _object;
   clearBackpackCargoGlobal _object;
 
+  _object setVariable ['noGuards', true, true];
+
   [_object, "lootItems_populateSupplyIntelBox", []] call lootItems_populateSupplyBox;
   if (_addKey) then {
     _object addItemCargoGlobal ["IKRS_supply_key", 1];

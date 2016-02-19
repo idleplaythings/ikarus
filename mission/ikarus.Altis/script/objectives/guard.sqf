@@ -21,7 +21,7 @@ objective_guard_joinInProgress = {
   _depot = call depots_getRandom;
   if (! isNil{_depot}) then {
     [_unit] call objective_guard_createGuardMarkersForUnit;
-    [_unit] call objective_guard_equipGuard;
+    [_unit] call objective_guard_setGuardVariable;
   };
 };
 
@@ -205,11 +205,11 @@ objective_guard_initUnit = {
   _squad = _this select 0;
   
   {
-    [_x] joinSilent objective_guard_eastGroup;
     if ([_x ] call hideout_isInHideout) then {
       [_x] call objective_guard_onEnterHideout;
     };
     [_x] call objective_guard_createGuardMarkersForUnit;
+    [_x] call objective_guard_setGuardVariable;
   } forEach ([_squad] call getPlayersInSquad);
 };
 
@@ -225,22 +225,20 @@ objective_guard_overrideHideoutCache = {
   false;
 };
 
-objective_guard_equipGuard = {
+objective_guard_setGuardVariable = {
   private ["_unit"];
   _unit = _this select 0;
 
-  _loot = [_unit] call loot_checkUnit;
-  _squad = [_unit] call getSquadForUnit;
-  [_squad, _loot] call addDisconnectedLoot;
-
   _unit setVariable ["isGuard", true, true];
-  
-  [[], "client_equipGuard", _unit, false, false] call BIS_fnc_MP;
 };
 
 objective_guard_createAIGuards = {
-  private ["_position", "_guard", "_group", "_patrol", "_offset", "_positions", "_waypoint"];
-  _position = (call depots_getRandom select 0);
+  private ["_depot", "_position", "_guard", "_group", "_patrol", "_offset", "_positions", "_waypoint"];
+  _depot = call depots_getRandom;
+
+  if (isNil{_depot}) exitWith {};
+
+  _position = _depot select 0;
 
   if (typeName _position != "ARRAY") then {
     _position = getPos _position;

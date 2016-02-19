@@ -23,24 +23,34 @@ client_addSupplyIntelAction = {
   ];
 };
 
-client_depotDronesActivated = false;
+
+client_depotDrones = [];
 
 client_addDroneUplinkAction = {
-  private ["_console", "_uav"];
+  private ["_console", "_uav", "_action"];
   _console = _this select 0;
   _uav = _this select 1;
 
-  _console addAction [
+  _action = _console addAction [
     "Activate drone uplink",
     {
       [_this select 0, _this select 3] call client_activateDroneUplink;
     },
     _uav
   ];
+
+  client_depotDrones pushBack [_console, _action];
 };
 
-client_enableDepotDrones = {
-  client_depotDronesActivated = true;
+client_removeDroneUplinkAction = {
+  private ["_console"];
+  _console = _this select 0;
+
+  {
+    if (_x select 0 == _console) exitWith {
+      _console removeAction (_x select 1);
+    };
+  } forEach client_depotDrones;
 };
 
 client_activateDroneUplink = {
@@ -48,15 +58,42 @@ client_activateDroneUplink = {
   _console = _this select 0;
   _uav = _this select 1;
 
+  if (_console isKindOf "house") exitWith {
+    if ([_console] call client_isUnitInsideBuilding) then {
+      player action ["SwitchToUAVGunner", _uav];
+    } else {
+      ["You must be inside the building to control the drone.", "depotDrones"] call client_textMessage;
+    };
+  };
+
   if (_console distance player > 2) exitWith {
     ["You must be closer to the drone console.", "depotDrones"] call client_textMessage;
   };
 
-  if (! client_depotDronesActivated) exitWith {
-    ["Drone is not available until 40 minutes has elapsed.", "depotDrones"] call client_textMessage;
-  };
+  
 
   player action ["SwitchToUAVGunner", _uav];
+};
+
+client_isUnitInsideBuilding = {
+  private ["_unit", "_building", "_buildingMatched"];
+  _unit = player;
+  _building = _this select 0;
+  _buildingMatched = false;
+
+  _intersections = lineIntersectsSurfaces [
+    getPosWorld _unit vectorAdd [0, 0, 10], 
+    getPosWorld _unit vectorAdd [0, 0, -20], 
+    objNull, objNull, true, 1, "GEOM", "NONE"
+  ];
+
+  {
+    if (_x select 2 == _building || _x select 3 == _building) exitWith {
+      _buildingMatched = true;
+    }
+  } forEach _intersections;
+
+  _buildingMatched
 };
 
 client_signalTransmitterAction = nil;
@@ -186,7 +223,7 @@ client_addSubmitBackpackAction = {
   };
 
   _building addAction [
-    "Deliver backpack",
+    "Deliver merchandise",
     _action,
     []
   ];
@@ -340,27 +377,6 @@ client_removeBecomeMedic = {
   private ["_box"];
   _box = _this select 0;
   _box removeAction 0;
-};
-
-client_equipGuard = {
-  /*
-  if (vest player == "") then {
-    player addVest "V_Chestrig_oli";
-  };
-
-  if (uniform player == "") then {
-    player forceAddUniform "U_B_HeliPilotCoveralls";
-  };
-
-  for "_i" from 1 to 6 do {player addItemToVest "hlc_30Rnd_545x39_B_AK";};
-  for "_i" from 1 to 3 do {player addItemToVest "SmokeShell";};
-  for "_i" from 1 to 6 do {player addItemToUniform "ACE_quikclot";};
-  for "_i" from 1 to 2 do {player addItemToUniform "ACE_tourniquet";};  
-  for "_i" from 1 to 2 do {player addItemToUniform "ACE_morphine";};
-
-  player addWeaponGlobal "hlc_rifle_ak74";
-  player addWeaponGlobal "Binocular";
-  */
 };
 
 client_addParachute = {

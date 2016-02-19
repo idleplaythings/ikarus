@@ -401,7 +401,7 @@ ItemDefinitions = [
   createWeapon('NLAW launcher', 'CUP_launch_NLAW', ['law'], []),
   createMagazine('NLAW AT rocket', 'CUP_NLAW_M', 1),
 
-  createWeapon('M136 AT-4 launcher', 'CUP_launch_M136', ['law'], []),
+  createWeapon('M136 AT-4 launcher', 'CUP_launch_M136', ['law'], ['CUP_M136_M']),
   createMagazine('M136 AT-4 rocket', 'CUP_M136_M', 1),
 
   //WEARABLES

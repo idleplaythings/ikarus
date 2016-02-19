@@ -7,7 +7,9 @@
   <div class="row add-top">
     <div class="col-md-12">
       {{#each categories}}
-        <button class="btn btn-primary marketCategory" data-marketCategory="{{_id}}">{{name}}</button>
+        <button class="btn btn-primary marketCategory {{categoryActivityClass}}" data-marketCategory="{{_id}}">
+          {{name}}
+        </button>
       {{/each}}
     </div>
   </div>

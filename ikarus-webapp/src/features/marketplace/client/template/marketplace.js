@@ -4,6 +4,10 @@ Template.marketplace.helpers({
     return new MarketContext(category, dic.get('ItemFactory'));
   },
 
+  categoryActivityClass: function () {
+    return this._id === (Session.get('selectedMarketCategory') || 'AR') ? 'active' : '';
+  },
+
   categories: function () {
     return marketDefinitions;
   }

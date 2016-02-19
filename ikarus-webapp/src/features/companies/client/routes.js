@@ -30,8 +30,17 @@ Router.map(function () {
 
   this.route('/companies', {
     name: 'companies',
-    template: 'companies_list',
-    layoutTemplate: 'ikarus_default'
+    template: 'react',
+    layoutTemplate: 'ikarus_default',
+    action: function () {
+      if (this.ready()) {
+        Template.react.rendered = function () {
+          Template.react.rendered = null;
+          ReactDOM.render(React.createElement(CompanyList), document.querySelector('.ikarus-react'));
+        };
+        this.render();
+      }
+    }
   });
 
   this.route('/companies/:_id', {

@@ -21,18 +21,11 @@ LootController.prototype.receiveLoot = function(squadId, loot, objectiveName) {
   var server = squad ? Server.getByInGameSquad(squad) : null;
   var company = this._getCompany(squad);
   var objective = new Objective();
-  var modules = squad.getBaseModules();
 
-  this.receiveLootForCompany(server, company, loot, objective, modules);
+  this.receiveLootForCompany(server, company, loot, objective);
 };
 
-LootController.prototype.receiveLootForCompany = function(server, company, loot, objective, modules) {
-  if (! modules) {
-    modules = [];
-  }
-  modules.forEach(function(module){
-    loot = module.removeLoot(loot);
-  });
+LootController.prototype.receiveLootForCompany = function(server, company, loot, objective) {
 
   var items = this._itemFactory.createItems(loot);
   var companyInventory = Inventory.getByCompany(company);

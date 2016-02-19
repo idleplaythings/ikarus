@@ -31,6 +31,24 @@
       simulation = "ItemMineDetector";
   };
 
+  class IKRS_merchandise_backpack: ItemCore {
+      scope = 2;
+      model = "\A3\Weapons_F\Items\gps";
+      picture = "\A3\Drones_F\Weapons_F_Gamma\Items\data\UI\gear_UAV_controller_oli_CA.paa";
+      hiddenSelectionsTextures[] = {"\A3\Drones_F\Weapons_F_Gamma\Items\data\UAV_controller_oli_co.paa"};
+      displayName = "Merchandise";
+      mapSize = 0.034;
+      icon = "iconObject_circle";
+      descriptionShort = "Merchandise";
+      descriptionUse = "Merchandise";
+      class ItemInfo: InventoryItem_Base_F {
+          mass = 100;
+      };
+      type = 4096;//4;
+      detectRange = -1;
+      simulation = "ItemMineDetector";
+  };
+
   class IKRS_loot_key1: IKRS_loot_key {
    displayName = "Loot key level 1";
   };
@@ -134,11 +152,6 @@ class CfgVehicles
     displayName = "Loot";
     maximumLoad = 0;
     mass = 200;
-  };
-
-  class IKRS_merchandise_backpack : IKRS_loot_Backpack
-  {
-    displayName = "Merchandise";
   };
 
   class IKRS_signal_device : IKRS_loot_Backpack

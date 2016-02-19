@@ -237,6 +237,7 @@ hideout_createHideoutCache = {
   _box addWeaponCargoGlobal ['CUP_arifle_AKS74U', 4];
   _box addMagazineCargoGlobal ['CUP_30Rnd_545x39_AK_M', 20];
   _box addBackpackCargoGlobal ['B_AssaultPack_khk', 3];
+  _box addBackpackCargoGlobal ['B_Carryall_khk', 3];
   _box addWeaponCargoGlobal ['CUP_sgun_M1014', 1];
   _box addMagazineCargoGlobal ['CUP_8Rnd_B_Beneli_74Slug', 5];
 

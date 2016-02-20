@@ -267,11 +267,16 @@ lootTable_vehicleDepotBox = [
 ];
 
 lootTable_supplyIntelBox = [
-  ['warsaw_tacticool', 2, -1],
+  ['warsaw_tacticool', 3, -1],
   [['opfor_light_sniper', 'warsaw_heavy', 'warsaw_medium_optics'], 8, -7],
   ['CUP_optic_Kobra', 2, -1],
   ['IKRS_signal_device', 10, -9],
   ['static weapons', 10, -9],
   ['warsaw_suprsessors', 8, -7],
+  [['nato_tacticool', 'norail_battleRifles'], 10, -9],
+  ['ItemGPS', 3, -2],
+  ['nato_mg', 15, -14],
+  ['medium_optics', 15, -14],
+  ['bipod', 8, -6],
   ['backpack', 1, 0]
 ];

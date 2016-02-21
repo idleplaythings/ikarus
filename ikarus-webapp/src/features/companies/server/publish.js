@@ -114,15 +114,27 @@ Meteor.publish('Company', function(companyId) {
 });
 
 Meteor.publish('Companies', function() {
-  return collections.CompanyCollection.find(
-    {},
-    {
-      fields: {
-        name: 1,
-        playerIds: 1
+  return [
+    collections.CompanyCollection.find(
+      {},
+      {
+        fields: {
+          name: 1,
+          playerIds: 1
+        }
       }
-    }
-  );
+    ),
+    collections.InventoryCollection.find(
+      {},
+      {
+        fields: {
+          'items.IKRS_renown': 1,
+          'companyId': 1,
+          'type': 1
+        }
+      }
+    )
+  ];
 });
 
 Meteor.publish('CompaniesById', function(ids) {

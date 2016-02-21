@@ -1,0 +1,17 @@
+<template name="base_location">
+  <h1>Base location</h1>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div style="position: relative;">
+        <img class="map" src="/altis.jpg" width="100%">
+        <canvas class="map overlay" style="position: absolute; top: 0; left: 0;"></canvas>
+      </div>
+
+      <label>Click map to select base location</label>
+      <br>
+      <label>x: </label><input id="hideout-location-x" type="text" value="{{currentCompany.getHideout.x}}">
+      <label>y: </label><input id="hideout-location-y" type="text" value="{{currentCompany.getHideout.y}}">
+    </div>
+  </div>
+</template>

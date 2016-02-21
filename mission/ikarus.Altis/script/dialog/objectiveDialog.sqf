@@ -79,11 +79,9 @@ objectiveDialog_getDescription = {
   _type = objectiveDialog_currentObjective select 1;
 
   if (_type == "Supply") exitWith {
-    "SUPPLY RUN<br/><br/>Map will contain one or more supply depots."
-   + " These supply depots will contain boxes, that will open when"
-   + " 20 minutes of game time has elapsed and when a player has been"
-   + " near to a box for a while. The box will contain loot backpacks"
-   + " that you must bring back to the hideout";
+    "SUPPLY RUN<br/><br/>In this objective you must go trough multiple intel locations in the early game"
+   + " and assault a depot during the end game. "
+   + " Rewards include high amount of low level loot and a change for small amount of medium loot.";
   };
 
   if (_type == "Guard") exitWith {
@@ -128,7 +126,8 @@ objectiveDialog_getDescription = {
   };
 
   if (_type == "Delivery") exitWith {
-    "Delivery<br/><br/>Deliver stuff to places.";
+    "DELIVERY<br/><br/>In this objective you are tasked to deliver merchandise to three consecutive locations."
+    + " You need 9 pieces of merchandise to select this objective. Please read the task briefing for further details after objectives have been generated.";
   };
 
 

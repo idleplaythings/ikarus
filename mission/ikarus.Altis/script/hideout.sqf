@@ -301,21 +301,15 @@ hideout_movePlayersToHideout = {
 };
 
 hideout_movePlayerToHideout = {
-  private ["_squad", "_hideout", "_position", "_unit"];
+  private ["_squad", "_hideout", "_position", "_unit", "_buildingPos"];
   _unit = _this select 0;
   _squad = _this select 1;
   _hideout = [_squad] call hideout_getHideoutForSquad;
   _position = _hideout select 1;
   _building = nearestBuilding _position;
 
-  if (_building distance _position < 30) exitWith {
-    private ["_buildingPos"];
-    _buildingPos = ([_building] call BIS_fnc_buildingPositions) call BIS_fnc_selectRandom;
-    _buildingPos vectorAdd [0, 0, 0.5];
-    _unit setPos _buildingPos;
-  };
-
-  _unit setPos _position;
+  _buildingPos = ([_building] call BIS_fnc_buildingPositions) call BIS_fnc_selectRandom;
+  _unit setPos _buildingPos;
 };
 
 hideout_moveSquadToHideout = {

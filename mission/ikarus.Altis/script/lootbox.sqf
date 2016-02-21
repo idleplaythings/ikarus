@@ -33,7 +33,7 @@ lootbox_createSupplyBox = {
     "Land_Laptop_unfolded_F", //open container object
     "IKRS_supply_key", //key
     "IKRS_box_opening_reward_lvl1",
-    "IKRS_guard_secure_reward",
+    "",
     1, 
     0,
     "lootItems_populateSupplyBoxLevel_0"
@@ -52,7 +52,7 @@ lootbox_createAdvancedSupplyBox = {
     "Box_NATO_WpsSpecial_F", //open container object
     "IKRS_loot_key1", //key
     "IKRS_box_opening_reward_lvl2",
-    "IKRS_guard_secure_reward",
+    "",
     0.75, 
     0,
     "lootItems_populateSupplyBoxLevel_1"

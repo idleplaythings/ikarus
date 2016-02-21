@@ -51,7 +51,7 @@ equipment_setPlayerGearFromSquad = {
   //_unit linkItem "NVGoggles_OPFOR";
 
   _unit linkItem "ItemGPS";
-  _unit linkItem "Binoculars";
+  _unit addWeapon "Binoculars";
 
   if (isNil {_gear}) then {
     _unit forceAddUniform "U_B_HeliPilotCoveralls";

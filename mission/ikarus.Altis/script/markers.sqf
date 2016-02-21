@@ -297,10 +297,13 @@ markers_createSupplyBriefing = {
   _task = player createSimpleTask ["SupplyRun"];
 
   _task setSimpleTaskDescription [
-   'There are one or more supply depots on the map. These depots will contain boxes, that can be opened by waiting next to them.'
-    + ' You will mainly be rewarded for opening the boxes with loot you will get directly to your company armory. Opened boxes do contain some loot that you need to bring back to the base or outpost.'
-    + '<br/><br/>NOTE: Boxes in the supply depot can not be opened before 20 minutes of game has elapsed. When 30 minutes has elapsed, the boxes will open faster.'
-    + ' When 50 to 55 minutes has elapsed the depot will be destroyed by an airstrike. First plane will by a fly over, next one a bombing run.',
+   'You can find multiple blue dots on the map. These dots contain either an intel file or an intel box. By finding and activating the intel files, you will find the location of the supply depot.'
+    + ' The supply depot will contain two laptops and you will need a supply key to open them. The intel boxes contain the supply keys and various loot.'
+    + ' The depot will also contain an advanced supply box. It is an inconspicuous wooden box and you will need a loot key level one to open it. Loot key level one can be aquired from hold and signal missions.'
+    + ' For opening the laptops at the supply depot will reward you with loot directly to your company armory.'
+    + '<br/><br/>NOTE: Laptops in the supply depot can not be opened before 30 minutes of game has elapsed. When 40 minutes has elapsed, the laptops will open faster.'
+    + ' When 50 to 55 minutes has elapsed the depot will be destroyed by an airstrike. First plane will by a fly over, next one a bombing run.'
+    + '<br/><br/>NOTE: Some of the blue dots might be empty. If there is a file or a box, it is on the exact same location as the dot.',
    "Supply run",
    ""
   ];

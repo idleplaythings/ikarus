@@ -1,3 +1,5 @@
+enableRadio false;
+
 client_addSupplyIntelAction = {
   private ["_object"];
   _object = _this select 0;

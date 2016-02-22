@@ -29,6 +29,8 @@ events_setWeaponDeployedEventHandler = {
     deleteVehicle _unit;
   };
 
+  _unit setSpeaker "NoVoice";
+
   [_unit] call events_setWeaponDeployedEventHandler;
 
   if (missionControl_objectivesGenerated || missionControl_gameStarted) exitWith {

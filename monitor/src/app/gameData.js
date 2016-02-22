@@ -98,7 +98,7 @@ module.exports = function(armaSerializer){
         'IKRS_outpost_backpack': 3,
         'IKRS_signal_device': 1,
         //'BAF_Jackal2_L2A1_D': 1,
-        'B_UGV_01_F': 1,
+        'CUP_B_BRDM2_HQ_CDF': 1,
         'B_UAV_01_backpack_F': 1,
         'IKRS_merchandise_backpack': 9
       }
@@ -111,7 +111,7 @@ module.exports = function(armaSerializer){
         //'UAZ_Unarmed': 1,
         'IKRS_intelligence_helo': 1,
         'IKRS_signal_device': 1,
-        'B_UGV_01_F': 1
+        'CUP_B_BRDM2_HQ_CDF': 1
       }
     }
   ];

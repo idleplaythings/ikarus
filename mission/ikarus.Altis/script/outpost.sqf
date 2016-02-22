@@ -68,6 +68,8 @@ outpost_teleport = {
   _outpost = [_position] call outpost_getClosestOutpost;
   _squad = [_unit] call getSquadForUnit;
 
+  if ! ([_unit] call hideout_isInHideout) exitWith {};
+
   if (isNil{_outpost} || !(_outpost select 4)) exitWith {};
 
   if ([_position] call outpost_getDistanceToClosestOutpost > 10) exitWith {};

@@ -162,7 +162,6 @@ hideout_createVehicles = {
   {
     private ["_position", "_vehicleClass"];
     _vehicleClass = _x;
-    _position = _initialPosition findEmptyPosition [0,100, _vehicleClass];
     _position = [_initialPosition, 5] call hideout_findEmptyPositionInHideout;
     
 
@@ -286,7 +285,7 @@ hideout_hideoutTriggerActivate = {
 
     if (_x in _playersAtHideout &&  ! (_x in _unitsPresent)) then {
       [_x, 'onLeaveHideout', [_x]] call objectiveController_callUnitObjective;
-        [_x] call outpost_onLeaveHideout;
+      [_x] call outpost_onLeaveHideout;
     };
    
   } forEach _playersInSquad;
@@ -318,9 +317,8 @@ hideout_moveSquadToHideout = {
   _hideout = [_squad] call hideout_getHideoutForSquad;
   
   {
-    _x setPosASL (_hideout select 1);
+    [_x, _squad] call hideout_movePlayerToHideout;
   } forEach ([_squad] call getPlayersInSquad);
-  
 };
 
 hideout_isInHideout = {

@@ -39,16 +39,45 @@ _vehicles = [];
 _vehiclesSpawnedHouses = [];
 
 _vehicleClassesToSpawn = [
-    "C_Offroad_01_F",
-    "C_Quadbike_01_F",
-    "C_Hatchback_01_F",
-    "C_Hatchback_01_sport_F",
-    "C_Van_01_transport_F",
-    "C_Van_01_box_F",
-    "C_Van_01_fuel_F"
+    [
+        "CUP_C_Datsun",
+        "CUP_C_Datsun_4seat",
+        "CUP_C_Datsun_Covered",
+        "CUP_C_Datsun_Plain",
+        "CUP_C_Datsun_Tubeframe"
+    ],
+    [
+        "CUP_C_Golf4_black_Civ",
+        "CUP_C_Golf4_blue_Civ",
+        "CUP_C_Golf4_camo_Civ",
+        "CUP_C_Golf4_camodark_Civ",
+        "CUP_C_Golf4_camodigital_Civ",
+        "CUP_C_Golf4_green_Civ",
+        "CUP_C_Golf4_kitty_Civ",
+        "CUP_C_Golf4_red_Civ",
+        "CUP_C_Golf4_reptile_Civ",
+        "CUP_C_Golf4_white_Civ",
+        "CUP_C_Golf4_whiteblood_Civ",
+        "CUP_C_Golf4_yellow_Civ"
+    ],
+    [
+        "CUP_C_Skoda_Blue_CIV",
+        "CUP_C_Skoda_Green_CIV",
+        "CUP_C_Skoda_Red_CIV",
+        "CUP_C_Skoda_White_CIV"
+    ],
+    ["CUP_C_Octavia_CIV"],
+    ["C_Offroad_01_F"],
+    ["C_Quadbike_01_F"],
+    ["C_Hatchback_01_F"],
+    ["C_Hatchback_01_sport_F"],
+    ["C_Van_01_transport_F"],
+    ["C_Van_01_box_F"],
+    ["C_Van_01_fuel_F"]
 ];
 
 _houseBlacklist = [
+    "Land_LampStreet_F",
     "Land_spp_Mirror_F",
     "Land_HighVoltageColumn_F",
     "Land_HighVoltageTower_large_F",
@@ -90,7 +119,7 @@ _vehicleDirection = {
         "_connectedRoad"
     ];
 
-    _direction = (random 360);
+    _direction = 360 * ([] call _random);
     _nearRoads = _this nearRoads 10;
 
     if ((count _nearRoads) < 1) exitWith { _direction };
@@ -107,9 +136,7 @@ _vehicleDirection = {
 _spawnVehicles = {
     private [
         "_positions",
-        "_houses",
-        "_housePositions",
-        "_spawnPositions"
+        "_houses"
     ];
 
     _positions = _this;
@@ -117,6 +144,8 @@ _spawnVehicles = {
     _houses = [_positions, {
         (_this select 0) + ((_this select 1) nearObjects ["House", 1000]);
     }, []] call AEX_reduce;
+
+    _houses = _houses - _vehiclesSpawnedHouses;
 
     _houses = [_houses, {
         private ["_house"];
@@ -141,30 +170,35 @@ _spawnVehicles = {
 
     }] call AEX_filter;
 
-    _housePositions = [_houses - _vehiclesSpawnedHouses, {_this modeltoworld [0, 0, 0]}] call AEX_map;
-
-    _vehiclesSpawnedHouses = _houses;
-
-    _spawnPositions = [_housePositions, {_this findEmptyPosition [3, 15]}] call AEX_map;
-
-    _spawnPositions = [_spawnPositions, {(count _this) > 0}] call AEX_filter;
-
     {
-        private ["_class", "_vehicle"];
+        private ["_house", "_housePosition", "_position", "_class", "_vehicle"];
 
-        _seed = _gameSeed + floor ((_x select 0)*65537 + (_x select 1) mod 65537);
-        _class = _vehicleClassesToSpawn call _selectRandom;
+        _house = _x;
+        _housePosition = _house modeltoworld [0, 0, 0];
 
-        _vehicle = _class createVehicle _x;
-        _vehicle setdir (_x call _vehicleDirection);
+        _seed = _gameSeed + floor ((_housePosition select 0)*65537 + (_housePosition select 1) mod 65537);
+        _class = (_vehicleClassesToSpawn call _selectRandom) call _selectRandom;
+
+        _position = _housePosition findEmptyPosition [3, 15, _class];
+
+        if ((count _position) < 1) exitWith {};
+
+        _vehicle = _class createVehicle _position;
+
+        _seed = _gameSeed + floor ((_housePosition select 0)*65537 + (_housePosition select 1) mod 65537);
+        _vehicle setdir (_position call _vehicleDirection);
+
         _vehicle setvariable ["zlt_civveh", true];
+        _vehicle setvariable ["civilianVehicles_house", _house];
 
         _vehicles pushBack _vehicle;
-    } forEach _spawnPositions;
+
+        _vehiclesSpawnedHouses pushBack _house;
+    } forEach _houses;
 };
 
 _despawnVehicles = {
-    private ["_positions", "_vehiclesToDespawn", "_housesBefore"];
+    private ["_positions", "_vehiclesToDespawn", "_houses"];
     _positions = _this;
 
     _vehiclesToDespawn = [_vehicles, {
@@ -179,6 +213,9 @@ _despawnVehicles = {
     _vehiclesToDespawn = [_vehiclesToDespawn, {
         ((count (crew _x)) == 0) && ((fuel _x) == 1);
     }] call AEX_filter;
+
+    _houses = [_vehiclesToDespawn, { _this getvariable "civilianVehicles_house" }] call AEX_map;
+    _vehiclesSpawnedHouses = _vehiclesSpawnedHouses - _houses;
 
     { deletevehicle _x; } forEach _vehiclesToDespawn;
 };

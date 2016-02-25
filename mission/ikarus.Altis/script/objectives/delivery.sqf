@@ -69,6 +69,9 @@ objective_delivery_validate = {
   _squad = _this select 0;
   _backpackCount = 0;
 
+  //Delivery is bugged, disabled for now
+  if (true) exitWith {false;};
+
   if (count squads < 2) exitWith { false; };
 
   if (count ([_squad] call getPlayersInSquad) < 1) exitWith { false; };
